@@ -1,0 +1,369 @@
+\name{Desc}
+\alias{Desc}
+\alias{Desc.default}
+\alias{Desc.data.frame}
+\alias{Desc.list}
+\alias{Desc.formula}
+\alias{Desc.numeric}
+\alias{Desc.integer}
+\alias{Desc.factor}
+\alias{Desc.ordered}
+\alias{Desc.character}
+\alias{Desc.logical}
+\alias{Desc.Date}
+\alias{Desc.table}
+
+\alias{print.Desc}
+\alias{plot.Desc}
+
+%- Also NEED an '\alias' for EACH other topic documented here.
+\title{Describe Data
+  %%  ~~function to do ... ~~
+}
+\description{Produce summaries of various types of variables. Calculate descriptive statistics for x and use Word as reporting tool for the numeric results and for descriptive plots.
+  The appropriate statistics are chosen depending on the class of x.
+  The general intention is to simplify the description process for lazy typers and return a quick, but rich summary.
+
+  A 2-dimensional table will be described with it's relative frequencies, a short summary containing the total cases,
+  the dimensions of the table, chi-square tests and some association measures as phi-coefficient, contingency coefficient and Cramer's V. \cr Tables with higher dimensions will simply be printed as flat table, with marginal sums for the first and for the last dimension.
+}
+\usage{
+Desc(x, ..., main = NULL, plotit = NULL, wrd = NULL)
+
+\method{Desc}{default}(x, main = NULL, maxrows = NULL, ord = NULL,
+     conf.level = 0.95, verbose = 2, rfrq = "111", margins = c(1,2),
+     dprobs = NULL, mprobs = NULL, plotit = NULL, sep = NULL, digits = NULL, ...)
+
+\method{Desc}{data.frame}(x, main = NULL, plotit = NULL, enum = TRUE, sep = NULL, ...)
+
+\method{Desc}{list}(x, main = NULL, plotit = NULL, enum = TRUE, sep = NULL, ...)
+
+\method{Desc}{numeric}(x, main = NULL, maxrows = NULL, plotit = NULL,
+     sep = NULL, digits = NULL, ...)
+
+\method{Desc}{integer}(x, main = NULL, maxrows = NULL, plotit = NULL,
+     sep = NULL, digits = NULL, ...)
+
+\method{Desc}{factor}(x, main = NULL, maxrows = NULL, ord = NULL, plotit = NULL,
+     sep = NULL, digits = NULL, ...)
+
+\method{Desc}{ordered}(x, main = NULL, maxrows = NULL, ord = NULL, plotit = NULL,
+     sep = NULL, digits = NULL, ...)
+
+\method{Desc}{character}(x, main = NULL, maxrows = NULL, ord = NULL, plotit = NULL,
+     sep = NULL, digits = NULL, ...)
+
+\method{Desc}{logical}(x, main = NULL, ord = NULL, conf.level = 0.95, plotit = NULL,
+     sep = NULL, digits = NULL, ...)
+
+\method{Desc}{Date}(x, main = NULL, dprobs = NULL, mprobs = NULL, plotit = NULL,
+     sep = NULL, digits = NULL, ...)
+
+\method{Desc}{table}(x, main = NULL, conf.level = 0.95, verbose = 2,
+     rfrq = "111", margins = c(1,2), plotit = NULL, sep = NULL, digits = NULL, ...)
+
+
+\method{Desc}{formula}(formula, data = parent.frame(), subset, main = NULL,
+     plotit = NULL, digits = NULL, ...)
+
+
+\method{print}{Desc}(x, digits = NULL, plotit = NULL, nolabel = FALSE,
+      sep = NULL, \dots)
+
+\method{plot}{Desc}(x, main = NULL,  \dots)
+
+}
+%- maybe also 'usage' for other objects documented here.
+\arguments{
+
+  \item{x}{the object to be described. This can be a data.frame, a list, a table or a vector of the classes: numeric, integer, factor,
+    ordered factor, logical.
+  }
+
+  \item{main}{a character vector, containing the main title(s).If this is left to \code{NULL}, the title will be composed as: variablename (class(es)),
+    resp. number - variablename (class(es)) if the \code{enum} option is set to TRUE.
+    Use \code{NA} if no caption should be printed at all.
+  }
+
+\item{wrd}{the pointer to a running MS Word instance, as created by \code{GetNewWrd()} (for a new one)
+  or by \code{GetCurrWrd()} for an existing one.
+  All output will then be redirected there. Default is \code{NULL}, which will report all results to the console.}
+
+\item{digits}{integer. With how many digits shoud the relative frequencies be formatted? Default can be set by \code{DescToolsOptions(digits=x)}. }
+
+\item{maxrows}{numeric; defines the maximum number of rows in a frequency table to be reported. For factors with many levels it is often not interesting to see
+  all of them. Default is set to 12 most frequent ones (resp. the first ones if \code{ord} is set to \code{"levels"} or \code{"names"}).\cr
+  For a numeric argument x \code{maxrows} is the minimum number of unique values needed for a numeric variable to be treated as continous. If left to its default \code{NULL}, x will be regarded as continuos if it has more than 12 single values. In this case the list of extreme values will be displayed and the frequency table else.\cr
+  If \code{maxrows} is < 1 it will be interpreted as percentage. In this case just as many rows, as the \code{maxrows\%} most frequent levels will be shown. Say, if maxrows is set to \code{0.8}, then the number of rows is fixed so, that the highest cumulative relative frequency is the first one going beyond 0.8.
+
+  Setting \code{maxrows} to \code{Inf} will unconditionally report all values and also produce a plot with type "h" instead of a histogram.
+}
+
+
+\item{ord}{character out of \code{"name"} (alphabetical order), \code{"level"}, \code{"asc"} (by frequencies ascending), \code{"desc"} (by freqencies descending) defining the order for a frequency table as used for factors, numerics with few unique values and logicals.
+Factors (and character vectors) are by default orderd by their descending frequencies, ordered factors by their natural order.
+}
+
+\item{rfrq}{a string with 3 characters, each of them being \code{1} or \code{0}, defining which percentages should be reported. The first position is interpreted as total
+percentages, the second as row percentages and the third as column percentages.
+"\code{011}" hence produces a table output with row and column percentages. If set to \code{NULL} \code{rfrq} is defined in
+dependency of \code{verbose} (\code{verbose = "low"} sets \code{rfrq} to \code{"000"} and else to \code{"111"}, latter meaning all percentages will be reported.) \cr Applies only to tables and is ignored else.
+%%     ~~Describe \code{rfrq} here~~
+}
+\item{margins}{a vector, consisting out of 1 and/or 2. Defines the margin sums to be included.
+Row margins are reported if margins is set to 1. Set it to 2 for column margins and c(1,2) for both. \cr
+Default is \code{NULL} (none).\cr Applies only to tables and is ignored else.
+}
+
+
+\item{verbose}{integer out of \code{c(2, 1, 3)} defining the verbosity of the reported results. 2 (default) means medium, 1 less and 3 extensive results. \cr Applies only to tables and is ignored else.
+}
+\item{conf.level}{confidence level of the interval. If set to \code{NA} no confidence interval will be calculated. Default is 0.95.
+}
+
+\item{dprobs, mprobs}{a vector with the probabilities for the Chi-Square test for days, resp. months, when describing a \code{Date} variable.
+  If this is left to \code{NULL} (default) then a uniform distribution
+will be used for days and a monthdays distribution in a non leap year (p = c(31/365, 28/365, 31/365, ...)) for the months. \cr Applies only to \code{Dates} and is ignored else.}
+
+
+
+\item{enum}{logical, determining if in data.frames and lists a sequential number should be included in the main title. Default is TRUE. The reason for this option is, that if a Word report with enumerated headings is created, the numbers may be redundant or inconsistent.}
+
+\item{plotit}{boolean. Should a plot be created? The plot type will be chosen according to the classes of variables (roughly following a
+                                                                                                                     numeric-numeric, numeric-categorical, categorical-categorical logic).  Default can be defined by option \code{plotit},
+  if it does not exist then it's set to \code{FALSE}.
+}
+\item{sep}{character. The separator for the title. By default a line of \code{"-"} for the current width of the screen
+    \code{(options("width"))} will be used.
+}
+
+
+    \item{nolabel}{logical, defining if labels (defined as attribute with the name \code{label}, as done by \code{Label}) should be plotted.
+    %%     ~~Describe \code{main} here~~
+    }
+    \item{formula}{a formula of the form \code{lhs ~ rhs} where \code{lhs} gives the data values and rhs the corresponding groups.}
+
+    \item{data}{an optional matrix or data frame containing the variables in the formula \code{formula}.
+    By default the variables are taken from \code{environment(formula)}.}
+
+    \item{subset}{an optional vector specifying a subset of observations to be used.}
+
+
+    \item{\dots}{further arguments to be passed to or from other methods.
+    For the internal default method these can include:
+    \describe{
+    \item{p}{a vector of probabilities of the same length of \code{x}. An error is given if any entry of \code{p} is negative. This argument will be passed on to \code{\link{chisq.test}}. Default is \code{rep(1/length(x), length(x))}.}
+
+    \item{\code{add_ni}}{logical. Indicates if the group length should be displayed in the boxplot.}
+
+    \item{\code{smooth}}{character, either "loess" or "smooth.spline" defining the type of smoother to be used in num ~ num plots. Default is loess for n < 500 and smooth.spline else.}
+    }
+
+    }
+}
+  \details{
+  Desc is a generic function. It dispatches to one of the methods above depending on the class of its first argument. Typing ?Desc
+  + TAB at the prompt should present a choice of links: the help pages for each of these \code{Desc} methods (at least if you're using RStudio, which anyway is recommended).
+You don't need to use the full name of the method although you may if you wish; i.e.,
+Desc(x) is idiomatic R but you can bypass method dispatch by going direct if you wish:
+Desc.numeric(x).
+
+This function produces a rich description of a factor, containing length, number of NAs, number of levels and
+detailed frequencies of all levels.
+The order of the frequency table can be chosen between descending/ascending frequency, labels or levels.
+For ordered factors the order default is \code{"level"}.
+Character vectors are treated as unordered factors
+Desc.char converts x to a factor an processes x as factor.\cr
+Desc.ordered does nothing more than changing the standard order for the frequencies to it's intrinsic order, which means order \code{"level"}
+instead of \code{"desc"} in the factor case.
+
+
+Description interface for dates. We do here what seems reasonable for describing dates.
+We start with a short summary about length, number of NAs and extreme values, before we describe the
+frequencies of the weekdays and months, rounded up by a chi-square test.
+
+A 2-dimensional table will be described with it's relative frequencies, a short summary containing the total cases,
+the dimensions of the table, chi-square tests and some association measures as phi-coefficient, contingency coefficient and Cramer's V. \cr Tables with higher dimensions will simply be printed as flat table, with marginal sums for the first and for the last dimension.
+
+Note that NAs cannot be handled by this interface, as tables in general come in "as.is", say basically as a matrix without any
+further information about potentially previously cleared NAs.
+
+Description of a dichotomous variable. This can either be a boolean vector, a factor with two levels or a numeric variable
+with only two unique values.
+The confidence levels for the relative frequencies are calculated by \code{\link{BinomCI}}, method \code{"Wilson"}
+on a confidence level defined by \code{conf.level}.
+Dichotomous variables can easily be condensed in one graphical representation. Desc for a set of flags (=dichotomous variables) calculates the frequencies, a binomial confidence intervall and produces a kind of dotplot with error bars.
+Motivation for this function is, that dichotomous variable in general do not contain intense information. Therefore it makes sense to condense the description of sets of dichotomous variables.
+
+The formula interface accepts the formula operators \code{+}, \code{:}, \code{*}, \code{I()}, \code{1} and evaluates any function.
+The left hand side and right hand side of the formula are evaluated the same way.
+The variable pairs are processed in dependency of their classes.
+
+
+Word This function is not thought of being directly run by the enduser. It will normally be called automatically, when
+a pointer to a Word instance is passed to the function \code{\link{Desc}}.\cr
+However \code{DescWrd} takes some more specific arguments concerning the Word output (like font or fontsize), which can make it necessary to call the function directly.
+  }
+
+\value{
+  A list containing the following components:
+    \item{length}{the length of the vector (n + NAs).}
+  \item{n}{the valid entries (NAs are excluded)}
+  \item{NAs}{number of NAs}
+  \item{unique}{number of unique values. }
+  \item{0s}{number of zeros}
+  \item{mean}{arithmetic mean}
+  \item{MeanSE}{standard error of the mean, as calculated by \code{\link{MeanSE}}.}
+  \item{quant}{a table of quantiles, as calculated by
+    \code{\link{quantile}(x, probs = c(.05,.10,.25,.5,.75,.9,.95), na.rm = TRUE)}.}
+  \item{sd}{standard deviation}
+  \item{vcoef}{coefficient of variation: \code{mean(x)} / \code{sd(x)} }
+  \item{mad}{median absolute deviation (\code{\link{mad}}) }
+  \item{IQR}{interquartile range }
+  \item{skew}{skewness, as calculated by \code{\link{Skew}}. }
+  \item{kurt}{kurtosis, as calculated by \code{\link{Kurt}}.}
+  \item{highlow}{the lowest and the highest values, reported with their frequencies in brackets, if > 1.}
+  \item{frq}{a data.frame of absolute and relative frequencies given by \code{\link{Freq}} if maxlevels > unique values in the vector.}
+}
+\author{Andri Signorell <andri@signorell.net>
+    %%  ~~who you are~~
+}
+
+%% ~Make other sections like Warning with \section{Warning }{....} ~
+
+  \seealso{\code{\link{summary}}, \code{\link{plot}}
+    %% ~~objects to See Also as \code{\link{help}}, ~~~
+  }
+\examples{
+# implemented classes:
+Desc(d.pizza$wrongpizza)               # logical
+Desc(d.pizza$driver)                   # factor
+Desc(d.pizza$quality)                  # ordered factor
+Desc(as.character(d.pizza$driver))     # character
+Desc(d.pizza$week)                     # integer
+Desc(d.pizza$delivery_min)             # numeric
+Desc(d.pizza$date)                     # Date
+
+Desc(d.pizza)
+
+Desc(d.pizza$wrongpizza, main="The wrong pizza delivered", digits=5)
+
+Desc(table(d.pizza$area))                                    # 1-dim table
+Desc(table(d.pizza$area, d.pizza$operator))                  # 2-dim table
+Desc(table(d.pizza$area, d.pizza$operator, d.pizza$driver))  # n-dim table
+
+# expressions
+Desc(log(d.pizza$temperature))
+Desc(d.pizza$temperature > 45)
+
+# supported labels
+Label(d.pizza$temperature) <- "This is the temperature in degrees Celsius
+measured at the time when the pizza is delivered to the client."
+Desc(d.pizza$temperature)
+# try as well:      Desc(d.pizza$temperature, wrd=GetNewWrd())
+
+z <- Desc(d.pizza$temperature)
+print(z, digits=1, plotit=FALSE)
+# plot (additional arguments are passed on to the underlying plot function)
+plot(z, main="The pizza's temperature in Celsius", args.hist=list(breaks=50))
+
+
+# bivariate
+Desc(price ~ operator, data=d.pizza)                  # numeric ~ factor
+Desc(driver ~ operator, data=d.pizza)                 # factor ~ factor
+Desc(driver ~ area + operator, data=d.pizza)          # factor ~ several factors
+Desc(driver + area ~ operator, data=d.pizza)          # several factors ~ factor
+Desc(driver ~ week, data=d.pizza)                     # factor ~ integer
+
+Desc(driver ~ operator, data=d.pizza, rfrq=("111"))   # alle rel. frequencies
+Desc(driver ~ operator, data=d.pizza, rfrq=("000"),
+     verbose="high")                                  # no rel. frequencies
+
+Desc(price ~ delivery_min, data=d.pizza)              # numeric ~ numeric
+Desc(price + delivery_min ~ operator + driver + wrongpizza,
+     data=d.pizza, digits=c(2,2,2,2,0,3,0,0) )
+
+Desc(week ~ driver, data=d.pizza, digits=c(2,2,2,2,0,3,0,0))   # define digits
+
+Desc(delivery_min + weekday ~ driver, data=d.pizza)
+
+
+# without defining data-parameter
+Desc(d.pizza$delivery_min ~ d.pizza$driver)
+
+
+# with functions and interactions
+Desc(sqrt(price) ~ operator : factor(wrongpizza), data=d.pizza)
+Desc(log(price+1) ~ cut(delivery_min, breaks=seq(10,90,10)),
+     data=d.pizza, digits=c(2,2,2,2,0,3,0,0))
+
+# response versus all the rest
+Desc(driver ~ ., data=d.pizza[, c("temperature","wine_delivered","area","driver")])
+
+# all the rest versus response
+Desc(. ~ driver, data=d.pizza[, c("temperature","wine_delivered","area","driver")])
+
+# pairwise Descriptions
+p <- CombPairs(c("area","count","operator","driver","temperature","wrongpizza","quality"), )
+for(i in 1:nrow(p))
+  print(Desc(formula(gettextf("\%s ~ \%s", p$X1, p$X2)), data=d.pizza))
+
+
+# get more flexibility, create the table first
+tab <- as.table(apply(HairEyeColor, c(1,2), sum))
+tab <- tab[,c("Brown","Hazel","Green","Blue")]
+
+# display only absolute values, row and columnwise percentages
+Desc(tab, row.vars=c(3, 1), rfrq="011", plotit=FALSE)
+
+# do the plot by hand, while setting the colours for the mosaics
+cols1 <- SetAlpha(c("sienna4", "burlywood", "chartreuse3", "slategray1"), 0.6)
+cols2 <- SetAlpha(c("moccasin", "salmon1", "wheat3", "gray32"), 0.8)
+plot(tab, col1=cols1, col2=cols2)
+
+
+# use global format options for presentation
+Fmt(abs=as.fmt(digits=0, big.mark=""))
+Fmt(per=as.fmt(digits=2, fmt="\%"))
+Desc(area ~ driver, d.pizza, plotit=FALSE)
+
+Fmt(abs=as.fmt(digits=0, big.mark="'"))
+Fmt(per=as.fmt(digits=3, leading="drop"))
+Desc(area ~ driver, d.pizza, plotit=FALSE)
+
+# plot arguments can be fixed in detail
+z <- Desc(BoxCox(d.pizza$temperature, lambda = 1.5))
+plot(z, mar=c(0, 2.1, 4.1, 2.1), args.rug=TRUE, args.hist=list(breaks=50),
+     args.dens=list(from=0))
+
+# The default description for count variables can be inappropriate,
+# the density curve does not represent the variable well.
+set.seed(1972)
+x <- rpois(n = 500, lambda = 5)
+Desc(x)
+# but setting maxrows to Inf gives a better plot
+Desc(x, maxrows = Inf)
+
+
+# Output into word document (Windows-specific example) -----------------------
+# by simply setting wrd=GetNewWrd()
+\dontrun{
+
+  # create a new word instance and insert title and contents
+  wrd <- GetNewWrd(header=TRUE)
+
+  # let's have a subset
+  d.sub <- d.pizza[,c("driver", "date", "operator", "price", "wrongpizza")]
+
+  # do just the univariate analysis
+  Desc(d.sub, wrd=wrd)
+}
+
+}
+% Add one or more standard keywords, see file 'KEYWORDS' in the
+% R documentation directory.
+\keyword{ print }
+\keyword{ univar }
+\keyword{ multivariate }
+
+

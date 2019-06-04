@@ -1,0 +1,91 @@
+\name{MeanCI}
+\alias{MeanCI}
+%- Also NEED an '\alias' for EACH other topic documented here.
+\title{
+Confidence Interval for the Mean
+%%  ~~function to do ... ~~
+}
+\description{
+Collection of several approaches to determine confidence intervals for the mean. Both, the classical way and bootstrap intervals are implemented for both, normal and trimmed means.
+}
+
+\usage{
+MeanCI(x, sd = NULL, trim = 0, method = c("classic", "boot"),
+       conf.level = 0.95, sides = c("two.sided", "left", "right"),
+       na.rm = FALSE, ...)
+
+}
+%- maybe also 'usage' for other objects documented here.
+\arguments{
+  \item{x}{a (non-empty) numeric vector of data values.
+%%     ~~Describe \code{x} here~~
+}
+\item{sd}{the standard deviation of x. If provided it's interpreted as sd of the population and the normal quantiles will be used for constructing the confidence intervals. If left to \code{NULL} (default) the sample \code{sd(x)} will be calculated and used in combination with the t-distribution.}
+
+  \item{trim}{the fraction (0 to 0.5) of observations to be trimmed from each end of \code{x} before the mean is computed. Values of \code{trim} outside that range are taken as the nearest endpoint.
+%%     ~~Describe \code{x} here~~
+}
+  \item{method}{A vector of character strings representing the type of intervals required. The value should be any subset of the values \code{"classic"}, \code{"boot"}.
+  See \code{\link{boot.ci}}.
+%%     ~~Describe \code{x} here~~
+}
+  \item{conf.level}{confidence level of the interval.
+%%     ~~Describe \code{conf.level} here~~
+}
+\item{sides}{a character string specifying the side of the confidence interval, must be one of \code{"two.sided"} (default), \code{"left"} or \code{"right"}. You can specify just the initial letter. \code{"left"} would be analogue to a hypothesis of \code{"greater"} in a \code{t.test}.}
+
+  \item{na.rm}{a logical value indicating whether \code{NA} values should be stripped before the computation proceeds. Defaults to FALSE.
+%%     ~~Describe \code{na.rm} here~~
+}
+  \item{...}{further arguments are passed to the \code{\link{boot}} function. Supported arguments are \code{type} (\code{"norm"}, \code{"basic"}, \code{"stud"}, \code{"perc"}, \code{"bca"}), \code{parallel} and the number of bootstrap replicates \code{R}. If not defined those will be set to their defaults, being \code{"basic"} for \code{type},  option \code{"boot.parallel"} (and if that is not set, \code{"no"}) for \code{parallel}
+ and \code{999} for \code{R}.%%     ~~Describe \code{x} here~~
+}
+}
+\details{The confidence intervals for the trimmed means use winsorized variances as described in the references.
+
+Use \code{\link{do.call}}, \code{\link{rbind}} and \code{\link{lapply}} for getting a
+matrix with estimates and confidence intervals for more than 1 column. (See examples!)
+%%  ~~ If necessary, more details than the description above ~~
+}
+\value{a numeric vector with 3 elements:
+  \item{mean}{mean}
+  \item{lwr.ci}{lower bound of the confidence interval}
+  \item{upr.ci}{upper bound of the confidence interval}
+}
+\author{Andri Signorell <andri@signorell.net>}
+
+\references{
+Wilcox, R. R., Keselman  H. J. (2003) Modern robust data analysis methods: measures of central tendency \emph{Psychol Methods}, 8(3):254-74
+
+Wilcox, R. R. (2005) \emph{Introduction to robust estimation and hypothesis testing} Elsevier Academic Press
+}
+
+\seealso{\code{\link{t.test}}, \code{\link{MeanDiffCI}}, \code{\link{MedianCI}}, \code{\link{VarCI}}
+ }
+
+\examples{
+x <- d.pizza$price[1:20]
+
+MeanCI(x, na.rm=TRUE)
+MeanCI(x, conf.level=0.99, na.rm=TRUE)
+
+MeanCI(x, sides="left")
+# same as:
+t.test(x, alternative="greater")
+
+MeanCI(x, sd=25, na.rm=TRUE)
+
+# the different types of bootstrap confints
+MeanCI(x, method="boot", type="norm", na.rm=TRUE)
+MeanCI(x, trim=0.1, method="boot", type="norm", na.rm=TRUE)
+MeanCI(x, trim=0.1, method="boot", type="basic", na.rm=TRUE)
+MeanCI(x, trim=0.1, method="boot", type="stud", na.rm=TRUE)
+MeanCI(x, trim=0.1, method="boot", type="perc", na.rm=TRUE)
+MeanCI(x, trim=0.1, method="boot", type="bca", na.rm=TRUE)
+
+MeanCI(x, trim=0.1, method="boot", type="bca", R=1999, na.rm=TRUE)
+
+# Getting the MeanCI for more than 1 column
+round( do.call("rbind", lapply(d.pizza[, 1:4],  MeanCI, na.rm=TRUE)), 3)
+}
+\keyword{univar }
