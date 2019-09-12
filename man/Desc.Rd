@@ -215,7 +215,7 @@ However \code{DescWrd} takes some more specific arguments concerning the Word ou
   \item{mean}{arithmetic mean}
   \item{MeanSE}{standard error of the mean, as calculated by \code{\link{MeanSE}}.}
   \item{quant}{a table of quantiles, as calculated by
-    \code{\link{quantile}(x, probs = c(.05,.10,.25,.5,.75,.9,.95), na.rm = TRUE)}.}
+    \code{\link{quantile}(x, probs = c(.05, .10, .25, .5, .75, .9, .95), na.rm = TRUE)}.}
   \item{sd}{standard deviation}
   \item{vcoef}{coefficient of variation: \code{mean(x)} / \code{sd(x)} }
   \item{mad}{median absolute deviation (\code{\link{mad}}) }
@@ -235,22 +235,25 @@ However \code{DescWrd} takes some more specific arguments concerning the Word ou
     %% ~~objects to See Also as \code{\link{help}}, ~~~
   }
 \examples{
+library(DescTools)
+options(scipen = 8) # to avoid scientific notation for small numbers
+
 # implemented classes:
-Desc(d.pizza$wrongpizza)               # logical
-Desc(d.pizza$driver)                   # factor
-Desc(d.pizza$quality)                  # ordered factor
-Desc(as.character(d.pizza$driver))     # character
-Desc(d.pizza$week)                     # integer
-Desc(d.pizza$delivery_min)             # numeric
-Desc(d.pizza$date)                     # Date
+Desc(d.pizza$wrongpizza)           # logical
+Desc(d.pizza$driver)               # factor
+Desc(d.pizza$quality)              # ordered factor
+Desc(as.character(d.pizza$driver)) # character
+Desc(d.pizza$week)                 # integer
+Desc(d.pizza$delivery_min)         # numeric
+Desc(d.pizza$date)                 # Date
 
 Desc(d.pizza)
 
-Desc(d.pizza$wrongpizza, main="The wrong pizza delivered", digits=5)
+Desc(d.pizza$wrongpizza, main = "The wrong pizza delivered", digits = 5)
 
-Desc(table(d.pizza$area))                                    # 1-dim table
-Desc(table(d.pizza$area, d.pizza$operator))                  # 2-dim table
-Desc(table(d.pizza$area, d.pizza$operator, d.pizza$driver))  # n-dim table
+Desc(table(d.pizza$area))                                   # 1-dim table
+Desc(table(d.pizza$area, d.pizza$operator))                 # 2-dim table
+Desc(table(d.pizza$area, d.pizza$operator, d.pizza$driver)) # n-dim table
 
 # expressions
 Desc(log(d.pizza$temperature))
@@ -262,30 +265,32 @@ measured at the time when the pizza is delivered to the client."
 Desc(d.pizza$temperature)
 # try as well:      Desc(d.pizza$temperature, wrd=GetNewWrd())
 
+
 z <- Desc(d.pizza$temperature)
-print(z, digits=1, plotit=FALSE)
+print(z, digits = 1, plotit = FALSE)
 # plot (additional arguments are passed on to the underlying plot function)
-plot(z, main="The pizza's temperature in Celsius", args.hist=list(breaks=50))
+plot(z, main = "The pizza's temperature in Celsius", args.hist = list(breaks = 50))
 
 
 # bivariate
-Desc(price ~ operator, data=d.pizza)                  # numeric ~ factor
-Desc(driver ~ operator, data=d.pizza)                 # factor ~ factor
-Desc(driver ~ area + operator, data=d.pizza)          # factor ~ several factors
-Desc(driver + area ~ operator, data=d.pizza)          # several factors ~ factor
-Desc(driver ~ week, data=d.pizza)                     # factor ~ integer
+Desc(price ~ operator, data = d.pizza)                  # numeric ~ factor
+Desc(driver ~ operator, data = d.pizza)                 # factor ~ factor
+Desc(driver ~ area + operator, data = d.pizza)          # factor ~ several factors
+Desc(driver + area ~ operator, data = d.pizza)          # several factors ~ factor
+Desc(driver ~ week, data = d.pizza)                     # factor ~ integer
 
-Desc(driver ~ operator, data=d.pizza, rfrq=("111"))   # alle rel. frequencies
-Desc(driver ~ operator, data=d.pizza, rfrq=("000"),
-     verbose="high")                                  # no rel. frequencies
+Desc(driver ~ operator, data = d.pizza, rfrq = ("111")) # alle rel. frequencies
+Desc(driver ~ operator, data = d.pizza, rfrq = ("000"),
+  verbose = "high")                                     # no rel. frequencies
 
-Desc(price ~ delivery_min, data=d.pizza)              # numeric ~ numeric
+Desc(price ~ delivery_min, data = d.pizza)              # numeric ~ numeric
 Desc(price + delivery_min ~ operator + driver + wrongpizza,
-     data=d.pizza, digits=c(2,2,2,2,0,3,0,0) )
+  data = d.pizza,
+  digits = c(2, 2, 2, 2, 0, 3, 0, 0))
 
-Desc(week ~ driver, data=d.pizza, digits=c(2,2,2,2,0,3,0,0))   # define digits
+Desc(week ~ driver, data = d.pizza, digits = c(2, 2, 2, 2, 0, 3, 0, 0)) # define digits
 
-Desc(delivery_min + weekday ~ driver, data=d.pizza)
+Desc(delivery_min + weekday ~ driver, data = d.pizza)
 
 
 # without defining data-parameter
@@ -293,48 +298,48 @@ Desc(d.pizza$delivery_min ~ d.pizza$driver)
 
 
 # with functions and interactions
-Desc(sqrt(price) ~ operator : factor(wrongpizza), data=d.pizza)
-Desc(log(price+1) ~ cut(delivery_min, breaks=seq(10,90,10)),
-     data=d.pizza, digits=c(2,2,2,2,0,3,0,0))
+Desc(sqrt(price) ~ operator : factor(wrongpizza), data = d.pizza)
+Desc(log(price + 1) ~ cut(delivery_min, breaks = seq(10, 90, 10)),
+  data = d.pizza, digits = c(2, 2, 2, 2, 0, 3, 0, 0))
 
 # response versus all the rest
-Desc(driver ~ ., data=d.pizza[, c("temperature","wine_delivered","area","driver")])
+Desc(driver ~ ., data = d.pizza[, c("temperature", "wine_delivered", "area", "driver")])
 
 # all the rest versus response
-Desc(. ~ driver, data=d.pizza[, c("temperature","wine_delivered","area","driver")])
+Desc(. ~ driver, data = d.pizza[, c("temperature", "wine_delivered", "area", "driver")])
 
 # pairwise Descriptions
-p <- CombPairs(c("area","count","operator","driver","temperature","wrongpizza","quality"), )
-for(i in 1:nrow(p))
-  print(Desc(formula(gettextf("\%s ~ \%s", p$X1, p$X2)), data=d.pizza))
-
+p <- CombPairs(c("area", "count", "operator", "driver", "temperature", "wrongpizza", "quality"))
+for(i in 1:nrow(p)) {
+  print(Desc(formula(gettextf("\%s ~ \%s", p$X1, p$X2)), data = d.pizza))
+}
 
 # get more flexibility, create the table first
-tab <- as.table(apply(HairEyeColor, c(1,2), sum))
-tab <- tab[,c("Brown","Hazel","Green","Blue")]
+tab <- as.table(apply(HairEyeColor, c(1, 2), sum))
+tab <- tab[, c("Brown", "Hazel", "Green", "Blue")]
 
 # display only absolute values, row and columnwise percentages
-Desc(tab, row.vars=c(3, 1), rfrq="011", plotit=FALSE)
+Desc(tab, row.vars = c(3, 1), rfrq = "011", plotit = FALSE)
 
 # do the plot by hand, while setting the colours for the mosaics
 cols1 <- SetAlpha(c("sienna4", "burlywood", "chartreuse3", "slategray1"), 0.6)
 cols2 <- SetAlpha(c("moccasin", "salmon1", "wheat3", "gray32"), 0.8)
-plot(tab, col1=cols1, col2=cols2)
+plot(tab, col1 = cols1, col2 = cols2)
 
 
 # use global format options for presentation
-Fmt(abs=as.fmt(digits=0, big.mark=""))
-Fmt(per=as.fmt(digits=2, fmt="\%"))
-Desc(area ~ driver, d.pizza, plotit=FALSE)
+Fmt(abs = as.fmt(digits = 0, big.mark = ""))
+Fmt(per = as.fmt(digits = 2, fmt = "\%"))
+Desc(area ~ driver, d.pizza, plotit = FALSE)
 
-Fmt(abs=as.fmt(digits=0, big.mark="'"))
-Fmt(per=as.fmt(digits=3, leading="drop"))
-Desc(area ~ driver, d.pizza, plotit=FALSE)
+Fmt(abs = as.fmt(digits = 0, big.mark = "'"))
+Fmt(per = as.fmt(digits = 3, leading = "drop"))
+Desc(area ~ driver, d.pizza, plotit = FALSE)
 
 # plot arguments can be fixed in detail
 z <- Desc(BoxCox(d.pizza$temperature, lambda = 1.5))
-plot(z, mar=c(0, 2.1, 4.1, 2.1), args.rug=TRUE, args.hist=list(breaks=50),
-     args.dens=list(from=0))
+plot(z, mar = c(0, 2.1, 4.1, 2.1), args.rug = TRUE, args.hist = list(breaks = 50),
+  args.dens = list(from = 0))
 
 # The default description for count variables can be inappropriate,
 # the density curve does not represent the variable well.
@@ -350,13 +355,13 @@ Desc(x, maxrows = Inf)
 \dontrun{
 
   # create a new word instance and insert title and contents
-  wrd <- GetNewWrd(header=TRUE)
+  wrd <- GetNewWrd(header = TRUE)
 
   # let's have a subset
-  d.sub <- d.pizza[,c("driver", "date", "operator", "price", "wrongpizza")]
+  d.sub <- d.pizza[, c("driver", "date", "operator", "price", "wrongpizza")]
 
   # do just the univariate analysis
-  Desc(d.sub, wrd=wrd)
+  Desc(d.sub, wrd = wrd)
 }
 
 }
