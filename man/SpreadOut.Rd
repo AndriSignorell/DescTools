@@ -33,7 +33,7 @@ integrated here with some minor changes.
 }
 
 \author{Jim Lemon <jim@bitwrit.com.au>\cr
-some extensions Andri Signorell <andri@signorell>}
+some extensions Andri Signorell <andri@signorell.net>}
 \examples{
 SpreadOut(c(1, 3, 3, 3, 3, 5), 0.2)
 SpreadOut(c(1, 2.5, 2.5, 3.5, 3.5, 5), 0.2)
