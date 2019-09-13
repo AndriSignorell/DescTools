@@ -269,7 +269,7 @@ binomial variate.  <em>Biometrika</em> 73(2): 425-435.</p>
     </ul>
 
     <h2>Author</h2>
-    <p>Ken Aho &lt;kenaho1@gmail.com&gt;</p>
+    <p>Ken Aho &lt;kenaho1 [al] gmail [dot] com&gt;</p>
   </div>
 </div>
 
