@@ -1,8 +1,7 @@
 \name{KendallTauA}
 \alias{KendallTauA}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Kendall's Tau-a
-%%  ~~function to do ... ~~
+\title{Kendall's \eqn{\tau_{a}}{Tau-a}
 }
 \description{Calculate Kendall's tau-a statistic, a measure of
 association for ordinal factors in a two-way table.\cr

@@ -23,13 +23,13 @@ Freq(x, breaks = hist(x, plot = FALSE)$breaks, include.lowest = TRUE,
   \item{x}{the variable to be described, can be any atomic type.
 }
   \item{breaks}{either a numeric vector of two or more cut points or a single number (greater than or equal to 2)
-    giving the number of intervals into which x is to be cut. Default taken from the function \kbd{hist()}.
+    giving the number of intervals into which x is to be cut. Default taken from the function \code{hist()}.
     This is ignored if x is not of numeric type.
 }
   \item{include.lowest}{logical, indicating if an x[i] equal to the lowest (or highest, for \code{right = FALSE}) \code{"breaks"} value should be included. Ignored if x is not of numeric type.
 }
-  \item{ord}{how should the result be ordered? Default is \kbd{"level"}, other choices are 'by frequency' (\kbd{"descending"} or \kbd{"ascending"})
-    or 'by name of the levels' (\kbd{"name"}). The argument can be abbreviated. This is ignored if x is numeric.
+  \item{ord}{how should the result be ordered? Default is \code{"level"}, other choices are 'by frequency' (\code{"descending"} or \code{"ascending"})
+    or 'by name of the levels' (\code{"name"}). The argument can be abbreviated. This is ignored if x is numeric.
 }
   \item{useNA}{one out of \code{"no"}, \code{"ifany"}, \code{"always"}. Defines whether to include extra \code{NA} levels in the table.
    Defaults to \code{"no"} which is the \code{\link{table}()} default too.

@@ -25,7 +25,7 @@ Defaults to FALSE.}
   \item{\dots}{other arguments to be passed to
   \code{\link{split}}.}
 }
-\author{Andri Signorell <andri@signorell>
+\author{Andri Signorell <andri@signorell.net>
 %%  ~~who you are~~
 }
 
