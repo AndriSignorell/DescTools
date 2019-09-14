@@ -2,14 +2,15 @@
 \alias{XLGetRange}
 \alias{XLGetWorkbook}
 \alias{XLCurrReg}
+\alias{XLNamedReg}
 
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Import Data Directly From Excel
 %%  ~~function to do ... ~~
 }
 \description{The package \code{RDCOMClient} is used to open an Excel workbook and return the content (value) of one (or several) given range(s)
-in a specified sheet. Helpful, if pathologically scattered data on an Excel sheet, which can't simply be saved as CSV-file, has to be imported in R.\cr\cr
-XLGetWorkbook does the same for all the sheets in an Excel workbook.
+in a specified sheet. This is helpful, whenever pathologically scattered data on an Excel sheet, which can't simply be saved as CSV-file, has to be imported in R.\cr\cr
+\code{XLGetWorkbook()} does the same for all the sheets in an Excel workbook.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
@@ -20,6 +21,7 @@ XLGetRange(file = NULL, sheet = NULL, range = NULL, as.data.frame = TRUE,
 XLGetWorkbook(file, compactareas = TRUE)
 
 XLCurrReg(cell)
+XLNamedReg(x)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -33,7 +35,7 @@ XLCurrReg(cell)
 }
   \item{range}{a scalar or a vector with the address(es) of the range(s) to be returned (characters).
   Use "A1"-address mode to specify the ranges, for example \code{"A1:F10"}. \cr If set to \code{NULL} (which is the default), the function will look for a selection that contains more than one cell. If
-  found, the function will use this selection. If there is no selection then the current region of the selected cell will be used. Use \code{XLCurrReg()} if the current region of a cell, which is currently not selected, should be used.
+  found, the function will use this selection. If there is no selection then the current region of the selected cell will be used. Use \code{XLCurrReg()} if the current region of a cell, which is currently not selected, should be used. Range names can be provided with \code{XLNamedReg("name")}.
 %%     ~~Describe \code{cellrange} here~~
 }
 \item{as.data.frame}{logical. Determines if the cellranges should be coerced into data.frames. Defaults to TRUE,
@@ -48,6 +50,8 @@ as this is probably the common use of this function.}
 
 \item{compactareas}{logical, defining if areas should be returned by \code{XLGetWorkbook} as list or as matrix (latter is default).}
 \item{cell}{range of the left uppe cell, when current region should be used. }
+\item{x}{then name or the index of the XL-name to be used. }
+
 \item{skip}{the number of lines of the data file to skip before beginning to read data.}
 }
 \details{The result consists of a list of lists, if \code{as.data.frame} is set to \code{FALSE}.
@@ -68,14 +72,14 @@ The following code will replace the \code{NULL} values by \code{NA} and coerce t
 }
 This of course can be avoided by setting \code{as.data.frame} = \code{TRUE}.
 
-The function will return dates as integer values, because XL stores them as integers.
-An Excel date can be converted with the (unusual) origin of
-\code{as.Date(myDate, origin="1899-12-30")}. See also \code{\link{XLDateToPOSIXct}}, which does the job. The conversion can be applied directly by using \code{datecols} and enumerate date columns in the sheet data.
+The function will return dates as integers, because MS-Excel stores them internally as integers.
+Such a date can subsequently be converted with the (unusual) origin of
+\code{as.Date(myDate, origin="1899-12-30")}. See also \code{\link{XLDateToPOSIXct}}, which does the job. The conversion can directly be performed by \code{XLGetRange()} if \code{datecols} is used and contains the date columns in the sheet data.
 }
 \value{If \code{as.data.frame} is set to \code{TRUE}, a single data.frame or a list of data.frames will be returned.
 If set to \code{FALSE} a list of the cell values in the specified Excel range, resp. a list of lists will be returned.
 
-XLGetWorkbook returns a list of lists of the values in the given workbook.
+\code{XLGetWorkbook()} returns a list of lists of the values in the given workbook.
 }
 \author{
 Andri Signorell <andri@signorell.net>
@@ -84,7 +88,7 @@ Andri Signorell <andri@signorell.net>
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{\code{\link{GetNewXL}}, \code{\link{XLGetWorkbook}}
+\seealso{\code{\link{GetNewXL}}, \code{\link{GetCurrXL}}, \code{\link{XLView}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
@@ -98,6 +102,17 @@ XLGetRange(file="C:\My Documents\data.xls",
 # if the current region has to be read (incl. a header), place the cursor in the interesting region
 # and run:
 d.set <- XLGetRange(header=TRUE)
+
+# Get XL nameslist
+nm <- xl$ActiveWorkbook()$names()
+
+lst <- list()
+for(i in 1:nm$count())
+  lst[[i]] <- c(name=nm[[i]]$name(), 
+                address=nm[[i]]$refersToRange()$Address())
+  
+# the defined names
+as.data.frame(do.call(rbind, lst), stringsAsFactors = FALSE)
 }
 }
 

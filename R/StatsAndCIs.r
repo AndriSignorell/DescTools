@@ -53,6 +53,26 @@ Mean.default <- function (x, weights = NULL, trim = 0, na.rm = FALSE, ...) {
 }
 
 
+
+# Average absolute deviation from the median
+MeanAD <- function(x, FUN = mean, na.rm = FALSE) {
+  
+  if (na.rm) x <- na.omit(x)
+  
+  if(is.function(FUN)) {
+    #  if FUN is a function, then save it under new name and
+    # overwrite function name in FUN, which has to be character
+    fct <- FUN
+    FUN <- "fct"
+    FUN <- gettextf("%s(x)", FUN)
+  }
+  # Calculates the mean absolute deviation from the sample mean.
+  return(eval(parse(text = gettextf("mean(abs(x - %s))", FUN))))
+}
+
+
+
+
 # from stats
 SD <- function (x, weights = NULL, na.rm = FALSE, ...)
   sqrt(Var(if (is.vector(x) || is.factor(x)) x else as.double(x),
@@ -824,26 +844,6 @@ Hmean <- function(x, method = c("classic", "boot"),
   return(res)
 
 }
-
-
-
-
-# Average absolute deviation from the median
-MeanAD <- function(x, FUN = mean, na.rm = FALSE) {
-
-  if (na.rm) x <- na.omit(x)
-
-  if(is.function(FUN)) {
-    #  if FUN is a function, then save it under new name and
-    # overwrite function name in FUN, which has to be character
-    fct <- FUN
-    FUN <- "fct"
-    FUN <- gettextf("%s(x)", FUN)
-  }
-  # Calculates the mean absolute deviation from the sample mean.
-  return(eval(parse(text = gettextf("mean(abs(x - %s))", FUN))))
-}
-
 
 
 
@@ -4879,10 +4879,13 @@ OddsRatio.glm <- function(x, conf.level = NULL, digits=3, use.profile=TRUE, ...)
 
 
   if(use.profile)
-    d.res[, c("or.lci","or.uci")] <- exp(confint(x, level = conf.level))
+    ci <- exp(confint(x, level = conf.level))
   else
-    d.res[, c("or.lci","or.uci")] <- exp(confint.default(x, level = conf.level))
+    ci <- exp(confint.default(x, level = conf.level))
 
+  # exclude na coefficients here, as summary does not yield those
+  d.res[, c("or.lci","or.uci")] <- ci[!is.na(coefficients(x)), ]
+  
   d.res$sig <- Format(d.res$"Pr(>|z|)", fmt="*")
   d.res$pval <- Format(d.res$"Pr(>|z|)", fmt="p")
 

@@ -28,9 +28,7 @@ So everything that is not an alphanumeric character, a digit or a _ (underscore)
 %%  \item{comp2 }{Description of 'comp2'}
 %% ...
 }
-\references{\url{
-http://stackoverflow.com/questions/8920145/count-the-number-of-words-in-a-string-in-r
-}}
+\references{\url{http://stackoverflow.com/questions/8920145/count-the-number-of-words-in-a-string-in-r}}
 \author{Andri Signorell <andri@signorell.net>, based on code from Adam Bradley <hisself@adambradley.net>
 %%  ~~who you are~~
 }

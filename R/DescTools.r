@@ -371,15 +371,15 @@ as.Date.numeric <- function (x, origin, ...) {
 Primes <- function (n) {
 # Source: sfsmisc
 # Bill Venables (<= 2001); Martin Maechler gained another 40% speed, working with logicals and integers.
-    if ((M2 <- max(n)) <= 1)
-        return(integer(0))
+    if ((M2 <- max(n)) <= 1L)
+        return(integer(0L))
     P <- rep.int(TRUE, M2)
     P[1] <- FALSE
     M <- as.integer(sqrt(M2))
     n <- as.integer(M2)
-    for (p in 1:M) if (P[p])
+    for (p in 1L:M) if (P[p])
         P[seq(p * p, n, p)] <- FALSE
-    (1:n)[P]
+    (1L:n)[P]
 }
 
 
@@ -395,31 +395,31 @@ Factorize <- function (n) {
     N <- length(n)
     M <- as.integer(sqrt(max(n)))
     k <- length(pr <- Primes(M))
-    nDp <- outer(pr, n, FUN = function(p, n) n%%p == 0)
+    nDp <- outer(pr, n, FUN = function(p, n) n %% p == 0L)
     res <- vector("list", length = N)
     names(res) <- n
-    for (i in 1:N) {
+    for (i in 1L:N) {
         nn <- n[i]
         if (any(Dp <- nDp[, i])) {
             nP <- length(pfac <- pr[Dp])
 #            if (verbose) cat(nn, " ")
         }
         else {
-            res[[i]] <- cbind(p = nn, m = 1)
+            res[[i]] <- cbind(p = nn, m = 1L)
 #            if (verbose) cat("direct prime", nn, "\n")
             next
         }
-        m.pr <- rep(1, nP)
+        m.pr <- rep(1L, nP)
         Ppf <- prod(pfac)
-        while (1 < (nn <- nn%/%Ppf)) {
-            Dp <- nn%%pfac == 0
+        while (1 < (nn <- nn %/% Ppf)) {
+            Dp <- nn %% pfac == 0L
             if (any(Dp)) {
-                m.pr[Dp] <- m.pr[Dp] + 1
+                m.pr[Dp] <- m.pr[Dp] + 1L
                 Ppf <- prod(pfac[Dp])
             }
             else {
                 pfac <- c(pfac, nn)
-                m.pr <- c(m.pr, 1)
+                m.pr <- c(m.pr, 1L)
                 break
             }
         }
@@ -439,21 +439,21 @@ GCD <- function(..., na.rm = FALSE) {
 
 
   stopifnot(is.numeric(x))
-  if (any(floor(x) != ceiling(x)) || length(x) < 2)
+  if (any(floor(x) != ceiling(x)) || length(x) < 2L)
     stop("Argument 'x' must be an integer vector of length >= 2.")
 
   x <- x[x != 0]
   n <- length(x)
-  if (n == 0) {
+  if (n == 0L) {
     g <- 0
-  } else if (n == 1) {
+  } else if (n == 1L) {
     g <- x
-  } else if (n == 2) {
-    g <- .Call("_DescTools_compute_GCD", PACKAGE = "DescTools", x[1], x[2])
+  } else if (n == 2L) {
+    g <- .Call("_DescTools_compute_GCD", PACKAGE = "DescTools", x[1L], x[2L])
   } else {
     # g <- .GCD(x[1], x[2])
-    g <- .Call("_DescTools_compute_GCD", PACKAGE = "DescTools", x[1], x[2])
-    for (i in 3:n) {
+    g <- .Call("_DescTools_compute_GCD", PACKAGE = "DescTools", x[1L], x[2L])
+    for (i in 3L:n) {
       g <- .Call("_DescTools_compute_GCD", PACKAGE = "DescTools", g, x[i])
       if (g == 1) break
     }
@@ -482,22 +482,22 @@ LCM <- function(..., na.rm = FALSE) {
 
 
   stopifnot(is.numeric(x))
-  if (any(floor(x) != ceiling(x)) || length(x) < 2)
+  if (any(floor(x) != ceiling(x)) || length(x) < 2L)
     stop("Argument 'x' must be an integer vector of length >= 2.")
 
   x <- x[x != 0]
   n <- length(x)
-  if (n == 0) {
+  if (n == 0L) {
     l <- 0
-  } else if (n == 1) {
+  } else if (n == 1L) {
     l <- x
-  } else if (n == 2) {
+  } else if (n == 2L) {
     # l <- .LCM(x[1], x[2])
     l <- .Call("_DescTools_compute_LCM", PACKAGE = "DescTools", x[1], x[2])
   } else {
 #    l <- .LCM(x[1], x[2])
     l <- .Call("_DescTools_compute_LCM", PACKAGE = "DescTools", x[1], x[2])
-    for (i in 3:n) {
+    for (i in 3L:n) {
 #      l <- .LCM(l, x[i])
       l <- .Call("_DescTools_compute_LCM", PACKAGE = "DescTools", l, x[i])
     }
@@ -510,7 +510,7 @@ LCM <- function(..., na.rm = FALSE) {
 DigitSum <- function(x)
   # calculates the digit sum of a number: DigitSum(124) = 7
   sapply(x, function(z)
-    sum(floor(z / 10^(0:(nchar(z) - 1))) %% 10))
+    sum(floor(z / 10^(0L:(nchar(z) - 1L))) %% 10L))
 
 
 
@@ -520,9 +520,9 @@ Divisors <- function(x) {
     Factorize(x),
     function(prim) {
       prim <- lapply(seq_len(nrow(prim)), function(i) prim[i,])
-      powers <- lapply(prim, function(row) row[1] ^ seq.int(0L, row[2]))
+      powers <- lapply(prim, function(row) row[1L] ^ seq.int(0L, row[2L]))
       power_grid <- do.call(expand.grid, powers)
-      head(sort(unique(apply(power_grid, 1L, prod))), -1)
+      head(sort(unique(apply(power_grid, 1L, prod))), -1L)
     })
 
 #  res <- .Call("_DescTools_divs", PACKAGE = "DescTools", x)
@@ -563,7 +563,7 @@ CombN <- function(x, m, repl=FALSE, ord=FALSE){
       # res <- choose(n, m) * factorial(m)
       # res <- gamma(n+1) / gamma(m+1)
       # avoid numeric overflow
-      res <- exp(lgamma(n+1)-lgamma(n-m+1))
+      res <- exp(lgamma(n + 1L) - lgamma(n - m + 1L))
     } else {
       res <- choose(n, m)
     }
@@ -581,24 +581,25 @@ Permn <- function(x, sort = FALSE) {
 
   n <- length(x)
 
-  if (n == 1)
+  if (n == 1L)
     return(matrix(x))
 # Andri: why should we need that??? ...
 #   else if (n < 2)
 #     stop("n must be a positive integer")
-  z <- matrix(1)
-  for (i in 2:n) {
+  
+  z <- matrix(1L)
+  for (i in 2L:n) {
     y <- cbind(z, i)
-    a <- c(1:i, 1:(i - 1))
-    z <- matrix(0, ncol = ncol(y), nrow = i * nrow(y))
-    z[1:nrow(y), ] <- y
-    for (j in 2:i - 1) {
-      z[j * nrow(y) + 1:nrow(y), ] <- y[, a[1:i + j]]
+    a <- c(1L:i, 1:(i - 1L))
+    z <- matrix(0L, ncol = ncol(y), nrow = i * nrow(y))
+    z[1L:nrow(y), ] <- y
+    for (j in 2L:i - 1L) {
+      z[j * nrow(y) + 1L:nrow(y), ] <- y[, a[1L:i + j]]
     }
   }
   dimnames(z) <- NULL
 
-  m <- apply(z, 2, function(i) x[i])
+  m <- apply(z, 2L, function(i) x[i])
 
   if(any(duplicated(x)))
     m <- unique(m)
@@ -621,7 +622,7 @@ CombSet <- function(x, m, repl=FALSE, ord=FALSE, as.list=FALSE) {
       res <- as.matrix(do.call(expand.grid, as.list(as.data.frame(replicate(m, x)))))
       dimnames(res) <- NULL
       if(!ord){
-        res <- unique(t(apply(res, 1, sort)))
+        res <- unique(t(apply(res, 1L, sort)))
       }
     } else {
       if(ord){
@@ -658,12 +659,13 @@ CombSet <- function(x, m, repl=FALSE, ord=FALSE, as.list=FALSE) {
 
 
 CombPairs <- function(x, y = NULL) {
-  # liefert einen data.frame mit allen paarweisen Kombinationen der Variablen
+  # returns a data.frame with all pairwise combinations of two variables
   if( missing(y)) {  # kein y vorhanden, use x only
-    data.frame( t(combn(x, 2)), stringsAsFactors=F )
-  } else {
-    # wenn y definiert ist, wird all.x zu all.y zurueckgegeben
-    expand.grid(x, y, stringsAsFactors=F )
+    data.frame( t(combn(x, 2L)), stringsAsFactors=FALSE )
+  
+    } else {
+    # if y is defined, all.x to all.y will be returned  
+    expand.grid(x, y, stringsAsFactors=FALSE )
   }
 }
 
@@ -719,25 +721,25 @@ Cross <- function(x, y) {
     stop("Arguments 'x' and 'y' must be numeric vectors or matrices.")
 
   if (is.vector(x) && is.vector(y)) {
-    if (length(x) == length(y) && length(x) == 3) {
-      xxy <- c(x[2]*y[3] - x[3]*y[2],
-               x[3]*y[1] - x[1]*y[3],
-               x[1]*y[2] - x[2]*y[1])
+    if (length(x) == length(y) && length(x) == 3L) {
+      xxy <- c(x[2L]*y[3L] - x[3L]*y[2L],
+               x[3L]*y[1L] - x[1L]*y[3L],
+               x[1L]*y[2L] - x[2L]*y[1L])
     } else {
       stop("Vectors 'x' and 'y' must be both of length 3.")
     }
   } else {
     if (is.matrix(x) && is.matrix(y)) {
       if (all(dim(x) == dim(y))) {
-        if (ncol(x) == 3) {
-          xxy <- cbind(x[, 2]*y[, 3] - x[, 3]*y[, 2],
-                       x[, 3]*y[, 1] - x[, 1]*y[, 3],
-                       x[,1 ]*y[, 2] - x[, 2]*y[, 1])
+        if (ncol(x) == 3L) {
+          xxy <- cbind(x[, 2L]*y[, 3L] - x[, 3L]*y[, 2L],
+                       x[, 3L]*y[, 1L] - x[, 1L]*y[, 3L],
+                       x[, 1L]*y[, 2L] - x[, 2L]*y[, 1L])
         } else {
-          if (nrow(x) == 3) {
-            xxy <- rbind(x[2, ]*y[3, ] - x[3, ]*y[2, ],
-                         x[3, ]*y[1, ] - x[1, ]*y[3, ],
-                         x[1, ]*y[2, ] - x[2, ]*y[1, ])
+          if (nrow(x) == 3L) {
+            xxy <- rbind(x[2L, ]*y[3L, ] - x[3L, ]*y[2L, ],
+                         x[3L, ]*y[1L, ] - x[1L, ]*y[3L, ],
+                         x[1L, ]*y[2L, ] - x[2L, ]*y[1L, ])
           } else {
             stop("'x', 'y' must have one dimension of length 3.")
           }
@@ -760,19 +762,19 @@ Cross <- function(x, y) {
 Fibonacci <- function(n) {
 
   # if (!is.numeric(n) || !IsWhole(n) || n < 0)
-  if(any(sapply(n, function(i) !is.numeric(i) || !IsWhole(i) || i < 0)))
+  if(any(sapply(n, function(i) !is.numeric(i) || !IsWhole(i) || i < 0L)))
     stop("Argument 'n' must be an integer >= 0.")
 
   maxn <- max(n)
-  if (maxn == 0) return(0)
-  if (maxn == 1) return(c(0, 1)[n+1])
-  if (maxn == 2) return(c(0, 1, 1)[n+1])
-  z <- c(0, 1, 1, rep(NA, maxn-3))
-  for (i in 4:(maxn+1)) {
-    z[i] <- z[i-1] + z[i-2]
+  if (maxn == 0L) return(0L)
+  if (maxn == 1L) return(c(0L, 1)[n+1L])
+  if (maxn == 2L) return(c(0L, 1L, 1L)[n+1L])
+  z <- c(0L, 1L, 1L, rep(NA, maxn - 3L))
+  for (i in 4L:(maxn + 1L)) {
+    z[i] <- z[i-1L] + z[i-2L]
   }
 
-  z[n+1]
+  z[n+1L]
 
 }
 
@@ -875,8 +877,8 @@ Winsorize <- function(x, minval = NULL, maxval = NULL,
 
   if(is.null(minval) || is.null(maxval)){
     xq <- quantile(x=x, probs=probs, na.rm=na.rm, type=type)
-    if(is.null(minval)) minval <- xq[1]
-    if(is.null(maxval)) maxval <- xq[2]
+    if(is.null(minval)) minval <- xq[1L]
+    if(is.null(maxval)) maxval <- xq[2L]
   }
 
   x[x<minval] <- minval
@@ -1032,7 +1034,7 @@ LinScale <- function (x, low = NULL, high = NULL, newlow = 0, newhigh = 1)  {
 
 
 
-Large <- function (x, k = 5, unique = FALSE, na.last = NA) {
+Large <- function (x, k = 5L, unique = FALSE, na.last = NA) {
 
   n <- length(x)
   x <- x[!is.na(x)]
@@ -1129,7 +1131,7 @@ Large <- function (x, k = 5, unique = FALSE, na.last = NA) {
 
 
 
-Small <- function (x, k = 5, unique = FALSE, na.last = NA) {
+Small <- function (x, k = 5L, unique = FALSE, na.last = NA) {
 
   n <- length(x)
   x <- x[!is.na(x)]
@@ -1144,17 +1146,17 @@ Small <- function (x, k = 5, unique = FALSE, na.last = NA) {
 
     res <- .Call("_DescTools_bottom_n", PACKAGE = "DescTools", x, k)
 
-    if(na_n > 0){
+    if(na_n > 0L){
       if(!is.na(na.last)){
         if(na.last==FALSE) {
-          k <- min(length(res$value) + 1, k)
-          res$value <- c(NA, res$value)[1:k]
-          res$frequency <- c(na_n, res$frequency)[1:k]
+          k <- min(length(res$value) + 1L, k)
+          res$value <- c(NA, res$value)[1L:k]
+          res$frequency <- c(na_n, res$frequency)[1L:k]
         }
         if(na.last==TRUE){
-          k <- min(length(res$value) + 1, k)
-          res$value <- c(res$value, NA)[1:k]
-          res$frequency <- c(res$frequency, na_n)[1:k]
+          k <- min(length(res$value) + 1L, k)
+          res$value <- c(res$value, NA)[1L:k]
+          res$frequency <- c(res$frequency, na_n)[1L:k]
         }
       }
     }
@@ -1172,9 +1174,9 @@ Small <- function (x, k = 5, unique = FALSE, na.last = NA) {
 
     if(!is.na(na.last)){
       if(na.last==FALSE)
-        res <- c(rep(NA, na_n), res)[1:k]
+        res <- c(rep(NA, na_n), res)[1L:k]
       if(na.last==TRUE)
-        res <- c(res, rep(NA, na_n))[1:k]
+        res <- c(res, rep(NA, na_n))[1L:k]
     }
 
   }
@@ -1218,7 +1220,7 @@ Small <- function (x, k = 5, unique = FALSE, na.last = NA) {
 
 
 
-HighLow <- function (x, nlow = 5, nhigh = nlow, na.last = NA) {
+HighLow <- function (x, nlow = 5L, nhigh = nlow, na.last = NA) {
 
   # updated 1.2.2014 / Andri
   # using table() was unbearable slow and inefficient for big vectors!!
@@ -1228,7 +1230,7 @@ HighLow <- function (x, nlow = 5, nhigh = nlow, na.last = NA) {
   # updated 1.5.2016 / Andri
   # ... seemed the way to go so far, but now outperformed by nathan russell's C++ solution
 
-  if ((nlow + nhigh) != 0) {
+  if ((nlow + nhigh) != 0L) {
     frqs <- Small(x, k=nlow, unique=TRUE, na.last=na.last)
     frql <- Large(x, k=nhigh, unique=TRUE, na.last=na.last)
     frq <- c(frqs$frequency, frql$frequency)
@@ -1241,7 +1243,7 @@ HighLow <- function (x, nlow = 5, nhigh = nlow, na.last = NA) {
       vals <- vals
     }
     frqtxt <- paste(" (", frq, ")", sep = "")
-    frqtxt[frq < 2] <- ""
+    frqtxt[frq < 2L] <- ""
 
     txt <- StrTrim(paste(vals, frqtxt, sep = ""))
     lowtxt <- paste(head(txt, min(length(frqs$frequency), nlow)), collapse = ", ")
@@ -1307,7 +1309,7 @@ Unwhich <- function(idx, n, useNames=TRUE){
 
   res <- logical(n)
 
-  if(length(idx) > 0) {
+  if(length(idx) > 0L) {
     res[idx] <- TRUE
     if(useNames) names(res)[idx] <- names(idx)
   }
@@ -1328,6 +1330,22 @@ CombLevels <- function(...){
   }
   )))
 
+}
+
+
+WithOptions <- function(optlist, expr) {
+  
+  # in an R-devel thread started by Charles Geyer, Thomas Lumley offered the following function:
+  
+  # example:
+  # WithOptions(list(digits=3), print((1:10)^-1))
+  # WithOptions(list(digits=3), print(Desc(d.pizza$temperature))
+  
+  oldopt <- options(optlist)
+  on.exit(options(oldopt))
+  expr <- substitute(expr)
+  
+  eval.parent(expr)
 }
 
 
@@ -1354,9 +1372,9 @@ StrRight <- function(x, n) {
   n <- rep(n, length.out=length(x))
   sapply(seq_along(x), function(i) {
     if(n[i] >= 0)
-      substr(x[i], (nchar(x[i]) - n[i]+1), nchar(x[i]))
+      substr(x[i], (nchar(x[i]) - n[i]+1L), nchar(x[i]))
     else
-      substr(x[i], - n[i]+1, nchar(x[i]))
+      substr(x[i], - n[i]+1L, nchar(x[i]))
   }  )
 }
 
@@ -1401,7 +1419,7 @@ StrTrunc <- function(x, maxlen = 20) {
 
   # ... but this is all a bit clumsy, let's have it shorter - and much faster!  ;-)
 
-  paste(substr(x, 0, maxlen), ifelse(nchar(x) > maxlen, "...", ""), sep="")
+  paste(substr(x, 0L, maxlen), ifelse(nchar(x) > maxlen, "...", ""), sep="")
 }
 
 
@@ -2225,10 +2243,12 @@ ZeroIfNA <- function(x) {
 NAIfZero <- function(x)
   replace(x, IsZero(x), NA)
 
-BlankIfNA <- function(x) {
+
+BlankIfNA <- function(x, blank="") {
   #  same as zeroifnull but with characters
-  replace(x, is.na(x), "")
+  replace(x, is.na(x), blank)
 }
+
 
 NAIfBlank <- function(x)
   replace(x, x=="", NA)
@@ -2738,7 +2758,7 @@ LOCF.default <- function(x) {
   # rep(x[!is.na(x)], diff(c(which(!is.na(x)), length(x)+1)))
 
   l <- !is.na(x)
-  rep(c(NA, x[l]), diff(c(1, which(l), length(x) + 1)))
+  rep(c(NA, x[l]), diff(c(1L, which(l), length(x) + 1L)))
 
 }
 
@@ -2747,7 +2767,7 @@ LOCF.data.frame <- function(x){
 }
 
 LOCF.matrix <- function(x){
-  apply(x, 2, LOCF)
+  apply(x, 2L, LOCF)
 }
 
 
@@ -2850,7 +2870,7 @@ IsDate <- function(x, what=c('either','both','timeVaries')) {
       # original: if('chron' %in% cl || !.R.) { ### chron or S+ timeDate
       if('chron' %in% cl) { # chron ok, but who cares about S+?
         y <- as.numeric(x)
-        length(unique(round(y - floor(y),13))) > 1
+        length(unique(round(y - floor(y), 13L))) > 1
       } else {
         length(unique(format(x, '%H%M%S'))) > 1
       }
@@ -2862,7 +2882,7 @@ IsDate <- function(x, what=c('either','both','timeVaries')) {
 
 IsWeekend <- function(x) {
   x <- as.POSIXlt(x)
-  x$wday > 5 | x$wday < 1
+  x$wday > 5L | x$wday < 1L
 }
 
 
@@ -2879,19 +2899,19 @@ IsWeekend <- function(x) {
 
 
 # Year <- function(x){ as.integer( format(as.Date(x), "%Y") ) }
-Year <- function(x){ as.POSIXlt(x)$year + 1900 }
+Year <- function(x){ as.POSIXlt(x)$year + 1900L }
 
 
 IsLeapYear <- function(x){
   if(!IsWhole(x))
     x <- Year(as.Date(x))
-  ifelse(x %% 100 == 0, x %% 400 == 0, x %% 4 == 0)
+  ifelse(x %% 100L == 0L, x %% 400L == 0L, x %% 4L == 0L)
 }
 
 
 Month <- function (x, fmt = c("m", "mm", "mmm"), lang = DescToolsOptions("lang"), stringsAsFactors = TRUE) {
 
-  res <- as.POSIXlt(x)$mon + 1
+  res <- as.POSIXlt(x)$mon + 1L
 
   switch(match.arg(arg = fmt, choices = c("m", "mm", "mmm")),
          m = { res },
@@ -2900,10 +2920,10 @@ Month <- function (x, fmt = c("m", "mm", "mmm"), lang = DescToolsOptions("lang")
            switch(match.arg(arg = lang, choices = c("local", "engl")),
              local = {
                # months in current locale:  format(ISOdate(2000, 1:12, 1), "%b")
-               res <- factor(res, levels=1:12, labels=format(ISOdate(2000, 1:12, 1), "%b"))
+               res <- factor(res, levels=1L:12L, labels=format(ISOdate(2000L, 1L:12L, 1L), "%b"))
                },
              engl = {
-               res <- factor(res, levels=1:12, labels=month.abb)
+               res <- factor(res, levels=1L:12L, labels=month.abb)
              })
            if(!stringsAsFactors) res <- as.character(res)
          },
@@ -2912,10 +2932,10 @@ Month <- function (x, fmt = c("m", "mm", "mmm"), lang = DescToolsOptions("lang")
            switch(match.arg(arg = lang, choices = c("local", "engl")),
                   local = {
                     # months in current locale:  format(ISOdate(2000, 1:12, 1), "%b")
-                    res <- factor(res, levels=1:12, labels=format(ISOdate(2000, 1:12, 1), "%B"))
+                    res <- factor(res, levels=1L:12L, labels=format(ISOdate(2000L, 1L:12L, 1L), "%B"))
                   },
                   engl = {
-                    res <- factor(res, levels=1:12, labels=month.name)
+                    res <- factor(res, levels=1L:12L, labels=month.name)
                   })
            if(!stringsAsFactors) res <- as.character(res)
          })
@@ -3018,19 +3038,23 @@ Quarter <- function (x) {
   # y <- as.numeric( format( x, "%Y") )
   # paste(y, "Q", (as.POSIXlt(x)$mon)%/%3 + 1, sep = "")
   # old definition is counterintuitive...
-  return((as.POSIXlt(x)$mon) %/% 3 + 1)
+  return((as.POSIXlt(x)$mon) %/% 3L + 1L)
 }
 
 YearDay <- function(x) {
   # return(as.integer(format(as.Date(x), "%j")))
-  return(as.POSIXlt(x)$yday)
+  
+  # As ?POSIXlt reveals, a $yday suffix to a POSIXlt date (or even a vector of such) 
+  # will convert to day of year. 
+  # Beware that POSIX counts Jan 1 as day 0, so you might want to add 1 to the result.
+  return(as.POSIXlt(x)$yday + 1L)
 }
 
 
 YearMonth <- function(x){
   # returns the yearmonth representation of a date x
   x <- as.POSIXlt(x)
-  return((x$year + 1900)*100 + x$mon + 1)
+  return((x$year + 1900L)*100L + x$mon + 1L)
 }
 
 
@@ -3074,30 +3098,30 @@ DiffDays360 <- function(start_d, end_d, method=c("eu","us")){
   method = match.arg(method)
   switch(method,
     "eu" = {
-      if(Day(start_d)==31) start_d <- start_d-1
-      if(Day(end_d)==31) end_d <- end_d-1
+      if(Day(start_d)==31L) start_d <- start_d-1L
+      if(Day(end_d)==31L) end_d <- end_d-1L
     }
     , "us" ={
-      if( (Day(start_d+1)==1 & Month(start_d+1)==3) &
-            (Day(end_d+1)==1 & Month(end_d+1)==3)) d2 <- 30
-      if( d1==31 ||
-            (Day(start_d+1)==1 & Month(start_d+1)==3)) {
-          d1 <- 30
-          if(d2==31) d2 <- 30
+      if( (Day(start_d+1L)==1L & Month(start_d+1L)==3L) &
+            (Day(end_d+1L)==1L & Month(end_d+1L)==3L)) d2 <- 30L
+      if( d1==31L ||
+            (Day(start_d+1L)==1L & Month(start_d+1L)==3L)) {
+          d1 <- 30L
+          if(d2==31L) d2 <- 30L
       }
 
     }
   )
 
-  return( (y2-y1)*360 + (m2-m1)*30 + d2-d1)
+  return( (y2-y1)*360L + (m2-m1)*30L + d2-d1)
 
 }
 
 
 LastDayOfMonth <- function(x){
-  z <- AddMonths(x, 1)
-  Day(z) <- 1
-  return(z-1)
+  z <- AddMonths(x, 1L)
+  Day(z) <- 1L
+  return(z - 1L)
 }
 
 
@@ -3110,12 +3134,12 @@ AddMonths <- function (x, n, ...) {
     # Author: Antonio
 
     # no ceiling
-    res <- sapply(x, seq, by = paste(n, "months"), length = 2)[2,]
+    res <- sapply(x, seq, by = paste(n, "months"), length = 2L)[2L,]
     # sapply kills the Date class, so recreate down the road
 
     # ceiling
-    DescTools::Day(x) <- 1
-    res_c <- sapply(x, seq, by = paste(n + 1, "months"), length = 2)[2,] - 1
+    DescTools::Day(x) <- 1L
+    res_c <- sapply(x, seq, by = paste(n + 1L, "months"), length = 2L)[2L,] - 1L
 
     # use ceiling in case of overlapping
     res <- pmin(res, res_c)
@@ -3141,20 +3165,20 @@ AddMonthsYM <- function (x, n) {
 
   .addMonths <- function (x, n) {
 
-    if (x %[]% c(100001, 999912)) {
+    if (x %[]% c(100001L, 999912L)) {
 
       # Author: Roland Rapold
       # YYYYMM
-      y <- x %/% 100
-      m <- x - y * 100
-      res <- (y - 10 + ((m + n + 120 - 1) %/% 12)) * 100 +
-        ((m + n + 120 - 1) %% 12) + 1
+      y <- x %/% 100L
+      m <- x - y * 100L
+      res <- (y - 10L + ((m + n + 120L - 1L) %/% 12L)) * 100L +
+        ((m + n + 120L - 1L) %% 12L) + 1L
 
-    } else if (x %[]% c(10000101, 99991231)) {
+    } else if (x %[]% c(10000101L, 99991231L)) {
 
       # YYYYMMDD
       res <- DescTools::AddMonths(x = as.Date(as.character(x), "%Y%m%d"), n = n)
-      res <- DescTools::Year(res)*10000 + DescTools::Month(res)*100 + Day(res)
+      res <- DescTools::Year(res)*10000L + DescTools::Month(res)*100L + Day(res)
     }
 
     return(res)
@@ -3197,7 +3221,7 @@ axTicks.POSIXct <- function (side, x, at, format, labels = TRUE, ...) {
   if (!mat)
     x <- as.POSIXct(at)
   else x <- as.POSIXct(x)
-  range <- par("usr")[if (side%%2)
+  range <- par("usr")[if (side %% 2L)
     1L:2L
     else 3L:4L]
   d <- range[2L] - range[1L]
@@ -3350,10 +3374,11 @@ axTicks.Date <- function(side = 1, x, ...) {
     # the rows of the matrix rng
     rng <- rng[rep(1:nrow(rng), length.out = maxdim),]
 
-    res <- .Call("between_num_lrm", as.numeric(x), as.numeric(rng[,1]), as.numeric(rng[,2]), PACKAGE="DescTools")
+    res <- .Call("between_num_lrm", as.numeric(x), 
+                 as.numeric(rng[, 1L]), as.numeric(rng[, 2L]), PACKAGE="DescTools")
     res[is.na(x)] <- NA
 
-    return( res)
+    return( res )
 
   }
 
@@ -3362,10 +3387,12 @@ axTicks.Date <- function(side = 1, x, ...) {
     res <- .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]), PACKAGE="DescTools")
     res[is.na(x)] <- NA
   } else if(is.ordered(x)) {
-    res <- .Call("between_num_lr", as.numeric(x), as.numeric(match(rng[1], levels(x))), as.numeric(match(rng[2], levels(x))), PACKAGE="DescTools")
+    res <- .Call("between_num_lr", as.numeric(x), 
+                 as.numeric(match(rng[1L], levels(x))), 
+                 as.numeric(match(rng[2L], levels(x))), PACKAGE="DescTools")
     res[is.na(x)] <- NA
   }  else if(class(x) == "character")  {
-    res <- ifelse ( x >= rng[1] & x <= rng[2], TRUE, FALSE )
+    res <- ifelse ( x >= rng[1L] & x <= rng[2L], TRUE, FALSE )
   } else {
     res <- rep(NA, length(x))
   }
@@ -3382,9 +3409,10 @@ axTicks.Date <- function(side = 1, x, ...) {
     # recycle all params to maxdim
     x <- rep(x, length.out = maxdim)
     # the rows of the matrix rng
-    rng <- rng[rep(1:nrow(rng), length.out = maxdim),]
+    rng <- rng[rep(1L:nrow(rng), length.out = maxdim),]
 
-    res <- .Call("between_num_rm", as.numeric(x), as.numeric(rng[,1]), as.numeric(rng[,2]), PACKAGE="DescTools")
+    res <- .Call("between_num_rm", as.numeric(x), 
+                 as.numeric(rng[, 1L]), as.numeric(rng[, 2L]), PACKAGE="DescTools")
     res[is.na(x)] <- NA
 
     return( res)
@@ -3393,13 +3421,15 @@ axTicks.Date <- function(side = 1, x, ...) {
 
   if(is.numeric(x) || IsDate(x)) {
     # as.numeric still needed for casting integer to numeric!!
-    res <- .Call("between_num_r", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]), PACKAGE="DescTools")
+    res <- .Call("between_num_r", as.numeric(x), as.numeric(rng[1L]), as.numeric(rng[2L]), PACKAGE="DescTools")
     res[is.na(x)] <- NA
   } else if(is.ordered(x)) {
-    res <- .Call("between_num_r", as.numeric(x), as.numeric(match(rng[1], levels(x))), as.numeric(match(rng[2], levels(x))), PACKAGE="DescTools")
+    res <- .Call("between_num_r", as.numeric(x), 
+                 as.numeric(match(rng[1L], levels(x))), 
+                 as.numeric(match(rng[2L], levels(x))), PACKAGE="DescTools")
     res[is.na(x)] <- NA
   }  else if(class(x) == "character")  {
-    res <- ifelse ( x > rng[1] & x <= rng[2], TRUE, FALSE )
+    res <- ifelse ( x > rng[1L] & x <= rng[2L], TRUE, FALSE )
   } else {
     res <- rep(NA, length(x))
   }
@@ -3415,9 +3445,10 @@ axTicks.Date <- function(side = 1, x, ...) {
     # recycle all params to maxdim
     x <- rep(x, length.out = maxdim)
     # the rows of the matrix rng
-    rng <- rng[rep(1:nrow(rng), length.out = maxdim),]
+    rng <- rng[rep(1L:nrow(rng), length.out = maxdim),]
 
-    res <- .Call("between_num_lm", as.numeric(x), as.numeric(rng[,1]), as.numeric(rng[,2]), PACKAGE="DescTools")
+    res <- .Call("between_num_lm", as.numeric(x), 
+                 as.numeric(rng[,1L]), as.numeric(rng[,2L]), PACKAGE="DescTools")
     res[is.na(x)] <- NA
 
     return( res)
@@ -3426,13 +3457,16 @@ axTicks.Date <- function(side = 1, x, ...) {
 
   if(is.numeric(x) || IsDate(x)) {
     # as.numeric still needed for casting integer to numeric!!
-    res <- .Call("between_num_l", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]), PACKAGE="DescTools")
+    res <- .Call("between_num_l", as.numeric(x), 
+                 as.numeric(rng[1L]), as.numeric(rng[2L]), PACKAGE="DescTools")
     res[is.na(x)] <- NA
   } else if(is.ordered(x)) {
-    res <- .Call("between_num_l", as.numeric(x), as.numeric(match(rng[1], levels(x))), as.numeric(match(rng[2], levels(x))), PACKAGE="DescTools")
+    res <- .Call("between_num_l", as.numeric(x), 
+                 as.numeric(match(rng[1L], levels(x))), 
+                 as.numeric(match(rng[2L], levels(x))), PACKAGE="DescTools")
     res[is.na(x)] <- NA
   }  else if(class(x) == "character")  {
-    res <- ifelse ( x >= rng[1] & x < rng[2], TRUE, FALSE )
+    res <- ifelse ( x >= rng[1L] & x < rng[2L], TRUE, FALSE )
   } else {
     res <- rep(NA, length(x))
   }
@@ -3449,9 +3483,10 @@ axTicks.Date <- function(side = 1, x, ...) {
     # recycle all params to maxdim
     x <- rep(x, length.out = maxdim)
     # the rows of the matrix rng
-    rng <- rng[rep(1:nrow(rng), length.out = maxdim),]
+    rng <- rng[rep(1L:nrow(rng), length.out = maxdim),]
 
-    res <- .Call("between_num_m", as.numeric(x), as.numeric(rng[,1]), as.numeric(rng[,2]), PACKAGE="DescTools")
+    res <- .Call("between_num_m", as.numeric(x), 
+                 as.numeric(rng[,1L]), as.numeric(rng[,2L]), PACKAGE="DescTools")
     res[is.na(x)] <- NA
 
     return( res)
@@ -3461,13 +3496,16 @@ axTicks.Date <- function(side = 1, x, ...) {
 
   if(is.numeric(x) || IsDate(x)) {
     # as.numeric still needed for casting integer to numeric!!
-    res <- .Call("between_num_", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]), PACKAGE="DescTools")
+    res <- .Call("between_num_", as.numeric(x), 
+                 as.numeric(rng[1L]), as.numeric(rng[2L]), PACKAGE="DescTools")
     res[is.na(x)] <- NA
   } else if(is.ordered(x)) {
-    res <- .Call("between_num_", as.numeric(x), as.numeric(match(rng[1], levels(x))), as.numeric(match(rng[2], levels(x))), PACKAGE="DescTools")
+    res <- .Call("between_num_", as.numeric(x), 
+                 as.numeric(match(rng[1L], levels(x))), 
+                 as.numeric(match(rng[2L], levels(x))), PACKAGE="DescTools")
     res[is.na(x)] <- NA
   }  else if(class(x) == "character")  {
-    res <- ifelse ( x > rng[1] & x < rng[2], TRUE, FALSE )
+    res <- ifelse ( x > rng[1L] & x < rng[2L], TRUE, FALSE )
   } else {
     res <- rep(NA, length(x))
   }
@@ -3517,15 +3555,15 @@ axTicks.Date <- function(side = 1, x, ...) {
 `%like any%` <- function(x, pattern) {
 
   pattern <- sapply(pattern, function(z){
-    if (!substr(z, 1, 1) == "%") {
+    if (!substr(z, 1L, 1L) == "%") {
       z <- paste("^", z, sep="")
     } else {
-      z <- substr(z, 2, nchar(z) )
+      z <- substr(z, 2L, nchar(z) )
     }
     if (!substr(z, nchar(z), nchar(z)) == "%") {
       z <- paste(z, "$", sep="")
     } else {
-      z <- substr(z, 1, nchar(z)-1 )
+      z <- substr(z, 1L, nchar(z)-1L )
     }
     return(z)
   })
@@ -3558,57 +3596,57 @@ axTicks.Date <- function(side = 1, x, ...) {
 Interval <- function(x, y){
 
   # make sure that min is left and max right
-  x <- cbind(apply(rbind(x), 1, min), apply(rbind(x), 1, max))
-  y <- cbind(apply(rbind(y), 1, min), apply(rbind(y), 1, max))
+  x <- cbind(apply(rbind(x), 1L, min), apply(rbind(x), 1L, max))
+  y <- cbind(apply(rbind(y), 1L, min), apply(rbind(y), 1L, max))
 
   # replicate
   maxdim <- max(nrow(x), nrow(y))
-  x <- x[rep(1:nrow(x), length.out=maxdim), , drop=FALSE]
-  y <- y[rep(1:nrow(y), length.out=maxdim), , drop=FALSE]
+  x <- x[rep(1L:nrow(x), length.out=maxdim), , drop=FALSE]
+  y <- y[rep(1L:nrow(y), length.out=maxdim), , drop=FALSE]
 
   d <- numeric(maxdim)
-  idx <- y[,1] > x[,2]
-  d[idx] <- (y[idx,1] - x[idx,2])
-  idx <- y[,2] < x[,1]
-  d[idx] <- (y[idx,2] - x[idx,1])
+  idx <- y[, 1L] > x[, 2L]
+  d[idx] <- (y[idx, 1L] - x[idx, 2L])
+  idx <- y[, 2L] < x[, 1L]
+  d[idx] <- (y[idx, 2L] - x[idx, 1L])
 
   unname(d)
 }
 
 
 `%overlaps%` <- function(x, y) {
-  if(length(x) < 2) x <- rep(x, 2)
-  if(length(y) < 2) y <- rep(y, 2)
+  if(length(x) < 2L) x <- rep(x, 2L)
+  if(length(y) < 2L) y <- rep(y, 2L)
   return(!(max(x) < min(y) | min(x) > max(y)) )
 }
 
 Overlap <- function(x, y){
 
   # make sure that min is left and max right
-  x <- cbind(apply(rbind(x), 1, min), apply(rbind(x), 1, max))
-  y <- cbind(apply(rbind(y), 1, min), apply(rbind(y), 1, max))
+  x <- cbind(apply(rbind(x), 1L, min), apply(rbind(x), 1L, max))
+  y <- cbind(apply(rbind(y), 1L, min), apply(rbind(y), 1L, max))
 
   # replicate
   maxdim <- max(nrow(x), nrow(y))
-  x <- x[rep(1:nrow(x), length.out=maxdim), , drop=FALSE]
-  y <- y[rep(1:nrow(y), length.out=maxdim), , drop=FALSE]
+  x <- x[rep(1L:nrow(x), length.out=maxdim), , drop=FALSE]
+  y <- y[rep(1L:nrow(y), length.out=maxdim), , drop=FALSE]
 
   # old: replaced in 0.99.17 as it did not what it was expected to
   #
   # d <- (apply(x, 1, diff) + apply(y, 1, diff)) - pmin(x[,2] - y[,1], y[,2]- x[,1])
   # d[x[,1] > y[,2] | y[,1] > x[,2]] <- 0
 
-  d1 <- x[, 2]
-  idx <- x[, 2] > y[, 2]
-  d1[idx] <- y[idx, 2]
+  d1 <- x[, 2L]
+  idx <- x[, 2L] > y[, 2L]
+  d1[idx] <- y[idx, 2L]
 
-  d2 <- y[, 1]
-  idx <- x[, 1] > y[, 1]
-  d2[idx] <- x[idx, 1]
+  d2 <- y[, 1L]
+  idx <- x[, 1L] > y[, 1L]
+  d2[idx] <- x[idx, 1L]
 
   d <- d1 - d2
 
-  d[d <=0 ] <- 0
+  d[d <= 0L ] <- 0L
 
   unname(d)
 
@@ -3664,10 +3702,10 @@ Dummy <- function (x, method = c("treatment", "sum", "helmert", "poly", "full"),
   res <- as.matrix(res) # force res to be matrix, avoiding res being a vector if nlevels(x) = 2
 
   if(method=="full") {
-    dimnames(res) <- list(if(is.null(names(x))) 1:length(x) else names(x), levels(x))
+    dimnames(res) <- list(if(is.null(names(x))) 1L:length(x) else names(x), levels(x))
     attr(res, "base") <- NA
   } else {
-    dimnames(res) <- list(if(is.null(names(x))) 1:length(x) else names(x), levels(x)[-base])
+    dimnames(res) <- list(if(is.null(names(x))) 1L:length(x) else names(x), levels(x)[-base])
     attr(res, "base") <- levels(x)[base]
   }
   return(res)
@@ -3679,8 +3717,8 @@ Dummy <- function (x, method = c("treatment", "sum", "helmert", "poly", "full"),
 Coalesce <- function(..., method = c("is.na", "is.finite")) {
   # Returns the first element in x which is not NA
 
-  if(length(list(...)) > 1) {
-    if(all(lapply(list(...), length) > 1)){
+  if(length(list(...)) > 1L) {
+    if(all(lapply(list(...), length) > 1L)){
       x <- data.frame(..., stringsAsFactors = FALSE)
     } else {
       x <- unlist(list(...))
@@ -3764,6 +3802,7 @@ IsZero <-function(x, tol = sqrt(.Machine$double.eps), na.rm=FALSE) {
 
   if (na.rm)
     x <- x[!is.na(x)]
+  
   if(is.numeric(x))
     abs(x) < tol
   else
@@ -3782,7 +3821,7 @@ IsNumeric <- function (x, length.arg = Inf, integer.valued = FALSE, positive = F
         (if (positive) all(x > 0) else TRUE)) TRUE else FALSE
 }
 
-IsOdd <- function(x) x %% 2 == 1
+IsOdd <- function(x) x %% 2L == 1L
 
 
 IsDichotomous <- function(x, strict=FALSE, na.rm=FALSE) {
@@ -3790,9 +3829,9 @@ IsDichotomous <- function(x, strict=FALSE, na.rm=FALSE) {
     x <- x[!is.na(x)]
 
   if(strict)
-    length(unique(x)) == 2
+    length(unique(x)) == 2L
   else
-    length(unique(x)) <= 2
+    length(unique(x)) <= 2L
 }
 
 StrIsNumeric <- function(x){
@@ -3804,25 +3843,25 @@ StrIsNumeric <- function(x){
 
 
 IsPrime <- function(x) {
-  if (is.null(x) || length(x) == 0)
+  if (is.null(x) || length(x) == 0L)
     stop("Argument 'x' must be a nonempty vector or matrix.")
-  if (!is.numeric(x) || any(x < 0) || any(x != round(x)))
+  if (!is.numeric(x) || any(x < 0L) || any(x != round(x)))
     stop("All entries of 'x' must be nonnegative integers.")
 
   n <- length(x)
-  X <- x[1:n]
+  X <- x[1L:n]
   L <- logical(n)
   p <- DescTools::Primes(ceiling(sqrt(max(x))))
-  for (i in 1:n) {
-    L[i] <- all(X[i] %% p[p < X[i]] != 0)
+  for (i in 1L:n) {
+    L[i] <- all(X[i] %% p[p < X[i]] != 0L)
   }
-  L[X == 1 | X == 0] <- FALSE
+  L[X == 1 | X == 0L] <- FALSE
   dim(L) <- dim(x)
   return(L)
 }
 
 
-VecRot <- function(x, k = 1)  {
+VecRot <- function(x, k = 1L)  {
 
   if (k != round(k)) {
     k <- round(k)
@@ -3831,22 +3870,22 @@ VecRot <- function(x, k = 1)  {
 
   # just one shift:    (1:x %% x) + 1
   k <- k %% length(x)
-  rep(x, times=2)[(length(x) - k+1):(2*length(x)-k)]
+  rep(x, times=2L)[(length(x) - k+1L):(2L*length(x)-k)]
 }
 
 
 
-VecShift <- function(x, k = 1){
+VecShift <- function(x, k = 1L){
 
   if (k != round(k)) {
     k <- round(k)
     warning("'k' is not an integer")
   }
 
-  if(k < 0){
+  if(k < 0L){
     c(x[-k:length(x)], rep(NA, -k))
   } else {
-    c(rep(NA, k), x[1:(length(x)-k)])
+    c(rep(NA, k), x[1L:(length(x)-k)])
   }
 }
 
@@ -4721,23 +4760,30 @@ Format.default <- function(x, digits = NULL, sci = NULL
                    , fmt = NULL, align = NULL, width = NULL, lang = NULL,  eps = .Machine$double.eps, ...){
 
 
-  .format.pval <- function(x, eps){
+  .format.pval <- function(x, eps, digits=NULL){
     # format p-values  *********************************************************
     # this is based on original code from format.pval
 
+    if(is.null(digits))
+      digits <- NA
+    digits <- rep(digits, length.out=3)
+    
     r <- character(length(is0 <- x < eps))
     if (any(!is0)) {
       rr <- x <- x[!is0]
       expo <- floor(log10(ifelse(x > 0, x, 1e-50)))
       fixp <- (expo >= -3)
+      
       if (any(fixp))
-        rr[fixp] <- format(x[fixp], digits = 4)
+        rr[fixp] <- format(x[fixp], digits=Coalesce(digits[1], 4))
+      
       if (any(!fixp))
-        rr[!fixp] <- format(x[!fixp], digits=3, scientific=TRUE)
+        rr[!fixp] <- format(x[!fixp], digits=Coalesce(digits[2], 3), scientific=TRUE)
+      
       r[!is0] <- rr
     }
     if (any(is0)) {
-      r[is0] <- gettextf("< %s", format(eps, digits = 2))
+      r[is0] <- gettextf("< %s", format(eps, digits = Coalesce(digits[3], 2)))
     }
 
     return(r)
@@ -4757,7 +4803,7 @@ Format.default <- function(x, digits = NULL, sci = NULL
   }
 
   .format.pstars <- function(x)
-    paste(.format.pval(x, eps), .format.stars(x))
+    paste(.format.pval(x, eps, digits), .format.stars(x))
 
   .leading.zero <- function(x, n){
     # just add a given number of leading zeros
@@ -4863,18 +4909,21 @@ Format.default <- function(x, digits = NULL, sci = NULL
   #     sci <- Inf
   #   }
 
+  # if sci is not set at all, the default will be 0, which leads to all numbers being
+  # presented as scientific - this is definitely nonsense...
   if(is.null(sci))
-    sci <- getOption("scipen", default = 7)
+    sci <- Coalesce(NAIfZero(getOption("scipen")), 7) # default
+  
+  sci <- rep(sci, length.out=2)
 
   if(is.null(big.mark)) big.mark <- ""
 
 
-  if(is.null(na.form)) na.form <- "NA"
+  if(is.null(na.form)) na.form <- NA_real_
 
+  # store index of missing values in ina
   if ((has.na <- any(ina <- is.na(x))))
     x <- x[!ina]
-
-  sci <- rep(sci, length.out=2)
 
 
   if(is.function(fmt)){
@@ -4902,19 +4951,15 @@ Format.default <- function(x, digits = NULL, sci = NULL
     r <- .format.stars(x)
 
   } else if(fmt=="p"){
-
-    r <- .format.pval(x, eps)
+    r <- .format.pval(x, eps, digits)
 
   } else if(fmt=="p*"){
-
     r <- .format.pstars(x)
 
   } else if(fmt=="eng"){
-
     r <- .format.eng(x, digits=digits, leading=leading, zero.form=zero.form, na.form=na.form)
 
   } else if(fmt=="engabb"){
-
     r <- .format.engabb(x, digits=digits, leading=leading, zero.form=zero.form, na.form=na.form)
 
   } else if(fmt=="e"){
@@ -6226,6 +6271,10 @@ SetNames <- function (x, ...) {
   # see also setNames()
   # args <- match.call(expand.dots = FALSE)$...
   args <- list(...)
+  
+  if(is.null(names(args)))
+    names(args) <- "names"
+  
   if("colnames" %in% names(args))
     colnames(x) <- args[["colnames"]]
   if("rownames" %in% names(args))
@@ -6700,6 +6749,31 @@ Untable.default <- function(x, dimnames=NULL, type = NULL, rownames = NULL, coln
 #   x
 # }
 
+
+Quot <- function (x, lag = 1L, quotients = 1L, ...) {
+  
+  ismat <- is.matrix(x)
+  xlen <- if (ismat) 
+    dim(x)[1L]
+  else length(x)
+  if (length(lag) != 1L || length(quotients) > 1L || lag < 
+      1L || quotients < 1L) 
+    stop("'lag' and 'quotients' must be integers >= 1")
+  if (lag * quotients >= xlen) 
+    return(x[0L])
+  r <- unclass(x)
+  i1 <- -seq_len(lag)
+  if (ismat) 
+    for (i in seq_len(quotients)) 
+      r <- r[i1, , drop = FALSE] / r[-nrow(r):-(nrow(r) - lag + 1L), , drop = FALSE]
+  else 
+    for (i in seq_len(quotients)) 
+      r <- r[i1] / r[-length(r):-(length(r) - lag + 1L)]
+  
+  class(r) <- oldClass(x)
+  r
+  
+}
 
 
 
@@ -11327,6 +11401,16 @@ PlotCashFlow <- function(x, y, xlim=NULL, labels=y){
 }
 
 
+SaveAs <- function(x, objectname, file, ...){
+
+  local({ assign(x = objectname, value = x)
+    save(list=objectname, file=file, ...)
+  })
+
+}
+
+
+
 
 ###
 
@@ -13975,6 +14059,12 @@ XLCurrReg <- function(cell){
 }
 
 
+XLNamedReg <- function (x) {
+  structure(x, class = "XLNamedReg")
+}
+
+
+
 
 A1ToZ1S1 <- function(x){
   xlcol <- c( LETTERS
@@ -14028,7 +14118,8 @@ XLGetRange <- function (file = NULL, sheet = NULL, range = NULL, as.data.frame =
         # there might be more than 1 single region, split by ;
         # (this might be a problem for other locales)
       }
-    }
+    } 
+    
   } else {
     xl <- GetNewXL()
     wb <- xl[["Workbooks"]]$Open(file)
@@ -14039,16 +14130,21 @@ XLGetRange <- function (file = NULL, sheet = NULL, range = NULL, as.data.frame =
 
     if(is.null(range))
       range <- xl$Cells(1,1)$CurrentRegion()$Address(FALSE, FALSE)
-    else if(class(range) == "XLCurrReg"){
-      # take only the first cell of a given range
-      zs <- A1ToZ1S1(range)[[1]]
-      range <- xl$Cells(zs[1], zs[2])$CurrentRegion()$Address(FALSE, FALSE)
-    }
 
     ws <- wb$Sheets(sheet)$select()
-
   }
-
+  
+  if(class(range) == "XLCurrReg"){
+    # take only the first cell of a given range
+    zs <- A1ToZ1S1(range)[[1]]
+    range <- xl$Cells(zs[1], zs[2])$CurrentRegion()$Address(FALSE, FALSE)
+  } else if(class(range) == "XLNamedReg"){
+    # get the address of the named region
+    sel <- xl$ActiveWorkbook()$Names(as.character(range))$RefersToRange()
+    range <- sapply(1:sel$Areas()$Count(), function(i) sel$Areas()[[i]]$Address(FALSE, FALSE) )
+    
+  }
+  
   # recycle skip
   skip <- rep(skip, length.out=length(range))
 
@@ -14059,7 +14155,7 @@ XLGetRange <- function (file = NULL, sheet = NULL, range = NULL, as.data.frame =
     rr <- xl$Range(xl$Cells(zs[[1]][1], zs[[1]][2]), xl$Cells(zs[[2]][1], zs[[2]][2]) )
     # resize and offset range, if skip != 0
     if(skip[i] != 0)
-      rr <- rr$Resize(rr$Rows()$Count() - 1)$Offset(skip[i], 0)
+      rr <- rr$Resize(rr$Rows()$Count() - skip[i])$Offset(skip[i], 0)
 
     lst[[i]] <- rr[["Value2"]]
     # implement na.strings:
@@ -14114,7 +14210,10 @@ XLGetRange <- function (file = NULL, sheet = NULL, range = NULL, as.data.frame =
      gettextf(paste(shQuote(range), collapse=",")),
      as.data.frame, header, stringsAsFactors)
 
-  if(!is.null(file)) xl$Quit()  # only quit, if a new XL-instance was created before
+  if(!is.null(file)) {
+    xl$ActiveWorkbook()$Close(savechanges=FALSE)
+    xl$Quit()  # only quit, if a new XL-instance was created before
+  }
 
   if(echo)
     cat(attr(lst,"call"))

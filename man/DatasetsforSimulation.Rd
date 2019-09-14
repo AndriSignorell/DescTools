@@ -18,12 +18,14 @@ tarot
 roulette
 }
 \value{
-\code{cards} is a \code{data.frame} with two columns named \code{rank} and \code{suit}
+\code{cards} is a \code{data.frame} with three columns named \code{card}, \code{rank} and \code{suit}
 
-\code{tarot} is a \code{data.frame} with three columns named \code{rank}, \code{suit} and \code{desc}
+\code{tarot} is a \code{data.frame} with four columns named \code{card}, \code{rank}, \code{suit} and \code{desc}
 
-\code{roulette} is a \code{data.frame} with two columns named \code{num} and \code{col}
+\code{roulette} is a \code{data.frame} with seven columns named \code{num} and \code{col}, \code{parity}, \code{highlow}, \code{dozens}, \code{column}, \code{pocketrange}
 }
+
+\seealso{\code{\link{Sample}}, \code{\link{sample}()}}
 
 \examples{
 head(cards)
@@ -31,13 +33,14 @@ head(tarot)
 head(roulette)
 
 # drawing 5 cards
-sample(do.call(paste, cards), 5)
+sample(cards$card, 5)
 
-# spin the wheel
-sample(do.call(paste, roulette), 1)
+# spin the wheel by using the DescTools::Sample() for sampling
+# rows from a data frame
+Sample(roulette, size=1)
 
-# simulate the evening in Las Vegas
-sample(do.call(paste, roulette), 32, replace=TRUE)
+# simulate the evening in Las Vegas with 10 games
+Sample(roulette, 10, replace=TRUE)
 }
 
 \keyword{datasets}
