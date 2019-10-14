@@ -21,7 +21,6 @@ The following constants are available in DescTools:
     \item \code{day.abb}: the three-letter abbreviations for the
     English day names (Mon, Tue, Wed, Thu, Fri, Sat, Sun);
   }
-
 }
 
 \seealso{\code{\link{month.name}}, \code{\link{month.abb}}

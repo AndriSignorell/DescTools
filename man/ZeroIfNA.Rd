@@ -17,7 +17,7 @@
 ZeroIfNA(x)
 NAIfZero(x)
 
-BlankIfNA(x)
+BlankIfNA(x, blank="")
 NAIfBlank(x)
 
 Impute(x, FUN = function(x) median(x, na.rm = TRUE))
@@ -25,6 +25,9 @@ Impute(x, FUN = function(x) median(x, na.rm = TRUE))
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{the vector x, whose NAs should be overwritten with 0s.
+%%     ~~Describe \code{x} here~~
+}
+  \item{blank}{a character to be used for "blank". Default is an empty string ("").
 %%     ~~Describe \code{x} here~~
 }
   \item{FUN}{the name of a function to be used as imputation. Can as well be a self defined function or a constant value.

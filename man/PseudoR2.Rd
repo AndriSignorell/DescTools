@@ -5,7 +5,7 @@
 \title{Pseudo R2 Statistics
   %%  ~~function to do ... ~~
 }
-\description{The goodness of fit of the logistic regression model can be expressed by some variants of pseudo R squared statistics, most of which being based on the deviance of the model.
+\description{Although there's no commonly accepted agreement on how to assess the fit of a logistic regression, there are some approaches. The goodness of fit of the logistic regression model can be expressed by some variants of pseudo R squared statistics, most of which being based on the deviance of the model.
   %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
@@ -16,15 +16,19 @@ PseudoR2(x, which = NULL)
   \item{x}{the \code{glm}, \code{polr} or \code{multinom} model object to be evaluated.
     %%     ~~Describe \code{x} here~~
   }
-  \item{which}{character, one out of \code{"McFadden"},\code{"AldrichNelson"}, \code{"McFaddenAdj"}, \code{"Nagelkerke"},
-                                        \code{"CoxSnell"}, \code{"Effron"}, \code{"McKelveyZavoina"},  \code{"Tjur"}, \code{"all"}. Partial matching is supported.}
+  \item{which}{character, one out of \code{"McFadden"}, \code{"McFaddenAdj"}, \code{"CoxSnell"},  \code{"Nagelkerke"}, \code{"AldrichNelson"},
+ \code{"VeallZimmermann"},  \code{"Efron"}, \code{"McKelveyZavoina"},  \code{"Tjur"}, \code{"all"}. Partial matching is supported.}
 }
 \details{Cox and Snell's \eqn{R^2} is based on the log likelihood for the model compared to the log likelihood for a baseline model. However, with categorical outcomes, it has a theoretical maximum value of less than 1, even for a "perfect" model.
 
-  Nagelkerke's \eqn{R^2} is an adjusted version of the Cox and Snell's \eqn{R^2} that adjusts the scale of the statistic to cover the full range from 0 to 1.
+  Nagelkerke's \eqn{R^2} (also sometimes called Cragg-Uhler) is an adjusted version of the Cox and Snell's \eqn{R^2} that adjusts the scale of the statistic to cover the full range from 0 to 1.
 
   McFadden's \eqn{R^2} is another version, based on the log-likelihood kernels for the intercept-only model and the full estimated model.
   %%  ~~ If necessary, more details than the description above ~~
+
+Veall and Zimmermann concluded that from a set of six widely used measures the measure suggested by McKelvey and Zavoina had the closest correspondance to ordinary least square R2. The Aldrich-Nelson pseudo-R2 with the Veall-Zimmermann correction is the best approximation of the McKelvey-Zavoina pseudo-R2. Efron, Aldrich-Nelson, McFadden and Nagelkerke approaches severely underestimate the "true R2".
+
+
 }
 \value{the value of the specific statistic. \code{AIC}, \code{LogLik}, \code{LogLikNull} and \code{G2} will only be reported with option \code{"all"}.
   %%  ~Describe the value returned
@@ -33,13 +37,14 @@ PseudoR2(x, which = NULL)
   %%  \item{comp2 }{Description of 'comp2'}
   %% ...
 
-  \item{AldrichNelson}{AldrichNelson pseudo-\eqn{R^2}}
   \item{McFadden}{McFadden pseudo-\eqn{R^2}}
   \item{McFaddenAdj}{McFadden adjusted pseudo-\eqn{R^2}}
   \item{CoxSnell}{Cox and Snell pseudo-\eqn{R^2} (also known as ML pseudo-\eqn{R^2})}
   \item{Nagelkerke}{Nagelkerke pseudo\eqn{R^2} (also known as CraggUhler \eqn{R^2})}
+  \item{AldrichNelson}{AldrichNelson pseudo-\eqn{R^2}}
+  \item{VeallZimmermann}{VeallZimmermann pseudo-\eqn{R^2}}
   \item{McKelveyZavoina}{McKelvey and Zavoina pseudo-\eqn{R^2}}
-  \item{Effron}{Effron pseudo-\eqn{R^2}}
+  \item{Efron}{Efron pseudo-\eqn{R^2}}
   \item{Tjur}{Tjur's pseudo-\eqn{R^2}}
   \item{AIC}{Akaike's information criterion}
   \item{LogLik}{log-Likelihood for the fitted model (by maximum likelihood)}
@@ -67,6 +72,9 @@ Tjur, T. (2009) Coefficients of determination in logistic regression models -
               a new proposal: The coefficient of discrimination. \emph{The American
               Statistician},
               63(4): 366-372
+
+Veall, M.R., & Zimmermann, K.F. (1992) Evalutating Pseudo-R2's fpr binary probit models.  \emph{Quality&Quantity}, 28, pp. 151-164
+
 }
 \author{Andri Signorell <andri@signorell.net>
 %%  ~~who you are~~

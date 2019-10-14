@@ -11,7 +11,7 @@
 \title{Format Numbers and Dates
 %%  ~~function to do ... ~~
 }
-\description{Formatting numbers in R often degenerates into a major intellectual challenge for us little guys. We have several functions available and quite often it's hard to work out which one to use, when an uncommon option is needed.
+\description{Formatting numbers in R often degenerates into a major intellectual challenge for us little minds down here in the Valley of Tears. We have several functions available and quite often it's hard to work out which one to use, when an uncommon option is needed.
 This function wraps those functions and tries to offer a simpler, less technical, but still flexible interface.
 
 There's also an easygoing interface for format templates, defined as a list consisting of any accepted format features. In this way templates can be defined outside and may easily be changed or modified later.
@@ -20,19 +20,23 @@ There's also an easygoing interface for format templates, defined as a list cons
 \usage{
 Format(x, digits = NULL, sci = NULL, big.mark = NULL,
        leading = NULL, zero.form = NULL, na.form = NULL,
-       fmt = NULL, align = NULL, width = NULL, lang = NULL, eps = .Machine$double.eps, ...)
+       fmt = NULL, align = NULL, width = NULL, lang = NULL, 
+       eps = .Machine$double.eps, ...)
 
 \method{Format}{table}(x, digits = NULL, sci = NULL, big.mark = NULL,
        leading = NULL, zero.form = NULL, na.form = NULL,
-       fmt = NULL, align = NULL, width = NULL, lang = NULL, eps = .Machine$double.eps, ...)
+       fmt = NULL, align = NULL, width = NULL, lang = NULL, 
+       eps = .Machine$double.eps, ...)
 
 \method{Format}{matrix}(x, digits = NULL, sci = NULL, big.mark = NULL,
        leading = NULL, zero.form = NULL, na.form = NULL,
-       fmt = NULL, align = NULL, width = NULL, lang = NULL, eps = .Machine$double.eps, ...)
+       fmt = NULL, align = NULL, width = NULL, lang = NULL, 
+       eps = .Machine$double.eps, ...)
 
 \method{Format}{default}(x, digits = NULL, sci = NULL, big.mark = NULL,
        leading = NULL, zero.form = NULL, na.form = NULL,
-       fmt = NULL, align = NULL, width = NULL, lang = NULL, eps = .Machine$double.eps, ...)
+       fmt = NULL, align = NULL, width = NULL, lang = NULL, 
+       eps = .Machine$double.eps, ...)
 
 Fmt(...)
 
@@ -49,7 +53,7 @@ as.CDateFmt(fmt)
 %%     ~~Describe \code{digits} here~~
 }
   \item{sci}{integer. The power of 10 to be set when deciding to print numeric values in exponential notation. Fixed notation will be preferred unless the number is larger than 10^scipen. If just one value is set it will be used for the left border 10^(-scipen) as well as for the right one (10^scipen). A negative and a positive value can also be set independently. Default is
-  \code{getOption("scipen")}.
+  \code{getOption("scipen")}, whereas \code{scipen=0} is overridden.
 %%     ~~Describe \code{sci} here~~
 }
   \item{big.mark}{character; if not empty used as mark between every 3 decimals before the decimal point. Default is "" (none).
@@ -74,7 +78,7 @@ This argument is send directly to the function \code{\link{StrAlign}()} as argum
 %%     ~~Describe \code{sep} here~~
 }
 
-  \item{width}{integer, the defined width of the strings.
+  \item{width}{integer, the defined fixed width of the strings.
 %%     ~~Describe \code{width} here~~
 }
   \item{lang}{optional value setting the language for the months and daynames. Can be either \code{"local"} for current locale or \code{"engl"} for english. If left to \code{NULL}, the DescToolsOption \code{"lang"} will be searched for and if not found \code{"local"} will be taken as default.
@@ -110,7 +114,7 @@ Date codes \tab  \cr
 For numeric values there are the following special codes:
 \tabular{lll}{
 Code \tab  \tab  \cr
-\code{e} \tab scientific \tab  forces scientific representation of x. The number of digits, alignment
+\code{e} \tab scientific \tab  forces scientific representation of x, e.g. 3.141e-05. The number of digits, alignment
 \cr \tab \tab and zero values are respected.\cr
 \tab\cr
 

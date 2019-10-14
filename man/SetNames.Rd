@@ -15,7 +15,7 @@ SetNames(x, ...)
   \item{x}{an object for which a names attribute will be meaningful
 %%     ~~Describe \code{object} here~~
 }
-  \item{...}{the names to be assigned to the object. This should be a character vector of names named \code{rownames}, \code{colnames} or \code{names}. Setting \code{rownames=NULL} would remove existing rownames. All kind of names can be changed at the same time.
+  \item{...}{the names to be assigned to the object. This should be a character vector of names named \code{rownames}, \code{colnames} or \code{names}. Setting \code{rownames=NULL} would remove existing rownames. All kind of names can be changed at the same time. Default would be \code{names}.
 %%     ~~Describe \code{nm} here~~
 }
 }
@@ -33,8 +33,15 @@ SetNames(x, ...)
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
+SetNames(1:5, names=letters[1:5])
+
+# the default, if no argument names are provided, is "names"
+SetNames(1:5, letters[1:5])
+
 tab <- table(d.pizza$driver, d.pizza$wine_delivered)
-SetNames(BinomCI(tab[,1], rowSums(tab)), rownames=rownames(tab))
+# rownames and columnnames can be set at the same time
+SetNames(BinomCI(tab[,1], rowSums(tab)), 
+         rownames=rownames(tab), colnames=c("perc", "lci", "uci"))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

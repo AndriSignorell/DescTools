@@ -4,20 +4,43 @@ DescTools 0.99.29 (2019-05-17)
 
 NEW FUNCTIONS ADDED:
   * StrSpell() can translate a string to NATO phonetic alphabet or Morse codes.
+  * XLNamedReg() can be used to import named regions in Excel by giving the
+    name or the sequence number. This can be used in connection with XLGetRange().
+  * WithOptions() is an interesting approach to evaluate expressions under temporary 
+    set options.
+  * With SaveAs() it's possible to save an R object under a different name.
+  * Quot() calculates successive divisions in the same manner as diff() returns 
+    successive differences.
+  
 
 UPDATED FUNCTIONS:
   * PlotCandlestick() gets a more appropriate x-axis algorithm.
-  * XLGetRange() is given a new argument skip in order to be able to skip a number
-    of the first rows in a selected range.
+  * XLGetRange() is given a new argument "skip" in order to be able to skip a 
+    given number of heading rows in a selected range.
+  * YearDay will start with 1 on the first of January instead of 0 as so far.    
+  * Several corrections in help texts.
+  * roulette, cards, tarot have been extended
+  * Format() will ignore scipen=0 by default, use scipen=1 in future.
+  * Format() will pass through the digits argument for formatting p-values (fmt="p").
+  * SetNames() will use "names" for unnamed arguments as default instead of returning the 
+    unchanged input vector.
+  * BlankIfNA() gets a new argument for defining what is meant with "blank".  
+  * PseudoR2() is using reformulate() instead of update() in order to improve
+    interoperability within the tidyverse, especially support tibbles created 
+    by purr::map. (Credits to Inferrator)
+  * ConvUnit() will now convert time units to weeks and vice versa.     
 
 BUGFIXES:
   * plot(Desc()) for xtabs will work now.
+  * OddsRatio for glms would have misplaced confidence intervals, if 
+    a coefficient in the model could not be estimated and was set to NA.
+  * Calculation of AldrichNelson Pseudo R2 has been corrected (credits to Chirok Han).
 
 DEPRECATED:
-  * FileOpenCmd(), SaveAsDlg() and ModelDlg(), ColPicker(), ColorDlg(),
+  * FileOpenCmd(), SaveAsDlg(), ModelDlg(), ColPicker(), ColorDlg(),
     ImportFileDlg(), PlotPar(), PlotMar(), PlotPch(), SelectVarDlg(), Xplore()
-    have been transfered to the package DescToolsAddIns, as these functions
-    only make sense in GUI context.
+    have been transferred to the package DescToolsAddIns, as these functions
+    only make sense in a GUI context.
 
 
 
