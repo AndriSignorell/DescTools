@@ -146,46 +146,57 @@ The dataset <code>roulette</code> contains the standard sample space for one spi
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>cards</code> is a <code>data.frame</code> with two columns named <code>rank</code> and <code>suit</code></p>
-<p><code>tarot</code> is a <code>data.frame</code> with three columns named <code>rank</code>, <code>suit</code> and <code>desc</code></p>
-<p><code>roulette</code> is a <code>data.frame</code> with two columns named <code>num</code> and <code>col</code></p>
+    <p><code>cards</code> is a <code>data.frame</code> with three columns named <code>card</code>, <code>rank</code> and <code>suit</code></p>
+<p><code>tarot</code> is a <code>data.frame</code> with four columns named <code>card</code>, <code>rank</code>, <code>suit</code> and <code>desc</code></p>
+<p><code>roulette</code> is a <code>data.frame</code> with seven columns named <code>num</code> and <code>col</code>, <code>parity</code>, <code>highlow</code>, <code>dozens</code>, <code>column</code>, <code>pocketrange</code></p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='Sample.html'>Sample</a></code>, <code><a href='https://rdrr.io/r/base/sample.html'>sample</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>cards</span>)</div><div class='output co'>#&gt;   rank suit
-#&gt; 1    2 club
-#&gt; 2    3 club
-#&gt; 3    4 club
-#&gt; 4    5 club
-#&gt; 5    6 club
-#&gt; 6    7 club</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>tarot</span>)</div><div class='output co'>#&gt;   rank  suit desc
-#&gt; 1    1 wands &lt;NA&gt;
-#&gt; 2    2 wands &lt;NA&gt;
-#&gt; 3    3 wands &lt;NA&gt;
-#&gt; 4    4 wands &lt;NA&gt;
-#&gt; 5    5 wands &lt;NA&gt;
-#&gt; 6    6 wands &lt;NA&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>roulette</span>)</div><div class='output co'>#&gt;   num   col
-#&gt; 1   0 white
-#&gt; 2  26 black
-#&gt; 3   3   red
-#&gt; 4  35 black
-#&gt; 5  12   red
-#&gt; 6  28 black</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>cards</span>)</div><div class='output co'>#&gt;     card rank suit
+#&gt; 1 2-club    2 club
+#&gt; 2 3-club    3 club
+#&gt; 3 4-club    4 club
+#&gt; 4 5-club    5 club
+#&gt; 5 6-club    6 club
+#&gt; 6 7-club    7 club</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>tarot</span>)</div><div class='output co'>#&gt;     card rank suit desc
+#&gt; 1 1-wand    1 wand &lt;NA&gt;
+#&gt; 2 2-wand    2 wand &lt;NA&gt;
+#&gt; 3 3-wand    3 wand &lt;NA&gt;
+#&gt; 4 4-wand    4 wand &lt;NA&gt;
+#&gt; 5 5-wand    5 wand &lt;NA&gt;
+#&gt; 6 6-wand    6 wand &lt;NA&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>roulette</span>)</div><div class='output co'>#&gt;   num   col parity highlow dozens column     pocketrange
+#&gt; 1   0 green   &lt;NA&gt;    &lt;NA&gt;     NA     NA        jeu zero
+#&gt; 2  26 black   even    high      3     35        jeu zero
+#&gt; 3   3   red    odd     low      1     36        jeu zero
+#&gt; 4  35 black    odd    high      3     35        jeu zero
+#&gt; 5  12   red   even     low      1     36        jeu zero
+#&gt; 6  28 black   even    high      3     34 voisins du zero</div><div class='input'>
 <span class='co'># drawing 5 cards</span>
-<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span>(<span class='no'>paste</span>, <span class='no'>cards</span>), <span class='fl'>5</span>)</div><div class='output co'>#&gt; [1] "Q spade"   "9 diamond" "3 heart"   "Q diamond" "4 club"   </div><div class='input'>
-<span class='co'># spin the wheel</span>
-<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span>(<span class='no'>paste</span>, <span class='no'>roulette</span>), <span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "7 red"</div><div class='input'>
-<span class='co'># simulate the evening in Las Vegas</span>
-<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span>(<span class='no'>paste</span>, <span class='no'>roulette</span>), <span class='fl'>32</span>, <span class='kw'>replace</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;  [1] "31 black" "0 white"  "26 black" "9 red"    "35 black" "1 red"   
-#&gt;  [7] "16 red"   "16 red"   "21 red"   "6 black"  "12 red"   "23 red"  
-#&gt; [13] "11 black" "26 black" "2 black"  "2 black"  "34 red"   "4 black" 
-#&gt; [19] "12 red"   "14 red"   "24 black" "6 black"  "17 black" "7 red"   
-#&gt; [25] "3 red"    "36 red"   "16 red"   "30 red"   "32 red"   "12 red"  
-#&gt; [31] "27 red"   "6 black" </div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='no'>cards</span>$<span class='no'>card</span>, <span class='fl'>5</span>)</div><div class='output co'>#&gt; [1] "Q-spade"   "9-diamond" "3-heart"   "Q-diamond" "4-club"   </div><div class='input'>
+<span class='co'># spin the wheel by using the DescTools::Sample() for sampling</span>
+<span class='co'># rows from a data frame</span>
+<span class='fu'><a href='Sample.html'>Sample</a></span>(<span class='no'>roulette</span>, <span class='kw'>size</span><span class='kw'>=</span><span class='fl'>1</span>)</div><div class='output co'>#&gt;   num col parity highlow dozens column     pocketrange
+#&gt; 7   7 red    odd     low      1     34 voisins du zero</div><div class='input'>
+<span class='co'># simulate the evening in Las Vegas with 10 games</span>
+<span class='fu'><a href='Sample.html'>Sample</a></span>(<span class='no'>roulette</span>, <span class='fl'>10</span>, <span class='kw'>replace</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;      num   col parity highlow dozens column       pocketrange
+#&gt; 12    31 black    odd    high      3     34         orphelins
+#&gt; 1      0 green   &lt;NA&gt;    &lt;NA&gt;     NA     NA          jeu zero
+#&gt; 2     26 black   even    high      3     35          jeu zero
+#&gt; 11     9   red    odd     low      1     36         orphelins
+#&gt; 4     35 black    odd    high      3     35          jeu zero
+#&gt; 15     1   red    odd     low      1     34         orphelins
+#&gt; 17    16   red   even     low      2     34 tiers du cylindre
+#&gt; 17.1  16   red   even     low      2     34 tiers du cylindre
+#&gt; 33    21   red    odd    high      2     36   voisins du zero
+#&gt; 28     6 black   even     low      1     36         orphelins</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#value">Value</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
@@ -199,7 +210,7 @@ The dataset <code>roulette</code> contains the standard sample space for one spi
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>

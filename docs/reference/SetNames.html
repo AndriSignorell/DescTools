@@ -152,7 +152,7 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>the names to be assigned to the object. This should be a character vector of names named <code>rownames</code>, <code>colnames</code> or <code>names</code>. Setting <code>rownames=NULL</code> would remove existing rownames. All kind of names can be changed at the same time.
+      <td><p>the names to be assigned to the object. This should be a character vector of names named <code>rownames</code>, <code>colnames</code> or <code>names</code>. Setting <code>rownames=NULL</code> would remove existing rownames. All kind of names can be changed at the same time. Default would be <code>names</code>.
 <!-- %%     ~~Describe \code{nm} here~~ --></p></td>
     </tr>
     </table>
@@ -171,8 +171,15 @@
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>tab</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='no'>d.pizza</span>$<span class='no'>driver</span>, <span class='no'>d.pizza</span>$<span class='no'>wine_delivered</span>)
-<span class='fu'>SetNames</span>(<span class='fu'><a href='BinomCI.html'>BinomCI</a></span>(<span class='no'>tab</span>[,<span class='fl'>1</span>], <span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>rowSums</a></span>(<span class='no'>tab</span>)), <span class='kw'>rownames</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>tab</span>))</div><div class='output co'>#&gt;                 est    lwr.ci    upr.ci
+    <pre class="examples"><div class='input'><span class='fu'>SetNames</span>(<span class='fl'>1</span>:<span class='fl'>5</span>, <span class='kw'>names</span><span class='kw'>=</span><span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>5</span>])</div><div class='output co'>#&gt; a b c d e 
+#&gt; 1 2 3 4 5 </div><div class='input'>
+<span class='co'># the default, if no argument names are provided, is "names"</span>
+<span class='fu'>SetNames</span>(<span class='fl'>1</span>:<span class='fl'>5</span>, <span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>5</span>])</div><div class='output co'>#&gt; a b c d e 
+#&gt; 1 2 3 4 5 </div><div class='input'>
+<span class='no'>tab</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='no'>d.pizza</span>$<span class='no'>driver</span>, <span class='no'>d.pizza</span>$<span class='no'>wine_delivered</span>)
+<span class='co'># rownames and columnnames can be set at the same time</span>
+<span class='fu'>SetNames</span>(<span class='fu'><a href='BinomCI.html'>BinomCI</a></span>(<span class='no'>tab</span>[,<span class='fl'>1</span>], <span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>rowSums</a></span>(<span class='no'>tab</span>)),
+         <span class='kw'>rownames</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>tab</span>), <span class='kw'>colnames</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"perc"</span>, <span class='st'>"lci"</span>, <span class='st'>"uci"</span>))</div><div class='output co'>#&gt;                perc       lci       uci
 #&gt; Butcher   0.9042553 0.8279588 0.9488080
 #&gt; Carpenter 0.7925926 0.7402915 0.8366847
 #&gt; Carter    0.9177489 0.8751179 0.9467131
@@ -202,7 +209,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>

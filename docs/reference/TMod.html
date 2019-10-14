@@ -315,7 +315,29 @@
 <span class='no'>r.glm1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>Survived</span> ~ <span class='no'>Class</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>d.titanic</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='st'>"binomial"</span>)
 <span class='no'>r.glm2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>Survived</span> ~ <span class='no'>.</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>d.titanic</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='st'>"binomial"</span>)
 
-<span class='fu'>TMod</span>(<span class='no'>r.glm0</span>, <span class='no'>r.glm1</span>, <span class='no'>r.glm2</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt; <span class='error'>Error in is.data.frame(data): object 'd.titanic' not found</span></div><div class='input'>
+<span class='fu'>TMod</span>(<span class='no'>r.glm0</span>, <span class='no'>r.glm1</span>, <span class='no'>r.glm2</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt;             coef r.glm0     r.glm1     r.glm2    
+#&gt; 1    (Intercept) -1 ***     1 ***      1 *       
+#&gt; 2       Class2nd      -     -1 ***     -1 ***    
+#&gt; 3       Class3rd      -     -2 ***     -2 ***    
+#&gt; 4      ClassCrew      -     -2 ***     -1 ***    
+#&gt; 5      SexFemale      -          -     2 ***     
+#&gt; 6       AgeAdult      -          -     -1 ***    
+#&gt; 7            ---                                 
+#&gt; 8         logLik  -1384.728  -1294.278  -1105.031
+#&gt; 9        logLik0  -1384.728  -1384.728  -1384.728
+#&gt; 10            G2     -0.000    180.901    559.396
+#&gt; 11           AIC   2771.457   2596.555   2222.061
+#&gt; 12           BIC   2777.153   2619.342   2256.241
+#&gt; 13             N   2201       2201       2201    
+#&gt; 14      McFadden      0.000      0.065      0.202
+#&gt; 15   McFaddenAdj     -0.001      0.062      0.198
+#&gt; 16    Nagelkerke      0.000      0.110      0.314
+#&gt; 17      CoxSnell      0.000      0.079      0.224
+#&gt; 18 Kendall Tau-a      0.000      0.124      0.227
+#&gt; 19  Somers Delta      0.000      0.283      0.519
+#&gt; 20         Gamma      -          0.386      0.623
+#&gt; 21         Brier      0.219      0.200      0.162
+#&gt; 22             C      -          0.693      0.811</div><div class='input'>
 <span class='co'># plot OddsRatios</span>
 <span class='no'>d.pima</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>MASS</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/MASS/man/Pima.tr.html'>Pima.tr2</a></span>
 
@@ -323,12 +345,13 @@
 <span class='no'>r.b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>type</span> ~ <span class='no'>npreg</span> + <span class='no'>glu</span> + <span class='no'>bp</span> + <span class='no'>skin</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>d.pima</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='no'>binomial</span>)
 <span class='no'>r.c</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>type</span> ~ <span class='no'>npreg</span> + <span class='no'>age</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>d.pima</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='no'>binomial</span>)
 
-<span class='no'>or.a</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='OddsRatio.html'>OddsRatio</a></span>(<span class='no'>r.a</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt; <span class='error'>Error in is.data.frame(data): object 'd.pima' not found</span></div><div class='input'><span class='no'>or.b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='OddsRatio.html'>OddsRatio</a></span>(<span class='no'>r.b</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt; <span class='error'>Error in is.data.frame(data): object 'd.pima' not found</span></div><div class='input'><span class='no'>or.c</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='OddsRatio.html'>OddsRatio</a></span>(<span class='no'>r.c</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt; <span class='error'>Error in is.data.frame(data): object 'd.pima' not found</span></div><div class='input'>
+<span class='no'>or.a</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='OddsRatio.html'>OddsRatio</a></span>(<span class='no'>r.a</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='input'><span class='no'>or.b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='OddsRatio.html'>OddsRatio</a></span>(<span class='no'>r.b</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='input'><span class='no'>or.c</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='OddsRatio.html'>OddsRatio</a></span>(<span class='no'>r.c</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='input'>
 
 <span class='co'># create the model table</span>
-<span class='no'>tm</span> <span class='kw'>&lt;-</span> <span class='fu'>TMod</span>(<span class='kw'>m_A</span><span class='kw'>=</span><span class='no'>or.a</span>, <span class='kw'>m_B</span><span class='kw'>=</span><span class='no'>or.b</span>, <span class='kw'>m_C</span><span class='kw'>=</span><span class='no'>or.c</span>)</div><div class='output co'>#&gt; <span class='error'>Error in TMod(m_A = or.a, m_B = or.b, m_C = or.c): object 'or.a' not found</span></div><div class='input'><span class='co'># .. and plotit</span>
+<span class='no'>tm</span> <span class='kw'>&lt;-</span> <span class='fu'>TMod</span>(<span class='kw'>m_A</span><span class='kw'>=</span><span class='no'>or.a</span>, <span class='kw'>m_B</span><span class='kw'>=</span><span class='no'>or.b</span>, <span class='kw'>m_C</span><span class='kw'>=</span><span class='no'>or.c</span>)
+<span class='co'># .. and plotit</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>tm</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"ORs for Models A, B, C"</span>,
-     <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>15</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>hred</span>, <span class='no'>hblue</span>), <span class='kw'>xlim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.5</span>, <span class='fl'>1.5</span>), <span class='kw'>panel.first</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span>(<span class='kw'>v</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"grey"</span>))</div><div class='output co'>#&gt; <span class='error'>Error in plot(tm, main = "ORs for Models A, B, C", pch = 15, col = c(hred,     hblue), xlim = c(0.5, 1.5), panel.first = abline(v = 1, col = "grey")): object 'tm' not found</span></div></pre>
+     <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>15</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>hred</span>, <span class='no'>hblue</span>), <span class='kw'>xlim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.5</span>, <span class='fl'>1.5</span>), <span class='kw'>panel.first</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span>(<span class='kw'>v</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"grey"</span>))</div><div class='output co'>#&gt; <span class='error'>Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): plot.new has not been called yet</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -353,7 +376,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>

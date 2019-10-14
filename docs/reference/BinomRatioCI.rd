@@ -269,7 +269,7 @@ binomial variate.  <em>Biometrika</em> 73(2): 425-435.</p>
     </ul>
 
     <h2>Author</h2>
-    <p>Ken Aho &lt;kenaho1 [al] gmail [dot] com&gt;</p>
+    <p>Ken Aho &lt;kenaho1@gmail.com&gt;</p>
   </div>
 </div>
 
@@ -280,7 +280,7 @@ binomial variate.  <em>Biometrika</em> 73(2): 425-435.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>
