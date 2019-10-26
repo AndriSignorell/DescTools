@@ -20,7 +20,7 @@ Mode(x, na.rm = FALSE)
 Andri Signorell <andri@signorell.net>
 }
 
-\note{Consider using \kbd{density(x)$x[which.max(density(x)$y)]} for quantitative data or alternatively use \kbd{hist()}.\cr
+\note{Consider using \code{density(x)$x[which.max(density(x)$y)]} for quantitative data or alternatively use \code{hist()}.\cr
 Another interesting idea:\cr
 \preformatted{
 peak <- optimize(function(x, model) predict(model, data.frame(x = x)),

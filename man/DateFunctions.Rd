@@ -61,7 +61,7 @@ LastDayOfMonth(x)
   \item{x}{the date to be evaluated.
 %%     ~~Describe \code{x} here~~
 }
-  \item{fmt}{format string, defines how the month or the weekday are to be formatted. Defaults to \kbd{"m"}, resp. \kbd{"d"}. Is ignored for other functions.
+  \item{fmt}{format string, defines how the month or the weekday are to be formatted. Defaults to \code{"m"}, resp. \code{"d"}. Is ignored for other functions.
 %%     ~~Describe \code{format} here~~
 }
   \item{value}{new value
