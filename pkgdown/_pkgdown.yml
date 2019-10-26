@@ -41,7 +41,7 @@ reference:
     - "%like%" 
     - "%nin%" 
     - "%overlaps%" 
-    
+
 # ~ Transformations & Recoding -----------------------------------------------
   - title: "Transformations & Recoding"
     contents: 
@@ -59,13 +59,13 @@ reference:
     - RoundTo
     - Winsorize
     - ZeroIfNA # - NAIfZero # - Impute
-    
+
     # Transform: numeric to factor
     - CutQ
-    
+
     # Transform: factor to factor
     - Recode
-    
+
     # Transform: factor to numeric
     - Dummy
 
@@ -79,7 +79,7 @@ reference:
     - reorder.factor
     - Rev
     - Sort
-    - SortMixed#-  - OrderMixed
+    - SortMixed #-  - OrderMixed
     - VecRot # - VecShift
 
 # ~ Change Size -------------------------------------------------------------
@@ -88,7 +88,7 @@ reference:
     - Abind
     - Append
     - Trim
-    
+
 # ~ Reshape Data -------------------------------------------------------------
   - title: "Reshape Data"
     contents: 
@@ -97,7 +97,8 @@ reference:
     - ToLong
     - ToWide
     - TextToTable
-    
+    - MultMerge
+
 # ~ Names and Metadata -------------------------------------------------------
   - title: "Names and Metadata"
     contents: 
@@ -105,7 +106,7 @@ reference:
     - SetNames
     - Label
     - Unit
-    
+
 # ~ String Functions -----------------------------------------------------------
   - title: "String Functions"
     contents:
@@ -161,7 +162,7 @@ reference:
     - SecToHms
     - Overlap# - Interval
     - Zodiac
-    
+
 # ~ Conversion functions -------------------------------------------------------
   - title: "Conversion Functions"
     contents:
@@ -191,7 +192,6 @@ reference:
     - ColToRgb
     - RgbToCol
     - ConvUnit
-    
 
 # Plotting ===================================================================
 # ~ Plots (high level) ---------------------------------------------------------
@@ -265,7 +265,7 @@ reference:
     - SpreadOut
     - Stamp
     - TitleRect
-    
+
 # ~ Colors ---------------------------------------------------------------------
   - title: "Colors"
     contents:
@@ -275,7 +275,7 @@ reference:
     - Pal
     - SetAlpha
     - TextContrastColor
-    
+
 # Statistical Analysis =======================================================
 
 # ~ Exporatory Analysis & Reporting --------------------------------------------
@@ -284,6 +284,7 @@ reference:
     - Abstract
     - CatTable
     - CountCompCases
+    - CompleteColumns
     - Desc
     - ExpFreq
     - Fmt
@@ -298,13 +299,14 @@ reference:
     - TOne
     - TwoGroups
 
-
 # ~ Utilities for Statistical Analysis ---------------------------------------
   - title: "Utilities for Statistical Analysis"
     contents:
+    - Contrasts
+    - BootCI
     - DoBy
     - PairApply
-    
+
 # ~ Statistics: Central tendency -----------------------------------------------
   - title: "Statistics: Central Tendency"
     contents:
@@ -319,14 +321,14 @@ reference:
     - Gmean
     - Hmean
     - TukeyBiweight
-      
+
 # ~ Statistics: Location -------------------------------------------------------
   - title: "Statistics: Location"
     contents:
     - Quantile
     - HuberM
     - HodgesLehmann
-      
+
 # ~ Statistics: Dispersion / Variation -----------------------------------------
   - title: "Statistics: Dispersion / Variation"
     contents:
@@ -338,7 +340,7 @@ reference:
     - Range
     - CoefVar
     - Gsd
-      
+
 # ~ Statistics: Shape of Distribtuon -------------------------------------------
   - title: "Statistics: Shape of Distribtuon"
     contents:
@@ -421,13 +423,13 @@ reference:
 # ~ Statistics: Effect Size and Model Assesmant --------------------------------
   - title: "Statistics: Effect Size and Model Assesmant"
     contents:
-      
+
     - CohenD
     - EtaSq  
-      
+
     - BrierScore
     - Cstat
-    
+
     - MAE
     - MAPE
     - SMAPE
@@ -438,22 +440,10 @@ reference:
     - Conf
     - Sens
     - Spec
-    
+
     - PseudoR2
     - VIF
     - StdCoef
-    
-    
-# ~ Statistics: Other ----------------------------------------------------------
-  - title: "Statistics: Other"
-    contents:
-      
-    - Contrasts
-    
-    - BootCI
-
-    - Strata
-    - RobScale
 
 # ~ Statistical Test ---------------------------------------------------------
   - title: "Statistical Tests"
@@ -473,28 +463,28 @@ reference:
     - RunsTest
     - DurbinWatsonTest
     - BartelsRankTest
-    
+
     - JarqueBeraTest
     - AndersonDarlingTest
     - CramerVonMisesTest
     - LillieTest
     - PearsonTest
     - ShapiroFranciaTest
-    
+
     - MHChisqTest
     - StuartMaxwellTest
     - LehmacherTest
     - CochranArmitageTest
     - BreslowDayTest
     - WoolfTest
-    
+
     - PostHocTest
     - ScheffeTest
     - DunnTest
     - DunnettTest
     - ConoverTest
     - NemenyiTest
-    
+
     - HotellingsT2Test
     - YuenTTest
     - BarnardTest
@@ -522,7 +512,6 @@ reference:
      - dRevWeibull
 #     - _RevGumbelExp
 
-    
 # ~ Finance Functions --------------------------------------------------------
   - title: "Finance Functions"
     contents:
@@ -538,7 +527,6 @@ reference:
 
 # In/Out =====================================================================
 
-
 # Word, Excel, PowerPoint ----------------------------------------------------
   - title: "Word, Excel, PowerPoint, SAS: In/Out"
     contents:
@@ -548,7 +536,8 @@ reference:
     - GetNewPP
     - GetNewWrd
     - GetNewXL
-    - IsValidWrd
+#   - IsValidWrd
+    - IsValidHwnd
     - ParseSASDatalines
     - PpAddSlide
     - PpPlot
@@ -576,18 +565,19 @@ reference:
     - XLGetRange
     - XLGetWorkbook
     - XLKill
+    - XLSaveAs
     - XLView
-    
+
 # Sampling and Data Generation -----------------------------------------------
   - title: "Sampling and Data Generation"
     contents: 
     - Sample
-    - Permn # - CombN - CombSet
+    - Strata
+    - Permn # - CombN  # - CombSet
     - SampleTwins
-    - RndPairs #- RndWord
+    - RndPairs # - RndWord
     - Some
 
-    
 # Tools and Utilities ========================================================
   - title: "Tools and Utilities"
     contents:
@@ -642,20 +632,21 @@ reference:
     - GeomSn
     - Midx
     - Primes
+    - RobScale
     - UnirootAll
-    
+
 # Data =======================================================================
-# ~ Datasets -------------------------------------------------------------------
-  - title: "Datasets"
+# ~ Datasets & Reference Data ------------------------------------------------
+  - title: "Datasets & Reference Data"
     contents:
+
+# ~ Datasets
     - CourseData
     - d.pizza
     - d.whisky
     - d.diamonds
-    
-# ~ Reference Data -----------------------------------------------------------
-  - title: "Reference Data"
-    contents:
+
+# ~ Reference Data 
     - d.units
     - cards
     - d.countries

@@ -6,7 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Check Word Pointer — IsValidWrd • DescTools</title>
+<title>Find Complete Columns
+<!-- %%  ~~function to do ... ~~ --> — CompleteColumns • DescTools</title>
 
 
 <!-- jquery -->
@@ -37,9 +38,10 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Check Word Pointer — IsValidWrd" />
-<meta property="og:description" content="Check if a pointer points to a valid and running Word instance. The function does this by
-trying to get the current selection of the Word instance and returns FALSE if it's NULL." />
+<meta property="og:title" content="Find Complete Columns
+<!-- %%  ~~function to do ... ~~ --> — CompleteColumns" />
+<meta property="og:description" content="Return either the columnnames or a logical vector indicating which columns are complete, i.e., have no missing values.
+" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -72,7 +74,7 @@ trying to get the current selection of the Word instance and returns FALSE if it
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.29</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.30</span>
       </span>
     </div>
 
@@ -127,35 +129,49 @@ trying to get the current selection of the Word instance and returns FALSE if it
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Check Word Pointer</h1>
+    <h1>Find Complete Columns
+<!-- %%  ~~function to do ... ~~ --></h1>
     
-    <div class="hidden name"><code>IsValidWrd.Rd</code></div>
+    <div class="hidden name"><code>CompleteColumns.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Check if a pointer points to a valid and running Word instance. The function does this by
-trying to get the current selection of the Word instance and returns <code>FALSE</code> if it's NULL.</p>
+    <p>Return either the columnnames or a logical vector indicating which columns are complete, i.e., have no missing values.
+<!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>IsValidWrd</span>(<span class='kw'>wrd</span> <span class='kw'>=</span> <span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span>(<span class='st'>"lastWord"</span>))</pre>
+    <pre class="usage"><span class='fu'>CompleteColumns</span>(<span class='no'>x</span>, <span class='kw'>which</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>wrd</th>
-      <td><p>the pointer to a word instance as created by <code><a href='GetNewWrd.html'>GetNewWrd()</a></code> or <code><a href='GetCurrWrd.html'>GetCurrWrd()</a></code>.
-  Default is the last created pointer stored in <code><a href='DescToolsOptions.html'>DescToolsOptions("lastWord")</a></code>.</p></td>
+      <th>x</th>
+      <td><p>a data.frame containing the data
+<!-- %%     ~~Describe \code{x} here~~ --></p></td>
+    </tr>
+    <tr>
+      <th>which</th>
+      <td><p>logical, determining if the names of the variables should be returned or a if a logical vector indicating which columns are complete should be returned.
+<!-- %%     ~~Describe \code{which} here~~ --></p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>logical value</p>
+    <p>A logical vector specifying which columns have no missing values across the entire sequence.
+<!-- %%  ~Describe the value returned -->
+<!-- %%  If it is a LIST, use -->
+<!-- %%  \item{comp1 }{Description of 'comp1'} -->
+<!-- %%  \item{comp2 }{Description of 'comp2'} -->
+<!-- %% ... --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='GetCurrWrd.html'>GetCurrWrd</a></code>()</p></div>
+    <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/NA.html'>is.na</a></code>,  <code><a href='https://rdrr.io/r/stats/na.fail.html'>na.omit</a></code>,  <code><a href='https://rdrr.io/r/stats/complete.cases.html'>complete.cases</a></code>
+<!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>CompleteColumns</span>(<span class='no'>d.pizza</span>)</div><div class='output co'>#&gt; <span class='error'>Error in CompleteColumns(d.pizza): could not find function "CompleteColumns"</span></div><div class='input'><span class='fu'>CompleteColumns</span>(<span class='no'>d.pizza</span>, <span class='kw'>which</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in CompleteColumns(d.pizza, which = FALSE): could not find function "CompleteColumns"</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -163,10 +179,12 @@ trying to get the current selection of the Word instance and returns <code>FALSE
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
       <li><a href="#see-also">See also</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
     <h2>Author</h2>
-    <p>Andri Signorell &lt;andri [at] signorell [dot] net&gt;</p>
+    <p>Andri Signorell &lt;andri [at] signorell [.] net&gt;
+<!-- %%  ~~who you are~~ --></p>
   </div>
 </div>
 
