@@ -11,7 +11,7 @@ status](https://www.r-pkg.org/badges/version-last-release/DescTools)](https://CR
 v2+](https://img.shields.io/badge/License-GPL%20v2+-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
-[![Updated-on](https://img.shields.io/badge/Updated%20on-2019--10--14-yellowgreen.svg)](/commits/master)
+[![Updated-on](https://img.shields.io/badge/Updated%20on-2019--10--27-yellowgreen.svg)](/commits/master)
 [![Travis build
 status](https://travis-ci.org/forked-packages/DescTools.svg?branch=master)](https://travis-ci.org/forked-packages/DescTools)
 
