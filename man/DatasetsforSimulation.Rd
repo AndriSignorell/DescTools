@@ -35,6 +35,9 @@ head(roulette)
 # drawing 5 cards
 sample(cards$card, 5)
 
+# drawing 5 cards with jokers
+sample(c(cards$card, rep("Joker", 3)), 5)
+
 # spin the wheel by using the DescTools::Sample() for sampling
 # rows from a data frame
 Sample(roulette, size=1)

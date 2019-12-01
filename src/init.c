@@ -62,6 +62,7 @@ extern SEXP _DescTools_dgompertz_work(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _DescTools_pgompertz_work(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _DescTools_check_gompertz(SEXP, SEXP);
 extern SEXP _DescTools_fastMode(SEXP, SEXP);
+extern SEXP _DescTools_fastModeX(SEXP, SEXP);
 extern SEXP pKolmogorov2x(SEXP, SEXP);
 
 
@@ -99,6 +100,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"_DescTools_dgompertz_work", (DL_FUNC) &_DescTools_dgompertz_work, 4},
   {"_DescTools_check_gompertz", (DL_FUNC) &_DescTools_check_gompertz, 2},
   {"_DescTools_fastMode",       (DL_FUNC) &_DescTools_fastMode, 2},
+  {"_DescTools_fastModeX",       (DL_FUNC) &_DescTools_fastModeX, 2},
   {"between_num_",             (DL_FUNC) &between_num_,             3},
   {"between_num_l",            (DL_FUNC) &between_num_l,            3},
   {"between_num_lm",           (DL_FUNC) &between_num_lm,           3},

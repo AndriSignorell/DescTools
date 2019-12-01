@@ -10,6 +10,12 @@
 
 #include <R.h> 
 #include <Rdefines.h>
+#include <Rinternals.h>
+
+
+SEXP isnil(SEXP pointer) {
+  return ScalarLogical(!R_ExternalPtrAddr(pointer));
+}
 
 
 SEXP rskew(SEXP x, SEXP mean)

@@ -54,3 +54,4 @@ for(i in seq(10, 24, 2))
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ print }
+\keyword{MS-Office}

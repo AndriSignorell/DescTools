@@ -15,7 +15,7 @@ in a specified sheet. This is helpful, whenever pathologically scattered data on
 }
 \usage{
 XLGetRange(file = NULL, sheet = NULL, range = NULL, as.data.frame = TRUE,
-           header = FALSE, stringsAsFactors = FALSE, echo = FALSE, datecols = NA,
+           header = FALSE, stringsAsFactors = FALSE, echo = FALSE,
            na.strings = NULL, skip = 0)
 
 XLGetWorkbook(file, compactareas = TRUE)
@@ -45,8 +45,8 @@ as this is probably the common use of this function.}
 \item{stringsAsFactors}{logical. Should character columns be coerced to factors? The default is FALSE, which will return character vectors.}
 \item{echo}{logical. If set to \code{TRUE}, the function will print the full command used, such that it can be copied into the R-script for future use.}
 
-\item{datecols}{a character or integer vector, defining which columns in Excel are of date type and should directly be converted to Date columns in R. Ignored if \code{as.data.frame} is \code{FALSE}.}
 \item{na.strings}{a character vector of strings which are to be interpreted as \code{NA} values. Blank fields are always considered to be missing values. Default is \code{NULL}, meaning none.}
+
 
 \item{compactareas}{logical, defining if areas should be returned by \code{XLGetWorkbook} as list or as matrix (latter is default).}
 \item{cell}{range of the left uppe cell, when current region should be used. }
@@ -119,4 +119,5 @@ as.data.frame(do.call(rbind, lst), stringsAsFactors = FALSE)
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ manip }
+\keyword{MS-Office}
 

@@ -17,7 +17,7 @@ GetCurrXL()
 \value{a handle (pointer) to the running Word, resp. Excel instance. 
 }
 \note{Closing an instance does not update the value of the pointer. So it may contain an invalid address. 
-Whether the pointer is still valid can be checked by \code{\link{IsValidWrd}}. }
+Whether the pointer is still valid can be checked by \code{\link{IsValidHwnd}}. }
 
 \note{This does unfortunately not work with RDCOMClient (but it would with rcom)! Any better idea out there?}
 
@@ -26,7 +26,7 @@ Andri Signorell <andri@signorell.net>
 %%  ~~who you are~~
 }
 
-\seealso{\code{\link{GetNewWrd}}, \code{\link{IsValidWrd}}
+\seealso{\code{\link{GetNewWrd}}, \code{\link{IsValidHwnd}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
@@ -36,7 +36,7 @@ x <- rnorm(100)
 
 wrd <- GetCurrWrd()
 
-if(IsValidWrd(wrd)){ 
+if(IsValidHwnd(wrd)){ 
   Desc(x, wrd=wrd)
 } else {
   print("GetCurrWrd: no running word instance found...")

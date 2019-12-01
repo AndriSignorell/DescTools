@@ -211,7 +211,6 @@ A grouped list of the functions:
 \link{PlotWeb}    \tab  Create a web plot \cr
 \link{PlotTernary}    \tab  Create a triangle or ternary plot \cr
 \link{PlotMiss}    \tab  Plot missing values \cr
-\link{PlotDev}       \tab      Simple convenience wrapper for producing TIF-Files \cr
 \link{PlotECDF}       \tab     Plot empirical cumulative distribution function \cr
 \link{PlotLinesA}       \tab      Plot the columns of one matrix against the columns of another \cr
 \link{PlotLog}       \tab     Create a plot with logarithmic axis and log grid  \cr
@@ -394,7 +393,7 @@ _RevWeibull   \tab      Reverse Weibull distribution (\link{dRevWeibull})\cr
 \link{GetNewWrd}, \link{GetNewXL}, \link{GetNewPP}     \tab   Create a new Word, Excel or PowerPoint Instance  \cr
 \link{GetCurrWrd}, \link{GetCurrXL}, \link{GetCurrPP}    \tab  Get a handle to a running Word, Excel or PowerPoint instance \cr
 \link{WrdKill}, \link{XLKill}       \tab      Ends a (possibly hidden) Word/Excel process \cr
-\link{IsValidWrd}       \tab  Check if the handle to a Word instance is valid or outdated \cr
+\link{IsValidHwnd}       \tab  Check if the handle to a MS Office application is valid or outdated \cr
 \link{WrdCaption}    \tab Insert a title in Word   \cr
 \link{WrdFont}   \tab  Get and set the font for the current selection in Word \cr
 \link{WrdParagraphFormat}    \tab Get and set the paragraph format \cr
@@ -464,7 +463,7 @@ HWZ University of Applied Sciences in Business Administration Zurich.\cr
 
 R is a community project. This can be seen from the fact that this package includes R source code and/or documentation previously published by (in alphabetical order): \cr
 
-Ken Aho, Andreas Alfons, Nanina Anderegg, Tomas Aragon, Antti Arppe, Adrian Baddeley, Kamil Barton, Ben Bolker, Hans W. Borchers, Frederico Caeiro, Stephane Champely, Daniel Chessel, Leanne Chhay, Clint Cummins, Michael Dewey, Harold C. Doran, Stephane Dray, Charles Dupont, Dirk Eddelbuettel, Jeff Enos, Claus Ekstrom, Martin Elff, Kamil Erguler, Richard W. Farebrother, John Fox, Romain Francois, Michael Friendly, Tal Galili, Matthias Gamer, Joseph L. Gastwirth, Yulia R. Gel, Juergen Gross, Gabor Grothendieck, Frank E. Harrell Jr, Richard Heiberger, Michael Hoehle, Christian W. Hoffmann, Soeren Hojsgaard, Torsten Hothorn, Markus Huerzeler, Wallace W. Hui, Pete Hurd, Rob J. Hyndman, Pablo J. Villacorta Iglesias, Christopher Jackson, Matthias Kohl, Mikko Korpela, Max Kuhn, Detlew Labes, Duncan Temple Lang, Friederich Leisch, Jim Lemon, Dong Li, Martin Maechler, Arni Magnusson, Daniel Malter, George Marsaglia, John Marsaglia, Alina Matei, David Meyer, Weiwen Miao, Giovanni Millo, Yongyi Min, David Mitchell, Markus Naepflin, Daniel Navarro, Henric Nilsson, Klaus Nordhausen, Derek Ogle, Hong Ooi, Nick Parsons, Sandrine Pavoine, Tony Plate, Roland Rapold, William Revelle, Tyler Rinker, Brian D. Ripley, Caroline Rodriguez, Nathan Russell, Nick Sabbe, Venkatraman E. Seshan, Greg Snow, Michael Smithson, Karline Soetaert, Werner A. Stahel, Alec Stephenson, Mark Stevenson, Matthias Templ, Terry Therneau, Yves Tille, Adrian Trapletti, Joshua Ulrich, Kevin Ushey, Jeremy VanDerWal, Bill Venables, John Verzani, Gregory R. Warnes, Stefan Wellek, Hadley Wickham, Rand R. Wilcox, Peter Wolf, Daniel Wollschlaeger, Thomas Yee, Achim Zeileis
+Ken Aho, Andreas Alfons, Nanina Anderegg, Tomas Aragon, Antti Arppe, Adrian Baddeley, Kamil Barton, Ben Bolker, Hans W. Borchers, Frederico Caeiro, Stephane Champely, Daniel Chessel, Leanne Chhay, Clint Cummins, Michael Dewey, Harold C. Doran, Stephane Dray, Charles Dupont, Dirk Eddelbuettel, Jeff Enos, Claus Ekstrom, Martin Elff, Kamil Erguler, Richard W. Farebrother, John Fox, Romain Francois, Michael Friendly, Tal Galili, Matthias Gamer, Joseph L. Gastwirth, Yulia R. Gel, Juergen Gross, Gabor Grothendieck, Frank E. Harrell Jr, Richard Heiberger, Michael Hoehle, Christian W. Hoffmann, Soeren Hojsgaard, Torsten Hothorn, Markus Huerzeler, Wallace W. Hui, Pete Hurd, Rob J. Hyndman, Pablo J. Villacorta Iglesias, Christopher Jackson, Matthias Kohl, Mikko Korpela, Max Kuhn, Detlew Labes, Duncan Temple Lang, Friederich Leisch, Jim Lemon, Dong Li, Martin Maechler, Arni Magnusson, Daniel Malter, George Marsaglia, John Marsaglia, Alina Matei, David Meyer, Weiwen Miao, Giovanni Millo, Yongyi Min, David Mitchell, Franziska Mueller, Markus Naepflin, Daniel Navarro, Henric Nilsson, Klaus Nordhausen, Derek Ogle, Hong Ooi, Nick Parsons, Sandrine Pavoine, Tony Plate, Roland Rapold, William Revelle, Tyler Rinker, Brian D. Ripley, Caroline Rodriguez, Nathan Russell, Nick Sabbe, Venkatraman E. Seshan, Greg Snow, Michael Smithson, Karline Soetaert, Werner A. Stahel, Alec Stephenson, Mark Stevenson, Matthias Templ, Terry Therneau, Yves Tille, Adrian Trapletti, Joshua Ulrich, Kevin Ushey, Jeremy VanDerWal, Bill Venables, John Verzani, Gregory R. Warnes, Stefan Wellek, Hadley Wickham, Rand R. Wilcox, Peter Wolf, Daniel Wollschlaeger, Thomas Yee, Achim Zeileis
 
 Special thanks go to Beat Bruengger, Mathias Frueh, Daniel Wollschlaeger for their valuable contributions and testing.
 

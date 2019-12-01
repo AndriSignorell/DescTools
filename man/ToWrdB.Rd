@@ -9,7 +9,7 @@
 }
 \usage{
 ToWrdB(x, font = NULL, ..., wrd = DescToolsOptions("lastWord"), 
-        bookmark = gettextf("b\%s", sample(1e9, 1)))
+        bookmark = gettextf("bmt\%s", round(runif(1, min = 0.1) * 1e+09)))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

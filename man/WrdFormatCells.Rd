@@ -77,3 +77,4 @@ WrdFormatCells(wt, rstart=c(3,1), rend=c(4,3),
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{print }
+\keyword{MS-Office}

@@ -72,7 +72,8 @@ Andri Signorell <andri@signorell.net>, \code{ToXL()} is based on code of Duncan 
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-\dontrun{# Windows-specific example
+\dontrun{
+# Windows-specific example
 XLView(d.diamonds)
 
 # edit an existing data.frame in MS-Excel, make changes and save there, return the filename
@@ -121,11 +122,10 @@ xl$Cells()$CurrentRegion()[["EntireRow"]]$AutoFit()
 
 sheet <- xl$Sheets()$Add()
 sheet[["name"]] <- "whisky"
-ToXL(d.whisky[1:10, 1:10], xl$Cells(1,1))
-
-}
+ToXL(d.whisky[1:10, 1:10], xl$Cells(1,1))}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ manip }
 
+\keyword{MS-Office}

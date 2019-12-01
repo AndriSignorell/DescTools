@@ -3,14 +3,14 @@
 
 \title{Is a Specific Argument in the Dots-Arguments?
 }
-\description{Returns \code{TRUE} if a specific named argument was given in the dots.
+\description{Returns the value of a specific named argument if it was comprised in the dots or a default value, if it wasn't.
 }
 \usage{
 InDots(..., arg, default)
 }
 
 \arguments{
-  \item{\dots}{the dots arguments of the function whose arguments are to be checked.
+  \item{\dots}{the dots arguments to be checked.
 }
   \item{arg}{the name of argument to test for.
 }

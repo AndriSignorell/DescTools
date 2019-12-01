@@ -59,3 +59,4 @@ WrdUpdateBookmark("chap_b", "Goto chapter B and set text")
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ print }
+\keyword{MS-Office}

@@ -8,25 +8,54 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-AUC(x, y, method = c("trapezoid", "step", "spline"), na.rm = FALSE)
+AUC(x, y, from = min(x, na.rm = TRUE), to = max(x, na.rm = TRUE), 
+    method = c("trapezoid", "step", "spline", "linear"), 
+    absolutearea = FALSE, subdivisions = 100, na.rm = FALSE, ...) 
+
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x, y}{the xy-points of the curve
 %%     ~~Describe \code{x} here~~
 }
-  \item{method}{can be \code{"trapezoid"} (default), \code{"step"} or \code{"spline"}.
+  \item{method}{
+  The type of interpolation. Can be \code{"trapezoid"} (default), \code{"step"}, \code{"linear"} or \code{"spline"}.
+  The value "spline" results in the area under the natural cubic spline interpolation.
 %%     ~~Describe \code{type} here~~
 }
-  \item{na.rm}{logical, indicating whether \code{NA} values should be stripped before the computation proceeds. In this case only the complete.cases of x and y will be used. \code{na.rm} defaults to \code{FALSE}. 
+  \item{from}{The value from where to start calculating the area under the
+    curve. Defaults to the smallest x value.}
+  
+  \item{to}{The value from where to end the calculation of the area under the
+    curve. Defaults to the greatest x value.}
+  
+  \item{absolutearea}{A logical value that determines if negative
+    areas should be added to the total area under the curve.  By
+    default the auc function subtracts areas that have negative y
+    values. Set \code{absolutearea=TRUE} to _add_ the absolute value of the negative areas to the total area. Ignored if \code{method} is not \code{spline}.}
+  
+  \item{subdivisions}{an integer telling how many subdivisions should be used for integrate (for non-linear approximations). Ignored if \code{method} is not \code{spline}.}
+  
+  \item{na.rm}{logical, indicating whether \code{NA} values should be stripped before the computation proceeds. In this case only the complete.cases of x and y will be used. \code{na.rm} defaults to \code{FALSE}.}
+  
+  \item{\dots}{additional arguments passed on to approx (for linear approximations). In particular rule can be set to determine how values outside the range of x is handled.}
+
 %%     ~~Describe \code{na.rm} here~~
-}
+
 }
 \details{If method is set to \kbd{"trapezoid"} then the curve is formed by connecting all points by a direct line (composite trapezoid rule). If \kbd{"step"} is chosen then a stepwise connection of two points is used.
-For calculating the area under a spline interpolation the \code{\link{splinefun}} function  is used in combination
-  with \code{\link{integrate}}. \cr
-The AUC function will handle unsorted x values (by sorting x) and ties for the x values (by ignoring duplicates).
+
+
+  For linear interpolation the \code{AUC()} function computes the area under the curve
+  using the composite trapezoid rule.  For area under a spline interpolation,
+  \code{AUC()} uses the splinefun function in combination with the integrate to
+  calculate a numerical integral. 
+  
+  The \code{AUC()} function can handle unsorted time
+  values (by sorting x), missing observations, ties for the x values (by ignoring duplicates), and integrating over
+  part of the area or even outside the area.
 %%  ~~ If necessary, more details than the description above ~~
+
 }
 \value{
 Numeric value of the area under the curve.

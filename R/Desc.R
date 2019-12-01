@@ -7,7 +7,7 @@ Desc <- function (x, ..., main=NULL, plotit=NULL, wrd = NULL) {
     UseMethod("Desc")
 
   else {
-    if(!IsValidWrd(wrd))
+    if(!IsValidHwnd(wrd))
       warning("wrd is not a valid handle to a running Word instance.")
 
     else {
@@ -245,8 +245,13 @@ Desc.data.frame <- function (x, main = NULL, plotit=NULL, enum = TRUE, sep=NULL,
 
 Desc.list <- function (x, main=NULL, plotit=NULL, enum = TRUE, sep=NULL, ...) {
 
+  xname <- deparse(substitute(x))
+  
   # header for the data.frame of the list
 
+  if(is.null(names(x)))
+    names(x) <- seq_along(x)
+  
   # default main titles if main is left to NULL
   def.main <- is.null(main)
   if (def.main)
@@ -271,11 +276,13 @@ Desc.list <- function (x, main=NULL, plotit=NULL, enum = TRUE, sep=NULL, ...) {
 
   header <- list(str   = .CaptOut(
                  Str(x, list.len = Inf)),
-                 xname = deparse(substitute(x)),
+                 xname = xname,
                  label = Label(x),
                  class = "header",
                  sep = sep,
-                 main  = gettextf("Describe %s (%s):", deparse(substitute(x)), class(x))
+#                 main  = gettextf("Describe %s (%s):", deparse(substitute(x)), class(x))
+# we might be too late for substituting here... ?
+                 main  = gettextf("Describe %s (%s):", xname, class(x))
              )
   # class(header) <- "Desc"
 
@@ -412,6 +419,18 @@ calcDesc.numeric   <- function(x, n, maxrows = NULL, ...) {
     # get std dev here
     sdx <- sqrt(psum$sum2 / (n-1))
 
+    # get the mode
+    modex <- Mode(x)
+    
+    # check for remarkably frequent values in a numeric variable
+    # say the most frequent value has significantly more than 5% from the total sample
+    modefreq_crit <- binom.test(attr(modex, "freq"), n = n, p = 0.05, alternative = "greater")
+    if(modefreq_crit$p.value < 0.05)
+      modefreq_crit <- gettextf("heap(?): remarkable frequency (%s) for the mode(s) (= %s)", 
+                                Format(modefreq_crit$estimate, fmt="%", digits=1), paste(modex, collapse=", "))
+    else
+      modefreq_crit <- NA
+    
     # we display frequencies, when unique values <=12 else we set maxrows = 0
     # which will display extreme values as high-low list
     if(is.null(maxrows)){
@@ -443,6 +462,8 @@ calcDesc.numeric   <- function(x, n, maxrows = NULL, ...) {
                 kurt    = kurtx,
                 small   = data.frame(val=psum$small_val, freq=psum$small_freq),
                 large   = data.frame(val=psum$large_val, freq=psum$large_freq),
+                mode    = modex,
+                modefreq_crit= modefreq_crit,
                 freq    = freq,
                 maxrows = maxrows,
                 x       = x
@@ -910,6 +931,11 @@ print.Desc.numeric  <- function(x, digits = NULL, ...) {
     if (x$maxrows < nrow(x$freq))
       cat("... etc.\n [list output truncated]\n\n")
     else cat("\n")
+  }
+  
+  if(!is.na(x$modefreq_crit)){
+    cat(x$modefreq_crit)
+    cat("\n\n")
   }
 
 }
@@ -2209,7 +2235,8 @@ Abstract <- function (x, sep = ", ", zero.form = ".", maxlevels = 5, trunc = TRU
   attr(res, "main") <- gsub(" +", " ", paste(deparse(substitute(x)), collapse=" "))
   attr(res, "nrow") <- dim(x)[1]
   attr(res, "ncol") <- dim(x)[2]
-  attr(res, "complete") <- sum(complete.cases(x))
+  # complete.cases can not be constructed with lists in data.frames
+  attr(res, "complete") <- ifelse(all(sapply(x, is.atomic)), sum(complete.cases(x)), NA)
   attr(res, "trunc") <- trunc
 
   if (!is.null(attr(x, "label")))

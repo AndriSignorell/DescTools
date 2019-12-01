@@ -2176,6 +2176,61 @@ DoCall <- function (what, args, quote = FALSE, envir = parent.frame())  {
 
 }
 
+
+MultMerge <- function(..., all.x=TRUE, all.y=TRUE) {
+  
+  lst <- list(...)
+  
+  # the columnnames must be unique within the resulting data.frame
+  unames <- SplitAt(make.unique(unlist(lapply(lst, colnames)), sep = "."), 
+                    cumsum(sapply(head(lst, -1), ncol))+1)
+  
+  for(i in seq_along(unames))
+    colnames(lst[[i]]) <- unames[[i]]
+  
+  # works perfectly, but sadly does not pass CRAN check :-(
+  #
+  # transform(Reduce(function(y, z)
+  #                     merge(y, z, all.x=all.x, all.y=all.x),
+  #                  lapply(lst, function(x)
+  #                                 data.frame(x, rn=row.names(x))
+  #                         ))
+  #           , row.names=rn, rn=NULL)
+  
+  res <- Reduce(function(y, z)
+    merge(y, z, all.x=all.x, all.y=all.x),
+    lapply(lst, function(x)
+      data.frame(x, rn=row.names(x))
+    ))
+  rownames(res) <- res$rn
+  res$rn <- NULL
+  
+  
+  # define a better order than merge is returning, rownames from left to right
+  seq_ord <- function(xlst){
+    jj <- character(0)
+    for(i in seq_along(xlst)){
+      jj <- c(jj, setdiff(xlst[[i]], jj))
+    }
+    return(jj)
+  }
+  
+  # the coefficients should be ordered such, that the coeffs of the first model
+  # come first, then the coeffs from the second model which were not included
+  # in the model one, then the coeffs from mod3 not present in mod1 and mod2
+  # and so forth...
+  ord <- seq_ord(lapply(lst, rownames))
+  
+  res[ord, ]
+  
+  
+  
+}
+
+
+
+
+
 ###
 
 ## base: transformation functions ====
@@ -3693,11 +3748,11 @@ Dummy <- function (x, method = c("treatment", "sum", "helmert", "poly", "full"),
   method <- match.arg( arg = method, choices = c("treatment", "sum", "helmert", "poly", "full") )
 
   switch( method
-    , "treatment" = { res <- contr.treatment(n = nlevels(x), base = base)[x,] }
-    , "sum" = { res <- contr.sum(n = nlevels(x))[x,] }
-    , "helmert" = { res <- contr.helmert(n = nlevels(x))[x,] }
-    , "poly" = { res <- contr.poly(n = nlevels(x))[x,] }
-    , "full" = { res <- diag(nlevels(x))[x,] }
+    , "treatment" = { res <- contr.treatment(n = nlevels(x), base = base)[x,, drop=FALSE] }
+    , "sum" = { res <- contr.sum(n = nlevels(x))[x,, drop=FALSE] }
+    , "helmert" = { res <- contr.helmert(n = nlevels(x))[x,, drop=FALSE] }
+    , "poly" = { res <- contr.poly(n = nlevels(x))[x,, drop=FALSE] }
+    , "full" = { res <- diag(nlevels(x))[x,, drop=FALSE] }
   )
   res <- as.matrix(res) # force res to be matrix, avoiding res being a vector if nlevels(x) = 2
 
@@ -4519,6 +4574,48 @@ CatTable <- function( tab, wcol, nrepchars, width=getOption("width") ) {
 
 
 
+# Maybe an alternative later down the road...
+
+# https://www.r-bloggers.com/performance-captureoutput-is-much-faster-than-capture-output/
+# R.Utils::captureOutput() is much faster than utils::capture.output()
+# 
+# function (expr, file = NULL, append = FALSE, collapse = NULL, 
+#           envir = parent.frame()) 
+# {
+#   if (is.null(file)) 
+#     file <- raw(0L)
+#   if (identical(file, character(0L))) 
+#     file <- NULL
+#   if (is.raw(file)) {
+#     res <- eval({
+#       file <- rawConnection(raw(0L), open = "w")
+#       on.exit({
+#         if (!is.null(file)) close(file)
+#       })
+#       capture.output(expr, file = file)
+#       res <- rawConnectionValue(file)
+#       close(file)
+#       file <- NULL
+#       res <- rawToChar(res)
+#       res
+#     }, envir = envir, enclos = envir)
+#   }
+#   else {
+#     res <- eval({
+#       capture.output(expr, file = file, append = append)
+#     }, envir = envir, enclos = envir)
+#     return(invisible(res))
+#   }
+#   res <- unlist(strsplit(res, split = "\n", fixed = TRUE), 
+#                 use.names = FALSE)
+#   if (!is.null(collapse)) 
+#     res <- paste(res, collapse = collapse)
+#   res
+# }
+
+
+
+
 Ndec <- function(x) {
   # liefert die Anzahl der Nachkommastellen einer Zahl x
   # Alternative auch format.info [1]... Breite, [2]...Anzahl Nachkommastellen, [3]...Exponential ja/nein
@@ -5287,7 +5384,9 @@ MaxDigits <- function(x){
 
 Recycle <- function(...){
   lst <- list(...)
-  maxdim <- max(unlist(lapply(lst, length)))
+
+  # optimization suggestion by moodymudskipper 20.11.2019  
+  maxdim <- max(lengths(lst)) # instead of max(unlist(lapply(lst, length)))
   # recycle all params to maxdim
   res <- lapply(lst, rep_len, length.out=maxdim)
   attr(res, "maxdim") <- maxdim
@@ -6272,15 +6371,18 @@ SetNames <- function (x, ...) {
   # args <- match.call(expand.dots = FALSE)$...
   args <- list(...)
   
+  # the default when no information is provided
   if(is.null(names(args)))
     names(args) <- "names"
   
+  names(args) <- lapply(names(args), match.arg, c("names", "rownames", "colnames"))
+  
   if("colnames" %in% names(args))
-    colnames(x) <- args[["colnames"]]
+    colnames(x) <- rep_len(args[["colnames"]], dim(x)[2])
   if("rownames" %in% names(args))
-    rownames(x) <- args[["rownames"]]
+    rownames(x) <- rep_len(args[["rownames"]], dim(x)[1])
   if("names" %in% names(args))
-    names(x) <- args[["names"]]
+    names(x) <- rep_len(args[["names"]], length(x))
 
   x
 
@@ -6685,7 +6787,7 @@ Untable.data.frame <- function(x, freq = "Freq", rownames = NULL, ...){
   if(all(is.na(match(freq, names(x)))))
     stop(gettextf("Frequency column %s does not exist!", freq))
 
-  res <- x[Untable(x[,freq], type="as.numeric")[,], -grep(freq, names(x))]
+  res <- x[Untable(x[,freq], type="as.numeric")[,], -match(freq, names(x)), drop=FALSE]
   rownames(res) <- rownames
 
   return(res)
@@ -6980,6 +7082,20 @@ Mar <- function(bottom=NULL, left=NULL, top=NULL, right=NULL, outer=FALSE){
     res <- par(mar=c(bottom, left, top, right))
 
   }
+  invisible(res)
+}
+
+
+Mgp <- function (title = NULL, labels = NULL, line = NULL) {
+  
+  if (is.null(title)) 
+    title <- par("mgp")[1]
+  if (is.null(labels)) 
+    labels <- par("mgp")[2]
+  if (is.null(line)) 
+    line <- par("mgp")[3]
+  res <- par(mgp = c(title, labels, line))
+  
   invisible(res)
 }
 
@@ -8638,67 +8754,67 @@ SetAlpha <- function(col, alpha=0.5) {
 
 
 
-PlotDev <- function(fn, type=c("tif", "pdf", "eps", "bmp", "png", "jpg"),
-                    width=NULL, height=NULL, units="cm", res=300, open=TRUE,
-                    compression="lzw",
-                    expr, ...) {
-
-  # PlotDev(fn="bar", type="tiff", expr=
-  #  barplot(1:5, col=Pal("Helsana"))
-  # )
-
-  type <- match.arg(type)
-
-  # golden ratio
-  golden <- (1+sqrt(5))/2
-
-  if(is.null(width))
-    width <- 8
-
-  if(is.null(height))
-    height <- width/golden
-
-
-  # check if filename fn contains a path, if not appende getwd()
-  if(!grepl("/", fn))
-    fn <- paste(getwd(), fn, sep="/")
-
-  switch(type,
-         "tif" = { fn <- paste(fn, ".tif", sep="")
-         tiff(filename = fn, width = width, height = height, units=units, res=res,
-              compression=compression, ...)
-         }
-         , "pdf" = { fn <- paste(fn, ".pdf", sep="")
-         pdf(file=fn, width = width, height = height)
-         }
-         , "eps" = { fn <- paste(fn, ".eps", sep="")
-         postscript(file=fn, width = width, height = height)
-         }
-         , "bmp" = { fn <- paste(fn, ".bmp", sep="")
-         bitmap(file=fn, width = width, height = height, units=units, res=res, ...)
-         }
-         , "png" = { fn <- paste(fn, ".png", sep="")
-         png(filename=fn, width = width, height = height, units=units, res=res, ...)
-         }
-         , "jpg" = { fn <- paste(fn, ".jpg", sep="")
-         jpeg(filename=fn, width = width, height = height, units=units, res=res, ...)
-         }
-
-  )
-
-  # http://stackoverflow.com/questions/4692231/r-passing-expression-to-an-inner-function
-  expr <- deparse(substitute(expr))
-
-  eval(parse(text=expr))
-
-  dev.off()
-  cat(gettextf("plot produced:\n  %s\n", fn))
-
-  if(open)
-    shell(gettextf("\"%s\"", fn))
-
-}
-
+# PlotDev <- function(fn, type=c("tif", "pdf", "eps", "bmp", "png", "jpg"),
+#                     width=NULL, height=NULL, units="cm", res=300, open=TRUE,
+#                     compression="lzw",
+#                     expr, ...) {
+# 
+#   # PlotDev(fn="bar", type="tiff", expr=
+#   #  barplot(1:5, col=Pal("Helsana"))
+#   # )
+# 
+#   type <- match.arg(type)
+# 
+#   # golden ratio
+#   golden <- (1+sqrt(5))/2
+# 
+#   if(is.null(width))
+#     width <- 8
+# 
+#   if(is.null(height))
+#     height <- width/golden
+# 
+# 
+#   # check if filename fn contains a path, if not appende getwd()
+#   if(!grepl("/", fn))
+#     fn <- paste(getwd(), fn, sep="/")
+# 
+#   switch(type,
+#          "tif" = { fn <- paste(fn, ".tif", sep="")
+#          tiff(filename = fn, width = width, height = height, units=units, res=res,
+#               compression=compression, ...)
+#          }
+#          , "pdf" = { fn <- paste(fn, ".pdf", sep="")
+#          pdf(file=fn, width = width, height = height)
+#          }
+#          , "eps" = { fn <- paste(fn, ".eps", sep="")
+#          postscript(file=fn, width = width, height = height)
+#          }
+#          , "bmp" = { fn <- paste(fn, ".bmp", sep="")
+#          bitmap(file=fn, width = width, height = height, units=units, res=res, ...)
+#          }
+#          , "png" = { fn <- paste(fn, ".png", sep="")
+#          png(filename=fn, width = width, height = height, units=units, res=res, ...)
+#          }
+#          , "jpg" = { fn <- paste(fn, ".jpg", sep="")
+#          jpeg(filename=fn, width = width, height = height, units=units, res=res, ...)
+#          }
+# 
+#   )
+# 
+#   # http://stackoverflow.com/questions/4692231/r-passing-expression-to-an-inner-function
+#   expr <- deparse(substitute(expr))
+# 
+#   eval(parse(text=expr))
+# 
+#   dev.off()
+#   cat(gettextf("plot produced:\n  %s\n", fn))
+# 
+#   if(open)
+#     shell(gettextf("\"%s\"", fn))
+# 
+# }
+# 
 
 
 ## plots: PlotBubble ====
@@ -10904,6 +11020,13 @@ PlotVenn <- function (x, col = "transparent", plotit = TRUE, labels = NULL) {
 #
 
 
+CompleteColumns <- function(x, which=TRUE){
+  if(which)
+    names(Filter(IsZero, sapply(x, function(z) sum(is.na(z)))))
+  else 
+    sapply(x, function(z) sum(is.na(z)))==FALSE
+}
+
 
 
 CountCompCases <- function(x){
@@ -11903,6 +12026,64 @@ PlotQQ <- function(x, qdist=qnorm, main=NULL, xlab=NULL, ylab=NULL, datax=FALSE,
 
 
 
+PlotPairs <- function(x, g=NULL, col=1, pch=19, col.smooth=1, main="", ...){
+  
+
+  # PlotPairs(x=ModTools::d.pima2[, -9], g=ModTools::d.pima2$diabetes, col=DescTools::SetAlpha(c(hred, hblue), 0.5), 
+  #           col.smooth=c("black", hred, hblue),
+  #           main="Relationships between potential diabetes predictors")
+  
+  
+  panel.cor <- function(x, y, ...) {
+    
+    par(usr = c(0, 1, 0, 1)) 
+    txt <- as.character(format(cor(x, y, use = "p"), digits=2)) 
+    cc <- seq(0.8, 2.8, 0.2)[cut(abs(cor(x, y, use = "p")), seq(0,1,0.1))]
+    text(0.5, 0.5, txt, cex = cc) 
+  }
+  
+  
+  panel.hist <- function(x, ...) { 
+    b <- hist(x, plot=FALSE) 
+    par(usr = c(par("usr")[1:2], 0, max(pretty(b$density))*1.3)) 
+    hist(x, prob=TRUE, add=TRUE, col=SetAlpha(hecru, 0.6), border=hecru) 
+  }
+  
+  
+  panel.smooth <- function (x, y, g=NULL, col = par("col"), bg = NA, pch = par("pch"), 
+                            cex = 1, col.smooth = "red", span = 2/3, iter = 3, 
+                            ...) {
+    
+    points(x, y, pch = pch, col = col, bg = bg, cex = cex)
+    ok <- is.finite(x) & is.finite(y)
+    if (any(ok)) {
+      lines(stats::lowess(x[ok], y[ok], f = span, iter = iter), 
+            col = col.smooth, ...)
+      if(!is.null(g)){
+        g <- factor(g)
+        col.smooth <- rep(col.smooth, length_out=nlevels(g) + 1)[-1]
+        for(l in levels(g)){
+          lines(stats::lowess(x[ok][g[ok]==l], y[ok][g[ok]==l], f = span, iter = iter), 
+                col = col.smooth[match(l, levels(g))], ...)
+        }
+      }
+    }
+  }
+  
+  
+  pairs(x, upper.panel=panel.cor,
+        main=main, 
+        pch=pch, col=col[g], cex=0.9, 
+        diag.panel=panel.hist,
+        panel = function(...) 
+          panel.smooth(col.smooth=col.smooth, g=g, lwd=2, ...) )
+  
+
+}
+
+
+
+
 ## Describe  ====
 
 
@@ -12452,88 +12633,6 @@ ParseFormula <- function(formula, data=parent.frame(), drop = TRUE) {
 
 ## Word fundamentals  ====
 
-createCOMReference <- function(ref, className) {
-  RDCOMClient::createCOMReference(ref, className)
-}
-
-
-GetCurrWrd <- function() {
-
-  # stopifnot(require(RDCOMClient))
-
-  if (requireNamespace("RDCOMClient", quietly = FALSE)) {
-
-    # there's no "get"-function in RDCOMClient, so just create a new here..
-    hwnd <- RDCOMClient::COMCreate("Word.Application", existing=TRUE)
-    if(is.null(hwnd)) warning("No running Word application found!")
-
-#    options(lastWord = hwnd)
-    DescToolsOptions(lastWord = hwnd)
-
-
-  } else {
-
-    if(Sys.info()["sysname"] == "Windows")
-      warning("RDCOMClient is not available. To install it use: install.packages('RDCOMClient', repos = 'http://www.omegahat.net/R/')")
-    else
-      warning(gettextf("RDCOMClient is unfortunately not available for %s systems (Windows-only).", Sys.info()["sysname"]))
-
-    wrd <- NULL
-
-  }
-
-  invisible(hwnd)
-
-}
-
-
-GetNewWrd <- function(visible = TRUE, template = "Normal", header=FALSE
-                       , main="Descriptive report") {
-
-  # stopifnot(require(RDCOMClient))
-
-  if (requireNamespace("RDCOMClient", quietly = FALSE)) {
-
-    # Starts the Word application with wrd as handle
-    hwnd <- RDCOMClient::COMCreate("Word.Application", existing=FALSE)
-    DescToolsOptions(lastWord = hwnd)
-
-    if( visible == TRUE ) hwnd[["Visible"]] <- TRUE
-
-    # Create a new document based on template
-    # VBA code:
-    # Documents.Add Template:= _
-    #        "O:\G\GI\_Admin\Administration\09_Templates\newlogo_GI_doc_bericht.dot", _
-    #        NewTemplate:=False, DocumentType:=0
-    #
-    newdoc <- hwnd[["Documents"]]$Add(template, FALSE, 0)
-
-    # prepare word document, with front page, table of contents, footer ...
-    if(header) .WrdPrepRep( wrd=hwnd, main=main )
-
-  } else {
-
-    if(Sys.info()["sysname"] == "Windows")
-      warning("RDCOMClient is not available. To install it use: install.packages('RDCOMClient', repos = 'http://www.omegahat.net/R/')")
-    else
-      warning(gettextf("RDCOMClient is unfortunately not available for %s systems (Windows-only).", Sys.info()["sysname"]))
-
-    hwnd <- NULL
-  }
-
-  invisible( hwnd )
-}
-
-
-
-WrdKill <- function(){
-  # Word might not always quit and end the task
-  # so killing the task is "ultima ratio"...
-
-  shell('taskkill /F /IM WINWORD.EXE')
-}
-
-
 
 
 .WrdPrepRep <- function(wrd, main="Bericht" ){
@@ -12612,12 +12711,159 @@ ToWrd <- function(x, font=NULL, ..., wrd=DescToolsOptions("lastWord")){
 }
 
 
+# ToWrdB <- function(x, font = NULL, ..., wrd = DescToolsOptions("lastWord"), 
+#                     bookmark=gettextf("b%s", sample(1e9, 1))){
+#   
+#   bm <- WrdInsertBookmark(name = bookmark, wrd=wrd)
+#   ToWrd(x, font=font, ..., wrd=wrd)
+#   
+#   d <- wrd$Selection()$range()$start() - bm$range()$start()
+#   wrd$Selection()$MoveLeft(Unit=wdConst$wdCharacter, Count=d, Extend=wdConst$wdExtend)
+#   
+#   bm <- WrdInsertBookmark(name = bookmark, wrd=wrd)
+#   
+#   wrd[["Selection"]]$Collapse(Direction=wdConst$wdCollapseEnd)
+#   
+#   invisible(bm)
+#   
+# }
+
+
+# function to generate random bookmark names 
+# (ensure we'll always get 9 digits with min=0.1)
+randbm <- function() paste("bm", round(runif(1, min=0.1)*1e9), sep="")
+
+
+
+ToWrdB <- function(x, font = NULL, ..., wrd = DescToolsOptions("lastWord"), 
+                   bookmark=gettextf("bmt%s", round(runif(1, min=0.1)*1e9))){
+  
+  # Sends the output of an object x to word and places a bookmark bm on it
+  
+  # place the temporary bookmark on cursor
+  bm_start <- WrdInsertBookmark(randbm())
+  
+  # send stuff to Word (it's generic ...)
+  ToWrd(x, font=font, ..., wrd=wrd)
+  
+  # place end bookmark
+  bm_end <- WrdInsertBookmark(randbm())
+  
+  # select all the inserted text between the two bookmarks
+  wrd[["ActiveDocument"]]$Range(bm_start$range()$start(), bm_end$range()$end())$select()
+  
+  # place the required bookmark over the whole inserted story
+  res <- WrdInsertBookmark(bookmark)
+  
+  # collapse selection to the end position
+  wrd$selection()$collapse(wdConst$wdCollapseEnd)
+  
+  # delete the two temporary bookmarks start/end
+  bm_start$delete()
+  bm_end$delete()
+  
+  # return the bookmark with inserted story
+  invisible(res)
+  
+}
+
+
+ToWrdPlot <- function(plotcode,  
+                      width=NULL, height=NULL, scale=100, res=300, crop=0, title=NULL, 
+                      wrd = DescToolsOptions("lastWord"), 
+                      bookmark=gettextf("bmp%s", round(runif(1, min=0.1)*1e9))
+                      ){
+  
+  if(is.null(width)) width <- 15
+  if(is.null(height)) height <- width / gold_sec_c 
+
+  crop <- rep(crop, length.out=4)
+    
+  if(is.null(bookmark)) bookmark <- randbm()
+  
+  
+  # open device
+  tiff(filename = (fn <- paste(tempfile(), ".tif", sep = "")), 
+       width = width, height = height, units = "cm", 
+       res = res, compression = "lzw")
+  
+  # do plot
+  if(!is.null(plotcode ))
+    eval(parse(text = plotcode))
+  
+  # close device
+  dev.off()
+  
+  
+  # import in word ***********
+  # place the temporary bookmark on cursor
+  bm_start <- WrdInsertBookmark(randbm(), wrd=wrd)
+  
+  # send stuff to Word (it's generic ...)
+  hwnd <- wrd$selection()$InlineShapes()$AddPicture(FileName=fn, LinkToFile=FALSE, SaveWithDocument=TRUE)
+  hwnd[["LockAspectRatio"]] <- 1
+  hwnd[["ScaleWidth"]] <- hwnd[["ScaleHeight"]] <- scale
+  pic <- hwnd$PictureFormat()
+  pic[["CropBottom"]] <- CmToPts(crop[1])
+  pic[["CropLeft"]] <- CmToPts(crop[2])
+  pic[["CropTop"]] <- CmToPts(crop[3])
+  pic[["CropRight"]] <- CmToPts(crop[4])
+  
+  if(!is.null(title)){
+    hwnd$select()
+    wrd[["Selection"]]$InsertCaption(Label="Figure", Title=gettextf(" - %s", title), 
+                       Position=wdConst$wdCaptionPositionBelow, ExcludeLabel=0)
+    wrd[["Selection"]]$MoveRight(wdConst$wdCharacter, 1, 0)
+    
+  }
+  
+  
+  ToWrd(x="\n", wrd=wrd)
+  
+  # place end bookmark
+  bm_end <- WrdInsertBookmark(randbm(), wrd=wrd)
+  
+  # select all the inserted text between the two bookmarks
+  wrd[["ActiveDocument"]]$Range(bm_start$range()$start(), bm_end$range()$end())$select()
+  
+  # place the required bookmark over the whole inserted story
+  res <- WrdInsertBookmark(bookmark, wrd=wrd)
+  
+  # collapse selection to the end position
+  wrd$selection()$collapse(wdConst$wdCollapseEnd)
+  
+  # delete the two temporary bookmarks start/end
+  bm_start$delete()
+  bm_end$delete()
+  
+  # return the bookmark with inserted story
+  invisible(list(plot_hwnd=hwnd, bookmark=res))
+  
+}
+
+
+
+
+
+
+
 ToWrd.default <- function(x, font=NULL, ..., wrd=DescToolsOptions("lastWord")){
 
   ToWrd.character(x=.CaptOut(x), font=font, ..., wrd=wrd)
   invisible()
 
 }
+
+
+
+ToWrd.Desc <- function(x, font=NULL, ..., wrd=DescToolsOptions("lastWord")){
+  
+  printWrd(x, ..., wrd=wrd)
+  invisible()
+  
+}
+
+
 
 
 ToWrd.TOne <- function(x, font=NULL, para=NULL, main=NULL, align=NULL,
@@ -12640,7 +12886,7 @@ ToWrd.TOne <- function(x, font=NULL, para=NULL, main=NULL, align=NULL,
   else
     font$size <- font$size - 2
 
-
+  wrd[["Selection"]]$TypeBackspace()
   ToWrd.character(paste("\n", attr(x, "legend"), "\n\n", sep=""),
         font=font, wrd=wrd)
 
@@ -13292,15 +13538,6 @@ WrdStyle <- function (wrd = DescToolsOptions("lastWord")) {
 
 
 
-IsValidWrd <- function(wrd = DescToolsOptions("lastWord")){
-  # returns TRUE if the selection of the wrd pointer can be evaluated
-  # meaning the pointer points to a running word instance and so far valid
-  res <- tryCatch(wrd[["Selection"]], error=function(e) {e})
-  return(!inherits(res, "simpleError")) # Error in
-
-}
-
-
 WrdGoto <- function (name, what = wdConst$wdGoToBookmark, wrd = DescToolsOptions("lastWord")) {
   wrdSel <- wrd[["Selection"]]
   wrdSel$GoTo(what=what, Name=name)
@@ -13315,6 +13552,34 @@ WrdPageBreak <- function(wrd = DescToolsOptions("lastWord")) {
 
 
 
+WrdBookmark <- function(bookmark, wrd = DescToolsOptions("lastWord")){
+  
+  wbms <- wrd[["ActiveDocument"]][["Bookmarks"]]
+  
+  if(wbms$count()>0){
+    # get bookmark names
+    bmnames <- sapply(seq(wbms$count()), function(i) wbms[[i]]$name())
+    
+    id <- which(bookmark == bmnames)
+    
+    if(length(id)==0)   # name found?
+      res <- NULL 
+    
+    else
+      res <- wbms[[id]]
+    # no attributes for S4 objects... :-(
+    #  res@idx <- which(name == bmnames)
+    
+  } else {
+    # warning(gettextf("bookmark %s not found", bookmark))
+    res <- NULL
+  }
+  
+  return(res)  
+  
+}
+
+
 WrdInsertBookmark <- function (name, wrd = DescToolsOptions("lastWord")) {
 
   #   With ActiveDocument.Bookmarks
@@ -13324,8 +13589,8 @@ WrdInsertBookmark <- function (name, wrd = DescToolsOptions("lastWord")) {
   #   End With
 
   wrdBookmarks <- wrd[["ActiveDocument"]][["Bookmarks"]]
-  wrdBookmarks$Add(name)
-  invisible()
+  bookmark <- wrdBookmarks$Add(name)
+  invisible(bookmark)
 }
 
 
@@ -13344,6 +13609,74 @@ WrdUpdateBookmark <- function (name, text, what = wdConst$wdGoToBookmark, wrd = 
   wrdBookmarks <- wrd[["ActiveDocument"]][["Bookmarks"]]
   wrdBookmarks$Add(name)
   invisible()
+}
+
+
+
+WrdUpdateFields <- function(where = "wholestory", wrd = DescToolsOptions("lastWord")) {
+  
+  ii <- if( identical(where, "wholestory") )
+    list(
+      wdCommentsStory = 4,
+      wdEndnoteContinuationNoticeStory = 17,
+      wdEndnoteContinuationSeparatorStory = 16,
+      wdEndnoteSeparatorStory = 15,
+      wdEndnotesStory = 3,
+      wdEvenPagesFooterStory = 8,
+      wdEvenPagesHeaderStory = 6,
+      wdFirstPageFooterStory = 11,
+      wdFirstPageHeaderStory = 10,
+      wdFootnoteContinuationNoticeStory = 14,
+      wdFootnoteContinuationSeparatorStory = 13,
+      wdFootnoteSeparatorStory = 12,
+      wdFootnotesStory = 2,
+      wdMainTextStory = 1,
+      wdPrimaryFooterStory = 9,
+      wdPrimaryHeaderStory = 7,
+      wdTextFrameStory = 5)
+  
+  else
+    where
+  
+  doc <- wrd$activedocument()
+  for(i in ii) {
+    
+    # we cannot simply loop over a sequence 1:count() as indexing a nonexisting story raises a COMError
+    # and the index of the story is not an ascending integer, but a wdStory constant
+    # not found a handle to get a list of existing storyranges
+    StoryRange <- tryCatch(doc$StoryRanges()[[i]], error = function(e) NULL)
+    if(!is.null(StoryRange)) {
+      if(StoryRange$Fields()$Count() > 0) {
+        for(j in seq(StoryRange$Fields()$Count())){
+          StoryRange$Fields(j)$Update()
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+WrdOpenFile <- function(fn, wrd = DescToolsOptions("lastWord")){
+  
+  if(!IsValidHwnd(wrd)){
+    wrd <- GetNewWrd()
+    wrd[["ActiveDocument"]]$Close()
+  }
+  
+  # ChangeFileOpenDirectory "C:\Users\HK1S0\Desktop\"
+  # 
+  # Documents.Open FileName:="DynWord.docx", ConfirmConversions:=False, _
+  #         ReadOnly:=False, AddToRecentFiles:=False, PasswordDocument:="", _
+  #         PasswordTemplate:="", Revert:=False, WritePasswordDocument:="", _
+  #         WritePasswordTemplate:="", Format:=wdOpenFormatAuto, XMLTransform:=""
+  
+  res <- wrd[["Documents"]]$Open(FileName=fn)
+  
+  # return document
+  invisible(res)
 }
 
 
@@ -13384,16 +13717,16 @@ WrdSaveAs <- function(fn, fileformat="docx", wrd = DescToolsOptions("lastWord"))
 # Example: WrdPlot(picscale=30)
 #          WrdPlot(width=8)
 
-.CentimetersToPoints <- function(x) x * 28.35
-.PointsToCentimeters <- function(x) x / 28.35
-# http://msdn.microsoft.com/en-us/library/bb214076(v=office.12).aspx
 
+CmToPts <- function(x) x * 28.35
+PtsToCm <- function(x) x / 28.35
+# http://msdn.microsoft.com/en-us/library/bb214076(v=office.12).aspx
 
 
 WrdPlot <- function( type="png", append.cr=TRUE, crop=c(0,0,0,0), main = NULL,
                      picscale=100, height=NA, width=NA, res=300, dfact=1.6, wrd = DescToolsOptions("lastWord") ){
 
-  # png is considered a good choice for export to word (Smith)
+  # png is considered a good default choice for export to word (Smith)
   # http://blog.revolutionanalytics.com/2009/01/10-tips-for-making-your-r-graphics-look-their-best.html
 
   # height, width in cm!
@@ -13431,10 +13764,10 @@ WrdPlot <- function( type="png", append.cr=TRUE, crop=c(0,0,0,0), main = NULL,
 
   pic[["LockAspectRatio"]] <- -1  # = msoTrue
   picfrmt <- pic[["PictureFormat"]]
-  picfrmt[["CropBottom"]] <- .CentimetersToPoints(crop[1])
-  picfrmt[["CropLeft"]] <- .CentimetersToPoints(crop[2])
-  picfrmt[["CropTop"]] <- .CentimetersToPoints(crop[3])
-  picfrmt[["CropRight"]] <- .CentimetersToPoints(crop[4])
+  picfrmt[["CropBottom"]] <- CmToPts(crop[1])
+  picfrmt[["CropLeft"]] <- CmToPts(crop[2])
+  picfrmt[["CropTop"]] <- CmToPts(crop[3])
+  picfrmt[["CropRight"]] <- CmToPts(crop[4])
 
   if( is.na(height) & is.na(width) ){
     # or use the ScaleHeight/ScaleWidth attributes:
@@ -13442,10 +13775,10 @@ WrdPlot <- function( type="png", append.cr=TRUE, crop=c(0,0,0,0), main = NULL,
     pic[["ScaleWidth"]] <- picscale
   } else {
     # Set new height:
-    if( is.na(width) ) width <- height / .PointsToCentimeters( pic[["Height"]] ) * .PointsToCentimeters( pic[["Width"]] )
-    if( is.na(height) ) height <- width / .PointsToCentimeters( pic[["Width"]] ) * .PointsToCentimeters( pic[["Height"]] )
-    pic[["Height"]] <- .CentimetersToPoints(height)
-    pic[["Width"]] <- .CentimetersToPoints(width)
+    if( is.na(width) ) width <- height / PtsToCm( pic[["Height"]] ) * PtsToCm( pic[["Width"]] )
+    if( is.na(height) ) height <- width / PtsToCm( pic[["Width"]] ) * PtsToCm( pic[["Height"]] )
+    pic[["Height"]] <- CmToPts(height)
+    pic[["Width"]] <- CmToPts(width)
   }
 
   if( append.cr == TRUE ) { wrd[["Selection"]]$TypeText("\n")
@@ -13477,7 +13810,7 @@ WrdTable <- function(nrow = 1, ncol = 1, heights = NULL, widths = NULL, main = N
     for(i in 1:ncol){
       # set column-widths
       tcol <- res$Columns(i)
-      tcol[["Width"]] <- .CentimetersToPoints(widths[i])
+      tcol[["Width"]] <- CmToPts(widths[i])
     }
   }
   if(!is.null(heights)) {
@@ -13485,7 +13818,7 @@ WrdTable <- function(nrow = 1, ncol = 1, heights = NULL, widths = NULL, main = N
     for(i in 1:nrow){
       # set row heights
       tcol <- res$Rows(i)
-      tcol[["Height"]] <- .CentimetersToPoints(heights[i])
+      tcol[["Height"]] <- CmToPts(heights[i])
     }
   }
 
@@ -13534,7 +13867,7 @@ Phrase <- function(x, g, glabels=NULL, xname=NULL, unit=NULL, lang="engl", na.rm
   names(lst) <- c("x","y")
 
   n <- sapply(lst, length)
-  meanage <- sapply(lst, mean)
+  meanage <- format(sapply(lst, mean), digits=3)
 
   txt <- gettextf(txt1
                   , Format(sum(n), digits=0, big.mark="'")
@@ -13542,13 +13875,13 @@ Phrase <- function(x, g, glabels=NULL, xname=NULL, unit=NULL, lang="engl", na.rm
                   , glabels[1]
                   , Format(n[1]/sum(n), digits=1, fmt="%")
                   , xname
-                  , round(meanage[1], 1)
+                  , meanage[1]
                   , unit
                   , Format(n[2], digits=0, big.mark="'")
                   , glabels[2]
                   , Format(n[2]/sum(n), digits=1, fmt="%")
                   , xname
-                  , round(meanage[2],1)
+                  , meanage[2]
                   , unit
   )
 
@@ -13556,7 +13889,7 @@ Phrase <- function(x, g, glabels=NULL, xname=NULL, unit=NULL, lang="engl", na.rm
   r.t <- t.test(lst$x, lst$y)
 
   if(r.t$p.value < 0.05){
-    md <- round(MeanDiffCI(lst$x, lst$y), 1)
+    md <- format(MeanDiffCI(lst$x, lst$y), digits=3)
     txt <- paste(txt, gettextf(txt2, format.pval(r.t$p.value), md[1], unit, md[2], md[3], "%"), sep="" )
   } else {
     txt <- paste(txt, txt3, sep="")
@@ -13772,67 +14105,6 @@ Phrase <- function(x, g, glabels=NULL, xname=NULL, unit=NULL, lang="engl", na.rm
 ## Excel functions   ====
 
 
-GetNewXL <- function(visible = TRUE, newdoc = TRUE ) {
-
-  if (requireNamespace("RDCOMClient", quietly = FALSE)) {
-
-      # Starts the Excel with xl as handle
-    hwnd <- RDCOMClient::COMCreate("Excel.Application")
-    DescToolsOptions(lastXL = hwnd)
-
-    if(visible == TRUE) hwnd[["Visible"]] <- TRUE
-
-    # Create a new workbook
-    # react the same as GetNewWrd(), Word is also starting with a new document
-    # XL would not
-    if(newdoc)
-      hwnd[["Workbooks"]]$Add()
-
-  } else {
-
-    if(Sys.info()["sysname"] == "Windows")
-      warning("RDCOMClient is not available. To install it use: install.packages('RDCOMClient', repos = 'http://www.omegahat.net/R/')")
-    else
-      warning(gettextf("RDCOMClient is unfortunately not available for %s systems (Windows-only).", Sys.info()["sysname"]))
-
-    hwnd <- NULL
-  }
-
-  invisible(hwnd)
-
-}
-
-
-GetCurrXL <- function() {
-
-
-#  stopifnot(require(RDCOMClient))
-  if (requireNamespace("RDCOMClient", quietly = FALSE)) {
-
-  # try to get a handle to a running XL instance
-  # there's no "get"-function in RDCOMClient, so just create a new here..
-  hwnd <- RDCOMClient::COMCreate("Excel.Application", existing=TRUE)
-  if(is.null(hwnd)) warning("No running Excel application found!")
-
-  # options(lastXL = hwnd)
-  DescToolsOptions(lastXL = hwnd)
-
-
-  } else {
-
-    if(Sys.info()["sysname"] == "Windows")
-      warning("RDCOMClient is not available. To install it use: install.packages('RDCOMClient', repos = 'http://www.omegahat.net/R/')")
-    else
-      warning(gettextf("RDCOMClient is unfortunately not available for %s systems (Windows-only).", Sys.info()["sysname"]))
-
-    hwnd <- NULL
-  }
-
-  invisible(hwnd)
-
-}
-
-
 
 XLView <- function (x, col.names = TRUE, row.names = FALSE, na = "", preserveStrings=FALSE) {
 
@@ -13879,12 +14151,18 @@ XLView <- function (x, col.names = TRUE, row.names = FALSE, na = "", preserveStr
 }
 
 
+XLSaveAs <- function(fn, file_format=xlConst$XlFileFormat$xlWorkbookNormal, xl=DescToolsOptions("lastXL")){
+  xl[["ActiveWorkbook"]]$SaveAs(FileName=fn, FileFormat=file_format)
+}
+  
+
+
 ToXL <- function (x, at, ..., xl=DescToolsOptions("lastXL")) {
+  stopifnot(IsValidHwnd(xl))   # "xl is not a valid Excel handle, use GetNewXL() or GetCurrXL().")
   UseMethod("ToXL")
 }
 
 
-# will be integrated into DescTools soon *******************
 
 ToXL.data.frame <- function(x, at, ..., xl=DescToolsOptions("lastXL"))
   ## export the data.frame "x" into the location "at" (top,left cell)
@@ -13921,55 +14199,126 @@ ToXL.data.frame <- function(x, at, ..., xl=DescToolsOptions("lastXL"))
     # debug only:
     # cat("Column", j, "\n")
     ToXL(x[, j], at = rng, xl=xl)   ## no byrow for data.frames!
-    rng <- rng$Next()            ## next cell to the right
+    rng <- rng$Next()               ## next cell to the right
   }
   invisible(ws$Range(ws$Cells(r1, c1), ws$Cells(r1 + nrow(x), c2)))
 }
 
 
+# 
+# ToXL.matrix <- function(x, at, ..., xl=DescToolsOptions("lastXL"))
+#   ## output the occupying range. Exactly the same as ToXL.data.frame
+#   ## TODO: row.names, more error checking
+#   ##
+# {
+#   if(is.character(at)){
+#     # address of the left upper cell
+#     at <- do.call(xl$Cells, as.list(A1ToZ1S1(at)[[1]]))
+# 
+#   } else if(is.vector(at)) {
+#     # get a handle of the cell range
+#     at <- do.call(xl$Cells, as.list(at))
+#   }
+# 
+# 
+#   nc <- dim(x)[2]
+#   if(nc < 1) stop("matrix must have at least one column")
+#   r1 <- at$Row()                   ## 1st row in range
+#   c1 <- at$Column()                ## 1st col in range
+#   c2 <- c1 + nc - 1                ## last col (*not* num of col)
+#   ws <- at[["Worksheet"]]
+# 
+#   ## headers
+#   if(!is.null(names(x))) {
+#     hdrRng <- ws$Range(ws$Cells(r1, c1), ws$Cells(r1, c2))
+#     hdrRng[["Value"]] <- names(x)
+#     rng <- ws$Cells(r1 + 1, c1)
+#   } else {
+#     rng <- ws$Cells(r1, c1)
+#   }
+# 
+#   ## data
+#   for(j in seq(from = 1, to = nc)){
+#     # debug only:
+#     # cat("Column", j, "\n")
+#     ToXL(x[, j], at = rng)       ## no byrow for matrices!
+#     rng <- rng$Next()            ## next cell to the right
+#   }
+#   invisible(ws$Range(ws$Cells(r1, c1), ws$Cells(r1 + nrow(x), c2)))
+# }
+# 
 
-ToXL.matrix <- function(x, at, ..., xl=DescToolsOptions("lastXL"))
+
+ToXL.matrix <- function (x, at, ..., xl = DescToolsOptions("lastXL")) {
   ## export the matrix "x" into the location "at" (top,left cell)
-  ## output the occupying range. Exactly the same as ToXL.data.frame
-  ## TODO: row.names, more error checking
-  ##
-{
+  
   if(is.character(at)){
     # address of the left upper cell
     at <- do.call(xl$Cells, as.list(A1ToZ1S1(at)[[1]]))
-
+    
   } else if(is.vector(at)) {
     # get a handle of the cell range
     at <- do.call(xl$Cells, as.list(at))
   }
-
-
+  
   nc <- dim(x)[2]
-  if(nc < 1) stop("matrix must have at least one column")
-  r1 <- at$Row()                   ## 1st row in range
-  c1 <- at$Column()                ## 1st col in range
-  c2 <- c1 + nc - 1                ## last col (*not* num of col)
-  ws <- at[["Worksheet"]]
-
-  ## headers
-  if(!is.null(names(x))) {
-    hdrRng <- ws$Range(ws$Cells(r1, c1), ws$Cells(r1, c2))
-    hdrRng[["Value"]] <- names(x)
-    rng <- ws$Cells(r1 + 1, c1)
-  } else {
-    rng <- ws$Cells(r1, c1)
+  if (nc < 1) 
+    stop("matrix must have at least one column")
+  
+  if(!is.null(names(dimnames(x)))) {
+    ToXL(names(dimnames(x))[1], at=at$offset(1, 0)$address())
+    fnt <- at$offset(1, 0)$Font()
+    fnt[["Bold"]] <- TRUE
+    ToXL(dimnames(x)[[1]], at=at$offset(2, 0)$address())
+    at_rn <- at$offset(2, 0)$resize(length(dimnames(x)[[1]]), 1)
+    at_rn[["IndentLevel"]] <- 1
+    ToXL(names(dimnames(x))[2], at=at$offset(0, 1)$address())
+    fnt <- at$offset(0, 1)$Font()
+    fnt[["Bold"]] <- TRUE
+    ToXL(rbind(dimnames(x)[[2]]), at=at$offset(1, 1)$address())
+    at <- at$offset(2, 1)
   }
+  
+  xref <- RDCOMClient::asCOMArray(x)
+  rng <- at$resize(dim(x)[1], dim(x)[2])
+  rng[["Value"]] <- xref
+  
+  invisible(rng)
 
-  ## data
-  for(j in seq(from = 1, to = nc)){
-    # debug only:
-    # cat("Column", j, "\n")
-    ToXL(x[, j], at = rng)       ## no byrow for matrices!
-    rng <- rng$Next()            ## next cell to the right
-  }
-  invisible(ws$Range(ws$Cells(r1, c1), ws$Cells(r1 + nrow(x), c2)))
 }
 
+
+ToXL.array <- function (x, at, ..., xl = DescToolsOptions("lastXL")) {
+
+  if(is.character(at)){
+    # address of the left upper cell
+    at <- do.call(xl$Cells, as.list(A1ToZ1S1(at)[[1]]))
+    
+  } else if(is.vector(at)) {
+    # get a handle of the cell range
+    at <- do.call(xl$Cells, as.list(at))
+  }
+    
+  lst <- lapply(asplit(x, seq_along(dim(x))[-c(1:2)]), "[")
+  
+  g <- expand.grid(dimnames(x)[-c(1:2)])
+  names(lst) <- paste0(", , ", apply(sapply(colnames(g), function(x) paste(x, "=", g[, x])), 1, paste, collapse=", "))
+    
+  for(i in seq_along(lst)){
+    ToXL(names(lst)[i], at=at)
+    at <- at$offset(2, 0)
+    ToXL(lst[[i]], at=at)
+    at <- at$offset(dim(lst[[i]])[1] + 3, 0)
+  }
+  
+
+}
+
+
+
+ToXL.table <- function (x, at, ..., xl = DescToolsOptions("lastXL")) {
+  ToXL.array(x, at=at, ..., xl=xl)
+}
 
 
 ToXL.default <- function(x, at, byrow = FALSE, ..., xl=DescToolsOptions("lastXL")) {
@@ -14029,12 +14378,12 @@ ToXL.default <- function(x, at, byrow = FALSE, ..., xl=DescToolsOptions("lastXL"
     if(byrow){
       arow <- gsub("[A-Z]","", at$cells(1,1)$address(rowabsolute=FALSE, columnabsolute=FALSE))
 
-      xlcol <- c( LETTERS
-                  , sort(c(outer(LETTERS, LETTERS, paste, sep="" )))
-                  , sort(c(outer(LETTERS, c(outer(LETTERS, LETTERS, paste, sep="" )), paste, sep="")))
-      )[1:16384]
-
-      rngA1 <- paste(xlcol[na], arow, sep="", collapse = ";")
+      # xlcol <- c( LETTERS
+      #             , sort(c(outer(LETTERS, LETTERS, paste, sep="" )))
+      #             , sort(c(outer(LETTERS, c(outer(LETTERS, LETTERS, paste, sep="" )), paste, sep="")))
+      # )[1:16384]
+      # xlcol <- XLColNames
+      rngA1 <- paste(XLColNames()[na], arow, sep="", collapse = ";")
       rng <- xl$range(rngA1)$offset(ColumnOffset=xl$Range(at$Address())$Column()-1)
 
     } else {
@@ -14065,17 +14414,24 @@ XLNamedReg <- function (x) {
 
 
 
+XLColNames <- function() {
+  c(LETTERS, out2 <- c(t(outer(LETTERS, LETTERS, paste, sep = ""))), 
+    t(outer(LETTERS, out2, paste, sep = "")))[1:16384]
+}
+
 
 A1ToZ1S1 <- function(x){
-  xlcol <- c( LETTERS
-              , sort(c(outer(LETTERS, LETTERS, paste, sep="" )))
-              , sort(c(outer(LETTERS, c(outer(LETTERS, LETTERS, paste, sep="" )), paste, sep="")))
-  )[1:16384]
+  
+  # was so slooow, we don't have to sort, if we do it a little more cleverly...
+  # xlcol <- c( LETTERS
+  #             , sort(c(outer(LETTERS, LETTERS, paste, sep="" )))
+  #             , sort(c(outer(LETTERS, c(outer(LETTERS, LETTERS, paste, sep="" )), paste, sep="")))
+  # )[1:16384]
 
   z1s1 <- function(x) {
     # remove all potential $ from a range first
     x <- gsub("\\$", "", x)
-    colnr <- match( regmatches(x, regexec("^[[:alpha:]]+", x)), xlcol)
+    colnr <- match( regmatches(x, regexec("^[[:alpha:]]+", x)), XLColNames())
     rownr <- as.numeric(regmatches(x, regexec("[[:digit:]]+$", x)))
     return(c(rownr, colnr))
   }
@@ -14086,21 +14442,173 @@ A1ToZ1S1 <- function(x){
 
 
 
+# XLGetRange <- function (file = NULL, sheet = NULL, range = NULL, as.data.frame = TRUE,
+#                         header = FALSE, stringsAsFactors = FALSE, echo = FALSE, datecols = NA,
+#                         na.strings = NULL, skip = 0) {
+# 
+# 
+#   # https://stackoverflow.com/questions/38950005/how-to-manipulate-null-elements-in-a-nested-list/
+#   
+#   simple_rapply <- function(x, fn) {
+#     if(is.list(x)) {
+#       lapply(x, simple_rapply, fn)
+#     } else {
+#       fn(x)
+#     }
+#   }
+#   
+# 
+#   # main function  *******************************
+# 
+#   # to do: 30.8.2015
+#   # we could / should check for a running XL instance here...
+#   # ans <- RDCOMClient::getCOMInstance("Excel.Application", force = FALSE, silent = TRUE)
+#   # if (is.null(ans) || is.character(ans)) print("not there")
+# 
+# 
+#   if(is.null(file)){
+#     xl <- GetCurrXL()
+#     ws <- xl$ActiveSheet()
+#     if(is.null(range)) {
+#       # if there is a selection in XL then use it, if only one cell selected use currentregion
+#       sel <- xl$Selection()
+#       if(sel$Cells()$Count() == 1 ){
+#         range <- xl$ActiveCell()$CurrentRegion()$Address(FALSE, FALSE)
+#       } else {
+#         range <- sapply(1:sel$Areas()$Count(), function(i) sel$Areas()[[i]]$Address(FALSE, FALSE) )
+# 
+#         # old: this did not work on some XL versions with more than 28 selected areas
+#         # range <- xl$Selection()$Address(FALSE, FALSE)
+#         # range <- unlist(strsplit(range, ";"))
+#         # there might be more than 1 single region, split by ;
+#         # (this might be a problem for other locales)
+#       }
+#     } 
+#     
+#   } else {
+#     xl <- GetNewXL()
+#     wb <- xl[["Workbooks"]]$Open(file)
+# 
+#     # set defaults for sheet and range here
+#     if(is.null(sheet))
+#       sheet <- 1
+# 
+#     if(is.null(range))
+#       range <- xl$Cells(1,1)$CurrentRegion()$Address(FALSE, FALSE)
+# 
+#     ws <- wb$Sheets(sheet)$select()
+#   }
+#   
+#   if(class(range) == "XLCurrReg"){
+#     # take only the first cell of a given range
+#     zs <- A1ToZ1S1(range)[[1]]
+#     range <- xl$Cells(zs[1], zs[2])$CurrentRegion()$Address(FALSE, FALSE)
+#   } else if(class(range) == "XLNamedReg"){
+#     # get the address of the named region
+#     sel <- xl$ActiveWorkbook()$Names(as.character(range))$RefersToRange()
+#     range <- sapply(1:sel$Areas()$Count(), function(i) sel$Areas()[[i]]$Address(FALSE, FALSE) )
+#     
+#   }
+#   
+#   # recycle skip
+#   skip <- rep(skip, length.out=length(range))
+# 
+#   lst <- list()
+#   #  for(i in 1:length(range)){  # John Chambers prefers seq_along: (why actually?)
+#   for(i in seq_along(range)){
+#     zs <- A1ToZ1S1(range[i])
+#     rr <- xl$Range(xl$Cells(zs[[1]][1], zs[[1]][2]), xl$Cells(zs[[2]][1], zs[[2]][2]) )
+#     # resize and offset range, if skip != 0
+#     if(skip[i] != 0)
+#       rr <- rr$Resize(rr$Rows()$Count() - skip[i])$Offset(skip[i], 0)
+# 
+#     lst[[i]] <- rr[["Value2"]]
+#     # implement na.strings:
+#     if(!is.null(na.strings))
+#       lst[[i]] <- rapply(lst[[i]], function(x) ifelse(x %in% na.strings, NA, x), how = "replace")
+#     names(lst)[i] <- range[i]
+#   }
+# 
+#   # replace NULL values by NAs, as NULLs are evil while coercing to data.frame!
+#   if(as.data.frame){
+#     for(i in seq_along(lst)){
+#       for(j in seq_along(lst[[i]])){
+#         lst[[i]][[j]][unlist(lapply(lst[[i]][[j]], is.null))] <- NA
+#       }
+#       xnames <- unlist(lapply(lst[[i]], "[", 1))        # define the names in case header = TRUE
+#       if(header) lst[[i]] <- lapply(lst[[i]], "[", -1)  # delete the first row
+#       lst[[i]] <- do.call(data.frame, c(lapply(lst[[i]][], unlist), stringsAsFactors = stringsAsFactors))
+#       if(header){
+#         names(lst[[i]]) <- xnames
+#       } else {
+#         names(lst[[i]]) <- paste("X", 1:ncol(lst[[i]]), sep="")
+#       }
+#     }
+# 
+#     # convert date columns to date
+#     if(!identical(datecols, NA)){
+#       # apply to all selections
+#       for(i in seq_along(lst)){
+# 
+#         # switch to colindex if given as text
+#         if(!is.numeric(datecols) && header)
+#           datecols <- which(names(lst[[i]]) %in% datecols)
+# 
+#         for(j in datecols)
+#           lst[[i]][,j] <- as.Date(XLDateToPOSIXct(lst[[i]][,j]))
+#       }
+#     }
+#   }
+# 
+#   # just return a single object (for instance data.frame) if only one range was supplied
+#   if(length(lst)==1) lst <- lst[[1]]
+# 
+#  # opt <- options(useFancyQuotes=FALSE); on.exit(options(opt))
+#   attr(lst,"call") <- gettextf("XLGetRange(file = %s, sheet = %s,
+#      range = c(%s),
+#      as.data.frame = %s, header = %s, stringsAsFactors = %s)",
+#      gsub("\\\\", "\\\\\\\\",
+#         shQuote(paste(xl$ActiveWorkbook()$Path(),
+#                      xl$ActiveWorkbook()$Name(), sep="\\"))),
+#      shQuote(xl$ActiveSheet()$Name()),
+# #     gettextf(paste(dQuote(names(lst)), collapse=",")),
+#      gettextf(paste(shQuote(range), collapse=",")),
+#      as.data.frame, header, stringsAsFactors)
+# 
+#   if(!is.null(file)) {
+#     xl$ActiveWorkbook()$Close(savechanges=FALSE)
+#     xl$Quit()  # only quit, if a new XL-instance was created before
+#   }
+# 
+#   if(echo)
+#     cat(attr(lst,"call"))
+# 
+#   return(lst)
+# 
+# }
+
 
 XLGetRange <- function (file = NULL, sheet = NULL, range = NULL, as.data.frame = TRUE,
-                        header = FALSE, stringsAsFactors = FALSE, echo = FALSE, datecols = NA,
+                        header = FALSE, stringsAsFactors = FALSE, echo = FALSE, 
                         na.strings = NULL, skip = 0) {
 
-
-
-  # main function  *******************************
+    # main function  *******************************
 
   # to do: 30.8.2015
   # we could / should check for a running XL instance here...
   # ans <- RDCOMClient::getCOMInstance("Excel.Application", force = FALSE, silent = TRUE)
   # if (is.null(ans) || is.character(ans)) print("not there")
 
-
+  
+  # https://stackoverflow.com/questions/38950005/how-to-manipulate-null-elements-in-a-nested-list/
+  simple_rapply <- function(x, fn) {
+    if(is.list(x)) {
+      lapply(x, simple_rapply, fn)
+    } else {
+      fn(x)
+    }
+  }
+  
   if(is.null(file)){
     xl <- GetCurrXL()
     ws <- xl$ActiveSheet()
@@ -14111,26 +14619,26 @@ XLGetRange <- function (file = NULL, sheet = NULL, range = NULL, as.data.frame =
         range <- xl$ActiveCell()$CurrentRegion()$Address(FALSE, FALSE)
       } else {
         range <- sapply(1:sel$Areas()$Count(), function(i) sel$Areas()[[i]]$Address(FALSE, FALSE) )
-
+  
         # old: this did not work on some XL versions with more than 28 selected areas
         # range <- xl$Selection()$Address(FALSE, FALSE)
         # range <- unlist(strsplit(range, ";"))
         # there might be more than 1 single region, split by ;
         # (this might be a problem for other locales)
       }
-    } 
-    
+    }
+  
   } else {
     xl <- GetNewXL()
     wb <- xl[["Workbooks"]]$Open(file)
-
+  
     # set defaults for sheet and range here
     if(is.null(sheet))
       sheet <- 1
-
+  
     if(is.null(range))
       range <- xl$Cells(1,1)$CurrentRegion()$Address(FALSE, FALSE)
-
+  
     ws <- wb$Sheets(sheet)$select()
   }
   
@@ -14142,84 +14650,116 @@ XLGetRange <- function (file = NULL, sheet = NULL, range = NULL, as.data.frame =
     # get the address of the named region
     sel <- xl$ActiveWorkbook()$Names(as.character(range))$RefersToRange()
     range <- sapply(1:sel$Areas()$Count(), function(i) sel$Areas()[[i]]$Address(FALSE, FALSE) )
-    
+  
   }
   
   # recycle skip
   skip <- rep(skip, length.out=length(range))
-
+  
   lst <- list()
-  #  for(i in 1:length(range)){  # John Chambers prefers seq_along: (why actually?)
-  for(i in seq_along(range)){
+  for (i in seq_along(range)) {
     zs <- A1ToZ1S1(range[i])
-    rr <- xl$Range(xl$Cells(zs[[1]][1], zs[[1]][2]), xl$Cells(zs[[2]][1], zs[[2]][2]) )
+    if(length(zs)==1){
+      rr <- xl$Cells(zs[[1]][1], zs[[1]][2])
+    } else {
+      rr <- xl$Range(xl$Cells(zs[[1]][1], zs[[1]][2]), xl$Cells(zs[[2]][1], 
+                                                                zs[[2]][2]))
+    }
+    
     # resize and offset range, if skip != 0
-    if(skip[i] != 0)
+    if (skip[i] != 0) 
       rr <- rr$Resize(rr$Rows()$Count() - skip[i])$Offset(skip[i], 0)
-
-    lst[[i]] <- rr[["Value2"]]
-    # implement na.strings:
-    if(!is.null(na.strings))
-      lst[[i]] <- rapply(lst[[i]], function(x) ifelse(x %in% na.strings, NA, x), how = "replace")
+    
+    # Get the values
+    if(is.null(rr[["Value"]]))
+      # this is the case when we have multiple ranges selected an one of them 
+      # is a single empty cell
+      lst[[i]] <- NA
+    else 
+      lst[[i]] <- rr[["Value"]]
+    # this produces a non trappable warning "Unhandled conversion type 10"
+    # no further problem, but document in help!
+    
+    if(!is.list(lst[[i]]))
+      lst[[i]] <- list(as.list(lst[[i]]))
+    
+    # replace NULLs by NAs (rather complicated job...)
+    lst[[i]] <- simple_rapply(lst[[i]], 
+                              function(x) if(is.null(x)) NA else x)
+    
+    # # address of errors: rr$SpecialCells(xlConst$xlFormulas, xlConst$xlErrors)$address()
+    lst[[i]] <- rapply(lst[[i]],
+                       function(x) {
+                         
+                         if(class(x) == "VARIANT"){
+                           # if there are errors replace them by NA
+                           NA
+                           
+                         } else if(class(x) == "COMDate") {
+                           # if there are XL dates, replace them by their date value
+                           if(IsWhole(x))
+                             as.Date(XLDateToPOSIXct(x))
+                           else
+                             XLDateToPOSIXct(x)
+                           
+                         } else if(x %in% na.strings) {
+                           # if x in na.strings' list replace it by NA
+                           NA
+                           
+                         } else {  
+                           x
+                         }
+                       }, how = "replace")
+    
     names(lst)[i] <- range[i]
   }
-
-  # replace NULL values by NAs, as NULLs are evil while coercing to data.frame!
-  if(as.data.frame){
-    for(i in seq_along(lst)){
-      for(j in seq_along(lst[[i]])){
-        lst[[i]][[j]][unlist(lapply(lst[[i]][[j]], is.null))] <- NA
+  
+  if (as.data.frame) {
+    for (i in seq_along(lst)) {
+      
+      if (header) {
+        xnames <- unlist(lapply(lst[[i]], "[", 1))
+        lst[[i]] <- lapply(lst[[i]], "[", -1)
       }
-      xnames <- unlist(lapply(lst[[i]], "[", 1))        # define the names in case header = TRUE
-      if(header) lst[[i]] <- lapply(lst[[i]], "[", -1)  # delete the first row
-      lst[[i]] <- do.call(data.frame, c(lapply(lst[[i]][], unlist), stringsAsFactors = stringsAsFactors))
-      if(header){
+      
+      # This was old: not fall back to it!!
+      # lst[[i]] <- do.call(data.frame, c(lapply(lst[[i]][], 
+      #                                          unlist), stringsAsFactors = stringsAsFactors))
+      
+      # don't use lapply and unlist as it's killing the classes for dates
+      # https://stackoverflow.com/questions/15659783/why-does-unlist-kill-dates-in-r
+      lst[[i]] <- do.call(data.frame, c(
+        lapply(lst[[i]], function(x) do.call(c, x)), 
+        stringsAsFactors = stringsAsFactors))
+      
+      if (header) {
         names(lst[[i]]) <- xnames
+        
       } else {
-        names(lst[[i]]) <- paste("X", 1:ncol(lst[[i]]), sep="")
-      }
-    }
-
-    # convert date columns to date
-    if(!identical(datecols, NA)){
-      # apply to all selections
-      for(i in seq_along(lst)){
-
-        # switch to colindex if given as text
-        if(!is.numeric(datecols) && header)
-          datecols <- which(names(lst[[i]]) %in% datecols)
-
-        for(j in datecols)
-          lst[[i]][,j] <- as.Date(XLDateToPOSIXct(lst[[i]][,j]))
+        names(lst[[i]]) <- paste("X", 1:ncol(lst[[i]]), sep = "")
       }
     }
   }
-
+  
   # just return a single object (for instance data.frame) if only one range was supplied
-  if(length(lst)==1) lst <- lst[[1]]
-
- # opt <- options(useFancyQuotes=FALSE); on.exit(options(opt))
-  attr(lst,"call") <- gettextf("XLGetRange(file = %s, sheet = %s,
-     range = c(%s),
-     as.data.frame = %s, header = %s, stringsAsFactors = %s)",
-     gsub("\\\\", "\\\\\\\\",
-        shQuote(paste(xl$ActiveWorkbook()$Path(),
-                     xl$ActiveWorkbook()$Name(), sep="\\"))),
-     shQuote(xl$ActiveSheet()$Name()),
-#     gettextf(paste(dQuote(names(lst)), collapse=",")),
-     gettextf(paste(shQuote(range), collapse=",")),
-     as.data.frame, header, stringsAsFactors)
-
-  if(!is.null(file)) {
-    xl$ActiveWorkbook()$Close(savechanges=FALSE)
-    xl$Quit()  # only quit, if a new XL-instance was created before
+  if (length(lst) == 1)   lst <- lst[[1]]
+  
+  attr(lst, "call") <- gettextf("XLGetRange(file = %s, sheet = %s,\n     range = c(%s),\n     as.data.frame = %s, header = %s, stringsAsFactors = %s)", 
+                                gsub("\\\\", "\\\\\\\\", shQuote(paste(xl$ActiveWorkbook()$Path(), 
+                                                                       xl$ActiveWorkbook()$Name(), sep = "\\"))), shQuote(xl$ActiveSheet()$Name()), 
+                                gettextf(paste(shQuote(range), collapse = ",")), as.data.frame, 
+                                header, stringsAsFactors)
+  
+  if (!is.null(file)) {
+    xl$ActiveWorkbook()$Close(savechanges = FALSE)
+    xl$Quit()                  # only quit, if a new XL-instance was created before
   }
-
-  if(echo)
-    cat(attr(lst,"call"))
-
+  
+  if (echo) 
+    cat(attr(lst, "call"))
+  
   return(lst)
-
+  
 }
 
 
@@ -14308,62 +14848,6 @@ XLDateToPOSIXct <- function (x, tz = "GMT", xl1904 = FALSE) {
 
 
 
-GetNewPP <- function (visible = TRUE, template = "Normal") {
-
-  if (requireNamespace("RDCOMClient", quietly = FALSE)) {
-
-    hwnd <- RDCOMClient::COMCreate("PowerPoint.Application")
-    if (visible == TRUE) { hwnd[["Visible"]] <- TRUE }
-
-    newpres <- hwnd[["Presentations"]]$Add(TRUE)
-    ppLayoutBlank <- 12
-    newpres[["Slides"]]$Add(1, ppLayoutBlank)
-    # options("lastPP" = hwnd)
-    DescToolsOptions(lastPP = hwnd)
-
-
-  } else {
-
-    if(Sys.info()["sysname"] == "Windows")
-      warning("RDCOMClient is not available. To install it use: install.packages('RDCOMClient', repos = 'http://www.stats.ox.ac.uk/pub/RWin/')")
-    else
-      warning(gettextf("RDCOMClient is unfortunately not available for %s systems (Windows-only).", Sys.info()["sysname"]))
-
-    hwnd <- NULL
-
-  }
-
-  invisible(hwnd)
-}
-
-
-GetCurrPP <- function() {
-
-  if (requireNamespace("RDCOMClient", quietly = FALSE)) {
-
-    # there's no "get"-function in RDCOMClient, so just create a new here..
-    hwnd <- RDCOMClient::COMCreate("PowerPoint.Application", existing=TRUE)
-    if(is.null(hwnd)) warning("No running PowerPoint application found!")
-
-    # options("lastPP" = hwnd)
-    DescToolsOptions(lastPP = hwnd)
-
-
-  } else {
-
-    if(Sys.info()["sysname"] == "Windows")
-      warning("RDCOMClient is not available. To install it use: install.packages('RDCOMClient', repos = 'http://www.stats.ox.ac.uk/pub/RWin/')")
-    else
-      warning(gettextf("RDCOMClient is unfortunately not available for %s systems (Windows-only).", Sys.info()["sysname"]))
-
-    hwnd <- NULL
-  }
-
-
-  invisible(hwnd)
-
-}
-
 
 
 PpAddSlide <- function(pos = NULL, pp = DescToolsOptions("lastPP")){
@@ -14424,8 +14908,8 @@ PpPlot <- function( type="png", crop=c(0,0,0,0),
   # Example: PpPlot(picscale=30)
   #          PpPlot(width=8)
 
-  .CentimetersToPoints <- function(x) x * 28.35
-  .PointsToCentimeters <- function(x) x / 28.35
+  CmToPts <- function(x) x * 28.35
+  PtsToCm <- function(x) x / 28.35
   # http://msdn.microsoft.com/en-us/library/bb214076(v=office.12).aspx
 
   # handle missing height or width values
@@ -14457,10 +14941,10 @@ PpPlot <- function( type="png", crop=c(0,0,0,0),
   pic <- slide[["Shapes"]]$AddPicture(fn, FALSE, TRUE, x, y)
 
   picfrmt <- pic[["PictureFormat"]]
-  picfrmt[["CropBottom"]] <- .CentimetersToPoints(crop[1])
-  picfrmt[["CropLeft"]] <- .CentimetersToPoints(crop[2])
-  picfrmt[["CropTop"]] <- .CentimetersToPoints(crop[3])
-  picfrmt[["CropRight"]] <- .CentimetersToPoints(crop[4])
+  picfrmt[["CropBottom"]] <- CmToPts(crop[1])
+  picfrmt[["CropLeft"]] <- CmToPts(crop[2])
+  picfrmt[["CropTop"]] <- CmToPts(crop[3])
+  picfrmt[["CropRight"]] <- CmToPts(crop[4])
 
   if( is.na(height) & is.na(width) ){
     # or use the ScaleHeight/ScaleWidth attributes:
@@ -14471,10 +14955,10 @@ PpPlot <- function( type="png", crop=c(0,0,0,0),
 
   } else {
     # Set new height:
-    if( is.na(width) ) width <- height / .PointsToCentimeters( pic[["Height"]] ) * .PointsToCentimeters( pic[["Width"]] )
-    if( is.na(height) ) height <- width / .PointsToCentimeters( pic[["Width"]] ) * .PointsToCentimeters( pic[["Height"]] )
-    pic[["Height"]] <- .CentimetersToPoints(height)
-    pic[["Width"]] <- .CentimetersToPoints(width)
+    if( is.na(width) ) width <- height / PtsToCm( pic[["Height"]] ) * PtsToCm( pic[["Width"]] )
+    if( is.na(height) ) height <- width / PtsToCm( pic[["Width"]] ) * PtsToCm( pic[["Height"]] )
+    pic[["Height"]] <- CmToPts(height)
+    pic[["Width"]] <- CmToPts(width)
   }
 
   if( file.exists(fn) ) { file.remove(fn) }
@@ -14482,6 +14966,429 @@ PpPlot <- function( type="png", crop=c(0,0,0,0),
   invisible( pic )
 
 }
+
+
+
+SendOutlookMail <- function(to, cc=NULL, bcc=NULL, subject, body, attachment=NULL){
+  
+  out <- GetCOMAppHandle("Outlook.Application", existing=TRUE)
+  
+  mail <- out$CreateItem(0)
+  mail[["to"]] <- to
+  if(!is.null(cc)) mail[["cc"]] <- cc
+  if(!is.null(bcc)) mail[["bcc"]] <- bcc
+  mail[["subject"]] <- subject
+  mail[["body"]] <- body
+  
+  ## Add attachments
+  if(!is.null(attachment)) 
+    sapply(attachment, function(x) mail[["Attachments"]]$Add(x))
+  
+  ## senden                  
+  mail$Send()
+  
+  rm(out, mail)
+  gc() 
+  
+  invisible()
+  
+}
+
+
+
+
+createCOMReference <- function(ref, className) {
+  RDCOMClient::createCOMReference(ref, className)
+}
+
+# createCOMReference <- RDCOMClient::createCOMReference
+
+
+
+# isValidCOMObject <- function(obj) {
+#   RDCOMClient::isValidCOMObject(obj)
+# }
+
+
+IsValidPtr <- function(pointer) {
+  if(is(pointer, "externalptr") | is(pointer, "COMIDispatch"))
+    !.Call("isnil", pointer)
+  else 
+    FALSE
+}
+
+
+IsValidHwnd <- function(hwnd){
+  # returns TRUE if the selection of the pointer can be evaluated
+  # meaning the pointer points to a running word/excel/powerpoint instance and so far valid
+  if(!is.null(hwnd) && IsValidPtr(hwnd) )
+    res <- !inherits(tryCatch(hwnd[["Selection"]], error=function(e) {e}), 
+                     "simpleError")   # Error in
+  else 
+    res <- FALSE
+  
+  return(res)
+  
+}
+
+
+
+
+GetCOMAppHandle <- function(app, option=NULL, existing=FALSE, visible=NULL){
+  
+  if (requireNamespace("RDCOMClient", quietly = FALSE)) {
+    
+    if(!existing)
+      # there's no "get"-function in RDCOMClient, so just create a new here..
+      hwnd <- RDCOMClient::COMCreate(app, existing=existing)
+    else
+      hwnd <- RDCOMClient::getCOMInstance(app)
+    
+    if(is.null(hwnd)) 
+      warning(gettext("No running %s application found!", app))
+    else
+      if(!is.null(visible))     hwnd[["Visible"]] <- visible
+    
+    
+    # set the DescTools option, if required
+    if(!is.null(option))
+      eval(parse(text=gettextf("DescToolsOptions(%s = hwnd)", option)))
+    
+  } else {
+    
+    # no RDCOMClient present or not Windows system
+    if(Sys.info()["sysname"] == "Windows")
+      warning("RDCOMClient is not available. To install it use: install.packages('RDCOMClient', repos = 'http://www.stats.ox.ac.uk/pub/RWin/')")
+    else
+      warning(gettextf("RDCOMClient is unfortunately not available for %s systems (Windows-only).", Sys.info()["sysname"]))
+    
+    hwnd <- NULL
+  }
+  
+  return(hwnd)
+  
+}
+
+
+
+GetCurrWrd <- function() {
+  
+  #   if (requireNamespace("RDCOMClient", quietly = FALSE)) {
+  # 
+  #     # there's no "get"-function in RDCOMClient, so just create a new here..
+  #     hwnd <- RDCOMClient::COMCreate("Word.Application", existing=TRUE)
+  #     if(is.null(hwnd)) warning("No running Word application found!")
+  # 
+  # #    options(lastWord = hwnd)
+  #     DescToolsOptions(lastWord = hwnd)
+  # 
+  # 
+  #   } else {
+  # 
+  #     if(Sys.info()["sysname"] == "Windows")
+  #       warning("RDCOMClient is not available. To install it use: install.packages('RDCOMClient', repos = 'http://www.omegahat.net/R/')")
+  #     else
+  #       warning(gettextf("RDCOMClient is unfortunately not available for %s systems (Windows-only).", Sys.info()["sysname"]))
+  # 
+  #     wrd <- NULL
+  # 
+  #   }
+  # 
+  #   invisible(hwnd)
+  
+  hwnd <- GetCOMAppHandle("Word.Application", option="lastWord", existing=TRUE)
+  
+  
+}
+
+
+# GetNewWrd <- function(visible = TRUE, template = "Normal", header=FALSE
+#                       , main="Descriptive report") {
+#   
+#   # if (requireNamespace("RDCOMClient", quietly = FALSE)) {
+#   # 
+#   #   # Starts the Word application with wrd as handle
+#   #   hwnd <- RDCOMClient::COMCreate("Word.Application", existing=FALSE)
+#   #   DescToolsOptions(lastWord = hwnd)
+#   # 
+#   #   if( visible == TRUE ) hwnd[["Visible"]] <- TRUE
+#   # 
+#   #   # Create a new document based on template
+#   #   # VBA code:
+#   #   # Documents.Add Template:= _
+#   #   #        "O:\G\GI\_Admin\Administration\09_Templates\newlogo_GI_doc_bericht.dot", _
+#   #   #        NewTemplate:=False, DocumentType:=0
+#   #   #
+#   #   newdoc <- hwnd[["Documents"]]$Add(template, FALSE, 0)
+#   # 
+#   #   # prepare word document, with front page, table of contents, footer ...
+#   #   if(header) .WrdPrepRep( wrd=hwnd, main=main )
+#   # 
+#   # } else {
+#   # 
+#   #   if(Sys.info()["sysname"] == "Windows")
+#   #     warning("RDCOMClient is not available. To install it use: install.packages('RDCOMClient', repos = 'http://www.omegahat.net/R/')")
+#   #   else
+#   #     warning(gettextf("RDCOMClient is unfortunately not available for %s systems (Windows-only).", Sys.info()["sysname"]))
+#   # 
+#   #   hwnd <- NULL
+#   # }
+#   
+#   
+#   hwnd <- GetCOMAppHandle("Word.Application", option="lastWord", 
+#                           existing=FALSE, visible=TRUE)
+#   
+#   if(!is.null(hwnd)){
+#     
+#     # Create a new document based on template
+#     # VBA code:
+#     # Documents.Add Template:= _
+#     #        "O:\G\GI\_Admin\Administration\09_Templates\newlogo_GI_doc_bericht.dot", _
+#     #        NewTemplate:=False, DocumentType:=0
+#     #
+#     newdoc <- hwnd[["Documents"]]$Add(template, FALSE, 0)
+#     
+#     # prepare word document, with front page, table of contents, footer ...
+#     if(header) .WrdPrepRep( wrd=hwnd, main=main )
+#     
+#   }
+#   
+#   invisible( hwnd )
+#   
+# }
+# 
+
+
+
+
+GetNewWrd <- function (visible = TRUE, template = "Normal", header = FALSE, 
+                       main = "Descriptive report") {
+  
+  hwnd <- GetCOMAppHandle("Word.Application", option = "lastWord", 
+                                      existing = FALSE, visible = TRUE)
+  
+  if (!is.null(hwnd)) {
+    newdoc <- hwnd[["Documents"]]$Add(template, FALSE, 0)
+    
+    if (template=="Normal" && header) 
+      .WrdPrepRep(wrd = hwnd, main = main)
+    
+    # Check for existance of bookmark Main and update if found
+    if(!is.null(WrdBookmark(bookmark = "Main", wrd = hwnd))){
+      WrdUpdateBookmark(name="Main", text = main, wrd=hwnd)
+      WrdUpdateFields(wrd=hwnd, where = c(1,7))
+    }
+  }
+  
+  invisible(hwnd)
+}
+
+
+
+# wdCommentsStory = 4,
+# wdEndnoteContinuationNoticeStory = 17,
+# wdEndnoteContinuationSeparatorStory = 16,
+# wdEndnoteSeparatorStory = 15,
+# wdEndnotesStory = 3,
+# wdEvenPagesFooterStory = 8,
+# wdEvenPagesHeaderStory = 6,
+# wdFirstPageFooterStory = 11,
+# wdFirstPageHeaderStory = 10,
+# wdFootnoteContinuationNoticeStory = 14,
+# wdFootnoteContinuationSeparatorStory = 13,
+# wdFootnoteSeparatorStory = 12,
+# wdFootnotesStory = 2,
+# wdMainTextStory = 1,
+# wdPrimaryFooterStory = 9,
+# wdPrimaryHeaderStory = 7,
+# wdTextFrameStory = 5)
+
+
+
+
+GetNewXL <- function(visible = TRUE, newdoc = TRUE) {
+  
+  # if (requireNamespace("RDCOMClient", quietly = FALSE)) {
+  # 
+  #     # Starts the Excel with xl as handle
+  #   hwnd <- RDCOMClient::COMCreate("Excel.Application")
+  #   DescToolsOptions(lastXL = hwnd)
+  # 
+  #   if(visible == TRUE) hwnd[["Visible"]] <- TRUE
+  # 
+  #   # Create a new workbook
+  #   # react the same as GetNewWrd(), Word is also starting with a new document
+  #   # XL would not
+  #   if(newdoc)
+  #     hwnd[["Workbooks"]]$Add()
+  # 
+  # } else {
+  # 
+  #   if(Sys.info()["sysname"] == "Windows")
+  #     warning("RDCOMClient is not available. To install it use: install.packages('RDCOMClient', repos = 'http://www.omegahat.net/R/')")
+  #   else
+  #     warning(gettextf("RDCOMClient is unfortunately not available for %s systems (Windows-only).", Sys.info()["sysname"]))
+  # 
+  #   hwnd <- NULL
+  # }
+  # 
+  # invisible(hwnd)
+  
+  hwnd <- GetCOMAppHandle("Excel.Application", option="lastXL", existing=FALSE, visible=TRUE)
+  
+  if(!is.null(hwnd)){
+    
+    # Create a new workbook
+    # react the same as GetNewWrd(), Word is also starting with a new document
+    # whereas XL would not
+    if(newdoc)      hwnd[["Workbooks"]]$Add()
+    
+  }
+  
+  invisible(hwnd)
+  
+}
+
+
+# GetCurrXLA <- function() {
+#   
+#   #  stopifnot(require(RDCOMClient))
+#     if (requireNamespace("RDCOMClient", quietly = FALSE)) {
+# 
+#       # try to get a handle to a running XL instance
+#       # there's no "get"-function in RDCOMClient, so just create a new here..
+#       hwnd <- RDCOMClient::COMCreate("Excel.Application", existing=TRUE)
+#       if(is.null(hwnd)) warning("No running Excel application found!")
+# 
+#       DescToolsOptions(lastXL = hwnd)
+# 
+#     } else {
+# 
+#       if(Sys.info()["sysname"] == "Windows")
+#         warning("RDCOMClient is not available. To install it use: install.packages('RDCOMClient', repos = 'http://www.omegahat.net/R/')")
+#       else
+#         warning(gettextf("RDCOMClient is unfortunately not available for %s systems (Windows-only).", Sys.info()["sysname"]))
+# 
+#       hwnd <- NULL
+#     }
+# 
+#     invisible(hwnd)
+# }
+
+
+GetCurrXL <- function() {
+
+  # #  stopifnot(require(RDCOMClient))
+  #   if (requireNamespace("RDCOMClient", quietly = FALSE)) {
+  # 
+  #     # try to get a handle to a running XL instance
+  #     # there's no "get"-function in RDCOMClient, so just create a new here..
+  #     hwnd <- RDCOMClient::COMCreate("Excel.Application", existing=TRUE)
+  #     if(is.null(hwnd)) warning("No running Excel application found!")
+  #   
+  #     DescToolsOptions(lastXL = hwnd)
+  # 
+  #   } else {
+  # 
+  #     if(Sys.info()["sysname"] == "Windows")
+  #       warning("RDCOMClient is not available. To install it use: install.packages('RDCOMClient', repos = 'http://www.omegahat.net/R/')")
+  #     else
+  #       warning(gettextf("RDCOMClient is unfortunately not available for %s systems (Windows-only).", Sys.info()["sysname"]))
+  # 
+  #     hwnd <- NULL
+  #   }
+  # 
+  #   invisible(hwnd)
+  
+  hwnd <- GetCOMAppHandle("Excel.Application", option="lastXL", existing=TRUE)
+  invisible(hwnd)
+  
+  
+}
+
+
+
+GetNewPP <- function (visible = TRUE, template = "Normal") {
+  
+  # if (requireNamespace("RDCOMClient", quietly = FALSE)) {
+  # 
+  #   hwnd <- RDCOMClient::COMCreate("PowerPoint.Application")
+  #   if (visible == TRUE) { hwnd[["Visible"]] <- TRUE }
+  # 
+  #   newpres <- hwnd[["Presentations"]]$Add(TRUE)
+  #   ppLayoutBlank <- 12
+  #   newpres[["Slides"]]$Add(1, ppLayoutBlank)
+  #   # options("lastPP" = hwnd)
+  #   DescToolsOptions(lastPP = hwnd)
+  # 
+  # 
+  # } else {
+  # 
+  #   if(Sys.info()["sysname"] == "Windows")
+  #     warning("RDCOMClient is not available. To install it use: install.packages('RDCOMClient', repos = 'http://www.stats.ox.ac.uk/pub/RWin/')")
+  #   else
+  #     warning(gettextf("RDCOMClient is unfortunately not available for %s systems (Windows-only).", Sys.info()["sysname"]))
+  # 
+  #   hwnd <- NULL
+  # 
+  # }
+  # 
+  
+  hwnd <- GetCOMAppHandle("PowerPoint.Application", option="lastPP", existing=FALSE, visible=TRUE)
+  
+  if(!is.null(hwnd)){
+    
+    newpres <- hwnd[["Presentations"]]$Add(TRUE)
+    ppLayoutBlank <- 12
+    newpres[["Slides"]]$Add(1, ppLayoutBlank)
+    
+  }
+  
+  invisible(hwnd)  
+  
+}
+
+
+GetCurrPP <- function() {
+  
+  # if (requireNamespace("RDCOMClient", quietly = FALSE)) {
+  # 
+  #   # there's no "get"-function in RDCOMClient, so just create a new here..
+  #   hwnd <- RDCOMClient::COMCreate("PowerPoint.Application", existing=TRUE)
+  #   if(is.null(hwnd)) warning("No running PowerPoint application found!")
+  # 
+  #   # options("lastPP" = hwnd)
+  #   DescToolsOptions(lastPP = hwnd)
+  # 
+  # 
+  # } else {
+  # 
+  #   if(Sys.info()["sysname"] == "Windows")
+  #     warning("RDCOMClient is not available. To install it use: install.packages('RDCOMClient', repos = 'http://www.stats.ox.ac.uk/pub/RWin/')")
+  #   else
+  #     warning(gettextf("RDCOMClient is unfortunately not available for %s systems (Windows-only).", Sys.info()["sysname"]))
+  # 
+  #   hwnd <- NULL
+  # }
+  # 
+  # 
+  # invisible(hwnd)
+  
+  hwnd <- GetCOMAppHandle("PowerPoint.Application", option="lastPP", existing=TRUE)
+  invisible(hwnd)
+  
+}
+
+
+
+
+WrdKill <- function(){
+  # Word might not always quit and end the task
+  # so killing the task is "ultima ratio"...
+  
+  shell('taskkill /F /IM WINWORD.EXE')
+}
+
 
 
 

@@ -1,7 +1,7 @@
 \name{ColumnWrap}
 \alias{ColumnWrap}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{ColumnWrap
+\title{Column Wrap
 %%  ~~function to do ... ~~
 }
 \description{Wraps text in a character matrix so, that it's displayed over more than one line.

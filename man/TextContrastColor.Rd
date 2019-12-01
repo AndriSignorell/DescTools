@@ -33,11 +33,6 @@ Sonego calculates \code{L <- c(0.2, 0.6, 0) \%*\% col2rgb(color)/255} and return
 }
 \value{a vector containing the contrast color (either black or white)
 }
-\references{
-\url{http://research.stowers.org/mcm/efg/R/Color/Chart/index.htm}
-
-(Reference for Sonego??)
-}
 
 \author{Andri Signorell <andri@signorell.net> based on code of
 Earl F. Glynn, Stowers Institute for Medical Research, 2004

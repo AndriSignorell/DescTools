@@ -18,11 +18,12 @@ Yule's Q and Y and Tschuprow's T of \code{x}, if \code{x} is a table. If both, \
 Phi(x, y = NULL, \dots)
 ContCoef(x, y = NULL, correct = FALSE, \dots)
 CramerV(x, y = NULL, conf.level = NA,
-        method = c("ncchisq", "ncchisqadj", "fisher", "fisheradj"), \dots)
+        method = c("ncchisq", "ncchisqadj", "fisher", "fisheradj"), 
+        correct = FALSE, \dots)
 
 YuleQ(x, y = NULL, \dots)
 YuleY(x, y = NULL, \dots)
-TschuprowT(x, y = NULL, \dots)
+TschuprowT(x, y = NULL, correct = FALSE, \dots)
 
 }
 %- maybe also 'usage' for other objects documented here.
@@ -35,8 +36,7 @@ TschuprowT(x, y = NULL, \dots)
   See examples for calculating bootstrap intervals.
 }
 \item{method}{string defining the method to calculate confidence intervals for Cramer's V. One out of \code{"ncchisq"} (using noncentral chisquare), \code{"ncchisqadj"}, \code{"fisher"} (using fisher z transformation), \code{"fisheradj"} (using fisher z transformation and bias correction). Default is \code{"ncchisq"}.}
-  \item{correct}{logical. This argument only applies to \code{ContCoef} and indicates, whether the Sakoda's adjusted Pearson's C should be returned. Default is \code{FALSE}.
-}
+  \item{correct}{logical. Applying to \code{ContCoef} this indicates, whether the Sakoda's adjusted Pearson's C should be returned. For \code{CramerV()} and \code{TschuprowT()} it defines, whether a bias correction should be applied or not. Default is \code{FALSE}. }
   \item{\dots}{further arguments are passed to the function \code{\link{table}}, allowing i.e. to set \code{useNA}.
   }
 }
@@ -72,6 +72,8 @@ Sakoda, J.M. (1977) Measures of Association for Multivariate Contingency Tables,
 
 Smithson, M.J. (2003) \emph{Confidence Intervals, Quantitative Applications in the Social Sciences Series}, No. 140. Thousand Oaks, CA: Sage. pp. 39-41
 
+Bergsma, W. (2013) A bias-correction for Cramer's V and Tschuprow's T
+ \emph{Journal of the Korean Statistical Society} 42(3) DOI: 10.1016/j.jkss.2012.10.002
 }
 \author{
 Andri Signorell <andri@signorell.net>, \cr

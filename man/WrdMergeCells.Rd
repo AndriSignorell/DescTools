@@ -47,3 +47,4 @@ WrdMergeCells(wtab, rstart=c(1,2), rend=c(2,3))
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{print}
+\keyword{MS-Office}

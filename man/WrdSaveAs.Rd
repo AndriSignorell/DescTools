@@ -1,13 +1,15 @@
 \name{WrdSaveAs}
 \alias{WrdSaveAs}
+\alias{WrdOpenFile}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Save Word Document
+\title{Open and Save Word Documents
 %%  ~~function to do ... ~~
 }
-\description{Save MS-Word documents.
+\description{Open and save MS-Word documents.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
+WrdOpenFile(fn, wrd = DescToolsOptions("lastWord"))
 WrdSaveAs(fn, fileformat = "docx", wrd = DescToolsOptions("lastWord"))
 }
 %- maybe also 'usage' for other objects documented here.
@@ -49,3 +51,4 @@ WrdSaveAs(fn="report", fileformat="htm")
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{print}% __ONLY ONE__ keyword per line
+\keyword{MS-Office}

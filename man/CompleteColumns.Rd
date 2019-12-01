@@ -39,5 +39,4 @@ A logical vector specifying which columns have no missing values across the enti
 CompleteColumns(d.pizza)
 CompleteColumns(d.pizza, which=FALSE)
 }
-\keyword{ NA }% __ONLY ONE__ keyword per line
 \keyword{ logic }% __ONLY ONE__ keyword per line

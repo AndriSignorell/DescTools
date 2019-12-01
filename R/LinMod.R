@@ -16,7 +16,7 @@ Conf.table <- function(x, pos = NULL, ...) {
 
     # order confusion table so
     # that the positive class is the first and the others keep their position
-    ord <- c(pos, rownames(x)[-grep(pos, rownames(x))])
+    ord <- c(pos, rownames(x)[-grep(pos, rownames(x), fixed=TRUE)])
     # the columnnames must be the same as the rownames
     x <- as.table(x[ord, ord])
     return(x)
@@ -42,7 +42,8 @@ Conf.table <- function(x, pos = NULL, ...) {
   } else {
     # order 2x2-confusion table so
     # that the positive class is the first and the others keep their position
-    ord <- c(pos, rownames(x)[-grep(pos, rownames(x))])
+    # fixed=TRUE as we might run into problems with columnnames like (8-9] ...
+    ord <- c(pos, rownames(x)[-grep(pos, rownames(x), fixed=TRUE)])
     # the columnnames must be the same as the rownames
     x <- as.table(x[ord, ord])
   }
@@ -273,13 +274,24 @@ PseudoR2 <- function(x, which = NULL) {
 
   if(inherits(x, what="multinom"))
     L.base <- logLik(update(x, ~1, trace=FALSE))
+  
   else if(inherits(x, what="glm"))
     # replaced 2019-08-19, based on mail by inferrator:
     #
     #   L.base <- logLik(update(x, ~1))
 
-    L.base <- logLik(glm(formula = reformulate('1', gsub(" .*$", "", deparse(x$formula))),
-                         data = x$data, family = x$family))
+    
+    L.base <- logLik(glm(formula = reformulate('1', 
+      # replace the right side of the formula by 1                                           
+                 gsub(" .*$", "", 
+      # not all glms have a formula element, e.g. MASS::negbin                                           
+                        deparse(unlist(list(x$formula, x$call$formula, formula(x)))[[1]]))),
+      # use the first non null list element
+      # note x$call$data is a symbol and must first be evaluated
+                         data = Filter(Negate(is.null), list(x$data, eval(x$call$data) ))[[1]],
+                         family = x$family))
+  
+    
   else 
     L.base <- logLik(update(x, ~1))
   

@@ -110,6 +110,28 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// fastMode
+SEXP fastMode(SEXP x, bool narm);
+RcppExport SEXP _DescTools_fastMode(SEXP xSEXP, SEXP narmSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< bool >::type narm(narmSEXP);
+    rcpp_result_gen = Rcpp::wrap(fastMode(x, narm));
+    return rcpp_result_gen;
+END_RCPP
+}
+// fastModeX
+SEXP fastModeX(SEXP x, bool narm);
+RcppExport SEXP _DescTools_fastModeX(SEXP xSEXP, SEXP narmSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< bool >::type narm(narmSEXP);
+    rcpp_result_gen = Rcpp::wrap(fastModeX(x, narm));
+    return rcpp_result_gen;
+END_RCPP
+}
 // dgompertz_work
 Rcpp::NumericVector dgompertz_work(const Rcpp::NumericVector& x, const Rcpp::NumericVector& shape, const Rcpp::NumericVector& rate, const bool log);
 RcppExport SEXP _DescTools_dgompertz_work(SEXP xSEXP, SEXP shapeSEXP, SEXP rateSEXP, SEXP logSEXP) {
