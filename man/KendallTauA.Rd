@@ -1,7 +1,7 @@
 \name{KendallTauA}
 \alias{KendallTauA}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Kendall's Tau-a
+\title{Kendall's \eqn{\tau_{a}}{Tau-a}
 %%  ~~function to do ... ~~
 }
 \description{Calculate Kendall's tau-a statistic, a measure of

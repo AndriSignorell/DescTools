@@ -10,7 +10,7 @@
 }
 \description{\code{Frac()} returns the fractional part of a numeric value.
 \code{MaxDigits()} return the number of digits in \code{x}. \cr
-\code{Ndec()} returns the number of decimals and \code{Prec()} the precision of a number \code{x}.
+\code{Ndec()} returns the number of decimals.\cr  \code{Prec()} returns the precision of a number \code{x}.
 
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }

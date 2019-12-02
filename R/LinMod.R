@@ -266,6 +266,9 @@ PseudoR2 <- function(x, which = NULL) {
     return(NA)
 
 
+  if(inherits(x, what="vglm") && !requireNamespace("VGAM", quietly=TRUE)) {
+    stop("Could not find package 'VGAM' - please install first") }
+  
   if (!(inherits(x, what="vglm")) && !is.null(x$call$summ) && !identical(x$call$summ, 0))
     stop("can NOT get Loglik when 'summ' argument is not zero")
 
@@ -366,7 +369,15 @@ PseudoR2 <- function(x, which = NULL) {
     
 
     # McKelveyZavoina
-    y.hat <- predict(x, type="link")
+    # y.hat <- predict(x, type="link")
+    
+    # remark Daniel Wollschlaeger, vglm would not dispatch correctly 30.11.2019
+    y.hat <- if(inherits(x, "vglm")) {
+      VGAM::predictvglm(x, type="link")
+    } else {
+      predict(x, type="link")
+    }
+    
     sse <- sum((y.hat - mean(y.hat))^2)
     res["McKelveyZavoina"] <- sse/(n * s2 + sse)
 

@@ -1,7 +1,7 @@
 \name{KendallTauB}
 \alias{KendallTauB}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Kendall Tau-b
+\title{Kendall's \eqn{\tau_{b}}{Tau-b}
 %%  ~~function to do ... ~~
 }
 \description{Calculate Kendall's tau-b. The estimator could also be calculated with \code{cor(..., method="kendall")}.

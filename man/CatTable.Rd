@@ -38,6 +38,8 @@ Andri Signorell <andri@signorell.net>
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
+options(scipen=8)
+
 # used in bivariate description functions
 Desc(temperature ~ cut(delivery_min, breaks=40), data=d.pizza)
 

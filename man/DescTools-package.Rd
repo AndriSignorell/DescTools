@@ -10,10 +10,10 @@ The author's intention was to create a toolbox, which facilitates the (notorious
 A considerable part of the included functions can be found scattered in other packages and other sources written partly by Titans of R. The reason for collecting them here, was primarily to have them consolidated in ONE instead of dozens of packages (which themselves might depend on other packages which are not needed at all), and to provide a common and consistent interface as far as function and arguments naming, \code{NA} handling, recycling rules etc. are concerned. Google style guides were used as naming rules (in absence of convincing alternatives). The 'CamelStyle' was consequently applied to functions borrowed from contributed R packages as well.
 \cr
 
-Feedback, feature requests, bugreports and other suggestions are welcome! Please report problems to Stack Overflow mentioning DescTools or directly to the maintainer.
+Feedback, feature requests, bugreports and other suggestions are welcome! Please report problems to Stack Overflow using tag [desctools] or directly to the maintainer.
 }
 
-\section{Warning}{This package is still under development. Although the code seems meanwhile quite stable, until release of version 1.0 (which is expected in hmm: spring 2019? ... you don't believe it anymore?) you should be aware that everything in the package might be subject to change. Backward compatibility is not yet guaranteed. Functions may be deleted or renamed and new syntax may be inconsistent with earlier versions. By release of version 1.0 the "deprecated-defunct process" will be installed.
+\section{Warning}{This package is still under development. Although the code seems meanwhile quite stable, until release of version 1.0 (which is expected in hmm: new future?) you should be aware that everything in the package might be subject to change. Backward compatibility is not yet guaranteed. Functions may be deleted or renamed and new syntax may be inconsistent with earlier versions. By release of version 1.0 the "deprecated-defunct process" will be installed.
 }
 
 \details{
@@ -235,7 +235,7 @@ _RevWeibull   \tab      Reverse Weibull distribution (\link{dRevWeibull})\cr
 \link{PercTable}  \tab    Bivariate percentage table   \cr
 \link{Margins}       \tab      (Extended) margin tables of a table \cr
 \link{ExpFreq}       \tab      Expected frequencies of a n-dimensional table \cr
-\link{Mode}  \tab     Mode, the most frequent value   \cr
+\link{Mode}  \tab     Mode, the most frequent value (including frequency)   \cr
 \link{Gmean}, \link{Gsd}  \tab  Geometric mean and geometric standard deviation     \cr
 \link{Hmean}  \tab    Harmonic Mean   \cr
 \link{Median}       \tab   Extended median function supporting weights and ordered factors \cr
@@ -307,7 +307,7 @@ _RevWeibull   \tab      Reverse Weibull distribution (\link{dRevWeibull})\cr
 \link{Sens}, \link{Spec}       \tab     Sensitivity and specificity \cr
 \link{PseudoR2}       \tab Variants of pseudo R squared statistics: McFadden, Aldrich-Nelson,\cr
 \tab Nagelkerke, CoxSnell, Effron, McKelvey-Zavoina, Tjur \cr
-\link{Mean}, \link{SD}, \link{Var}  \tab      Variants of base statistics, allowing to define weights: Mean, \cr
+\link{Mean}, \link{SD}, \link{Var}, \link{IQRw}  \tab      Variants of base statistics, allowing to define weights: Mean, \cr
 \link{Quantile}, \link{MAD}, \link{Cor}    \tab standard deviation, variance, quantile, mad, correlation \cr
 \link{VIF}, \link{StdCoef}       \tab      Variance inflation factors and standardised coefficents for linear models \cr
 \cr\cr
