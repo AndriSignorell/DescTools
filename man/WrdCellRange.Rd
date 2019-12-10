@@ -9,17 +9,17 @@ formating the cell range.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-WrdCellRange(wtab, rstart, rend)
+WrdCellRange(wtab, from, to)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{wtab}{a handle to the word table as returned i.g. by  \code{\link{WrdTable}}
 %%     ~~Describe \code{wtab} here~~
 }
-  \item{rstart}{the left/upper cell of the cell range.
+  \item{from}{a vector containing row- and column number of the left/upper cell of the cell range.
 %%     ~~Describe \code{rstart} here~~
 }
-  \item{rend}{the right/lower cell of the cell range.
+  \item{to}{a vector containing row- and column number of the right/lower cell of the cell range.
 %%     ~~Describe \code{rend} here~~
 }
 }
@@ -46,7 +46,7 @@ WrdCellRange(wtab, rstart, rend)
 # Windows-specific example
 wrd <- GetNewWrd()
 WrdTable(nrow=3, ncol=3, wrd=wrd)
-crng <- WrdCellRange(rstart=c(1,2), rend=c(2,3))
+crng <- WrdCellRange(from=c(1,2), to=c(2,3))
 crng$Select()
 }
 }

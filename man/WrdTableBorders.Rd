@@ -10,7 +10,7 @@
 \usage{
 WrdTableBorders(wtab, from = NULL, to = NULL, border = NULL,
                 lty = wdConst$wdLineStyleSingle, col = wdConst$wdColorBlack,
-                lwd = wdConst$wdLineWidth050pt, wrd)
+                lwd = wdConst$wdLineWidth050pt)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -34,9 +34,6 @@ WrdTableBorders(wtab, from = NULL, to = NULL, border = NULL,
 }
   \item{lwd}{a Word constant (\code{wdConst$wdLineWidth...pt}) defining the line width.
 %%     ~~Describe \code{lty} here~~
-}
-  \item{wrd}{a pointer to the current Word instance.
-%%     ~~Describe \code{wrd} here~~
 }
 }
 \value{nothing
