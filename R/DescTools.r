@@ -6418,13 +6418,16 @@ Append.matrix <- function(x, values, after = NULL, rows=FALSE, names=NULL, ...){
       if(class(err) == "try-error")
         warning("Could not set rownames.")
     }
+    
     if(!after)
       res <- rbind(values, x)
-    else
-    if(after >= nr)
+    
+    else if(after >= nr)
       res <- rbind(x, values)
+    
     else
       res <- rbind(x[1L:after,, drop=FALSE], values, x[(after+1L):nr,, drop=FALSE])
+    
     colnames(res) <- colnames(x)
 
   } else {
@@ -6433,15 +6436,19 @@ Append.matrix <- function(x, values, after = NULL, rows=FALSE, names=NULL, ...){
     if(missing(after)) after <- nc
 
     values <- matrix(values, nrow=nrow(x))
+    
     if(!is.null(names))
       colnames(values) <- names
+    
     if(!after)
       res <- cbind(values, x)
-    else
-    if(after >= nc)
+    
+    else if(after >= nc)
       res <- cbind(x, values)
+    
     else
       res <- cbind(x[, 1L:after, drop=FALSE], values, x[, (after+1L):nc, drop=FALSE])
+    
     rownames(res) <- rownames(x)
 
   }
@@ -14182,7 +14189,7 @@ XLView <- function (x, col.names = TRUE, row.names = FALSE, na = "", preserveStr
 
   if(!missing(x)){
 
-    if(class(x) == "ftable"){
+    if(inherits(x, what = "ftable")){
       x <- FixToTable(capture.output(x), sep = " ", header = FALSE)
       col.names <- FALSE
     }
