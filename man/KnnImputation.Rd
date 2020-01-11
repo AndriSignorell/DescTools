@@ -1,5 +1,5 @@
-\name{KnnImputation}
-\alias{KnnImputation}
+\name{ImputeKnn}
+\alias{ImputeKnn}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Fill in NA values with the values of the nearest neighbours
@@ -14,7 +14,7 @@ If meth='median' it uses the median/most frequent value,
 instead.
 }
 \usage{
-KnnImputation(data, k = 10, scale = T, meth = "weighAvg",
+ImputeKnn(data, k = 10, scale = T, meth = "weighAvg",
               distData = NULL)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -70,7 +70,7 @@ Torgo, L. (2010) \emph{Data Mining using R: learning with case studies},
 \code{\link{CentralValue}}, \code{\link{complete.cases}}, \code{\link{na.omit}}
 }
 \examples{
-cleanPizza <- KnnImputation(d.pizza[, -2])   # no Dates allowed
+cleanPizza <- ImputeKnn(d.pizza[, -2])   # no dates allowed
 summary(cleanPizza)
 }
 \keyword{models}

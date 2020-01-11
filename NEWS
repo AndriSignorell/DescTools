@@ -5,7 +5,7 @@ DescTools 0.99.32 (2020-02-01)
 
 NEW FUNCTIONS ADDED:
   * ColToOpaque(), RgbToHex() are two new color converter functions.
-  * KnnImputation() and CentralValue() have been borrowed from the 
+  * ImputeKnn() and CentralValue() have been borrowed from the 
     DMwR package.
   
 UPDATED FUNCTIONS:
@@ -13,9 +13,13 @@ UPDATED FUNCTIONS:
     new: from, to.
   * WrdTableBorders() loses its wrd argument, the information is now 
     extracted directly from wtab.
+  * Untable() will by default replace NAs by 0 in a table and display a
+    warning if there are NAs.
+  * plot.TMod() allows to provide a terms list for plotting.    
 
 BUGFIXES:
   * Cramer's V bias correction is corrected (hmm...).
+  * TMod() supports single models now.
 
 DEPRECATED:
   *
@@ -52,7 +56,7 @@ BUGFIXES:
     (Credits to Vilmantas Gegzna)
   * Dummy() will always return a matrix instead of dropping dimensions which 
     have only one level. (Credits to Daniel Wollschlaeger)
-  * XLGetrange() will not refuse to import areas with XLErrors now, cell formatted
+  * XLGetrange() will not refuse to import areas with XLErrors now, cells formatted
     as dates will be recognised and empty areas will not cause an error 
     anymore.
   * MedianCI will now correctly use conf.level for method="exact" and also

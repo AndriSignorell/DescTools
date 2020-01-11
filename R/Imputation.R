@@ -33,7 +33,7 @@ CentralValue <- function(x, ws=NULL) {
 # =====================================================
 # Luis Torgo, Mar 2009, Nov 2011
 # =====================================================
-KnnImputation <- function(data, k=10, scale=T, meth='weighAvg', distData=NULL) {
+ImputeKnn <- function(data, k=10, scale=T, meth='weighAvg', distData=NULL) {
   
   n <- nrow(data)  
   if (!is.null(distData)) {

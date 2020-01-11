@@ -131,7 +131,7 @@ desc <- function (x, main=NULL, xname=deparse(substitute(x)), digits=NULL, maxro
 
   if(any(class(x) %in% c("table","matrix"))) {
     ntot <- length(x)
-    n <- sum(x)       # without NAs
+    n <- sum(x, na.rm=TRUE)       # without NAs
     NAs <- NA         # number of NAs in a table, how to?? after all they're pairs..
   } else if(identical(class(x), "NULL")){
     ntot <- 0

@@ -16,14 +16,13 @@ Recode(x, ..., elselevel = NA, use.empty = FALSE, num = FALSE)
   \item{x}{the factor whose levels are to be altered.
 %%     ~~Describe \code{x} here~~
 }
-  \item{\dots}{the old levels (combined by \code{c}() if there are several) named with the new level:
-  \code{newlevel_a=c("old_a", "old_b"), }\code{newlevel_b=c("old_c", "old_d")}. See examples.
+  \item{\dots}{the old levels (combined by \code{c}() if there are several) named with the new level:\cr
+  \code{newlevel_a=c("old_a", "old_b"), }\cr\code{newlevel_b=c("old_c", "old_d")}\cr See examples.
 %%     ~~Describe \code{newlevels} here~~
 }
-  \item{elselevel}{the value for levels, which are not matched by newlevel's list.
+  \item{elselevel}{the value for levels, which are not matched by newlevel list.
   If this is set to \code{NULL}, the elselevels will be left unchanged.
   If set to \code{NA} (default) non matched levels will be set to \code{NA}.
-%%     ~~Describe \code{elselevel} here~~
 }
   \item{use.empty}{logical. Defines how a new level, which can't be found in x, should be handled.  Should it be left in the level's list or be dropped? The default is \code{FALSE},
    which drops empty levels.
@@ -41,7 +40,7 @@ the factor having the new levels applied.
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{\code{\link{factor}}, \code{\link{levels}}\cr
-There's another possible solution in the package car.
+There's another solution in the package \bold{car}.
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
@@ -50,10 +49,10 @@ x <- factor(sample(1:15, 20, replace=TRUE))
 levels(x) <- paste("old", levels(x), sep="_")
 
 y <- Recode(x,
-            "new_1" = c("old_1","old_4","old_5"),
-            "new_2" = c("old_6","old_10","old_11"),
-            "new_3" = c("old_12","old_13"),
-            elselevel="other")
+            "new_1"   = c("old_1","old_4","old_5"),
+            "new_2"   = c("old_6","old_10","old_11"),
+            "new_3"   = c("old_12","old_13"),
+            elselevel = "other")
 data.frame(x=x, y=y)
 
 
@@ -77,8 +76,9 @@ table(z5, useNA="ifany")
 # use integers to define the groups to collapse
 set.seed(1972)
 (likert <- factor(sample(1:10, size=15, replace=TRUE),
-                 levels=1:10, labels=gettextf("(\%s)", 1:10)))
+                  levels=1:10, labels=gettextf("(\%s)", 1:10)))
 Recode(likert, det=1:6, pas=7:8, pro=9:10)
+
 # or directly turned to numeric
 Recode(likert, "1"=1:6, "2"=7:8, "5"=9:10, num=TRUE)
 }

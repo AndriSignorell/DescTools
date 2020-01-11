@@ -9,7 +9,8 @@ The used code is not much more than the \code{\link{pairs}()} code and some exam
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-PlotPairs(x, g = NULL, col = 1, pch = 19, col.smooth = 1, main = "", ...)
+PlotPairs(x, g = NULL, col = 1, pch = 19, col.smooth = 1, main = "", 
+          upper = FALSE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -31,6 +32,7 @@ PlotPairs(x, g = NULL, col = 1, pch = 19, col.smooth = 1, main = "", ...)
   \item{main}{the main title
 %%     ~~Describe \code{main} here~~
 }
+\item{upper}{logical, determines if the correlation coefficients should be displayed in the upper triangular matrix (default) or in the lower one.}
   \item{\dots}{additional arguments passed to \code{pairs} function.
 %%     ~~Describe \code{\dots} here~~
 }

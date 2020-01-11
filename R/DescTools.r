@@ -2185,6 +2185,9 @@ MultMerge <- function(..., all.x=TRUE, all.y=TRUE) {
   
   lst <- list(...)
   
+  # if just one object, there's nothing to merge
+  if(length(lst)==1)  return(lst[[1]])
+  
   # the columnnames must be unique within the resulting data.frame
   unames <- SplitAt(make.unique(unlist(lapply(lst, colnames)), sep = "."), 
                     cumsum(sapply(head(lst, -1), ncol))+1)
@@ -4876,7 +4879,7 @@ Format.default <- function(x, digits = NULL, sci = NULL
       fixp <- (expo >= -3)
       
       if (any(fixp))
-        rr[fixp] <- format(x[fixp], digits=Coalesce(digits[1], 4))
+        rr[fixp] <- Format(x[fixp], digits=Coalesce(digits[1], 4))
       
       if (any(!fixp))
         rr[!fixp] <- format(x[!fixp], digits=Coalesce(digits[2], 3), scientific=TRUE)
@@ -4903,7 +4906,7 @@ Format.default <- function(x, digits = NULL, sci = NULL
 
   }
 
-  .format.pstars <- function(x)
+  .format.pstars <- function(x, eps, digits)
     paste(.format.pval(x, eps, digits), .format.stars(x))
 
   .leading.zero <- function(x, n){
@@ -5055,7 +5058,7 @@ Format.default <- function(x, digits = NULL, sci = NULL
     r <- .format.pval(x, eps, digits)
 
   } else if(fmt=="p*"){
-    r <- .format.pstars(x)
+    r <- .format.pstars(x, eps, digits)
 
   } else if(fmt=="eng"){
     r <- .format.eng(x, digits=digits, leading=leading, zero.form=zero.form, na.form=na.form)
@@ -6809,9 +6812,13 @@ Untable.data.frame <- function(x, freq = "Freq", rownames = NULL, ...){
 Untable.default <- function(x, dimnames=NULL, type = NULL, rownames = NULL, colnames = NULL, ...) {
 
   # recreates the data.frame out of a contingency table
-
+  # check fo NAs
+  if(anyNA(x))
+    warning("Provided object to untable contains NAs.")
+  
   # coerce to table, such as also be able to handle vectors
-  x <- as.table(x)
+  x <- as.table(ZeroIfNA(x))
+  
   if(!is.null(dimnames)) dimnames(x) <- dimnames
   if(is.null(dimnames) && identical(type, "as.numeric")) dimnames(x) <- list(seq_along(x))
   # set a title for the table if it does not have one
@@ -6846,6 +6853,7 @@ Untable.default <- function(x, dimnames=NULL, type = NULL, rownames = NULL, coln
   if(!is.null(colnames)) colnames(res) <- colnames
 
   return(res)
+  
 }
 
 
@@ -8564,6 +8572,9 @@ HexToRgb <- function(hex) {
   # )))
 
   hex <- gsub("^#", "", hex)
+  if(all(is.na(hex)))
+    return(matrix(NA, nrow=3, ncol=length(hex)))
+  
   # if there are any RRGGBBAA values mixed with RRGGBB then pad FF (for opaque) on RGBs
   if(any(nchar(hex)==8)){
     hex <- DescTools::StrPad(x = hex, width = 8, pad = "FF")
@@ -8591,19 +8602,6 @@ RgbToHex <- function(col){
 }
 
 
-# ColToOpaque <- function(col, alpha, bg=NULL){
-#   
-#   # col is RGB color, alpha numeric from 0..1
-#   
-#   # https://graphicdesign.stackexchange.com/questions/113007/how-to-determine-the-equivalent-opaque-rgb-color-for-a-given-partially-transpare
-#   # round(255 - alpha * (255-ColToRgb(col)))
-#   if(is.null(bg))
-#     bg <- ColToRgb("white")
-#   
-#   round(bg - alpha * (bg - col))
-#   
-# }
-
 ColToOpaque <- function(col, alpha=NULL, bg=NULL){
   
   # col is Hex color, alpha is numeric from 0..1
@@ -8615,8 +8613,12 @@ ColToOpaque <- function(col, alpha=NULL, bg=NULL){
   
   if(is.null(alpha)){
     # try to get the alpha channel from the color
+    # this generates an incomprehensible error message, if there's no 4th dim:
+    # Error in sapply(col, HexToRgb)[4, ] : subscript out of bounds
     alpha <- sapply(col, HexToRgb)[4,] / 255
     
+  } else {
+    alpha[na <- alpha %][% c(0, 1)] <- NA
   }
   
   # recycle col and alpha
@@ -8811,8 +8813,10 @@ FindColor <- function(x, cols=rev(heat.colors(100)), min.x=NULL, max.x=NULL,
 SetAlpha <- function(col, alpha=0.5) {
 
   if (length(alpha) < length(col)) alpha <- rep(alpha, length.out = length(col))
+  alpha[na <- alpha %][% c(0, 1)] <- NA
   if (length(col) < length(alpha)) col <- rep(col, length.out = length(alpha))
-
+  col[na] <- NA
+  
   acol <- substr(ColToHex(col), 1, 7)
   acol[!is.na(alpha)] <- paste(acol[!is.na(alpha)], DecToHex(round(alpha[!is.na(alpha)]*255,0)), sep="")
   acol[is.na(col)] <- NA
@@ -10604,6 +10608,8 @@ PlotViolin.default <- function (x, ..., horizontal = FALSE, bw = "SJ", na.rm = F
   oldpar <- par(pars); on.exit(par(oldpar))
 
   args <- list(x, ...)
+ #  args <- list(x, m$`...`)
+  
   namedargs <- if (!is.null(attributes(args)$names))
                  attributes(args)$names != ""
                else
@@ -12096,7 +12102,8 @@ PlotQQ <- function(x, qdist=qnorm, main=NULL, xlab=NULL, ylab=NULL, datax=FALSE,
 
 
 
-PlotPairs <- function(x, g=NULL, col=1, pch=19, col.smooth=1, main="", ...){
+PlotPairs <- function(x, g=NULL, col=1, pch=19, col.smooth=1, main="", 
+                      upper=FALSE, ...){
   
 
   # PlotPairs(x=ModTools::d.pima2[, -9], g=ModTools::d.pima2$diabetes, col=DescTools::SetAlpha(c(hred, hblue), 0.5), 
@@ -12141,12 +12148,23 @@ PlotPairs <- function(x, g=NULL, col=1, pch=19, col.smooth=1, main="", ...){
   }
   
   
-  pairs(x, upper.panel=panel.cor,
-        main=main, 
-        pch=pch, col=col[g], cex=0.9, 
-        diag.panel=panel.hist,
-        panel = function(...) 
-          panel.smooth(col.smooth=col.smooth, g=g, lwd=2, ...) )
+  if(upper){
+    
+    pairs(x, upper.panel=panel.cor,
+          main=main, 
+          pch=pch, col=col[g], cex=0.9, 
+          diag.panel=panel.hist,
+          panel = function(...) 
+            panel.smooth(col.smooth=col.smooth, g=g, lwd=2, ...) )
+  } else {
+    pairs(x, lower.panel=panel.cor,
+          main=main, 
+          pch=pch, col=col[g], cex=0.9, 
+          diag.panel=panel.hist,
+          panel = function(...) 
+            panel.smooth(col.smooth=col.smooth, g=g, lwd=2, ...) )
+    
+  }
   
 
 }
@@ -12242,7 +12260,7 @@ TOne <- function(x, grp = NA, add.length=TRUE,
 
   cat_mat <- function(x, g, vname=deparse(substitute(x))){
 
-    if(class(x)=="character")
+    if(inherits(x, "character"))
       x <- factor(x)
 
     tab <- table(x, g)

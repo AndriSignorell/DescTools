@@ -5064,9 +5064,18 @@ OddsRatio.glm <- function(x, conf.level = NULL, digits=3, use.profile=TRUE, ...)
   rownames(d.print) <- rownames(d.res)
   colnames(d.print)[4:5] <- c("Pr(>|z|)","")
 
+  
+  mterms <- {
+    res <- lapply(labels(terms(x)), function(y) 
+      colnames(model.matrix(formula(gettextf("~ 0 + %s", y)), data=model.frame(x))))
+    names(res) <- labels(terms(x))
+    res
+  } 
+  
+  
   res <- list(or=d.print, call=x$call,
               BrierScore=BrierScore(x), PseudoR2=PseudoR2(x, which="all"), res=d.res,
-              nobs=nobs(x))
+              nobs=nobs(x), terms=mterms)
 
   class(res) <- "OddsRatio"
 
@@ -5090,8 +5099,15 @@ OddsRatio.multinom <- function(x, conf.level=NULL, digits=3, ...) {
   se <- reshape(data.frame(se), varying=1:ncol(se),
                 times=colnames(se), v.names="se", direction="long")[, "se"]
 
-  d.res <- r.summary
-
+  # d.res <- r.summary
+  d.res <- data.frame(
+    "or"= exp(coe[, "or"]),
+    "or.lci" = exp(coe[, "or"] + qnorm(0.025) * se),
+    "or.uci" = exp(coe[, "or"] - qnorm(0.025) * se),
+    "pval" = 2*(1-pnorm(q = abs(coe[, "or"]/se), mean=0, sd=1)),
+    "sig" = 2*(1-pnorm(q = abs(coe[, "or"]/se), mean=0, sd=1))
+  )
+  
   d.print <- data.frame(
     "or"= Format(exp(coe[, "or"]), digits=digits),
     "or.lci" = Format(exp(coe[, "or"] + qnorm(0.025) * se), digits=digits),
@@ -5103,6 +5119,8 @@ OddsRatio.multinom <- function(x, conf.level=NULL, digits=3, ...) {
 
   colnames(d.print)[4:5] <- c("Pr(>|z|)","")
   rownames(d.print) <- paste(coe$time, coe$id, sep=":")
+  
+  rownames(d.res) <- rownames(d.print)
 
   res <- list(or = d.print, call = x$call,
               BrierScore = NA, # BrierScore(x),
@@ -5165,11 +5183,12 @@ print.OddsRatio <- function(x, ...){
 
 
 
-plot.OddsRatio <- function(x, intercept=FALSE, ...){
+plot.OddsRatio <- function(x, intercept=FALSE, group=NULL, subset = NULL, ...){
 
   if(!intercept)
-    x$res <- x$res[rownames(x$res)!="(Intercept)", ]
-
+    # x$res <- x$res[rownames(x$res)!="(Intercept)", ]
+    x$res <- x$res[!grepl("(Intercept)", rownames(x$res)), ]
+  
   args <- list(...)
 
   # here the defaults
