@@ -941,21 +941,14 @@ TMod <- function(..., FUN = NULL){
   # return the terms of the model in order to be able to set a filter on them
   # when plotting
   
-  if(!all(lapply(lmod, class)=="OddsRatio")){
-    
-    mterms <- lapply(lmod, function(m) {
-      res <- lapply(labels(terms(m)), function(x) 
-        colnames(model.matrix(formula(gettextf("~ 0 + %s", x)), data=model.frame(m))))
-      names(res) <- labels(terms(m))
-      res
-      } )
-    
-    names(mterms) <- modname
-    
-  } else {
-    mterms <- lapply(lmod, "[", "terms")
-  }
+  mterms <- lapply(lmod, function(m) {
+    res <- lapply(labels(terms(m)), function(x) 
+      colnames(model.matrix(formula(gettextf("~ 0 + %s", x)), data=model.frame(m))))
+    names(res) <- labels(terms(m))
+    res
+    } )
   
+  names(mterms) <- modname
 
   return(structure(list(m, mm, lcoef, mall=mall, terms=mterms), class="TMod"))
 
@@ -996,10 +989,13 @@ plot.TMod <- function(x, terms=NULL, intercept=FALSE, ...){
   }
   
   if(!is.null(terms)){
-    v <- unlist(x$terms)
-    coefnames <- unique(v[v %in% terms])
-    
-    xx <- xx[, coefnames, , drop=FALSE]
+    # v <- unlist(x$terms)
+    # coefnames <- unique(v[v %in% terms])
+    # xx <- xx[, coefnames, , drop=FALSE]
+    # 
+    v <- unique(c(sapply(x$terms, labels)))
+    coefnames <- unlist(x$terms[[1]][labels(x$terms[[1]]) %in% terms])
+    xx <- xx[, dimnames(xx)[[2]] %in% coefnames, , drop=FALSE]
   }
   
   if(!intercept)
