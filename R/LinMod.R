@@ -278,25 +278,29 @@ PseudoR2 <- function(x, which = NULL) {
   if(inherits(x, what="multinom"))
     L.base <- logLik(update(x, ~1, trace=FALSE))
   
-  else if(inherits(x, what="glm"))
+  else if(inherits(x, what="glm")){
     # replaced 2019-08-19, based on mail by inferrator:
     #
     #   L.base <- logLik(update(x, ~1))
 
+    orig.formula < deparse(unlist(list(x$formula, x$call$formula, formula(x)))[[1]])
+    null.formula <- reformulate('1', gsub(" .*$", "", orig.formula))
     
-    L.base <- logLik(glm(formula = reformulate('1', 
-      # replace the right side of the formula by 1                                           
-                 gsub(" .*$", "", 
-      # not all glms have a formula element, e.g. MASS::negbin                                           
-                        deparse(unlist(list(x$formula, x$call$formula, formula(x)))[[1]]))),
-      # use the first non null list element
-      # note x$call$data is a symbol and must first be evaluated
-                         data = Filter(Negate(is.null), list(x$data, eval(x$call$data) ))[[1]],
-                         family = x$family))
-  
+    if(exists("model", x)){
+      data <- x$model #If x has a model frame component, use that - the safest bet
+    }else if(exists("data", x)){
+      data <- model.frame(orig.formula, data = x$data) #If x has a data object (but no model), construct the model frame 
+      #may need to check for weights, subset, and offset parameters to be included in model.frame as well
+    }else if(exists("data", x$call)){
+      warning("Model object does not contain data to fit null model - will fit null model on ", as.character(x$call$data))
+      data <- model.frame(orig.formula, data = eval(x$call$data))
+    } else stop("Could not find data to fit null model - try running glm with model = TRUE")
     
-  else 
+    L.base <- logLik(glm(formula = null.formula, data = data, family = x$family))
+  }else 
     L.base <- logLik(update(x, ~1))
+  
+  #update data, weight elements of call - leavec others along
   
   
   D.base <- -2 * L.base # deviance(update(x, ~1))
