@@ -286,22 +286,37 @@ PseudoR2 <- function(x, which = NULL) {
     orig.formula < deparse(unlist(list(x$formula, x$call$formula, formula(x)))[[1]])
     null.formula <- reformulate('1', gsub(" .*$", "", orig.formula))
     
+    #Get all parameters that we don't explicitly know what to do with
+    other_params <- x$call[!(names(x$call) %in% c("formula", "family", "data", "weights", "subset", "offset", "method","control", ""))]
+    #Check whether the other parameter, when called, will evaluate in the current environment
+    other_params_exist.yn <- mapply(function(x, x.name){ #for each other_param (and the associated name)
+      tryCatch({ #return TRUE if the expression evaluats
+        eval(x)
+        TRUE
+      }, error = function(cond){
+        message("Could not find object ", as.character(x), " for evaluating PseudoR2 null model with parameter ", as.character(x.name), " = ", as.character((x)))
+        message("Will evaluate null model without parameter; interpret results with caution")
+        return(FALSE)
+      })
+    }, x = other_params, x.name = names(other_params))
+    
     if(exists("model", x)){
       data <- x$model #If x has a model frame component, use that - the safest bet
     }else if(exists("data", x)){
       data <- model.frame(orig.formula, data = x$data) #If x has a data object (but no model), construct the model frame 
       #may need to check for weights, subset, and offset parameters to be included in model.frame as well
     }else if(exists("data", x$call)){
-      warning("Model object does not contain data to fit null model - will fit null model on ", as.character(x$call$data))
+      warning("Could not find 'model' element of glm object for evaluating PseudoR2 null mode - will fit null model with new evaluation of object ", as.character(x$call$data), "; proceed with caution or try running glm with model = TRUE")
       data <- model.frame(orig.formula, data = eval(x$call$data))
-    } else stop("Could not find data to fit null model - try running glm with model = TRUE")
+    } else stop("Could not find 'model' element or valid 'data' element of glm object for evaluating PseudoR2 null model - try running glm with model = TRUE")
     
-    L.base <- logLik(glm(formula = null.formula, data = data, family = x$family))
+    #Costruct the glm call using "call", then evaluate
+    glm.call <- call("glm", formula = null.formula, data = data, family = x$family, weights = x$weights, method = x$method, control = x$control, #specify elements that come from a known part of the glm object
+                     other_params[other_params_exist.yn]) #add unknown parameters that can be evaluated
+    
+    L.base <- logLik(eval(glm.call))
   }else 
     L.base <- logLik(update(x, ~1))
-  
-  #update data, weight elements of call - leavec others along
-  
   
   D.base <- -2 * L.base # deviance(update(x, ~1))
   G2 <- -2 * (L.base - L.full)
