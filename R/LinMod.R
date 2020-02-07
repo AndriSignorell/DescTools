@@ -306,18 +306,18 @@ PseudoR2 <- function(x, which = NULL) {
     data <- x$model #If x has a model frame component, use that - the safest bet
   }else if(exists("data", x)){
     data <- model.frame(orig.formula, data = x$data) #If x has a data object (but no model), construct the model frame 
-    #may need to check for weights, subset, and offset parameters to be included in model.frame as well
+    #may need to check for subset, na.action, and offset parameters to be included in model.frame as well
   }else if(exists("data", x$call)){
     warning("Could not find 'model' or 'data' element of ", modeltype, " object for evaluating PseudoR2 null mode - will fit null model with new evaluation of object '", as.character(x$call$data), "'. Ensure object has not changed since initial call, or try running ", calltype.char, " with 'model = TRUE'")
     data <- model.frame(orig.formula, data = eval(x$call$data))
   } else stop("Could not find 'model' element or valid 'data' element of ", modeltype, " object for evaluating PseudoR2 null model. Try running ", calltype, " with 'model = TRUE'")
   
   #Costruct the glm call using "call", then evaluate
-  if(modeltype == "multinom") newcall <-  call(calltype.char, formula = null.formula, data = data, weights = x$weights, censored = x$censored, #specify elements that come from a known part of the polr object
+  if(modeltype == "multinom") newcall <-  call(calltype.char, formula = null.formula, data = data, weights = x$prior.weights, censored = x$censored, #specify elements that come from a known part of the polr object
                                           other_params[other_params_exist.yn]) #add unknown parameters that can be evaluated
-  else if(modeltype == "glm") newcall <- call(calltype.char, formula = null.formula, data = data, family = x$family, weights = x$weights, method = x$method, control = x$control, #specify elements that come from a known part of the glm object
+  else if(modeltype == "glm") newcall <- call(calltype.char, formula = null.formula, data = data, family = x$family, weights = x$prior.weights, method = x$method, control = x$control, #specify elements that come from a known part of the glm object
                                           other_params[other_params_exist.yn]) #add unknown parameters that can be evaluated
-  else if(modeltype == "polr") newcall <- call(calltype.char, formula = null.formula, data = data, weights = x$weights, method = x$method, #specify elements that come from a known part of the polr object
+  else if(modeltype == "polr") newcall <- call(calltype.char, formula = null.formula, data = data, weights = x$prior.weights, method = x$method, #specify elements that come from a known part of the polr object
                                           other_params[other_params_exist.yn]) #add unknown parameters that can be evaluated
   else if(modeltype == "vglm") newcall <- call("update(x, ~1)") #Avoid vglm for now
   L.base <- logLik(eval(newcall))
