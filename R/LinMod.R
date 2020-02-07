@@ -283,7 +283,7 @@ PseudoR2 <- function(x, which = NULL) {
     #
     #   L.base <- logLik(update(x, ~1))
 
-    orig.formula < deparse(unlist(list(x$formula, x$call$formula, formula(x)))[[1]])
+    orig.formula < deparse(unlist(list(x$formula, formula(x), x$call$formula))[[1]])
     null.formula <- reformulate('1', gsub(" .*$", "", orig.formula))
     
     #Get all parameters that we don't explicitly know what to do with

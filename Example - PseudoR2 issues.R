@@ -65,6 +65,17 @@ logLik(glm(formula = reformulate('1',
 #Given that it is common (and often accepted) to let "glm" automatically delete missing values, this could cause incorrect evaluations of null-model log likelihood with some frequency
 #We are better off using the "model" parameter, which removes cases that are not used for analysis
 
+# ---- Working but risky ----
+
+#Define formula externally
+logit.form <- formula(honcomp ~ female + read + science + ses)
+model4.logit <- glm(logit.form, hsb2, family="binomial")
+rm(logit.form)
+PseudoR2(model4.logit)
+
+#Pseudo-R2 checks three places for a glm formula - the second (after x$formula) is the function call
+#if this references an external object (or a changed object) we will have problems
+#The precautionary solution is to look in formula(x) before call$x$formula
 
 
 ##### ISSUE B #####
