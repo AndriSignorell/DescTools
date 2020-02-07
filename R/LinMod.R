@@ -276,16 +276,15 @@ PseudoR2 <- function(x, which = NULL) {
   L.full <- logLik(x)
   D.full <- -2 * L.full          # deviance(x)
 
-  orig.formula < deparse(unlist(list(x$formula, formula(x), x$call$formula))[[1]])
-  null.formula <- reformulate('1', gsub(" .*$", "", orig.formula))
+  orig.formula <- deparse(unlist(list(x$formula, formula(x), x$call$formula))[[1]])
   
   # ---- Get all parameters that we don't explicitly know what to do with ----
-  if(modeltype == "multinom") other_params <- x$call[!(names(x$call) %in% c("formula", "data", "weights", "subset", "censored", "", #Parameters whose values are stored in model object 
+  if(modeltype == "multinom"){other_params <- x$call[!(names(x$call) %in% c("formula", "data", "weights", "subset", "censored", "", #Parameters whose values are stored in model object 
                                                                             "model", "contrasts"))] ##parameters that don't affect model results and can be dropped from null model call
-  else if(modeltype == "glm") other_params <- x$call[!(names(x$call) %in% c("formula", "family", "data", "weights", "subset", "offset", "method", "control", "", #Parameters whose values are stored in model object 
+  }else if(modeltype == "glm"){ other_params <- x$call[!(names(x$call) %in% c("formula", "family", "data", "weights", "subset", "offset", "method", "control", "", #Parameters whose values are stored in model object 
                                                 "model", "x", "y", "contrasts"))] #parameters that don't affect model results and can be dropped from null model call
-  else if(modeltype == "polr") other_params <- x$call[!(names(x$call) %in% c("formula", "data", "weights", "subset", "method",  "", #Parameters whose values are stored in model object 
-                                                                        "model", "contrasts"))] ##parameters that don't affect model results and can be dropped from null model call
+  }else if(modeltype == "polr"){ other_params <- x$call[!(names(x$call) %in% c("formula", "data", "weights", "subset", "method",  "", #Parameters whose values are stored in model object 
+                                                                        "model", "contrasts"))]} ##parameters that don't affect model results and can be dropped from null model call
   
   #Check whether the other parameter, when called, will evaluate in the current environment
   other_params_exist.yn <- mapply(function(x, x.name){ #for each other_param (and the associated name)
@@ -298,6 +297,7 @@ PseudoR2 <- function(x, which = NULL) {
       return(FALSE)
     })
   }, x = other_params, x.name = names(other_params))
+  other_params <- other_params[other_params_exist.yn]
   
   # ---- Construct appropriate data/model object for null model call ----
   
@@ -309,10 +309,19 @@ PseudoR2 <- function(x, which = NULL) {
   }else if(exists("data", x)){ #If x has a data object (but no model), take it
     data <- x$data
     #may need to check for subset and na.action parameters to be included in model.frame as well
-  }else if(exists("data", x$call)){
-    warning("Could not find 'model' or 'data' element of ", modeltype, " object for evaluating PseudoR2 null mode - will fit null model with new evaluation of object '", as.character(x$call$data), "'. Ensure object has not changed since initial call, or try running ", calltype.char, " with 'model = TRUE'")
-    data <- model.frame(orig.formula, data = eval(x$call$data))
-  } else stop("Could not find 'model' element or valid 'data' element of ", modeltype, " object for evaluating PseudoR2 null model. Try running ", calltype.char, " with 'model = TRUE'")
+  }else if(!is.null(x$call$data)){
+    isValidCallRef <- tryCatch(({
+      eval(x$call$data)
+      TRUE
+    }), error = function(cond){
+      return(FALSE)
+    })
+    
+    if(!isValidCallRef)  stop("Could not find 'model', 'data', or valid 'call' element of ", modeltype, " object for evaluating PseudoR2 null model. Try running ", calltype.char, " with 'model = TRUE'")
+    warning("Could not find 'model' or 'data' element of ", modeltype, " object for evaluating PseudoR2 null mode. Will fit null model with new evaluation of '", as.character(x$call$data), "'. Ensure object has not changed since initial call, or try running ", calltype.char, " with 'model = TRUE'")
+    data <- eval(x$call$data)
+    
+  } else stop("Could not find 'model', 'data', or valid 'call' element of ", modeltype, " object for evaluating PseudoR2 null model. Try running ", calltype.char, " with 'model = TRUE'")
   
   #If data wasn't taken from a "model" object, we will need to re-run model.frame to drop NAs and evaluate subsets
   if(!exists("model", x)){
@@ -343,14 +352,19 @@ PseudoR2 <- function(x, which = NULL) {
     data <- eval(modelcall)
   }
 
+  #Drop other columns from data, to avoid literal names (eg, "factor(y)" as DV not matching any DV columns)
+  data <- data[,1,drop = FALSE]
+  names(data) <- "y"
+  null.formula <- as.formula("y ~ 1")
+  
   #Costruct the call, then evaluate
-  if(modeltype == "multinom") nullcall <-  call(calltype.char, formula = null.formula, data = data, weights = x$prior.weights, censored = x$censored, #specify elements that come from a known part of the polr object
-                                          other_params[other_params_exist.yn]) #add unknown parameters that can be evaluated
-  else if(modeltype == "glm") nullcall <- call(calltype.char, formula = null.formula, data = data, family = x$family, weights = x$prior.weights, method = x$method, control = x$control, offset = x$offset, #specify elements that come from a known part of the glm object
-                                          other_params[other_params_exist.yn]) #add unknown parameters that can be evaluated
-  else if(modeltype == "polr") nullcall <- call(calltype.char, formula = null.formula, data = data, weights = x$prior.weights, method = x$method, #specify elements that come from a known part of the polr object
-                                          other_params[other_params_exist.yn]) #add unknown parameters that can be evaluated
+  #NB: need to check that "subset" and "priorweights" model objects from multinom and polr are saved *after* running model.frame and dropping unwanted columns
+  if(modeltype == "multinom") nullcall <-  call(calltype.char, formula = null.formula, data = data, weights = x$prior.weights, censored = x$censored) #specify elements that come from a known part of the multinom object
+  else if(modeltype == "glm") nullcall <- call(calltype.char, formula = null.formula, data = data, family = x$family, weights = x$prior.weights, method = x$method, control = x$control, offset = x$offset) #specify elements that come from a known part of the glm object
+  else if(modeltype == "polr") nullcall <- call(calltype.char, formula = null.formula, data = data, weights = x$prior.weights, method = x$method) #specify elements that come from a known part of the polr object
   else if(modeltype == "vglm") nullcall <- call("update(x, ~1)") #Avoid vglm for now
+  
+  if(modeltype != "vglm" & length(other_params) > 0) nullcall[names(other_params)] <- other_params
   L.base <- logLik(eval(nullcall))
 
   D.base <- -2 * L.base # deviance(update(x, ~1))

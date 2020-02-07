@@ -97,7 +97,7 @@ model1.polr <- polr(ordvar ~ female + read + science, rec.df)
 which.method <- "probit"
 model2.polr <- polr(ordvar ~ female + read + science, rec.df, method = which.method)
 
-#Correct behaviour
+#Correct behaviour (these shouldn't match)
 out1.polr <- PseudoR2(model1.polr)
 out2.polr <- PseudoR2(model2.polr)
 
@@ -115,6 +115,8 @@ out3.polr
 rm(which.method)
 out4.polr <- PseudoR2(model2.polr)
 
+out2.polr
+out4.polr
 
 
 # ==== multinom ====
@@ -131,5 +133,10 @@ PseudoR2(model1.multinom)
 
 
 
+# ==== notes ===
 
+#Additional checks needed:
+#substitute, weight, and na.action parameters for each model type
+#non-literal DVs (IE, "ifelse(y_cont > =5) ~ x1 + x2)
 
+#Ensure parameters should work when they are A) explicitly defined, B) found in environment, C) not found
