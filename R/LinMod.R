@@ -261,11 +261,12 @@ PseudoR2 <- function(x, which = NULL) {
   # check with pscl::pR2(x); rcompanion::nagelkerke(x)
 
 
-  if (!(inherits(x, what="glm") || inherits(x, what="polr")
-        || inherits(x, what = "multinom") || inherits(x, what = "vglm")))
-    return(NA)
-
-
+  if(inherits(x, what="multinom")) modeltype <- "multinom"
+  else if(inherits(x, what="glm")) modeltype <- "glm"
+  else if(inherits(x, what="polr")) modeltype <- "polr"
+  else if(inherits(x, what="vglm")) modeltype <- "vglm"
+  else return(NA)
+  
   if(inherits(x, what="vglm") && !requireNamespace("VGAM", quietly=TRUE)) {
     stop("Could not find package 'VGAM' - please install first") }
   
@@ -275,49 +276,52 @@ PseudoR2 <- function(x, which = NULL) {
   L.full <- logLik(x)
   D.full <- -2 * L.full          # deviance(x)
 
-  if(inherits(x, what="multinom"))
-    L.base <- logLik(update(x, ~1, trace=FALSE))
+  orig.formula < deparse(unlist(list(x$formula, formula(x), x$call$formula))[[1]])
+  null.formula <- reformulate('1', gsub(" .*$", "", orig.formula))
   
-  else if(inherits(x, what="glm")){
-    # replaced 2019-08-19, based on mail by inferrator:
-    #
-    #   L.base <- logLik(update(x, ~1))
+  #Get all parameters that we don't explicitly know what to do with
+  if(modeltype == "multinom") other_params <- x$call[!(names(x$call) %in% c("formula", "data", "weights", "subset", "censored", "", #Parameters whose values are stored in model object 
+                                                                            "model", "contrasts"))] ##parameters that don't affect model results and can be dropped from null model call
+  else if(modeltype == "glm") other_params <- x$call[!(names(x$call) %in% c("formula", "family", "data", "weights", "subset", "offset", "method", "control", "", #Parameters whose values are stored in model object 
+                                                "model", "x", "y", "contrasts"))] #parameters that don't affect model results and can be dropped from null model call
+  else if(modeltype == "polr") other_params <- x$call[!(names(x$call) %in% c("formula", "data", "weights", "subset", "method",  "", #Parameters whose values are stored in model object 
+                                                                        "model", "contrasts"))] ##parameters that don't affect model results and can be dropped from null model call
+  
+  #Check whether the other parameter, when called, will evaluate in the current environment
+  other_params_exist.yn <- mapply(function(x, x.name){ #for each other_param (and the associated name)
+    tryCatch({ #return TRUE if the expression evaluats
+      eval(x)
+      TRUE
+    }, error = function(cond){
+      message("Could not find object ", as.character(x), " for evaluating PseudoR2 null model with parameter ", as.character(x.name), " = ", as.character((x)))
+      message("Will evaluate null model without parameter; results may not be valid if this parameter affects model fit")
+      return(FALSE)
+    })
+  }, x = other_params, x.name = names(other_params))
+  
+  
+  calltype.char <- as.character(x$call[1])
+  
+  if(exists("model", x)){
+    data <- x$model #If x has a model frame component, use that - the safest bet
+  }else if(exists("data", x)){
+    data <- model.frame(orig.formula, data = x$data) #If x has a data object (but no model), construct the model frame 
+    #may need to check for weights, subset, and offset parameters to be included in model.frame as well
+  }else if(exists("data", x$call)){
+    warning("Could not find 'model' or 'data' element of ", modeltype, " object for evaluating PseudoR2 null mode - will fit null model with new evaluation of object '", as.character(x$call$data), "'. Ensure object has not changed since initial call, or try running ", calltype.char, " with 'model = TRUE'")
+    data <- model.frame(orig.formula, data = eval(x$call$data))
+  } else stop("Could not find 'model' element or valid 'data' element of ", modeltype, " object for evaluating PseudoR2 null model. Try running ", calltype, " with 'model = TRUE'")
+  
+  #Costruct the glm call using "call", then evaluate
+  if(modeltype == "multinom") newcall <-  call(calltype.char, formula = null.formula, data = data, weights = x$weights, censored = x$censored, #specify elements that come from a known part of the polr object
+                                          other_params[other_params_exist.yn]) #add unknown parameters that can be evaluated
+  else if(modeltype == "glm") newcall <- call(calltype.char, formula = null.formula, data = data, family = x$family, weights = x$weights, method = x$method, control = x$control, #specify elements that come from a known part of the glm object
+                                          other_params[other_params_exist.yn]) #add unknown parameters that can be evaluated
+  else if(modeltype == "polr") newcall <- call(calltype.char, formula = null.formula, data = data, weights = x$weights, method = x$method, #specify elements that come from a known part of the polr object
+                                          other_params[other_params_exist.yn]) #add unknown parameters that can be evaluated
+  else if(modeltype == "vglm") newcall <- call("update(x, ~1)") #Avoid vglm for now
+  L.base <- logLik(eval(newcall))
 
-    orig.formula < deparse(unlist(list(x$formula, formula(x), x$call$formula))[[1]])
-    null.formula <- reformulate('1', gsub(" .*$", "", orig.formula))
-    
-    #Get all parameters that we don't explicitly know what to do with
-    other_params <- x$call[!(names(x$call) %in% c("formula", "family", "data", "weights", "subset", "offset", "method","control", ""))]
-    #Check whether the other parameter, when called, will evaluate in the current environment
-    other_params_exist.yn <- mapply(function(x, x.name){ #for each other_param (and the associated name)
-      tryCatch({ #return TRUE if the expression evaluats
-        eval(x)
-        TRUE
-      }, error = function(cond){
-        message("Could not find object ", as.character(x), " for evaluating PseudoR2 null model with parameter ", as.character(x.name), " = ", as.character((x)))
-        message("Will evaluate null model without parameter; interpret results with caution")
-        return(FALSE)
-      })
-    }, x = other_params, x.name = names(other_params))
-    
-    if(exists("model", x)){
-      data <- x$model #If x has a model frame component, use that - the safest bet
-    }else if(exists("data", x)){
-      data <- model.frame(orig.formula, data = x$data) #If x has a data object (but no model), construct the model frame 
-      #may need to check for weights, subset, and offset parameters to be included in model.frame as well
-    }else if(exists("data", x$call)){
-      warning("Could not find 'model' element of glm object for evaluating PseudoR2 null mode - will fit null model with new evaluation of object ", as.character(x$call$data), "; proceed with caution or try running glm with model = TRUE")
-      data <- model.frame(orig.formula, data = eval(x$call$data))
-    } else stop("Could not find 'model' element or valid 'data' element of glm object for evaluating PseudoR2 null model - try running glm with model = TRUE")
-    
-    #Costruct the glm call using "call", then evaluate
-    glm.call <- call("glm", formula = null.formula, data = data, family = x$family, weights = x$weights, method = x$method, control = x$control, #specify elements that come from a known part of the glm object
-                     other_params[other_params_exist.yn]) #add unknown parameters that can be evaluated
-    
-    L.base <- logLik(eval(glm.call))
-  }else 
-    L.base <- logLik(update(x, ~1))
-  
   D.base <- -2 * L.base # deviance(update(x, ~1))
   G2 <- -2 * (L.base - L.full)
 
