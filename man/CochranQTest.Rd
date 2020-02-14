@@ -27,24 +27,24 @@ a vector giving the group for the corresponding elements of y if this is a vecto
   \item{blocks}{
 a vector giving the block for the corresponding elements of y if this is a vector; ignored if y is a matrix. If not a factor object, it is coerced to one.}
   \item{formula}{
-a formula of the form \code{a ~ b | c}, where a, b and c give the data values and corresponding groups and blocks, respectively.}
+a formula of the form \code{y ~ groups | blocks}.}
   \item{data}{
-an optional matrix or data frame (or similar: see model.frame) containing the variables in the formula formula. By default the variables are taken from environment(formula).}
+an optional matrix or data frame (or similar: see \code{\link{model.frame}}) containing the variables in the formula. By default the variables are taken from \code{environment(formula)}.}
   \item{subset}{
 an optional vector specifying a subset of observations to be used.
 }
   \item{na.action}{
-a function which indicates what should happen when the data contain NAs. Defaults to getOption("na.action").}
+a function which indicates what should happen when the data contain \code{NA}s. Defaults to \code{getOption("na.action")}.}
   \item{\dots}{further arguments to be passed to or from methods.}
 }
 \details{
-CochranQTest can be used for analyzing unreplicated complete block designs (i.e., there is exactly one 
+\code{CochranQTest()} can be used for analyzing unreplicated complete block designs (i.e., there is exactly one 
 binary observation in y for each combination of levels of groups and blocks) where the normality assumption may be violated.
 
 The null hypothesis is that apart from an effect of blocks, the location parameter of y is the same in each of the groups.
 
 If y is a matrix, groups and blocks are obtained from the column and row indices, respectively. 
-NA's are not allowed in groups or blocks; if y contains NA's, corresponding blocks are removed.
+\code{NA}'s are not allowed in groups or blocks; if y contains \code{NA}'s, corresponding blocks are removed.
 
 Note that Cochran's Q Test is analogue to the Friedman test with 0, 1 coded response. This is used here for a simple implementation.
 }
@@ -59,7 +59,7 @@ A list with class \code{htest} containing the following components:
 \item{method}{the character string "Cochran's Q-Test".}
 \item{data.name}{a character string giving the names of the data.}
 }
-
+\references{Cochran, W.G. (1950) The Comparison of Percentages in Matched Samples. \emph{Biometrika}. 37 (3/4): 256-266. doi:10.1093/biomet/37.3-4.256. JSTOR 2332378.}
 \author{
 Andri Signorell <andri@signorell.net>
 }

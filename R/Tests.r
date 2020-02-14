@@ -1060,6 +1060,8 @@ RunsTest.default <- function(x, y=NULL, alternative=c("two.sided", "less", "grea
 
 
 
+
+
 DurbinWatsonTest <- function(formula, order.by = NULL, alternative = c("greater", "two.sided", "less"),
                              iterations = 15, exact = NULL, tol = 1e-10, data = list()) {
 
@@ -3743,6 +3745,92 @@ ScheffeTest.aov <- function(x, which=NULL, contrasts = NULL, conf.level=0.95, ..
   return(out)
 
 }
+
+
+
+
+VanWaerdenTest <- function (x, ...)    UseMethod("VanWaerdenTest")
+
+
+VanWaerdenTest.formula <- function (formula, data, subset, na.action, ...) {
+  
+  if (missing(formula) || (length(formula) != 3L)) 
+    stop("'formula' missing or incorrect")
+  
+  m <- match.call(expand.dots = FALSE)
+  if (is.matrix(eval(m$data, parent.frame()))) 
+    m$data <- as.data.frame(data)
+  m[[1L]] <- quote(stats::model.frame)
+  
+  mf <- eval(m, parent.frame())
+  if (length(mf) > 2L) 
+    stop("'formula' should be of the form response ~ group")
+  
+  DNAME <- paste(names(mf), collapse = " by ")
+  names(mf) <- NULL
+  y <- do.call("VanWaerdenTest", as.list(mf))
+  y$data.name <- DNAME
+  y
+}
+
+
+
+VanWaerdenTest.default <- function (x, g, ...) {
+  
+  ## This is literally kruskal.test code
+  
+  if (is.list(x)) {
+    if (length(x) < 2L) 
+      stop("'x' must be a list with at least 2 elements")
+    if (!missing(g)) 
+      warning("'x' is a list, so ignoring argument 'g'")
+    DNAME <- deparse1(substitute(x))
+    x <- lapply(x, function(u) u <- u[complete.cases(u)])
+    if (!all(sapply(x, is.numeric))) 
+      warning("some elements of 'x' are not numeric and will be coerced to numeric")
+    k <- length(x)
+    l <- lengths(x)
+    if (any(l == 0L)) 
+      stop("all groups must contain data")
+    g <- factor(rep.int(seq_len(k), l))
+    x <- unlist(x)
+  }  else {
+    if (length(x) != length(g)) 
+      stop("'x' and 'g' must have the same length")
+    DNAME <- paste(deparse1(substitute(x)), "and", 
+                   deparse1(substitute(g)))
+    OK <- complete.cases(x, g)
+    x <- x[OK]
+    g <- g[OK]
+    g <- factor(g)
+    k <- nlevels(g)
+    if (k < 2L) 
+      stop("all observations are in the same group")
+  }
+  
+  n <- length(x)
+  if (n < 2L) 
+    stop("not enough observations")
+  r <- rank(x)
+  
+  z <- qnorm(r/(n + 1))
+  
+  STATISTIC <- (n - 1) / sum(z^2) * 
+    sum(tapply(z, g, sum)^2 / tapply(z, g, length))
+  
+  PARAMETER <- k - 1L
+  PVAL <- pchisq(STATISTIC, PARAMETER, lower.tail = FALSE)
+  names(STATISTIC) <- "Van-der-Waerden chi-squared"
+  names(PARAMETER) <- "df"
+  RVAL <- list(statistic = STATISTIC, parameter = PARAMETER, 
+               p.value = PVAL, method = "Van-der-Waerden normal scores test", 
+               data.name = DNAME)
+  class(RVAL) <- "htest"
+  return(RVAL)
+}
+
+
+
 
 
 PostHocTest <- function (x, ...)

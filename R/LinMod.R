@@ -82,7 +82,8 @@ Conf.table <- function(x, pos = NULL, ...) {
       detprev = (A + B) / (A + B + C + D),   # detection prevalence
       detrate = A / (A + B + C + D),         # detection rate
       bacc    = mean(c(A / (A + C), D / (B + D)) ),  # balanced accuracy
-      fval    = Hmean(c(A / (A + B), A / (A + C)), conf.level = NA) # guetemass wollschlaeger s. 150
+      fval    = Hmean(c(A / (A + B), A / (A + C)), conf.level = NA), # guetemass wollschlaeger s. 150
+      mcc     = (A*D-B*C)/sqrt((A+B)*(A+C)*(D+B)*(D+C))  # Matthews correlation coefficient (=Phi(x) with sign!)
     )
   }
 
@@ -210,7 +211,7 @@ print.Conf <- function(x, digits = max(3, getOption("digits") - 3), ...) {
   cat(txt)
 
   rownames(x$byclass) <- c("Sensitivity", "Specificity", "Pos Pred Value", "Neg Pred Value", "Prevalence",
-                           "Detection Rate", "Detection Prevalence", "Balanced Accuracy","F-val Accuracy")
+                           "Detection Rate", "Detection Prevalence", "Balanced Accuracy","F-val Accuracy", "Matthews Cor.-Coef")
 
   if(nrow(x$table)==2){
     cat(

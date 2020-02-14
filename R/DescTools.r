@@ -3095,6 +3095,42 @@ Weekday <- function (x, fmt = c("d", "dd", "ddd"), lang = DescToolsOptions("lang
 }
 
 
+
+CountWorkDays <- function(from, to, 
+                     holiday=NULL, nonworkdays=c("Sat","Sun")) {
+  
+  
+  .workDays <- function(from, to, 
+                        holiday=NULL, nonworkdays=c("Sat","Sun")) {
+    d <- as.integer(to - from)
+    w <- (d %/% 7)
+    
+    res <- w * (7-length(nonworkdays)) + 
+      sum(Weekday(seq(from + w*7,  to, 1), fmt="dd", lang="engl") %nin% nonworkdays)
+    
+    if(!is.null(holiday)){
+      # count holidays in period
+      h <- holiday[holiday %[]% c(from, to)]
+      res <- res - sum(Weekday(h, fmt="dd", lang="engl") %nin% nonworkdays)
+    }
+    
+    return(res)
+    
+  }
+  
+  
+  ll <- Recycle(from=from, to=to)  
+  
+  res <- integer(attr(ll, "maxdim"))
+  for(i in 1:attr(ll, "maxdim"))
+    res[i] <- .workDays(ll$from[i], ll$to[i], holiday=holiday, nonworkdays=nonworkdays) 
+  
+  return(res)
+  
+}
+
+
+
 Quarter <- function (x) {
   # Berechnet das Quartal eines Datums
   # y <- as.numeric( format( x, "%Y") )
@@ -3712,6 +3748,13 @@ Overlap <- function(x, y){
 
   unname(d)
 
+}
+
+
+AllIdentical <- function(...){
+  lst <- list(...)
+  all(sapply(lst[-1], identical, lst[[1]]))
+  # identical ought to be transitive, so if A is identical to C and to D, then C should be identical to D
 }
 
 
@@ -5395,7 +5438,11 @@ Recycle <- function(...){
   # optimization suggestion by moodymudskipper 20.11.2019  
   maxdim <- max(lengths(lst)) # instead of max(unlist(lapply(lst, length)))
   # recycle all params to maxdim
-  res <- lapply(lst, rep_len, length.out=maxdim)
+  # res <- lapply(lst, rep_len, length.out=maxdim)
+  
+  # rep_len would not work for Dates
+  res <- lapply(lst, rep, length.out=maxdim)
+  
   attr(res, "maxdim") <- maxdim
 
   return(res)
@@ -6355,13 +6402,23 @@ ParseSASDatalines <- function(x, env = .GlobalEnv, overwrite = FALSE) {
   if(length(dsname) > 0){ # check if a dataname could be found
     if( overwrite | ! exists(dsname, envir=env) ) {
       assign(dsname, res, envir=env)
+      
+      note <- gettextf("\033[36m\nThe object %s has been added to %s.\n\033[39m" 
+                       , dsname, deparse(substitute(env))) 
+      cat(note)
+      
     } else {
-      cat(gettextf("The file %s already exists in %s. Should it be overwritten? (y/n)\n"
+      cat(gettextf("The object %s already exists in %s. Should it be overwritten? (y/n)\n"
                    , dsname, deparse(substitute(env))))
       ans <- readline()
-      if(ans == "y")
+      if(ans == "y"){
         assign(dsname, res, envir = env)
-
+        
+        note <- gettextf("\033[36m\nThe object %s has been overwritten in %s.\n\033[39m" 
+                         , dsname, deparse(substitute(env))) 
+        cat(note)
+      }
+      
       # stop(gettextf("%s already exists in %s. Use overwrite = TRUE to overwrite it.", dsname, deparse(substitute(env))))
     }
   }
@@ -7560,7 +7617,7 @@ Pal <- function(pal, n=100, alpha=1) {
                   "RedWhiteBlue0","RedWhiteBlue1","RedWhiteBlue2","RedWhiteBlue3","Helsana","Helsana1","Tibco","RedGreen1",
                   "Spring","Soap","Maiden","Dark","Accent","Pastel","Fragile","Big","Long","Night","Dawn","Noon","Light",
                   "GrandBudapest","Moonrise1","Royal1","Moonrise2","Cavalcanti","Royal2","GrandBudapest2","Moonrise3",
-                  "Chevalier","Zissou","FantasticFox","Darjeeling","Rushmore","BottleRocket","Darjeeling2")
+                  "Chevalier","Zissou","FantasticFox","Darjeeling","Rushmore","BottleRocket","Darjeeling2","Helsana2")
 
 
     if(is.numeric(pal)){
@@ -7594,7 +7651,8 @@ Pal <- function(pal, n=100, alpha=1) {
            , Helsana1      = res <- c("black"="#000000", "hellblau"="#8296C4", "rot"="#9A0941", "orange"="#F08100", "gelb"="#FED037"
                                       , "ecru"="#CAB790", "hellgruen"="#B3BA12", "hellrot"="#D35186"
                                       , "hellgrau"="#CCCCCC", "dunkelgrau"="#666666")
-           , Tibco         =  res <- apply( mcol <- matrix(c(
+           , Helsana2      = res <- c("#9a0941","#62aedf","#9181c6", "#e55086","#f2f2f2","#b6ca2f","#fec600","#bea786")
+           , Tibco         = res <- apply( mcol <- matrix(c(
                                        0,91,0, 0,157,69, 253,1,97, 60,120,177,
                            156,205,36, 244,198,7, 254,130,1,
                            96,138,138, 178,113,60

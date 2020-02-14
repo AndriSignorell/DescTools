@@ -6,7 +6,7 @@
 }
 \description{An artificial dataset inspired by a similar dataset pizza.sav in \emph{Arbeitsbuch zur deskriptiven und induktiven Statistik} by Toutenburg et.al.\cr
 The dataset contains data of a pizza delivery service in London, delivering pizzas to three areas. Every record defines one order/delivery and the according properties. A pizza is supposed to taste good, if its temperature is high enough, say 45 Celsius. So it might be interesting for the pizza delivery service to minimize the delivery time.\cr
-The dataset is designed to be possibly evil. It contains the most used datatypes as numerics, factors, ordered factors, integers, logicals and a date. NAs are scattered everywhere partly systematically, partly randomly (except in the index).
+The dataset is designed to be as evil as possible. As far as the description is concerned, it should pose the same difficulties that we have to deal with in everyday life. It contains the most used datatypes as numerics, factors, ordered factors, integers, logicals and a date. NAs are scattered everywhere partly systematically, partly randomly (except in the index).
 }
 \usage{data(d.pizza)}
 \format{

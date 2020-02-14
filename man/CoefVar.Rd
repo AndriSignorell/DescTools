@@ -17,7 +17,7 @@ CoefVar(x, unbiased = FALSE, conf.level = NA, na.rm = FALSE, ...)
 
 \method{CoefVar}{aov}(x, unbiased = FALSE, conf.level = NA, na.rm = FALSE, ...)
 
-\method{CoefVar}{default}(x, unbiased = FALSE, conf.level = NA, na.rm = FALSE, ...)
+\method{CoefVar}{default}(x, weights = NULL, unbiased = FALSE, conf.level = NA, na.rm = FALSE, ...)
 
 }
 %- maybe also 'usage' for other objects documented here.
@@ -25,6 +25,9 @@ CoefVar(x, unbiased = FALSE, conf.level = NA, na.rm = FALSE, ...)
   \item{x}{a (non-empty) numeric vector of data values.
 %%     ~~Describe \code{x} here~~
 }
+  \item{weights}{a numerical vector of weights the same length as \code{x} giving the weights to use for elements of \code{x}.
+ }
+
   \item{unbiased}{logical value determining, if a bias correction should be used (see. details). Default is FALSE. %% Reference???
 %%     ~~Describe \code{unbiased} here~~
 }
@@ -68,7 +71,7 @@ Michael Smithson <michael.smithson@anu.edu.au> (noncentral-t)
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{\code{\link{mean}}, \code{\link{sd}}
+\seealso{\code{\link{Mean}}, \code{\link{SD}},   (both supporting weights)
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{

@@ -56,7 +56,9 @@ extern SEXP conc(SEXP, SEXP, SEXP, SEXP);
 extern SEXP pip(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP isnil(SEXP);
 extern SEXP rkurt(SEXP, SEXP);
+extern SEXP rkurtw(SEXP, SEXP, SEXP);
 extern SEXP rskew(SEXP, SEXP);
+extern SEXP rskeww(SEXP, SEXP, SEXP);
 extern SEXP tbrm(SEXP, SEXP);
 extern SEXP _DescTools_dgompertz_work(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _DescTools_pgompertz_work(SEXP, SEXP, SEXP, SEXP, SEXP);
@@ -113,7 +115,9 @@ static const R_CallMethodDef CallEntries[] = {
   {"pip",                      (DL_FUNC) &pip,                      6},
   {"isnil",                    (DL_FUNC) &isnil,                    1},
   {"rkurt",                    (DL_FUNC) &rkurt,                    2},
+  {"rkurtw",                   (DL_FUNC) &rkurtw,                   3},
   {"rskew",                    (DL_FUNC) &rskew,                    2},
+  {"rskeww",                   (DL_FUNC) &rskeww,                   3},
   {"tbrm",                     (DL_FUNC) &tbrm,                     2},
   {"pKolmogorov2x",            (DL_FUNC) &pKolmogorov2x,            2},
   {NULL, NULL, 0}

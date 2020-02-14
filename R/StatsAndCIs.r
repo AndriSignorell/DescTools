@@ -54,21 +54,56 @@ Mean.default <- function (x, weights = NULL, trim = 0, na.rm = FALSE, ...) {
 
 
 
-# Average absolute deviation from the median
-MeanAD <- function(x, FUN = mean, na.rm = FALSE) {
+
+
+# Average absolute deviation from the mean
+MeanAD <- function (x, weights=NULL, center = Mean, na.rm = FALSE) {
   
-  if (na.rm) x <- na.omit(x)
+  # MeanAD_w(x=0:6, w=c(21,46,54,40,24,10,5))
   
-  if(is.function(FUN)) {
-    #  if FUN is a function, then save it under new name and
-    # overwrite function name in FUN, which has to be character
-    fct <- FUN
-    FUN <- "fct"
-    FUN <- gettextf("%s(x)", FUN)
+  if (na.rm) 
+    x <- na.omit(x)
+  
+  
+  if (is.null(weights)) {
+    if (is.function(center)) {
+      #  if FUN is a function, then save it under new name and
+      # overwrite function name in FUN, which has to be character
+      fct <- center
+      center <- "fct"
+      center <- gettextf("%s(x)", center)
+    }
+    
+    # Calculates the mean absolute deviation from the sample mean.
+    res <- eval(parse(text = gettextf("mean(abs(x - %s))", center)))
+    
+  } else {
+    
+    if (is.function(center)) {
+      fct <- center
+      center <- "fct"
+      center <- gettextf("%s(x, weights=weights)", center)
+    }
+    
+    if (length(weights) != length(x)) 
+      stop("'x' and 'w' must have the same length")
+    weights <- as.double(weights)
+    if (na.rm) {
+      i <- !is.na(x)
+      weights <- weights[i]
+      x <- x[i]
+    }
+    
+    ad <- eval(parse(text=gettextf("abs(x - %s)", center)))
+    res <- sum(ad * weights)/sum(weights)
+    
   }
-  # Calculates the mean absolute deviation from the sample mean.
-  return(eval(parse(text = gettextf("mean(abs(x - %s))", FUN))))
-}
+  
+  return(res)
+  
+}  
+
+
 
 
 
@@ -1278,7 +1313,7 @@ HodgesLehmann <- function(x, y = NULL, conf.level = NA, na.rm = FALSE) {
 
 
 
-Skew <- function (x, na.rm = FALSE, method = 3, conf.level = NA, ci.type = "bca", R=1000, ...) {
+Skew <- function (x, weights=NULL, na.rm = FALSE, method = 3, conf.level = NA, ci.type = "bca", R=1000, ...) {
 
   # C part for the expensive (x - mean(x))^2 etc. is a kind of 14 times faster
   #   > x <- rchisq(100000000, df=2)
@@ -1290,12 +1325,19 @@ Skew <- function (x, na.rm = FALSE, method = 3, conf.level = NA, ci.type = "bca"
   #   0.47    0.00    0.47
 
 
-  i.skew <- function(x, method = 3) {
+  i.skew <- function(x, weights=NULL, method = 3) {
 
-    n <- length(x)
-
+    if(is.null(weights))
+      n <- length(x)
+    else
+      n <- sum(weights)
+    
     # method 1: older textbooks
-    r.skew <- .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE="DescTools")
+    if(!is.null(weights)) 
+      r.skew <- .Call("rskeww", as.numeric(x), as.numeric(Mean(x, weights = weights)), as.numeric(weights), PACKAGE="DescTools")
+    else
+      r.skew <- .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE="DescTools")
+
     se <- sqrt((6*(n-2))/((n+1)*(n+3)))
 
     if (method == 2) {
@@ -1314,12 +1356,12 @@ Skew <- function (x, na.rm = FALSE, method = 3, conf.level = NA, ci.type = "bca"
   if (na.rm) x <- na.omit(x)
 
   if(is.na(conf.level)){
-    res <- i.skew(x, method=method)[1]
+    res <- i.skew(x, weights=weights, method=method)[1]
 
   } else {
 
     if(ci.type == "classic") {
-      res <- i.skew(x, method=method)
+      res <- i.skew(x, weights=weights,method=method)
       res <- c(skewness=res[1],
                lwr.ci=qnorm(1-(1-conf.level)/2) * sqrt(res[2]),
                upr.ci=qnorm(1-(1-conf.level)/2) * sqrt(res[2]))
@@ -1328,7 +1370,7 @@ Skew <- function (x, na.rm = FALSE, method = 3, conf.level = NA, ci.type = "bca"
       # Problematic standard errors and confidence intervals for skewness and kurtosis.
       # Wright DB, Herrington JA. (2011) recommend only bootstrap intervals
       # adjusted bootstrap percentile (BCa) interval
-      boot.skew <- boot(x, function(x, d) i.skew(x[d], method=method), R=R, ...)
+      boot.skew <- boot(x, function(x, d) i.skew(x[d], weights=weights, method=method), R=R, ...)
       ci <- boot.ci(boot.skew, conf=conf.level, type=ci.type)
       if(ci.type =="norm") {
         lwr.ci <- ci[[4]][2]
@@ -1348,15 +1390,24 @@ Skew <- function (x, na.rm = FALSE, method = 3, conf.level = NA, ci.type = "bca"
 }
 
 
+is.null(as.numeric(NULL))
 
-Kurt <- function (x, na.rm = FALSE, method = 3, conf.level = NA, ci.type = "bca", R=1000, ...) {
+Kurt <- function (x, weights=NULL, na.rm = FALSE, method = 3, conf.level = NA, ci.type = "bca", R=1000, ...) {
 
-  i.kurt <- function(x, na.rm = FALSE, method = 3) {
+  i.kurt <- function(x, weights=NULL, na.rm = FALSE, method = 3) {
     if (na.rm) x <- na.omit(x)
 
-    n <- length(x)
+    if(is.null(weights))
+      n <- length(x)
+    else
+      n <- sum(weights)
+    
     # method 1: older textbooks
-    r.kurt <- .Call("rkurt", as.numeric(x), as.numeric(mean(x)), PACKAGE="DescTools")
+    if(!is.null(weights)) 
+      r.kurt <- .Call("rkurtw", as.numeric(x), as.numeric(Mean(x, weights = weights)), as.numeric(weights), PACKAGE="DescTools")
+    else
+      r.kurt <- .Call("rkurt", as.numeric(x), as.numeric(mean(x)), PACKAGE="DescTools")
+    
     se <- sqrt((24*n*(n-2)*(n-3))/((n+1)^2*(n+3)*(n+5)))
 
     if (method == 2) {
@@ -1373,11 +1424,11 @@ Kurt <- function (x, na.rm = FALSE, method = 3, conf.level = NA, ci.type = "bca"
   }
 
   if(is.na(conf.level)){
-    res <- i.kurt(x, na.rm=na.rm, method=method)[1]
+    res <- i.kurt(x, weights=weights, na.rm=na.rm, method=method)[1]
 
   } else {
     if(ci.type == "classic") {
-      res <- i.kurt(x, method=method)
+      res <- i.kurt(x, weights=weights, method=method)
       res <- c(kurtosis=res[1],
                lwr.ci=qnorm(1-(1-conf.level)/2) * sqrt(res[2]),
                upr.ci=qnorm(1-(1-conf.level)/2) * sqrt(res[2]))
@@ -1387,7 +1438,7 @@ Kurt <- function (x, na.rm = FALSE, method = 3, conf.level = NA, ci.type = "bca"
       # Problematic standard errors and confidence intervals for skewness and kurtosis.
       # Wright DB, Herrington JA. (2011) recommend only bootstrap intervals
       # adjusted bootstrap percentile (BCa) interval
-      boot.kurt <- boot(x, function(x, d) i.kurt(x[d], na.rm=na.rm, method=method), R=R, ...)
+      boot.kurt <- boot(x, function(x, d) i.kurt(x[d], weights=weights, na.rm=na.rm, method=method), R=R, ...)
       ci <- boot.ci(boot.kurt, conf=conf.level, type=ci.type)
 
       if(ci.type =="norm") {
@@ -3266,7 +3317,7 @@ CoefVar.lm <- function (x, unbiased = FALSE, conf.level = NA, na.rm = FALSE, ...
   res <- rmse / mean(x$model[[1]], na.rm=na.rm)
 
   # This is the same approach as in CoefVar.default, but it's not clear
-  # if it is correct in the enviroment of a model
+  # if it is correct in the environment of a model
   n <- x$df.residual
   if (unbiased) {
     res <- res * ((1 - (1/(4 * (n - 1))) + (1/n) * res^2) +
@@ -3287,12 +3338,16 @@ CoefVar.lm <- function (x, unbiased = FALSE, conf.level = NA, na.rm = FALSE, ...
 # dv <- unname(nlme::getResponse(x))
 
 
-CoefVar.default <- function (x, unbiased = FALSE, conf.level = NA, na.rm = FALSE, ...) {
+CoefVar.default <- function (x, weights=NULL, unbiased = FALSE, conf.level = NA, na.rm = FALSE, ...) {
 
   if(na.rm) x <- na.omit(x)
 
-  res <- sd(x) / mean(x)
-  n <- length(x)
+  res <- SD(x, weights = weights) / Mean(x, weights = weights)
+  if(is.null(weights))
+    n <- length(x)
+  else
+    n <- sum(weights)
+  
   if(unbiased) {
     res <- res * ((1 - (1/(4*(n-1))) + (1/n) * res^2)+(1/(2*(n-1)^2)))
   }
@@ -3944,6 +3999,20 @@ CramerV <- function(x, y = NULL, conf.level = NA,
   return(res)
 }
 
+
+
+ncparamF <- function(type1, type2, nu1, nu2) {
+
+  # author Ali Baharev <ali.baharev at gmail.com>
+  
+  # Returns the noncentrality parameter of the noncentral F distribution 
+  # if probability of Type I and Type II error, degrees of freedom of the 
+  # numerator and the denominator in the F test statistics are given.
+  
+  
+  .C("fpow",  PACKAGE = "DescTools", as.double(type1), as.double(type2), 
+     as.double(nu1), as.double(nu2), lambda=double(1))$lambda
+}
 
 
 

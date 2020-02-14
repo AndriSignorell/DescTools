@@ -9,19 +9,19 @@ Obtain statistic of centrality
   sample of its values.
 }
 \usage{
-CentralValue(x, ws = NULL)
+CentralValue(x, weights = NULL)
 }
 
 \arguments{
   \item{x}{
-A vector of values (the sample).
+a vector of values (the sample).
 }
-  \item{ws}{
-A vector of case weights (defaulting to NULL, i.e. no case weights).
-}
+  \item{weights}{a numerical vector of weights the same length as \code{x} giving the weights to use for elements of \code{x}.
+ }
+
 }
 \details{
-  If the variable is numeric it returns de median of the given sample, if it
+  If the variable is numeric it returns the median of the given sample, if it
  is a factor it returns the mode. In other cases it
  tries to convert to a factor and then returns the mode.
 
@@ -45,9 +45,10 @@ Torgo, L. (2010) \emph{Data Mining using R: learning with case studies},
 # An example with numerical data
 x <- rnorm(100)
 CentralValue(x)
+
 # An example with nominal data
-y <-
-factor(sample(1:10,200,replace=TRUE),levels=1:10,labels=paste('v',1:10,sep=''))
+y <- factor(sample(1:10, 200, replace=TRUE), levels=1:10, 
+            labels=paste('v', 1:10, sep=''))
 CentralValue(y)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

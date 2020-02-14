@@ -9,14 +9,15 @@
 # =====================================================
 # Luis Torgo, Jan 2009
 # =====================================================
-CentralValue <- function(x, ws=NULL) {
+
+CentralValue <- function(x, weights=NULL) {
   if (is.numeric(x)) {
-    if (is.null(ws)) median(x,na.rm=T)
-    else if ((s <- sum(ws)) > 0) sum(x*(ws/s)) else NA
+    if (is.null(weights)) median(x,na.rm=T)
+    else if ((s <- sum(weights)) > 0) sum(x*(weights/s)) else NA
   } else {
     x <- as.factor(x)
-    if (is.null(ws)) levels(x)[which.max(table(x))]
-    else levels(x)[which.max(aggregate(ws,list(x),sum)[,2])]
+    if (is.null(weights)) levels(x)[which.max(table(x))]
+    else levels(x)[which.max(aggregate(weights, list(x), sum)[, 2])]
   }
 }
 
@@ -24,15 +25,16 @@ CentralValue <- function(x, ws=NULL) {
 
 # =====================================================
 # Function that fills in all unknowns using the k Nearest
-# Neighbours of each case with unknows. 
-# By default it uses the values of the neighbours and 
+# Neighbors of each case with unknowns. 
+# By default it uses the values of the neighbors and 
 # obtains an weighted (by the distance to the case) average
-# of their values to fill in the unknows.
+# of their values to fill in the unknowns.
 # If meth='median' it uses the median/most frequent value,
 # instead.
 # =====================================================
 # Luis Torgo, Mar 2009, Nov 2011
 # =====================================================
+
 ImputeKnn <- function(data, k=10, scale=T, meth='weighAvg', distData=NULL) {
   
   n <- nrow(data)  
