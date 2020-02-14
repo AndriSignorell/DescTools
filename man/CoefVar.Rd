@@ -11,7 +11,7 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-CoefVar(x, unbiased = FALSE, conf.level = NA, na.rm = FALSE, ...)
+CoefVar(x, ...)
 
 \method{CoefVar}{lm}(x, unbiased = FALSE, conf.level = NA, na.rm = FALSE, ...)
 

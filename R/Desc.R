@@ -1922,7 +1922,28 @@ plot.Desc.numnum    <- function(x, main = NULL, col=SetAlpha(1, 0.3),
 }
 
 
-plot.Desc.factnum   <- function(x, main=NULL, col=NULL, notch=FALSE,
+
+
+# overwrite fixed coded arguments
+#
+# PlotIt <- function(x, y, ...) {
+#   
+#   arguments <- list(
+#     x = x,
+#     y = y,
+#     ...,
+#     type = "l",
+#     asp = 1
+#   )
+#   
+#   arguments <- arguments[!duplicated(names(arguments))]
+#   
+#   do.call("plot", arguments)
+# }
+
+
+
+plot.Desc.factnum   <- function(x, main=NULL, col=NULL, 
                              add_ni = TRUE, smooth = NULL, ...){
 
   if(is.null(main)) main <- x$main
@@ -1931,22 +1952,22 @@ plot.Desc.factnum   <- function(x, main=NULL, col=NULL, notch=FALSE,
   mar <- c(5,4, 2*add_ni,2) + .1
 
   par(mar=mar, oma=c(0,0,4.1,0))
-  las <- InDots(..., arg="las", default=1)
-  cex <- InDots(..., arg="cex", default=par("cex"))
-
+  
+  boxargs <- list(formula=x$g ~ x$x, type="n", xaxt="n", yaxt="n", ..., xlab="", ylab="", col=Coalesce(col,"white"), cex.axis=par("cex"), las=1)
+  boxargs <- boxargs[!duplicated(names(boxargs))]
+  
   layout( matrix(c(1,2), ncol=2, byrow=TRUE), widths=c(2,3), TRUE)
-  boxplot(x$g ~ x$x, notch=notch, type="n", xaxt="n", yaxt="n", ... )
+  
+  # omit axis labels here, as Vilmantas doesn't like them... ;-)
+  do.call("boxplot", boxargs)
   grid(nx=NA, ny=NULL)
-  bx <- boxplot(x$g ~ x$x, col="white", notch=notch, add=TRUE, cex.axis=cex, ... )
+  boxargs$add <- TRUE
+  boxargs$xaxt <- boxargs$yaxt <- NULL
+  bx <- do.call("boxplot", boxargs)
 
   if(add_ni){
     # mtext does not support string rotation: https://stat.ethz.ch/pipermail/r-help/2006-February/087775.html
-    mtext( paste("n=", bx$n, sep=""), side=3, line=1, at=1:length(bx$n), cex=0.8, las=las, xpd=NA)
-
-    # set xpd=NA to be able to write on the outer margins
-    # text(y=par("usr")[4] + strheight("M"), x=1:length(bx$n), srt=ifelse(las %in% c(2,3), 90, 0), adj = 0,
-    #      labels = paste("n=", bx$n, sep=""), xpd=NA, cex=cex)
-
+    mtext( paste("n=", bx$n, sep=""), side=3, line=1, at=1:length(bx$n), cex=0.8, las=InDots(..., arg = "las", default = 1), xpd=NA)
   }
 
   if(nrow(x$ptab) < 3){

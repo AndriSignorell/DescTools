@@ -12,6 +12,53 @@
 
 # some aliases
 
+
+
+NormWeights <- function(x, weights, na.rm=FALSE, zero.rm=FALSE, normwt=FALSE) {
+  
+
+  # Idea Henrik Bengtsson
+  # we remove values with zero (and negative) weight. 
+  # This would:
+  #  1) take care of the case when all weights are zero,
+  #  2) it will most likely speed up the sorting.
+  
+  if (na.rm){
+    
+    if(zero.rm)
+      # remove zeros
+      keep <- x[!is.na(x)] & weights[!is.na(weights) & (weights>0)]
+    else
+      keep <- x[!is.na(x)] & weights[!is.na(weights)]
+    
+    x <- x[keep]
+    weights <- weights[keep]
+  } 
+  
+  if(any(is.na(x)) | (!is.null(weights) & any(is.na(weights))))
+    return(NA_real_)
+  
+  n <- length(x)
+  
+  if (length(weights) != n) 
+    stop("length of 'weights' must equal the number of rows in 'x'")
+  
+  
+  if (any(weights< 0) || (s <- sum(weights)) == 0) 
+    stop("weights must be non-negative and not all zero")
+  
+
+  # we could normalize the weights to sum up to 1
+  if (normwt) 
+    weights <- weights * n/s
+  
+  return(list(x=x, weights=as.double(weights), wsum=s))
+  
+}
+
+
+
+
 Mean <- function (x, ...)
   UseMethod("Mean")
 
@@ -19,6 +66,7 @@ Mean <- function (x, ...)
 Mean.Freq <- function(x, breaks, ...)  {
   sum(head(MoveAvg(breaks, order=2, align="left"), -1) * x$perc)
 }
+
 
 
 Mean.default <- function (x, weights = NULL, trim = 0, na.rm = FALSE, ...) {
@@ -32,26 +80,27 @@ Mean.default <- function (x, weights = NULL, trim = 0, na.rm = FALSE, ...) {
     if(trim!=0)
       warning("trim can't be set together with weights, we fall back to trim=0!")
 
-    # # recycle weights
-    # weights <- rep(weights, length.out=length(x))
-    # sum(x*weights, na.rm=na.rm) / sum(weights, na.rm=na.rm)
-
-# verbatim from stats:::weighted.mean.default
-
-    if (length(weights) != length(x))
-      stop("'x' and 'w' must have the same length")
-    weights <- as.double(weights)
-    if (na.rm) {
-      i <- !is.na(x)
-      weights <- weights[i]
-      x <- x[i]
-    }
-    sum((x * weights)[weights != 0])/sum(weights)
-
+    # # verbatim from stats:::weighted.mean.default
+    # 
+    # if (length(weights) != length(x))
+    #   stop("'x' and 'w' must have the same length")
+    # weights <- as.double(weights)
+    # if (na.rm) {
+    #   i <- !is.na(x)
+    #   weights <- weights[i]
+    #   x <- x[i]
+    # }
+    # sum((x * weights)[weights != 0])/sum(weights)
+    
+    # use a standard treatment for weights
+    z <- NormWeights(x, weights, na.rm=na.rm, zero.rm=TRUE)
+    
+    # we get no 0-weights back here...
+    sum(z$x * z$weights) / z$wsum
+    
   }
 
 }
-
 
 
 
@@ -65,43 +114,60 @@ MeanAD <- function (x, weights=NULL, center = Mean, na.rm = FALSE) {
     x <- na.omit(x)
   
   
-  if (is.null(weights)) {
-    if (is.function(center)) {
-      #  if FUN is a function, then save it under new name and
-      # overwrite function name in FUN, which has to be character
-      fct <- center
-      center <- "fct"
+  if (is.function(center)) {
+    fct <- center
+    center <- "fct"
+    if(is.null(weights))
       center <- gettextf("%s(x)", center)
-    }
-    
-    # Calculates the mean absolute deviation from the sample mean.
-    res <- eval(parse(text = gettextf("mean(abs(x - %s))", center)))
+    else
+      center <- gettextf("%s(x, weights=weights)", center)
+    center <- eval(parse(text = center))
+  }
+  
+  if(!is.null(weights)) {
+    z <- NormWeights(x, weights, na.rm=na.rm, zero.rm=TRUE)
+    res <- sum(abs(z$x - center) * z$weights) / z$wsum
     
   } else {
-    
-    if (is.function(center)) {
-      fct <- center
-      center <- "fct"
-      center <- gettextf("%s(x, weights=weights)", center)
-    }
-    
-    if (length(weights) != length(x)) 
-      stop("'x' and 'w' must have the same length")
-    weights <- as.double(weights)
-    if (na.rm) {
-      i <- !is.na(x)
-      weights <- weights[i]
-      x <- x[i]
-    }
-    
-    ad <- eval(parse(text=gettextf("abs(x - %s)", center)))
-    res <- sum(ad * weights)/sum(weights)
-    
+    # Calculates the mean absolute deviation from the sample mean.
+    res <- mean(abs(x - center))
   }
   
   return(res)
   
 }  
+
+
+
+
+MAD <- function(x, weights = NULL, center = Median, constant = 1.4826, na.rm = FALSE, 
+                low = FALSE, high = FALSE) {
+  
+  
+  if (is.function(center)) {
+    fct <- center
+    center <- "fct"
+    if(is.null(weights))
+      center <- gettextf("%s(x)", center)
+    else
+      center <- gettextf("%s(x, weights=weights)", center)
+    center <- eval(parse(text = center))
+  }
+  
+  if(!is.null(weights)) {
+    z <- NormWeights(x, weights, na.rm=na.rm)
+    
+    res <- constant *  Median(abs(z$x - center), weights = z$weights)
+    
+  } else {
+    # fall back to mad(), if there are no weights
+    res <- mad(x, center = center, constant = constant, na.rm = na.rm, low=low, high=high)
+    
+  }
+  
+  return(res)
+  
+}
 
 
 
@@ -119,39 +185,25 @@ Var <- function (x, ...)
 
 
 
-Var.default <- function (x, weights = NULL, na.rm = FALSE, use, ...) {
-
-  wtd.var <- function (x, weights = NULL, normwt = FALSE, na.rm = TRUE,
-                       method = c("unbiased",  "ML")) {
-    # source Hmisc
-
-    method <- match.arg(method)
-    if (!length(weights)) {
-      if (na.rm)
-        x <- x[!is.na(x)]
-      return(var(x))
-    }
-    if (na.rm) {
-      s <- !is.na(x + weights)
-      x <- x[s]
-      weights <- weights[s]
-    }
-    if (normwt)
-      weights <- weights * length(x)/sum(weights)
-    if (method == "ML")
-      return(as.numeric(stats::cov.wt(cbind(x), weights, method = "ML")$cov))
-    sw <- sum(weights)
-    xbar <- sum(weights * x)/sw
-    sum(weights * ((x - xbar)^2))/(sw - (if (normwt)
-      sum(weights^2)/sw
-      else 1))
-  }
+Var.default <- function (x, weights = NULL, na.rm = FALSE, method = c("unbiased",  "ML"), ...) {
 
   if(is.null(weights)) {
-    var(x=x, na.rm=na.rm, use=use)
+    res <- var(x=x, na.rm=na.rm)
+    
   } else {
-    wtd.var(x=x, weights=weights, na.rm=na.rm)
+    z <- NormWeights(x, weights, na.rm=na.rm)
+
+    if (match.arg(method) == "ML")
+      return(as.numeric(stats::cov.wt(cbind(z$x), z$weights, method = "ML")$cov))
+    
+    xbar <- sum(z$weights * x) / z$wsum
+    
+    res <- sum(z$weights * ((z$x - xbar)^2))/(z$wsum - 1)
+    
   }
+  
+  return(res)
+  
 }
 
 
@@ -168,8 +220,6 @@ Var.Freq <- function(x, breaks, ...)  {
 
 Cov <- cov
 Cor <- cor
-
-MAD <- mad
 
 
 # Length(x)
@@ -383,15 +433,19 @@ Quantile <- function(x, weights = NULL, probs = seq(0, 1, 0.25),
       stop("'weights' must have the same length as 'x'")
     } else if (!all(is.finite(weights))) stop("missing or infinite weights")
     if (any(weights < 0)) warning("negative weights")
+    
     if (!is.numeric(probs) || all(is.na(probs)) ||
         isTRUE(any(probs < 0 | probs > 1))) {
       stop("'probs' must be a numeric vector with values in [0,1]")
+      
     }
+    
     if (all(weights == 0)) { # all zero weights
       warning("all weights equal to zero")
       return(rep.int(0, length(probs)))
     }
   }
+  
   # remove NAs (if requested)
   if(isTRUE(na.rm)){
     indices <- !is.na(x)
@@ -408,6 +462,7 @@ Quantile <- function(x, weights = NULL, probs = seq(0, 1, 0.25),
   # some preparations
   if(is.null(weights)) rw <- (1:n)/n
   else rw <- cumsum(weights)/sum(weights)
+  
   # obtain quantiles
   q <- sapply(probs,
               function(p) {
@@ -417,13 +472,15 @@ Quantile <- function(x, weights = NULL, probs = seq(0, 1, 0.25),
                 if(rw[select] == p) mean(x[select:(select+1)])
                 else x[select]
               })
+  
   return(unname(q))
+  
 }
 
 
 IQRw <- function (x, weights = NULL, na.rm = FALSE, type = 7) {
   
-  diff(Quantile(x, weights=weights, probs=c(0.25, 0.75), na.rm=na.rm, names=names, type=type))
+  diff(Quantile(x, weights=weights, probs=c(0.25, 0.75), na.rm=na.rm, type=type))
   
 }
 
@@ -1327,16 +1384,19 @@ Skew <- function (x, weights=NULL, na.rm = FALSE, method = 3, conf.level = NA, c
 
   i.skew <- function(x, weights=NULL, method = 3) {
 
-    if(is.null(weights))
-      n <- length(x)
-    else
-      n <- sum(weights)
-    
     # method 1: older textbooks
-    if(!is.null(weights)) 
-      r.skew <- .Call("rskeww", as.numeric(x), as.numeric(Mean(x, weights = weights)), as.numeric(weights), PACKAGE="DescTools")
-    else
+    if(!is.null(weights)){
+      # use a standard treatment for weights
+      z <- NormWeights(x, weights, na.rm=na.rm, zero.rm=TRUE)
+      r.skew <- .Call("rskeww", as.numeric(z$x), as.numeric(Mean(z$x, weights = z$weights)), as.numeric(z$weights), PACKAGE="DescTools")
+      n <- z$wsum
+      
+    } else {
+      if (na.rm) x <- na.omit(x)
       r.skew <- .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE="DescTools")
+      n <- length(x)
+      
+    }
 
     se <- sqrt((6*(n-2))/((n+1)*(n+3)))
 
@@ -1353,7 +1413,6 @@ Skew <- function (x, weights=NULL, na.rm = FALSE, method = 3, conf.level = NA, c
     return(c(r.skew, se^2))
   }
 
-  if (na.rm) x <- na.omit(x)
 
   if(is.na(conf.level)){
     res <- i.skew(x, weights=weights, method=method)[1]
@@ -1390,23 +1449,25 @@ Skew <- function (x, weights=NULL, na.rm = FALSE, method = 3, conf.level = NA, c
 }
 
 
-is.null(as.numeric(NULL))
+
 
 Kurt <- function (x, weights=NULL, na.rm = FALSE, method = 3, conf.level = NA, ci.type = "bca", R=1000, ...) {
 
   i.kurt <- function(x, weights=NULL, na.rm = FALSE, method = 3) {
-    if (na.rm) x <- na.omit(x)
 
-    if(is.null(weights))
-      n <- length(x)
-    else
-      n <- sum(weights)
-    
     # method 1: older textbooks
-    if(!is.null(weights)) 
-      r.kurt <- .Call("rkurtw", as.numeric(x), as.numeric(Mean(x, weights = weights)), as.numeric(weights), PACKAGE="DescTools")
-    else
+    if(!is.null(weights)){
+      # use a standard treatment for weights
+      z <- NormWeights(x, weights, na.rm=na.rm, zero.rm=TRUE)
+      r.kurt <- .Call("rkurtw", as.numeric(z$x), as.numeric(Mean(z$x, weights = z$weights)), as.numeric(z$weights), PACKAGE="DescTools")
+      n <- z$wsum
+      
+    } else {
+      if (na.rm) x <- na.omit(x)
       r.kurt <- .Call("rkurt", as.numeric(x), as.numeric(mean(x)), PACKAGE="DescTools")
+      n <- length(x)
+      
+    }
     
     se <- sqrt((24*n*(n-2)*(n-3))/((n+1)^2*(n+3)*(n+5)))
 
@@ -3299,7 +3360,7 @@ CohenD <- function(x, y=NULL, pooled = TRUE, correct = FALSE, conf.level = NA, n
 
 
 
-CoefVar <- function (x, unbiased = FALSE, conf.level = NA, na.rm = FALSE, ...) {
+CoefVar <- function (x, ...) {
   UseMethod("CoefVar")
 }
 
@@ -3340,18 +3401,21 @@ CoefVar.lm <- function (x, unbiased = FALSE, conf.level = NA, na.rm = FALSE, ...
 
 CoefVar.default <- function (x, weights=NULL, unbiased = FALSE, conf.level = NA, na.rm = FALSE, ...) {
 
-  if(na.rm) x <- na.omit(x)
-
-  res <- SD(x, weights = weights) / Mean(x, weights = weights)
-  if(is.null(weights))
+  if(is.null(weights)){
+    if(na.rm) x <- na.omit(x)
+    res <- SD(x) / Mean(x)
     n <- length(x)
-  else
+    
+  }
+  else {
+    res <- SD(x, weights = weights) / Mean(x, weights = weights)
     n <- sum(weights)
-  
+    
+  }
+
   if(unbiased) {
     res <- res * ((1 - (1/(4*(n-1))) + (1/n) * res^2)+(1/(2*(n-1)^2)))
   }
-
 
   if(!is.na(conf.level)){
     ci <- .nctCI(sqrt(n)/res, df = n-1, conf = conf.level)
@@ -6622,5 +6686,8 @@ print.HoeffD <- function(x, ...)
 }
 
 
-
+# find non-centrality parameter for the F-distribution
+ncparamF <- function(type1, type2, nu1, nu2){
+  .C("fpow",  PACKAGE = "fpow", as.double(type1), as.double(type2), as.double(nu1), as.double(nu2), lambda=double(1))$lambda
+}
 
