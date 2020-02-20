@@ -131,12 +131,3 @@ PseudoR2(model1.multinom)
 rm(rec.df)
 PseudoR2(model1.multinom)
 
-
-
-# ==== notes ===
-
-#Additional checks needed:
-#substitute, weight, and na.action parameters for each model type
-#non-literal DVs (IE, "ifelse(y_cont > =5) ~ x1 + x2)
-
-#Ensure parameters should work when they are A) explicitly defined, B) found in environment, C) not found

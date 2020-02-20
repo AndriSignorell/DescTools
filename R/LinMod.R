@@ -280,13 +280,16 @@ PseudoR2 <- function(x, which = NULL) {
   
   # ---- Get all parameters that we don't explicitly know what to do with ----
   if(modeltype == "multinom"){other_params <- x$call[!(names(x$call) %in% c("formula", "data", "weights", "subset", "censored", "", #Parameters whose values are stored in model object 
+                                                                            "na.action", "subset", #parameters that we can ignore if model = TRUE
                                                                             "model", "contrasts"))] ##parameters that don't affect model results and can be dropped from null model call
   }else if(modeltype == "glm"){ other_params <- x$call[!(names(x$call) %in% c("formula", "family", "data", "weights", "subset", "offset", "method", "control", "", #Parameters whose values are stored in model object 
-                                                "model", "x", "y", "contrasts"))] #parameters that don't affect model results and can be dropped from null model call
+                                                                              "na.action", "subset", #parameters that we can ignore if model = TRUE
+                                                                              "model", "x", "y", "contrasts"))] #parameters that don't affect model results and can be dropped from null model call
   }else if(modeltype == "polr"){ other_params <- x$call[!(names(x$call) %in% c("formula", "data", "weights", "subset", "method",  "", #Parameters whose values are stored in model object 
-                                                                        "model", "contrasts"))]} ##parameters that don't affect model results and can be dropped from null model call
+                                                                              "na.action", "subset", #parameters that we can ignore if model = TRUE
+                                                                              "model", "contrasts"))]} #parameters that don't affect model results and can be dropped from null model call
   
-  #Check whether the other parameter, when called, will evaluate in the current environment
+  #Check whether the other parameters, when called, will evaluate in the current environment
   other_params_exist.yn <- mapply(function(x, x.name){ #for each other_param (and the associated name)
     tryCatch({ #return TRUE if the expression evaluats
       eval(x)
@@ -299,6 +302,10 @@ PseudoR2 <- function(x, which = NULL) {
   }, x = other_params, x.name = names(other_params))
   other_params <- other_params[other_params_exist.yn]
   
+  #If model parameter was not specified, add subset and na.action parameters to the other params list (we don't need to rerun model.frame if we already have a valid model object)
+  #These parameters *do* affect null model fit, and so we separately check for their existence when refitting model.frame (and generate an error, rather than warning, if they don't exist)
+  if(!(exists("model", x))) other_params <- c(other_params, x$call[names(x$call) %in% c("subset", "na.action")])
+  
   # ---- Construct appropriate data/model object for null model call ----
   
   calltype.char <- as.character(x$call[1])
@@ -307,6 +314,7 @@ PseudoR2 <- function(x, which = NULL) {
   if(exists("model", x)){
     data <- x$model #If x has a model frame component, use that - the safest bet
   }else if(exists("data", x)){ #If x has a data object (but no model), take it
+    if("environment" %in% class(x$data)) warning("Could not find 'model' element of ", modeltype, " object for evaluating PseudoR2 null model. Will fit null model with new evaluation of variables in environment ",  environmentName(x$data), ". Ensure variables have not changed since initial call, or try running ", calltype.char, " with 'model = TRUE'")
     data <- x$data
     #may need to check for subset and na.action parameters to be included in model.frame as well
   }else if(!is.null(x$call$data)){
