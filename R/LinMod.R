@@ -291,11 +291,11 @@ PseudoR2 <- function(x, which = NULL) {
   
   #Check whether the other parameters, when called, will evaluate in the current environment
   other_params_exist.yn <- mapply(function(x, x.name){ #for each other_param (and the associated name)
-    tryCatch({ #return TRUE if the expression evaluats
+    tryCatch({ #return TRUE if the expression evaluates
       eval(x)
       TRUE
     }, error = function(cond){
-      message("Could not evaluate ", as.character(x), " for fitting PseudoR2 null model with parameter ", as.character(x.name), " = ", as.character((x)))
+      message("Could not evaluate '", as.character(x), "' for fitting PseudoR2 null model with parameter ", as.character(x.name), " = ", as.character((x)))
       message("Will evaluate null model without parameter; results may not be valid if this parameter affects model fit")
       return(FALSE)
     })
@@ -313,11 +313,13 @@ PseudoR2 <- function(x, which = NULL) {
   #Get initial data
   if(exists("model", x)){
     data <- x$model #If x has a model frame component, use that - the safest bet
-  }else if(exists("data", x)){ #If x has a data object (but no model), take it
-    if("environment" %in% class(x$data)) warning("Could not find 'model' element of ", modeltype, " object for evaluating PseudoR2 null model. Will fit null model with new evaluation of variables in environment ",  environmentName(x$data), ". Ensure variables have not changed since initial call, or try running ", calltype.char, " with 'model = TRUE'")
+  }else if(exists("data", x) & !("environment" %in% class(x$data))){ #If x has a data object (but no model), take it
     data <- x$data
     #may need to check for subset and na.action parameters to be included in model.frame as well
-  }else if(!is.null(x$call$data)){
+  }else if(!is.null(x$call$data) & !("environment" %in% class(x$data))){ #If there is a data frame specified in the call
+    # if("environment" %in% class(x$data)) warning("Could not find model element of ", modeltype, " object for evaluating PseudoR2 null model. Will fit null model with new evaluation of variables in environment ",  environmentName(x$data), ". Ensure variables have not changed since initial call, or try running ", calltype.char, " with 'model = TRUE'")
+    
+    #This is a very lazy use of tryCatch (as we are effectively evaluating x$call$data once here, then once below); will fix at some point
     isValidCallRef <- tryCatch(({
       eval(x$call$data)
       TRUE
@@ -325,14 +327,31 @@ PseudoR2 <- function(x, which = NULL) {
       return(FALSE)
     })
     
-    if(!isValidCallRef)  stop("Could not find 'model', 'data', or valid 'call' element of ", modeltype, " object for evaluating PseudoR2 null model. Try running ", calltype.char, " with 'model = TRUE'")
-    warning("Could not find 'model' or 'data' element of ", modeltype, " object for evaluating PseudoR2 null mode. Will fit null model with new evaluation of '", as.character(x$call$data), "'. Ensure object has not changed since initial call, or try running ", calltype.char, " with 'model = TRUE'")
+    if(!isValidCallRef)  stop("Could not find model, data, or valid call element of ", modeltype, " object for evaluating PseudoR2 null model (could not find '", as.character(x$call$data), "'). Try running ", calltype.char, " with 'model = TRUE'")
+    warning("Could not find model or data element of ", modeltype, " object for evaluating PseudoR2 null mode. Will fit null model with new evaluation of '", as.character(x$call$data), "'. Ensure object has not changed since initial call, or try running ", calltype.char, " with 'model = TRUE'")
     data <- eval(x$call$data)
     
-  } else stop("Could not find 'model', 'data', or valid 'call' element of ", modeltype, " object for evaluating PseudoR2 null model. Try running ", calltype.char, " with 'model = TRUE'")
+  } else if(!is.null(x$call$formula)){ #if the call only references objects an environment
+    
+      if("environment" %in% class(x$data)) eval_env <- x$data else eval_env <- parent.frame()
+    
+      isValidCallRef <- tryCatch(({ #return TRUE if the variable has a valid evaluation, false otherwise
+        model.frame(x$call$formula, data = eval_env)
+        TRUE
+      }), error = function(cond){
+        return(FALSE)
+      })
+      
+      if(!isValidCallRef) stop("Could not find model, data, or valid call element of ", modeltype, " object for evaluating PseudoR2 null model (objects in formula could not be found). Try running ", calltype.char, " with 'model = TRUE'")
+      warning("Could not find model or data element of ", modeltype, " object for evaluating PseudoR2 null mode. Will fit null model with new evaluation of objects in formula. Ensure object has not changed since initial call, or try running ", calltype.char, " with 'model = TRUE'")
+      data <- model.frame(x$call$formula, data = eval_env)
+
+  }else stop("Could not find model, data, or valid call element of ", modeltype, " object for evaluating PseudoR2 null model. Try running ", calltype.char, " with 'model = TRUE'")
   
   #If data wasn't taken from a "model" object, we will need to re-run model.frame to drop NAs and evaluate subsets
   if(!exists("model", x)){
+    
+    #again, we are being very lazy in the implementation of tryCatch here - but this can be fixed another time
     
     #evaluate "subset" calls to check if it's a valid value (including "NULL" as a valid value)
     validSubset.yn <- 
@@ -342,7 +361,8 @@ PseudoR2 <- function(x, which = NULL) {
       }), error = function(cond){
         return(FALSE)
       })
-    if(validSubset.yn == FALSE) stop("Could not evaluate ", as.character(x$call$subset), " for fitting PseudoR2 null model with parameter subset = ", as.character(x$call$subset), ".  Try running ", calltype.char, " with 'model = TRUE'")
+    if(validSubset.yn == FALSE) stop("Could not evaluate '", as.character(x$call$subset), "' for fitting PseudoR2 null model with parameter subset = ", as.character(x$call$subset), ".  Try running ", calltype.char, " with 'model = TRUE'")
+    if(!is.null(x$call$subset)) warning("Re-evaluating ", as.character(x$call$subset), " for fitting PseudoR2 null model with parameter subset = ", as.character(x$call$subset))
     
     #evaluate "na.action" to see if it has a valid non-null value, and add to call only if non-null
     validNaAction.yn <- 
@@ -352,24 +372,45 @@ PseudoR2 <- function(x, which = NULL) {
       }), error = function(cond){
         return(FALSE)
       })
-    if(!is.null(x$call$na.action) & validNaAction.yn == FALSE) stop("Could not evaluate ", as.character(x$call$na.action), " for fitting PseudoR2 null model with parameter na.action = ", as.character(x$call$na.action), ".  Try running ", calltype.char, " with 'model = TRUE'")
+    if(!is.null(x$call$na.action) & validNaAction.yn == FALSE){
+      stop("Could not evaluate '", as.character(x$call$na.action), "' for fitting PseudoR2 null model with parameter na.action = ", as.character(x$call$na.action), ".  Try running ", calltype.char, " with 'model = TRUE'")
+    } else if(!is.null(x$call$na.action)) warning("Re-evaluating ",  as.character(x$call$na.action), " for fitting PseudoR2 null model with parameter na.action = ", as.character(x$call$na.action))
     
-    modelcall <- call('model.frame', formula = orig.formula, data = data, subset = x$call$subset)
+    #if we are using an object type that doesn not contain a prior.weights output, check that the weights call is valid
+    #for other model types, we extract weights from the model object instead
+    if(modeltype == "polr"){
+      validWeights.yn <- 
+        tryCatch(({
+          eval(x$call$weights)
+          TRUE
+        }), error = function(cond){
+          return(FALSE)
+        })
+      if(validWeights.yn == FALSE) stop("Could not evaluate '", as.character(x$call$weights), "' for fitting PseudoR2 null model with parameter weights = ", as.character(x$call$weights), ".  Try running ", calltype.char, " with 'model = TRUE'")
+      if(!is.null(x$call$weights)) warning("Re-evaluating ", as.character(x$call$weights), " for fitting PseudoR2 null model with parameter weights = ", as.character(x$call$weights))
+
+      weights.call <- x$call$weights
+    } else weights.call <- NULL
+    
+    modelcall <- call('model.frame', formula = orig.formula, data = data, subset = x$call$subset, weights = weights.call)
     if("na.action" %in% names(x$call)) modelcall$na.action <- x$call$na.action #check whether a na.action parameter was explicitly called (default value for na.action is NOT null, so is.null(x$call$na.action) does not work)
     
     data <- eval(modelcall)
   }
-
+  
+  if(!is.null(x$prior.weights)) weights <- x$prior.weights
+  else if(modeltype == "multinom") weights <- x$weights #"weights' in multinom are equivalent to 'prior.weights' in glm
+  else weights = data$weights
+  
   #Drop other columns from data, to avoid literal names (eg, "factor(y)" as DV not matching any DV columns)
   data <- data[,1,drop = FALSE]
   names(data) <- "y"
   null.formula <- as.formula("y ~ 1")
   
   #Costruct the call, then evaluate
-  #NB: need to check that "subset" and "priorweights" model objects from multinom and polr are saved *after* running model.frame and dropping unwanted columns
-  if(modeltype == "multinom") nullcall <-  call(calltype.char, formula = null.formula, data = data, weights = x$prior.weights, censored = x$censored) #specify elements that come from a known part of the multinom object
-  else if(modeltype == "glm") nullcall <- call(calltype.char, formula = null.formula, data = data, family = x$family, weights = x$prior.weights, method = x$method, control = x$control, offset = x$offset) #specify elements that come from a known part of the glm object
-  else if(modeltype == "polr") nullcall <- call(calltype.char, formula = null.formula, data = data, weights = x$prior.weights, method = x$method) #specify elements that come from a known part of the polr object
+  if(modeltype == "multinom") nullcall <- call(calltype.char, formula = null.formula, data = data, weights = weights, censored = x$censored, trace = FALSE) #specify elements that come from a known part of the multinom object
+  else if(modeltype == "glm") nullcall <- call(calltype.char, formula = null.formula, data = data, weights = weights, family = x$family, method = x$method, control = x$control, offset = x$offset) #specify elements that come from a known part of the glm object
+  else if(modeltype == "polr") nullcall <- call(calltype.char, formula = null.formula, data = data, weights = weights, method = x$method) #specify elements that come from a known part of the polr object
   else if(modeltype == "vglm") nullcall <- call("update(x, ~1)") #Avoid vglm for now
   
   if(modeltype != "vglm" & length(other_params) > 0) nullcall[names(other_params)] <- other_params

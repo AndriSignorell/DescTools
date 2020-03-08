@@ -88,7 +88,7 @@ PseudoR2(model4.logit)
 # ==== POLR ====
 
 # ---- Working as expected ----
-#Generate model
+#Generate ~fmodel
 rec.df <- hsb2
 which.method <- "probit"
 rec.df$ordvar <- cut(rec.df$write, breaks = c(30,40,50,60,70))
@@ -126,8 +126,13 @@ out4.polr
 rec.df <- hsb2
 model1.multinom <- multinom(factor(race) ~ read + write + math, data = rec.df)
 PseudoR2(model1.multinom)
+model2.multinom <- multinom(factor(race) ~ read + write + math, data = rec.df, model = TRUE)
 
 #If the data frame is deleted, we can't compute PseudoR2
 rm(rec.df)
 PseudoR2(model1.multinom)
+PseudoR2(model2.multinom)
+
+
+
 
