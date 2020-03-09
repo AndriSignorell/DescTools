@@ -945,7 +945,9 @@ Mode <- function(x, na.rm=FALSE) {
   res <- fastModeX(x, narm=FALSE)
   
   if(length(res)== 0L & attr(res, "freq")==1L)
-    return(structure(NA_real_, freq = 1L))
+    # if all values are unique, fastModeX will return a res of length zero
+    # in this case all values are mode values
+    return(structure(x, freq = 1L))
   
   else
     # order results kills the attribute
