@@ -48,8 +48,6 @@ Note that the ranks are calculated in decreasing mode.
 
 \references{
 Moses, L.E. (1952) A Two-Sample Test, \emph{Psychometrika}, 17, 239-247.
-
-\url{http://www-01.ibm.com/support/knowledgecenter/SSLVMB_20.0.0/com.ibm.spss.statistics.help/alg_npar_tests_moses.htm}
 }
 \author{Andri Signorell <andri@signorell.net>
 }

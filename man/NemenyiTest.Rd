@@ -107,7 +107,7 @@ NemenyiTest(Ozone ~ Month, data = airquality)
 
 # Hedderich & Sachs, 2012, p. 555
 d.frm <- data.frame(x=c(28,30,33,35,38,41, 36,39,40,43,45,50, 44,45,47,49,53,54),
-                    g=c(rep(LETTERS[1:3], each=6)))
+                    g=c(rep(LETTERS[1:3], each=6)), stringsAsFactors=TRUE)
 
 NemenyiTest(x~g, d.frm)
 }

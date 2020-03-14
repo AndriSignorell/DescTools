@@ -9,15 +9,18 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-TextContrastColor(col, method = c("glynn", "sonego"))
+TextContrastColor(col, white = "white", black = "black", method = c("glynn", "sonego"))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{col}{vector of any of the three kind of R colors, i.e., either a color name (an element of colors()),
-  a hexadecimal string of the form "#rrggbb" or "#rrggbbaa" (see rgb), or an integer i meaning palette()[i].
+  \item{col}{vector of any of the three kind of R colors, i.e., either a color name (an element of \code{colors()}),
+  a hexadecimal string of the form \code{"#rrggbb"} or \code{"#rrggbbaa"} (see \code{\link{rgb}}), or an integer i meaning \code{palette()[i]}.
   Non-string values are coerced to integer.
 %%     ~~Describe \code{color} here~~
 }
+\item{white}{the color for the dark backgrounds, default is \code{"white"}.}
+\item{black}{the color for the bright backgrounds, default is \code{"black"}}
+
  \item{method}{defines the algorithm to be used. Can be one out of \code{"glynn"} or \code{"sonego"}. See details.
 %%     ~~Describe \code{color} here~~
 }
@@ -28,7 +31,7 @@ is "farthest" away from "black" or "white".
 The way Glynn chooses to do this is to compute the color intensity,
 defined as the mean of the RGB triple, and pick "black" (intensity 0) for text color if the background
 intensity is greater than 127, or "white" (intensity 255) when the background intensity is less than or equal to 127.
-Sonego calculates \code{L <- c(0.2, 0.6, 0) \%*\% col2rgb(color)/255} and returns #000060 if L >= 0.2 and #FFFFA0 else.
+Sonego calculates \code{L <- c(0.2, 0.6, 0) \%*\% col2rgb(color)/255} and returns "black" if L >= 0.2 and "white" else.
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{a vector containing the contrast color (either black or white)

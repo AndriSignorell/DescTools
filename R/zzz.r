@@ -28,3 +28,7 @@
   # packageStartupMessage("Hello all!", " ", domain = "DescTools", appendLF = FALSE)
   invisible()
 }
+
+# store default values
+.pardefault <- par(no.readonly=TRUE)
+

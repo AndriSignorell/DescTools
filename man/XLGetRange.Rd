@@ -38,11 +38,11 @@ XLNamedReg(x)
   found, the function will use this selection. If there is no selection then the current region of the selected cell will be used. Use \code{XLCurrReg()} if the current region of a cell, which is currently not selected, should be used. Range names can be provided with \code{XLNamedReg("name")}.
 %%     ~~Describe \code{cellrange} here~~
 }
-\item{as.data.frame}{logical. Determines if the cellranges should be coerced into data.frames. Defaults to TRUE,
+\item{as.data.frame}{logical. Determines if the cellranges should be coerced into data.frames. Defaults to \code{TRUE},
 as this is probably the common use of this function.}
-\item{header}{a logical value indicating whether the range contains the names of the variables as its first line. Default is FALSE. \code{header} is ignored if \code{as.data.frame} has been set to FALSE. }
+\item{header}{a logical value indicating whether the range contains the names of the variables as its first line. Default is \code{FALSE}. \code{header} is ignored if \code{as.data.frame} has been set to \code{FALSE}. }
 
-\item{stringsAsFactors}{logical. Should character columns be coerced to factors? The default is FALSE, which will return character vectors.}
+\item{stringsAsFactors}{logical. Should character columns be coerced to factors? The default is \code{FALSE}, which will return character vectors.}
 \item{echo}{logical. If set to \code{TRUE}, the function will print the full command used, such that it can be copied into the R-script for future use.}
 
 \item{na.strings}{a character vector of strings which are to be interpreted as \code{NA} values. Blank fields are always considered to be missing values. Default is \code{NULL}, meaning none.}
@@ -50,7 +50,7 @@ as this is probably the common use of this function.}
 
 \item{compactareas}{logical, defining if areas should be returned by \code{XLGetWorkbook} as list or as matrix (latter is default).}
 \item{cell}{range of the left uppe cell, when current region should be used. }
-\item{x}{then name or the index of the XL-name to be used. }
+\item{x}{the name or the index of the XL-name to be used. }
 
 \item{skip}{the number of lines of the data file to skip before beginning to read data.}
 }

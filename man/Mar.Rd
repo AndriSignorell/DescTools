@@ -5,14 +5,15 @@
 \title{Set Plot Margins and Distances
 %%  ~~function to do ... ~~
 }
-\description{Plot margins are normally set by \code{par("mar")}. However one is forced to define all margins, even if just one should be altered. The convenience function \code{Mar()} allows to set one single margin (or several) while leaving the others unchanged.
+\description{Plot margins are normally set by \code{par("mar")}. However one is forced to always define all margins, even if just one should be altered. The convenience function \code{Mar()} allows to set one single margin (or several) while leaving the others unchanged.
 
 \code{Mgp()} does the same for the distances of axis title, labels and line.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-Mar(bottom = NULL, left = NULL, top = NULL, right = NULL, outer = FALSE)
-Mgp(title = NULL, labels = NULL, line = NULL)
+Mar(bottom = NULL, left = NULL, top = NULL, right = NULL, outer = FALSE, 
+    reset = FALSE)
+Mgp(title = NULL, labels = NULL, line = NULL, reset = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -30,10 +31,16 @@ Mgp(title = NULL, labels = NULL, line = NULL)
 }
   \item{outer}{logical, defining if inner margins (\code{par("mar")}) or the outer margins (\code{par("oma")}) should be set. Default is \code{FALSE}, meaning that the inner margins will be concerned.
 %%     ~~Describe \code{outer} here~~
+
 }
+\item{reset}{if set to \code{TRUE} the margins are reset to the defaults (respecting \code{outer}). Other arguments are ignored.}
+
 \item{title}{margin line for the axis title (default 3)}
 \item{labels}{margin line for the axis labels (default 1)}
 \item{line}{margin line for the axis line (default 0)}
+
+}
+\details{Running \code{Mar()} without any arguments will return the current settings, either \code{par("mar")}, when outer is set to \code{FALSE} or \code{par("oma")} for \code{outer = TRUE}.
 }
 
 \author{Andri Signorell <andri@signorell.net>

@@ -1924,7 +1924,7 @@ plot.Desc.numnum    <- function(x, main = NULL, col=SetAlpha(1, 0.3),
 
 
 
-# overwrite fixed coded arguments
+# overwrite fixed coded arguments, pretty cool idea!!
 #
 # PlotIt <- function(x, y, ...) {
 #   
@@ -1953,7 +1953,8 @@ plot.Desc.factnum   <- function(x, main=NULL, col=NULL,
 
   par(mar=mar, oma=c(0,0,4.1,0))
   
-  boxargs <- list(formula=x$g ~ x$x, type="n", xaxt="n", yaxt="n", ..., xlab="", ylab="", col=Coalesce(col,"white"), cex.axis=par("cex"), las=1)
+  boxargs <- list(formula=x$g ~ x$x, type="n", xaxt="n", yaxt="n", ...,                      # these sets will survive
+                  xlab="", ylab="", col=Coalesce(col,"white"), cex.axis=par("cex"), las=1)   # these will only be used if they're not in ...
   boxargs <- boxargs[!duplicated(names(boxargs))]
   
   layout( matrix(c(1,2), ncol=2, byrow=TRUE), widths=c(2,3), TRUE)
@@ -1993,7 +1994,9 @@ plot.Desc.factnum   <- function(x, main=NULL, col=NULL,
     if(is.null(col))
       col <- colorRampPalette(c(Pal()[1], "white", Pal()[2]), space = "rgb")(nrow(x$ptab))
 
-    PlotMosaic(x$ptab, main=NA, xlab=NA, ylab=NA, horiz=FALSE, cols = col, cex=cex, las=las, mar=mar)
+    PlotMosaic(x$ptab, main=NA, xlab=NA, ylab=NA, horiz=FALSE, cols = col, 
+               cex=InDots(..., arg = "cex", default = par("cex")), 
+               las=InDots(..., arg = "las", default = 1), mar=mar)
 
   }
 

@@ -3775,6 +3775,13 @@ VanWaerdenTest.formula <- function (formula, data, subset, na.action, ...) {
 
 
 
+# move back to deparse1 as soon R 4.0 is out
+# and set restrictions to >= R4.0
+deparse1tmp <- 
+  function (expr, collapse = " ", width.cutoff = 500L, ...) 
+    paste(deparse(expr, width.cutoff, ...), collapse = collapse)
+
+
 VanWaerdenTest.default <- function (x, g, ...) {
   
   ## This is literally kruskal.test code
@@ -3784,7 +3791,7 @@ VanWaerdenTest.default <- function (x, g, ...) {
       stop("'x' must be a list with at least 2 elements")
     if (!missing(g)) 
       warning("'x' is a list, so ignoring argument 'g'")
-    DNAME <- deparse1(substitute(x))
+    DNAME <- deparse1tmp(substitute(x))
     x <- lapply(x, function(u) u <- u[complete.cases(u)])
     if (!all(sapply(x, is.numeric))) 
       warning("some elements of 'x' are not numeric and will be coerced to numeric")
@@ -3797,8 +3804,8 @@ VanWaerdenTest.default <- function (x, g, ...) {
   }  else {
     if (length(x) != length(g)) 
       stop("'x' and 'g' must have the same length")
-    DNAME <- paste(deparse1(substitute(x)), "and", 
-                   deparse1(substitute(g)))
+    DNAME <- paste(deparse1tmp(substitute(x)), "and", 
+                   deparse1tmp(substitute(g)))
     OK <- complete.cases(x, g)
     x <- x[OK]
     g <- g[OK]

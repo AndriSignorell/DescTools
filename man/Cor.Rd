@@ -40,8 +40,6 @@ Cor(x, y = NULL, use = "everything",
     \code{"pearson"} (default), \code{"kendall"}, or \code{"spearman"}:
     can be abbreviated.}
 
-  \item{\dots}{further arguments passed to or from other methods.}
-
 }
 \value{For \code{r <- Cor(*, use = "all.obs")}, it is now guaranteed that
   \code{all(abs(r) <= 1)}.
