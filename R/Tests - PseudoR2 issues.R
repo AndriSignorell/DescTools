@@ -17,6 +17,8 @@ source("R/LinMod.R")
 hsb2 <- as.data.frame(read_dta("https://stats.idre.ucla.edu/stat/stata/notes/hsb2.dta"))
 hsb2$honcomp <- hsb2$write >= 60
 
+hsb2$write_cat <- cut(hsb2$write, breaks = c(30,40,50,60,70))
+hsb2$race_cat <- factor(hsb2$race)
 
 
 # ==== GLM ====
@@ -112,8 +114,6 @@ PseudoR2(test_c5.logit)
 
 # ==== POLR ====
 
-hsb2$write_cat <- cut(hsb2$write, breaks = c(30,40,50,60,70))
-
 #"Data" and "model" object components are both usable (we give priority to model)
 base.polr <- polr(write_cat ~ female + read + science + ses, hsb2)
 PseudoR2(base.polr)
@@ -131,7 +131,6 @@ PseudoR2(test_a2.polr)
 
 #A3
 #"call" references objects in global environment
-#NOTE: could theoretically get the variables from call$formula, althiugh this would be risky
 y <- cut(hsb2$write, breaks = c(30,40,50,60,70))
 test_a3a.polr <- polr(y ~ hsb2$female + hsb2$read + hsb2$science + hsb2$ses, model = FALSE)
 PseudoR2(test_a3a.polr)
@@ -198,8 +197,6 @@ PseudoR2(test_c4.polr)
 
 
 # ==== Multinom ====
-
-hsb2$race_cat <- factor(hsb2$race)
 
 #"Data" and "model" object components are both usable (we give priority to model)
 base.multinom <- multinom(race_cat ~ female + read + science + ses, hsb2, model = TRUE)
@@ -282,3 +279,52 @@ PseudoR2(test_c4.multinom)
 test_c5.multinom <- multinom(race_cat ~ female + (read > 50) + science + ses, data = hsb2, model = FALSE)
 PseudoR2(test_c5.multinom)
 
+
+
+# === VGLM ====
+
+#Because of the very wide variety of possible VGLM models and related parameters + functional forms, we can't easily take the same testing approach as above
+#We'll instead starty by testing the models listed in the VGAM help file
+
+# Example 1. See help(glm)
+print(d.AD <- data.frame(treatment = gl(3, 3),
+                         outcome = gl(3, 1, 9),
+                         counts = c(18,17,15,20,10,20,25,13,12)))
+vglm.D93 <- vglm(counts ~ outcome + treatment, family = poissonff,
+                 data = d.AD, trace = TRUE, model = TRUE)
+summary(vglm.D93)
+PseudoR2(vglm.D93)
+
+
+# Example 2. Multinomial logit model
+pneumo <- transform(pneumo, let = log(exposure.time))
+vglm.pneumo <- vglm(cbind(normal, mild, severe) ~ let, multinomial, data = pneumo, model = TRUE)
+PseudoR2(vglm.pneumo)
+
+# Example 3. Proportional odds model
+fit3 <- vglm(cbind(normal, mild, severe) ~ let, propodds, data = pneumo, model = TRUE)
+PseudoR2(fit3)
+
+# Example 4. Bivariate logistic model
+fit4 <- vglm(cbind(nBnW, nBW, BnW, BW) ~ age, binom2.or, coalminers, model = TRUE)
+PseudoR2(fit4)
+
+
+# Example 5. The use of the xij argument (simple case).
+# The constraint matrix for 'op' has one column.
+nn <- 1000
+eyesdat <- round(data.frame(lop = runif(nn),
+                            rop = runif(nn),
+                            op = runif(nn)), digits = 2)
+eyesdat <- transform(eyesdat, eta1 = -1 + 2 * lop,
+                     eta2 = -1 + 2 * lop)
+eyesdat <- transform(eyesdat,
+                     leye = rbinom(nn, size = 1, prob = logit(eta1, inverse = TRUE)),
+                     reye = rbinom(nn, size = 1, prob = logit(eta2, inverse = TRUE)))
+fit5 <- vglm(cbind(leye, reye) ~ op,
+             binom2.or(exchangeable = TRUE, zero = 3),
+             data = eyesdat, trace = TRUE,
+             xij = list(op ~ lop + rop + fill(lop)),
+             form2 = ~  op + lop + rop + fill(lop),
+             model = TRUE)
+PseudoR2(fit5)

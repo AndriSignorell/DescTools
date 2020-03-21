@@ -275,7 +275,33 @@ PseudoR2 <- function(x, which = NULL) {
 
   L.full <- logLik(x)
   D.full <- -2 * L.full          # deviance(x)
-
+  AIC_score <- AIC(x)
+  BIC_score <- BIC(x)
+  
+  #Compute predicted values (do this before converting VGLM object to S3 list)
+  if(modeltype == "vglm" | modeltype == "glm"){
+    # remark Daniel Wollschlaeger, vglm would not dispatch correctly 30.11.2019
+    y.hat <- if(modeltype == "vglm") {
+      VGAM::predictvglm(x, type="link")
+    } else {
+      predict(x, type="link")
+    }
+    y.hat.resp <- predict(x, type="response")
+  }
+  
+  #For compatibility with other method types, convert vglm S4 object into normal S3 object
+  #EG, it's easier if we can consistently use x$model to access the "model" data frame
+  #Note that this needs to be done after running logLik above
+  if(modeltype == "vglm"){
+    n_vglm <- nobs(x) #save for later
+    
+    S4_xnames <- slotNames(x)
+    x <- lapply(S4_xnames, slot, object = x)
+    names(x) <- S4_xnames
+    
+    if(!is.null(x$call$form2)) stop("Cannot compute PseudoR2 values for VGLM models with form2 parameter")
+  }
+  
   orig.formula <- deparse(unlist(list(x$formula, formula(x), x$call$formula))[[1]])
   
   # ---- Get all parameters that we don't explicitly know what to do with ----
@@ -287,7 +313,13 @@ PseudoR2 <- function(x, which = NULL) {
                                                                               "model", "x", "y", "contrasts"))] #parameters that don't affect model results and can be dropped from null model call
   }else if(modeltype == "polr"){ other_params <- x$call[!(names(x$call) %in% c("formula", "data", "weights", "subset", "method",  "", #Parameters whose values are stored in model object 
                                                                               "na.action", "subset", #parameters that we can ignore if model = TRUE
-                                                                              "model", "contrasts"))]} #parameters that don't affect model results and can be dropped from null model call
+                                                                              "model", "contrasts"))] #parameters that don't affect model results and can be dropped from null model call
+  }else if(modeltype == "vglm"){ other_params <- x$call[!(names(x$call) %in% c("formula", "weights", "family", "data", "control", "", #Parameters whose values are stored in model object 
+                                                                              "na.action", "subset", #parameters that we can ignore if model = TRUE
+                                                                              "model", "contrasts", "qr.arg", "trace"))] #parameters that don't affect model results and can be dropped from null model call
+      if(nrow(x$model) == 0) stop("Can only calculate PseudoR2 for VGLM when model = TRUE, try refitting VGLM")
+  }
+  orig_call <- x$call
   
   #Check whether the other parameters, when called, will evaluate in the current environment
   other_params_exist.yn <- mapply(function(x, x.name){ #for each other_param (and the associated name)
@@ -308,7 +340,7 @@ PseudoR2 <- function(x, which = NULL) {
   
   # ---- Construct appropriate data/model object for null model call ----
   
-  calltype.char <- as.character(x$call[1])
+  calltype.char <- as.character(orig_call[1])
   
   #Get initial data
   if(exists("model", x)){
@@ -328,7 +360,7 @@ PseudoR2 <- function(x, which = NULL) {
     })
     
     if(!isValidCallRef)  stop("Could not find model, data, or valid call element of ", modeltype, " object for evaluating PseudoR2 null model (could not find '", as.character(x$call$data), "'). Try running ", calltype.char, " with 'model = TRUE'")
-    warning("Could not find model or data element of ", modeltype, " object for evaluating PseudoR2 null mode. Will fit null model with new evaluation of '", as.character(x$call$data), "'. Ensure object has not changed since initial call, or try running ", calltype.char, " with 'model = TRUE'")
+    warning("Could not find model or data element of ", modeltype, " object for evaluating PseudoR2 null model. Will fit null model with new evaluation of '", as.character(x$call$data), "'. Ensure object has not changed since initial call, or try running ", calltype.char, " with 'model = TRUE'")
     data <- eval(x$call$data)
     
   } else if(!is.null(x$call$formula)){ #if the call only references objects an environment
@@ -376,7 +408,7 @@ PseudoR2 <- function(x, which = NULL) {
       stop("Could not evaluate '", as.character(x$call$na.action), "' for fitting PseudoR2 null model with parameter na.action = ", as.character(x$call$na.action), ".  Try running ", calltype.char, " with 'model = TRUE'")
     } else if(!is.null(x$call$na.action)) warning("Re-evaluating ",  as.character(x$call$na.action), " for fitting PseudoR2 null model with parameter na.action = ", as.character(x$call$na.action))
     
-    #if we are using an object type that doesn not contain a prior.weights output, check that the weights call is valid
+    #if we are using an object type that doesn't not contain a prior.weights output, check that the weights call is valid
     #for other model types, we extract weights from the model object instead
     if(modeltype == "polr"){
       validWeights.yn <- 
@@ -388,7 +420,7 @@ PseudoR2 <- function(x, which = NULL) {
         })
       if(validWeights.yn == FALSE) stop("Could not evaluate '", as.character(x$call$weights), "' for fitting PseudoR2 null model with parameter weights = ", as.character(x$call$weights), ".  Try running ", calltype.char, " with 'model = TRUE'")
       if(!is.null(x$call$weights)) warning("Re-evaluating ", as.character(x$call$weights), " for fitting PseudoR2 null model with parameter weights = ", as.character(x$call$weights))
-
+      
       weights.call <- x$call$weights
     } else weights.call <- NULL
     
@@ -398,9 +430,15 @@ PseudoR2 <- function(x, which = NULL) {
     data <- eval(modelcall)
   }
   
-  if(!is.null(x$prior.weights)) weights <- x$prior.weights
+  if(!is.null(x$prior.weights) & length(x$prior.weights) > 0) weights <- x$prior.weights
   else if(modeltype == "multinom") weights <- x$weights #"weights' in multinom are equivalent to 'prior.weights' in glm
-  else weights = data$weights
+  else if(!is.null(data$`(weights)`) & length(data$`(weights)` > 0)) weights <- data$`(weights)`
+  else weights <- NULL
+  
+  #vglm saves prior.weights as a matrix, but then requires a vector as input
+  if(!is.null(weights) & modeltype == "vglm"){
+    if(ncol(weights) == 1) weights <- as.vector(weights) 
+  }
   
   #Drop other columns from data, to avoid literal names (eg, "factor(y)" as DV not matching any DV columns)
   data <- data[,1,drop = FALSE]
@@ -411,9 +449,11 @@ PseudoR2 <- function(x, which = NULL) {
   if(modeltype == "multinom") nullcall <- call(calltype.char, formula = null.formula, data = data, weights = weights, censored = x$censored, trace = FALSE) #specify elements that come from a known part of the multinom object
   else if(modeltype == "glm") nullcall <- call(calltype.char, formula = null.formula, data = data, weights = weights, family = x$family, method = x$method, control = x$control, offset = x$offset) #specify elements that come from a known part of the glm object
   else if(modeltype == "polr") nullcall <- call(calltype.char, formula = null.formula, data = data, weights = weights, method = x$method) #specify elements that come from a known part of the polr object
-  else if(modeltype == "vglm") nullcall <- call("update(x, ~1)") #Avoid vglm for now
-  
-  if(modeltype != "vglm" & length(other_params) > 0) nullcall[names(other_params)] <- other_params
+  else if(modeltype == "vglm"){ nullcall <- call(calltype.char, formula = null.formula, data = data, weights = weights, control = x$control, family = x$family, trace = FALSE)}
+    
+  if(length(other_params) > 0){
+    nullcall[names(other_params)] <- other_params
+  }
   L.base <- logLik(eval(nullcall))
 
   D.base <- -2 * L.base # deviance(update(x, ~1))
@@ -424,11 +464,11 @@ PseudoR2 <- function(x, which = NULL) {
   # else
   n <- attr(L.full, "nobs")   # alternative: n <- dim(x$residuals)[1]
 
-  if(inherits(x, "multinom"))
+  if(modeltype ==  "multinom")
     edf <- x$edf
-  else if(inherits(x, "vglm")){
-    edf <- x@rank
-    n <- nobs(x)  # logLik does not return nobs for vglm
+  else if(modeltype ==  "vglm"){
+    edf <- x$rank
+    n <- n_vglm  # logLik does not return nobs for vglm
   } else
     edf <- x$rank
 
@@ -447,21 +487,21 @@ PseudoR2 <- function(x, which = NULL) {
            CoxSnell=CoxSnell, Nagelkerke=Nagelkerke, AldrichNelson=NA,
            VeallZimmermann=NA,
            Efron=NA, McKelveyZavoina=NA, Tjur=NA,
-           AIC=AIC(x), BIC=BIC(x), logLik=L.full, logLik0=L.base, G2=G2)
+           AIC=AIC_score, BIC=BIC_score, logLik=L.full, logLik0=L.base, G2=G2)
 
 
-  if(inherits(x, what="glm") || inherits(x, what="vglm") ) {
+  if(modeltype == "glm" || modeltype == "vglm" ) {
 
-    if(inherits(x, what="vglm")){
-      fam <- x@family@vfamily
-      link <- if(all(x@extra$link == "logit")){
+    if(modeltype == "vglm"){
+      fam <- x$family@vfamily
+      link <- if(all(x$extra$link == "logit")){
                   "logit"
-                } else if(all(x@extra$link == "probit")){
+                } else if(all(x$extra$link == "probit")){
                   "probit"
                 } else {
                   NA
                 }
-      y <- x@y
+      y <- x$y
 
     } else {
       fam <- x$family$family
@@ -487,18 +527,11 @@ PseudoR2 <- function(x, which = NULL) {
     # McKelveyZavoina
     # y.hat <- predict(x, type="link")
     
-    # remark Daniel Wollschlaeger, vglm would not dispatch correctly 30.11.2019
-    y.hat <- if(inherits(x, "vglm")) {
-      VGAM::predictvglm(x, type="link")
-    } else {
-      predict(x, type="link")
-    }
     
     sse <- sum((y.hat - mean(y.hat))^2)
     res["McKelveyZavoina"] <- sse/(n * s2 + sse)
 
     # EfronR2
-    y.hat.resp <- predict(x, type="response")
     res["Efron"] <- (1 - (sum((y - y.hat.resp)^2)) /
                         (sum((y - mean(y))^2)))
 
@@ -508,7 +541,6 @@ PseudoR2 <- function(x, which = NULL) {
       res["Tjur"] <- unname(diff(tapply(y.hat.resp, y, mean, na.rm=TRUE)))
 
   }
-
 
   if(is.null(which))
     which <- "McFadden"
