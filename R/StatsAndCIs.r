@@ -1530,7 +1530,7 @@ Outlier <- function(x, method=c("boxplot"), value=TRUE, na.rm=FALSE){
 
              qq <- quantile(as.numeric(x), c(0.25, 0.75), na.rm = na.rm, names = FALSE)
              iqr <- diff(qq)
-             id <- x < (qq[1] - 1.5 * iqr) | x > (qq[3] + 1.5 * iqr)
+             id <- x < (qq[1] - 1.5 * iqr) | x > (qq[2] + 1.5 * iqr)
 
              if(value)
                res <- x[id]
@@ -3767,12 +3767,38 @@ GiniSimpson <- function(x, na.rm = FALSE) {
   # rownames(x) <- c("A","B","AB","0")
   # GiniSimpson(x)
 
+  if(!is.factor(x)){
+    warning("x is not a factor!")
+    return(NA)
+  }
+  
   if(na.rm) x <- na.omit(x)
 
-  x <- as.table(x)
-  ptab <- prop.table(x)
+  ptab <- prop.table(table(x))
   return(sum(ptab*(1-ptab)))
+  
 }
+
+
+
+
+HunterGaston <- function(x, na.rm = FALSE){
+
+  # we must restrict to x as factors here to ensure we have all the levels
+  # these are used in length(p)
+    
+  if(!is.factor(x)){
+    warning("x is not a factor!")
+    return(NA)
+  }
+  if(na.rm) x <- na.omit(x)
+  
+  p <- prop.table(table(x))
+  sum(p*(1-p)) * length(p)/(length(p)-1)
+  
+}
+
+
 
 
 

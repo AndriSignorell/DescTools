@@ -9,7 +9,7 @@
 }
 \usage{
 ToWrdPlot(plotcode, width = NULL, height = NULL, scale = 100,
-          res = 300, crop = 0, title = NULL,  
+          pointsize = 12, res = 300, crop = 0, title = NULL,  
           wrd = DescToolsOptions("lastWord"), 
           bookmark = gettextf("bmp\%s", round(runif(1, min = 0.1) * 1e+09)))
 }
@@ -28,6 +28,9 @@ ToWrdPlot(plotcode, width = NULL, height = NULL, scale = 100,
 %%     ~~Describe \code{height} here~~
 }
   \item{scale}{the scale of the plot (default 100) 
+%%     ~~Describe \code{scale} here~~
+}
+ \item{pointsize}{the default pointsize of plotted text, interpreted as big points (1/72 inch) at \code{res} ppi. (default is 12) 
 %%     ~~Describe \code{scale} here~~
 }
   \item{res}{the resolution for the graphic (default 300)

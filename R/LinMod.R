@@ -71,6 +71,7 @@ Conf.table <- function(x, pos = NULL, ...) {
   for(i in 1L:nrow(x)){
 
     z <- CollapseConfTab(x=x, pos=rownames(x)[i])
+    z[] <- as.double(z)
     A <- z[1, 1]; B <- z[1, 2]; C <- z[2, 1]; D <- z[2, 2]
 
     lst[[i]] <- rbind(
@@ -83,7 +84,8 @@ Conf.table <- function(x, pos = NULL, ...) {
       detrate = A / (A + B + C + D),         # detection rate
       bacc    = mean(c(A / (A + C), D / (B + D)) ),  # balanced accuracy
       fval    = Hmean(c(A / (A + B), A / (A + C)), conf.level = NA), # guetemass wollschlaeger s. 150
-      mcc     = (A*D-B*C)/sqrt((A+B)*(A+C)*(D+B)*(D+C))  # Matthews correlation coefficient (=Phi(x) with sign!)
+#   this would overflow for already small frequencies if we don't cast z to double ..
+      mcc     = (A*D-B*C) / sqrt((A+B)*(A+C)*(D+B)*(D+C))  # Matthews correlation coefficient (=Phi(x) with sign!)      
     )
   }
 
@@ -957,16 +959,16 @@ TMod <- function(..., FUN = NULL){
 }
 
 
-print.TMod <- function(x, ...){
+print.TMod <- function(x, digits=3, na.form = "-", ...){
 
   colnames(x[[1]])[-1] <- paste0(colnames(x[[1]])[-1], strrep(" ", times=4))
-  x[[1]][, -1] <- Format(x[[1]][, -1], digits=3, na.form = "-")
+  x[[1]][, -1] <- Format(x[[1]][, -1], digits=digits, na.form = na.form)
 
   x2 <- x[[2]]
-  x[[2]][, -1] <- Format(x[[2]][, -1], digits=3, na.form = "-")
+  x[[2]][, -1] <- Format(x[[2]][, -1], digits=digits, na.form = na.form)
 
   x[[2]][x[[2]]$stat %in% c("numdf", "dendf", "N"), -1] <-
-    Format(x2[x[[2]]$stat %in% c("numdf", "dendf", "N"), -1], digits=0, na.form="-")
+    Format(x2[x[[2]]$stat %in% c("numdf", "dendf", "N"), -1], digits=0, na.form=na.form)
 
   m <- rbind(x[[1]],  setNames(c("---", rep("", ncol(x[[1]]) -1)), colnames(x[[1]])),
              setNames(x[[2]], colnames(x[[1]])))

@@ -1444,18 +1444,6 @@ StrAbbr <- function(x, minchar=1, method=c("left","fix")){
 }
 
 
-# replaced by 0.99.19 with method by word and title
-# StrCap <- function(x) {
-#   # Source: Hmisc
-#   # Author: Charles Dupont
-#   capped <- grep('^[^A-Z]*', x, perl=TRUE)
-#
-#   substr(x[capped], 1,1) <- toupper(substr(x[capped], 1,1))
-#   return(x)
-#
-# }
-
-
 
 StrCap <- function(x, method=c("first", "word", "title")) {
 
@@ -1612,14 +1600,6 @@ StrRev <- function(x) {
 }
 
 
-# defunct by 0.99.21
-# StrRep <- function(x, times, sep=""){
-#   # same as strrep which seems to be new in 3.4.0
-#   z <- Recycle(x=x, times=times, sep=sep)
-#   sapply(1:attr(z, "maxdim"), function(i) paste(rep(z$x[i], times=z$times[i]), collapse=z$sep[i]))
-# }
-
-
 
 # useless because we have base::strwrap but interesting as regexp example
 #
@@ -1632,6 +1612,7 @@ StrRev <- function(x) {
 #
 # }
 #
+
 
 StrPad <- function(x, width = NULL, pad = " ", adj = "left") {
 
@@ -1717,19 +1698,6 @@ StrAlign <- function(x, sep = "\\r"){
 
 }
 
-
-
-# replaced by 0.99.19: new argument pos for cutting positions and vector support
-# StrChop <- function(x, len) {
-#   # Splits a string into a number of pieces of fixed length
-#   # example: StrChop(x=paste(letters, collapse=""), len = c(3,5,0))
-#   xsplit <- character(0)
-#   for(i in 1:length(len)){
-#     xsplit <- append(xsplit, substr(x, 1, len[i]))
-#     x <- substr(x, len[i]+1, nchar(x))
-#   }
-#   return(xsplit)
-# }
 
 
 StrChop <- function(x, len, pos) {
@@ -8915,7 +8883,7 @@ FindColor <- function(x, cols=rev(heat.colors(100)), min.x=NULL, max.x=NULL,
 SetAlpha <- function(col, alpha=0.5) {
 
   if (length(alpha) < length(col)) alpha <- rep(alpha, length.out = length(col))
-  alpha[na <- alpha %][% c(0, 1)] <- NA
+  alpha[na <- alpha %)(% c(0, 1)] <- NA
   if (length(col) < length(alpha)) col <- rep(col, length.out = length(alpha))
   col[na] <- NA
   
@@ -9181,6 +9149,9 @@ PlotFdist <- function (x, main = deparse(substitute(x)), xlab = ""
   # dev question: should dots be passed somewhere??
 
   usr <- par(no.readonly=TRUE);  on.exit(par(usr))
+  if(!is.null(cex.axis)) par(cex.axis=cex.axis)
+  if(!is.null(cex.main)) par(cex.axis=cex.main)
+  
   opt <- DescToolsOptions(stamp=NULL)
 
   add.boxplot <- !identical(args.boxplot, NA)
@@ -9193,7 +9164,7 @@ PlotFdist <- function (x, main = deparse(substitute(x)), xlab = ""
   # preset heights
   if(is.null(heights)){
     if(add.boxplot) {
-      if(add.ecdf) heights <- c(2, 0.5, 1.4)
+      if(add.ecdf) heights <- c(1.8, 0.5, 1.6)
       else heights <- c(2, 1.4)
     } else {
       if(add.ecdf) heights <- c(2, 1.4)
@@ -9205,26 +9176,30 @@ PlotFdist <- function (x, main = deparse(substitute(x)), xlab = ""
     else pdist <- c(0, 1)
   }
 
+  # layout changes par settings arbitrarily, especially cex in the first case
+  # so store here and reset
+  ppp <- par()[grep("cex", names(par()))]
   if (add.ecdf && add.boxplot) {
     layout(matrix(c(1, 2, 3), nrow = 3, byrow = TRUE), heights = heights, TRUE)
-    if(is.null(cex.axis)) cex.axis <- 1.3
-    if(is.null(cex.main)) cex.main <- 1.7
+    # if(is.null(cex.axis)) cex.axis <- 1.3
+    # if(is.null(cex.main)) cex.main <- 1.7
   } else {
     if((add.ecdf || add.boxplot)) {
       layout(matrix(c(1, 2), nrow = 2, byrow = TRUE), heights = heights[1:2], TRUE)
-      if(is.null(cex.axis)) cex.axis <- 0.9
-    } else {
-      if(is.null(cex.axis)) cex.axis <- 0.95
+#      if(is.null(cex.axis)) cex.axis <- 0.9
+    # } else {
+    #   if(is.null(cex.axis)) cex.axis <- 0.95
     }
   }
-
+  par(ppp)  # reset unwanted layout changes
+  
   # plot histogram, change margin if no main title
-  par(mar = c(ifelse(add.boxplot || add.ecdf, 0, 5.1), 6.1, 2.1, 2.1))
+  par(mar = c(ifelse(add.boxplot || add.ecdf, 0, 5.1), 4.1, 2.1, 2.1))
 
   if(!is.null(mar)) {
     par(oma=mar)
   } else {
-    if(!is.na(main)) { par(oma=c(0,0,3,0)) }
+    if(!is.na(main)) { par(oma=c(0,0,2,0)) }
   }
 
   # wait for omitting NAs until all arguments are evaluated, e.g. main...
@@ -9282,7 +9257,8 @@ PlotFdist <- function (x, main = deparse(substitute(x)), xlab = ""
       # # overwrite the ylim if there's a larger density-curve
       # args.histplot[["ylim"]] <- range(pretty(c(0, max(c(x.dens$y, x.hist$density)))))
 
-      x.dens <- try( DoCall("density", args.dens1[-match(c("col", "lwd", "lty"), names(args.dens1))])
+      x.dens <- try( DoCall("density", 
+                            args.dens1[-match(c("col", "lwd", "lty"), names(args.dens1))])
                      , silent=TRUE)
 
       if(inherits(x.dens, "try-error")) {
@@ -9291,7 +9267,10 @@ PlotFdist <- function (x, main = deparse(substitute(x)), xlab = ""
 
       } else {
         # overwrite the ylim if there's a larger density-curve
-        args.histplot[["ylim"]] <- range(pretty(c(0, max(c(x.dens$y, x.hist$density)))))
+        # but only if the user has not set an ylim value by himself, 
+        # ... we should not disobey or overrun user instructions 
+        if(is.null(args.histplot[["ylim"]]))
+          args.histplot[["ylim"]] <- range(pretty(c(0, max(c(x.dens$y, x.hist$density)))))
 
       }
 
@@ -9380,9 +9359,9 @@ PlotFdist <- function (x, main = deparse(substitute(x)), xlab = ""
 
   # boxplot
   if(add.boxplot){
-    par(mar = c(ifelse(add.ecdf, 0, 5.1), 6.1, pdist[1], 2.1))
+    par(mar = c(ifelse(add.ecdf, 0, 5.1), 4.1, pdist[1], 2.1))
     args.boxplot1 <- list(x = x, frame.plot = FALSE, main = NA, boxwex = 1,
-                          horizontal = TRUE, ylim = args.hist1$xlim,
+                          horizontal = TRUE, ylim = args.hist1$xlim, col="grey95",
                           at = 1, xaxt = ifelse(add.ecdf, "n", "s"),
                           outcex = 1.3, outcol = rgb(0,0,0,0.5), cex.axis=cex.axis,
                           pch.mean=3, col.meanci="grey85")
@@ -9400,13 +9379,13 @@ PlotFdist <- function (x, main = deparse(substitute(x)), xlab = ""
     }
     args.boxplot1$add = TRUE
     DoCall("boxplot", args.boxplot1)
-    points(x=ci[1], y=1, cex=2, col="grey65", pch=args.boxplot1$pch.mean, bg="white")
+    points(x=ci[1], y=1, cex=1.5, col="grey65", pch=args.boxplot1$pch.mean, bg="white")
 
   }
 
   # plot ecdf
   if (add.ecdf) {
-    par(mar = c(5.1, 6.1, pdist[2], 2.1))
+    par(mar = c(5.1, 4.1, pdist[2], 2.1))
 #     args.ecdf1 <- list(x = x, frame.plot = FALSE, main = NA,
 #                        xlim = args.hist1$xlim, col = getOption("col1", hblue), lwd = 2,
 #                        xlab = xlab, yaxt = "n", ylab = "", verticals = TRUE,
@@ -9422,10 +9401,12 @@ PlotFdist <- function (x, main = deparse(substitute(x)), xlab = ""
     # we provisionally use the number of classes length(x.hist$mids) as proxy for good distribution
     # not sure, how robust this is...
 
-    args.ecdf1 <- list(x = x, main = NA, breaks={if(length(x)>1000 & length(x.hist$mids) > 10) 1000 else NULL}, ylim=c(0,1),
+    args.ecdf1 <- list(x = x, main = NA, 
+                       breaks={if(length(x)>1000 & length(x.hist$mids) > 10) 1000 else NULL}, 
+                       ylim=c(0,1),
                        xlim = args.hist1$xlim, col = Pal()[1], lwd = 2,
-                       xlab = "", yaxt = "n", ylab = "", cex.axis = cex.axis,
-                       frame.plot = FALSE)
+                       xlab = "", ylab = "", 
+                       frame.plot = FALSE, cex.axis=cex.axis)
     if (!is.null(args.ecdf)) {
       args.ecdf1[names(args.ecdf)] <- args.ecdf
     }
@@ -9456,16 +9437,17 @@ PlotFdist <- function (x, main = deparse(substitute(x)), xlab = ""
   }
 
   if(!is.na(main)) {
-    if(!is.null(cex.main)) par(cex.main=cex.main)
     title(main=main, outer = TRUE)
   }
 
+  if(!identical(xlab, "")) {
+    title(xlab=xlab)
+  }
+  
   DescToolsOptions(opt)
+  
   if(!is.null(DescToolsOptions("stamp")))
-    if(add.ecdf)
-      Stamp(cex=0.9)
-    else
-      Stamp()
+    Stamp()
 
   layout(matrix(1))           # reset layout on exit
 
@@ -9473,8 +9455,39 @@ PlotFdist <- function (x, main = deparse(substitute(x)), xlab = ""
 
 
 
+
+
+ClearArgs <- function(provided, valid, default) {
+  
+  # we might want to use dots in a function for multiple functions
+  # and extract only those arguments, which are accepted by a specific function
+  # further we might have some defaults already defined
+  # this function returns all valid provided arguments, extended by set defaults
+  
+  provided <- provided[names(provided) %in% valid]
+  
+  # the defaults
+  args1 <- default
+  
+  # overwrite defaults with potentially provided values 
+  args1[names(provided) %in% names(args1)] <- provided[names(provided) %in% names(args1)]
+  
+  # append all provided, already validated args, which were not defined as default
+  args1 <- c(args1, provided[names(provided) %in% setdiff(provided, names(args1))])               
+  
+  # supply only the valid provided or default arguments to axis function 
+  args1[names(provided)] <- provided
+  
+  # the cleared arguments
+  return(args1)
+  
+}
+
+
+
+
 PlotECDF <- function(x, breaks=NULL, col=Pal()[1],
-                     ylab="", lwd = 2, xlab = NULL, cex.axis = NULL, ...){
+                     ylab="", lwd = 2, xlab = NULL, ...){
 
   if(is.null(breaks)){
     tab <- table(x)
@@ -9489,18 +9502,43 @@ PlotECDF <- function(x, breaks=NULL, col=Pal()[1],
   }
   yp <- yp * 1/tail(yp, 1)
 
-  if(is.null(xlab)) xlab <- deparse(substitute(x))
+  if(is.null(xlab)) 
+    xlab <- deparse(substitute(x))
 
   plot(yp ~ xp, lwd=lwd, type = "s", col=col, xlab= xlab, yaxt="n",
-       ylab = "", cex.axis=cex.axis, ...)
+       ylab = "", panel.first=quote(grid(ny = NA)), ...)
 
-  axis(side = 2, at = seq(0, 1, 0.25),
-       labels = gsub(pattern = "0\\.", replacement = " \\.", format(seq(0, 1, 0.25), 2)),
-       las = 1, xaxs = "e", cex.axis = cex.axis)
+  # we must not pass all dot arguments to axis and plot, as plot accepts arguments
+  # which axis does not (e.g. frame.plot) and consequently barks
+  # so we select all arguments from axis, combine them with par (which will presumably be ok -- really all par???)
+  # and filter them from the whole args list
 
-  abline(h = c(0, 0.25, 0.5, 0.75, 1), col = "grey", lty = c("dashed","dotted","dotted","dotted","dashed"))
-  grid(ny = NA)
-  points(x = range(x), y = c(0, 1), col = col,  pch = 3, cex = 2)
+  # ... nice try, but far too many non valid args:  
+  # validargs <- names(subset(validargs <- c(as.list(args(axis)), 
+  #                                          par(no.readonly = TRUE)), 
+  #                           subset = names(validargs) %nin% c("...","")))      # omit ... and empty
+  
+  validargs <- subset(validargs <- c(names(as.list(args(axis))),
+                                           c("cex", "cex.axis", "col.axis", "family", "fg", "font", "font.axis", "las", "mgp", "srt", "tck", "tcl", "yaxp", "yaxs", "yaxt")),
+                            subset = validargs %nin% c("...","","col"))      # omit ... and empty
+
+  # the defaults
+  axargs1 <- list(side = 2, at = seq(0, 1, 0.25),
+                  labels = Format(seq(0, 1, 0.25), leading = "", digits=2),
+                  las = 1, xaxs = "e", lwd.axis=1) 
+  
+  axargs1 <- ClearArgs(provided = c(as.list(environment()), list(...)),  # all provided arguments and their values 
+                      valid=validargs,                                  # vector or names with all validargs
+                      default = axargs1)
+  axargs1[["lwd"]] <- axargs1[["lwd.axis"]]
+  axargs1[["lwd.axis"]] <- NULL                                     # rename lwd, so we can use ... to supply a lwd for axis
+  do.call(axis, axargs1)
+
+  abline(h = c(0, 0.25, 0.5, 0.75, 1), 
+         col = "grey", lty = c("dashed","dotted","dotted","dotted","dashed"))
+  
+  # mark min-max value
+  points(x=range(x), y=c(0, 1), col=col,  pch=3, cex=2)
 
   if(!is.null(DescToolsOptions("stamp")))
     Stamp()
@@ -9868,9 +9906,9 @@ PlotArea.formula <- function (formula, data, subset, na.action, ...) {
 ## plots: PlotDotCI ====
 
 PlotDot <- function (x, labels = NULL, groups = NULL, gdata = NULL, cex = par("cex"),
-                     pch = NULL, gpch = 21, bg = par("bg"), color = par("fg"), gcolor = par("fg"),
+                     pch = 21, gpch = 21, bg = par("bg"), color = par("fg"), gcolor = par("fg"),
                      lcolor = "gray", lblcolor = par("fg"), xlim = NULL, main = NULL, xlab = NULL, ylab = NULL, xaxt=NULL, yaxt=NULL,
-                     add = FALSE, args.errbars = NULL, ...) {
+                     add = FALSE, args.errbars = NULL, cex.axis=par("cex.axis"), cex.pch=1.2, ...) {
 
   ErrBarArgs <- function(from, to = NULL, pos = NULL, mid = NULL,
                          horiz = FALSE, col = par("fg"), lty = par("lty"), lwd = par("lwd"),
@@ -9907,15 +9945,15 @@ PlotDot <- function (x, labels = NULL, groups = NULL, gdata = NULL, cex = par("c
                 bg.pch = bg.pch))
   }
 
-  if(!is.null(args.errbars)){
-    # switch pch and col to errorbars
-    if(!is.null(pch)){
-      args.errbars$pch <- pch
-      args.errbars$col.pch <- color
-      args.errbars$bg.pch <- bg
-      bg <- color <- pch <- NA
-    }
-  }
+  # if(!is.null(args.errbars)){
+  #   # switch pch and col to errorbars
+  #   if(!is.null(pch)){
+  #     args.errbars$pch <- pch
+  #     args.errbars$col.pch <- color
+  #     args.errbars$bg.pch <- bg
+  #     bg <- color <- pch <- NA
+  #   }
+  # }
 
   x <- Rev(x, 1)
 
@@ -9929,7 +9967,9 @@ PlotDot <- function (x, labels = NULL, groups = NULL, gdata = NULL, cex = par("c
   pch <- Rev(pch)
   bg <- Rev(bg)
 
-  cex <- rep(cex, length.out = 3)
+  # cex <- rep(cex, length.out = 3)
+  cex.axis <- rep(cex.axis, length.out = 3)
+  
   if (!is.null(args.errbars))
     errb <- do.call(ErrBarArgs, args.errbars)
   if (!add && is.null(xlim)) {
@@ -9941,9 +9981,10 @@ PlotDot <- function (x, labels = NULL, groups = NULL, gdata = NULL, cex = par("c
       xlim <- range(pretty(rng[is.finite(rng)]))
     }
   }
-  opar <- par("mai", "mar", "cex", "yaxs")
+  opar <- par("mai", "mar", "cex", "cex.axis", "yaxs")
   on.exit(par(opar))
-  par(cex = cex[1], yaxs = "i")
+  par(cex = cex, cex.axis=cex.axis[1], yaxs = "i")
+  
   if (!is.numeric(x))
     stop("'x' must be a numeric vector or matrix")
   n <- length(x)
@@ -9956,8 +9997,8 @@ PlotDot <- function (x, labels = NULL, groups = NULL, gdata = NULL, cex = par("c
     if (is.null(groups))
       groups <- col(x, as.factor = TRUE)
     glabels <- levels(groups)
-  }
-  else {
+    
+  } else {
     if (is.null(labels))
       labels <- names(x)
     glabels <- if (!is.null(groups))
@@ -9967,31 +10008,31 @@ PlotDot <- function (x, labels = NULL, groups = NULL, gdata = NULL, cex = par("c
       x <- as.numeric(x)
     }
   }
+  
   if (!add)
     plot.new()
   linch <- if (!is.null(labels))
-    max(strwidth(labels, "inch"), na.rm = TRUE)
-  else 0
+             max(strwidth(labels, "inch", cex=max(cex.axis[2:3])), na.rm = TRUE)
+           else 0
+  
   if (is.null(glabels)) {
-    ginch <- 0
-    goffset <- 0
-  }
-  else {
+    goffset <- ginch <- 0
+    
+  } else {
     ginch <- max(strwidth(glabels, "inch"), na.rm = TRUE)
     goffset <- 0.4
   }
   if (!(is.null(labels) && is.null(glabels) || identical(yaxt, "n"))) {
     nmai <- par("mai")
-    nmai[2L] <- nmai[4L] + max(linch + goffset, ginch) +
-      0.1
+    nmai[2L] <- nmai[4L] + max(linch + goffset, ginch) + 0.1
     par(mai = nmai)
   }
   if (is.null(groups)) {
     o <- 1L:n
     y <- o
     ylim <- c(0, n + 1)
-  }
-  else {
+    
+  } else {
     o <- sort.list(as.numeric(groups), decreasing = TRUE)
     x <- x[o]
     groups <- groups[o]
@@ -10001,28 +10042,41 @@ PlotDot <- function (x, labels = NULL, groups = NULL, gdata = NULL, cex = par("c
     y <- 1L:n + 2 * offset
     ylim <- range(0, y + 2)
   }
+  
   if (!add)
     plot.window(xlim = xlim, ylim = ylim, log = "")
+  
   lheight <- par("csi")
   if (!is.null(labels)) {
-    linch <- max(strwidth(labels, "inch"), na.rm = TRUE)
+    linch <- max(strwidth(labels, "inch", cex = cex.axis[2]), na.rm = TRUE)
     loffset <- (linch + 0.1)/lheight
     labs <- labels[o]
     if (!identical(yaxt, "n"))
       mtext(labs, side = 2, line = loffset, at = y, adj = 0,
-          col = lblcolor, las = 2, cex = cex[2], ...)
+          col = lblcolor, las = 2, cex = cex.axis[2], ...)
   }
+  
   if (!add)
     abline(h = y, lty = "dotted", col = lcolor)
-  points(x, y, pch = pch, col = color, bg = bg)
+  
+  if (!is.null(args.errbars)) {
+    arrows(x0 = rev(errb$from)[o], x1 = rev(errb$to)[o],
+           y0 = y, col = rev(errb$col), angle = 90, code = rev(errb$code),
+           lty = rev(errb$lty), lwd = rev(errb$lwd), length = rev(errb$length))
+    # if (!is.null(errb$mid))
+    #   points(rev(errb$mid)[o], y = y, pch = rev(errb$pch), col = rev(errb$col.pch),
+    #          cex = rev(errb$cex.pch), bg = rev(errb$bg.pch))
+  }
+
+  points(x, y, pch = pch, col = color, bg = bg, cex=cex * cex.pch)
   if (!is.null(groups)) {
     gpos <- rev(cumsum(rev(tapply(groups, groups, length)) +
                          2) - 1)
-    ginch <- max(strwidth(glabels, "inch"), na.rm = TRUE)
+    ginch <- max(strwidth(glabels, "inch", cex=cex.axis[3]), na.rm = TRUE)
     goffset <- (max(linch + 0.2, ginch, na.rm = TRUE) + 0.1)/lheight
     if (!identical(yaxt, "n"))
       mtext(glabels, side = 2, line = goffset, at = gpos, adj = 0,
-            col = gcolor, las = 2, cex = cex[3], ...)
+            col = gcolor, las = 2, cex = cex.axis[3], ...)
     if (!is.null(gdata)) {
       abline(h = gpos, lty = "dotted")
       points(gdata, gpos, pch = gpch, col = gcolor, bg = bg, ...)
@@ -10037,14 +10091,6 @@ PlotDot <- function (x, labels = NULL, groups = NULL, gdata = NULL, cex = par("c
   if (!add)
     title(main = main, xlab = xlab, ylab = ylab, ...)
 
-  if (!is.null(args.errbars)) {
-    arrows(x0 = rev(errb$from)[o], x1 = rev(errb$to)[o],
-           y0 = y, col = rev(errb$col), angle = 90, code = rev(errb$code),
-           lty = rev(errb$lty), lwd = rev(errb$lwd), length = rev(errb$length))
-    if (!is.null(errb$mid))
-      points(rev(errb$mid)[o], y = y, pch = rev(errb$pch), col = rev(errb$col.pch),
-             cex = rev(errb$cex.pch), bg = rev(errb$bg.pch))
-  }
 
   if (!is.null(DescToolsOptions("stamp")))
     Stamp()
@@ -11922,48 +11968,108 @@ SaveAs <- function(x, objectname, file, ...){
 
 ## plots: ACF, GACF and other TimeSeries plots ----------
 
-PlotACF <- function(series, lag.max = 10*log10(length(series)), ...)  {
+# PlotACF <- function(series, lag.max = 10*log10(length(series)), ...)  {
+# 
+#   ## Purpose:  time series plot with correlograms
+#   #  Original name: f.acf
+# 
+#   ## ---
+#   ## Arguments: series : time series
+#   ##           lag.max : the maximum number of lags for the correlograms
+# 
+# 
+#   ## ---
+#   ## Author: Markus Huerzeler, Date: 15 Jun 94
+#   ## Revision: Christian Keller, 5 May 98
+#   ## Revision: Markus Huerzeler, 11. Maerz 04
+# 
+#   # the stamp option should only be active for the third plot, so deactivate it here
+#   opt <- DescToolsOptions(stamp=NULL)
+# 
+#   if (!is.null(dim(series)))
+#     stop("f.acf is only implemented for univariate time series")
+# 
+#   par(mfrow=c(1,1))
+#   old.par <- par(mar=c(3,3,1,1), mgp=c(1.5,0.5,0))
+#   on.exit(par(old.par))
+# 
+#   split.screen(figs=matrix(c(0,1,0.33,1, 0,0.5,0,0.33, 0.5,1,0,0.33),
+#                            ncol=4, byrow=T), erase=TRUE)
+# 
+#   ## screen(1)
+#   plot.ts(series, cex=0.7, ylab=deparse(substitute(series)), ...)
+#   screen(2)
+#   PlotGACF(series, lag.max=lag.max, cex=0.7)
+# 
+#   screen(3)
+#   # Stamp only the last plot
+#   options(opt)
+#   PlotGACF(series, lag.max=lag.max, type="part", cex=0.7)
+#   close.screen(all.screens=TRUE)
+# 
+#   invisible(par(old.par))
+# 
+# }
 
+
+PlotACF <- function (series, lag.max = 10 * log10(length(series)), main=NULL, 
+                     cex=NULL, ...) {
+  
   ## Purpose:  time series plot with correlograms
   #  Original name: f.acf
-
+  
   ## ---
   ## Arguments: series : time series
   ##           lag.max : the maximum number of lags for the correlograms
-
-
+  
+  
   ## ---
   ## Author: Markus Huerzeler, Date: 15 Jun 94
   ## Revision: Christian Keller, 5 May 98
   ## Revision: Markus Huerzeler, 11. Maerz 04
-
+  
+  if(is.null(main)) 
+    main <- deparse(substitute(series))
+  
+  if(main != "")
+    par(oma=c(0,0,3,0))
+  
+  if(is.null(cex))
+    cex <- par("cex")
+  
   # the stamp option should only be active for the third plot, so deactivate it here
-  opt <- DescToolsOptions(stamp=NULL)
-
-  if (!is.null(dim(series)))
+  opt <- DescToolsOptions(stamp = NULL)
+  
+  if (!is.null(dim(series))) 
     stop("f.acf is only implemented for univariate time series")
-
-  par(mfrow=c(1,1))
-  old.par <- par(mar=c(3,3,1,1), mgp=c(1.5,0.5,0))
+  
+  par(mfrow = c(1, 1))
+  
+  old.par <- par(mar = c(3, 4, 1+2*(main != ""), 1), mgp = c(2.5, 1, 0), 
+                 cex=cex)
   on.exit(par(old.par))
-
-  split.screen(figs=matrix(c(0,1,0.33,1, 0,0.5,0,0.33, 0.5,1,0,0.33),
-                           ncol=4, byrow=T), erase=TRUE)
-
-  ## screen(1)
-  plot.ts(series, cex=0.7, ylab=deparse(substitute(series)), ...)
+  
+  split.screen(figs = matrix(c(0, 1, 0.33, 1, 0, 0.5, 0, 0.33, 
+                               0.5, 1, 0, 0.33), ncol = 4, byrow = T), erase = TRUE)
+  
+  plot.ts(series, cex = cex, ylab="", xlab="", main=main, ...)
+  
+  
   screen(2)
-  PlotGACF(series, lag.max=lag.max, cex=0.7)
-
+  par(mar = c(4, 4, 0, 1), mgp = c(2.5, 1, 0))
+  PlotGACF(series, lag.max = lag.max, cex = cex, ...)
+  
   screen(3)
-  # Stamp only the last plot
+  par(mar = c(4, 4, 0, 1), mgp = c(2.5, 1, 0))
   options(opt)
-  PlotGACF(series, lag.max=lag.max, type="part", cex=0.7)
-  close.screen(all.screens=TRUE)
-
+  PlotGACF(series, lag.max = lag.max, type = "part", 
+           cex = cex, ...)
+  close.screen(all.screens = TRUE)
+  
   invisible(par(old.par))
-
+  
 }
+
 
 
 PlotGACF <- function(series, lag.max=10*log10(length(series)), type="cor", ylab=NULL, ...) {
@@ -12792,25 +12898,34 @@ ParseFormula <- function(formula, data=parent.frame(), drop = TRUE) {
   # evaluate subset
   m <- match.call(expand.dots = FALSE)
 
-  # do not support . on both sides of the formula
-  if( (length(grep("^\\.$", all.vars(f1[[2]])))>0) && (length(grep("^\\.$", all.vars(f1[[3]])))>0) )
-    stop("dot argument on both sides of the formula are not supported")
 
-  # swap left and right hand side and take just the right side
-  # so both sides are evaluated with right side logic, but independently
-  lhs <- xhs(formula(paste("~", deparse(f1[[2]])), data=data), data=data)
-  rhs <- xhs(formula(paste("~", deparse(f1[[3]])), data=data), data=data)
-
-  # now handle the dot argument
-  if(any(all.vars(f1[[2]]) == ".")){   # dot on the left side
-    lhs$vars <- lhs$vars[!lhs$vars %in% rhs$vars]
-    lhs$mf <- lhs$mf[lhs$vars]
-    lhs$mf.eval <- lhs$mf.eval[lhs$vars]
-  } else if(any(all.vars(f1[[3]]) == ".")){     # dot on the right side
-    rhs$vars <- rhs$vars[!rhs$vars %in% lhs$vars]
-    rhs$mf <- rhs$mf[rhs$vars]
-    rhs$mf.eval <- rhs$mf.eval[rhs$vars]
-  } else {    # no dot: do nothing
+  if(length(f1)==2L){
+    rhs <- xhs(formula(paste("~", deparse(f1[[2]])), data=data), data=data)
+    lhs <- list(mf=NA, mf.eval=NA, vars=NA)
+    
+  } else {
+    
+    # do not support . on both sides of the formula
+    if( (length(grep("^\\.$", all.vars(f1[[2]])))>0) && (length(grep("^\\.$", all.vars(f1[[3]])))>0) )
+      stop("dot argument on both sides of the formula are not supported")
+    
+    # swap left and right hand side and take just the right side
+    # so both sides are evaluated with right side logic, but independently
+    lhs <- xhs(formula(paste("~", deparse(f1[[2]])), data=data), data=data)
+    rhs <- xhs(formula(paste("~", deparse(f1[[3]])), data=data), data=data)
+  
+    # now handle the dot argument
+    if(any(all.vars(f1[[2]]) == ".")){   # dot on the left side
+      lhs$vars <- lhs$vars[!lhs$vars %in% rhs$vars]
+      lhs$mf <- lhs$mf[lhs$vars]
+      lhs$mf.eval <- lhs$mf.eval[lhs$vars]
+    } else if(any(all.vars(f1[[3]]) == ".")){     # dot on the right side
+      rhs$vars <- rhs$vars[!rhs$vars %in% lhs$vars]
+      rhs$mf <- rhs$mf[rhs$vars]
+      rhs$mf.eval <- rhs$mf.eval[rhs$vars]
+    } else {    # no dot: do nothing
+    }
+    
   }
 
   list(formula=formula, lhs=list(mf=lhs$mf, mf.eval=lhs$mf.eval, vars=lhs$vars),
@@ -12962,7 +13077,7 @@ ToWrdB <- function(x, font = NULL, ..., wrd = DescToolsOptions("lastWord"),
 
 
 ToWrdPlot <- function(plotcode,  
-                      width=NULL, height=NULL, scale=100, res=300, crop=0, title=NULL, 
+                      width=NULL, height=NULL, scale=100, pointsize=12, res=300, crop=0, title=NULL, 
                       wrd = DescToolsOptions("lastWord"), 
                       bookmark=gettextf("bmp%s", round(runif(1, min=0.1)*1e9))
                       ){
@@ -12977,7 +13092,7 @@ ToWrdPlot <- function(plotcode,
   
   # open device
   tiff(filename = (fn <- paste(tempfile(), ".tif", sep = "")), 
-       width = width, height = height, units = "cm", 
+       width = width, height = height, units = "cm", pointsize = pointsize,
        res = res, compression = "lzw")
   
   # do plot

@@ -4,6 +4,7 @@
 \alias{ModSummary.lm}
 \alias{ModSummary.glm}
 \alias{plot.TMod}
+\alias{print.TMod}
 
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Comparison Table For Linear Models
@@ -21,6 +22,7 @@ ModSummary(x, ...)
 \method{ModSummary}{glm}(x, conf.level = 0.95, ...)
 
 \method{plot}{TMod}(x, terms = NULL, intercept = FALSE, ...)
+\method{print}{TMod}(x, digits = 3, na.form = "-", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -30,6 +32,14 @@ ModSummary(x, ...)
 \item{FUN}{function with arguments \code{est}, \code{se}, \code{tval}, \code{pval}, \code{lci}, \code{uci} to display the coefficients. The default function will display the coefficient and significance stars for the p-values.}
 \item{terms}{a vector with the terms of the model formula to be plotted. By default this will be all of them.}
 \item{intercept}{logical, defining whether the intercept should be plotted (default is \code{FALSE}).}
+  \item{digits}{integer, the desired (fixed) number of digits after the decimal point. Unlike \code{\link{formatC}} you will always get this number of digits even if the last digit is 0.
+%%     ~~Describe \code{digits} here~~
+}
+
+  \item{na.form}{character, string specifying how \code{NA}s should be specially formatted.
+  If set to \code{NULL} (default) no special action will be taken.
+%%     ~~Describe \code{pad} here~~
+}
 }
 \details{In order to compare the coefficients of linear models, the user is left to his own devices. R offers no support in this respect. \code{TMod()} jumps into the breach and displays the coefficients of several models in tabular form. For this purpose, different quality indicators for the models are displayed, so that a comprehensive comparison of the models is possible. In particular, it is easy to see the effect that adding or omitting variables has on forecast quality.
 

@@ -74,6 +74,10 @@ Desc.character <- function (x, main=NULL,
   return(desc(x=x, xname= deparse(substitute(x)), main=main, digits=digits, maxrows=maxrows, ord=ord, plotit=plotit, sep=sep, ...))
 }
 
+Desc.ts <- function (x, main=NULL,
+                            plotit=NULL, sep=NULL, digits=NULL, ...) {
+  return(desc(x=x, xname= deparse(substitute(x)), main=main, digits=digits, plotit=plotit, sep=sep, ...))
+}
 
 Desc.logical <- function (x, main=NULL,
                           ord=NULL, conf.level=0.95,
@@ -138,6 +142,11 @@ desc <- function (x, main=NULL, xname=deparse(substitute(x)), digits=NULL, maxro
     x <- NULL
     n <- 0
     NAs <- 0
+  } else if(inherits(x, "ts")){
+    ntot <- length(x) # total count
+    # x <- x[!is.na(x)]   do not omit NAs for timeseries
+    n <- length(x)    # now without NAs
+    NAs <- ntot - n   # number of NAs
   } else {
     ntot <- length(x) # total count
     x <- x[!is.na(x)]
@@ -308,47 +317,58 @@ Desc.formula <- function(formula, data = parent.frame(), subset, main=NULL, plot
 
   mm <- DescTools::ParseFormula(formula=formula, data=data)
 
-  # don't want AsIs (will come in case of I(...)) to proceed, so just coerce to vector an back again
-  # but don't use the following, as interaction names will be set to y.x instead of y:x
-  # mm$lhs$mf.eval <- data.frame(lapply(mm$lhs$mf.eval, as.vector))
-  # mm$rhs$mf.eval <- data.frame(lapply(mm$rhs$mf.eval, as.vector))
-  for(i in which(lapply(mm$lhs$mf.eval, class) == "AsIs")) {
-    mm$lhs$mf.eval[,i] <- as.vector(mm$lhs$mf.eval[,i])
-  }
-  for(i in which(lapply(mm$rhs$mf.eval, class) == "AsIs")) {
-    mm$rhs$mf.eval[,i] <- as.vector(mm$rhs$mf.eval[,i])
-  }
-
-
-  lst <- list()
-  for(resp in mm$lhs$vars){         # for all response variables
-    for(pred in mm$rhs$vars){       # evalutate for all conditions
-
-      y <- mm$lhs$mf.eval[, resp]
-      x <- mm$rhs$mf.eval[, pred]
-
-      if(IsDichotomous(y, na.rm=TRUE)) y <- factor(y)
-      if(IsDichotomous(x, na.rm=TRUE)) x <- factor(x)
-
-      names(y) <- resp
-      names(x) <- pred
-
-      lst[[paste(resp, pred, sep=" ~ ")]] <- calcDesc.bivar(x=y, g=x, xname=resp, gname=pred, ...)
-      lst[[paste(resp, pred, sep=" ~ ")]]["plotit"] <- plotit
-      lst[[paste(resp, pred, sep=" ~ ")]]["digits"] <- digits     # would not accept vectors when ["digits"] used. Why??
-      # lst[[paste(resp, pred, sep=" ~ ")]]$digits <- digits      # this works
-
-      lst[[paste(resp, pred, sep=" ~ ")]]["main"] <- if(is.null(main))
-          paste(lst[[paste(resp, pred, sep=" ~ ")]]["xname"], lst[[paste(resp, pred, sep=" ~ ")]]["gname"], sep=" ~ ")
+  if(length(mm$formula)==2L){
+    lst <- list()
+    for(x in mm$rhs$vars){         # for all x variables
+      lst[x] <- Desc(mm$rhs$mf.eval[, x], plotit=plotit, digits=digits, ...)
+      lst[[x]]$main <- gettextf("%s$%s (%s)", deparse(substitute(data)), x, lst[[x]]$class)
+    }  
+      
+  } else {
+    
+    # don't want AsIs (will come in case of I(...)) to proceed, so just coerce to vector an back again
+    # but don't use the following, as interaction names will be set to y.x instead of y:x
+    # mm$lhs$mf.eval <- data.frame(lapply(mm$lhs$mf.eval, as.vector))
+    # mm$rhs$mf.eval <- data.frame(lapply(mm$rhs$mf.eval, as.vector))
+    for(i in which(lapply(mm$lhs$mf.eval, class) == "AsIs")) {
+      mm$lhs$mf.eval[,i] <- as.vector(mm$lhs$mf.eval[,i])
     }
+    for(i in which(lapply(mm$rhs$mf.eval, class) == "AsIs")) {
+      mm$rhs$mf.eval[,i] <- as.vector(mm$rhs$mf.eval[,i])
+    }
+  
+  
+    lst <- list()
+    for(resp in mm$lhs$vars){         # for all response variables
+      for(pred in mm$rhs$vars){       # evalutate for all conditions
+  
+        y <- mm$lhs$mf.eval[, resp]
+        x <- mm$rhs$mf.eval[, pred]
+  
+        if(IsDichotomous(y, na.rm=TRUE)) y <- factor(y)
+        if(IsDichotomous(x, na.rm=TRUE)) x <- factor(x)
+  
+        names(y) <- resp
+        names(x) <- pred
+  
+        lst[[paste(resp, pred, sep=" ~ ")]] <- calcDesc.bivar(x=y, g=x, xname=resp, gname=pred, ...)
+        lst[[paste(resp, pred, sep=" ~ ")]]["plotit"] <- plotit
+        lst[[paste(resp, pred, sep=" ~ ")]][["digits"]] <- digits     # would not accept vectors when ["digits"] used. Why??
+        # lst[[paste(resp, pred, sep=" ~ ")]]$digits <- digits      # this works
+  
+        lst[[paste(resp, pred, sep=" ~ ")]]["main"] <- if(is.null(main))
+            paste(lst[[paste(resp, pred, sep=" ~ ")]]["xname"], lst[[paste(resp, pred, sep=" ~ ")]]["gname"], sep=" ~ ")
+      }
+    }
+  
+    if(!is.null(main)){
+      main <- rep(main, length.out=length(lst))
+      for(i in seq_along(lst))
+        lst[[i]]["main"] <- main[i]
+    }
+    
   }
-
-  if(!is.null(main)){
-    main <- rep(main, length.out=length(lst))
-    for(i in seq_along(lst))
-      lst[[i]]["main"] <- main[i]
-  }
-
+  
   attr(lst, "call") <- deparse(sys.call())
 
   class(lst) <- "Desc"
@@ -359,7 +379,7 @@ Desc.formula <- function(formula, data = parent.frame(), subset, main=NULL, plot
 
 
 
-calcDesc           <- function(x, n, ...) {
+calcDesc  <- function(x, n, ...) {
   UseMethod("calcDesc")
 }
 
@@ -381,7 +401,7 @@ calcDesc.default   <- function(x, n, ...) {
 }
 
 
-calcDesc.numeric   <- function(x, n, maxrows = NULL, ...) {
+calcDesc.numeric   <- function(x, n, maxrows = NULL, conf.level=0.95, ...) {
 
     probs <- c(0, 0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95, 1)
 
@@ -452,6 +472,7 @@ calcDesc.numeric   <- function(x, n, maxrows = NULL, ...) {
                 "0s"    = psum$zero,
                 mean    = psum$mean,
                 meanSE  = sdx/sqrt(n),
+                conf.level = conf.level,
                 quant   = qs,
                 range   = unname(diff(qs[c(1,9)])),
                 sd      = sdx,
@@ -573,7 +594,17 @@ calcDesc.Date      <- function(x, n, dprobs = NULL, mprobs=NULL, ...) {
 }
 
 
-calcDesc.table     <- function(x, n, conf.level=0.95, verbose, rfrq, margins, p, digits, ...) {
+calcDesc.ts <- function(x, ...){
+  res <- list(unique    = length(unique(x)),
+              "0s"      = sum(x==0),
+              frequency = frequency(x), 
+              start     = start(x), 
+              end       = end(x), 
+              x         = x)
+}
+
+
+calcDesc.table <- function(x, n, conf.level=0.95, verbose, rfrq, margins, p, digits, ...) {
 
   loglik.chisq <- function(r.chisq) {
     # Log-likelihood chi-squared (G2) test of independence (homogeneity)
@@ -649,7 +680,7 @@ calcDesc.matrix    <- function(x, n, conf.level=0.95, verbose, rfrq, margins, p,
 
 
 calcDesc.bivar     <- function(x, g, xname = NULL, gname = NULL, margin=FALSE, breaks=4, conf.level=0.95,
-                               smooth=TRUE, test=kruskal.test, ...) {
+                               smooth=TRUE, test=kruskal.test, verbose=2, ...) {
 
   ok <- complete.cases(x, g)
   nv <- sum(ok)
@@ -658,11 +689,12 @@ calcDesc.bivar     <- function(x, g, xname = NULL, gname = NULL, margin=FALSE, b
   ng <- length(g)
   NAgs <- sum(is.na(g))
   n <- max(nx, ng)
+  
 
   gname <- if(is.null(gname)) deparse(substitute(g)) else gname
   xname <- if(is.null(xname)) deparse(substitute(x)) else xname
 
-  res <- list(xname = xname, gname = gname, n = n,
+  res <- list(xname = xname, gname = gname, n = n, verbose=verbose,
               nvalid = nv, nx=nx, ng=ng, NAxs=NAxs, NAgs=NAgs,
               classx=class(x), classg=class(g), x=unname(x), g=unname(g))
 
@@ -686,7 +718,15 @@ calcDesc.bivar     <- function(x, g, xname = NULL, gname = NULL, margin=FALSE, b
     res$NAs    <- tapply(x, g, FUN=function(z) sum(is.na(z)))
     res$Zeros  <- tapply(x[ok], g[ok], FUN=function(z) sum(z==0))
     res$nlevel <- length(res$mean)
-
+    
+    res$min    <- tapply(x[ok], g[ok], FUN=min)
+    res$max    <- tapply(x[ok], g[ok], FUN=max)
+    res$Q1     <- tapply(x[ok], g[ok], FUN=function(z) quantile(z, probs = 0.25))
+    res$Q3     <- tapply(x[ok], g[ok], FUN=function(z) quantile(z, probs = 0.75))
+    res$mad    <- tapply(x[ok], g[ok], FUN=mad)
+    res$skew   <- tapply(x[ok], g[ok], FUN=Skew)
+    res$kurt   <- tapply(x[ok], g[ok], FUN=Kurt)
+    
     if(margin){
       res$mean   <- c(res$mean, "Total"=mean(x[ok]))
       res$median <- c(res$median, median(x[ok]))
@@ -697,6 +737,14 @@ calcDesc.bivar     <- function(x, g, xname = NULL, gname = NULL, margin=FALSE, b
       res$NAs    <- c(res$NAs, sum(res$NAs))
       res$Zeros  <- c(res$Zeros, sum(res$Zeros))
 
+      res$min    <- c(res$min, min(x[ok]))
+      res$max    <- c(res$max, max(x[ok]))
+      res$Q1     <- c(res$Q1, quantile(x[ok], probs = 0.25))
+      res$Q1     <- c(res$Q1, quantile(x[ok], probs = 0.75))
+      res$mad    <- c(res$mad, mad(x[ok]))
+      res$skew   <- c(res$skew, Skew(x[ok]))
+      res$kurt   <- c(res$kurt, Kurt(x[ok]))
+      
     }
 
     res$test <- tryCatch(test(x ~ g, na.action="na.omit"), error=function(e) {e})
@@ -714,7 +762,15 @@ calcDesc.bivar     <- function(x, g, xname = NULL, gname = NULL, margin=FALSE, b
     res$Zeros  <- tapply(g[ok], x[ok], FUN=function(z) sum(z==0))
     res$nlevel <- length(res$mean)
     res$smooth <- smooth
-
+    
+    res$min    <- tapply(x[ok], g[ok], FUN=min)
+    res$max    <- tapply(x[ok], g[ok], FUN=max)
+    res$Q1     <- tapply(x[ok], g[ok], FUN=function(z) quantile(z, probs = 0.25))
+    res$Q3     <- tapply(x[ok], g[ok], FUN=function(z) quantile(z, probs = 0.75))
+    res$mad    <- tapply(x[ok], g[ok], FUN=mad)
+    res$skew   <- tapply(x[ok], g[ok], FUN=Skew)
+    res$kurt   <- tapply(x[ok], g[ok], FUN=Kurt)
+    
     if(margin){
       res$mean   <- c(res$mean, "Total"=mean(g[ok]))
       res$median <- c(res$median, median(g[ok]))
@@ -724,6 +780,14 @@ calcDesc.bivar     <- function(x, g, xname = NULL, gname = NULL, margin=FALSE, b
       res$np     <- c(res$np, 1)
       res$NAs    <- c(res$NAs, sum(res$NAs))
       res$Zeros  <- c(res$Zeros, sum(res$Zeros))
+      
+      res$min    <- c(res$min, min(x[ok]))
+      res$max    <- c(res$max, max(x[ok]))
+      res$Q1     <- c(res$Q1, quantile(x[ok], probs = 0.25))
+      res$Q1     <- c(res$Q1, quantile(x[ok], probs = 0.75))
+      res$mad    <- c(res$mad, mad(x[ok]))
+      res$skew   <- c(res$skew, Skew(x[ok]))
+      res$kurt   <- c(res$kurt, Kurt(x[ok]))
     }
 
 
@@ -773,7 +837,14 @@ print.Desc <- function(x, digits=NULL, plotit=NULL, nolabel=FALSE, sep=NULL, ...
   .print <- function(x, digits=NULL, plotit=NULL, ...) {
 
 
-    digits <- Coalesce(digits, x$digits, NULL)
+    # digits <- Coalesce(digits, x$digits, NULL)
+    # Coalesce unlists the dot elements
+    digits <- Filter(Negate(is.null), list(digits, x$digits, NULL))
+    if(length(digits)==0) 
+      digits <- NULL
+    else 
+      digits <- digits[[1]]
+    
     if(!is.null(digits)){
       opt <- DescToolsOptions(digits=digits)
       on.exit(DescToolsOptions(opt))
@@ -791,8 +862,12 @@ print.Desc <- function(x, digits=NULL, plotit=NULL, nolabel=FALSE, sep=NULL, ...
     sep <- Coalesce(sep, x$sep, paste(rep("-", (getOption("width") - 2)), collapse = ""))
     cat(sep, "\n")
 
-    if (!identical(x$main, NA))
-      cat(x$main)
+    if (!identical(x$main, NA)){
+      if(.has_color())
+        cat(gettextf("\033[1m%s\033[22m", x$main))
+      else
+        cat(x$main)
+    }
     if (!is.null(x$label) && !nolabel)
       cat(" :", strwrap(x$label, indent = 2, exdent = 2), sep = "\n")
     if (!identical(x$main, NA))
@@ -800,7 +875,7 @@ print.Desc <- function(x, digits=NULL, plotit=NULL, nolabel=FALSE, sep=NULL, ...
     cat("\n")
 
     if(any(x$class %in% c("numeric", "integer", "factor", "ordered", "character",
-                          "logical", "table", "matrix", "xtabs", "Date",
+                          "logical", "table", "matrix", "xtabs", "Date", "ts", "xts",
                           "factfact", "numnum", "numfact", "factnum"))) {
 
       # escalate to logical if the vector is empty
@@ -861,7 +936,7 @@ print.Desc.numeric  <- function(x, digits = NULL, ...) {
   x["zeroperc"] <- Format(x[["0s"]]/x[["length"]], fmt="%", digits=1)
 
   if(x[["n"]]>1)
-    a <- qt(p=.025, df=x[["n"]] - 1) * x[["meanSE"]]
+    a <- qt(p=(1-x[["conf.level"]])/2, df=x[["n"]] - 1) * x[["meanSE"]]
   else
     a <- NA
 
@@ -903,7 +978,9 @@ print.Desc.numeric  <- function(x, digits = NULL, ...) {
   # should we make an argument out of that?
 
   m <- rbind(lst$l1, lst$l2, "", names(lst$l3), lst$l3, "", names(lst$l4), lst$l4, "")
-  .print.charmatrix(m)
+  out <- capture.output(.print.charmatrix(m))
+  out[1] <- paste0(out[1], DescToolsOptions("footnote")[1])
+  cat(out, sep="\n")
 
   # we need to do that even if highlow == FALSE, as Desc.integer could need the result!!
   if(x$class == "numeric"){
@@ -938,8 +1015,12 @@ print.Desc.numeric  <- function(x, digits = NULL, ...) {
     cat("\n\n")
   }
 
+  if(.has_color())
+    cat(gettextf("\033[38;5;244m%s %s%s-CI (classic)\033[39m\n\n", DescToolsOptions("footnote")[1], x$conf.level*100, "%"))
+  else
+    cat(gettextf("%s %s%s-CI (classic)\n\n", DescToolsOptions("footnote")[1], x$conf.level*100, "%"))
+  
 }
-
 
 
 
@@ -977,8 +1058,14 @@ print.Desc.logical  <- function(x, digits = NULL, ...) {
     txt <- capture.output(print(StrTrim(out), quote=FALSE, right=TRUE, print.gap=2))
     cat(paste(txt[1], DescToolsOptions("footnote")[1],
               sep = ""), txt[-1], sep = "\n")
-    cat(gettextf("\n%s %s%s-CI Wilson\n\n",
-                 DescToolsOptions("footnote")[1], x$conf.level * 100, "%"))
+    
+    if(.has_color())
+      cat(gettextf("\n\033[38;5;244m%s %s%s-CI (Wilson)\033[39m\n\n",
+                   DescToolsOptions("footnote")[1], x$conf.level * 100, "%"))
+    else
+      cat(gettextf("\n%s %s%s-CI (Wilson)\n\n",
+                   DescToolsOptions("footnote")[1], x$conf.level * 100, "%"))
+    
   }
 
   if(identical(x$noplot, TRUE))
@@ -987,6 +1074,7 @@ print.Desc.logical  <- function(x, digits = NULL, ...) {
 }
 
 
+                                       
 print.Desc.factor   <- function(x, digits = NULL, ...) {
 
   m <- rbind(
@@ -1222,12 +1310,40 @@ print.Desc.Date     <- function(x, digits = NULL, ... ) {
 }
 
 
+print.Desc.ts     <- function(x, digits = NULL, ... ) {
+  
+  x["nperc"] <- Format(x[["n"]]/x[["length"]], fmt="%", digits=1)
+  x["naperc"] <- Format(x[["NAs"]]/x[["length"]], fmt="%", digits=1)
+  x["zeroperc"] <- Format(x[["0s"]]/x[["length"]], fmt="%", digits=1)
+  
+  x[c("length","n","NAs","unique","0s")] <- lapply(x[c("length","n","NAs","unique","0s")],
+                                                   Format, fmt=Fmt("abs"))
+
+  lst <- list(l1 = unlist(x[c("length","n","NAs","unique","0s")]),
+              l2 = c("", x[["nperc"]], x[["naperc"]], "", x[["zeroperc"]]),
+              l3=c(start=paste(x$start, collapse="-"),
+                   end=paste(x$end, collapse="-"), 
+                   frequency=x$frequency, "",""))
+  
+  width <- max(c(unlist(lapply(lst, nchar)), 
+                 unlist(lapply(lapply(lst, names), nchar))), na.rm=TRUE)
+  if (x$unique == x$n)
+    lst$l1["unique"] <- "= n"
+
+  m <- rbind(lst$l1, lst$l2, "", names(lst$l3), lst$l3, "")
+  .print.charmatrix(m)
+
+}
+
+
+
 print.Desc.factfact <- function(x, digits = NULL, ...){
 
-  txt <- .CaptOut(Desc(x$tab, plotit=FALSE, digits=digits, ...))[-(1:2)]
+  txt <- .CaptOut(Desc(x$tab, plotit=FALSE, digits=digits, ...))[-(1:3)]
   cat(txt, sep="\n")
 
 }
+
 
 print.Desc.numfact  <- function(x, digits = NULL, ...){
 
@@ -1241,10 +1357,12 @@ print.Desc.numfact  <- function(x, digits = NULL, ...){
        , sep="" )
   cat("\n\n")
 
-  digits <- Coalesce(digits, x$digits, NULL)
-  if(is.null(digits)) digits <- DescToolsOptions("digits", default=3)
-  digits <- rep(digits, length.out=5)
-
+  # digits <- Coalesce(digits, x$digits, NULL)
+  if(is.null(digits)) 
+    digits <- DescToolsOptions("digits", default=3)
+  
+  digits <- rep(digits, length.out=5 + (x$verbose==3)*7L)
+  
   z <- rbind(
     Format(x$mean, fmt=Fmt("num", digits=digits[1]))
     , Format(x$median, fmt=Fmt("num", digits=digits[2]))
@@ -1257,8 +1375,21 @@ print.Desc.numfact  <- function(x, digits = NULL, ...){
   )
   rownames(z) <- c("mean","median","sd","IQR","n","np","NAs","0s")  # cannot use names as 0s is replaced by X.0s....
   colnames(z) <- rep("", ncol(z))
-  z <- rbind(names(x$mean), z)
 
+  if(x$verbose==3){
+    z <- rbind(z, 
+               Format(x$min, fmt=Fmt("num", digits=digits[6])),
+               Format(x$max, fmt=Fmt("num", digits=digits[7])),
+               Format(x$Q1, fmt=Fmt("num", digits=digits[8])),
+               Format(x$Q3, fmt=Fmt("num", digits=digits[9])),
+               Format(x$mad, fmt=Fmt("num", digits=digits[10])),
+               Format(x$skew, fmt=Fmt("num", digits=digits[11])),
+               Format(x$kurt, fmt=Fmt("num", digits=digits[12]))
+    )   
+    rownames(z)[9:15] <- c("min", "max", "Q1", "Q3", "mad", "skew", "kurt")
+  } 
+
+  z <- rbind(names(x$mean), z)
   z[] <- StrAlign(z, sep="\\r")
   print(z, quote=FALSE, print.gap=2, ...)
 
@@ -1272,6 +1403,9 @@ print.Desc.numfact  <- function(x, digits = NULL, ...){
   if((x$NAgs > 0) & (length(grep("NA", x$xname)) == 0))
     cat(gettextf("\nWarning:\n  Grouping variable contains %s NAs (%s"
                  , x$NAgs, signif(x$NAgs/x$n, digits=3)*100), "%).\n", sep="")
+  else
+    cat("\n")
+  
   cat("\n")
 
 }
@@ -1288,7 +1422,7 @@ print.Desc.numnum   <- function(x, digits = NULL, ...) {
   cat("\n\n")
 
   cat(gettextf(
-    "\nPearson corr. : %s\nSpearman corr.: %s\nKendall corr. : %s\n"
+    "\nPearson corr. : %s\nSpearman corr.: %s\nKendall corr. : %s\n\n"
     , Format(x$cor.p, fmt=Fmt("num"))
     , Format(x$cor.s, fmt=Fmt("num"))
     , if(x$nvalid < 5000){
@@ -1321,7 +1455,7 @@ plot.Desc <- function(x, main = NULL, ...){
   plot.Desc.z <- function(z, main=main, ...){
 
     if(any(z$class %in% c("numeric","integer","character","factor","ordered","logical","Date",
-                          "table","matrix","xtabs",
+                          "table","matrix","xtabs","ts", "xts",
                           "factfact", "numnum", "factnum", "numfact")))
       eval(parse(text=gettextf("plot.Desc.%s(z, main=main, ...)", z$class)))
 
@@ -1666,6 +1800,16 @@ plot.Desc.Date      <- function(x, main=NULL, breaks=NULL, type=c(1,2,3), ...) {
   }
 
 }
+
+
+plot.Desc.ts   <- function(x, main=NULL, ...){
+  
+  main <- Reduce(function (x, y) ifelse(!is.null(x), x, y),
+                 c(main, x$main, deparse(substitute(x))))
+  
+  PlotACF(x$x, main=main, ...)
+}
+
 
 
 plot.Desc.xtabs <- function(x, main=NULL, col1 = NULL, col2 = NULL, horiz = TRUE, ...){
@@ -2580,7 +2724,70 @@ Desc.palette <- function(x, ...){
 }
 
 
-
+.has_color <- function () {
+  
+  .rstudio_with_ansi_support <- function () {
+    if (Sys.getenv("RSTUDIO", "") == "") 
+      return(FALSE)
+    if ((cols <- Sys.getenv("RSTUDIO_CONSOLE_COLOR", "")) != 
+        "" && !is.na(as.numeric(cols))) {
+      return(TRUE)
+    }
+    requireNamespace("rstudioapi", quietly = TRUE) && rstudioapi::isAvailable() && 
+      rstudioapi::hasFun("getConsoleHasColor")
+  }
+  
+  .inside_emacs <- function () {
+    Sys.getenv("EMACS") != "" || Sys.getenv("INSIDE_EMACS") != 
+      ""
+  }
+  
+  .emacs_version <- function () {
+    ver <- Sys.getenv("INSIDE_EMACS")
+    if (ver == "") 
+      return(NA_integer_)
+    ver <- gsub("'", "", ver)
+    ver <- strsplit(ver, ",", fixed = TRUE)[[1]]
+    ver <- strsplit(ver, ".", fixed = TRUE)[[1]]
+    as.numeric(ver)
+  }
+  
+  
+  ## this is verbatim from crayon
+  ## but it's just this function we use, so don't import...
+  
+  enabled <- getOption("crayon.enabled")
+  if (!is.null(enabled)) {
+    return(isTRUE(enabled))
+  }
+  if (.rstudio_with_ansi_support() && sink.number() == 0) {
+    return(TRUE)
+  }
+  if (!isatty(stdout())) {
+    return(FALSE)
+  }
+  if (.Platform$OS.type == "windows") {
+    if (Sys.getenv("ConEmuANSI") == "ON") {
+      return(TRUE)
+    }
+    if (Sys.getenv("CMDER_ROOT") != "") {
+      return(TRUE)
+    }
+    return(FALSE)
+  }
+  if (.inside_emacs() && !is.na(.emacs_version()[1]) && .emacs_version()[1] >= 
+      23) {
+    return(TRUE)
+  }
+  if ("COLORTERM" %in% names(Sys.getenv())) {
+    return(TRUE)
+  }
+  if (Sys.getenv("TERM") == "dumb") {
+    return(FALSE)
+  }
+  grepl("^screen|^xterm|^vt100|color|ansi|cygwin|linux", 
+        Sys.getenv("TERM"), ignore.case = TRUE, perl = TRUE)
+}
 
 
 

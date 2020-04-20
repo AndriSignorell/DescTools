@@ -31,4 +31,5 @@
 
 # store default values
 .pardefault <- par(no.readonly=TRUE)
+.optdefault <- options()
 

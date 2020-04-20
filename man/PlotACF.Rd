@@ -9,7 +9,7 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-PlotACF(series, lag.max = 10 * log10(length(series)), ...)
+PlotACF(series, lag.max = 10 * log10(length(series)), main = NULL, cex = NULL, ...)
 PlotGACF(series, lag.max = 10 * log10(length(series)), type = "cor", ylab = NULL, ...)
 
 }
@@ -22,6 +22,9 @@ PlotGACF(series, lag.max = 10 * log10(length(series)), type = "cor", ylab = NULL
   is 10 * log10(length(series)).
 %%     ~~Describe \code{lag.max} here~~
 }
+\item{main}{an overall title for the plot}
+\item{cex}{ numerical value giving the amount by which plotting text and symbols should be magnified relative to the default. }
+
   \item{type}{character string giving the type of acf to be computed. Allowed values are \code{"cor"} (the default), \code{"cov"} or \code{"part"} for autocorrelation, covariance or partial correlation.
 %%     ~~Describe \code{lag.max} here~~
 }
