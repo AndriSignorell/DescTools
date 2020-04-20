@@ -68,7 +68,7 @@ Desc(x, ..., main = NULL, plotit = NULL, wrd = NULL)
 
 
 \method{print}{Desc}(x, digits = NULL, plotit = NULL, nolabel = FALSE,
-      sep = NULL, \dots)
+      sep = NULL, nomain = FALSE, \dots)
 
 \method{plot}{Desc}(x, main = NULL,  \dots)
 
@@ -107,7 +107,7 @@ Factors (and character vectors) are by default orderd by their descending freque
 \item{rfrq}{a string with 3 characters, each of them being \code{1} or \code{0}, defining which percentages should be reported. The first position is interpreted as total
 percentages, the second as row percentages and the third as column percentages.
 "\code{011}" hence produces a table output with row and column percentages. If set to \code{NULL} \code{rfrq} is defined in
-dependency of \code{verbose} (\code{verbose = "low"} sets \code{rfrq} to \code{"000"} and else to \code{"111"}, latter meaning all percentages will be reported.) \cr Applies only to tables and is ignored else.
+dependency of \code{verbose} (\code{verbose = 1} sets \code{rfrq} to \code{"000"} and else to \code{"111"}, latter meaning all percentages will be reported.) \cr Applies only to tables and is ignored else.
 %%     ~~Describe \code{rfrq} here~~
 }
 \item{margins}{a vector, consisting out of 1 and/or 2. Defines the margin sums to be included.
@@ -148,6 +148,7 @@ will be used for days and a monthdays distribution in a non leap year (p = c(31/
 
     \item{subset}{an optional vector specifying a subset of observations to be used.}
 
+\item{nomain}{logical, determines if the main title of the output is printed or not, default is \code{TRUE}.}
 
     \item{\dots}{further arguments to be passed to or from other methods.
     For the internal default method these can include:
@@ -235,6 +236,8 @@ However \code{DescWrd} takes some more specific arguments concerning the Word ou
     %% ~~objects to See Also as \code{\link{help}}, ~~~
   }
 \examples{
+opt <- DescToolsOptions() 
+
 # implemented classes:
 Desc(d.pizza$wrongpizza)               # logical
 Desc(d.pizza$driver)                   # factor
@@ -268,6 +271,9 @@ print(z, digits=1, plotit=FALSE)
 plot(z, main="The pizza's temperature in Celsius", args.hist=list(breaks=50))
 
 
+# formula interface for single variables
+Desc(~ uptake + Type, data = CO2, plotit = FALSE)
+
 # bivariate
 Desc(price ~ operator, data=d.pizza)                  # numeric ~ factor
 Desc(driver ~ operator, data=d.pizza)                 # factor ~ factor
@@ -275,9 +281,9 @@ Desc(driver ~ area + operator, data=d.pizza)          # factor ~ several factors
 Desc(driver + area ~ operator, data=d.pizza)          # several factors ~ factor
 Desc(driver ~ week, data=d.pizza)                     # factor ~ integer
 
-Desc(driver ~ operator, data=d.pizza, rfrq=("111"))   # alle rel. frequencies
-Desc(driver ~ operator, data=d.pizza, rfrq=("000"),
-     verbose="high")                                  # no rel. frequencies
+Desc(driver ~ operator, data=d.pizza, rfrq="111")   # alle rel. frequencies
+Desc(driver ~ operator, data=d.pizza, rfrq="000",
+     verbose=3)                                  # no rel. frequencies
 
 Desc(price ~ delivery_min, data=d.pizza)              # numeric ~ numeric
 Desc(price + delivery_min ~ operator + driver + wrongpizza,
@@ -306,7 +312,7 @@ Desc(. ~ driver, data=d.pizza[, c("temperature","wine_delivered","area","driver"
 # pairwise Descriptions
 p <- CombPairs(c("area","count","operator","driver","temperature","wrongpizza","quality"), )
 for(i in 1:nrow(p))
-  print(Desc(formula(gettextf("\%s ~ \%s", p$X1, p$X2)), data=d.pizza))
+  print(Desc(formula(gettextf("\%s ~ \%s", p$X1[i], p$X2[i])), data=d.pizza))
 
 
 # get more flexibility, create the table first
@@ -319,7 +325,7 @@ Desc(tab, row.vars=c(3, 1), rfrq="011", plotit=FALSE)
 # do the plot by hand, while setting the colours for the mosaics
 cols1 <- SetAlpha(c("sienna4", "burlywood", "chartreuse3", "slategray1"), 0.6)
 cols2 <- SetAlpha(c("moccasin", "salmon1", "wheat3", "gray32"), 0.8)
-plot(tab, col1=cols1, col2=cols2)
+plot(Desc(tab), col1=cols1, col2=cols2)
 
 
 # use global format options for presentation
@@ -358,6 +364,8 @@ Desc(x, maxrows = Inf)
   # do just the univariate analysis
   Desc(d.sub, wrd=wrd)
 }
+
+DescToolsOptions(opt) 
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

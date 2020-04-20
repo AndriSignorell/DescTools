@@ -354,10 +354,12 @@ Desc.formula <- function(formula, data = parent.frame(), subset, main=NULL, plot
         lst[[paste(resp, pred, sep=" ~ ")]] <- calcDesc.bivar(x=y, g=x, xname=resp, gname=pred, ...)
         lst[[paste(resp, pred, sep=" ~ ")]]["plotit"] <- plotit
         lst[[paste(resp, pred, sep=" ~ ")]][["digits"]] <- digits     # would not accept vectors when ["digits"] used. Why??
-        # lst[[paste(resp, pred, sep=" ~ ")]]$digits <- digits      # this works
-  
+        
         lst[[paste(resp, pred, sep=" ~ ")]]["main"] <- if(is.null(main))
-            paste(lst[[paste(resp, pred, sep=" ~ ")]]["xname"], lst[[paste(resp, pred, sep=" ~ ")]]["gname"], sep=" ~ ")
+            gettextf("%s ~ %s (%s)",
+                lst[[paste(resp, pred, sep=" ~ ")]]["xname"], 
+                lst[[paste(resp, pred, sep=" ~ ")]]["gname"], 
+                deparse(substitute(data)))
       }
     }
   
@@ -763,13 +765,13 @@ calcDesc.bivar     <- function(x, g, xname = NULL, gname = NULL, margin=FALSE, b
     res$nlevel <- length(res$mean)
     res$smooth <- smooth
     
-    res$min    <- tapply(x[ok], g[ok], FUN=min)
-    res$max    <- tapply(x[ok], g[ok], FUN=max)
-    res$Q1     <- tapply(x[ok], g[ok], FUN=function(z) quantile(z, probs = 0.25))
-    res$Q3     <- tapply(x[ok], g[ok], FUN=function(z) quantile(z, probs = 0.75))
-    res$mad    <- tapply(x[ok], g[ok], FUN=mad)
-    res$skew   <- tapply(x[ok], g[ok], FUN=Skew)
-    res$kurt   <- tapply(x[ok], g[ok], FUN=Kurt)
+    res$min    <- tapply(g[ok], x[ok], FUN=min)
+    res$max    <- tapply(g[ok], x[ok], FUN=max)
+    res$Q1     <- tapply(g[ok], x[ok], FUN=function(z) quantile(z, probs = 0.25))
+    res$Q3     <- tapply(g[ok], x[ok], FUN=function(z) quantile(z, probs = 0.75))
+    res$mad    <- tapply(g[ok], x[ok], FUN=mad)
+    res$skew   <- tapply(g[ok], x[ok], FUN=Skew)
+    res$kurt   <- tapply(g[ok], x[ok], FUN=Kurt)
     
     if(margin){
       res$mean   <- c(res$mean, "Total"=mean(g[ok]))
@@ -805,6 +807,11 @@ calcDesc.bivar     <- function(x, g, xname = NULL, gname = NULL, margin=FALSE, b
 
     res$class  <- "factfact"
     res$tab <- table(x[ok], g[ok])
+    res$rfrq <- InDots(..., arg="rfrq", default = "111")
+    res$conf.level <- conf.level
+    res$verbose <- verbose
+    res$freq <- InDots(..., arg="freq", default = TRUE)
+    res$margins <- InDots(..., arg="margins", default = c(1,2))
     names(dimnames(res$tab)) <- c(xname, gname)
 
   } else {
@@ -832,9 +839,10 @@ calcDesc.bivar     <- function(x, g, xname = NULL, gname = NULL, margin=FALSE, b
 
 
 
-print.Desc <- function(x, digits=NULL, plotit=NULL, nolabel=FALSE, sep=NULL, ...) {
+print.Desc <- function(x, digits=NULL, plotit=NULL, nolabel=FALSE, 
+                       sep=NULL, nomain=FALSE, ...) {
 
-  .print <- function(x, digits=NULL, plotit=NULL, ...) {
+  .print <- function(x, digits=NULL, plotit=NULL, nomain=FALSE, ...) {
 
 
     # digits <- Coalesce(digits, x$digits, NULL)
@@ -858,21 +866,25 @@ print.Desc <- function(x, digits=NULL, plotit=NULL, nolabel=FALSE, sep=NULL, ...
     #   cat("\n\n")
     # }
 
-    # define the separator, "-------..." if not given
-    sep <- Coalesce(sep, x$sep, paste(rep("-", (getOption("width") - 2)), collapse = ""))
-    cat(sep, "\n")
-
-    if (!identical(x$main, NA)){
-      if(.has_color())
-        cat(gettextf("\033[1m%s\033[22m", x$main))
-      else
-        cat(x$main)
+    if(!nomain) {
+      # define the separator, "-------..." if not given
+      sep <- Coalesce(sep, x$sep, paste(rep("-", (getOption("width") - 2)), collapse = ""))
+      cat(sep, "\n")
+  
+      if (!identical(x$main, NA)){
+        if(.has_color())
+          cat(gettextf("\033[1m%s\033[22m", x$main))
+        else
+          cat(x$main)
+      }
     }
+    
     if (!is.null(x$label) && !nolabel)
       cat(" :", strwrap(x$label, indent = 2, exdent = 2), sep = "\n")
-    if (!identical(x$main, NA))
+    if (!identical(x$main, NA) && !nomain)
       cat("\n")
-    cat("\n")
+    
+    if(!nomain) cat("\n")
 
     if(any(x$class %in% c("numeric", "integer", "factor", "ordered", "character",
                           "logical", "table", "matrix", "xtabs", "Date", "ts", "xts",
@@ -908,7 +920,7 @@ print.Desc <- function(x, digits=NULL, plotit=NULL, nolabel=FALSE, sep=NULL, ...
 
 
 
-  lapply(x, .print, digits=digits, plotit=plotit, ...)
+  lapply(x, .print, digits=digits, plotit=plotit, nomain=nomain, ...)
 
   invisible()
 }
@@ -1247,8 +1259,17 @@ print.Desc.table    <- function(x, digits = NULL, ...) {
       # print(PercTable(x$tab, rfrq=rfrq, margins=margins, ...))
       print(x$perctab)
 
-      if((x$verbose=="3") || (x$ttype=="t2x2"))
-        cat(gettextf("\n----------\n%s %s%s conf. level\n", DescToolsOptions("footnote")[1], x$conf.level*100, "%"))
+      if((x$verbose=="3") || (x$ttype=="t2x2")){
+        if(.has_color()){
+          cat(gettextf("\033[38;5;244m\n----------\n%s %s%s conf. level\033[39m\n", DescToolsOptions("footnote")[1], x$conf.level*100, "%"))
+          
+        } else {
+          cat(gettextf("\n----------\n%s %s%s conf. level\n", DescToolsOptions("footnote")[1], x$conf.level*100, "%"))
+          
+        }
+        
+      }
+        
 
     }
 
@@ -1339,8 +1360,14 @@ print.Desc.ts     <- function(x, digits = NULL, ... ) {
 
 print.Desc.factfact <- function(x, digits = NULL, ...){
 
-  txt <- .CaptOut(Desc(x$tab, plotit=FALSE, digits=digits, ...))[-(1:3)]
-  cat(txt, sep="\n")
+  # txt <- .CaptOut(Desc(x$tab, plotit=FALSE, digits=digits, rfrq=x$rfrq, 
+  #                      verbose=x$verbose, freq=x$freq, conf.level=x$conf.level, 
+  #                      ...))[-(1:3)]
+  # cat(txt, sep="\n")
+
+  print.Desc(Desc(x$tab, plotit=FALSE, rfrq=x$rfrq, digits=digits,
+                       verbose=x$verbose, freq=x$freq, 
+                       conf.level=x$conf.level, ...), nomain=TRUE)
 
 }
 
