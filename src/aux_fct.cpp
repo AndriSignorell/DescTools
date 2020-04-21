@@ -2,7 +2,7 @@
 // [[Rcpp::depends(BH)]]
 
 #include <Rcpp.h>
-#include <boost/math/common_factor.hpp>
+#include <boost/integer/common_factor.hpp>
 #include <queue>
 
 #include <iostream>
@@ -28,13 +28,15 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 int compute_GCD(int a, int b){
   return
-    boost::math::gcd(a, b);
+    //boost::math::gcd(a, b);
+    boost::integer::gcd(a,b);
 }
 
 // [[Rcpp::export]]
 int compute_LCM(int a, int b){
   return
-    boost::math::lcm(a, b);
+    // boost::math::lcm(a, b);
+    boost::integer::lcm(a,b);
 }
 
 

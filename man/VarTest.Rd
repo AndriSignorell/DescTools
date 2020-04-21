@@ -9,7 +9,7 @@
 \alias{VarTest.formula}
 \title{ChiSquare Test for One Variance and F Test to Compare Two Variances}
 \description{
-  Performs either a one sample ChiSquare test to compare the variance of a vector with a given value or an F test to compare the variances of two samples from normal populations.
+  Performs either a one sample chi-squared test to compare the variance of a vector with a given value or an F test to compare the variances of two samples from normal populations.
 }
 \usage{
 VarTest(x, \dots)

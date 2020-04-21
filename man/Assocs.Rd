@@ -49,7 +49,7 @@ the first column contains the estimate, the second the lower confidence interval
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-options(scipen = 8)
+options(scipen=8)
 
 # Example taken from: SAS/STAT(R) 9.2 User's Guide, Second Edition, The FREQ Procedure
 # http://support.sas.com/documentation/cdl/en/statugfreq/63124/PDF/default/statugfreq.pdf

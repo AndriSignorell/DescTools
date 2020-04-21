@@ -50,3 +50,4 @@ XLDateToPOSIXct(c(41025.23, 41035.52))
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ chron }
+\keyword{MS-Office}

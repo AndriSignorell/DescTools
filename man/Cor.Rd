@@ -4,15 +4,8 @@
 % Distributed under GPL 2 or later
 
 \name{Cor}
-\title{Correlation, Variance and Covariance (Matrices)}
+\title{Covariance and Correlation (Matrices)}
 \usage{
-
-Var(x, \dots)
-
-\method{Var}{Freq}(x, breaks, \dots)
-
-\method{Var}{default}(x, weights = NULL, na.rm = FALSE, use, \dots)
-
 
 Cov(x, y = NULL, use = "everything",
     method = c("pearson", "kendall", "spearman"))
@@ -21,14 +14,11 @@ Cor(x, y = NULL, use = "everything",
     method = c("pearson", "kendall", "spearman"))
 
 }
-\alias{Var}
-\alias{Var.default}
-\alias{Var.Freq}
+
 \alias{Cov}
 \alias{Cor}
 \description{
-  \code{Var}, \code{Cov} and \code{Cor} compute the variance of \code{x}
-  and the covariance or correlation of \code{x} and \code{y} if these
+  \code{Cov} and \code{Cor} compute the covariance or correlation of \code{x} and \code{y} if these
   are vectors.   If \code{x} and \code{y} are matrices then the
   covariances (or correlations) between the columns of \code{x} and the
   columns of \code{y} are computed.
@@ -39,10 +29,7 @@ Cor(x, y = NULL, use = "everything",
   \item{y}{\code{NULL} (default) or a vector, matrix or data frame with
     compatible dimensions to \code{x}.   The default is equivalent to
     \code{y = x} (but more efficient).}
-  \item{weights}{a numerical vector of weights the same length as \code{x} giving the weights to use for elements of \code{x}.
- }
 
-  \item{na.rm}{logical. Should missing values be removed?}
   \item{use}{an optional character string giving a
     method for computing covariances in the presence
     of missing values.  This must be (an abbreviation of) one of the strings
@@ -52,9 +39,6 @@ Cor(x, y = NULL, use = "everything",
     coefficient (or covariance) is to be computed.  One of
     \code{"pearson"} (default), \code{"kendall"}, or \code{"spearman"}:
     can be abbreviated.}
- \item{breaks}{breaks for calculating the variance for classified data as composed by \code{\link{Freq}}.}
-
-  \item{\dots}{further arguments passed to or from other methods.}
 
 }
 \value{For \code{r <- Cor(*, use = "all.obs")}, it is now guaranteed that
@@ -69,12 +53,6 @@ Cor(x, y = NULL, use = "everything",
   \code{"kendall"} and \code{"spearman"} methods make sense for ordered
   inputs but \code{\link{xtfrm}} can be used to find a suitable prior
   transformation to numbers.
-
-  \code{Var} is just another interface to \code{Cov}, where
-  \code{na.rm} is used to determine the default for \code{use} when that
-  is unspecified.  If \code{na.rm} is \code{TRUE} then the complete
-  observations (rows) are used (\code{use = "na.or.complete"}) to
-  compute the variance.  Otherwise, by default \code{use = "everything"}.
 
   If \code{use} is \code{"everything"}, \code{\link{NA}}s will
   propagate conceptually, i.e., a resulting value will be \code{NA}
@@ -134,17 +112,15 @@ Cor(x, y = NULL, use = "everything",
   Wadsworth & Brooks/Cole.
 }
 \seealso{
+
+
   \code{\link{cor.test}} for confidence intervals (and tests).
 
   \code{\link{cov.wt}} for \emph{weighted} covariance computation.
 
-  \code{\link{sd}} for standard deviation (vectors).
+  \code{\link{Var}}, \code{\link{SD}} for variance and standard deviation (vectors).
 }
 \examples{
-Var(1:10)  # 9.166667
-
-Var(1:5, 1:5) # 2.5
-
 ## Two simple vectors
 Cor(1:10, 2:11) # == 1
 
@@ -193,9 +169,6 @@ summary(abs(c(1 - Rc/R.)))
 EV <- function(m) eigen(m, only.values=TRUE)$values
 summary(abs(1 - EV(Rp)/EV(R.)) / abs(1 - EV(Rc)/EV(R.)))
 
-# Variance for frequency tables
-Var(Freq(as.table(c(6,16,24,25,17))),
-     breaks=c(0, 10, 20, 30, 40, 50))
 }
 \keyword{univar}
 \keyword{multivariate}

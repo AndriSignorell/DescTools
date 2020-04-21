@@ -12,6 +12,53 @@
 
 # some aliases
 
+
+
+NormWeights <- function(x, weights, na.rm=FALSE, zero.rm=FALSE, normwt=FALSE) {
+  
+
+  # Idea Henrik Bengtsson
+  # we remove values with zero (and negative) weight. 
+  # This would:
+  #  1) take care of the case when all weights are zero,
+  #  2) it will most likely speed up the sorting.
+  
+  if (na.rm){
+    
+    if(zero.rm)
+      # remove zeros
+      keep <- x[!is.na(x)] & weights[!is.na(weights) & (weights>0)]
+    else
+      keep <- x[!is.na(x)] & weights[!is.na(weights)]
+    
+    x <- x[keep]
+    weights <- weights[keep]
+  } 
+  
+  if(any(is.na(x)) | (!is.null(weights) & any(is.na(weights))))
+    return(NA_real_)
+  
+  n <- length(x)
+  
+  if (length(weights) != n) 
+    stop("length of 'weights' must equal the number of rows in 'x'")
+  
+  
+  if (any(weights< 0) || (s <- sum(weights)) == 0) 
+    stop("weights must be non-negative and not all zero")
+  
+
+  # we could normalize the weights to sum up to 1
+  if (normwt) 
+    weights <- weights * n/s
+  
+  return(list(x=x, weights=as.double(weights), wsum=s))
+  
+}
+
+
+
+
 Mean <- function (x, ...)
   UseMethod("Mean")
 
@@ -19,6 +66,7 @@ Mean <- function (x, ...)
 Mean.Freq <- function(x, breaks, ...)  {
   sum(head(MoveAvg(breaks, order=2, align="left"), -1) * x$perc)
 }
+
 
 
 Mean.default <- function (x, weights = NULL, trim = 0, na.rm = FALSE, ...) {
@@ -32,43 +80,96 @@ Mean.default <- function (x, weights = NULL, trim = 0, na.rm = FALSE, ...) {
     if(trim!=0)
       warning("trim can't be set together with weights, we fall back to trim=0!")
 
-    # # recycle weights
-    # weights <- rep(weights, length.out=length(x))
-    # sum(x*weights, na.rm=na.rm) / sum(weights, na.rm=na.rm)
-
-# verbatim from stats:::weighted.mean.default
-
-    if (length(weights) != length(x))
-      stop("'x' and 'w' must have the same length")
-    weights <- as.double(weights)
-    if (na.rm) {
-      i <- !is.na(x)
-      weights <- weights[i]
-      x <- x[i]
-    }
-    sum((x * weights)[weights != 0])/sum(weights)
-
+    # # verbatim from stats:::weighted.mean.default
+    # 
+    # if (length(weights) != length(x))
+    #   stop("'x' and 'w' must have the same length")
+    # weights <- as.double(weights)
+    # if (na.rm) {
+    #   i <- !is.na(x)
+    #   weights <- weights[i]
+    #   x <- x[i]
+    # }
+    # sum((x * weights)[weights != 0])/sum(weights)
+    
+    # use a standard treatment for weights
+    z <- NormWeights(x, weights, na.rm=na.rm, zero.rm=TRUE)
+    
+    # we get no 0-weights back here...
+    sum(z$x * z$weights) / z$wsum
+    
   }
 
 }
 
 
 
-# Average absolute deviation from the median
-MeanAD <- function(x, FUN = mean, na.rm = FALSE) {
+
+# Average absolute deviation from the mean
+MeanAD <- function (x, weights=NULL, center = Mean, na.rm = FALSE) {
   
-  if (na.rm) x <- na.omit(x)
+  # MeanAD_w(x=0:6, w=c(21,46,54,40,24,10,5))
   
-  if(is.function(FUN)) {
-    #  if FUN is a function, then save it under new name and
-    # overwrite function name in FUN, which has to be character
-    fct <- FUN
-    FUN <- "fct"
-    FUN <- gettextf("%s(x)", FUN)
+  if (na.rm) 
+    x <- na.omit(x)
+  
+  
+  if (is.function(center)) {
+    fct <- center
+    center <- "fct"
+    if(is.null(weights))
+      center <- gettextf("%s(x)", center)
+    else
+      center <- gettextf("%s(x, weights=weights)", center)
+    center <- eval(parse(text = center))
   }
-  # Calculates the mean absolute deviation from the sample mean.
-  return(eval(parse(text = gettextf("mean(abs(x - %s))", FUN))))
+  
+  if(!is.null(weights)) {
+    z <- NormWeights(x, weights, na.rm=na.rm, zero.rm=TRUE)
+    res <- sum(abs(z$x - center) * z$weights) / z$wsum
+    
+  } else {
+    # Calculates the mean absolute deviation from the sample mean.
+    res <- mean(abs(x - center))
+  }
+  
+  return(res)
+  
+}  
+
+
+
+
+MAD <- function(x, weights = NULL, center = Median, constant = 1.4826, na.rm = FALSE, 
+                low = FALSE, high = FALSE) {
+  
+  
+  if (is.function(center)) {
+    fct <- center
+    center <- "fct"
+    if(is.null(weights))
+      center <- gettextf("%s(x)", center)
+    else
+      center <- gettextf("%s(x, weights=weights)", center)
+    center <- eval(parse(text = center))
+  }
+  
+  if(!is.null(weights)) {
+    z <- NormWeights(x, weights, na.rm=na.rm)
+    
+    res <- constant *  Median(abs(z$x - center), weights = z$weights)
+    
+  } else {
+    # fall back to mad(), if there are no weights
+    res <- mad(x, center = center, constant = constant, na.rm = na.rm, low=low, high=high)
+    
+  }
+  
+  return(res)
+  
 }
+
+
 
 
 
@@ -84,39 +185,25 @@ Var <- function (x, ...)
 
 
 
-Var.default <- function (x, weights = NULL, na.rm = FALSE, use, ...) {
-
-  wtd.var <- function (x, weights = NULL, normwt = FALSE, na.rm = TRUE,
-                       method = c("unbiased",  "ML")) {
-    # source Hmisc
-
-    method <- match.arg(method)
-    if (!length(weights)) {
-      if (na.rm)
-        x <- x[!is.na(x)]
-      return(var(x))
-    }
-    if (na.rm) {
-      s <- !is.na(x + weights)
-      x <- x[s]
-      weights <- weights[s]
-    }
-    if (normwt)
-      weights <- weights * length(x)/sum(weights)
-    if (method == "ML")
-      return(as.numeric(stats::cov.wt(cbind(x), weights, method = "ML")$cov))
-    sw <- sum(weights)
-    xbar <- sum(weights * x)/sw
-    sum(weights * ((x - xbar)^2))/(sw - (if (normwt)
-      sum(weights^2)/sw
-      else 1))
-  }
+Var.default <- function (x, weights = NULL, na.rm = FALSE, method = c("unbiased",  "ML"), ...) {
 
   if(is.null(weights)) {
-    var(x=x, na.rm=na.rm, use=use)
+    res <- var(x=x, na.rm=na.rm)
+    
   } else {
-    wtd.var(x=x, weights=weights, na.rm=na.rm)
+    z <- NormWeights(x, weights, na.rm=na.rm)
+
+    if (match.arg(method) == "ML")
+      return(as.numeric(stats::cov.wt(cbind(z$x), z$weights, method = "ML")$cov))
+    
+    xbar <- sum(z$weights * x) / z$wsum
+    
+    res <- sum(z$weights * ((z$x - xbar)^2))/(z$wsum - 1)
+    
   }
+  
+  return(res)
+  
 }
 
 
@@ -133,8 +220,6 @@ Var.Freq <- function(x, breaks, ...)  {
 
 Cov <- cov
 Cor <- cor
-
-MAD <- mad
 
 
 # Length(x)
@@ -348,15 +433,19 @@ Quantile <- function(x, weights = NULL, probs = seq(0, 1, 0.25),
       stop("'weights' must have the same length as 'x'")
     } else if (!all(is.finite(weights))) stop("missing or infinite weights")
     if (any(weights < 0)) warning("negative weights")
+    
     if (!is.numeric(probs) || all(is.na(probs)) ||
         isTRUE(any(probs < 0 | probs > 1))) {
       stop("'probs' must be a numeric vector with values in [0,1]")
+      
     }
+    
     if (all(weights == 0)) { # all zero weights
       warning("all weights equal to zero")
       return(rep.int(0, length(probs)))
     }
   }
+  
   # remove NAs (if requested)
   if(isTRUE(na.rm)){
     indices <- !is.na(x)
@@ -373,6 +462,7 @@ Quantile <- function(x, weights = NULL, probs = seq(0, 1, 0.25),
   # some preparations
   if(is.null(weights)) rw <- (1:n)/n
   else rw <- cumsum(weights)/sum(weights)
+  
   # obtain quantiles
   q <- sapply(probs,
               function(p) {
@@ -382,10 +472,17 @@ Quantile <- function(x, weights = NULL, probs = seq(0, 1, 0.25),
                 if(rw[select] == p) mean(x[select:(select+1)])
                 else x[select]
               })
+  
   return(unname(q))
+  
 }
 
 
+IQRw <- function (x, weights = NULL, na.rm = FALSE, type = 7) {
+  
+  diff(Quantile(x, weights=weights, probs=c(0.25, 0.75), na.rm=na.rm, type=type))
+  
+}
 
 
 
@@ -723,7 +820,9 @@ FindCorr <- function(x, cutoff = .90, verbose = FALSE) {
 # }
 
 
-AUC <- function(x, y, method=c("trapezoid", "step", "spline"), na.rm = FALSE) {
+AUC <- function(x, y, from=min(x, na.rm=TRUE), to = max(x, na.rm=TRUE), 
+                method=c("trapezoid", "step", "spline", "linear"), 
+                absolutearea = FALSE, subdivisions = 100, na.rm = FALSE, ...) {
 
   # calculates Area unter the curve
   # example:
@@ -743,24 +842,115 @@ AUC <- function(x, y, method=c("trapezoid", "step", "spline"), na.rm = FALSE) {
   x <- x[idx]
   y <- y[idx]
 
-  switch( match.arg( arg=method, choices=c("trapezoid","step","spline") )
+  switch( match.arg( arg=method, choices=c("trapezoid","step","spline","linear") )
           , "trapezoid" = { a <- sum((apply( cbind(y[-length(y)], y[-1]), 1, mean))*(x[-1] - x[-length(x)])) }
           , "step" = { a <- sum( y[-length(y)] * (x[-1] - x[-length(x)])) }
-          , "spline" = { a <- integrate(splinefun(x, y, method="natural"), lower=min(x), upper=max(x))$value }
+          , "linear" = {
+                a <- MESS_auc(x, y, from = from , to = to, type="linear", 
+                                   absolutearea=absolutearea, subdivisions=subdivisions, ...)
+                       }
+          , "spline" = { 
+                a <- MESS_auc(x, y, from = from , to = to, type="spline", 
+                     absolutearea=absolutearea, subdivisions=subdivisions, ...)
+            # a <- integrate(splinefun(x, y, method="natural"), lower=min(x), upper=max(x))$value 
+              }
   )
   return(a)
 }
 
 
 
+MESS_auc <- function(x, y, from = min(x, na.rm=TRUE), to = max(x, na.rm=TRUE), type=c("linear", "spline"), 
+                absolutearea=FALSE, subdivisions =100, ...) {
+  
+  type <- match.arg(type)
+  
+  # Sanity checks
+  stopifnot(length(x) == length(y))
+  stopifnot(!is.na(from))
+  
+  if (length(unique(x)) < 2)
+    return(NA)
+  
+  if (type=="linear") {
+    ## Default option
+    if (absolutearea==FALSE) {
+      values <- approx(x, y, xout = sort(unique(c(from, to, x[x > from & x < to]))), ...)
+      res <- 0.5 * sum(diff(values$x) * (values$y[-1] + values$y[-length(values$y)]))
+    } else { ## Absolute areas
+      ## This is done by adding artificial dummy points on the x axis
+      o <- order(x)
+      ox <- x[o]
+      oy <- y[o]
+      
+      idx <- which(diff(oy >= 0)!=0)
+      newx <- c(x, x[idx] - oy[idx]*(x[idx+1]-x[idx]) / (y[idx+1]-y[idx]))
+      newy <- c(y, rep(0, length(idx)))
+      values <- approx(newx, newy, xout = sort(unique(c(from, to, newx[newx > from & newx < to]))), ...)
+      res <- 0.5 * sum(diff(values$x) * (abs(values$y[-1]) + abs(values$y[-length(values$y)])))
+    }
+    
+  } else { ## If it is not a linear approximation
+    if (absolutearea)
+      myfunction <- function(z) { abs(splinefun(x, y, method="natural")(z)) }
+    
+    else
+      myfunction <- splinefun(x, y, method="natural")
+    
+    res <- integrate(myfunction, lower=from, upper=to, subdivisions=subdivisions)$value
+    
+  }
+  
+  res
+  
+}
+
+
+
+
+# library(microbenchmark)
+# 
+# baseMode <- function(x, narm = FALSE) {
+#   if (narm) x <- x[!is.na(x)]
+#   ux <- unique(x)
+#   ux[which.max(table(match(x, ux)))]
+# }
+# x <- round(rnorm(1e7) *100, 4)
+# microbenchmark(Mode(x), baseMode(x), DescTools:::fastMode(x), times = 15, unit = "relative")
+# 
+
+
 # mode value, the most frequent element
 Mode <- function(x, na.rm=FALSE) {
+  
+  # // Source
+  # // https://stackoverflow.com/questions/55212746/rcpp-fast-statistical-mode-function-with-vector-input-of-any-type
+  # // Author: Ralf Stubner, Joseph Wood
+  
   if(!is.atomic(x) | is.matrix(x)) stop("Mode supports only atomic vectors. Use sapply(*, Mode) instead.")
-  if(na.rm) x <- na.omit(x)
-  tab <- table(x)
-  res <- names( which(tab==max(tab)) )    # handle ties...
-  if( !inherits(x,"factor")) class(res) <- class(x)
-  return(as.vector(res))
+  
+  if (na.rm) 
+    x <- x[!is.na(x)]
+  
+  if (anyNA(x)) 
+    # there are NAs, so no mode exist nor frequency
+    return(structure(NA_real_, freq = NA_integer_))
+  
+  if(length(x) == 1L)
+    # only one value in x, x is the mode
+    return(structure(x, freq = 1L)) 
+  
+  # we don't have NAs so far, either there were then we've already stopped
+  # or they've been stripped above
+  res <- fastModeX(x, narm=FALSE)
+  
+  if(length(res)== 0L & attr(res, "freq")==1L)
+    return(structure(NA_real_, freq = 1L))
+  
+  else
+    # order results kills the attribute
+    return(structure(res[order(res)], freq = attr(res, "freq")))
+
 }
 
 
@@ -1180,7 +1370,7 @@ HodgesLehmann <- function(x, y = NULL, conf.level = NA, na.rm = FALSE) {
 
 
 
-Skew <- function (x, na.rm = FALSE, method = 3, conf.level = NA, ci.type = "bca", R=1000, ...) {
+Skew <- function (x, weights=NULL, na.rm = FALSE, method = 3, conf.level = NA, ci.type = "bca", R=1000, ...) {
 
   # C part for the expensive (x - mean(x))^2 etc. is a kind of 14 times faster
   #   > x <- rchisq(100000000, df=2)
@@ -1192,12 +1382,22 @@ Skew <- function (x, na.rm = FALSE, method = 3, conf.level = NA, ci.type = "bca"
   #   0.47    0.00    0.47
 
 
-  i.skew <- function(x, method = 3) {
-
-    n <- length(x)
+  i.skew <- function(x, weights=NULL, method = 3) {
 
     # method 1: older textbooks
-    r.skew <- .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE="DescTools")
+    if(!is.null(weights)){
+      # use a standard treatment for weights
+      z <- NormWeights(x, weights, na.rm=na.rm, zero.rm=TRUE)
+      r.skew <- .Call("rskeww", as.numeric(z$x), as.numeric(Mean(z$x, weights = z$weights)), as.numeric(z$weights), PACKAGE="DescTools")
+      n <- z$wsum
+      
+    } else {
+      if (na.rm) x <- na.omit(x)
+      r.skew <- .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE="DescTools")
+      n <- length(x)
+      
+    }
+
     se <- sqrt((6*(n-2))/((n+1)*(n+3)))
 
     if (method == 2) {
@@ -1213,15 +1413,14 @@ Skew <- function (x, na.rm = FALSE, method = 3, conf.level = NA, ci.type = "bca"
     return(c(r.skew, se^2))
   }
 
-  if (na.rm) x <- na.omit(x)
 
   if(is.na(conf.level)){
-    res <- i.skew(x, method=method)[1]
+    res <- i.skew(x, weights=weights, method=method)[1]
 
   } else {
 
     if(ci.type == "classic") {
-      res <- i.skew(x, method=method)
+      res <- i.skew(x, weights=weights,method=method)
       res <- c(skewness=res[1],
                lwr.ci=qnorm(1-(1-conf.level)/2) * sqrt(res[2]),
                upr.ci=qnorm(1-(1-conf.level)/2) * sqrt(res[2]))
@@ -1230,7 +1429,7 @@ Skew <- function (x, na.rm = FALSE, method = 3, conf.level = NA, ci.type = "bca"
       # Problematic standard errors and confidence intervals for skewness and kurtosis.
       # Wright DB, Herrington JA. (2011) recommend only bootstrap intervals
       # adjusted bootstrap percentile (BCa) interval
-      boot.skew <- boot(x, function(x, d) i.skew(x[d], method=method), R=R, ...)
+      boot.skew <- boot(x, function(x, d) i.skew(x[d], weights=weights, method=method), R=R, ...)
       ci <- boot.ci(boot.skew, conf=conf.level, type=ci.type)
       if(ci.type =="norm") {
         lwr.ci <- ci[[4]][2]
@@ -1251,14 +1450,25 @@ Skew <- function (x, na.rm = FALSE, method = 3, conf.level = NA, ci.type = "bca"
 
 
 
-Kurt <- function (x, na.rm = FALSE, method = 3, conf.level = NA, ci.type = "bca", R=1000, ...) {
 
-  i.kurt <- function(x, na.rm = FALSE, method = 3) {
-    if (na.rm) x <- na.omit(x)
+Kurt <- function (x, weights=NULL, na.rm = FALSE, method = 3, conf.level = NA, ci.type = "bca", R=1000, ...) {
 
-    n <- length(x)
+  i.kurt <- function(x, weights=NULL, na.rm = FALSE, method = 3) {
+
     # method 1: older textbooks
-    r.kurt <- .Call("rkurt", as.numeric(x), as.numeric(mean(x)), PACKAGE="DescTools")
+    if(!is.null(weights)){
+      # use a standard treatment for weights
+      z <- NormWeights(x, weights, na.rm=na.rm, zero.rm=TRUE)
+      r.kurt <- .Call("rkurtw", as.numeric(z$x), as.numeric(Mean(z$x, weights = z$weights)), as.numeric(z$weights), PACKAGE="DescTools")
+      n <- z$wsum
+      
+    } else {
+      if (na.rm) x <- na.omit(x)
+      r.kurt <- .Call("rkurt", as.numeric(x), as.numeric(mean(x)), PACKAGE="DescTools")
+      n <- length(x)
+      
+    }
+    
     se <- sqrt((24*n*(n-2)*(n-3))/((n+1)^2*(n+3)*(n+5)))
 
     if (method == 2) {
@@ -1275,11 +1485,11 @@ Kurt <- function (x, na.rm = FALSE, method = 3, conf.level = NA, ci.type = "bca"
   }
 
   if(is.na(conf.level)){
-    res <- i.kurt(x, na.rm=na.rm, method=method)[1]
+    res <- i.kurt(x, weights=weights, na.rm=na.rm, method=method)[1]
 
   } else {
     if(ci.type == "classic") {
-      res <- i.kurt(x, method=method)
+      res <- i.kurt(x, weights=weights, method=method)
       res <- c(kurtosis=res[1],
                lwr.ci=qnorm(1-(1-conf.level)/2) * sqrt(res[2]),
                upr.ci=qnorm(1-(1-conf.level)/2) * sqrt(res[2]))
@@ -1289,7 +1499,7 @@ Kurt <- function (x, na.rm = FALSE, method = 3, conf.level = NA, ci.type = "bca"
       # Problematic standard errors and confidence intervals for skewness and kurtosis.
       # Wright DB, Herrington JA. (2011) recommend only bootstrap intervals
       # adjusted bootstrap percentile (BCa) interval
-      boot.kurt <- boot(x, function(x, d) i.kurt(x[d], na.rm=na.rm, method=method), R=R, ...)
+      boot.kurt <- boot(x, function(x, d) i.kurt(x[d], weights=weights, na.rm=na.rm, method=method), R=R, ...)
       ci <- boot.ci(boot.kurt, conf=conf.level, type=ci.type)
 
       if(ci.type =="norm") {
@@ -1320,7 +1530,7 @@ Outlier <- function(x, method=c("boxplot"), value=TRUE, na.rm=FALSE){
 
              qq <- quantile(as.numeric(x), c(0.25, 0.75), na.rm = na.rm, names = FALSE)
              iqr <- diff(qq)
-             id <- x < (qq[1] - 1.5 * iqr) | x > (qq[3] + 1.5 * iqr)
+             id <- x < (qq[1] - 1.5 * iqr) | x > (qq[2] + 1.5 * iqr)
 
              if(value)
                res <- x[id]
@@ -2710,6 +2920,35 @@ PoissonCI <- function(x, n = 1, conf.level = 0.95, sides = c("two.sided","left",
 MedianCI <- function(x, conf.level=0.95, sides = c("two.sided","left","right"), na.rm=FALSE, method=c("exact","boot"), R=999) {
   if(na.rm) x <- na.omit(x)
 
+  MedianCI_Binom <- function( x, conf.level = 0.95,
+                              sides = c("two.sided", "left", "right"), na.rm = FALSE ){
+    
+    # http://www.stat.umn.edu/geyer/old03/5102/notes/rank.pdf
+    # http://de.scribd.com/doc/75941305/Confidence-Interval-for-Median-Based-on-Sign-Test
+    if(na.rm) x <- na.omit(x)
+    n <- length(x)
+    switch( match.arg(sides)
+            , "two.sided" = {
+              k <- qbinom(p = (1 - conf.level) / 2, size=n, prob=0.5, lower.tail=TRUE)
+              ci <- sort(x)[c(k, n - k + 1)]
+              attr(ci, "conf.level") <- 1 - 2 * pbinom(k-1, size=n, prob=0.5)
+            }
+            , "left" = {
+              k <- qbinom(p = (1 - conf.level), size=n, prob=0.5, lower.tail=TRUE)
+              ci <- c(sort(x)[k], Inf)
+              attr(ci, "conf.level") <- 1 - pbinom(k-1, size=n, prob=0.5)
+            }
+            , "right" = {
+              k <- qbinom(p = conf.level, size=n, prob=0.5, lower.tail=TRUE)
+              ci <- c(-Inf, sort(x)[k])
+              attr(ci, "conf.level") <- pbinom(k, size=n, prob=0.5)
+            }
+    )
+    return(ci)
+  }
+  
+  
+  
   sides <- match.arg(sides, choices = c("two.sided","left","right"), several.ok = FALSE)
   if(sides!="two.sided")
     conf.level <- 1 - 2*(1-conf.level)
@@ -2722,10 +2961,12 @@ MedianCI <- function(x, conf.level=0.95, sides = c("two.sided","left","right"), 
   # x[ qbinom(1-alpha/2,length(x),0.5) ] ### upper limit
   # ) )
 
-  switch( match.arg(arg=method, choices=c("exact","boot"))
+  method <- match.arg(arg=method, choices=c("exact","boot"))
+  
+  switch( method
           , "exact" = { # this is the SAS-way to do it
             # https://stat.ethz.ch/pipermail/r-help/2003-September/039636.html
-            r <- SignTest(x)$conf.int
+            r <- MedianCI_Binom(x, conf.level = conf.level, sides=sides)
           }
           , "boot" = {
             boot.med <- boot(x, function(x, d) median(x[d], na.rm=na.rm), R=R)
@@ -2734,18 +2975,20 @@ MedianCI <- function(x, conf.level=0.95, sides = c("two.sided","left","right"), 
 
   med <- median(x, na.rm=na.rm)
   if(is.na(med)) {   # do not report a CI if the median is not defined...
-    r <- rep(NA, 3)
+    res <- rep(NA, 3)
   } else {
-    r <- c(median=med, r)
+    res <- c(median=med, r)
+    # report the conf.level which can deviate from the required one
+    if(method=="exact")  attr(res, "conf.level") <-  attr(r, "conf.level")
   }
-  names(r) <- c("median","lwr.ci","upr.ci")
+  names(res) <- c("median","lwr.ci","upr.ci")
 
   if(sides=="left")
-    r[3] <- Inf
+    res[3] <- Inf
   else if(sides=="right")
-    r[2] <- -Inf
+    res[2] <- -Inf
 
-  return( r )
+  return( res )
 
 }
 
@@ -3117,7 +3360,7 @@ CohenD <- function(x, y=NULL, pooled = TRUE, correct = FALSE, conf.level = NA, n
 
 
 
-CoefVar <- function (x, unbiased = FALSE, conf.level = NA, na.rm = FALSE, ...) {
+CoefVar <- function (x, ...) {
   UseMethod("CoefVar")
 }
 
@@ -3135,7 +3378,7 @@ CoefVar.lm <- function (x, unbiased = FALSE, conf.level = NA, na.rm = FALSE, ...
   res <- rmse / mean(x$model[[1]], na.rm=na.rm)
 
   # This is the same approach as in CoefVar.default, but it's not clear
-  # if it is correct in the enviroment of a model
+  # if it is correct in the environment of a model
   n <- x$df.residual
   if (unbiased) {
     res <- res * ((1 - (1/(4 * (n - 1))) + (1/n) * res^2) +
@@ -3156,16 +3399,23 @@ CoefVar.lm <- function (x, unbiased = FALSE, conf.level = NA, na.rm = FALSE, ...
 # dv <- unname(nlme::getResponse(x))
 
 
-CoefVar.default <- function (x, unbiased = FALSE, conf.level = NA, na.rm = FALSE, ...) {
+CoefVar.default <- function (x, weights=NULL, unbiased = FALSE, conf.level = NA, na.rm = FALSE, ...) {
 
-  if(na.rm) x <- na.omit(x)
+  if(is.null(weights)){
+    if(na.rm) x <- na.omit(x)
+    res <- SD(x) / Mean(x)
+    n <- length(x)
+    
+  }
+  else {
+    res <- SD(x, weights = weights) / Mean(x, weights = weights)
+    n <- sum(weights)
+    
+  }
 
-  res <- sd(x) / mean(x)
-  n <- length(x)
   if(unbiased) {
     res <- res * ((1 - (1/(4*(n-1))) + (1/n) * res^2)+(1/(2*(n-1)^2)))
   }
-
 
   if(!is.na(conf.level)){
     ci <- .nctCI(sqrt(n)/res, df = n-1, conf = conf.level)
@@ -3517,12 +3767,38 @@ GiniSimpson <- function(x, na.rm = FALSE) {
   # rownames(x) <- c("A","B","AB","0")
   # GiniSimpson(x)
 
+  if(!is.factor(x)){
+    warning("x is not a factor!")
+    return(NA)
+  }
+  
   if(na.rm) x <- na.omit(x)
 
-  x <- as.table(x)
-  ptab <- prop.table(x)
+  ptab <- prop.table(table(x))
   return(sum(ptab*(1-ptab)))
+  
 }
+
+
+
+
+HunterGaston <- function(x, na.rm = FALSE){
+
+  # we must restrict to x as factors here to ensure we have all the levels
+  # these are used in length(p)
+    
+  if(!is.factor(x)){
+    warning("x is not a factor!")
+    return(NA)
+  }
+  if(na.rm) x <- na.omit(x)
+  
+  p <- prop.table(table(x))
+  sum(p*(1-p)) * length(p)/(length(p)-1)
+  
+}
+
+
 
 
 
@@ -3685,7 +3961,8 @@ ContCoef <- function(x, y = NULL, correct = FALSE, ...) {
 
 
 CramerV <- function(x, y = NULL, conf.level = NA,
-                    method = c("ncchisq", "ncchisqadj", "fisher", "fisheradj"), ...){
+                    method = c("ncchisq", "ncchisqadj", "fisher", "fisheradj"), 
+                    correct=FALSE, ...){
 
   if(!is.null(y)) x <- table(x, y, ...)
 
@@ -3702,20 +3979,20 @@ CramerV <- function(x, y = NULL, conf.level = NA,
   lochi <- function(chival, df, conf) {
     ulim <- 1 - (1-conf)/2
     #  This first part finds a lower value from which to start.
-    lc <- c(.001,chival/2,chival)
-    while(pchisq(chival,df,lc[1])<ulim) {
-      if(pchisq(chival,df)<ulim)
-        return(c(0,pchisq(chival,df)))
-      lc <- c(lc[1]/4,lc[1],lc[3])
+    lc <- c(.001, chival/2, chival)
+    while(pchisq(chival, df, lc[1]) < ulim) {
+      if(pchisq(chival, df) < ulim)
+        return(c(0, pchisq(chival, df)))
+      lc <- c(lc[1]/4, lc[1], lc[3])
     }
     #	This next part finds the lower limit for the ncp.
     diff <- 1
     while(diff > .00001) {
       if(pchisq(chival, df, lc[2]) < ulim)
-        lc <- c(lc[1],(lc[1]+lc[2])/2,lc[2])
-      else lc <- c(lc[2],(lc[2]+lc[3])/2,lc[3])
-      diff <- abs(pchisq(chival,df,lc[2]) - ulim)
-      ucdf <- pchisq(chival,df,lc[2])
+        lc <- c(lc[1],(lc[1]+lc[2])/2, lc[2])
+      else lc <- c(lc[2], (lc[2]+lc[3])/2, lc[3])
+      diff <- abs(pchisq(chival, df, lc[2]) - ulim)
+      ucdf <- pchisq(chival, df, lc[2])
     }
     c(lc[2], ucdf)
   }
@@ -3733,11 +4010,11 @@ CramerV <- function(x, y = NULL, conf.level = NA,
     #	This next part finds the upper limit for the ncp.
     diff <- 1
     while(diff > .00001) {
-      if(pchisq(chival,df,uc[2]) < llim)
-        uc <- c(uc[1],(uc[1]+uc[2])/2,uc[2])
-      else uc <- c(uc[2],(uc[2]+uc[3])/2,uc[3])
-      diff <- abs(pchisq(chival,df,uc[2]) - llim)
-      lcdf <- pchisq(chival,df,uc[2])
+      if(pchisq(chival, df, uc[2]) < llim)
+        uc <- c(uc[1], (uc[1] + uc[2]) / 2, uc[2])
+      else uc <- c(uc[2], (uc[2] + uc[3]) / 2, uc[3])
+      diff <- abs(pchisq(chival, df, uc[2]) - llim)
+      lcdf <- pchisq(chival, df, uc[2])
     }
     c(uc[2], lcdf)
   }
@@ -3749,13 +4026,28 @@ CramerV <- function(x, y = NULL, conf.level = NA,
   #
   # ... which would run ~ 25% faster and be more exact
 
+  
+  
   # what can go wrong while calculating chisq.stat?
   # we don't need test results here, so we suppress those warnings
   chisq.hat <- suppressWarnings(chisq.test(x, correct = FALSE)$statistic)
   df <- prod(dim(x)-1)
   n <- sum(x)
-  v <- as.numeric(sqrt(chisq.hat/(n * (min(dim(x)) - 1))))
+  
+  if(correct){
+  
+    # Bergsma, W, A bias-correction for Cramer's V and Tschuprow's T
+    # September 2013Journal of the Korean Statistical Society 42(3)
+    # DOI: 10.1016/j.jkss.2012.10.002
+    phi.hat <- chisq.hat / n
+    v <- as.numeric(sqrt(max(0, phi.hat - df/(n-1)) / 
+           (min(sapply(dim(x), function(i) i - 1 / (n-1) * (i-1)^2) - 1))))
 
+  } else {
+    v <- as.numeric(sqrt(chisq.hat/(n * (min(dim(x)) - 1))))
+  }
+  
+  
   if (is.na(conf.level)) {
     res <- v
 
@@ -3799,6 +4091,20 @@ CramerV <- function(x, y = NULL, conf.level = NA,
 
 
 
+ncparamF <- function(type1, type2, nu1, nu2) {
+
+  # author Ali Baharev <ali.baharev at gmail.com>
+  
+  # Returns the noncentrality parameter of the noncentral F distribution 
+  # if probability of Type I and Type II error, degrees of freedom of the 
+  # numerator and the denominator in the F test statistics are given.
+  
+  
+  .C("fpow",  PACKAGE = "DescTools", as.double(type1), as.double(type2), 
+     as.double(nu1), as.double(nu2), lambda=double(1))$lambda
+}
+
+
 
 YuleQ <- function(x, y = NULL, ...){
 
@@ -3832,7 +4138,7 @@ YuleY <- function(x, y = NULL, ...){
 }
 
 
-TschuprowT <- function(x, y = NULL, ...){
+TschuprowT <- function(x, y = NULL, correct = FALSE, ...){
 
   if(!is.null(y)) x <- table(x, y, ...)
 
@@ -3842,8 +4148,23 @@ TschuprowT <- function(x, y = NULL, ...){
 
   # what can go wrong while calculating chisq.stat?
   # we don't need test results here, so we suppress those warnings
-  as.numeric( sqrt(suppressWarnings(chisq.test(x, correct = FALSE)$statistic)/
-                     (sum(x) * sqrt(prod(dim(x)-1)) )))
+  chisq.hat <- suppressWarnings(chisq.test(x, correct = FALSE)$statistic)
+  n <- sum(x)
+  df <- prod(dim(x)-1)
+  
+  if(correct) {
+    # Bergsma, W, A bias-correction for Cramer's V and Tschuprow's T
+    # September 2013Journal of the Korean Statistical Society 42(3)
+    # DOI: 10.1016/j.jkss.2012.10.002
+    # see also CramerV
+    
+    phi.hat <- chisq.hat / n
+    as.numeric(sqrt(max(0, phi.hat - df/(n-1)) / 
+                     (sqrt(prod(sapply(dim(x), function(i) i - 1 / (n-1) * (i-1)^2) - 1)))))
+    
+  } else {
+    as.numeric( sqrt(chisq.hat/(n * sqrt(df))))
+  }
 
 }
 
@@ -3955,6 +4276,10 @@ KappaM <- function(x, method = c("Fleiss", "Conger", "Light"), conf.level = NA) 
   #
   # ttab <- matrix(ttab, nrow=ns)
 
+  # we have not factors for matrices, but we need factors below...
+  if(is.matrix(x))
+    x <- as.data.frame(x)
+  
   x <- na.omit(x)
   ns <- nrow(x)
   nr <- ncol(x)
@@ -4898,9 +5223,18 @@ OddsRatio.glm <- function(x, conf.level = NULL, digits=3, use.profile=TRUE, ...)
   rownames(d.print) <- rownames(d.res)
   colnames(d.print)[4:5] <- c("Pr(>|z|)","")
 
+  
+  mterms <- {
+    res <- lapply(labels(terms(x)), function(y) 
+      colnames(model.matrix(formula(gettextf("~ 0 + %s", y)), data=model.frame(x))))
+    names(res) <- labels(terms(x))
+    res
+  } 
+  
+  
   res <- list(or=d.print, call=x$call,
               BrierScore=BrierScore(x), PseudoR2=PseudoR2(x, which="all"), res=d.res,
-              nobs=nobs(x))
+              nobs=nobs(x), terms=mterms)
 
   class(res) <- "OddsRatio"
 
@@ -4924,8 +5258,15 @@ OddsRatio.multinom <- function(x, conf.level=NULL, digits=3, ...) {
   se <- reshape(data.frame(se), varying=1:ncol(se),
                 times=colnames(se), v.names="se", direction="long")[, "se"]
 
-  d.res <- r.summary
-
+  # d.res <- r.summary
+  d.res <- data.frame(
+    "or"= exp(coe[, "or"]),
+    "or.lci" = exp(coe[, "or"] + qnorm(0.025) * se),
+    "or.uci" = exp(coe[, "or"] - qnorm(0.025) * se),
+    "pval" = 2*(1-pnorm(q = abs(coe[, "or"]/se), mean=0, sd=1)),
+    "sig" = 2*(1-pnorm(q = abs(coe[, "or"]/se), mean=0, sd=1))
+  )
+  
   d.print <- data.frame(
     "or"= Format(exp(coe[, "or"]), digits=digits),
     "or.lci" = Format(exp(coe[, "or"] + qnorm(0.025) * se), digits=digits),
@@ -4937,6 +5278,8 @@ OddsRatio.multinom <- function(x, conf.level=NULL, digits=3, ...) {
 
   colnames(d.print)[4:5] <- c("Pr(>|z|)","")
   rownames(d.print) <- paste(coe$time, coe$id, sep=":")
+  
+  rownames(d.res) <- rownames(d.print)
 
   res <- list(or = d.print, call = x$call,
               BrierScore = NA, # BrierScore(x),
@@ -4999,11 +5342,12 @@ print.OddsRatio <- function(x, ...){
 
 
 
-plot.OddsRatio <- function(x, intercept=FALSE, ...){
+plot.OddsRatio <- function(x, intercept=FALSE, group=NULL, subset = NULL, ...){
 
   if(!intercept)
-    x$res <- x$res[rownames(x$res)!="(Intercept)", ]
-
+    # x$res <- x$res[rownames(x$res)!="(Intercept)", ]
+    x$res <- x$res[!grepl("(Intercept)", rownames(x$res)), ]
+  
   args <- list(...)
 
   # here the defaults
@@ -6368,5 +6712,8 @@ print.HoeffD <- function(x, ...)
 }
 
 
-
+# find non-centrality parameter for the F-distribution
+ncparamF <- function(type1, type2, nu1, nu2){
+  .C("fpow",  PACKAGE = "DescTools", as.double(type1), as.double(type2), as.double(nu1), as.double(nu2), lambda=double(1))$lambda
+}
 

@@ -2,6 +2,8 @@
 \alias{ConvUnit}
 \alias{d.units}
 \alias{d.prefix}
+\alias{CmToPts}
+\alias{PtsToCm}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Unit Conversion and Metrix Prefixes
 %%  ~~function to do ... ~~
@@ -12,6 +14,9 @@ Metric prefixes (as unit prefixes that precede a basic unit of measure to indica
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
+CmToPts(x)
+PtsToCm(x)
+
 ConvUnit(x, from, to)
 
 data(d.units)
@@ -31,6 +36,8 @@ data(d.prefix)
 }
 }
 \details{
+The two functions \code{CmToPts()} and \code{PtsToCm()} convert centimeters to points and vice versa. 1 cm corresponds to 28.35 points.
+
 The units as defined by the International System of Units (SI) (m, g, s, A, K, mol, cd, Hz, rad, sr, N, Pa, J, W, C, V, F, Ohm, S, Wb, T, H, lm, lx, Bq, Gy, Sv, kat, l) can be used to convert between different prefixes. The following non SI-units can be chosen for conversion between different systems. \code{NA} will be returned if a conversion can't be found. \cr
 The function is using the conversion factors stored in the dataset \code{d.units}.
 

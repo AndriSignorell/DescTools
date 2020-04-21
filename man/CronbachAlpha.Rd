@@ -37,11 +37,11 @@ Cohen, J. (1960), A coefficient of agreement for nominal scales. \emph{Education
 \examples{
 set.seed(1234)
 tmp <- data.frame(
-  item1 = sample(c(0,1), 20, replace=TRUE),
-  item2 = sample(c(0,1), 20, replace=TRUE),
-  item3 = sample(c(0,1), 20, replace=TRUE),
-  item4 = sample(c(0,1), 20, replace=TRUE),
-  item5 = sample(c(0,1), 20, replace=TRUE)
+  item1=sample(c(0,1), 20, replace=TRUE),
+  item2=sample(c(0,1), 20, replace=TRUE),
+  item3=sample(c(0,1), 20, replace=TRUE),
+  item4=sample(c(0,1), 20, replace=TRUE),
+  item5=sample(c(0,1), 20, replace=TRUE)
   )
 
 CronbachAlpha(tmp[,1:4], cond=FALSE, conf.level=0.95)

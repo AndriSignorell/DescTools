@@ -1,19 +1,22 @@
 \name{GiniSimpson}
 \alias{GiniSimpson}
+\alias{HunterGaston}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Compute Gini-Simpson Coefficient
+\title{Gini-Simpson Coefficient and Hunter-Gaston Index
 %%  ~~function to do ... ~~
 }
-\description{Calculate the Gini-Simpson coefficient.
+\description{Calculate the Gini-Simpson coefficient and the Hunter-Gaston Index.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
 GiniSimpson(x, na.rm = FALSE)
+
+HunterGaston(x, na.rm = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{a vector containing at least non-negative elements.}
-  \item{na.rm}{logical. Should missing values be removed? Defaults to FALSE.}
+  \item{x}{a factor containing at least non-negative elements.}
+  \item{na.rm}{logical. Should missing values be removed? Defaults to \code{FALSE}.}
 }
 
 \details{
@@ -27,6 +30,9 @@ This measure is also known in ecology as the probability of interspecific encoun
 }
 \references{
 Cover Thomas M. and Thomas Joy A. (1991) \emph{Elements of Information Theory}. Wiley. 
+Hunter, P., Gaston, A. G. (1988) Numerical Index of the Discriminatory Ability of Typing Systems:  an Application of Simpson's Index of Diversity, \emph{JOURNAL OF CLINICAL MICROBIOLOGY}, Nov. 1988, p. 2465-2466, 0095-1137/88/112465-02$02.00/0
+
+
 %% ~put references to the literature/web site here ~
 }
 \author{Andri Signorell <andri@signorell.net>

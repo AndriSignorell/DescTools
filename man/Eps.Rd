@@ -12,7 +12,7 @@ Eps(S, p, g, n)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{S}{p x p covariance matrix}
+  \item{S}{pxp covariance matrix}
   \item{p}{dimension of observation vectors}
   \item{g}{number of groups}
   \item{n}{number of subjects}

@@ -25,8 +25,7 @@ TTestA(mx, sx, nx, my = NULL, sy = NULL, ny = NULL,
   letter.}
   \item{mu}{a number indicating the true value of the mean (or
   difference in means if you are performing a two sample test).}
-  \item{paired}{a logical indicating whether you want a paired
-  t-test.}
+  \item{paired}{paired = \code{TRUE} is not supported here and only present for consistency of arguments. Use one-sample-test for the differences instead.}
   \item{var.equal}{a logical variable indicating whether to treat the
   two variances as being equal. If \code{TRUE} then the pooled
   variance is used to estimate the variance otherwise the Welch
@@ -81,6 +80,15 @@ TTestA(mx=mx, my=my, sx=sx, sy=sy, nx=nx, ny=ny)
 
 # compare to
 with(sleep, t.test(extra[group == 1], extra[group == 2]))
+
+# use the one sample test for the differences instead of paired=TRUE option
+x <- with(sleep, extra[group == 1])
+y <- with(sleep, extra[group == 2])
+
+TTestA(mx=mean(x-y), sx=sd(x-y), nx=length(x-y))
+
+# compared to 
+t.test(x, y, paired = TRUE)
 }
 \keyword{htest}
 

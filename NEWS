@@ -1,16 +1,183 @@
 
-DescTools 0.99.29 (2019-05-17)
+
+DescTools 0.99.35 (2020-06-08)
+------------------------------
+
+NEW FUNCTIONS ADDED:
+  * HunterGaston() calculates the index of dicrimination for nominal data, 
+    going back to Simpson, published by Hunter-Gaston.
+  * Desc interface for classes ts and xts has been added.    
+  
+UPDATED FUNCTIONS:
+  * PlotACF() gets some better defaults and new arguments.
+  * PlotECDF() loses its argument cex.axis, which is not necessary as we 
+    should use the general par approach.
+  * PlotFdist() will support defining the ylims in the histogram now. 
+    Moreover some internal arguments are handled more consistently.
+  * print.TMod() will accept argument "digits" now.
+  * Desc.numeric will support conf.levels now instead of set fixed 95%-CI.
+  * ToWrdPlot() gains another argument "pointsize". 
+  * Desc.formula() supports one sided formulas.
+  * Desc.formula() now propagates arguments for tables as rfrq and freq.
+  
+BUGFIXES:
+  * Outlier() will now use the third quartile instead of NA.
+
+
+
+
+DescTools 0.99.34 (2020-03-12)
+------------------------------
+
+UPDATED FUNCTIONS:
+  * TextContrastColor() gets new options to choose white/black color.
+  * Some updates to helpfiles.
+
+BUGFIXES:
+  * PlotArea() does no longer use dots arguments for the polygon function.
+    But they are still passed on to matplot().
+  * Corrected deparse1() bug causing a build error for all current versions 
+    on CRAN.
+
+
+
+
+DescTools 0.99.33 (2020-03-08)
+------------------------------
+
+NEW FUNCTIONS ADDED:
+  * AllIdentical() allows to check multiple objects to be exactly equal.
+  * CountWorkDays() return the number of workdays within a time period.
+  * VanWaerdenTest() completes the group of non-parametric (post hoc) tests.
+  * RSessionAlive() and RTempAlive() return the time since starting R, resp.
+    creating them temporary directory.
+  
+UPDATED FUNCTIONS:
+  * Conf() is extended by Matthew's correlation coefficient.
+  * Pal() gets the new palette "Helsana2"
+  * MeanAD()'s argument FUN has been renamed to center to be 
+    consistent with MAD().
+  * MeanAD(), MAD(), CoefVar(), Skew(), Kurt() support weights now. 
+  * Mar() and Mgp() will return visible when all arguments are NULL.
+    Both get a new argument reset for reset sets to their defaults.
+
+BUGFIXES:
+  * SetNames() will now do what was promised in the helptext and
+    delete names if NULL is provided as argument.
+
+
+
+DescTools 0.99.32 (2020-01-17)
+------------------------------
+
+NEW FUNCTIONS ADDED:
+  * ColToOpaque(), RgbToHex() are two new color converter functions.
+  * ImputeKnn() and CentralValue() have been borrowed from the 
+    DMwR package.
+  
+UPDATED FUNCTIONS:
+  * WrdCellRange's arguments have been renamed from old: rstart, rend to 
+    new: from, to.
+  * WrdTableBorders() loses its wrd argument, the information is now 
+    extracted directly from wtab.
+  * Untable() will by default replace NAs by 0 in a table and display a
+    warning if there are NAs.
+  * plot.TMod() allows to provide a terms list for plotting.    
+
+BUGFIXES:
+  * Cramer's V bias correction is corrected (hmm...).
+  * TMod() supports single models now.
+
+
+
+
+DescTools 0.99.31 (2019-12-21)
+------------------------------
+
+NEW FUNCTIONS ADDED:
+  * WrdUpdateFields() can be used to update fields in a Word document.
+  * Mgp() does the same for axis title, labels and line as Mar() does
+    for the margins.
+  * PlotPairs() is a more specific pairs() variant. 
+  * IQRw() supports weights for calculating the interquartile range.
+
+UPDATED FUNCTIONS:
+  * ToXL() uses a faster create function for XL column names. 
+  * ToXL() will use a more elaborated export for tables, matrices and arrays.
+  * GetNewWrd() will insert a title at the bookmark "Main" in the document.
+  * CramerV() and TschuprowT() get a bias correction option.
+  * Recycle uses an optimised "getmaxdim" logic (thanks to moodymudskipper 
+    for the suggestion).
+  * Mode() gets a more elaborated interface and returns all modes if there
+    are several.
+  * SetNames() will recycle provided names and supports abbreviations.    
+
+BUGFIXES:
+  * ToWrd() for characters works again after an error crept into v. 0.99.30
+    (due to insufficient testing).
+  * TTestA() did not exclude the paired option, which should have been the case.
+    (Credits to Vilmantas Gegzna)
+  * Dummy() will always return a matrix instead of dropping dimensions which 
+    have only one level. (Credits to Daniel Wollschlaeger)
+  * XLGetrange() will not refuse to import areas with XLErrors now, cells formatted
+    as dates will be recognised and empty areas will not cause an error 
+    anymore.
+  * MedianCI will now correctly use conf.level for method="exact" and also
+    return the realised conf.level. 
+  * Corrected predict call for vglm in PseudoR2. (Thnks to Daniel Wollschlaeger)    
+ 
+
+DEPRECATED:
+  * PlotDev() X was both a desperate and unsuccessful attempt to rid the analysis
+    code of superfluous technical reporting code. The new approach uses meta-code
+    together with ToWrdWithBookmark(), which does not require any changes to 
+    the original code. As a result, PlotDev() has been removed.
+  
+  
+  
+
+DescTools 0.99.30 (2019-10-21)
+------------------------------
+
+NEW FUNCTIONS ADDED:
+  * CompleteColumns() will return the names of complete columns of a data frame.
+  * ToWrdB() sends the output of a code chunk to Word and tags it with
+    a bookmark.
+  * ToWrdPlot() does the same with a code chunk producing a plot. It plots to
+    a tiff device and imports the graphic in MS-Word. These two functions allow
+    to dynamically update word documents with new R-results.
+  * WrdOpenFile() is used to open Word documents.
+  * CmToPts() and PtsToCm() convert between centimeters and points.
+
+UPDATED FUNCTIONS:
+  * Mode() gets a real fast Rcpp implementation. (Credits to Ralf Stubner 
+    and Joseph Wood)
+  * Desc.numeric() will notify when the mode has higher frequency than 5%
+    (which is likely to be remarkable for a numeric variable).
+
+BUGFIXES:
+  * PseudoR2() will work with negative binomial models again.
+  * Untable would not have returned the expected results in some combinations 
+    of column names. (Credits to Vilmantas Gegzna for detecting this issue)
+  * Desc() would not have handled unnamed lists. (Again Vilmantas noticed this)       
+
+
+
+DescTools 0.99.29 (2019-09-26)
 ------------------------------
 
 NEW FUNCTIONS ADDED:
   * StrSpell() can translate a string to NATO phonetic alphabet or Morse codes.
   * XLNamedReg() can be used to import named regions in Excel by giving the
     name or the sequence number. This can be used in connection with XLGetRange().
-  * WithOptions() is an interesting approach to evaluate expressions under temporary 
-    set options.
+  * WithOptions() is an interesting approach to evaluate expressions under 
+    temporarily set options.
   * With SaveAs() it's possible to save an R object under a different name.
-  * Quot() calculates successive divisions in the same manner as diff() returns 
+  * Quot() calculates successive divisions in the same way as diff() does with 
     successive differences.
+  * XLSaveAs() is a wrapper for saving the active workbook in MSExcel.  
+  * SendOutlookMail() allows to easily send mails via MS Outlook.
+  * MultMerge() can merge multiple data frames using the rownames as key.
   
 
 UPDATED FUNCTIONS:
@@ -21,26 +188,32 @@ UPDATED FUNCTIONS:
   * Several corrections in help texts.
   * roulette, cards, tarot have been extended
   * Format() will ignore scipen=0 by default, use scipen=1 in future.
-  * Format() will pass through the digits argument for formatting p-values (fmt="p").
-  * SetNames() will use "names" for unnamed arguments as default instead of returning the 
-    unchanged input vector.
+  * Format() will pass through the digits argument for formatting p-values 
+    (fmt="p").
+  * SetNames() will use "names" for unnamed arguments as default instead of 
+    returning the unchanged input vector.
   * BlankIfNA() gets a new argument for defining what is meant with "blank".  
   * PseudoR2() is using reformulate() instead of update() in order to improve
     interoperability within the tidyverse, especially support tibbles created 
     by purr::map. (Credits to Inferrator)
-  * ConvUnit() will now convert time units to weeks and vice versa.     
+  * ConvUnit() will now convert time units to weeks and vice versa.
+  * AUC() gains new arguments according to its original version in package MESS.
+    (Credits to Claus Ekstrom and Tatiana Lust)
 
 BUGFIXES:
   * plot(Desc()) for xtabs will work now.
   * OddsRatio for glms would have misplaced confidence intervals, if 
     a coefficient in the model could not be estimated and was set to NA.
-  * Calculation of AldrichNelson Pseudo R2 has been corrected (credits to Chirok Han).
+  * Calculation of AldrichNelson Pseudo R2 has been corrected 
+    (credits to Chirok Han).
 
 DEPRECATED:
   * FileOpenCmd(), SaveAsDlg(), ModelDlg(), ColPicker(), ColorDlg(),
     ImportFileDlg(), PlotPar(), PlotMar(), PlotPch(), SelectVarDlg(), Xplore()
     have been transferred to the package DescToolsAddIns, as these functions
-    only make sense in a GUI context.
+    presumably only make sense in a GUI context.
+  * IsValidWrd() has been replaced by IsValidHwnd(), which can be used to 
+    generally check Windows handles (at least for Office applications).
 
 
 
@@ -69,7 +242,7 @@ BUGFIXES:
 
 
 
-DescTools 0.99.27 (2019-01-17)
+DescTools 0.99.27 (2019-01-19)
 ------------------------------
 
 NEW FUNCTIONS ADDED:
@@ -147,7 +320,7 @@ DEFUNCT:
 
 
 
-DescTools 0.99.25 (2018-08-13)
+DescTools 0.99.25 (2018-08-14)
 ------------------------------
 
 NEW FUNCTIONS ADDED:
@@ -190,7 +363,7 @@ BUGFIXES:
 
 
 
-DescTools 0.99.24 (2018-03-18)
+DescTools 0.99.24 (2018-03-19)
 ------------------------------
 
 NEW FUNCTIONS ADDED:
@@ -237,7 +410,7 @@ DEFUNCT:
 
 
 
-DescTools 0.99.23 (2017-12-09)
+DescTools 0.99.23 (2017-12-11)
 ------------------------------
 
 NEW FUNCTIONS ADDED:
@@ -275,7 +448,7 @@ BUGFIXES:
 
 
 
-DescTools 0.99.22 (2017-09-14)
+DescTools 0.99.22 (2017-09-13)
 ------------------------------
 
 NEW FUNCTIONS ADDED:
@@ -313,7 +486,7 @@ DEFUNCT:
 
 
 
-DescTools 0.99.21 (2017-06-29)
+DescTools 0.99.21 (2017-06-30)
 ------------------------------
 
 UPDATED FUNCTIONS:
@@ -337,7 +510,7 @@ DEFUNCT:
 
 
 
-DescTools 0.99.20 (2017-04-16)
+DescTools 0.99.20 (2017-04-19)
 ------------------------------
 
 NEW FUNCTIONS ADDED:
@@ -367,7 +540,7 @@ DEFUNCT:
 
 
 
-DescTools 0.99.19 (2017-02-09)
+DescTools 0.99.19 (2017-02-11)
 ------------------------------
 
 NEW FUNCTIONS ADDED:
@@ -989,14 +1162,16 @@ UPDATED FUNCTIONS:
 
 BUGFIXES:
    * Bug corrected for Cramer's V confidence intervals.
-     Credits to Steven J. Pierce for spotting the problem and to Michael Smithson for fixing it.
-   * The icon file for the PasswordDlg could not be found resulting in the dialog not being displayed.
+     Credits to Steven J. Pierce for spotting the problem and to Michael Smithson for 
+     fixing it.
+   * The icon file for the PasswordDlg could not be found resulting in the dialog not 
+     being displayed.
    * PlotFdist did not handle args.boxplot = NA correctly, meaning no boxplot being displayed.
    * Hmean will now report NA if any x < 0.
    * LsFct did not only list the functions but all objects of a package.
    * StrChop did not chop the last part of the string correctly.
-   * DescWrd would not have run on Word versions other than German because of a local template name.
-     This should be fixed for all language versions now.
+   * DescWrd would not have run on Word versions other than German because of a local 
+     template name. This should be fixed for all language versions now.
 
 
 
@@ -1027,14 +1202,15 @@ UPDATED FUNCTIONS:
      ts-objects as x-axis.
    * Desc.integer looses its maxlevels argument and gains "maxrows" and "freq". See help.
    * TukeyBiweight gains a na.rm argument and has been changed to use .Call
-     instead of old .C function.
+     instead of old fashioned .C function.
    * MeanDiffCI gains a formula interface.
    * HighLow uses a more efficient algorithm, based on the function Large/Small.
    * PlotWeb gains a couple of new arguments, making it more flexible.
    * AreaIdent gains a new argument poly. With poly=TRUE a polygon instead of a
      rectangle can be used to select the interesting points.
    * PlotCorr gains a border and lwd argument, allowing a grid being added.
-   * ZTest has been extended with the option to handle 2 sample tests in the same manner as t.test.
+   * ZTest has been extended with the option to handle 2 sample tests in the same manner 
+     as the function t.test().
      Moreover a formula interface has been added.
    * PpAddSlide will now set a newly inserted slide as active slide.
    * The artificial data.frame d.pizza has been given more structure between the variables.

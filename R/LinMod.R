@@ -16,7 +16,7 @@ Conf.table <- function(x, pos = NULL, ...) {
 
     # order confusion table so
     # that the positive class is the first and the others keep their position
-    ord <- c(pos, rownames(x)[-grep(pos, rownames(x))])
+    ord <- c(pos, rownames(x)[-grep(pos, rownames(x), fixed=TRUE)])
     # the columnnames must be the same as the rownames
     x <- as.table(x[ord, ord])
     return(x)
@@ -42,7 +42,8 @@ Conf.table <- function(x, pos = NULL, ...) {
   } else {
     # order 2x2-confusion table so
     # that the positive class is the first and the others keep their position
-    ord <- c(pos, rownames(x)[-grep(pos, rownames(x))])
+    # fixed=TRUE as we might run into problems with columnnames like (8-9] ...
+    ord <- c(pos, rownames(x)[-grep(pos, rownames(x), fixed=TRUE)])
     # the columnnames must be the same as the rownames
     x <- as.table(x[ord, ord])
   }
@@ -70,6 +71,7 @@ Conf.table <- function(x, pos = NULL, ...) {
   for(i in 1L:nrow(x)){
 
     z <- CollapseConfTab(x=x, pos=rownames(x)[i])
+    z[] <- as.double(z)
     A <- z[1, 1]; B <- z[1, 2]; C <- z[2, 1]; D <- z[2, 2]
 
     lst[[i]] <- rbind(
@@ -78,10 +80,12 @@ Conf.table <- function(x, pos = NULL, ...) {
       ppv     = A / (A + B),                 # positive predicted value
       npv     = D / (C + D),                 # negative predicted value
       prev    = (A + C) / (A + B + C + D),   # prevalence
-      detrate = A / (A + B + C + D),         # detection rate
       detprev = (A + B) / (A + B + C + D),   # detection prevalence
+      detrate = A / (A + B + C + D),         # detection rate
       bacc    = mean(c(A / (A + C), D / (B + D)) ),  # balanced accuracy
-      fval    = Hmean(c(A / (A + B), A / (A + C)), conf.level = NA) # guetemass wollschlaeger s. 150
+      fval    = Hmean(c(A / (A + B), A / (A + C)), conf.level = NA), # guetemass wollschlaeger s. 150
+#   this would overflow for already small frequencies if we don't cast z to double ..
+      mcc     = (A*D-B*C) / sqrt((A+B)*(A+C)*(D+B)*(D+C))  # Matthews correlation coefficient (=Phi(x) with sign!)      
     )
   }
 
@@ -209,7 +213,7 @@ print.Conf <- function(x, digits = max(3, getOption("digits") - 3), ...) {
   cat(txt)
 
   rownames(x$byclass) <- c("Sensitivity", "Specificity", "Pos Pred Value", "Neg Pred Value", "Prevalence",
-                           "Detection Rate", "Detection Prevalence", "Balanced Accuracy","F-val Accuracy")
+                           "Detection Rate", "Detection Prevalence", "Balanced Accuracy","F-val Accuracy", "Matthews Cor.-Coef")
 
   if(nrow(x$table)==2){
     cat(
@@ -265,6 +269,9 @@ PseudoR2 <- function(x, which = NULL) {
     return(NA)
 
 
+  if(inherits(x, what="vglm") && !requireNamespace("VGAM", quietly=TRUE)) {
+    stop("Could not find package 'VGAM' - please install first") }
+  
   if (!(inherits(x, what="vglm")) && !is.null(x$call$summ) && !identical(x$call$summ, 0))
     stop("can NOT get Loglik when 'summ' argument is not zero")
 
@@ -273,13 +280,24 @@ PseudoR2 <- function(x, which = NULL) {
 
   if(inherits(x, what="multinom"))
     L.base <- logLik(update(x, ~1, trace=FALSE))
+  
   else if(inherits(x, what="glm"))
     # replaced 2019-08-19, based on mail by inferrator:
     #
     #   L.base <- logLik(update(x, ~1))
 
-    L.base <- logLik(glm(formula = reformulate('1', gsub(" .*$", "", deparse(x$formula))),
-                         data = x$data, family = x$family))
+    
+    L.base <- logLik(glm(formula = reformulate('1', 
+      # replace the right side of the formula by 1                                           
+                 gsub(" .*$", "", 
+      # not all glms have a formula element, e.g. MASS::negbin                                           
+                        deparse(unlist(list(x$formula, x$call$formula, formula(x)))[[1]]))),
+      # use the first non null list element
+      # note x$call$data is a symbol and must first be evaluated
+                         data = Filter(Negate(is.null), list(x$data, eval(x$call$data) ))[[1]],
+                         family = x$family))
+  
+    
   else 
     L.base <- logLik(update(x, ~1))
   
@@ -354,7 +372,15 @@ PseudoR2 <- function(x, which = NULL) {
     
 
     # McKelveyZavoina
-    y.hat <- predict(x, type="link")
+    # y.hat <- predict(x, type="link")
+    
+    # remark Daniel Wollschlaeger, vglm would not dispatch correctly 30.11.2019
+    y.hat <- if(inherits(x, "vglm")) {
+      VGAM::predictvglm(x, type="link")
+    } else {
+      predict(x, type="link")
+    }
+    
     sse <- sum((y.hat - mean(y.hat))^2)
     res["McKelveyZavoina"] <- sse/(n * s2 + sse)
 
@@ -859,63 +885,90 @@ TMod <- function(..., FUN = NULL){
 
 
 
-  # compose est-lci-uci table
-  merge_mod <- function(z, ord){
-    lst <- lapply(lcoef, function(x) cbind(SetNames(x[[z]], names=x[["name"]])))
-    mcoef <- lst[[1]]
-    for(i in 2:length(lst)){
-      mcoef <- merge(mcoef, lst[[i]], by = "row.names",
-                     all.x=TRUE, all.y=TRUE, sort=FALSE)
-      rownames(mcoef) <- mcoef$Row.names
-      mcoef$Row.names <- NULL
-      colnames(mcoef) <- NULL
-      }
+  # # compose est-lci-uci table
+  # merge_mod <- function(z, ord){
+  #   lst <- lapply(lcoef, function(x) cbind(SetNames(x[[z]], names=x[["name"]])))
+  #   mcoef <- lst[[1]]
+  #   for(i in 2:length(lst)){
+  #     mcoef <- merge(mcoef, lst[[i]], by = "row.names",
+  #                    all.x=TRUE, all.y=TRUE, sort=FALSE)
+  #     rownames(mcoef) <- mcoef$Row.names
+  #     mcoef$Row.names <- NULL
+  #     colnames(mcoef) <- NULL
+  #     }
+  # 
+  #   mcoef[order(match(rownames(mcoef), ord)),]
+  # 
+  # }
+  # 
+  # # define a better order than merge is returning, coefficients from left to right
+  # seq_ord <- function(lst){
+  #   jj <- character(0)
+  #   for(i in seq_along(lst)){
+  #     jj <- c(jj, setdiff(lst[[i]], jj))
+  #   }
+  #   return(jj)
+  # }
+  # 
+  # # the coefficients should be ordered such, that the coeffs of the first model
+  # # come first, then the coeffs from the second model which were not included
+  # # in the model one, then the coeffs from mod3 not present in mod1 and mod2
+  # # and so forth...
+  # coef_order <- seq_ord(lapply(lcoef, rownames))
+  # 
+  # # set coefficient order to all result object
+  # m <- m[order(match(m$coef, coef_order)),]
+  # 
+  # if(length(lmod) > 1){
+  #   mall <- Abind(merge_mod("est", coef_order),
+  #               merge_mod("lci", coef_order),
+  #               merge_mod("uci", coef_order), along=3)
+  # 
+  # } else {
+  #   mall <- as.matrix(lcoef[[1]][, c("est","lci","uci")])
+  #   dim(mall) <- c(nrow(mall), 1, 3)
+  # }
+  # dimnames(mall) <- list(m$coef, modname, c("est","lci","uci"))
 
-    mcoef[order(match(rownames(mcoef), ord)),]
+  mall <- Abind(
+    est = do.call(MultMerge, lapply(lst, 
+          function(x) SetNames(x$coef[,c("est"), drop=FALSE], rownames=x$coef$name))),
+    lci = do.call(MultMerge, lapply(lst, 
+          function(x) SetNames(x$coef[,c("lci"), drop=FALSE], rownames=x$coef$name))),
+    uci = do.call(MultMerge, lapply(lst, 
+          function(x) SetNames(x$coef[,c("uci"), drop=FALSE], rownames=x$coef$name))), 
+    along=3)
+  
+  dimnames(mall)[[2]] <- modname
+  
+  # return the terms of the model in order to be able to set a filter on them
+  # when plotting
+  
+  mterms <- lapply(lmod, function(m) {
+    res <- lapply(labels(terms(m)), function(x) 
+      colnames(model.matrix(formula(gettextf("~ 0 + %s", x)), data=model.frame(m))))
+    names(res) <- labels(terms(m))
+    res
+    } )
+  
+  names(mterms) <- modname
 
-  }
-
-  # define a better order than merge is returning, coefficients from left to right
-  seq_ord <- function(lst){
-    jj <- character(0)
-    for(i in seq_along(lst)){
-      jj <- c(jj, setdiff(lst[[i]], jj))
-    }
-    return(jj)
-  }
-
-  # the coefficients should be ordered such, that the coeffs of the first model
-  # come first, then the coeffs from the second model which were not included
-  # in the model one, then the coeffs from mod3 not present in mod1 and mod2
-  # and so forth...
-  coef_order <- seq_ord(lapply(lcoef, rownames))
-
-  # set coefficient order to all result object
-  m <- m[order(match(m$coef, coef_order)),]
-
-  mall <- Abind(merge_mod("est", coef_order),
-                merge_mod("lci", coef_order),
-                merge_mod("uci", coef_order), along=3)
-
-  dimnames(mall) <- list(m$coef, modname, c("est","lci","uci"))
-
-
-  return(structure(list(m, mm, lcoef, mall=mall), class="TMod"))
+  return(structure(list(m, mm, lcoef, mall=mall, terms=mterms), class="TMod"))
 
 
 }
 
 
-print.TMod <- function(x, ...){
+print.TMod <- function(x, digits=3, na.form = "-", ...){
 
   colnames(x[[1]])[-1] <- paste0(colnames(x[[1]])[-1], strrep(" ", times=4))
-  x[[1]][, -1] <- Format(x[[1]][, -1], digits=3, na.form = "-")
+  x[[1]][, -1] <- Format(x[[1]][, -1], digits=digits, na.form = na.form)
 
   x2 <- x[[2]]
-  x[[2]][, -1] <- Format(x[[2]][, -1], digits=3, na.form = "-")
+  x[[2]][, -1] <- Format(x[[2]][, -1], digits=digits, na.form = na.form)
 
   x[[2]][x[[2]]$stat %in% c("numdf", "dendf", "N"), -1] <-
-    Format(x2[x[[2]]$stat %in% c("numdf", "dendf", "N"), -1], digits=0, na.form="-")
+    Format(x2[x[[2]]$stat %in% c("numdf", "dendf", "N"), -1], digits=0, na.form=na.form)
 
   m <- rbind(x[[1]],  setNames(c("---", rep("", ncol(x[[1]]) -1)), colnames(x[[1]])),
              setNames(x[[2]], colnames(x[[1]])))
@@ -928,12 +981,36 @@ print.TMod <- function(x, ...){
 
 
 
-plot.TMod <- function(x, ...){
+plot.TMod <- function(x, terms=NULL, intercept=FALSE, ...){
 
-  x <- aperm(x$mall, perm = c(2, 1, 3))
-  args.plotdot1 <- list(x=x[,,1], pch=21, bg="white",
-                        args.errbars = list(from=x[,,2], to=x[,,3], mid=x[,,1]))
-  dots <- list(...)
+  # see also: termplot
+  
+  if(length(dim(x$mall)) > 2)
+    xx <- aperm(x$mall, perm = c(2, 1, 3))
+  else {
+    xx <- x$mall
+  }
+  
+  if(!is.null(terms)){
+    # v <- unlist(x$terms)
+    # coefnames <- unique(v[v %in% terms])
+    # xx <- xx[, coefnames, , drop=FALSE]
+    # 
+    v <- unique(c(sapply(x$terms, labels)))
+    coefnames <- unlist(x$terms[[1]][labels(x$terms[[1]]) %in% terms])
+    xx <- xx[, dimnames(xx)[[2]] %in% coefnames, , drop=FALSE]
+  }
+  
+  if(!intercept)
+    xx <- xx[, !grepl("intercept", dimnames(xx)[[2]], ignore.case = TRUE), , drop=FALSE]
+  
+  args.plotdot1 <- list(x=xx[,,1], pch=21, bg="white",
+                        args.errbars = list(from=xx[,,2], to=xx[,,3], mid=xx[,,1]))
+  
+  # Attention:
+  # this evaluates the dots, which goes wrong e.g. for panel.first arguments!
+  # dots <- list(...)
+  dots <- match.call(expand.dots = FALSE)$`...`
 
   if (!is.null(dots)) {
     args.plotdot1[names(dots)] <- dots
@@ -977,10 +1054,10 @@ PartialSD <- function(x) {
 
 }
 
-`coeffs` <-
+coeffs <-
   function (model) UseMethod("coeffs")
 
-`coeffs.multinom` <-
+coeffs.multinom <-
   function (model) {
     cf <- coef(model)
     if (!is.vector(cf)) {
@@ -991,7 +1068,7 @@ PartialSD <- function(x) {
     } else cf
   }
 
-`coeffs.survreg` <-
+coeffs.survreg <-
   function (model) {
     rval <- coef(model)
     if (nrow(vcov(model)) > length(rval)) { # scale was estimated
@@ -1004,11 +1081,11 @@ PartialSD <- function(x) {
     rval
   }
 
-`coeffs.default` <-
+coeffs.default <-
   function(model) coef(model)
 
 
-`coefTable` <-
+coefTable <-
   function (model, ...) UseMethod("coefTable")
 
 .makeCoefTable <-
@@ -1034,19 +1111,19 @@ PartialSD <- function(x) {
     ret
   }
 
-`coefTable.default` <-
+coefTable.default <-
   function(model, ...) {
     dfs <- tryCatch(df.residual(model), error = function(e) NA_real_)
     cf <- summary(model, ...)$coefficients
     .makeCoefTable(cf[, 1L], cf[, 2L], dfs, coefNames = rownames(cf))
   }
 
-`coefTable.lm` <-
+coefTable.lm <-
   function(model, ...)
     .makeCoefTable(coef(model), sqrt(diag(vcov(model, ...))), model$df.residual)
 
 
-`coefTable.survreg` <-
+coefTable.survreg <-
   function(model, ...) {
     .makeCoefTable(
       coeffs(model),
@@ -1055,23 +1132,23 @@ PartialSD <- function(x) {
     )
   }
 
-`coefTable.coxph` <-
+coefTable.coxph <-
   function(model, ...) {
     .makeCoefTable(coef(model), if(all(is.na(model$var)))
       rep(NA_real_, length(coef(model))) else sqrt(diag(model$var)),
       model$df.residual)
   }
 
-`coefTable.multinom` <-
+coefTable.multinom <-
   function (model, ...) {
     .makeCoefTable(coeffs(model), sqrt(diag(vcov(model, ...))))
   }
 
-`coefTable.zeroinfl` <-
+coefTable.zeroinfl <-
   function(model, ...)
     .makeCoefTable(coef(model), sqrt(diag(vcov(model, ...))))
 
-`coefTable.hurdle` <-
+coefTable.hurdle <-
   function(model, ...) {
     cts <- summary(model)$coefficients
     ct <- do.call("rbind", unname(cts))

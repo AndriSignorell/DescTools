@@ -19,8 +19,8 @@ FindCorr(x, cutoff = .90, verbose = FALSE)
    the function looks at the mean absolute correlation of each variable and removes the variable with the
    largest mean absolute correlation.
 
-   There are several function in the \pkg{subselect} package (\code{\link[subselect:eleaps]{leaps}}, \code{\link[subselect:genetic]{genetic}}, \code{\link[subselect:anneal]{anneal}}) that can also be used
-   to accomplish the same goal.
+   There are several function in the \pkg{subselect} package that can also be used
+   to accomplish the same goal. However the package was removed from CRAN and available in the archives.
 }
 \value{
   A vector of indices denoting the columns to remove. If no correlations meet the criteria, \code{numeric(0)} is returned.
@@ -32,8 +32,6 @@ FindCorr(x, cutoff = .90, verbose = FALSE)
   \url{https://cran.r-project.org/package=caret}
 }
 \author{Original R code by Dong Li, modified by Max Kuhn}
-
-\seealso{\code{\link[subselect:eleaps]{leaps}}, \code{\link[subselect:genetic]{genetic}}, \code{\link[subselect:anneal]{anneal}}}
 
 \examples{
 corrMatrix <- diag(rep(1, 5))

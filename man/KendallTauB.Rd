@@ -1,7 +1,9 @@
 \name{KendallTauB}
 \alias{KendallTauB}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Kendall \eqn{\tau_{b}}{Tau-b}}
+\title{Kendall's \eqn{\tau_{b}}{Tau-b}
+%%  ~~function to do ... ~~
+}
 \description{Calculate Kendall's tau-b. The estimator could also be calculated with \code{cor(..., method="kendall")}.
 The calculation of confidence intervals however would not be found there.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~

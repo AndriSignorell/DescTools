@@ -2,6 +2,7 @@
 \alias{KendallTauA}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Kendall's \eqn{\tau_{a}}{Tau-a}
+%%  ~~function to do ... ~~
 }
 \description{Calculate Kendall's tau-a statistic, a measure of
 association for ordinal factors in a two-way table.\cr

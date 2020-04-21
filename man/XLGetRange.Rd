@@ -15,7 +15,7 @@ in a specified sheet. This is helpful, whenever pathologically scattered data on
 }
 \usage{
 XLGetRange(file = NULL, sheet = NULL, range = NULL, as.data.frame = TRUE,
-           header = FALSE, stringsAsFactors = FALSE, echo = FALSE, datecols = NA,
+           header = FALSE, stringsAsFactors = FALSE, echo = FALSE,
            na.strings = NULL, skip = 0)
 
 XLGetWorkbook(file, compactareas = TRUE)
@@ -38,19 +38,19 @@ XLNamedReg(x)
   found, the function will use this selection. If there is no selection then the current region of the selected cell will be used. Use \code{XLCurrReg()} if the current region of a cell, which is currently not selected, should be used. Range names can be provided with \code{XLNamedReg("name")}.
 %%     ~~Describe \code{cellrange} here~~
 }
-\item{as.data.frame}{logical. Determines if the cellranges should be coerced into data.frames. Defaults to TRUE,
+\item{as.data.frame}{logical. Determines if the cellranges should be coerced into data.frames. Defaults to \code{TRUE},
 as this is probably the common use of this function.}
-\item{header}{a logical value indicating whether the range contains the names of the variables as its first line. Default is FALSE. \code{header} is ignored if \code{as.data.frame} has been set to FALSE. }
+\item{header}{a logical value indicating whether the range contains the names of the variables as its first line. Default is \code{FALSE}. \code{header} is ignored if \code{as.data.frame} has been set to \code{FALSE}. }
 
-\item{stringsAsFactors}{logical. Should character columns be coerced to factors? The default is FALSE, which will return character vectors.}
+\item{stringsAsFactors}{logical. Should character columns be coerced to factors? The default is \code{FALSE}, which will return character vectors.}
 \item{echo}{logical. If set to \code{TRUE}, the function will print the full command used, such that it can be copied into the R-script for future use.}
 
-\item{datecols}{a character or integer vector, defining which columns in Excel are of date type and should directly be converted to Date columns in R. Ignored if \code{as.data.frame} is \code{FALSE}.}
 \item{na.strings}{a character vector of strings which are to be interpreted as \code{NA} values. Blank fields are always considered to be missing values. Default is \code{NULL}, meaning none.}
+
 
 \item{compactareas}{logical, defining if areas should be returned by \code{XLGetWorkbook} as list or as matrix (latter is default).}
 \item{cell}{range of the left uppe cell, when current region should be used. }
-\item{x}{then name or the index of the XL-name to be used. }
+\item{x}{the name or the index of the XL-name to be used. }
 
 \item{skip}{the number of lines of the data file to skip before beginning to read data.}
 }
@@ -119,4 +119,5 @@ as.data.frame(do.call(rbind, lst), stringsAsFactors = FALSE)
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ manip }
+\keyword{MS-Office}
 

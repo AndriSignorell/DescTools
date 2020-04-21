@@ -19,9 +19,11 @@ Skewness and Kurtosis
 }
 \usage{
 
-Skew(x, na.rm = FALSE, method = 3, conf.level = NA, ci.type = "bca", R = 1000, ...)
+Skew(x, weights = NULL, na.rm = FALSE, method = 3, conf.level = NA, 
+     ci.type = "bca", R = 1000, ...)
 
-Kurt(x, na.rm = FALSE, method = 3, conf.level = NA, ci.type = "bca", R = 1000, ...)
+Kurt(x, weights = NULL, na.rm = FALSE, method = 3, conf.level = NA, 
+     ci.type = "bca", R = 1000, ...)
 
 }
 %- maybe also 'usage' for other objects documented here.
@@ -30,6 +32,9 @@ Kurt(x, na.rm = FALSE, method = 3, conf.level = NA, ci.type = "bca", R = 1000, .
   a numeric vector. An object which is not a vector is coerced (if possible) by \code{as.vector}.
 %%     ~~Describe \code{x} here~~
 }
+  \item{weights}{a numerical vector of weights the same length as \code{x} giving the weights to use for elements of \code{x}.
+ }
+
   \item{na.rm}{
   logical, indicating whether \code{NA} values should be stripped before the computation proceeds. Defaults to \code{FALSE}.
   %%     ~~Describe \code{na.rm} here~~

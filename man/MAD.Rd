@@ -6,14 +6,17 @@
 \name{MAD}
 \title{Median Absolute Deviation}
 \usage{
-MAD(x, center = median(x), constant = 1.4826, na.rm = FALSE,
+MAD(x, weights = NULL, center = Median, constant = 1.4826, na.rm = FALSE,
     low = FALSE, high = FALSE)
 }
 \alias{MAD}
 \arguments{
   \item{x}{a numeric vector.}
+   \item{weights}{a numerical vector of weights the same length as \code{x} giving the weights to use for elements of \code{x}.
+ }
+
   \item{center}{Optionally, the centre: defaults to the median.}
-  \item{constant}{scale factor.}
+  \item{constant}{scale factor. (Default 1.4826)}
   \item{na.rm}{if \code{TRUE} then \code{NA} values are stripped
     from \code{x} before computation takes place.}
   \item{low}{if \code{TRUE}, compute the \sQuote{lo-median}, i.e., for even

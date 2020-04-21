@@ -3,6 +3,8 @@
 \alias{ModSummary}
 \alias{ModSummary.lm}
 \alias{ModSummary.glm}
+\alias{plot.TMod}
+\alias{print.TMod}
 
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Comparison Table For Linear Models
@@ -16,8 +18,11 @@ TMod(..., FUN = NULL)
 
 ModSummary(x, ...)
 
-\method{ModSummary}{lm}(x, conf.level=0.95, ...)
-\method{ModSummary}{glm}(x, conf.level=0.95, ...)
+\method{ModSummary}{lm}(x, conf.level = 0.95, ...)
+\method{ModSummary}{glm}(x, conf.level = 0.95, ...)
+
+\method{plot}{TMod}(x, terms = NULL, intercept = FALSE, ...)
+\method{print}{TMod}(x, digits = 3, na.form = "-", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -25,10 +30,20 @@ ModSummary(x, ...)
 \item{\dots}{a list of (general) linear models.}
 \item{conf.level}{the level for the confidence intervals.}
 \item{FUN}{function with arguments \code{est}, \code{se}, \code{tval}, \code{pval}, \code{lci}, \code{uci} to display the coefficients. The default function will display the coefficient and significance stars for the p-values.}
+\item{terms}{a vector with the terms of the model formula to be plotted. By default this will be all of them.}
+\item{intercept}{logical, defining whether the intercept should be plotted (default is \code{FALSE}).}
+  \item{digits}{integer, the desired (fixed) number of digits after the decimal point. Unlike \code{\link{formatC}} you will always get this number of digits even if the last digit is 0.
+%%     ~~Describe \code{digits} here~~
 }
-\details{In order to compare the coefficients of linear models, the user is left to his own devices. R offers no support in this respect. TMod jumps into the breach and displays the coefficients of several models in tabular form. For this purpose, different quality indicators for the models are displayed, so that a comprehensive comparison of the models is possible. In particular, it is easy to see the effect that adding or omitting variables has on forecast quality.
 
-A plot function for a TMod object will produce a dotchart with the coefficients and their confidence intervals.
+  \item{na.form}{character, string specifying how \code{NA}s should be specially formatted.
+  If set to \code{NULL} (default) no special action will be taken.
+%%     ~~Describe \code{pad} here~~
+}
+}
+\details{In order to compare the coefficients of linear models, the user is left to his own devices. R offers no support in this respect. \code{TMod()} jumps into the breach and displays the coefficients of several models in tabular form. For this purpose, different quality indicators for the models are displayed, so that a comprehensive comparison of the models is possible. In particular, it is easy to see the effect that adding or omitting variables has on forecast quality.
+
+A plot function for a \code{TMod} object will produce a dotchart with the coefficients and their confidence intervals.
 }
 \value{character table
 %%  ~Describe the value returned
@@ -97,8 +112,9 @@ or.c <- OddsRatio(r.c)
 # create the model table
 tm <- TMod(m_A=or.a, m_B=or.b, m_C=or.c)
 # .. and plotit
-plot(tm, main="ORs for Models A, B, C",
-     pch=15, col=c(hred, hblue), xlim=c(0.5, 1.5), panel.first=abline(v=1, col="grey"))
+plot(tm, main="ORs for Models A, B, C", intercept=FALSE,
+     pch=15, col=c(hred, hblue, horange), 
+     panel.first=abline(v=1, col="grey30"))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

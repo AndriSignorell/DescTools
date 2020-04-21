@@ -9,8 +9,8 @@ The function offers the option to construct the ecdf on the base of a histogram,
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-PlotECDF(x, breaks = NULL, col = Pal()[1], ylab = "", lwd = 2,
-         xlab = NULL, cex.axis = NULL, ...)
+PlotECDF(x, breaks = NULL, col = Pal()[1], ylab = "", 
+         lwd = 2, xlab = NULL, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -31,9 +31,6 @@ PlotECDF(x, breaks = NULL, col = Pal()[1], ylab = "", lwd = 2,
 }
   \item{xlab}{label for the x-axis.
 %%     ~~Describe \code{xlab} here~~
-}
-  \item{cex.axis}{cex for the axis
-%%     ~~Describe \code{cex.axis} here~~
 }
   \item{\dots}{arguments to be passed to subsequent functions.
 %%     ~~Describe \code{\dots} here~~

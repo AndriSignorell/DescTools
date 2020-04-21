@@ -302,6 +302,9 @@ TTestA <- function (mx, sx, nx, my=NULL, sy = NULL, ny=NULL,
           mu = 0, paired = FALSE, var.equal = FALSE, conf.level = 0.95,
           ...) {
 
+  if (paired)
+    stop("paired option is not supported, use one-sample-test for the differences instead")
+  
   alternative <- match.arg(alternative)
   if (!missing(mu) && (length(mu) != 1 || is.na(mu)))
     stop("'mu' must be a single number")
@@ -393,7 +396,7 @@ TTestA <- function (mx, sx, nx, my=NULL, sy = NULL, ny=NULL,
   else "mean"
   attr(cint, "conf.level") <- conf.level
   rval <- list(statistic = tstat, parameter = df, p.value = pval,
-               conf.int = cint, estimate = estimate, null.value = mu,
+               conf.int = cint, estimate = estimate, null.value = mu, stderr = stderr, 
                alternative = alternative, method = method, data.name = dname)
   class(rval) <- "htest"
   return(rval)
@@ -436,31 +439,31 @@ SignTest.formula <- function (formula, data, subset, na.action, ...) {
 SignTest.default <- function(x, y = NULL, alternative = c("two.sided", "less", "greater"),
                              mu = 0, conf.level = 0.95, ...) {
 
-  MedianCI_Binom <- function( x, conf.level = 0.95,
-                              alternative = c("two.sided", "less", "greater"), na.rm = FALSE ){
-    # http://www.stat.umn.edu/geyer/old03/5102/notes/rank.pdf
-    # http://de.scribd.com/doc/75941305/Confidence-Interval-for-Median-Based-on-Sign-Test
-    if(na.rm) x <- na.omit(x)
-    n <- length(x)
-    switch( match.arg(alternative)
-            , "two.sided" = {
-              k <- qbinom(p = (1 - conf.level) / 2, size=n, prob=0.5, lower.tail=TRUE)
-              ci <- sort(x)[c(k, n - k + 1)]
-              attr(ci, "conf.level") <- 1 - 2 * pbinom(k-1, size=n, prob=0.5)
-            }
-            , "greater" = {
-              k <- qbinom(p = (1 - conf.level), size=n, prob=0.5, lower.tail=TRUE)
-              ci <- c(sort(x)[k], Inf)
-              attr(ci, "conf.level") <- 1 - pbinom(k-1, size=n, prob=0.5)
-            }
-            , "less" = {
-              k <- qbinom(p = conf.level, size=n, prob=0.5, lower.tail=TRUE)
-              ci <- c(-Inf, sort(x)[k])
-              attr(ci, "conf.level") <- pbinom(k, size=n, prob=0.5)
-            }
-    )
-    return(ci)
-  }
+  # MedianCI_Binom <- function( x, conf.level = 0.95,
+  #                             alternative = c("two.sided", "less", "greater"), na.rm = FALSE ){
+  #   # http://www.stat.umn.edu/geyer/old03/5102/notes/rank.pdf
+  #   # http://de.scribd.com/doc/75941305/Confidence-Interval-for-Median-Based-on-Sign-Test
+  #   if(na.rm) x <- na.omit(x)
+  #   n <- length(x)
+  #   switch( match.arg(alternative)
+  #           , "two.sided" = {
+  #             k <- qbinom(p = (1 - conf.level) / 2, size=n, prob=0.5, lower.tail=TRUE)
+  #             ci <- sort(x)[c(k, n - k + 1)]
+  #             attr(ci, "conf.level") <- 1 - 2 * pbinom(k-1, size=n, prob=0.5)
+  #           }
+  #           , "greater" = {
+  #             k <- qbinom(p = (1 - conf.level), size=n, prob=0.5, lower.tail=TRUE)
+  #             ci <- c(sort(x)[k], Inf)
+  #             attr(ci, "conf.level") <- 1 - pbinom(k-1, size=n, prob=0.5)
+  #           }
+  #           , "less" = {
+  #             k <- qbinom(p = conf.level, size=n, prob=0.5, lower.tail=TRUE)
+  #             ci <- c(-Inf, sort(x)[k])
+  #             attr(ci, "conf.level") <- pbinom(k, size=n, prob=0.5)
+  #           }
+  #   )
+  #   return(ci)
+  # }
 
   alternative <- match.arg(alternative)
 
@@ -510,8 +513,9 @@ SignTest.default <- function(x, y = NULL, alternative = c("two.sided", "less", "
   names(RVAL$statistic) <- "S"
   RVAL$estimate <- median(d + mu, na.rm=TRUE)
   names(RVAL$parameter) <- "number of differences"
-  mci <- MedianCI_Binom(d + mu, conf.level=conf.level, alternative=alternative, na.rm=TRUE)
-  RVAL$conf.int <- mci
+  mci <- MedianCI(d + mu, conf.level=conf.level, 
+                  sides=if(alternative=="less") "right" else if(alternative=="greater") "left" else "two.sided", na.rm=TRUE)
+  RVAL$conf.int <- mci[-1]
   attr(RVAL$conf.int, "conf.level") = round(attr(mci,"conf.level"), 3)
 
   names(RVAL$estimate) <- "median of the differences"
@@ -648,10 +652,10 @@ ZTest.default <- function (x, y = NULL, alternative = c("two.sided", "less", "gr
   else "mean"
   names(sd_pop) <- "Std. Dev. Population"
   attr(cint, "conf.level") <- conf.level
-  rval <- list(statistic = zstat, p.value = pval,
-               parameter = sd_pop,
-               conf.int = cint, estimate = estimate, null.value = mu,
-               alternative = alternative, method = method, data.name = dname)
+  rval <- list(
+    statistic = zstat, parameter = sd_pop, p.value = pval,
+    conf.int = cint, estimate = estimate, null.value = mu, stderr = stderr,
+    alternative = alternative, method = method, data.name = dname )
   class(rval) <- "htest"
   return(rval)
 }
@@ -1053,6 +1057,8 @@ RunsTest.default <- function(x, y=NULL, alternative=c("two.sided", "less", "grea
     class = "htest")
 
 }
+
+
 
 
 
@@ -3739,6 +3745,99 @@ ScheffeTest.aov <- function(x, which=NULL, contrasts = NULL, conf.level=0.95, ..
   return(out)
 
 }
+
+
+
+
+VanWaerdenTest <- function (x, ...)    UseMethod("VanWaerdenTest")
+
+
+VanWaerdenTest.formula <- function (formula, data, subset, na.action, ...) {
+  
+  if (missing(formula) || (length(formula) != 3L)) 
+    stop("'formula' missing or incorrect")
+  
+  m <- match.call(expand.dots = FALSE)
+  if (is.matrix(eval(m$data, parent.frame()))) 
+    m$data <- as.data.frame(data)
+  m[[1L]] <- quote(stats::model.frame)
+  
+  mf <- eval(m, parent.frame())
+  if (length(mf) > 2L) 
+    stop("'formula' should be of the form response ~ group")
+  
+  DNAME <- paste(names(mf), collapse = " by ")
+  names(mf) <- NULL
+  y <- do.call("VanWaerdenTest", as.list(mf))
+  y$data.name <- DNAME
+  y
+}
+
+
+
+# move back to deparse1 as soon R 4.0 is out
+# and set restrictions to >= R4.0
+deparse1tmp <- 
+  function (expr, collapse = " ", width.cutoff = 500L, ...) 
+    paste(deparse(expr, width.cutoff, ...), collapse = collapse)
+
+
+VanWaerdenTest.default <- function (x, g, ...) {
+  
+  ## This is literally kruskal.test code
+  
+  if (is.list(x)) {
+    if (length(x) < 2L) 
+      stop("'x' must be a list with at least 2 elements")
+    if (!missing(g)) 
+      warning("'x' is a list, so ignoring argument 'g'")
+    DNAME <- deparse1tmp(substitute(x))
+    x <- lapply(x, function(u) u <- u[complete.cases(u)])
+    if (!all(sapply(x, is.numeric))) 
+      warning("some elements of 'x' are not numeric and will be coerced to numeric")
+    k <- length(x)
+    l <- lengths(x)
+    if (any(l == 0L)) 
+      stop("all groups must contain data")
+    g <- factor(rep.int(seq_len(k), l))
+    x <- unlist(x)
+  }  else {
+    if (length(x) != length(g)) 
+      stop("'x' and 'g' must have the same length")
+    DNAME <- paste(deparse1tmp(substitute(x)), "and", 
+                   deparse1tmp(substitute(g)))
+    OK <- complete.cases(x, g)
+    x <- x[OK]
+    g <- g[OK]
+    g <- factor(g)
+    k <- nlevels(g)
+    if (k < 2L) 
+      stop("all observations are in the same group")
+  }
+  
+  n <- length(x)
+  if (n < 2L) 
+    stop("not enough observations")
+  r <- rank(x)
+  
+  z <- qnorm(r/(n + 1))
+  
+  STATISTIC <- (n - 1) / sum(z^2) * 
+    sum(tapply(z, g, sum)^2 / tapply(z, g, length))
+  
+  PARAMETER <- k - 1L
+  PVAL <- pchisq(STATISTIC, PARAMETER, lower.tail = FALSE)
+  names(STATISTIC) <- "Van-der-Waerden chi-squared"
+  names(PARAMETER) <- "df"
+  RVAL <- list(statistic = STATISTIC, parameter = PARAMETER, 
+               p.value = PVAL, method = "Van-der-Waerden normal scores test", 
+               data.name = DNAME)
+  class(RVAL) <- "htest"
+  return(RVAL)
+}
+
+
+
 
 
 PostHocTest <- function (x, ...)

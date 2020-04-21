@@ -19,7 +19,7 @@ StrRev(x)
 \value{string
 }
 \author{
-Andri Signorell <andri@signorell.net>}
+Andri Signorell <andri@signorell.net> solely copying R core code from strsplit example} 
 
 \seealso{ String functions: 
 \code{\link{nchar}}, \code{\link{match}}, \code{\link{grep}}, \code{\link{regexpr}}, 

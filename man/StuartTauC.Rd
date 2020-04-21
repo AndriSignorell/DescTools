@@ -1,7 +1,7 @@
 \name{StuartTauC}
 \alias{StuartTauC}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Stuart \eqn{\tau_{c}}{Tau C}
+\title{Stuart \eqn{\tau_{c}}{Tau-c}
 %%  ~~function to do ... ~~
 }
 \description{Calculate Stuart's \eqn{\tau_{c}}{tau-c} statistic, a measure of

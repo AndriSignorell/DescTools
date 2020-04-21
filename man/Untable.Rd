@@ -10,6 +10,7 @@
 Untable(x, ...)
 
 \method{Untable}{data.frame}(x, freq = "Freq", rownames = NULL, ...)
+
 \method{Untable}{default}(x, dimnames = NULL, type = NULL, rownames = NULL, colnames = NULL, ...)
 
 }
@@ -32,7 +33,7 @@ Untable(x, ...)
 \item{\dots}{further arguments passed to or from functions (not used here).}
 }
 
-\details{For x being a vector this reduces to \code{rep(..., n)} with n as vector (which is not supported by rep).
+\details{For x being a vector this reduces to \code{rep(..., n)} with n as vector (which is not supported by \code{rep()}). \code{NA}s in the table will be treated as 0 without raising an error.
 }
 
 \value{a data.frame with the detailed data 

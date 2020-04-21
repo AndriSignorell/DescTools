@@ -8,11 +8,9 @@
 \title{Fractional Part and Maximal Digits of a Numeric Value
 %%  ~~function to do ... ~~
 }
-\description{
-\code{Frac()} returns the fractional part of a numeric value.  \cr
+\description{\code{Frac()} returns the fractional part of a numeric value.
 \code{MaxDigits()} return the number of digits in \code{x}. \cr
-\code{Ndec()} returns the number of decimals. \cr
-\code{Prec()} the precision of a number \code{x}.
+\code{Ndec()} returns the number of decimals.\cr  \code{Prec()} returns the precision of a number \code{x}.
 
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
@@ -44,7 +42,7 @@ x
 Frac(x)
 
 # multiply by 10^4
-Frac(x, dpwr = 4)
+Frac(x, dpwr=4)
 
 MaxDigits(c(1.25, 1.8, 12.0, 1.00000))
 

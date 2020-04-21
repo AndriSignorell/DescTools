@@ -51,6 +51,8 @@ This function returns the high median and prints a warning if the low median wou
 supposed to be a rare event).
 There's a vivid discussion between experts going on whether this should be defined or not.
 We'll wait for definitive results and enjoy the function's comfort so far...
+
+Note that there are alternative approaches for calculating weighted median (e.g. \code{matrixstats::weightedMedian}).
 }
 \value{
   The default method returns a length-one object of the same type as

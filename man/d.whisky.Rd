@@ -32,13 +32,10 @@ By computing the Pearson correlation coefficient and specifying a threshold valu
     \item{\code{longitude}}{a numeric vector, coordinate pairs of distilleries.}
   }
 }
-\source{\url{http://www.mathstat.strath.ac.uk/outreach/nessie/nessie_whisky.html}
-%%  ~~ reference to a publication or URL from which the data were obtained ~~
-}
-\references{
-\url{http://www.mathstat.strath.ac.uk/outreach/nessie/index.html}
-%%  ~~ possibly secondary sources and usages ~~
-}
+\source{http://www.mathstat.strath.ac.uk/outreach/nessie/nessie_whisky.html}
+
+\references{http://www.mathstat.strath.ac.uk/outreach/nessie/index.html}
+
 \examples{
 head(d.whisky)
 

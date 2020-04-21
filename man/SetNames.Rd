@@ -4,7 +4,7 @@
 \title{Set the Names in an Object
 %%  ~~function to do ... ~~
 }
-\description{This is a convenience function that sets the names on an object and returns the object. It is most useful at the end of a function definition where one is creating the object to be returned and would prefer not to store it under a name just so the names can be assigned. In addition to the function \code{\link{setNames}} the user can decide, whether rownames, colnames or simply the names are to be set.
+\description{This is a convenience function that sets the names of an object and returns it including the new names. It is most useful at the end of a function definition where one is creating the object to be returned and would prefer not to store it under a name just that the names can be assigned. In addition to the function \code{\link{setNames}} in base R the user can decide, whether rownames, colnames or simply the names are to be set. Names are recyled. 
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
@@ -15,7 +15,7 @@ SetNames(x, ...)
   \item{x}{an object for which a names attribute will be meaningful
 %%     ~~Describe \code{object} here~~
 }
-  \item{...}{the names to be assigned to the object. This should be a character vector of names named \code{rownames}, \code{colnames} or \code{names}. Setting \code{rownames=NULL} would remove existing rownames. All kind of names can be changed at the same time. Default would be \code{names}.
+  \item{...}{the names to be assigned to the object. This should be a character vector of names named \code{rownames}, \code{colnames} or \code{names}. Setting \code{rownames=NULL} would remove existing rownames. All kind of names can be changed at the same time. Default would be \code{names}. Abbreviations are supported.
 %%     ~~Describe \code{nm} here~~
 }
 }
@@ -42,6 +42,9 @@ tab <- table(d.pizza$driver, d.pizza$wine_delivered)
 # rownames and columnnames can be set at the same time
 SetNames(BinomCI(tab[,1], rowSums(tab)), 
          rownames=rownames(tab), colnames=c("perc", "lci", "uci"))
+         
+# can also be used to set the names to an empty string
+SetNames(diag(6), rownames="", colnames="")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

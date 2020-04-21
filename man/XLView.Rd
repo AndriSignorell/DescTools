@@ -122,11 +122,10 @@ xl$Cells()$CurrentRegion()[["EntireRow"]]$AutoFit()
 
 sheet <- xl$Sheets()$Add()
 sheet[["name"]] <- "whisky"
-ToXL(d.whisky[1:10, 1:10], xl$Cells(1,1))
-
-}
+ToXL(d.whisky[1:10, 1:10], xl$Cells(1,1))}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ manip }
 
+\keyword{MS-Office}

@@ -135,7 +135,7 @@ PlotFdist(x, args.curve = NULL, args.boxplot=NA, args.ecdf=NA)
 PlotFdist(x, args.curve = list(expr="dt(x, df=2)", col="darkgreen"),
           args.boxplot=NA, args.ecdf=NA)
 legend(x="topright", legend=c("kernel density", "t-distribution (df=2)"),
-       fill=c(getOption("col1", hred), "darkgreen"))
+       fill=c(getOption("col1", hred), "darkgreen"), xpd=NA)
 
 # add a gamma distribution curve to both, histogram and ecdf
 ozone <- airquality$Ozone; m <- mean(ozone, na.rm = TRUE); v <- var(ozone, na.rm = TRUE)
@@ -144,7 +144,7 @@ PlotFdist(ozone, args.hist = list(breaks=15),
   args.curve.ecdf = list(expr="pgamma(x, shape = m^2/v, scale = v/m)", col=hecru),
   na.rm = TRUE, main = "Airquality - Ozone")
 
-legend(x="topright",
+legend(x="topright", xpd=NA,
        legend=c(expression(plain("gamma:  ") * Gamma * " " * bgroup("(", k * " = " *
            over(bar(x)^2, s^2) * " , " * theta * plain(" = ") * over(s^2, bar(x)), ")") ),
                 "kernel density"),

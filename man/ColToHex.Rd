@@ -1,6 +1,7 @@
 \name{ColToHex}
 \alias{ColToHex}
-\title{Convert a Color Into Hex String
+\alias{RgbToHex}
+\title{Convert a Color or a RGB-color Into Hex String
 }
 \description{Convert a color given by name, by its palette index or by rgb-values into a string of the form "#rrggbb" or "#rrggbbaa".
 }
@@ -30,5 +31,7 @@ ColToHex(c("lightblue", "salmon"))
 x <- ColToRgb("darkmagenta")
 x[2,] <- x[2,] + 155
 RgbToCol(x)
+
+RgbToHex(c(255,0,0))
 }
 \keyword{color }

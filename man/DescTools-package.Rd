@@ -10,10 +10,10 @@ The author's intention was to create a toolbox, which facilitates the (notorious
 A considerable part of the included functions can be found scattered in other packages and other sources written partly by Titans of R. The reason for collecting them here, was primarily to have them consolidated in ONE instead of dozens of packages (which themselves might depend on other packages which are not needed at all), and to provide a common and consistent interface as far as function and arguments naming, \code{NA} handling, recycling rules etc. are concerned. Google style guides were used as naming rules (in absence of convincing alternatives). The 'CamelStyle' was consequently applied to functions borrowed from contributed R packages as well.
 \cr
 
-Feedback, feature requests, bugreports and other suggestions are welcome! Please report problems to Stack Overflow mentioning DescTools or directly to the maintainer.
+Feedback, feature requests, bugreports and other suggestions are welcome! Please report problems to Stack Overflow using tag [desctools] or directly to the maintainer.
 }
 
-\section{Warning}{This package is still under development. Although the code seems meanwhile quite stable, until release of version 1.0 (which is expected in hmm: spring 2019? ... you don't believe it anymore?) you should be aware that everything in the package might be subject to change. Backward compatibility is not yet guaranteed. Functions may be deleted or renamed and new syntax may be inconsistent with earlier versions. By release of version 1.0 the "deprecated-defunct process" will be installed.
+\section{Warning}{This package is still under development. Although the code seems meanwhile quite stable, until release of version 1.0 (which is expected in hmm: new future?) you should be aware that everything in the package might be subject to change. Backward compatibility is not yet guaranteed. Functions may be deleted or renamed and new syntax may be inconsistent with earlier versions. By release of version 1.0 the "deprecated-defunct process" will be installed.
 }
 
 \details{
@@ -211,7 +211,6 @@ A grouped list of the functions:
 \link{PlotWeb}    \tab  Create a web plot \cr
 \link{PlotTernary}    \tab  Create a triangle or ternary plot \cr
 \link{PlotMiss}    \tab  Plot missing values \cr
-\link{PlotDev}       \tab      Simple convenience wrapper for producing TIF-Files \cr
 \link{PlotECDF}       \tab     Plot empirical cumulative distribution function \cr
 \link{PlotLinesA}       \tab      Plot the columns of one matrix against the columns of another \cr
 \link{PlotLog}       \tab     Create a plot with logarithmic axis and log grid  \cr
@@ -236,7 +235,7 @@ _RevWeibull   \tab      Reverse Weibull distribution (\link{dRevWeibull})\cr
 \link{PercTable}  \tab    Bivariate percentage table   \cr
 \link{Margins}       \tab      (Extended) margin tables of a table \cr
 \link{ExpFreq}       \tab      Expected frequencies of a n-dimensional table \cr
-\link{Mode}  \tab     Mode, the most frequent value   \cr
+\link{Mode}  \tab     Mode, the most frequent value (including frequency)   \cr
 \link{Gmean}, \link{Gsd}  \tab  Geometric mean and geometric standard deviation     \cr
 \link{Hmean}  \tab    Harmonic Mean   \cr
 \link{Median}       \tab   Extended median function supporting weights and ordered factors \cr
@@ -308,7 +307,7 @@ _RevWeibull   \tab      Reverse Weibull distribution (\link{dRevWeibull})\cr
 \link{Sens}, \link{Spec}       \tab     Sensitivity and specificity \cr
 \link{PseudoR2}       \tab Variants of pseudo R squared statistics: McFadden, Aldrich-Nelson,\cr
 \tab Nagelkerke, CoxSnell, Effron, McKelvey-Zavoina, Tjur \cr
-\link{Mean}, \link{SD}, \link{Var}  \tab      Variants of base statistics, allowing to define weights: Mean, \cr
+\link{Mean}, \link{SD}, \link{Var}, \link{IQRw}  \tab      Variants of base statistics, allowing to define weights: Mean, \cr
 \link{Quantile}, \link{MAD}, \link{Cor}    \tab standard deviation, variance, quantile, mad, correlation \cr
 \link{VIF}, \link{StdCoef}       \tab      Variance inflation factors and standardised coefficents for linear models \cr
 \cr\cr
@@ -394,7 +393,7 @@ _RevWeibull   \tab      Reverse Weibull distribution (\link{dRevWeibull})\cr
 \link{GetNewWrd}, \link{GetNewXL}, \link{GetNewPP}     \tab   Create a new Word, Excel or PowerPoint Instance  \cr
 \link{GetCurrWrd}, \link{GetCurrXL}, \link{GetCurrPP}    \tab  Get a handle to a running Word, Excel or PowerPoint instance \cr
 \link{WrdKill}, \link{XLKill}       \tab      Ends a (possibly hidden) Word/Excel process \cr
-\link{IsValidWrd}       \tab  Check if the handle to a Word instance is valid or outdated \cr
+\link{IsValidHwnd}       \tab  Check if the handle to a MS Office application is valid or outdated \cr
 \link{WrdCaption}    \tab Insert a title in Word   \cr
 \link{WrdFont}   \tab  Get and set the font for the current selection in Word \cr
 \link{WrdParagraphFormat}    \tab Get and set the paragraph format \cr
@@ -464,7 +463,7 @@ HWZ University of Applied Sciences in Business Administration Zurich.\cr
 
 R is a community project. This can be seen from the fact that this package includes R source code and/or documentation previously published by (in alphabetical order): \cr
 
-Ken Aho, Andreas Alfons, Nanina Anderegg, Tomas Aragon, Antti Arppe, Adrian Baddeley, Kamil Barton, Ben Bolker, Hans W. Borchers, Frederico Caeiro, Stephane Champely, Daniel Chessel, Leanne Chhay, Clint Cummins, Michael Dewey, Harold C. Doran, Stephane Dray, Charles Dupont, Dirk Eddelbuettel, Jeff Enos, Claus Ekstrom, Martin Elff, Kamil Erguler, Richard W. Farebrother, John Fox, Romain Francois, Michael Friendly, Tal Galili, Matthias Gamer, Joseph L. Gastwirth, Yulia R. Gel, Juergen Gross, Gabor Grothendieck, Frank E. Harrell Jr, Richard Heiberger, Michael Hoehle, Christian W. Hoffmann, Soeren Hojsgaard, Torsten Hothorn, Markus Huerzeler, Wallace W. Hui, Pete Hurd, Rob J. Hyndman, Pablo J. Villacorta Iglesias, Christopher Jackson, Matthias Kohl, Mikko Korpela, Max Kuhn, Detlew Labes, Duncan Temple Lang, Friederich Leisch, Jim Lemon, Dong Li, Martin Maechler, Arni Magnusson, Daniel Malter, George Marsaglia, John Marsaglia, Alina Matei, David Meyer, Weiwen Miao, Giovanni Millo, Yongyi Min, David Mitchell, Markus Naepflin, Daniel Navarro, Henric Nilsson, Klaus Nordhausen, Derek Ogle, Hong Ooi, Nick Parsons, Sandrine Pavoine, Tony Plate, Roland Rapold, William Revelle, Tyler Rinker, Brian D. Ripley, Caroline Rodriguez, Nathan Russell, Nick Sabbe, Venkatraman E. Seshan, Greg Snow, Michael Smithson, Karline Soetaert, Werner A. Stahel, Alec Stephenson, Mark Stevenson, Matthias Templ, Terry Therneau, Yves Tille, Adrian Trapletti, Joshua Ulrich, Kevin Ushey, Jeremy VanDerWal, Bill Venables, John Verzani, Gregory R. Warnes, Stefan Wellek, Hadley Wickham, Rand R. Wilcox, Peter Wolf, Daniel Wollschlaeger, Thomas Yee, Achim Zeileis
+Ken Aho, Andreas Alfons, Nanina Anderegg, Tomas Aragon, Antti Arppe, Adrian Baddeley, Kamil Barton, Ben Bolker, Hans W. Borchers, Frederico Caeiro, Stephane Champely, Daniel Chessel, Leanne Chhay, Clint Cummins, Michael Dewey, Harold C. Doran, Stephane Dray, Charles Dupont, Dirk Eddelbuettel, Jeff Enos, Claus Ekstrom, Martin Elff, Kamil Erguler, Richard W. Farebrother, John Fox, Romain Francois, Michael Friendly, Tal Galili, Matthias Gamer, Joseph L. Gastwirth, Yulia R. Gel, Juergen Gross, Gabor Grothendieck, Frank E. Harrell Jr, Richard Heiberger, Michael Hoehle, Christian W. Hoffmann, Soeren Hojsgaard, Torsten Hothorn, Markus Huerzeler, Wallace W. Hui, Pete Hurd, Rob J. Hyndman, Pablo J. Villacorta Iglesias, Christopher Jackson, Matthias Kohl, Mikko Korpela, Max Kuhn, Detlew Labes, Duncan Temple Lang, Friederich Leisch, Jim Lemon, Dong Li, Martin Maechler, Arni Magnusson, Daniel Malter, George Marsaglia, John Marsaglia, Alina Matei, David Meyer, Weiwen Miao, Giovanni Millo, Yongyi Min, David Mitchell, Franziska Mueller, Markus Naepflin, Daniel Navarro, Henric Nilsson, Klaus Nordhausen, Derek Ogle, Hong Ooi, Nick Parsons, Sandrine Pavoine, Tony Plate, Roland Rapold, William Revelle, Tyler Rinker, Brian D. Ripley, Caroline Rodriguez, Nathan Russell, Nick Sabbe, Venkatraman E. Seshan, Greg Snow, Michael Smithson, Karline Soetaert, Werner A. Stahel, Alec Stephenson, Mark Stevenson, Matthias Templ, Terry Therneau, Yves Tille, Adrian Trapletti, Joshua Ulrich, Kevin Ushey, Jeremy VanDerWal, Bill Venables, John Verzani, Gregory R. Warnes, Stefan Wellek, Hadley Wickham, Rand R. Wilcox, Peter Wolf, Daniel Wollschlaeger, Thomas Yee, Achim Zeileis
 
 Special thanks go to Beat Bruengger, Mathias Frueh, Daniel Wollschlaeger for their valuable contributions and testing.
 

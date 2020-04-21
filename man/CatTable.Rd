@@ -38,19 +38,20 @@ Andri Signorell <andri@signorell.net>
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-options(scipen = 8)
-# Used in bivariate description functions
+options(scipen=8)
+
+# used in bivariate description functions
 Desc(temperature ~ cut(delivery_min, breaks=40), data=d.pizza)
 
 
 txt <- c( 
-   paste(sample(letters, 500, replace = TRUE), collapse = "")
- , paste(sample(letters, 500, replace = TRUE), collapse = "")
- , paste(sample(letters, 500, replace = TRUE), collapse = "")
+   paste(sample(letters, 500, replace=TRUE), collapse="")
+ , paste(sample(letters, 500, replace=TRUE), collapse="")
+ , paste(sample(letters, 500, replace=TRUE), collapse="")
 )
-txt <- paste(c("aaa", "bbb", "ccc"), txt, sep = "")
+txt <- paste(c("aaa","bbb","ccc"), txt, sep="")
 
-CatTable(txt, nrepchars = 3, wcol = 5)
+CatTable(txt, nrepchars=3, wcol=5)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

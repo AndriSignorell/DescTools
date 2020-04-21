@@ -51,7 +51,7 @@ The winsorized vector is obtained by
 }{wins(x) = -c if x < -c,
  c if x > c, x otherwise}
 
-Consider standardizing (possibly robust) the data before winsorizing.
+You may also want to consider standardizing (possibly robustly) the data before you perform a winsorization.
 }
 %% \deqn{g(x) =
 %%  \left\{\begin{array}{ll}

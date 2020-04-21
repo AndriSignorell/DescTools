@@ -92,6 +92,7 @@ The formulas used here are:
 \deqn{Detection Rate =  A/(A+B+C+D)}
 \deqn{Detection Prevalence =  (A+B)/(A+B+C+D)}
 \deqn{F-val Accuracy =  2 / (1/PPV + 1/Sensitivity)}
+\deqn{Matthews Cor.-Coef = (A*D-B*C)/sqrt((A+B)*(A+C)*(D+B)*(D+C)) }
 
 See the references for discusions of the first five formulas.
 
@@ -113,11 +114,11 @@ Confidence intervals for sensitivity, specificity etc. could be calculated as bi
 }
 \value{
 a list with elements
+
   \item{table}{the results of \code{table} on \code{data} and  \code{reference}}
   \item{positive}{the positive result level}
   \item{overall}{a numeric vector with overall accuracy and Kappa statistic values}
   \item{byClass}{the sensitivity, specificity, positive predictive value, negative predictive value, prevalence, dection rate and detection prevalence for each class. For two class systems, this is calculated once using the \code{positive} argument}
-
 }
 \references{
 Kuhn, M. (2008) Building predictive models in R using the caret package \emph{Journal of Statistical Software}, (\url{http://www.jstatsoft.org/v28/i05/}).
@@ -125,6 +126,9 @@ Kuhn, M. (2008) Building predictive models in R using the caret package \emph{Jo
 Powers, David M W (2011) Evaluation: From Precision, Recall and F-Measure to ROC, Informedness, Markedness & Correlation (PDF). \emph{Journal of Machine Learning Technologies} 2 (1): 37-63.
 
 Collett D (1999) Modelling Binary Data. \emph{Chapman & Hall/CRC}, Boca Raton Florida, pp. 24.
+
+Matthews, B. W. (1975) Comparison of the predicted and observed secondary structure of T4 phage lysozyme. \emph{Biochimica et Biophysica Acta (BBA) - Protein Structure} 405 (2): 442-451. doi:10.1016/0005-2795(75)90109-9. PMID 1180967.
+
 }
 
 \author{
