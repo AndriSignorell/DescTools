@@ -317,13 +317,23 @@ Desc.formula <- function(formula, data = parent.frame(), subset, main=NULL, plot
 
   mm <- DescTools::ParseFormula(formula=formula, data=data)
 
+  lst <- list()
   if(length(mm$formula)==2L){
-    lst <- list()
     for(x in mm$rhs$vars){         # for all x variables
       lst[x] <- Desc(mm$rhs$mf.eval[, x], plotit=plotit, digits=digits, ...)
-      lst[[x]]$main <- gettextf("%s$%s (%s)", deparse(substitute(data)), x, lst[[x]]$class)
+      if(deparse(substitute(data)) != "parent.frame()")
+        lst[[x]]$main <- gettextf("%s$%s (%s)", deparse(substitute(data)), x, lst[[x]]$class)
+      else
+        lst[[x]]$main <- gettextf("%s (%s)", x, lst[[x]]$class)
     }  
-      
+  } else if(length(mm$rhs$vars)==0 & length(mm$lhs$vars)!=0){
+      for(x in mm$lhs$vars){         # for all x variables
+        lst[x] <- Desc(mm$lhs$mf.eval[, x], plotit=plotit, digits=digits, ...)
+        if(deparse(substitute(data)) != "parent.frame()")
+          lst[[x]]$main <- gettextf("%s$%s (%s)", deparse(substitute(data)), x, lst[[x]]$class)
+        else
+          lst[[x]]$main <- gettextf("%s (%s)", x, lst[[x]]$class)
+      }
   } else {
     
     # don't want AsIs (will come in case of I(...)) to proceed, so just coerce to vector an back again
@@ -337,8 +347,6 @@ Desc.formula <- function(formula, data = parent.frame(), subset, main=NULL, plot
       mm$rhs$mf.eval[,i] <- as.vector(mm$rhs$mf.eval[,i])
     }
   
-  
-    lst <- list()
     for(resp in mm$lhs$vars){         # for all response variables
       for(pred in mm$rhs$vars){       # evalutate for all conditions
   
