@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -42,8 +46,7 @@
 The author's intention was to create a toolbox, which facilitates the (notoriously time consuming) first descriptive tasks in data analysis, consisting of calculating descriptive statistics, drawing graphical summaries and reporting the results. The package contains furthermore functions to produce documents using MS Word (or PowerPoint) and functions to import data from Excel. 
 A considerable part of the included functions can be found scattered in other packages and other sources written partly by Titans of R. The reason for collecting them here, was primarily to have them consolidated in ONE instead of dozens of packages (which themselves might depend on other packages which are not needed at all), and to provide a common and consistent interface as far as function and arguments naming, NA handling, recycling rules etc. are concerned. Google style guides were used as naming rules (in absence of convincing alternatives). The 'CamelStyle' was consequently applied to functions borrowed from contributed R packages as well.
 
-Feedback, feature requests, bugreports and other suggestions are welcome! Please report problems to Stack Overflow mentioning DescTools or directly to the maintainer." />
-<meta name="twitter:card" content="summary" />
+Feedback, feature requests, bugreports and other suggestions are welcome! Please report problems to Stack Overflow using tag [desctools] or directly to the maintainer." />
 
 
 
@@ -59,9 +62,10 @@ Feedback, feature requests, bugreports and other suggestions are welcome! Please
 
 
 
-  </head>
+  	<link rel="icon" href="../favicon.png" />
+</head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -75,7 +79,7 @@ Feedback, feature requests, bugreports and other suggestions are welcome! Please
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.30</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.35</span>
       </span>
     </div>
 
@@ -112,7 +116,7 @@ Feedback, feature requests, bugreports and other suggestions are welcome! Please
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/AndriSignorell/DescTools">
+  <a href="https://github.com/AndriSignorell/DescTools/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -140,14 +144,14 @@ Feedback, feature requests, bugreports and other suggestions are welcome! Please
 The author's intention was to create a toolbox, which facilitates the (notoriously time consuming) first descriptive tasks in data analysis, consisting of calculating descriptive statistics, drawing graphical summaries and reporting the results. The package contains furthermore functions to produce documents using MS Word (or PowerPoint) and functions to import data from Excel. <br />
 A considerable part of the included functions can be found scattered in other packages and other sources written partly by Titans of R. The reason for collecting them here, was primarily to have them consolidated in ONE instead of dozens of packages (which themselves might depend on other packages which are not needed at all), and to provide a common and consistent interface as far as function and arguments naming, <code>NA</code> handling, recycling rules etc. are concerned. Google style guides were used as naming rules (in absence of convincing alternatives). The 'CamelStyle' was consequently applied to functions borrowed from contributed R packages as well.
 <br /></p>
-<p>Feedback, feature requests, bugreports and other suggestions are welcome! Please report problems to Stack Overflow mentioning DescTools or directly to the maintainer.</p>
+<p>Feedback, feature requests, bugreports and other suggestions are welcome! Please report problems to Stack Overflow using tag [desctools] or directly to the maintainer.</p>
     </div>
 
 
 
     <h2 class="hasAnchor" id="warning"><a class="anchor" href="#warning"></a>Warning</h2>
 
-    <p>This package is still under development. Although the code seems meanwhile quite stable, until release of version 1.0 (which is expected in hmm: spring 2019? ... you don't believe it anymore?) you should be aware that everything in the package might be subject to change. Backward compatibility is not yet guaranteed. Functions may be deleted or renamed and new syntax may be inconsistent with earlier versions. By release of version 1.0 the "deprecated-defunct process" will be installed.</p>
+    <p>This package is still under development. Although the code seems meanwhile quite stable, until release of version 1.0 (which is expected in hmm: new future?) you should be aware that everything in the package might be subject to change. Backward compatibility is not yet guaranteed. Functions may be deleted or renamed and new syntax may be inconsistent with earlier versions. By release of version 1.0 the "deprecated-defunct process" will be installed.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     
@@ -342,7 +346,6 @@ A considerable part of the included functions can be found scattered in other pa
 <tr><td><a href='PlotWeb.html'>PlotWeb</a></td><td>Create a web plot</td></tr>
 <tr><td><a href='PlotTernary.html'>PlotTernary</a></td><td>Create a triangle or ternary plot</td></tr>
 <tr><td><a href='PlotMiss.html'>PlotMiss</a></td><td>Plot missing values</td></tr>
-<tr><td><a href='PlotDev.html'>PlotDev</a></td><td>Simple convenience wrapper for producing TIF-Files</td></tr>
 <tr><td><a href='PlotECDF.html'>PlotECDF</a></td><td>Plot empirical cumulative distribution function</td></tr>
 <tr><td><a href='PlotLinesA.html'>PlotLinesA</a></td><td>Plot the columns of one matrix against the columns of another</td></tr>
 <tr><td><a href='PlotLog.html'>PlotLog</a></td><td>Create a plot with logarithmic axis and log grid</td></tr>
@@ -367,7 +370,7 @@ A considerable part of the included functions can be found scattered in other pa
 <tr><td><a href='PercTable.html'>PercTable</a></td><td>Bivariate percentage table</td></tr>
 <tr><td><a href='PercTable.html'>Margins</a></td><td>(Extended) margin tables of a table</td></tr>
 <tr><td><a href='ExpFreq.html'>ExpFreq</a></td><td>Expected frequencies of a n-dimensional table</td></tr>
-<tr><td><a href='Mode.html'>Mode</a></td><td>Mode, the most frequent value</td></tr>
+<tr><td><a href='Mode.html'>Mode</a></td><td>Mode, the most frequent value (including frequency)</td></tr>
 <tr><td><a href='Gmean.html'>Gmean</a>, <a href='Gmean.html'>Gsd</a></td><td>Geometric mean and geometric standard deviation</td></tr>
 <tr><td><a href='Hmean.html'>Hmean</a></td><td>Harmonic Mean</td></tr>
 <tr><td><a href='Median.html'>Median</a></td><td>Extended median function supporting weights and ordered factors</td></tr>
@@ -439,7 +442,7 @@ A considerable part of the included functions can be found scattered in other pa
 <tr><td><a href='Conf.html'>Sens</a>, <a href='Conf.html'>Spec</a></td><td>Sensitivity and specificity</td></tr>
 <tr><td><a href='PseudoR2.html'>PseudoR2</a></td><td>Variants of pseudo R squared statistics: McFadden, Aldrich-Nelson,</td></tr>
 <tr><td></td><td>Nagelkerke, CoxSnell, Effron, McKelvey-Zavoina, Tjur</td></tr>
-<tr><td><a href='Mean.html'>Mean</a>, <a href='SD.html'>SD</a>, <a href='Cor.html'>Var</a></td><td>Variants of base statistics, allowing to define weights: Mean,</td></tr>
+<tr><td><a href='Mean.html'>Mean</a>, <a href='SD.html'>SD</a>, <a href='Var.html'>Var</a>, <a href='IQRw.html'>IQRw</a></td><td>Variants of base statistics, allowing to define weights: Mean,</td></tr>
 <tr><td><a href='Quantile.html'>Quantile</a>, <a href='MAD.html'>MAD</a>, <a href='Cor.html'>Cor</a></td><td>standard deviation, variance, quantile, mad, correlation</td></tr>
 <tr><td><a href='VIF.html'>VIF</a>, <a href='StdCoef.html'>StdCoef</a></td><td>Variance inflation factors and standardised coefficents for linear models</td></tr>
 <tr><td></td><td></td></tr>
@@ -525,7 +528,7 @@ A considerable part of the included functions can be found scattered in other pa
 <tr><td><a href='GetNewWrd.html'>GetNewWrd</a>, <a href='GetNewXL.html'>GetNewXL</a>, <a href='PpPlot.html'>GetNewPP</a></td><td>Create a new Word, Excel or PowerPoint Instance</td></tr>
 <tr><td><a href='GetCurrWrd.html'>GetCurrWrd</a>, <a href='GetCurrWrd.html'>GetCurrXL</a>, <a href='PpPlot.html'>GetCurrPP</a></td><td>Get a handle to a running Word, Excel or PowerPoint instance</td></tr>
 <tr><td><a href='GetNewWrd.html'>WrdKill</a>, <a href='XLView.html'>XLKill</a></td><td>Ends a (possibly hidden) Word/Excel process</td></tr>
-<tr><td>IsValidWrd</td><td>Check if the handle to a Word instance is valid or outdated</td></tr>
+<tr><td><a href='IsValidHwnd.html'>IsValidHwnd</a></td><td>Check if the handle to a MS Office application is valid or outdated</td></tr>
 <tr><td><a href='WrdCaption.html'>WrdCaption</a></td><td>Insert a title in Word</td></tr>
 <tr><td><a href='WrdFont.html'>WrdFont</a></td><td>Get and set the font for the current selection in Word</td></tr>
 <tr><td><a href='WrdParagraphFormat.html'>WrdParagraphFormat</a></td><td>Get and set the paragraph format</td></tr>
@@ -578,9 +581,9 @@ A considerable part of the included functions can be found scattered in other pa
 
     <p>To make use of MS-Office features you must have Office in one of its variants installed.
 All <code>Wrd*</code>, <code>XL*</code> and <code>Pp*</code> functions require as well the package <b>RDCOMClient</b> to be installed. Hence the use of these functions is restricted to Windows systems.
-<b>RDCOMClient</b> can be installed with: <br /></p><pre>install.packages("RDCOMClient", repos="http://www.omegahat.net/R")</pre><p>The omegahat repository does not benefit from the same update service as CRAN. So you may be forced to install a package compiled with an earlier version, which usually is not a problem. Use e.g. for R 3.6x<br /></p><pre>
-url &lt;- "http://www.omegahat.net/R/bin/windows/contrib/3.5.1/RDCOMClient_0.93-0.zip"
-install.packages(url, repos=NULL, type="binary")</pre><p><b>RDCOMClient</b> does not exist for Mac or Linux, sorry.</p>
+<b>RDCOMClient</b> can be installed with: <br /></p><pre><span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span>(<span class='st'>"RDCOMClient"</span>, <span class='kw'>repos</span><span class='kw'>=</span><span class='st'>"http://www.omegahat.net/R"</span>)</pre><p>The omegahat repository does not benefit from the same update service as CRAN. So you may be forced to install a package compiled with an earlier version, which usually is not a problem. Use e.g. for R 3.6x<br /></p><pre>
+<span class='no'>url</span> <span class='kw'>&amp;</span><span class='no'>lt</span>;- <span class='st'>"http://www.omegahat.net/R/bin/windows/contrib/3.5.1/RDCOMClient_0.93-0.zip"</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span>(<span class='no'>url</span>, <span class='kw'>repos</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"binary"</span>)</pre><p><b>RDCOMClient</b> does not exist for Mac or Linux, sorry.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'># ******************************************************
@@ -592,26 +595,10 @@ install.packages(url, repos=NULL, type="binary")</pre><p><b>RDCOMClient</b> does
 # ******************************************************
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#warning">Warning</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#ms-office">MS-Office</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Andri Signorell<br />
-Helsana Versicherungen AG, Health Sciences, Zurich<br />
-HWZ University of Applied Sciences in Business Administration Zurich.<br /></p>
-<p>R is a community project. This can be seen from the fact that this package includes R source code and/or documentation previously published by (in alphabetical order): <br /></p>
-<p>Ken Aho, Andreas Alfons, Nanina Anderegg, Tomas Aragon, Antti Arppe, Adrian Baddeley, Kamil Barton, Ben Bolker, Hans W. Borchers, Frederico Caeiro, Stephane Champely, Daniel Chessel, Leanne Chhay, Clint Cummins, Michael Dewey, Harold C. Doran, Stephane Dray, Charles Dupont, Dirk Eddelbuettel, Jeff Enos, Claus Ekstrom, Martin Elff, Kamil Erguler, Richard W. Farebrother, John Fox, Romain Francois, Michael Friendly, Tal Galili, Matthias Gamer, Joseph L. Gastwirth, Yulia R. Gel, Juergen Gross, Gabor Grothendieck, Frank E. Harrell Jr, Richard Heiberger, Michael Hoehle, Christian W. Hoffmann, Soeren Hojsgaard, Torsten Hothorn, Markus Huerzeler, Wallace W. Hui, Pete Hurd, Rob J. Hyndman, Pablo J. Villacorta Iglesias, Christopher Jackson, Matthias Kohl, Mikko Korpela, Max Kuhn, Detlew Labes, Duncan Temple Lang, Friederich Leisch, Jim Lemon, Dong Li, Martin Maechler, Arni Magnusson, Daniel Malter, George Marsaglia, John Marsaglia, Alina Matei, David Meyer, Weiwen Miao, Giovanni Millo, Yongyi Min, David Mitchell, Markus Naepflin, Daniel Navarro, Henric Nilsson, Klaus Nordhausen, Derek Ogle, Hong Ooi, Nick Parsons, Sandrine Pavoine, Tony Plate, Roland Rapold, William Revelle, Tyler Rinker, Brian D. Ripley, Caroline Rodriguez, Nathan Russell, Nick Sabbe, Venkatraman E. Seshan, Greg Snow, Michael Smithson, Karline Soetaert, Werner A. Stahel, Alec Stephenson, Mark Stevenson, Matthias Templ, Terry Therneau, Yves Tille, Adrian Trapletti, Joshua Ulrich, Kevin Ushey, Jeremy VanDerWal, Bill Venables, John Verzani, Gregory R. Warnes, Stefan Wellek, Hadley Wickham, Rand R. Wilcox, Peter Wolf, Daniel Wollschlaeger, Thomas Yee, Achim Zeileis</p>
-<p>Special thanks go to Beat Bruengger, Mathias Frueh, Daniel Wollschlaeger for their valuable contributions and testing.</p>
-<p>The good things come from all these guys, any problems are likely due to my tweaking.
-Thank you all! <br /></p>
-
-<p>Maintainer: Andri Signorell &lt;andri [at] signorell [.] net&gt;</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -622,7 +609,7 @@ Thank you all! <br /></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -39,7 +43,6 @@
 
 <meta property="og:title" content="Recover Original Data From Contingency Table — Untable" />
 <meta property="og:description" content="Recreates the data.frame out of a contingency table x." />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -55,9 +58,10 @@
 
 
 
-  </head>
+  	<link rel="icon" href="../favicon.png" />
+</head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -71,7 +75,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.30</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.35</span>
       </span>
     </div>
 
@@ -108,7 +112,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/AndriSignorell/DescTools">
+  <a href="https://github.com/AndriSignorell/DescTools/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -139,6 +143,7 @@
 
 <span class='co'># S3 method for data.frame</span>
 <span class='fu'>Untable</span>(<span class='no'>x</span>, <span class='kw'>freq</span> <span class='kw'>=</span> <span class='st'>"Freq"</span>, <span class='kw'>rownames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+
 <span class='co'># S3 method for default</span>
 <span class='fu'>Untable</span>(<span class='no'>x</span>, <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>rownames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>colnames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
 
@@ -180,7 +185,7 @@
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>For x being a vector this reduces to <code><a href='https://rdrr.io/r/base/rep.html'>rep(..., n)</a></code> with n as vector (which is not supported by rep).</p>
+    <p>For x being a vector this reduces to <code><a href='https://rdrr.io/r/base/rep.html'>rep(..., n)</a></code> with n as vector (which is not supported by <code><a href='https://rdrr.io/r/base/rep.html'>rep()</a></code>). <code>NA</code>s in the table will be treated as 0 without raising an error.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a data.frame with the detailed data 
@@ -244,43 +249,43 @@
 <span class='fu'>Untable</span>(<span class='no'>tab</span>)</div><div class='output co'>#&gt;    set1 set2
 #&gt; 1     a    k
 #&gt; 2     a    k
-#&gt; 3     b    k
-#&gt; 4     d    k
-#&gt; 5     d    k
-#&gt; 6     d    k
-#&gt; 7     d    k
-#&gt; 8     a    l
-#&gt; 9     a    l
-#&gt; 10    c    l
-#&gt; 11    c    l
-#&gt; 12    c    l
-#&gt; 13    c    l
-#&gt; 14    c    l
-#&gt; 15    c    l
-#&gt; 16    d    l
-#&gt; 17    e    l
-#&gt; 18    a    m
-#&gt; 19    a    m
-#&gt; 20    b    m
-#&gt; 21    c    m
-#&gt; 22    d    m
-#&gt; 23    b    n
-#&gt; 24    b    n
-#&gt; 25    b    n
-#&gt; 26    c    n
-#&gt; 27    d    n
-#&gt; 28    e    n
-#&gt; 29    b    o
-#&gt; 30    b    o
-#&gt; 31    c    o
-#&gt; 32    c    o
-#&gt; 33    c    o
-#&gt; 34    c    o
-#&gt; 35    c    o
-#&gt; 36    d    o
-#&gt; 37    e    o
-#&gt; 38    e    o
-#&gt; 39    e    o
+#&gt; 3     a    k
+#&gt; 4     a    k
+#&gt; 5     b    k
+#&gt; 6     b    k
+#&gt; 7     b    k
+#&gt; 8     b    k
+#&gt; 9     d    k
+#&gt; 10    d    k
+#&gt; 11    d    k
+#&gt; 12    d    k
+#&gt; 13    e    k
+#&gt; 14    a    l
+#&gt; 15    a    l
+#&gt; 16    b    l
+#&gt; 17    c    l
+#&gt; 18    c    l
+#&gt; 19    d    l
+#&gt; 20    e    l
+#&gt; 21    a    m
+#&gt; 22    a    m
+#&gt; 23    b    m
+#&gt; 24    b    m
+#&gt; 25    d    m
+#&gt; 26    e    m
+#&gt; 27    e    m
+#&gt; 28    e    m
+#&gt; 29    e    m
+#&gt; 30    a    n
+#&gt; 31    a    n
+#&gt; 32    a    n
+#&gt; 33    b    n
+#&gt; 34    c    n
+#&gt; 35    d    n
+#&gt; 36    e    n
+#&gt; 37    a    o
+#&gt; 38    c    o
+#&gt; 39    d    o
 #&gt; 40    e    o</div><div class='input'>
 
 <span class='co'># return a numeric vector by setting type and coerce to a vector by [,]</span>
@@ -328,18 +333,10 @@
 #&gt; 9   B  D
 #&gt; 10  B  D</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Andri Signorell &lt;andri [at] signorell [.] net&gt;</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -350,7 +347,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

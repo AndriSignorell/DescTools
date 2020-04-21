@@ -6,28 +6,32 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Set Plot Margins
-<!-- %%  ~~function to do ... ~~ --> — Mar • DescTools</title>
+<title>Set Plot Margins and Distances
+<!-- %%  ~~function to do ... ~~ --> — Mar and Mgp • DescTools</title>
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -38,11 +42,11 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Set Plot Margins
-<!-- %%  ~~function to do ... ~~ --> — Mar" />
-<meta property="og:description" content="Plot margins are normally set by par(&quot;mar&quot;). However one is forced to define all margins, even if just one should be altered. This convenience function allows to set one single margin (or several) while leaving the others unchanged.
+<meta property="og:title" content="Set Plot Margins and Distances
+<!-- %%  ~~function to do ... ~~ --> — Mar and Mgp" />
+<meta property="og:description" content="Plot margins are normally set by par(&quot;mar&quot;). However one is forced to always define all margins, even if just one should be altered. The convenience function Mar() allows to set one single margin (or several) while leaving the others unchanged.
+Mgp() does the same for the distances of axis title, labels and line.
 " />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -58,9 +62,10 @@
 
 
 
-  </head>
+  	<link rel="icon" href="../favicon.png" />
+</head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -74,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.30</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.35</span>
       </span>
     </div>
 
@@ -111,7 +116,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/AndriSignorell/DescTools">
+  <a href="https://github.com/AndriSignorell/DescTools/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -129,18 +134,21 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Set Plot Margins
+    <h1>Set Plot Margins and Distances
 <!-- %%  ~~function to do ... ~~ --></h1>
     
     <div class="hidden name"><code>Mar.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Plot margins are normally set by <code><a href='https://rdrr.io/r/graphics/par.html'>par("mar")</a></code>. However one is forced to define all margins, even if just one should be altered. This convenience function allows to set one single margin (or several) while leaving the others unchanged.
+    <p>Plot margins are normally set by <code><a href='https://rdrr.io/r/graphics/par.html'>par("mar")</a></code>. However one is forced to always define all margins, even if just one should be altered. The convenience function <code>Mar()</code> allows to set one single margin (or several) while leaving the others unchanged.</p>
+<p><code>Mgp()</code> does the same for the distances of axis title, labels and line.
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>Mar</span>(<span class='kw'>bottom</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>left</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>top</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>right</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>outer</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>Mar</span>(<span class='kw'>bottom</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>left</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>top</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>right</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>outer</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+    <span class='kw'>reset</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>Mgp</span>(<span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>reset</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -167,11 +175,30 @@
     </tr>
     <tr>
       <th>outer</th>
-      <td><p>logical, defining if inner margins (<code><a href='https://rdrr.io/r/graphics/par.html'>par("mar")</a></code>) or the outer margins (<code><a href='https://rdrr.io/r/graphics/par.html'>par("oma")</a></code>) should be set. Default is FALSE, meaning that the inner margins will be concerned.
+      <td><p>logical, defining if inner margins (<code><a href='https://rdrr.io/r/graphics/par.html'>par("mar")</a></code>) or the outer margins (<code><a href='https://rdrr.io/r/graphics/par.html'>par("oma")</a></code>) should be set. Default is <code>FALSE</code>, meaning that the inner margins will be concerned.
 <!-- %%     ~~Describe \code{outer} here~~ --></p></td>
+    </tr>
+    <tr>
+      <th>reset</th>
+      <td><p>if set to <code>TRUE</code> the margins are reset to the defaults (respecting <code>outer</code>). Other arguments are ignored.</p></td>
+    </tr>
+    <tr>
+      <th>title</th>
+      <td><p>margin line for the axis title (default 3)</p></td>
+    </tr>
+    <tr>
+      <th>labels</th>
+      <td><p>margin line for the axis labels (default 1)</p></td>
+    </tr>
+    <tr>
+      <th>line</th>
+      <td><p>margin line for the axis line (default 0)</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Running <code>Mar()</code> without any arguments will return the current settings, either <code><a href='https://rdrr.io/r/graphics/par.html'>par("mar")</a></code>, when outer is set to <code>FALSE</code> or <code><a href='https://rdrr.io/r/graphics/par.html'>par("oma")</a></code> for <code>outer = TRUE</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/graphics/par.html'>par</a></code>
@@ -180,19 +207,14 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># largen the left margin only</span>
 <span class='fu'>Mar</span>(<span class='kw'>left</span><span class='kw'>=</span><span class='fl'>10.1</span>)   <span class='co'># or as alternative: Mar(, 10.1)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span>(<span class='fl'>1</span>:<span class='fl'>7</span>, <span class='kw'>names</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span>(<span class='no'>d.pizza</span>$<span class='no'>driver</span>))</div><div class='img'><img src='Mar-1.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>Mgp</span>(<span class='kw'>title</span><span class='kw'>=</span><span class='fl'>6</span>)     <span class='co'># ylab must be placed a little further to the left</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span>(<span class='fl'>1</span>:<span class='fl'>7</span>, <span class='kw'>names</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span>(<span class='no'>d.pizza</span>$<span class='no'>driver</span>), <span class='kw'>horiz</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>las</span><span class='kw'>=</span><span class='fl'>1</span>,
+        <span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"driver"</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='Pal.html'>Pal</a></span>(<span class='st'>"Helsana"</span>))</div><div class='img'><img src='Mar-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Andri Signorell &lt;andri [at] signorell [.] net&gt;
-<!-- %%  ~~who you are~~ --></p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -203,7 +225,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

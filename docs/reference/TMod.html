@@ -11,23 +11,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -42,7 +46,6 @@
 <!-- %%  ~~function to do ... ~~ --> — TMod" />
 <meta property="og:description" content="Collect the coefficients and some qualifying statistics of linear models and organize it in a table for comparison and reporting. The function supports linear and general linear models.
 " />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -58,9 +61,10 @@
 
 
 
-  </head>
+  	<link rel="icon" href="../favicon.png" />
+</head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -74,7 +78,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.30</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.35</span>
       </span>
     </div>
 
@@ -111,7 +115,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/AndriSignorell/DescTools">
+  <a href="https://github.com/AndriSignorell/DescTools/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -145,9 +149,14 @@
 <span class='fu'>ModSummary</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for lm</span>
-<span class='fu'>ModSummary</span>(<span class='no'>x</span>, <span class='kw'>conf.level</span><span class='kw'>=</span><span class='fl'>0.95</span>, <span class='no'>...</span>)
+<span class='fu'>ModSummary</span>(<span class='no'>x</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>...</span>)
 <span class='co'># S3 method for glm</span>
-<span class='fu'>ModSummary</span>(<span class='no'>x</span>, <span class='kw'>conf.level</span><span class='kw'>=</span><span class='fl'>0.95</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>ModSummary</span>(<span class='no'>x</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for TMod</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>x</span>, <span class='kw'>terms</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>intercept</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+<span class='co'># S3 method for TMod</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>na.form</span> <span class='kw'>=</span> <span class='st'>"-"</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -168,12 +177,31 @@
       <th>FUN</th>
       <td><p>function with arguments <code>est</code>, <code>se</code>, <code>tval</code>, <code>pval</code>, <code>lci</code>, <code>uci</code> to display the coefficients. The default function will display the coefficient and significance stars for the p-values.</p></td>
     </tr>
+    <tr>
+      <th>terms</th>
+      <td><p>a vector with the terms of the model formula to be plotted. By default this will be all of them.</p></td>
+    </tr>
+    <tr>
+      <th>intercept</th>
+      <td><p>logical, defining whether the intercept should be plotted (default is <code>FALSE</code>).</p></td>
+    </tr>
+    <tr>
+      <th>digits</th>
+      <td><p>integer, the desired (fixed) number of digits after the decimal point. Unlike <code><a href='https://rdrr.io/r/base/formatc.html'>formatC</a></code> you will always get this number of digits even if the last digit is 0.
+<!-- %%     ~~Describe \code{digits} here~~ --></p></td>
+    </tr>
+    <tr>
+      <th>na.form</th>
+      <td><p>character, string specifying how <code>NA</code>s should be specially formatted.
+  If set to <code>NULL</code> (default) no special action will be taken.
+<!-- %%     ~~Describe \code{pad} here~~ --></p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>In order to compare the coefficients of linear models, the user is left to his own devices. R offers no support in this respect. TMod jumps into the breach and displays the coefficients of several models in tabular form. For this purpose, different quality indicators for the models are displayed, so that a comprehensive comparison of the models is possible. In particular, it is easy to see the effect that adding or omitting variables has on forecast quality.</p>
-<p>A plot function for a TMod object will produce a dotchart with the coefficients and their confidence intervals.</p>
+    <p>In order to compare the coefficients of linear models, the user is left to his own devices. R offers no support in this respect. <code>TMod()</code> jumps into the breach and displays the coefficients of several models in tabular form. For this purpose, different quality indicators for the models are displayed, so that a comprehensive comparison of the models is possible. In particular, it is easy to see the effect that adding or omitting variables has on forecast quality.</p>
+<p>A plot function for a <code>TMod</code> object will produce a dotchart with the coefficients and their confidence intervals.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>character table
@@ -195,72 +223,72 @@
 <span class='no'>r.gama</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>Fertility</span> ~ <span class='no'>.</span>- <span class='no'>Agriculture</span> , <span class='no'>swiss</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/stats/family.html'>Gamma</a></span>(<span class='kw'>link</span><span class='kw'>=</span><span class='st'>"identity"</span>))
 <span class='no'>r.gaml</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>Fertility</span> ~ <span class='no'>.</span> , <span class='no'>swiss</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/stats/family.html'>Gamma</a></span>(<span class='kw'>link</span><span class='kw'>=</span><span class='st'>"log"</span>))
 
-<span class='fu'>TMod</span>(<span class='no'>r.full</span>, <span class='no'>r.nox</span>, <span class='no'>r.grp</span>, <span class='no'>r.gam</span>, <span class='no'>r.gama</span>, <span class='no'>r.gaml</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt;                coef     r.full      r.nox      r.grp      r.gam     r.gama    
-#&gt; 1       (Intercept) 67 ***         51 ***     53 ***     64 ***     49 ***    
-#&gt; 2       Agriculture -0 *           -0         -0         -0 *            -    
-#&gt; 3       Examination -0                  -     -1 ***     -0         0         
-#&gt; 4         Education -1 ***         -1 ***          -     -1 ***     -1 ***    
-#&gt; 5          Catholic 0 **                -          -     0 **       0 *       
-#&gt; 6  Infant.Mortality 1 **           1 **       2 ***      1 **       1 **      
-#&gt; 7  CutQ(Catholic)Q2      -              -     -0              -          -    
-#&gt; 8  CutQ(Catholic)Q3      -              -     -6              -          -    
-#&gt; 9  CutQ(Catholic)Q4      -              -     6               -          -    
-#&gt; 10              ---                                                           
-#&gt; 11        r.squared      0.707          0.566      0.611      -          -    
-#&gt; 12    adj.r.squared      0.671          0.536      0.552      -          -    
-#&gt; 13            sigma      7.165          8.511      8.359      -          -    
-#&gt; 14           logLik   -156.036       -165.243   -162.699   -156.506   -159.674
-#&gt; 15          logLik0      -              -          -       -186.992   -186.992
-#&gt; 16               G2      -              -          -         60.971     54.636
-#&gt; 17         deviance   2105.043       3114.635   2795.124      -          -    
-#&gt; 18              AIC    326.072        340.485    341.398    327.012    331.347
-#&gt; 19              BIC    339.023        349.736    356.199    339.963    342.448
-#&gt; 20            numdf      5              3          6          -          -    
-#&gt; 21            dendf     41             43         40          -          -    
-#&gt; 22                N     47             47         47         47         47    
-#&gt; 23                F     19.761         18.699     10.454      -          -    
-#&gt; 24                p      5.594e-10      0.000      0.000      -          -    
-#&gt; 25              MAE      5.321          6.826      6.079      5.330      5.869
-#&gt; 26             MAPE      0.079          0.098      0.095      0.078      0.086
-#&gt; 27              MSE     44.788         66.269     59.471     45.342     52.015
-#&gt; 28             RMSE      6.692          8.141      7.712      6.734      7.212
-#&gt; 29         McFadden      -              -          -          0.163      0.146
-#&gt; 30      McFaddenAdj      -              -          -          0.131      0.119
-#&gt; 31       Nagelkerke      -              -          -          0.727      0.688
-#&gt; 32         CoxSnell      -              -          -          0.727      0.687
-#&gt;    r.gaml    
-#&gt; 1  4 ***     
-#&gt; 2  -0 *      
-#&gt; 3  -0        
-#&gt; 4  -0 ***    
-#&gt; 5  0 *       
-#&gt; 6  0 **      
-#&gt; 7       -    
-#&gt; 8       -    
-#&gt; 9       -    
-#&gt; 10           
-#&gt; 11      -    
-#&gt; 12      -    
-#&gt; 13      -    
-#&gt; 14   -157.224
-#&gt; 15   -186.992
-#&gt; 16     59.534
-#&gt; 17      -    
-#&gt; 18    328.449
-#&gt; 19    341.400
-#&gt; 20      -    
-#&gt; 21      -    
-#&gt; 22     47    
-#&gt; 23      -    
-#&gt; 24      -    
-#&gt; 25      5.458
-#&gt; 26      0.080
-#&gt; 27     47.361
-#&gt; 28      6.882
-#&gt; 29      0.159
-#&gt; 30      0.127
-#&gt; 31      0.718
-#&gt; 32      0.718</div><div class='input'>
+<span class='fu'>TMod</span>(<span class='no'>r.full</span>, <span class='no'>r.nox</span>, <span class='no'>r.grp</span>, <span class='no'>r.gam</span>, <span class='no'>r.gama</span>, <span class='no'>r.gaml</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt;                coef   r.full        r.nox        r.grp        r.gam    
+#&gt; 1       (Intercept)   66.915 ***   51.101 ***   53.411 ***   63.709 ***
+#&gt; 2       Agriculture   -0.172 *     -0.026       -0.096       -0.175 *  
+#&gt; 3       Examination   -0.258        -           -0.872 ***   -0.129    
+#&gt; 4         Education   -0.871 ***   -0.857 ***    -           -0.944 ***
+#&gt; 5          Catholic    0.104 **     -            -            0.106 ** 
+#&gt; 6  Infant.Mortality    1.077 **     1.493 **     1.796 ***    1.174 ** 
+#&gt; 7  CutQ(Catholic)Q2    -            -           -0.035        -        
+#&gt; 8  CutQ(Catholic)Q3    -            -           -5.780        -        
+#&gt; 9  CutQ(Catholic)Q4    -            -            5.939        -        
+#&gt; 10              ---                                                    
+#&gt; 11        r.squared    0.707        0.566        0.611        -        
+#&gt; 12    adj.r.squared    0.671        0.536        0.552        -        
+#&gt; 13            sigma    7.165        8.511        8.359        -        
+#&gt; 14           logLik -156.036     -165.243     -162.699     -156.506    
+#&gt; 15          logLik0    -            -            -         -186.992    
+#&gt; 16               G2    -            -            -           60.971    
+#&gt; 17         deviance 2105.043     3114.635     2795.124        -        
+#&gt; 18              AIC  326.072      340.485      341.398      327.012    
+#&gt; 19              BIC  339.023      349.736      356.199      339.963    
+#&gt; 20            numdf    5            3            6            -        
+#&gt; 21            dendf   41           43           40            -        
+#&gt; 22                N   47           47           47           47        
+#&gt; 23                F   19.761       18.699       10.454        -        
+#&gt; 24                p    5.594e-10    0.000        0.000        -        
+#&gt; 25              MAE    5.321        6.826        6.079        5.330    
+#&gt; 26             MAPE    0.079        0.098        0.095        0.078    
+#&gt; 27              MSE   44.788       66.269       59.471       45.342    
+#&gt; 28             RMSE    6.692        8.141        7.712        6.734    
+#&gt; 29         McFadden    -            -            -            0.163    
+#&gt; 30      McFaddenAdj    -            -            -            0.131    
+#&gt; 31       Nagelkerke    -            -            -            0.727    
+#&gt; 32         CoxSnell    -            -            -            0.727    
+#&gt;      r.gama       r.gaml    
+#&gt; 1    48.790 ***    4.184 ***
+#&gt; 2     -           -0.002 *  
+#&gt; 3     0.050       -0.003    
+#&gt; 4    -0.808 ***   -0.015 ***
+#&gt; 5     0.089 *      0.001 *  
+#&gt; 6     1.290 **     0.017 ** 
+#&gt; 7     -            -        
+#&gt; 8     -            -        
+#&gt; 9     -            -        
+#&gt; 10                          
+#&gt; 11    -            -        
+#&gt; 12    -            -        
+#&gt; 13    -            -        
+#&gt; 14 -159.674     -157.224    
+#&gt; 15 -186.992     -186.992    
+#&gt; 16   54.636       59.534    
+#&gt; 17    -            -        
+#&gt; 18  331.347      328.449    
+#&gt; 19  342.448      341.400    
+#&gt; 20    -            -        
+#&gt; 21    -            -        
+#&gt; 22   47           47        
+#&gt; 23    -            -        
+#&gt; 24    -            -        
+#&gt; 25    5.869        5.458    
+#&gt; 26    0.086        0.080    
+#&gt; 27   52.015       47.361    
+#&gt; 28    7.212        6.882    
+#&gt; 29    0.146        0.159    
+#&gt; 30    0.119        0.127    
+#&gt; 31    0.688        0.718    
+#&gt; 32    0.687        0.718    </div><div class='input'>
 <span class='co'># display confidence intervals</span>
 <span class='fu'>TMod</span>(<span class='no'>r.full</span>, <span class='no'>r.nox</span>, <span class='no'>r.gam</span>, <span class='kw'>FUN</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>est</span>, <span class='no'>se</span>, <span class='no'>tval</span>, <span class='no'>pval</span>, <span class='no'>lci</span>, <span class='no'>uci</span>){
   <span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>gettextf</a></span>(<span class='st'>"%s [%s, %s]"</span>,
@@ -268,36 +296,66 @@
            <span class='fu'><a href='Format.html'>Format</a></span>(<span class='no'>lci</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>3</span>),
            <span class='fu'><a href='Format.html'>Format</a></span>(<span class='no'>uci</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>2</span>)
            )
-})</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt;                coef         r.full              r.nox              r.gam    
-#&gt; 1       (Intercept) 67 [45.294, 88.54] 51 [28.928, 73.27] 64 [44.294, 83.44]
-#&gt; 2       Agriculture -0 [-0.314, -0.03] -0 [-0.173, 0.12]  -0 [-0.318, -0.04]
-#&gt; 3       Examination -0 [-0.771, 0.25]       -             -0 [-0.626, 0.36] 
-#&gt; 4         Education -1 [-1.241, -0.50] -1 [-1.205, -0.51] -1 [-1.252, -0.63]
-#&gt; 5          Catholic   0 [0.033, 0.18]       -               0 [0.035, 0.18] 
-#&gt; 6  Infant.Mortality   1 [0.306, 1.85]    1 [0.608, 2.38]    1 [0.479, 1.84] 
-#&gt; 7               ---                                                         
-#&gt; 8         r.squared      0.707              0.566              -            
-#&gt; 9     adj.r.squared      0.671              0.536              -            
-#&gt; 10            sigma      7.165              8.511              -            
-#&gt; 11           logLik   -156.036           -165.243           -156.506        
-#&gt; 12          logLik0      -                  -               -186.992        
-#&gt; 13               G2      -                  -                 60.971        
-#&gt; 14         deviance   2105.043           3114.635              -            
-#&gt; 15              AIC    326.072            340.485            327.012        
-#&gt; 16              BIC    339.023            349.736            339.963        
-#&gt; 17            numdf      5                  3                  -            
-#&gt; 18            dendf     41                 43                  -            
-#&gt; 19                N     47                 47                 47            
-#&gt; 20                F     19.761             18.699              -            
-#&gt; 21                p      5.594e-10          0.000              -            
-#&gt; 22              MAE      5.321              6.826              5.330        
-#&gt; 23             MAPE      0.079              0.098              0.078        
-#&gt; 24              MSE     44.788             66.269             45.342        
-#&gt; 25             RMSE      6.692              8.141              6.734        
-#&gt; 26         McFadden      -                  -                  0.163        
-#&gt; 27      McFaddenAdj      -                  -                  0.131        
-#&gt; 28       Nagelkerke      -                  -                  0.727        
-#&gt; 29         CoxSnell      -                  -                  0.727        </div><div class='input'>
+})</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt;                coef               r.full                    r.nox    
+#&gt; 1       (Intercept)   66.915 [45.294, 88.54]   51.101 [28.928, 73.27]
+#&gt; 2       Agriculture   -0.172 [-0.314, -0.03]   -0.026 [-0.173, 0.12] 
+#&gt; 3       Examination   -0.258 [-0.771, 0.25]     -                    
+#&gt; 4         Education   -0.871 [-1.241, -0.50]   -0.857 [-1.205, -0.51]
+#&gt; 5          Catholic    0.104 [0.033, 0.18]      -                    
+#&gt; 6  Infant.Mortality    1.077 [0.306, 1.85]      1.493 [0.608, 2.38]  
+#&gt; 7               ---                                                  
+#&gt; 8         r.squared    0.707                    0.566                
+#&gt; 9     adj.r.squared    0.671                    0.536                
+#&gt; 10            sigma    7.165                    8.511                
+#&gt; 11           logLik -156.036                 -165.243                
+#&gt; 12          logLik0    -                        -                    
+#&gt; 13               G2    -                        -                    
+#&gt; 14         deviance 2105.043                 3114.635                
+#&gt; 15              AIC  326.072                  340.485                
+#&gt; 16              BIC  339.023                  349.736                
+#&gt; 17            numdf    5                        3                    
+#&gt; 18            dendf   41                       43                    
+#&gt; 19                N   47                       47                    
+#&gt; 20                F   19.761                   18.699                
+#&gt; 21                p    5.594e-10                0.000                
+#&gt; 22              MAE    5.321                    6.826                
+#&gt; 23             MAPE    0.079                    0.098                
+#&gt; 24              MSE   44.788                   66.269                
+#&gt; 25             RMSE    6.692                    8.141                
+#&gt; 26         McFadden    -                        -                    
+#&gt; 27      McFaddenAdj    -                        -                    
+#&gt; 28       Nagelkerke    -                        -                    
+#&gt; 29         CoxSnell    -                        -                    
+#&gt;                   r.gam    
+#&gt; 1    63.709 [44.294, 83.44]
+#&gt; 2    -0.175 [-0.318, -0.04]
+#&gt; 3    -0.129 [-0.626, 0.36] 
+#&gt; 4    -0.944 [-1.252, -0.63]
+#&gt; 5     0.106 [0.035, 0.18]  
+#&gt; 6     1.174 [0.479, 1.84]  
+#&gt; 7                          
+#&gt; 8     -                    
+#&gt; 9     -                    
+#&gt; 10    -                    
+#&gt; 11 -156.506                
+#&gt; 12 -186.992                
+#&gt; 13   60.971                
+#&gt; 14    -                    
+#&gt; 15  327.012                
+#&gt; 16  339.963                
+#&gt; 17    -                    
+#&gt; 18    -                    
+#&gt; 19   47                    
+#&gt; 20    -                    
+#&gt; 21    -                    
+#&gt; 22    5.330                
+#&gt; 23    0.078                
+#&gt; 24   45.342                
+#&gt; 25    6.734                
+#&gt; 26    0.163                
+#&gt; 27    0.131                
+#&gt; 28    0.727                
+#&gt; 29    0.727                </div><div class='input'>
 
 <span class='co'># cbind interface is not supported!!</span>
 <span class='co'># d.titanic &lt;- reshape(as.data.frame(Titanic),</span>
@@ -315,29 +373,7 @@
 <span class='no'>r.glm1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>Survived</span> ~ <span class='no'>Class</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>d.titanic</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='st'>"binomial"</span>)
 <span class='no'>r.glm2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>Survived</span> ~ <span class='no'>.</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>d.titanic</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='st'>"binomial"</span>)
 
-<span class='fu'>TMod</span>(<span class='no'>r.glm0</span>, <span class='no'>r.glm1</span>, <span class='no'>r.glm2</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt;             coef r.glm0     r.glm1     r.glm2    
-#&gt; 1    (Intercept) -1 ***     1 ***      1 *       
-#&gt; 2       Class2nd      -     -1 ***     -1 ***    
-#&gt; 3       Class3rd      -     -2 ***     -2 ***    
-#&gt; 4      ClassCrew      -     -2 ***     -1 ***    
-#&gt; 5      SexFemale      -          -     2 ***     
-#&gt; 6       AgeAdult      -          -     -1 ***    
-#&gt; 7            ---                                 
-#&gt; 8         logLik  -1384.728  -1294.278  -1105.031
-#&gt; 9        logLik0  -1384.728  -1384.728  -1384.728
-#&gt; 10            G2     -0.000    180.901    559.396
-#&gt; 11           AIC   2771.457   2596.555   2222.061
-#&gt; 12           BIC   2777.153   2619.342   2256.241
-#&gt; 13             N   2201       2201       2201    
-#&gt; 14      McFadden      0.000      0.065      0.202
-#&gt; 15   McFaddenAdj     -0.001      0.062      0.198
-#&gt; 16    Nagelkerke      0.000      0.110      0.314
-#&gt; 17      CoxSnell      0.000      0.079      0.224
-#&gt; 18 Kendall Tau-a      0.000      0.124      0.227
-#&gt; 19  Somers Delta      0.000      0.283      0.519
-#&gt; 20         Gamma      -          0.386      0.623
-#&gt; 21         Brier      0.219      0.200      0.162
-#&gt; 22             C      -          0.693      0.811</div><div class='input'>
+<span class='fu'>TMod</span>(<span class='no'>r.glm0</span>, <span class='no'>r.glm1</span>, <span class='no'>r.glm2</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(x$call$data): object 'd.titanic' not found</span></div><div class='input'>
 <span class='co'># plot OddsRatios</span>
 <span class='no'>d.pima</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>MASS</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/MASS/man/Pima.tr.html'>Pima.tr2</a></span>
 
@@ -345,27 +381,18 @@
 <span class='no'>r.b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>type</span> ~ <span class='no'>npreg</span> + <span class='no'>glu</span> + <span class='no'>bp</span> + <span class='no'>skin</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>d.pima</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='no'>binomial</span>)
 <span class='no'>r.c</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>type</span> ~ <span class='no'>npreg</span> + <span class='no'>age</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>d.pima</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='no'>binomial</span>)
 
-<span class='no'>or.a</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='OddsRatio.html'>OddsRatio</a></span>(<span class='no'>r.a</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='input'><span class='no'>or.b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='OddsRatio.html'>OddsRatio</a></span>(<span class='no'>r.b</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='input'><span class='no'>or.c</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='OddsRatio.html'>OddsRatio</a></span>(<span class='no'>r.c</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='input'>
+<span class='no'>or.a</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='OddsRatio.html'>OddsRatio</a></span>(<span class='no'>r.a</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(x$call$data): object 'd.pima' not found</span></div><div class='input'><span class='no'>or.b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='OddsRatio.html'>OddsRatio</a></span>(<span class='no'>r.b</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(x$call$data): object 'd.pima' not found</span></div><div class='input'><span class='no'>or.c</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='OddsRatio.html'>OddsRatio</a></span>(<span class='no'>r.c</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(x$call$data): object 'd.pima' not found</span></div><div class='input'>
 
 <span class='co'># create the model table</span>
-<span class='no'>tm</span> <span class='kw'>&lt;-</span> <span class='fu'>TMod</span>(<span class='kw'>m_A</span><span class='kw'>=</span><span class='no'>or.a</span>, <span class='kw'>m_B</span><span class='kw'>=</span><span class='no'>or.b</span>, <span class='kw'>m_C</span><span class='kw'>=</span><span class='no'>or.c</span>)
-<span class='co'># .. and plotit</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>tm</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"ORs for Models A, B, C"</span>,
-     <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>15</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>hred</span>, <span class='no'>hblue</span>), <span class='kw'>xlim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.5</span>, <span class='fl'>1.5</span>), <span class='kw'>panel.first</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span>(<span class='kw'>v</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"grey"</span>))</div><div class='output co'>#&gt; <span class='error'>Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): plot.new has not been called yet</span></div></pre>
+<span class='no'>tm</span> <span class='kw'>&lt;-</span> <span class='fu'>TMod</span>(<span class='kw'>m_A</span><span class='kw'>=</span><span class='no'>or.a</span>, <span class='kw'>m_B</span><span class='kw'>=</span><span class='no'>or.b</span>, <span class='kw'>m_C</span><span class='kw'>=</span><span class='no'>or.c</span>)</div><div class='output co'>#&gt; <span class='error'>Error in TMod(m_A = or.a, m_B = or.b, m_C = or.c): object 'or.a' not found</span></div><div class='input'><span class='co'># .. and plotit</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>tm</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"ORs for Models A, B, C"</span>, <span class='kw'>intercept</span><span class='kw'>=</span><span class='fl'>FALSE</span>,
+     <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>15</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>hred</span>, <span class='no'>hblue</span>, <span class='no'>horange</span>),
+     <span class='kw'>panel.first</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span>(<span class='kw'>v</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"grey30"</span>))</div><div class='output co'>#&gt; <span class='error'>Error in plot(tm, main = "ORs for Models A, B, C", intercept = FALSE,     pch = 15, col = c(hred, hblue, horange), panel.first = abline(v = 1,         col = "grey30")): object 'tm' not found</span></div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Andri Signorell &lt;andri [at] signorell [.] net&gt;
-<!-- %%  ~~who you are~~ --></p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -376,7 +403,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

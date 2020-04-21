@@ -11,23 +11,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -42,8 +46,7 @@
 <!-- %%   ~~ data name/kind ... ~~ --> — d.pizza" />
 <meta property="og:description" content="An artificial dataset inspired by a similar dataset pizza.sav in Arbeitsbuch zur deskriptiven und induktiven Statistik by Toutenburg et.al.
 The dataset contains data of a pizza delivery service in London, delivering pizzas to three areas. Every record defines one order/delivery and the according properties. A pizza is supposed to taste good, if its temperature is high enough, say 45 Celsius. So it might be interesting for the pizza delivery service to minimize the delivery time.
-The dataset is designed to be possibly evil. It contains the most used datatypes as numerics, factors, ordered factors, integers, logicals and a date. NAs are scattered everywhere partly systematically, partly randomly (except in the index)." />
-<meta name="twitter:card" content="summary" />
+The dataset is designed to be as evil as possible. As far as the description is concerned, it should pose the same difficulties that we have to deal with in everyday life. It contains the most used datatypes as numerics, factors, ordered factors, integers, logicals and a date. NAs are scattered everywhere partly systematically, partly randomly (except in the index)." />
 
 
 
@@ -59,9 +62,10 @@ The dataset is designed to be possibly evil. It contains the most used datatypes
 
 
 
-  </head>
+  	<link rel="icon" href="../favicon.png" />
+</head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -75,7 +79,7 @@ The dataset is designed to be possibly evil. It contains the most used datatypes
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.30</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.35</span>
       </span>
     </div>
 
@@ -112,7 +116,7 @@ The dataset is designed to be possibly evil. It contains the most used datatypes
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/AndriSignorell/DescTools">
+  <a href="https://github.com/AndriSignorell/DescTools/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -139,7 +143,7 @@ The dataset is designed to be possibly evil. It contains the most used datatypes
     <div class="ref-description">
     <p>An artificial dataset inspired by a similar dataset pizza.sav in <em>Arbeitsbuch zur deskriptiven und induktiven Statistik</em> by Toutenburg et.al.<br />
 The dataset contains data of a pizza delivery service in London, delivering pizzas to three areas. Every record defines one order/delivery and the according properties. A pizza is supposed to taste good, if its temperature is high enough, say 45 Celsius. So it might be interesting for the pizza delivery service to minimize the delivery time.<br />
-The dataset is designed to be possibly evil. It contains the most used datatypes as numerics, factors, ordered factors, integers, logicals and a date. NAs are scattered everywhere partly systematically, partly randomly (except in the index).</p>
+The dataset is designed to be as evil as possible. As far as the description is concerned, it should pose the same difficulties that we have to deal with in everyday life. It contains the most used datatypes as numerics, factors, ordered factors, integers, logicals and a date. NAs are scattered everywhere partly systematically, partly randomly (except in the index).</p>
     </div>
 
     <pre class="usage"><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>d.pizza</span>)</pre>
@@ -147,7 +151,7 @@ The dataset is designed to be possibly evil. It contains the most used datatypes
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A data frame with 1209 observations on the following 17 variables.</p><dl class='dl-horizontal'>
+    <p>A data frame with 1209 observations on the following 17 variables.</p><dl'>
     <dt><code>index</code></dt><dd><p>a numeric vector, indexing the records (no missings here).</p></dd>
     <dt><code>date</code></dt><dd><p>Date, the delivery date</p></dd>
     <dt><code>week</code></dt><dd><p>integer, the weeknumber</p></dd>
@@ -214,7 +218,7 @@ The dataset is designed to be possibly evil. It contains the most used datatypes
 #&gt; 5  medium
 #&gt; 6     low</div><div class='input'>
 <span class='fu'><a href='Desc.html'>Desc</a></span>(<span class='no'>d.pizza</span>)</div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
-#&gt; Describe d.pizza (data.frame):
+#&gt; <span style='font-weight: bold;'>Describe d.pizza (data.frame):</span><span>
 #&gt; 
 #&gt; data frame:	1209 obs. of  16 variables
 #&gt; 		917 complete cases (75.8%)
@@ -246,9 +250,9 @@ The dataset is designed to be possibly evil. It contains the most used datatypes
 #&gt; 
 #&gt; 
 #&gt; ------------------------------------------------------------------------------ 
-#&gt; 1 - index (integer)
+#&gt; </span><span style='font-weight: bold;'>1 - index (integer)</span><span>
 #&gt; 
-#&gt;     length       n     NAs  unique      0s      mean    meanCI
+#&gt;     length       n     NAs  unique      0s      mean    meanCI'
 #&gt;      1'209   1'209       0     = n       0    605.00    585.30
 #&gt;             100.0%    0.0%            0.0%              624.70
 #&gt;                                                               
@@ -260,8 +264,10 @@ The dataset is designed to be possibly evil. It contains the most used datatypes
 #&gt;                                                               
 #&gt; lowest : 1, 2, 3, 4, 5
 #&gt; highest: 1'205, 1'206, 1'207, 1'208, 1'209
+#&gt; 
+#&gt; </span><span style='color: #808080;'>' 95%-CI (classic)</span><span>
 #&gt; </div><div class='img'><img src='d.pizza-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
-#&gt; 2 - date (Date)
+#&gt; </span><span style='font-weight: bold;'>2 - date (Date)</span><span>
 #&gt; 
 #&gt;   length      n    NAs unique
 #&gt;    1'209  1'177     32     31
@@ -339,9 +345,9 @@ The dataset is designed to be possibly evil. It contains the most used datatypes
 #&gt; 30  2014-03-30    43  3.7%    1'143    97.1%
 #&gt; 31  2014-03-31    34  2.9%    1'177   100.0%
 #&gt; </div><div class='img'><img src='d.pizza-2.png' alt='' width='700' height='433' /></div><div class='img'><img src='d.pizza-3.png' alt='' width='700' height='433' /></div><div class='img'><img src='d.pizza-4.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
-#&gt; 3 - week (numeric)
+#&gt; </span><span style='font-weight: bold;'>3 - week (numeric)</span><span>
 #&gt; 
-#&gt;   length      n    NAs  unique     0s   mean  meanCI
+#&gt;   length      n    NAs  unique     0s   mean  meanCI'
 #&gt;    1'209  1'177     32       6      0  11.40   11.33
 #&gt;           97.4%   2.6%           0.0%          11.48
 #&gt;                                                     
@@ -359,10 +365,14 @@ The dataset is designed to be possibly evil. It contains the most used datatypes
 #&gt; 4     12   260  22.1%      870    73.9%
 #&gt; 5     13   273  23.2%    1'143    97.1%
 #&gt; 6     14    34   2.9%    1'177   100.0%
-#&gt; </div><div class='img'><img src='d.pizza-5.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
-#&gt; 4 - weekday (numeric)
 #&gt; 
-#&gt;   length      n    NAs  unique    0s   mean  meanCI
+#&gt; heap(?): remarkable frequency (23.2%) for the mode(s) (= 13)
+#&gt; 
+#&gt; </span><span style='color: #808080;'>' 95%-CI (classic)</span><span>
+#&gt; </div><div class='img'><img src='d.pizza-5.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
+#&gt; </span><span style='font-weight: bold;'>4 - weekday (numeric)</span><span>
+#&gt; 
+#&gt;   length      n    NAs  unique    0s   mean  meanCI'
 #&gt;    1'209  1'177     32       7     0   4.44    4.33
 #&gt;           97.4%   2.6%          0.0%           4.56
 #&gt;                                                    
@@ -381,8 +391,12 @@ The dataset is designed to be possibly evil. It contains the most used datatypes
 #&gt; 5      5   171  14.5%      713    60.6%
 #&gt; 6      6   244  20.7%      957    81.3%
 #&gt; 7      7   220  18.7%    1'177   100.0%
+#&gt; 
+#&gt; heap(?): remarkable frequency (20.7%) for the mode(s) (= 6)
+#&gt; 
+#&gt; </span><span style='color: #808080;'>' 95%-CI (classic)</span><span>
 #&gt; </div><div class='img'><img src='d.pizza-6.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
-#&gt; 5 - area (factor)
+#&gt; </span><span style='font-weight: bold;'>5 - area (factor)</span><span>
 #&gt; 
 #&gt;   length      n    NAs unique levels  dupes
 #&gt;    1'209  1'199     10      3      3      y
@@ -393,9 +407,9 @@ The dataset is designed to be possibly evil. It contains the most used datatypes
 #&gt; 2  Westminster   381  31.8%      855    71.3%
 #&gt; 3       Camden   344  28.7%    1'199   100.0%
 #&gt; </div><div class='img'><img src='d.pizza-7.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
-#&gt; 6 - count (integer)
+#&gt; </span><span style='font-weight: bold;'>6 - count (integer)</span><span>
 #&gt; 
-#&gt;   length      n    NAs  unique    0s  mean  meanCI
+#&gt;   length      n    NAs  unique    0s  mean  meanCI'
 #&gt;    1'209  1'197     12       8     0  3.44    3.36
 #&gt;           99.0%   1.0%          0.0%          3.53
 #&gt;                                                   
@@ -415,8 +429,12 @@ The dataset is designed to be possibly evil. It contains the most used datatypes
 #&gt; 6      6    97   8.1%    1'156    96.6%
 #&gt; 7      7    34   2.8%    1'190    99.4%
 #&gt; 8      8     7   0.6%    1'197   100.0%
+#&gt; 
+#&gt; heap(?): remarkable frequency (25.1%) for the mode(s) (= 3)
+#&gt; 
+#&gt; </span><span style='color: #808080;'>' 95%-CI (classic)</span><span>
 #&gt; </div><div class='img'><img src='d.pizza-8.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
-#&gt; 7 - rabate (logical - dichotomous)
+#&gt; </span><span style='font-weight: bold;'>7 - rabate (logical - dichotomous)</span><span>
 #&gt; 
 #&gt;   length      n    NAs unique
 #&gt;    1'209  1'197     12      2
@@ -426,11 +444,11 @@ The dataset is designed to be possibly evil. It contains the most used datatypes
 #&gt; FALSE   601  50.2%   47.4%   53.0%
 #&gt; TRUE    596  49.8%   47.0%   52.6%
 #&gt; 
-#&gt; ' 95%-CI Wilson
+#&gt; </span><span style='color: #808080;'>' 95%-CI (Wilson)</span><span>
 #&gt; </div><div class='img'><img src='d.pizza-9.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
-#&gt; 8 - price (numeric)
+#&gt; </span><span style='font-weight: bold;'>8 - price (numeric)</span><span>
 #&gt; 
-#&gt;     length        n      NAs   unique       0s     mean   meanCI
+#&gt;     length        n      NAs   unique       0s     mean   meanCI'
 #&gt;      1'209    1'197       12      360        0  48.7289  47.5022
 #&gt;               99.0%     1.0%              0.0%           49.9556
 #&gt;                                                                 
@@ -442,8 +460,10 @@ The dataset is designed to be possibly evil. It contains the most used datatypes
 #&gt;                                                                 
 #&gt; lowest : 8.792 (3), 9.592, 10.392 (2), 10.99 (11), 11.192 (2)
 #&gt; highest: 116.532, 123.39, 124.434, 129.546, 134.334
+#&gt; 
+#&gt; </span><span style='color: #808080;'>' 95%-CI (classic)</span><span>
 #&gt; </div><div class='img'><img src='d.pizza-10.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
-#&gt; 9 - operator (factor)
+#&gt; </span><span style='font-weight: bold;'>9 - operator (factor)</span><span>
 #&gt; 
 #&gt;   length      n    NAs unique levels  dupes
 #&gt;    1'209  1'201      8      3      3      y
@@ -454,7 +474,7 @@ The dataset is designed to be possibly evil. It contains the most used datatypes
 #&gt; 2    Maria   388  32.3%      834    69.4%
 #&gt; 3  Allanah   367  30.6%    1'201   100.0%
 #&gt; </div><div class='img'><img src='d.pizza-11.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
-#&gt; 10 - driver (factor)
+#&gt; </span><span style='font-weight: bold;'>10 - driver (factor)</span><span>
 #&gt; 
 #&gt;   length      n    NAs unique levels  dupes
 #&gt;    1'209  1'204      5      7      7      y
@@ -469,9 +489,9 @@ The dataset is designed to be possibly evil. It contains the most used datatypes
 #&gt; 6     Farmer   117   9.7%    1'108    92.0%
 #&gt; 7    Butcher    96   8.0%    1'204   100.0%
 #&gt; </div><div class='img'><img src='d.pizza-12.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
-#&gt; 11 - delivery_min (numeric)
+#&gt; </span><span style='font-weight: bold;'>11 - delivery_min (numeric)</span><span>
 #&gt; 
-#&gt;   length       n    NAs  unique     0s   mean  meanCI
+#&gt;   length       n    NAs  unique     0s   mean  meanCI'
 #&gt;    1'209   1'209      0     384      0  25.65   25.04
 #&gt;           100.0%   0.0%           0.0%          26.26
 #&gt;                                                      
@@ -483,10 +503,12 @@ The dataset is designed to be possibly evil. It contains the most used datatypes
 #&gt;                                                      
 #&gt; lowest : 8.8 (3), 8.9, 9.0 (3), 9.1 (5), 9.2 (3)
 #&gt; highest: 61.9, 62.7, 62.9, 63.2, 65.6
-#&gt; </div><div class='img'><img src='d.pizza-13.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
-#&gt; 12 - temperature (numeric)
 #&gt; 
-#&gt;   length       n     NAs  unique      0s    mean  meanCI
+#&gt; </span><span style='color: #808080;'>' 95%-CI (classic)</span><span>
+#&gt; </div><div class='img'><img src='d.pizza-13.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
+#&gt; </span><span style='font-weight: bold;'>12 - temperature (numeric)</span><span>
+#&gt; 
+#&gt;   length       n     NAs  unique      0s    mean  meanCI'
 #&gt;    1'209   1'170      39     375       0  47.937  47.367
 #&gt;            96.8%    3.2%            0.0%          48.507
 #&gt;                                                         
@@ -498,8 +520,10 @@ The dataset is designed to be possibly evil. It contains the most used datatypes
 #&gt;                                                         
 #&gt; lowest : 19.3, 19.4, 20.0, 20.2 (2), 20.35
 #&gt; highest: 63.8, 64.1, 64.6, 64.7, 64.8
+#&gt; 
+#&gt; </span><span style='color: #808080;'>' 95%-CI (classic)</span><span>
 #&gt; </div><div class='img'><img src='d.pizza-14.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
-#&gt; 13 - wine_ordered (integer - dichotomous)
+#&gt; </span><span style='font-weight: bold;'>13 - wine_ordered (integer - dichotomous)</span><span>
 #&gt; 
 #&gt;   length      n    NAs unique
 #&gt;    1'209  1'197     12      2
@@ -509,9 +533,9 @@ The dataset is designed to be possibly evil. It contains the most used datatypes
 #&gt; 0  1'010  84.4%   82.2%   86.3%
 #&gt; 1    187  15.6%   13.7%   17.8%
 #&gt; 
-#&gt; ' 95%-CI Wilson
+#&gt; </span><span style='color: #808080;'>' 95%-CI (Wilson)</span><span>
 #&gt; </div><div class='img'><img src='d.pizza-15.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
-#&gt; 14 - wine_delivered (integer - dichotomous)
+#&gt; </span><span style='font-weight: bold;'>14 - wine_delivered (integer - dichotomous)</span><span>
 #&gt; 
 #&gt;   length      n    NAs unique
 #&gt;    1'209  1'197     12      2
@@ -521,9 +545,9 @@ The dataset is designed to be possibly evil. It contains the most used datatypes
 #&gt; 0  1'034  86.4%   84.3%   88.2%
 #&gt; 1    163  13.6%   11.8%   15.7%
 #&gt; 
-#&gt; ' 95%-CI Wilson
+#&gt; </span><span style='color: #808080;'>' 95%-CI (Wilson)</span><span>
 #&gt; </div><div class='img'><img src='d.pizza-16.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
-#&gt; 15 - wrongpizza (logical - dichotomous)
+#&gt; </span><span style='font-weight: bold;'>15 - wrongpizza (logical - dichotomous)</span><span>
 #&gt; 
 #&gt;   length      n    NAs unique
 #&gt;    1'209  1'205      4      2
@@ -533,9 +557,9 @@ The dataset is designed to be possibly evil. It contains the most used datatypes
 #&gt; FALSE  1'122  93.1%   91.5%   94.4%
 #&gt; TRUE      83   6.9%    5.6%    8.5%
 #&gt; 
-#&gt; ' 95%-CI Wilson
+#&gt; </span><span style='color: #808080;'>' 95%-CI (Wilson)</span><span>
 #&gt; </div><div class='img'><img src='d.pizza-17.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
-#&gt; 16 - quality (ordered, factor)
+#&gt; </span><span style='font-weight: bold;'>16 - quality (ordered, factor)</span><span>
 #&gt; 
 #&gt;   length      n    NAs unique levels  dupes
 #&gt;    1'209  1'008    201      3      3      y
@@ -545,17 +569,12 @@ The dataset is designed to be possibly evil. It contains the most used datatypes
 #&gt; 1     low   156  15.5%      156    15.5%
 #&gt; 2  medium   356  35.3%      512    50.8%
 #&gt; 3    high   496  49.2%    1'008   100.0%
-#&gt; </div><div class='img'><img src='d.pizza-18.png' alt='' width='700' height='433' /></div></pre>
+#&gt; </div><div class='img'><img src='d.pizza-18.png' alt='' width='700' height='433' /></div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#format">Format</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#references">References</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -566,7 +585,7 @@ The dataset is designed to be possibly evil. It contains the most used datatypes
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

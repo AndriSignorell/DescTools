@@ -11,23 +11,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -42,7 +46,6 @@
 <!-- %%  ~~function to do ... ~~ --> — Conf" />
 <meta property="og:description" content="Calculates a cross-tabulation of observed and predicted classes with associated statistics.
 " />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -58,9 +61,10 @@
 
 
 
-  </head>
+  	<link rel="icon" href="../favicon.png" />
+</head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -74,7 +78,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.30</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.35</span>
       </span>
     </div>
 
@@ -111,7 +115,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/AndriSignorell/DescTools">
+  <a href="https://github.com/AndriSignorell/DescTools/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -233,7 +237,8 @@ $$PPV = (sensitivity * Prevalence)/((sensitivity*Prevalence) + ((1-specificity)*
 $$NPV = (specificity * (1-Prevalence))/(((1-sensitivity)*Prevalence) + ((specificity)*(1-Prevalence)))$$
 $$Detection Rate =  A/(A+B+C+D)$$
 $$Detection Prevalence =  (A+B)/(A+B+C+D)$$
-$$F-val Accuracy =  2 / (1/PPV + 1/Sensitivity)$$</p>
+$$F-val Accuracy =  2 / (1/PPV + 1/Sensitivity)$$
+$$Matthews Cor.-Coef = (A*D-B*C)/sqrt((A+B)*(A+C)*(D+B)*(D+C)) $$</p>
 <p>See the references for discusions of the first five formulas.</p>
 <p>For more than two classes, these results are
 calculated comparing each factor level to the remaining levels
@@ -249,17 +254,18 @@ calculated comparing each factor level to the remaining levels
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a list with elements</p>
+<p></p>
 <dt>table</dt><dd><p>the results of <code>table</code> on <code>data</code> and  <code>reference</code></p></dd>
   <dt>positive</dt><dd><p>the positive result level</p></dd>
   <dt>overall</dt><dd><p>a numeric vector with overall accuracy and Kappa statistic values</p></dd>
   <dt>byClass</dt><dd><p>the sensitivity, specificity, positive predictive value, negative predictive value, prevalence, dection rate and detection prevalence for each class. For two class systems, this is calculated once using the <code>positive</code> argument</p></dd>
-
 
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Kuhn, M. (2008) Building predictive models in R using the caret package <em>Journal of Statistical Software</em>, (<a href='http://www.jstatsoft.org/v28/i05/'>http://www.jstatsoft.org/v28/i05/</a>).</p>
 <p>Powers, David M W (2011) Evaluation: From Precision, Recall and F-Measure to ROC, Informedness, Markedness &amp; Correlation (PDF). <em>Journal of Machine Learning Technologies</em> 2 (1): 37-63.</p>
 <p>Collett D (1999) Modelling Binary Data. <em>Chapman &amp; Hall/CRC</em>, Boca Raton Florida, pp. 24.</p>
+<p>Matthews, B. W. (1975) Comparison of the predicted and observed secondary structure of T4 phage lysozyme. <em>Biochimica et Biophysica Acta (BBA) - Protein Structure</em> 405 (2): 442-451. doi:10.1016/0005-2795(75)90109-9. PMID 1180967.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='OddsRatio.html'>OddsRatio</a></code>, <code><a href='RelRisk.html'>RelRisk</a></code>
@@ -284,7 +290,7 @@ hi 10 18 "</span>, <span class='kw'>dimnames</span><span class='kw'>=</span><spa
 #&gt;                Accuracy : 0.6406
 #&gt;                  95% CI : (0.5182, 0.7471)
 #&gt;     No Information Rate : 0.5156
-#&gt;     P-Value [Acc &gt; NIR] : 0.02968
+#&gt;     P-Value [Acc &gt; NIR] : 0.0297
 #&gt; 
 #&gt;                   Kappa : 0.2784
 #&gt;  Mcnemar's Test P-Value : 0.6767
@@ -294,10 +300,11 @@ hi 10 18 "</span>, <span class='kw'>dimnames</span><span class='kw'>=</span><spa
 #&gt;          Pos Pred Value : 0.6429
 #&gt;          Neg Pred Value : 0.6389
 #&gt;              Prevalence : 0.4844
-#&gt;          Detection Rate : 0.2812
-#&gt;    Detection Prevalence : 0.4375
+#&gt;          Detection Rate : 0.4375
+#&gt;    Detection Prevalence : 0.2812
 #&gt;       Balanced Accuracy : 0.6388
 #&gt;          F-val Accuracy : 0.6102
+#&gt;      Matthews Cor.-Coef : 0.2797
 #&gt; 
 #&gt;        'Positive' Class : hi
 #&gt; </div><div class='input'>
@@ -317,7 +324,7 @@ hi 10 18 "</span>, <span class='kw'>dimnames</span><span class='kw'>=</span><spa
 #&gt;                Accuracy : 0.6406
 #&gt;                  95% CI : (0.5182, 0.7471)
 #&gt;     No Information Rate : 0.5156
-#&gt;     P-Value [Acc &gt; NIR] : 0.02968
+#&gt;     P-Value [Acc &gt; NIR] : 0.0297
 #&gt; 
 #&gt;                   Kappa : 0.2784
 #&gt;  Mcnemar's Test P-Value : 0.6767
@@ -327,10 +334,11 @@ hi 10 18 "</span>, <span class='kw'>dimnames</span><span class='kw'>=</span><spa
 #&gt;          Pos Pred Value : 0.6389
 #&gt;          Neg Pred Value : 0.6429
 #&gt;              Prevalence : 0.5156
-#&gt;          Detection Rate : 0.3594
-#&gt;    Detection Prevalence : 0.5625
+#&gt;          Detection Rate : 0.5625
+#&gt;    Detection Prevalence : 0.3594
 #&gt;       Balanced Accuracy : 0.6388
 #&gt;          F-val Accuracy : 0.6667
+#&gt;      Matthews Cor.-Coef : 0.2797
 #&gt; 
 #&gt;        'Positive' Class : lo
 #&gt; </div><div class='input'><span class='fu'>Conf</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>pred</span>, <span class='kw'>ref</span> <span class='kw'>=</span> <span class='no'>obs</span>, <span class='kw'>pos</span><span class='kw'>=</span><span class='st'>"hi"</span>)</div><div class='output co'>#&gt; 
@@ -345,7 +353,7 @@ hi 10 18 "</span>, <span class='kw'>dimnames</span><span class='kw'>=</span><spa
 #&gt;                Accuracy : 0.6406
 #&gt;                  95% CI : (0.5182, 0.7471)
 #&gt;     No Information Rate : 0.5156
-#&gt;     P-Value [Acc &gt; NIR] : 0.02968
+#&gt;     P-Value [Acc &gt; NIR] : 0.0297
 #&gt; 
 #&gt;                   Kappa : 0.2784
 #&gt;  Mcnemar's Test P-Value : 0.6767
@@ -355,10 +363,11 @@ hi 10 18 "</span>, <span class='kw'>dimnames</span><span class='kw'>=</span><spa
 #&gt;          Pos Pred Value : 0.6429
 #&gt;          Neg Pred Value : 0.6389
 #&gt;              Prevalence : 0.4844
-#&gt;          Detection Rate : 0.2812
-#&gt;    Detection Prevalence : 0.4375
+#&gt;          Detection Rate : 0.4375
+#&gt;    Detection Prevalence : 0.2812
 #&gt;       Balanced Accuracy : 0.6388
 #&gt;          F-val Accuracy : 0.6102
+#&gt;      Matthews Cor.-Coef : 0.2797
 #&gt; 
 #&gt;        'Positive' Class : hi
 #&gt; </div><div class='input'>
@@ -388,7 +397,7 @@ clear           0    2        6    13
 #&gt;                Accuracy : 0.5114
 #&gt;                  95% CI : (0.4087, 0.6131)
 #&gt;     No Information Rate : 0.3523
-#&gt;     P-Value [Acc &gt; NIR] : 0.001586
+#&gt;     P-Value [Acc &gt; NIR] : 0.0016
 #&gt; 
 #&gt;                   Kappa : 0.3449
 #&gt;  Mcnemar's Test P-Value : NA
@@ -402,26 +411,17 @@ clear           0    2        6    13
 #&gt; Pos Pred Value         0.6667 0.3448   0.5217 0.6190
 #&gt; Neg Pred Value         0.9041 0.8305   0.7077 0.8955
 #&gt; Prevalence             0.1932 0.2273   0.3523 0.2273
-#&gt; Detection Rate         0.1136 0.1136   0.1364 0.1477
-#&gt; Detection Prevalence   0.1705 0.3295   0.2614 0.2386
+#&gt; Detection Rate         0.1705 0.3295   0.2614 0.2386
+#&gt; Detection Prevalence   0.1136 0.1136   0.1364 0.1477
 #&gt; Balanced Accuracy      0.7589 0.6103   0.5971 0.7662
 #&gt; F-val Accuracy         0.6250 0.4082   0.4444 0.6341
+#&gt; Matthews Cor.-Coef     0.5436 0.1967   0.2110 0.5234
 #&gt; </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#references">References</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Andri Signorell &lt;andri [at] signorell [.] net&gt; <br />
-rewritten based on the ideas of <code><a href='https://rdrr.io/pkg/caret/man/confusionMatrix.html'>confusionMatrix</a></code> by Max Kuhn &lt;Max.Kuhn [at] pfizer [.] com&gt;</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -432,7 +432,7 @@ rewritten based on the ideas of <code><a href='https://rdrr.io/pkg/caret/man/con
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
