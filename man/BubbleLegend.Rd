@@ -30,7 +30,7 @@ BubbleLegend(x, y = NULL, area, cols, labels = NULL, cols.lbl = "black",
   \item{xjust}{how the legend is to be justified relative to the legend x location.
     A value of 0 means left justified, 0.5 means centered and 1 means right justified. }
 
-  \item{yjust}{the same as \kbd{xjust} for the legend y location. }
+  \item{yjust}{the same as \code{xjust} for the legend y location. }
 
 
   \item{inset}{inset distance(s) from the margins as a fraction of the plot region when legend is placed by keyword. }
@@ -46,7 +46,7 @@ BubbleLegend(x, y = NULL, area, cols, labels = NULL, cols.lbl = "black",
 
 \item{bg}{the background color for the bubble legend.}
 
-\item{\dots}{further arguments are passed to the function \kbd{text}. }
+\item{\dots}{further arguments are passed to the function \code{text}. }
 
 }
 \details{
