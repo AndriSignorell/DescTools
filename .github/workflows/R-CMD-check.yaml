@@ -12,6 +12,7 @@ jobs:
         run: |
           install.packages(c("remotes", "rcmdcheck"))
           install.packages("http://www.omegahat.net/R/bin/windows/contrib/3.5.1/RDCOMClient_0.93-0.zip", repos = NULL, type = "binary")
+          Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS="true")
           remotes::install_deps(dependencies = c("Depends", "Imports"))
         shell: Rscript {0}
       - name: Check
