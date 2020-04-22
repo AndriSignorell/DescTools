@@ -89,7 +89,6 @@
   <div class="contents col-md-9">
 
 
-<!-- badges: end -->
 <div id="tools-for-descriptive-statistics-and-exploratory-data-analysis" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#tools-for-descriptive-statistics-and-exploratory-data-analysis" class="anchor"></a>Tools for Descriptive Statistics and Exploratory Data Analysis</h1></div>
@@ -953,21 +952,422 @@ A grouped list of the functions in the package.
 <div id="authors" class="section level1">
 <h1 class="hasAnchor">
 <a href="#authors" class="anchor"></a>Authors</h1>
-<p>Andri Signorell Helsana Versicherungen AG, Health Sciences, Zurich HWZ University of Applied Sciences in Business Administration Zurich.</p>
-<p>R is a community project. This can be seen from the fact that this package includes R source code and/or documentation previously published by (in alphabetical order):</p>
-<p>Ken Aho, Andreas Alfons, Nanina Anderegg, Tomas Aragon, Antti Arppe, Adrian Baddeley, Kamil Barton, Ben Bolker, Hans W. Borchers, Frederico Caeiro, Stephane Champely, Daniel Chessel, Leanne Chhay, Clint Cummins, Michael Dewey, Harold C. Doran, Stephane Dray, Charles Dupont, Dirk Eddelbuettel, Jeff Enos, Claus Ekstrom, Martin Elff, Kamil Erguler, Richard W. Farebrother, John Fox, Romain Francois, Michael Friendly, Tal Galili, Matthias Gamer, Joseph L. Gastwirth, Yulia R. Gel, Juergen Gross, Gabor Grothendieck, Frank E. Harrell Jr, Richard Heiberger, Michael Hoehle, Christian W. Hoffmann, Soeren Hojsgaard, Torsten Hothorn, Markus Huerzeler, Wallace W. Hui, Pete Hurd, Rob J. Hyndman, Pablo J. Villacorta Iglesias, Christopher Jackson, Matthias Kohl, Mikko Korpela, Max Kuhn, Detlew Labes, Duncan Temple Lang, Friederich Leisch, Jim Lemon, Dong Li, Martin Maechler, Arni Magnusson, Daniel Malter, George Marsaglia, John Marsaglia, Alina Matei, David Meyer, Weiwen Miao, Giovanni Millo, Yongyi Min, David Mitchell, Markus Naepflin, Daniel Navarro, Henric Nilsson, Klaus Nordhausen, Derek Ogle, Hong Ooi, Nick Parsons, Sandrine Pavoine, Tony Plate, Roland Rapold, William Revelle, Tyler Rinker, Brian D. Ripley, Caroline Rodriguez, Nathan Russell, Nick Sabbe, Venkatraman E. Seshan, Greg Snow, Michael Smithson, Karline Soetaert, Werner A. Stahel, Alec Stephenson, Mark Stevenson, Matthias Templ, Terry Therneau, Yves Tille, Adrian Trapletti, Joshua Ulrich, Kevin Ushey, Jeremy VanDerWal, Bill Venables, John Verzani, Gregory R. Warnes, Stefan Wellek, Hadley Wickham, Rand R. Wilcox, Peter Wolf, Daniel Wollschlaeger, Thomas Yee, Achim Zeileis</p>
+<p>Andri Signorell<br>
+Helsana Versicherungen AG, Health Sciences, Zurich<br>
+HWZ University of Applied Sciences in Business Administration Zurich.</p>
+<p>R is a community project. This can be seen from the fact that this package includes R source code and/or documentation previously published by: <a href="https://github.com/AndriSignorell/DescTools">the list of authors/contibutors</a></p>
 <p>Special thanks go to Beat Bruengger, Mathias Frueh, Daniel Wollschlaeger for their valuable contributions and testing.</p>
 <p>The good things come from all these guys, any problems are likely due to my tweaking. Thank you all!</p>
-<p><strong>Maintainer:</strong> Andri Signorell &lt;andri <br><span class="math display"><em>a</em><em>t</em></span><br> signorell <br><span class="math display">.</span><br> net&gt;</p>
+<p><strong>Maintainer:</strong> Andri Signorell</p>
 <!-- @keywords package -->
-<!-- @examples -->
+</div>
+<div id="examples" class="section level1">
+<h1 class="hasAnchor">
+<a href="#examples" class="anchor"></a>Examples</h1>
+<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">DescTools</span>)</pre></div>
+<div id="demo-describe" class="section level2">
+<h2 class="hasAnchor">
+<a href="#demo-describe" class="anchor"></a>Demo “describe”</h2>
+<div class="sourceCode" id="cb4"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/demo.html">demo</a></span>(<span class="no">describe</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"DescTools"</span>)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;  demo(describe)</span>
+<span class="co">#&gt;  ---- ~~~~~~~~</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; &gt; ## -----------------------------------------------------------------------------------</span>
+<span class="co">#&gt; &gt; ## Demo file for DescTools; start with 'demo(DescTools)'</span>
+<span class="co">#&gt; &gt; ## -----------------------------------------------------------------------------------</span>
+<span class="co">#&gt; &gt; </span>
+<span class="co">#&gt; &gt; </span>
+<span class="co">#&gt; &gt; # Descriptions **************</span>
+<span class="co">#&gt; &gt; # use a subset of built-in data.frame</span>
+<span class="co">#&gt; &gt; d.sub &lt;- d.pizza[,c("temperature","driver","delivery_min","count","operator","date","wine_ordered")]</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; &gt; # all univariate descriptions</span>
+<span class="co">#&gt; &gt; Desc(d.sub, plotit=TRUE)</span>
+<span class="co">#&gt; ------------------------------------------------------------------------------ </span>
+<span class="co">#&gt; Describe d.sub (data.frame):</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; data frame:  1209 obs. of  7 variables</span>
+<span class="co">#&gt;      1116 complete cases (92.3%)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;   Nr  ColName       Class    NAs        Levels                           </span>
+<span class="co">#&gt;   1   temperature   numeric  39 (3.2%)                                   </span>
+<span class="co">#&gt;   2   driver        factor    5 (0.4%)  (7): 1-Butcher, 2-Carpenter,     </span>
+<span class="co">#&gt;                                         3-Carter, 4-Farmer, 5-Hunter, ...</span>
+<span class="co">#&gt;   3   delivery_min  numeric   .                                          </span>
+<span class="co">#&gt;   4   count         integer  12 (1.0%)                                   </span>
+<span class="co">#&gt;   5   operator      factor    8 (0.7%)  (3): 1-Allanah, 2-Maria, 3-Rhonda</span>
+<span class="co">#&gt;   6   date          Date     32 (2.6%)                                   </span>
+<span class="co">#&gt;   7   wine_ordered  integer  12 (1.0%)                                   </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; ------------------------------------------------------------------------------ </span>
+<span class="co">#&gt; 1 - temperature (numeric)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;   length       n     NAs  unique      0s    mean  meanCI'</span>
+<span class="co">#&gt;    1'209   1'170      39     375       0  47.937  47.367</span>
+<span class="co">#&gt;            96.8%    3.2%            0.0%          48.507</span>
+<span class="co">#&gt;                                                         </span>
+<span class="co">#&gt;      .05     .10     .25  median     .75     .90     .95</span>
+<span class="co">#&gt;   26.700  33.290  42.225  50.000  55.300  58.800  60.500</span>
+<span class="co">#&gt;                                                         </span>
+<span class="co">#&gt;    range      sd   vcoef     mad     IQR    skew    kurt</span>
+<span class="co">#&gt;   45.500   9.938   0.207   9.192  13.075  -0.842   0.051</span>
+<span class="co">#&gt;                                                         </span>
+<span class="co">#&gt; lowest : 19.3, 19.4, 20.0, 20.2 (2), 20.35</span>
+<span class="co">#&gt; highest: 63.8, 64.1, 64.6, 64.7, 64.8</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; ' 95%-CI (classic)</span></pre></div>
+<p><img src="reference/figures/README-demo-describe-1.png" width="100%"></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">#&gt; ------------------------------------------------------------------------------ </span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="co">#&gt; 2 - driver (factor)</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="co">#&gt; </span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="co">#&gt;   length      n    NAs unique levels  dupes</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="co">#&gt;    1'209  1'204      5      7      7      y</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="co">#&gt;           99.6%   0.4%                     </span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="co">#&gt; </span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="co">#&gt;        level  freq   perc  cumfreq  cumperc</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="co">#&gt; 1  Carpenter   272  22.6%      272    22.6%</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="co">#&gt; 2     Carter   234  19.4%      506    42.0%</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="co">#&gt; 3     Taylor   204  16.9%      710    59.0%</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="co">#&gt; 4     Hunter   156  13.0%      866    71.9%</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a><span class="co">#&gt; 5     Miller   125  10.4%      991    82.3%</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a><span class="co">#&gt; 6     Farmer   117   9.7%    1'108    92.0%</span></span>
+<span id="cb5-15"><a href="#cb5-15"></a><span class="co">#&gt; 7    Butcher    96   8.0%    1'204   100.0%</span></span></code></pre></div>
+<p><img src="reference/figures/README-demo-describe-2.png" width="100%"></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co">#&gt; ------------------------------------------------------------------------------ </span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="co">#&gt; 3 - delivery_min (numeric)</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="co">#&gt; </span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="co">#&gt;   length       n    NAs  unique     0s   mean  meanCI'</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="co">#&gt;    1'209   1'209      0     384      0  25.65   25.04</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="co">#&gt;           100.0%   0.0%           0.0%          26.26</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="co">#&gt;                                                      </span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="co">#&gt;      .05     .10    .25  median    .75    .90     .95</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="co">#&gt;    10.40   11.60  17.40   24.40  32.50  40.42   45.20</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="co">#&gt;                                                      </span></span>
+<span id="cb6-11"><a href="#cb6-11"></a><span class="co">#&gt;    range      sd  vcoef     mad    IQR   skew    kurt</span></span>
+<span id="cb6-12"><a href="#cb6-12"></a><span class="co">#&gt;    56.80   10.84   0.42   11.27  15.10   0.61    0.10</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt;                                                      </span></span>
+<span id="cb6-14"><a href="#cb6-14"></a><span class="co">#&gt; lowest : 8.8 (3), 8.9, 9.0 (3), 9.1 (5), 9.2 (3)</span></span>
+<span id="cb6-15"><a href="#cb6-15"></a><span class="co">#&gt; highest: 61.9, 62.7, 62.9, 63.2, 65.6</span></span>
+<span id="cb6-16"><a href="#cb6-16"></a><span class="co">#&gt; </span></span>
+<span id="cb6-17"><a href="#cb6-17"></a><span class="co">#&gt; ' 95%-CI (classic)</span></span></code></pre></div>
+<p><img src="reference/figures/README-demo-describe-3.png" width="100%"></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">#&gt; ------------------------------------------------------------------------------ </span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="co">#&gt; 4 - count (integer)</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="co">#&gt; </span></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="co">#&gt;   length      n    NAs  unique    0s  mean  meanCI'</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="co">#&gt;    1'209  1'197     12       8     0  3.44    3.36</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="co">#&gt;           99.0%   1.0%          0.0%          3.53</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="co">#&gt;                                                   </span></span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="co">#&gt;      .05    .10    .25  median   .75   .90     .95</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a><span class="co">#&gt;     1.00   2.00   2.00    3.00  4.00  6.00    6.00</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a><span class="co">#&gt;                                                   </span></span>
+<span id="cb7-11"><a href="#cb7-11"></a><span class="co">#&gt;    range     sd  vcoef     mad   IQR  skew    kurt</span></span>
+<span id="cb7-12"><a href="#cb7-12"></a><span class="co">#&gt;     7.00   1.56   0.45    1.48  2.00  0.45   -0.36</span></span>
+<span id="cb7-13"><a href="#cb7-13"></a><span class="co">#&gt;                                                   </span></span>
+<span id="cb7-14"><a href="#cb7-14"></a><span class="co">#&gt; </span></span>
+<span id="cb7-15"><a href="#cb7-15"></a><span class="co">#&gt;    level  freq   perc  cumfreq  cumperc</span></span>
+<span id="cb7-16"><a href="#cb7-16"></a><span class="co">#&gt; 1      1   108   9.0%      108     9.0%</span></span>
+<span id="cb7-17"><a href="#cb7-17"></a><span class="co">#&gt; 2      2   259  21.6%      367    30.7%</span></span>
+<span id="cb7-18"><a href="#cb7-18"></a><span class="co">#&gt; 3      3   300  25.1%      667    55.7%</span></span>
+<span id="cb7-19"><a href="#cb7-19"></a><span class="co">#&gt; 4      4   240  20.1%      907    75.8%</span></span>
+<span id="cb7-20"><a href="#cb7-20"></a><span class="co">#&gt; 5      5   152  12.7%    1'059    88.5%</span></span>
+<span id="cb7-21"><a href="#cb7-21"></a><span class="co">#&gt; 6      6    97   8.1%    1'156    96.6%</span></span>
+<span id="cb7-22"><a href="#cb7-22"></a><span class="co">#&gt; 7      7    34   2.8%    1'190    99.4%</span></span>
+<span id="cb7-23"><a href="#cb7-23"></a><span class="co">#&gt; 8      8     7   0.6%    1'197   100.0%</span></span>
+<span id="cb7-24"><a href="#cb7-24"></a><span class="co">#&gt; </span></span>
+<span id="cb7-25"><a href="#cb7-25"></a><span class="co">#&gt; heap(?): remarkable frequency (25.1%) for the mode(s) (= 3)</span></span>
+<span id="cb7-26"><a href="#cb7-26"></a><span class="co">#&gt; </span></span>
+<span id="cb7-27"><a href="#cb7-27"></a><span class="co">#&gt; ' 95%-CI (classic)</span></span></code></pre></div>
+<p><img src="reference/figures/README-demo-describe-4.png" width="100%"></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co">#&gt; ------------------------------------------------------------------------------ </span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="co">#&gt; 5 - operator (factor)</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="co">#&gt; </span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="co">#&gt;   length      n    NAs unique levels  dupes</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="co">#&gt;    1'209  1'201      8      3      3      y</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="co">#&gt;           99.3%   0.7%                     </span></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="co">#&gt; </span></span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="co">#&gt;      level  freq   perc  cumfreq  cumperc</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a><span class="co">#&gt; 1   Rhonda   446  37.1%      446    37.1%</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a><span class="co">#&gt; 2    Maria   388  32.3%      834    69.4%</span></span>
+<span id="cb8-11"><a href="#cb8-11"></a><span class="co">#&gt; 3  Allanah   367  30.6%    1'201   100.0%</span></span></code></pre></div>
+<p><img src="reference/figures/README-demo-describe-5.png" width="100%"></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">#&gt; ------------------------------------------------------------------------------ </span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="co">#&gt; 6 - date (Date)</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="co">#&gt; </span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="co">#&gt;   length      n    NAs unique</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="co">#&gt;    1'209  1'177     32     31</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="co">#&gt;           97.4%   2.6%       </span></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="co">#&gt; </span></span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="co">#&gt; lowest : 2014-03-01 (42), 2014-03-02 (46), 2014-03-03 (26), 2014-03-04 (19)</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a><span class="co">#&gt; highest: 2014-03-28 (46), 2014-03-29 (53), 2014-03-30 (43), 2014-03-31 (34)</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a><span class="co">#&gt; </span></span>
+<span id="cb9-11"><a href="#cb9-11"></a><span class="co">#&gt; </span></span>
+<span id="cb9-12"><a href="#cb9-12"></a><span class="co">#&gt; Weekday:</span></span>
+<span id="cb9-13"><a href="#cb9-13"></a><span class="co">#&gt; </span></span>
+<span id="cb9-14"><a href="#cb9-14"></a><span class="co">#&gt; Pearson's Chi-squared test (1-dim uniform):</span></span>
+<span id="cb9-15"><a href="#cb9-15"></a><span class="co">#&gt;   X-squared = 78.879, df = 6, p-value = 6.09e-15</span></span>
+<span id="cb9-16"><a href="#cb9-16"></a><span class="co">#&gt; </span></span>
+<span id="cb9-17"><a href="#cb9-17"></a><span class="co">#&gt;        level  freq   perc  cumfreq  cumperc</span></span>
+<span id="cb9-18"><a href="#cb9-18"></a><span class="co">#&gt; 1     Monday   144  12.2%      144    12.2%</span></span>
+<span id="cb9-19"><a href="#cb9-19"></a><span class="co">#&gt; 2    Tuesday   117   9.9%      261    22.2%</span></span>
+<span id="cb9-20"><a href="#cb9-20"></a><span class="co">#&gt; 3  Wednesday   134  11.4%      395    33.6%</span></span>
+<span id="cb9-21"><a href="#cb9-21"></a><span class="co">#&gt; 4   Thursday   147  12.5%      542    46.0%</span></span>
+<span id="cb9-22"><a href="#cb9-22"></a><span class="co">#&gt; 5     Friday   171  14.5%      713    60.6%</span></span>
+<span id="cb9-23"><a href="#cb9-23"></a><span class="co">#&gt; 6   Saturday   244  20.7%      957    81.3%</span></span>
+<span id="cb9-24"><a href="#cb9-24"></a><span class="co">#&gt; 7     Sunday   220  18.7%    1'177   100.0%</span></span>
+<span id="cb9-25"><a href="#cb9-25"></a><span class="co">#&gt; </span></span>
+<span id="cb9-26"><a href="#cb9-26"></a><span class="co">#&gt; Months:</span></span>
+<span id="cb9-27"><a href="#cb9-27"></a><span class="co">#&gt; </span></span>
+<span id="cb9-28"><a href="#cb9-28"></a><span class="co">#&gt; Pearson's Chi-squared test (1-dim uniform):</span></span>
+<span id="cb9-29"><a href="#cb9-29"></a><span class="co">#&gt;   X-squared = 12947, df = 11, p-value &lt; 2.2e-16</span></span>
+<span id="cb9-30"><a href="#cb9-30"></a><span class="co">#&gt; </span></span>
+<span id="cb9-31"><a href="#cb9-31"></a><span class="co">#&gt;         level   freq    perc  cumfreq  cumperc</span></span>
+<span id="cb9-32"><a href="#cb9-32"></a><span class="co">#&gt; 1     January      0    0.0%        0     0.0%</span></span>
+<span id="cb9-33"><a href="#cb9-33"></a><span class="co">#&gt; 2    February      0    0.0%        0     0.0%</span></span>
+<span id="cb9-34"><a href="#cb9-34"></a><span class="co">#&gt; 3       March  1'177  100.0%    1'177   100.0%</span></span>
+<span id="cb9-35"><a href="#cb9-35"></a><span class="co">#&gt; 4       April      0    0.0%    1'177   100.0%</span></span>
+<span id="cb9-36"><a href="#cb9-36"></a><span class="co">#&gt; 5         May      0    0.0%    1'177   100.0%</span></span>
+<span id="cb9-37"><a href="#cb9-37"></a><span class="co">#&gt; 6        June      0    0.0%    1'177   100.0%</span></span>
+<span id="cb9-38"><a href="#cb9-38"></a><span class="co">#&gt; 7        July      0    0.0%    1'177   100.0%</span></span>
+<span id="cb9-39"><a href="#cb9-39"></a><span class="co">#&gt; 8      August      0    0.0%    1'177   100.0%</span></span>
+<span id="cb9-40"><a href="#cb9-40"></a><span class="co">#&gt; 9   September      0    0.0%    1'177   100.0%</span></span>
+<span id="cb9-41"><a href="#cb9-41"></a><span class="co">#&gt; 10    October      0    0.0%    1'177   100.0%</span></span>
+<span id="cb9-42"><a href="#cb9-42"></a><span class="co">#&gt; 11   November      0    0.0%    1'177   100.0%</span></span>
+<span id="cb9-43"><a href="#cb9-43"></a><span class="co">#&gt; 12   December      0    0.0%    1'177   100.0%</span></span>
+<span id="cb9-44"><a href="#cb9-44"></a><span class="co">#&gt; </span></span>
+<span id="cb9-45"><a href="#cb9-45"></a><span class="co">#&gt; By days :</span></span>
+<span id="cb9-46"><a href="#cb9-46"></a><span class="co">#&gt; </span></span>
+<span id="cb9-47"><a href="#cb9-47"></a><span class="co">#&gt;          level  freq  perc  cumfreq  cumperc</span></span>
+<span id="cb9-48"><a href="#cb9-48"></a><span class="co">#&gt; 1   2014-03-01    42  3.6%       42     3.6%</span></span>
+<span id="cb9-49"><a href="#cb9-49"></a><span class="co">#&gt; 2   2014-03-02    46  3.9%       88     7.5%</span></span>
+<span id="cb9-50"><a href="#cb9-50"></a><span class="co">#&gt; 3   2014-03-03    26  2.2%      114     9.7%</span></span>
+<span id="cb9-51"><a href="#cb9-51"></a><span class="co">#&gt; 4   2014-03-04    19  1.6%      133    11.3%</span></span>
+<span id="cb9-52"><a href="#cb9-52"></a><span class="co">#&gt; 5   2014-03-05    33  2.8%      166    14.1%</span></span>
+<span id="cb9-53"><a href="#cb9-53"></a><span class="co">#&gt; 6   2014-03-06    39  3.3%      205    17.4%</span></span>
+<span id="cb9-54"><a href="#cb9-54"></a><span class="co">#&gt; 7   2014-03-07    44  3.7%      249    21.2%</span></span>
+<span id="cb9-55"><a href="#cb9-55"></a><span class="co">#&gt; 8   2014-03-08    55  4.7%      304    25.8%</span></span>
+<span id="cb9-56"><a href="#cb9-56"></a><span class="co">#&gt; 9   2014-03-09    42  3.6%      346    29.4%</span></span>
+<span id="cb9-57"><a href="#cb9-57"></a><span class="co">#&gt; 10  2014-03-10    26  2.2%      372    31.6%</span></span>
+<span id="cb9-58"><a href="#cb9-58"></a><span class="co">#&gt; 11  2014-03-11    34  2.9%      406    34.5%</span></span>
+<span id="cb9-59"><a href="#cb9-59"></a><span class="co">#&gt; 12  2014-03-12    36  3.1%      442    37.6%</span></span>
+<span id="cb9-60"><a href="#cb9-60"></a><span class="co">#&gt; 13  2014-03-13    35  3.0%      477    40.5%</span></span>
+<span id="cb9-61"><a href="#cb9-61"></a><span class="co">#&gt; 14  2014-03-14    38  3.2%      515    43.8%</span></span>
+<span id="cb9-62"><a href="#cb9-62"></a><span class="co">#&gt; 15  2014-03-15    48  4.1%      563    47.8%</span></span>
+<span id="cb9-63"><a href="#cb9-63"></a><span class="co">#&gt; 16  2014-03-16    47  4.0%      610    51.8%</span></span>
+<span id="cb9-64"><a href="#cb9-64"></a><span class="co">#&gt; 17  2014-03-17    30  2.5%      640    54.4%</span></span>
+<span id="cb9-65"><a href="#cb9-65"></a><span class="co">#&gt; 18  2014-03-18    32  2.7%      672    57.1%</span></span>
+<span id="cb9-66"><a href="#cb9-66"></a><span class="co">#&gt; 19  2014-03-19    31  2.6%      703    59.7%</span></span>
+<span id="cb9-67"><a href="#cb9-67"></a><span class="co">#&gt; 20  2014-03-20    36  3.1%      739    62.8%</span></span>
+<span id="cb9-68"><a href="#cb9-68"></a><span class="co">#&gt; 21  2014-03-21    43  3.7%      782    66.4%</span></span>
+<span id="cb9-69"><a href="#cb9-69"></a><span class="co">#&gt; 22  2014-03-22    46  3.9%      828    70.3%</span></span>
+<span id="cb9-70"><a href="#cb9-70"></a><span class="co">#&gt; 23  2014-03-23    42  3.6%      870    73.9%</span></span>
+<span id="cb9-71"><a href="#cb9-71"></a><span class="co">#&gt; 24  2014-03-24    28  2.4%      898    76.3%</span></span>
+<span id="cb9-72"><a href="#cb9-72"></a><span class="co">#&gt; 25  2014-03-25    32  2.7%      930    79.0%</span></span>
+<span id="cb9-73"><a href="#cb9-73"></a><span class="co">#&gt; 26  2014-03-26    34  2.9%      964    81.9%</span></span>
+<span id="cb9-74"><a href="#cb9-74"></a><span class="co">#&gt; 27  2014-03-27    37  3.1%    1'001    85.0%</span></span>
+<span id="cb9-75"><a href="#cb9-75"></a><span class="co">#&gt; 28  2014-03-28    46  3.9%    1'047    89.0%</span></span>
+<span id="cb9-76"><a href="#cb9-76"></a><span class="co">#&gt; 29  2014-03-29    53  4.5%    1'100    93.5%</span></span>
+<span id="cb9-77"><a href="#cb9-77"></a><span class="co">#&gt; 30  2014-03-30    43  3.7%    1'143    97.1%</span></span>
+<span id="cb9-78"><a href="#cb9-78"></a><span class="co">#&gt; 31  2014-03-31    34  2.9%    1'177   100.0%</span></span></code></pre></div>
+<p><img src="reference/figures/README-demo-describe-6.png" width="100%"><img src="reference/figures/README-demo-describe-7.png" width="100%"><img src="reference/figures/README-demo-describe-8.png" width="100%"></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co">#&gt; ------------------------------------------------------------------------------ </span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="co">#&gt; 7 - wine_ordered (integer - dichotomous)</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="co">#&gt; </span></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="co">#&gt;   length      n    NAs unique</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="co">#&gt;    1'209  1'197     12      2</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="co">#&gt;           99.0%   1.0%       </span></span>
+<span id="cb10-7"><a href="#cb10-7"></a><span class="co">#&gt; </span></span>
+<span id="cb10-8"><a href="#cb10-8"></a><span class="co">#&gt;     freq   perc  lci.95  uci.95'</span></span>
+<span id="cb10-9"><a href="#cb10-9"></a><span class="co">#&gt; 0  1'010  84.4%   82.2%   86.3%</span></span>
+<span id="cb10-10"><a href="#cb10-10"></a><span class="co">#&gt; 1    187  15.6%   13.7%   17.8%</span></span>
+<span id="cb10-11"><a href="#cb10-11"></a><span class="co">#&gt; </span></span>
+<span id="cb10-12"><a href="#cb10-12"></a><span class="co">#&gt; ' 95%-CI (Wilson)</span></span></code></pre></div>
+<p><img src="reference/figures/README-demo-describe-9.png" width="100%"></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="co">#&gt; &gt; # just a few groupwise descriptions on the console</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="co">#&gt; &gt; Desc(temperature ~ driver, d.pizza, plotit=TRUE)</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="co">#&gt; ------------------------------------------------------------------------------ </span></span>
+<span id="cb11-5"><a href="#cb11-5"></a><span class="co">#&gt; temperature ~ driver (d.pizza)</span></span>
+<span id="cb11-6"><a href="#cb11-6"></a><span class="co">#&gt; </span></span>
+<span id="cb11-7"><a href="#cb11-7"></a><span class="co">#&gt; Summary: </span></span>
+<span id="cb11-8"><a href="#cb11-8"></a><span class="co">#&gt; n pairs: 1'209, valid: 1'166 (96.4%), missings: 43 (3.6%), groups: 7</span></span>
+<span id="cb11-9"><a href="#cb11-9"></a><span class="co">#&gt; </span></span>
+<span id="cb11-10"><a href="#cb11-10"></a><span class="co">#&gt;                                                                         </span></span>
+<span id="cb11-11"><a href="#cb11-11"></a><span class="co">#&gt;           Butcher  Carpenter     Carter     Farmer     Hunter     Miller</span></span>
+<span id="cb11-12"><a href="#cb11-12"></a><span class="co">#&gt; mean       49.617     43.493     50.419     50.937     52.141     47.524</span></span>
+<span id="cb11-13"><a href="#cb11-13"></a><span class="co">#&gt; median     51.400     44.800     51.750     54.100     55.100     49.600</span></span>
+<span id="cb11-14"><a href="#cb11-14"></a><span class="co">#&gt; sd          8.787      9.407      8.467      9.024      8.885      8.935</span></span>
+<span id="cb11-15"><a href="#cb11-15"></a><span class="co">#&gt; IQR        11.975     12.500     11.325     11.200     11.575      8.800</span></span>
+<span id="cb11-16"><a href="#cb11-16"></a><span class="co">#&gt; n              96        253        226        117        156        121</span></span>
+<span id="cb11-17"><a href="#cb11-17"></a><span class="co">#&gt; np         8.233%    21.698%    19.383%    10.034%    13.379%    10.377%</span></span>
+<span id="cb11-18"><a href="#cb11-18"></a><span class="co">#&gt; NAs             0         19          8          0          0          4</span></span>
+<span id="cb11-19"><a href="#cb11-19"></a><span class="co">#&gt; 0s              0          0          0          0          0          0</span></span>
+<span id="cb11-20"><a href="#cb11-20"></a><span class="co">#&gt;                  </span></span>
+<span id="cb11-21"><a href="#cb11-21"></a><span class="co">#&gt;            Taylor</span></span>
+<span id="cb11-22"><a href="#cb11-22"></a><span class="co">#&gt; mean       45.091</span></span>
+<span id="cb11-23"><a href="#cb11-23"></a><span class="co">#&gt; median     48.500</span></span>
+<span id="cb11-24"><a href="#cb11-24"></a><span class="co">#&gt; sd         11.442</span></span>
+<span id="cb11-25"><a href="#cb11-25"></a><span class="co">#&gt; IQR        18.400</span></span>
+<span id="cb11-26"><a href="#cb11-26"></a><span class="co">#&gt; n             197</span></span>
+<span id="cb11-27"><a href="#cb11-27"></a><span class="co">#&gt; np        16.895%</span></span>
+<span id="cb11-28"><a href="#cb11-28"></a><span class="co">#&gt; NAs             7</span></span>
+<span id="cb11-29"><a href="#cb11-29"></a><span class="co">#&gt; 0s              0</span></span>
+<span id="cb11-30"><a href="#cb11-30"></a><span class="co">#&gt; </span></span>
+<span id="cb11-31"><a href="#cb11-31"></a><span class="co">#&gt; Kruskal-Wallis rank sum test:</span></span>
+<span id="cb11-32"><a href="#cb11-32"></a><span class="co">#&gt;   Kruskal-Wallis chi-squared = 141.93, df = 6, p-value &lt; 2.2e-16</span></span>
+<span id="cb11-33"><a href="#cb11-33"></a><span class="co">#&gt; Warning:</span></span>
+<span id="cb11-34"><a href="#cb11-34"></a><span class="co">#&gt;   Grouping variable contains 5 NAs (0.414%).</span></span></code></pre></div>
+<p><img src="reference/figures/README-demo-describe-10.png" width="100%"></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co">#&gt; </span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="co">#&gt; &gt; Desc(driver ~ temperature, d.pizza, plotit=TRUE)</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="co">#&gt; ------------------------------------------------------------------------------ </span></span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="co">#&gt; driver ~ temperature (d.pizza)</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a><span class="co">#&gt; </span></span>
+<span id="cb12-6"><a href="#cb12-6"></a><span class="co">#&gt; Summary: </span></span>
+<span id="cb12-7"><a href="#cb12-7"></a><span class="co">#&gt; n pairs: 1'209, valid: 1'166 (96.4%), missings: 43 (3.6%), groups: 7</span></span>
+<span id="cb12-8"><a href="#cb12-8"></a><span class="co">#&gt; </span></span>
+<span id="cb12-9"><a href="#cb12-9"></a><span class="co">#&gt;                                                                         </span></span>
+<span id="cb12-10"><a href="#cb12-10"></a><span class="co">#&gt;           Butcher  Carpenter     Carter     Farmer     Hunter     Miller</span></span>
+<span id="cb12-11"><a href="#cb12-11"></a><span class="co">#&gt; mean       49.617     43.493     50.419     50.937     52.141     47.524</span></span>
+<span id="cb12-12"><a href="#cb12-12"></a><span class="co">#&gt; median     51.400     44.800     51.750     54.100     55.100     49.600</span></span>
+<span id="cb12-13"><a href="#cb12-13"></a><span class="co">#&gt; sd          8.787      9.407      8.467      9.024      8.885      8.935</span></span>
+<span id="cb12-14"><a href="#cb12-14"></a><span class="co">#&gt; IQR        11.975     12.500     11.325     11.200     11.575      8.800</span></span>
+<span id="cb12-15"><a href="#cb12-15"></a><span class="co">#&gt; n              96        253        226        117        156        121</span></span>
+<span id="cb12-16"><a href="#cb12-16"></a><span class="co">#&gt; np         8.233%    21.698%    19.383%    10.034%    13.379%    10.377%</span></span>
+<span id="cb12-17"><a href="#cb12-17"></a><span class="co">#&gt; NAs             0         19          8          0          0          4</span></span>
+<span id="cb12-18"><a href="#cb12-18"></a><span class="co">#&gt; 0s              0          0          0          0          0          0</span></span>
+<span id="cb12-19"><a href="#cb12-19"></a><span class="co">#&gt;                  </span></span>
+<span id="cb12-20"><a href="#cb12-20"></a><span class="co">#&gt;            Taylor</span></span>
+<span id="cb12-21"><a href="#cb12-21"></a><span class="co">#&gt; mean       45.091</span></span>
+<span id="cb12-22"><a href="#cb12-22"></a><span class="co">#&gt; median     48.500</span></span>
+<span id="cb12-23"><a href="#cb12-23"></a><span class="co">#&gt; sd         11.442</span></span>
+<span id="cb12-24"><a href="#cb12-24"></a><span class="co">#&gt; IQR        18.400</span></span>
+<span id="cb12-25"><a href="#cb12-25"></a><span class="co">#&gt; n             197</span></span>
+<span id="cb12-26"><a href="#cb12-26"></a><span class="co">#&gt; np        16.895%</span></span>
+<span id="cb12-27"><a href="#cb12-27"></a><span class="co">#&gt; NAs             7</span></span>
+<span id="cb12-28"><a href="#cb12-28"></a><span class="co">#&gt; 0s              0</span></span>
+<span id="cb12-29"><a href="#cb12-29"></a><span class="co">#&gt; </span></span>
+<span id="cb12-30"><a href="#cb12-30"></a><span class="co">#&gt; Kruskal-Wallis rank sum test:</span></span>
+<span id="cb12-31"><a href="#cb12-31"></a><span class="co">#&gt;   Kruskal-Wallis chi-squared = 141.93, df = 6, p-value &lt; 2.2e-16</span></span>
+<span id="cb12-32"><a href="#cb12-32"></a><span class="co">#&gt; Warning:</span></span>
+<span id="cb12-33"><a href="#cb12-33"></a><span class="co">#&gt;   Grouping variable contains 5 NAs (0.414%).</span></span>
+<span id="cb12-34"><a href="#cb12-34"></a><span class="co">#&gt; </span></span>
+<span id="cb12-35"><a href="#cb12-35"></a><span class="co">#&gt; </span></span>
+<span id="cb12-36"><a href="#cb12-36"></a><span class="co">#&gt; </span></span>
+<span id="cb12-37"><a href="#cb12-37"></a><span class="co">#&gt; Proportions of driver in the quantiles of temperature:</span></span>
+<span id="cb12-38"><a href="#cb12-38"></a><span class="co">#&gt;            </span></span>
+<span id="cb12-39"><a href="#cb12-39"></a><span class="co">#&gt;                  Q1      Q2      Q3      Q4</span></span>
+<span id="cb12-40"><a href="#cb12-40"></a><span class="co">#&gt;   Butcher      6.8%    8.1%    7.3%   10.7%</span></span>
+<span id="cb12-41"><a href="#cb12-41"></a><span class="co">#&gt;   Carpenter   34.9%   28.8%   15.9%    6.9%</span></span>
+<span id="cb12-42"><a href="#cb12-42"></a><span class="co">#&gt;   Carter      13.7%   18.3%   21.1%   24.5%</span></span>
+<span id="cb12-43"><a href="#cb12-43"></a><span class="co">#&gt;   Farmer       6.5%    4.7%   14.9%   14.1%</span></span>
+<span id="cb12-44"><a href="#cb12-44"></a><span class="co">#&gt;   Hunter       7.5%    9.5%   11.8%   24.8%</span></span>
+<span id="cb12-45"><a href="#cb12-45"></a><span class="co">#&gt;   Miller       9.2%   12.9%   13.1%    6.2%</span></span>
+<span id="cb12-46"><a href="#cb12-46"></a><span class="co">#&gt;   Taylor      21.2%   17.6%   15.9%   12.8%</span></span></code></pre></div>
+<p><img src="reference/figures/README-demo-describe-11.png" width="100%"></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co">#&gt; </span></span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="co">#&gt; &gt; Desc(temperature ~ delivery_min, d.pizza, plotit=TRUE)</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="co">#&gt; ------------------------------------------------------------------------------ </span></span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="co">#&gt; temperature ~ delivery_min (d.pizza)</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="co">#&gt; </span></span>
+<span id="cb13-6"><a href="#cb13-6"></a><span class="co">#&gt; Summary: </span></span>
+<span id="cb13-7"><a href="#cb13-7"></a><span class="co">#&gt; n pairs: 1'209, valid: 1'170 (96.8%), missings: 39 (3.2%)</span></span>
+<span id="cb13-8"><a href="#cb13-8"></a><span class="co">#&gt; </span></span>
+<span id="cb13-9"><a href="#cb13-9"></a><span class="co">#&gt; </span></span>
+<span id="cb13-10"><a href="#cb13-10"></a><span class="co">#&gt; Pearson corr. : -0.575</span></span>
+<span id="cb13-11"><a href="#cb13-11"></a><span class="co">#&gt; Spearman corr.: -0.573</span></span>
+<span id="cb13-12"><a href="#cb13-12"></a><span class="co">#&gt; Kendall corr. : -0.422</span></span>
+<span id="cb13-13"><a href="#cb13-13"></a><span class="co">#&gt; </span></span>
+<span id="cb13-14"><a href="#cb13-14"></a><span class="co">#&gt; &gt; Desc(quality ~ driver, d.pizza, plotit=TRUE, rfrq=("111")) # show all rel. frequencies</span></span>
+<span id="cb13-15"><a href="#cb13-15"></a><span class="co">#&gt; ------------------------------------------------------------------------------ </span></span>
+<span id="cb13-16"><a href="#cb13-16"></a><span class="co">#&gt; quality ~ driver (d.pizza)</span></span>
+<span id="cb13-17"><a href="#cb13-17"></a><span class="co">#&gt; Error in strsplit(rfrq, NULL): non-character argument</span></span></code></pre></div>
+<p><img src="reference/figures/README-demo-describe-12.png" width="100%"></p>
+</div>
+<div id="demo-plots" class="section level2">
+<h2 class="hasAnchor">
+<a href="#demo-plots" class="anchor"></a>Demo “plots”</h2>
+<div class="sourceCode" id="cb14"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/demo.html">demo</a></span>(<span class="no">plots</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"DescTools"</span>)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;  demo(plots)</span>
+<span class="co">#&gt;  ---- ~~~~~</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; &gt; ## -----------------------------------------------------------------------------------</span>
+<span class="co">#&gt; &gt; ## Demo file for plots; start with 'demo(plots)'</span>
+<span class="co">#&gt; &gt; ## -----------------------------------------------------------------------------------</span>
+<span class="co">#&gt; &gt; </span>
+<span class="co">#&gt; &gt; </span>
+<span class="co">#&gt; &gt; tab &lt;- matrix(c(2,5,8,3,10,12,5,7,15), nrow=3, byrow=FALSE,</span>
+<span class="co">#&gt; +               dimnames = list(c("A","B","C"), c("D","E","F")) )</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; &gt; par(mfrow=c(1,1), xpd=TRUE)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; &gt; PlotCirc( tab,</span>
+<span class="co">#&gt; +           acol = c("dodgerblue","seagreen2","limegreen","olivedrab2","goldenrod2","tomato2"),</span>
+<span class="co">#&gt; +           rcol = SetAlpha(c("red","orange","olivedrab1"), 0.5)</span>
+<span class="co">#&gt; + )</span></pre></div>
+<p><img src="reference/figures/README-demo-plots-1.png" width="100%"></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="co">#&gt; &gt; # distribution plot (combination of histogram, densitycurve, boxplot and ecdf.plot)</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a><span class="co">#&gt; &gt; old.par &lt;- par(no.readonly=TRUE)</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a><span class="co">#&gt; </span></span>
+<span id="cb15-5"><a href="#cb15-5"></a><span class="co">#&gt; &gt; PlotFdist(x=d.pizza$delivery_min, na.rm=TRUE)</span></span></code></pre></div>
+<p><img src="reference/figures/README-demo-plots-2.png" width="100%"></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="co">#&gt; &gt; # plot multiple density curves</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a><span class="co">#&gt; &gt; par(old.par)</span></span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="co">#&gt; </span></span>
+<span id="cb16-5"><a href="#cb16-5"></a><span class="co">#&gt; &gt; PlotMultiDens( split(d.pizza$delivery_min, d.pizza$driver), na.rm=TRUE</span></span>
+<span id="cb16-6"><a href="#cb16-6"></a><span class="co">#&gt; +                , main="delivery time ~ driver", xlab="delivery time [min]", ylab="density"</span></span>
+<span id="cb16-7"><a href="#cb16-7"></a><span class="co">#&gt; +                , panel.first=grid())</span></span></code></pre></div>
+<p><img src="reference/figures/README-demo-plots-3.png" width="100%"></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co">#&gt; </span></span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="co">#&gt; &gt; # areaplot with stapled areas</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a><span class="co">#&gt; &gt; tab &lt;- table( d.pizza$date, d.pizza$driver )</span></span>
+<span id="cb17-4"><a href="#cb17-4"></a><span class="co">#&gt; </span></span>
+<span id="cb17-5"><a href="#cb17-5"></a><span class="co">#&gt; &gt; PlotArea(x=as.Date(rownames(tab)), y=tab, xaxt="n", xlab="Date", ylab="Pizzas delivered" )</span></span></code></pre></div>
+<p><img src="reference/figures/README-demo-plots-4.png" width="100%"></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co">#&gt; </span></span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="co">#&gt; &gt; # add x-axis and some text labels</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a><span class="co">#&gt; &gt; xrng &lt;- pretty(range(as.Date(rownames(tab))))</span></span>
+<span id="cb18-4"><a href="#cb18-4"></a><span class="co">#&gt; </span></span>
+<span id="cb18-5"><a href="#cb18-5"></a><span class="co">#&gt; &gt; axis(side=1, at=xrng, labels=xrng)</span></span>
+<span id="cb18-6"><a href="#cb18-6"></a><span class="co">#&gt; </span></span>
+<span id="cb18-7"><a href="#cb18-7"></a><span class="co">#&gt; &gt; text( x=min(d.pizza$date + .5, na.rm=TRUE), y=cumsum(tab[2,])-2.5,</span></span>
+<span id="cb18-8"><a href="#cb18-8"></a><span class="co">#&gt; +       label=levels(d.pizza$driver), adj=c(0,0.5), col=TextContrastColor( gray.colors(7)))</span></span>
+<span id="cb18-9"><a href="#cb18-9"></a><span class="co">#&gt; </span></span>
+<span id="cb18-10"><a href="#cb18-10"></a><span class="co">#&gt; &gt; # dotchart with confidence intervals</span></span>
+<span id="cb18-11"><a href="#cb18-11"></a><span class="co">#&gt; &gt; x &lt;- do.call("rbind", tapply( d.pizza$temperature, d.pizza$driver, MeanCI, na.rm=TRUE))</span></span>
+<span id="cb18-12"><a href="#cb18-12"></a><span class="co">#&gt; </span></span>
+<span id="cb18-13"><a href="#cb18-13"></a><span class="co">#&gt; &gt; rownames(x) &lt;- levels(d.pizza$driver)</span></span>
+<span id="cb18-14"><a href="#cb18-14"></a><span class="co">#&gt; </span></span>
+<span id="cb18-15"><a href="#cb18-15"></a><span class="co">#&gt; &gt; PlotDot(x)</span></span></code></pre></div>
+<p><img src="reference/figures/README-demo-plots-5.png" width="100%"></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co">#&gt; </span></span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="co">#&gt; &gt; # Plot pyramid</span></span>
+<span id="cb19-3"><a href="#cb19-3"></a><span class="co">#&gt; &gt; xy.pop &lt;- c(3.2,3.5,3.6,3.6,3.5,3.5,3.9,3.7,3.9,3.5,3.2,2.8,2.2,1.8,1.5,1.3,0.7,0.4)</span></span>
+<span id="cb19-4"><a href="#cb19-4"></a><span class="co">#&gt; </span></span>
+<span id="cb19-5"><a href="#cb19-5"></a><span class="co">#&gt; &gt; xx.pop &lt;- c(3.2,3.4,3.5,3.5,3.5,3.7,4,3.8,3.9,3.6,3.2,2.5,2,1.7,1.5,1.3,1,0.8)</span></span>
+<span id="cb19-6"><a href="#cb19-6"></a><span class="co">#&gt; </span></span>
+<span id="cb19-7"><a href="#cb19-7"></a><span class="co">#&gt; &gt; agelabels &lt;- c("0-4","5-9","10-14","15-19","20-24","25-29","30-34","35-39","40-44",</span></span>
+<span id="cb19-8"><a href="#cb19-8"></a><span class="co">#&gt; +                "45-49","50-54","55-59","60-64","65-69","70-74","75-79","80-44","85+")</span></span>
+<span id="cb19-9"><a href="#cb19-9"></a><span class="co">#&gt; </span></span>
+<span id="cb19-10"><a href="#cb19-10"></a><span class="co">#&gt; &gt; PlotPyramid( xy.pop, xx.pop, ylab=agelabels, lxlab="men", rxlab="women",</span></span>
+<span id="cb19-11"><a href="#cb19-11"></a><span class="co">#&gt; +              main="Australian population pyramid 2002", col=PalHelsana()[c(6,1)])</span></span>
+<span id="cb19-12"><a href="#cb19-12"></a><span class="co">#&gt; Error in PalHelsana(): could not find function "PalHelsana"</span></span></code></pre></div>
+<p><img src="reference/figures/README-demo-plots-6.png" width="100%"></p>
 <!-- # ****************************************************** -->
 <!-- # There are no examples defined here. But see the demos: -->
 <!-- # -->
 <!-- # demo(describe) -->
-<!-- # demo(plots)) -->
+<!-- # demo(plots) -->
 <!-- # -->
 <!-- # ****************************************************** -->
+</div>
 </div>
 
   </div>
@@ -1012,7 +1412,8 @@ A grouped list of the functions in the package.
 <li><a href="https://CRAN.R-project.org/package=DescTools"><img src="http://cranlogs.r-pkg.org/badges/last-week/DescTools" alt="downloads"></a></li>
 <li><a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html"><img src="https://img.shields.io/badge/License-GPL%20v2+-blue.svg" alt="License: GPL v2+"></a></li>
 <li><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a></li>
-<li><a href="/commits/master"><img src="https://img.shields.io/badge/Updated%20on-2020--04--21-yellowgreen.svg" alt="Updated-on"></a></li>
+<li><a href="/commits/master"><img src="https://img.shields.io/badge/Updated%20on-2020--04--22-yellowgreen.svg" alt="Documentation"></a></li>
+<li><a href="https://github.com/AndriSignorell/DescTools/actions"><img src="https://github.com/AndriSignorell/DescTools/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
 </ul>
 </div>
 </div>
