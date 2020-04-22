@@ -6,7 +6,7 @@ name: pkgdown
 
 jobs:
   pkgdown:
-    runs-on: windows-latest
+    runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v2
 
@@ -24,8 +24,8 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ${{ env.R_LIBS_USER }}
-          key: windows-r-3.6-${{ hashFiles('.github/depends.Rds') }}
-          restore-keys: windows-r-3.6-
+          key: macOS-r-3.6-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: macOS-r-3.6-
 
       - name: Install dependencies
         run: |
@@ -37,9 +37,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Install package
-        # run: R CMD INSTALL .
-        run: install.packages("DescTools")
-        shell: Rscript {0}
+        run: R CMD INSTALL .
 
       - name: Deploy package
         run: pkgdown::deploy_to_branch(new_process = FALSE)
