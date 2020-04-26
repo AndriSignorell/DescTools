@@ -20,7 +20,7 @@ The handling of \code{NA} values follows the standards of the package. As soon a
 
 The mode is elsewhere often calculated in a crude and wasteful way by tabulating the frequency for all elements of the vector and returning the most frequent one. This function uses a sophisticated data structure in C++ and is limited to determining the most frequent element only. Therefore it is orders of magnitude faster than other implementations, especially for large numeric vectors with large numbers of distinct values. 
 
-You might furthermore consider using \kbd{density(x)$x[which.max(density(x)$y)]} for quantitative data or alternatively use \kbd{hist()}.\cr
+You might furthermore consider using \code{density(x)$x[which.max(density(x)$y)]} for quantitative data or alternatively use \code{hist()}.\cr
 Another interesting idea for a more robust estimation of the mode:\cr
 \preformatted{
 peak <- optimize(function(x, model) predict(model, data.frame(x = x)),

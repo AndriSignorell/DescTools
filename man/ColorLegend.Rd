@@ -31,7 +31,7 @@ ColorLegend(x, y = NULL, cols = rev(heat.colors(100)), labels = NULL,
   \item{xjust}{how the colorlegend is to be justified relative to the colorlegend x location.
     A value of 0 means left justified, 0.5 means centered and 1 means right justified. }
 
-  \item{yjust}{the same as \kbd{xjust} for the legend y location. }
+  \item{yjust}{the same as \code{xjust} for the legend y location. }
 
   \item{inset}{inset distance(s) from the margins as a fraction of the plot region when colorlegend is placed by keyword. }
 
@@ -47,7 +47,7 @@ ColorLegend(x, y = NULL, cols = rev(heat.colors(100)), labels = NULL,
   \item{cex}{character extension for the labels, default 1.0. }
 
 
-  \item{\dots}{further arguments are passed to the function \kbd{text}. }
+  \item{\dots}{further arguments are passed to the function \code{text}. }
 }
 
 \details{

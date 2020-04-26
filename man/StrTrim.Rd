@@ -22,16 +22,16 @@ StrTrim(x, pattern = " \\t\\n", method = "both")
 %%     ~~Describe \code{x} here~~
 }
   \item{pattern}{
-  the pattern of the whitespaces to be deleted, defaults to space, tab and newline: \kbd{" \\t\\n"}.
+  the pattern of the whitespaces to be deleted, defaults to space, tab and newline: \code{" \\t\\n"}.
 %%     ~~Describe \code{x} here~~
 }
   \item{method}{one out of \code{"both"} (default), \code{"left"}, \code{"right"}. Determines on which side the string should be trimmed.}
 }
 \details{
 The functions are defined depending on method as\cr
-  \kbd{both:  gsub( pattern=gettextf("^[\%s]+|[\%s]+$", pattern, pattern), replacement="", x=x)}\cr
-  \kbd{left:  gsub( pattern=gettextf("^[\%s]+",pattern), replacement="", x=x)}\cr
-  \kbd{right: gsub( pattern=gettextf("[\%s]+$",pattern), replacement="", x=x)}
+  \code{both:  gsub( pattern=gettextf("^[\%s]+|[\%s]+$", pattern, pattern), replacement="", x=x)}\cr
+  \code{left:  gsub( pattern=gettextf("^[\%s]+",pattern), replacement="", x=x)}\cr
+  \code{right: gsub( pattern=gettextf("[\%s]+$",pattern), replacement="", x=x)}
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{

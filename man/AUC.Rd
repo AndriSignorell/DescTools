@@ -43,7 +43,7 @@ AUC(x, y, from = min(x, na.rm = TRUE), to = max(x, na.rm = TRUE),
 %%     ~~Describe \code{na.rm} here~~
 
 }
-\details{If method is set to \kbd{"trapezoid"} then the curve is formed by connecting all points by a direct line (composite trapezoid rule). If \kbd{"step"} is chosen then a stepwise connection of two points is used.
+\details{If method is set to \code{"trapezoid"} then the curve is formed by connecting all points by a direct line (composite trapezoid rule). If \code{"step"} is chosen then a stepwise connection of two points is used.
 
 
   For linear interpolation the \code{AUC()} function computes the area under the curve
