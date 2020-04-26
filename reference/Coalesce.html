@@ -138,7 +138,7 @@
     <p>Return the first element of a vector, not being NA.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>Coalesce</span>(<span class='no'>...</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"is.na"</span>, <span class='st'>"is.finite"</span>))</pre>
+    <pre class="usage"><span class='fu'>Coalesce</span>(<span class='no'>...</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"is.na"</span>, <span class='st'>"is.null"</span>, <span class='st'>"is.finite"</span>), <span class='kw'>flatten</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -150,8 +150,12 @@
     </tr>
     <tr>
       <th>method</th>
-      <td><p>one out of <code>"is.na"</code> (default) or <code>"is.finite"</code>. The <code>"is.na"</code> option allows <code>Inf</code> values to
+      <td><p>one out of <code>"is.na"</code> (default), <code>"is.null"</code>  or <code>"is.finite"</code>. The <code>"is.na"</code> option allows <code>Inf</code> values to
    be in the result, the second one eliminates them.</p></td>
+    </tr>
+    <tr>
+      <th>flatten</th>
+      <td><p>logical, defines whether lists are going to be flattened (default <code>TRUE</code>).</p></td>
     </tr>
     </table>
 
@@ -178,9 +182,9 @@ The idea is borrowed from SQL. Might sometimes be useful when preparing data in 
   <span class='fl'>NA</span>, <span class='fl'>Inf</span>, <span class='fl'>1</span>, <span class='fl'>1</span>), <span class='kw'>nrow</span><span class='kw'>=</span><span class='fl'>4</span>, <span class='kw'>byrow</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
 )
 
-<span class='fu'>Coalesce</span>(<span class='no'>d.frm</span>)</div><div class='output co'>#&gt; [1]   1   3   2 Inf</div><div class='input'><span class='fu'>Coalesce</span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>d.frm</span>))</div><div class='output co'>#&gt; [1]   1   3   2 Inf</div><div class='input'><span class='fu'>Coalesce</span>(<span class='no'>d.frm</span>$<span class='no'>X1</span>, <span class='no'>d.frm</span>$<span class='no'>X2</span>, <span class='no'>d.frm</span>$<span class='no'>X3</span>, <span class='no'>d.frm</span>$<span class='no'>X4</span>)</div><div class='output co'>#&gt; [1]   1   3   2 Inf</div><div class='input'><span class='fu'>Coalesce</span>(<span class='no'>d.frm</span>$<span class='no'>X1</span>, <span class='no'>d.frm</span>$<span class='no'>X2</span>, <span class='no'>d.frm</span>$<span class='no'>X3</span>, <span class='no'>d.frm</span>$<span class='no'>X4</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"is.finite"</span>)</div><div class='output co'>#&gt; [1] 1 3 2 1</div><div class='input'><span class='fu'>Coalesce</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>d.frm</span>[,<span class='fl'>1</span>], <span class='no'>d.frm</span>[,<span class='fl'>2</span>]))</div><div class='output co'>#&gt; [1]   1  NA   2 Inf</div><div class='input'>
+<span class='fu'>Coalesce</span>(<span class='no'>d.frm</span>)</div><div class='output co'>#&gt; [1]   1   3   2 Inf</div><div class='input'><span class='fu'>Coalesce</span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>d.frm</span>))</div><div class='output co'>#&gt; [1]   1   3   2 Inf</div><div class='input'><span class='fu'>Coalesce</span>(<span class='no'>d.frm</span>$<span class='no'>X1</span>, <span class='no'>d.frm</span>$<span class='no'>X2</span>, <span class='no'>d.frm</span>$<span class='no'>X3</span>, <span class='no'>d.frm</span>$<span class='no'>X4</span>)</div><div class='output co'>#&gt; [1]   1   3   2 Inf</div><div class='input'><span class='fu'>Coalesce</span>(<span class='no'>d.frm</span>$<span class='no'>X1</span>, <span class='no'>d.frm</span>$<span class='no'>X2</span>, <span class='no'>d.frm</span>$<span class='no'>X3</span>, <span class='no'>d.frm</span>$<span class='no'>X4</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"is.finite"</span>)</div><div class='output co'>#&gt; [1]  NA  NA NaN  NA</div><div class='input'><span class='fu'>Coalesce</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>d.frm</span>[,<span class='fl'>1</span>], <span class='no'>d.frm</span>[,<span class='fl'>2</span>]))</div><div class='output co'>#&gt; [1]   1  NA   2 Inf</div><div class='input'>
 <span class='co'># returns the first finite element</span>
-<span class='fu'>Coalesce</span>(<span class='no'>d.frm</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"is.finite"</span>)</div><div class='output co'>#&gt; [1] 1 3 2 1</div><div class='input'>
+<span class='fu'>Coalesce</span>(<span class='no'>d.frm</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"is.finite"</span>)</div><div class='output co'>#&gt; [1]  NA  NA NaN  NA</div><div class='input'>
 <span class='co'># with characters (take care, factors won't work!)</span>
 <span class='co'># is.finite does not make sense here...</span>
 <span class='no'>d.frm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
