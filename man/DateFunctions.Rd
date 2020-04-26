@@ -61,7 +61,7 @@ LastDayOfMonth(x)
   \item{x}{the date to be evaluated.
 %%     ~~Describe \code{x} here~~
 }
-  \item{fmt}{format string, defines how the month or the weekday are to be formatted. Defaults to \kbd{"m"}, resp. \kbd{"d"}. Is ignored for other functions.
+  \item{fmt}{format string, defines how the month or the weekday are to be formatted. Defaults to \code{"m"}, resp. \code{"d"}. Is ignored for other functions.
 %%     ~~Describe \code{format} here~~
 }
   \item{value}{new value
@@ -84,27 +84,27 @@ LastDayOfMonth(x)
 
 \details{These functions are mainly convenience wrappers for the painful \code{format()} and its strange codes...\cr
 Based on the requested time component, the output is as follows:\cr\cr
-\kbd{Year} returns the year of the input date in yyyy format.\cr
-\kbd{Quarter} returns the quarter of the year (1 to 4) for the input date. \cr
-\kbd{Month} returns the month of the year (1 to 12) for the input date. \cr
-\kbd{Week} returns the week of the year for the input date (0 to 53), as defined in ISO8601. \cr
-\kbd{Weekday} returns the week day of the input date. (1 - Monday, 2 - Tuesday, ... 7 - Sunday). (Names and abbreviations are either english or in the current locale!)\cr
-\kbd{YearDay} returns the day of the year numbering (1 to 366). \cr
-\kbd{Day} returns the day of the month (1 to 31). \cr
-\kbd{YearMonth} returns the yearmonth representation (yyyymm) of a date as long integer. \cr
-\kbd{Hour, Minute, Second, Timezone} return the hour, minute, second or timezone from a POSIXlt object. \cr
-\kbd{Today, Now} return the current date, resp. the current date and time.\cr
+\code{Year} returns the year of the input date in yyyy format.\cr
+\code{Quarter} returns the quarter of the year (1 to 4) for the input date. \cr
+\code{Month} returns the month of the year (1 to 12) for the input date. \cr
+\code{Week} returns the week of the year for the input date (0 to 53), as defined in ISO8601. \cr
+\code{Weekday} returns the week day of the input date. (1 - Monday, 2 - Tuesday, ... 7 - Sunday). (Names and abbreviations are either english or in the current locale!)\cr
+\code{YearDay} returns the day of the year numbering (1 to 366). \cr
+\code{Day} returns the day of the month (1 to 31). \cr
+\code{YearMonth} returns the yearmonth representation (yyyymm) of a date as long integer. \cr
+\code{Hour}, \code{Minute}, \code{Second}, \code{Timezone} return the hour, minute, second or timezone from a POSIXlt object. \cr
+\code{Today}, \code{Now} return the current date, resp. the current date and time.\cr
 
-\kbd{IsWeekend} returns TRUE, if the date x falls on a weekend. \cr
-\kbd{IsLeapYear} returns TRUE, if the year of the date x is a leap year. \cr
+\code{IsWeekend} returns \code{TRUE}, if the date x falls on a weekend. \cr
+\code{IsLeapYear} returns \code{TRUE}, if the year of the date x is a leap year. \cr
 
 The day can not only be extracted, but as well be defined. See examples.
 
-\kbd{DiffDays360} calculates the difference between 2 dates using the 360-days convention.\cr
-\kbd{LastDayOfMonth} returns the last day of the month of the given date(s).
+\code{DiffDays360} calculates the difference between 2 dates using the 360-days convention.\cr
+\code{LastDayOfMonth} returns the last day of the month of the given date(s).
 %%  ~~ If necessary, more details than the description above ~~
 
-The language in Weekday and Moth can be set with an option as well. The functions will check for an existing option named "lang" and take this value if it exists. So simply set option(lang="engl") if the results should always be reported in english.
+The language in Weekday and Moth can be set with an option as well. The functions will check for an existing option named "lang" and take this value if it exists. So simply set option(lang="engl") if the results should always be reported in English.
 
 }
 \value{a vector of the same dimension as x, consisting of either numeric values or characters depending on the function used.
