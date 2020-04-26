@@ -406,32 +406,84 @@ TTestA <- function (mx, sx, nx, my=NULL, sy = NULL, ny=NULL,
 
 SignTest <- function (x, ...)  UseMethod("SignTest")
 
+
+# SignTest.formula <- function (formula, data, subset, na.action, ...) {
+# 
+#   # this is designed just like wilcox.test.formula
+# 
+#   if (missing(formula) || (length(formula) != 3L) || (length(attr(terms(formula[-2L]),
+#                                                                   "term.labels")) != 1L))
+#     stop("'formula' missing or incorrect")
+#   m <- match.call(expand.dots = FALSE)
+#   if (is.matrix(eval(m$data, parent.frame())))
+#     m$data <- as.data.frame(data)
+#   m[[1L]] <- as.name("model.frame")
+#   m$... <- NULL
+#   mf <- eval(m, parent.frame())
+#   DNAME <- paste(names(mf), collapse = " by ")
+#   names(mf) <- NULL
+#   response <- attr(attr(mf, "terms"), "response")
+#   g <- factor(mf[[-response]])
+#   if (nlevels(g) != 2L)
+#     stop("grouping factor must have exactly 2 levels")
+#   DATA <- split(mf[[response]], g)
+#   names(DATA) <- c("x", "y")
+#   y <- DoCall("SignTest", c(DATA, list(...)))
+#   y$data.name <- DNAME
+#   y
+# 
+# }
+
+
+
 SignTest.formula <- function (formula, data, subset, na.action, ...) {
 
-  # this is designed just like wilcox.test.formula
-
-  if (missing(formula) || (length(formula) != 3L) || (length(attr(terms(formula[-2L]),
-                                                                  "term.labels")) != 1L))
+  # this is designed after wilcox.test.formula R version 4.0.0 Patched (2020-04-24 r78289)
+  
+  if (missing(formula) || (length(formula) != 3L)) 
     stop("'formula' missing or incorrect")
+  oneSampleOrPaired <- FALSE
+  if (length(attr(terms(formula[-2L]), "term.labels")) != 1L) 
+    if (formula[[3]] == 1L) 
+      oneSampleOrPaired <- TRUE
+  else stop("'formula' missing or incorrect")
+  
   m <- match.call(expand.dots = FALSE)
-  if (is.matrix(eval(m$data, parent.frame())))
+  if (is.matrix(eval(m$data, parent.frame()))) 
     m$data <- as.data.frame(data)
-  m[[1L]] <- as.name("model.frame")
+  m[[1L]] <- quote(stats::model.frame)
   m$... <- NULL
   mf <- eval(m, parent.frame())
   DNAME <- paste(names(mf), collapse = " by ")
   names(mf) <- NULL
   response <- attr(attr(mf, "terms"), "response")
-  g <- factor(mf[[-response]])
-  if (nlevels(g) != 2L)
-    stop("grouping factor must have exactly 2 levels")
-  DATA <- split(mf[[response]], g)
-  names(DATA) <- c("x", "y")
-  y <- DoCall("SignTest", c(DATA, list(...)))
+  
+  if (!oneSampleOrPaired) {
+    g <- factor(mf[[-response]])
+    if (nlevels(g) != 2L) 
+      stop("grouping factor must have exactly 2 levels")
+    DATA <- setNames(split(mf[[response]], g), c("x", "y"))
+    y <- do.call("SignTest", c(DATA, list(...)))
+    
+  } else {
+    respVar <- mf[[response]]
+    if (inherits(respVar, "Pair")) {
+      DATA <- list(x = respVar[, 1], y = respVar[, 2], 
+                   paired = TRUE)
+      y <- do.call("SignTest", c(DATA, list(...)))
+      
+    } else {
+      DATA <- list(x = respVar)
+      y <- do.call("SignTest", c(DATA, list(...)))
+      
+    }
+  }
   y$data.name <- DNAME
   y
-
 }
+
+
+
 
 # test:
 #  cbind( c(NA,sort(x)), 0:n, dbinom(0:n, size=n, prob=0.5),  pbinom(0:n, size=n, prob=0.5))
@@ -480,6 +532,7 @@ SignTest.default <- function(x, y = NULL, alternative = c("two.sided", "less", "
   if (!is.null(y)) {
     if (!is.numeric(y))
       stop("'y' must be numeric")
+    
     if (length(x) != length(y))
       stop("'x' and 'y' must have the same length")
 

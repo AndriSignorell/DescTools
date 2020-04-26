@@ -2944,6 +2944,11 @@ MedianCI <- function(x, conf.level=0.95, sides = c("two.sided","left","right"), 
               attr(ci, "conf.level") <- pbinom(k, size=n, prob=0.5)
             }
     )
+    # confints for small samples can be outside the observed range e.g. n < 6
+    if(identical(StripAttr(ci), NA_real_)) {
+      ci <- c(-Inf, Inf)
+      attr(ci, "conf.level") <- 1
+    }  
     return(ci)
   }
   

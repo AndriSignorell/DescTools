@@ -6482,6 +6482,17 @@ SetNames <- function (x, ...) {
 
 
 
+StripAttr <- function(x, attr_names=NULL) {
+  
+  if(is.null(attr_names))
+    attributes(x) <- NULL
+  else
+    for(a in attr_names) 
+      attr(x, which = a) <- NULL
+
+  return(x)
+}
+
 
 
 Append <- function(x, values, after = NULL, ... ){
