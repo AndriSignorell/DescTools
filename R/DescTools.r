@@ -3787,28 +3787,74 @@ Dummy <- function (x, method = c("treatment", "sum", "helmert", "poly", "full"),
 
 # would not return characters correctly
 #
-Coalesce <- function(..., method = c("is.na", "is.finite")) {
+Coalesce <- function(..., method = c("is.na", "is.null","is.finite"), flatten=TRUE) {
   # Returns the first element in x which is not NA
 
-  if(length(list(...)) > 1L) {
+  # problem: if we want the first list element of ... which is not NULL
+  # the function fails and returns the first element of this list element
+  # by using unlist().
+  # An alternative would be: Filter(Negate(is.null), list(...))
+  
+  if(...length() > 1L) {
     if(all(lapply(list(...), length) > 1L)){
-      x <- data.frame(..., stringsAsFactors = FALSE)
+      lst <- data.frame(..., stringsAsFactors = FALSE)
     } else {
-      x <- unlist(list(...))
+        lst <- list(...)
+        if(flatten) lst <- unlist(lst)
     }
   } else {
     if(is.matrix(...)) {
-      x <- data.frame(..., stringsAsFactors = FALSE)
+      lst <- data.frame(..., stringsAsFactors = FALSE)
     } else {
-      x <- (...)
+      lst <- (...)
     }
   }
-  switch(match.arg(method, choices=c("is.na", "is.finite")),
-    "is.na" = res <- Reduce(function (x,y) ifelse(!is.na(x), x, y), x),
-    "is.finite" = res <- Reduce(function (x,y) ifelse(is.finite(x), x, y), x)
+  
+  switch(match.arg(method, choices=c("is.na", "is.null", "is.finite")),
+    
+      # "is.na"     = res <- 
+      #           Reduce(function (x,y) ifelse(!is.na(x), x, y), x),
+      # "is.finite" = res <- 
+      #   Reduce(function (x,y) ifelse(is.finite(x), x, y), lst)
+      
+      "is.na"     = res <- 
+        Reduce(function (x, y){ 
+              i <- which(is.na(x))
+              x[i] <- y[i]
+              return(x)
+            }, lst) ,
+
+      "is.null"     = res <- 
+        Reduce(function (x, y){ 
+          i <- which(is.null(x))
+          x[i] <- y[i]
+          return(x)
+        }, lst) ,
+      
+      "is.finite"     = res <- 
+        Reduce(function (x, y){ 
+          i <- which(is.finite(x))
+          x[i] <- y[i]
+          return(x)
+        }, lst) 
   )
+  
   return(res)
 }
+
+
+# lightning fast:
+#
+# coalesce2 <- function(...) {
+#   Reduce(function(x, y) {
+#     i <- which(is.na(x))
+#     x[i] <- y[i]
+#     return(x)
+#   },
+#   list(...))
+# }
+
+
 
 
 # defunct by 0.99.26

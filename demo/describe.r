@@ -21,7 +21,7 @@ Desc(quality ~ driver, d.pizza, plotit=TRUE, rfrq=("111")) # show all rel. frequ
 # generate all pairwise descriptions
 m <- outer(names(d.sub), names(d.sub), paste, sep=" ~ ")  
 m <- m[lower.tri(m)]         # take only lower triangular
-m <- sapply(m, as.formula)   # 
+m <- sapply(m, formula)   # 
 
 # .. do it
 out <- sapply(m, Desc, data=d.pizza, plotit=TRUE)
@@ -46,7 +46,7 @@ Desc(log(price+1) ~ cut(delivery_min, breaks=seq(10,90,10)),
 
 
 # ******************************************************************************
-# The follwing code presumes, that you are on Windows and have Office installed!
+# The following code presumes, that you are on Windows and have Office installed!
 # ******************************************************************************
 
 
@@ -65,4 +65,8 @@ Desc(log(price+1) ~ cut(delivery_min, breaks=seq(10,90,10)),
 # 
 # Desc( log(price+1) ~ cut(delivery_min, breaks=seq(10,90,10))  
 #       , data=d.pizza, digits=c(2,2,2,2,0,3,0,0), wrd=wrd) 
+
+
+
+
 

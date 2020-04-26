@@ -26,9 +26,11 @@
   tcltk::tkwm.title(top, main)
   tcltk::tkwm.resizable(top, resizex, resizey)
   # alternative:
-  #    system.file("extdata", paste(ico, "ico", sep="."), package="DescTools")
-  tcltk::tkwm.iconbitmap(top, file.path(find.package("DescTools"), "extdata", paste(ico, "ico", sep=".")))
-
+  # tcltk::tkwm.iconbitmap(top, file.path(find.package("DescTools"), "extdata", paste(ico, "ico", sep=".")))
+  #    
+  tcltk::tkwm.iconbitmap(top, system.file("extdata", 
+                paste(ico, "ico", sep="."), package="DescTools"))
+  
   return(top)
 
 }

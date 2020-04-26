@@ -6463,7 +6463,7 @@ PlotBinTree <- function(x, main="Binary tree", horiz=FALSE, cex=1.0, col=1, ...)
   res <- .Call("conc", PACKAGE="DescTools", y[ord,], as.double(wts[ord]),
                as.integer(idx), as.integer(n2))
 
-  return(list(pi.c = NA, pi.d = NA, C = res[2], D = res[1]))
+  return(list(pi.c = NA, pi.d = NA, C = res[2], D = res[1], T=res[3], N=res[4]))
 
 }
 

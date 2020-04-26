@@ -29,3 +29,5 @@ RTempdirAlive <- function() {
   
 }
 
+
+# getDbPath <- function() system.file("extdata", package="DescTools")
