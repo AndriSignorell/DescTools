@@ -362,35 +362,35 @@
 <span class='no'>g</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>4</span>], <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='no'>d.set</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>z</span> <span class='kw'>=</span> <span class='no'>z</span>, <span class='kw'>g</span> <span class='kw'>=</span> <span class='no'>g</span>)
 
-<span class='fu'>TOne</span>(<span class='no'>d.set</span>[<span class='fl'>1</span>:<span class='fl'>3</span>], <span class='no'>d.set</span>$<span class='no'>g</span>, <span class='kw'>intref</span> <span class='kw'>=</span> <span class='st'>"low"</span>)</div><div class='output co'>#&gt; var         total       a           b           c           d                      
-#&gt; n           100         29 (29.0%)  23 (23.0%)  20 (20.0%)  28 (28.0%)             
-#&gt; x (= 0)     28 (28.0%)  9 (31.0%)   6 (26.1%)   4 (20.0%)   9 (32.1%)       ""     
-#&gt; y (= FALSE) 39 (39.0%)  14 (48.3%)  6 (26.1%)   10 (50.0%)  9 (32.1%)       ""     
-#&gt; z (= 0)     28 (28.0%)  11 (37.9%)  5 (21.7%)   4 (20.0%)   8 (28.6%)       ""     
+<span class='fu'>TOne</span>(<span class='no'>d.set</span>[<span class='fl'>1</span>:<span class='fl'>3</span>], <span class='no'>d.set</span>$<span class='no'>g</span>, <span class='kw'>intref</span> <span class='kw'>=</span> <span class='st'>"low"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Chi-squared approximation may be incorrect</span></div><div class='output co'>#&gt; var         total       a           b           c           d                      
+#&gt; n           100         28 (28.0%)  23 (23.0%)  19 (19.0%)  30 (30.0%)             
+#&gt; x (= 0)     28 (28.0%)  10 (35.7%)  5 (21.7%)   4 (21.1%)   9 (30.0%)       ""     
+#&gt; y (= FALSE) 39 (39.0%)  12 (42.9%)  8 (34.8%)   9 (47.4%)   10 (33.3%)      ""     
+#&gt; z (= 0)     26 (26.0%)  10 (35.7%)  5 (21.7%)   4 (21.1%)   7 (23.3%)       ""     
 #&gt; ---
 #&gt; ') Kruskal-Wallis test, ") Fisher exact test, "") Chi-Square test
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 #&gt; </div><div class='input'>
-<span class='fu'>TOne</span>(<span class='no'>d.set</span>[<span class='fl'>1</span>:<span class='fl'>3</span>], <span class='no'>d.set</span>$<span class='no'>g</span>, <span class='kw'>intref</span> <span class='kw'>=</span> <span class='st'>"high"</span>)</div><div class='output co'>#&gt; var        total      a          b          c          d                    
-#&gt; n          100        29 (29.0%) 23 (23.0%) 20 (20.0%) 28 (28.0%)           
-#&gt; x (= 1)    72 (72.0%) 20 (69.0%) 17 (73.9%) 16 (80.0%) 19 (67.9%)     ""    
-#&gt; y (= TRUE) 61 (61.0%) 15 (51.7%) 17 (73.9%) 10 (50.0%) 19 (67.9%)     ""    
-#&gt; z (= 0)    28 (28.0%) 11 (37.9%) 5 (21.7%)  4 (20.0%)  8 (28.6%)      ""    
+<span class='fu'>TOne</span>(<span class='no'>d.set</span>[<span class='fl'>1</span>:<span class='fl'>3</span>], <span class='no'>d.set</span>$<span class='no'>g</span>, <span class='kw'>intref</span> <span class='kw'>=</span> <span class='st'>"high"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Chi-squared approximation may be incorrect</span></div><div class='output co'>#&gt; var        total      a          b          c          d                    
+#&gt; n          100        28 (28.0%) 23 (23.0%) 19 (19.0%) 30 (30.0%)           
+#&gt; x (= 1)    72 (72.0%) 18 (64.3%) 18 (78.3%) 15 (78.9%) 21 (70.0%)     ""    
+#&gt; y (= TRUE) 61 (61.0%) 16 (57.1%) 15 (65.2%) 10 (52.6%) 20 (66.7%)     ""    
+#&gt; z (= 0)    26 (26.0%) 10 (35.7%) 5 (21.7%)  4 (21.1%)  7 (23.3%)      ""    
 #&gt; ---
 #&gt; ') Kruskal-Wallis test, ") Fisher exact test, "") Chi-Square test
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 #&gt; </div><div class='input'>
 <span class='co'># intref would not control factors, use relevel to change reported value</span>
-<span class='fu'>TOne</span>(<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>z</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/relevel.html'>relevel</a></span>(<span class='no'>z</span>, <span class='st'>"1"</span>)), <span class='no'>g</span>)</div><div class='output co'>#&gt; var        total      a          b          c          d                    
-#&gt; n          100        29 (29.0%) 23 (23.0%) 20 (20.0%) 28 (28.0%)           
-#&gt; z (= 1)    72 (72.0%) 18 (62.1%) 18 (78.3%) 16 (80.0%) 20 (71.4%)     ""    
+<span class='fu'>TOne</span>(<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>z</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/relevel.html'>relevel</a></span>(<span class='no'>z</span>, <span class='st'>"1"</span>)), <span class='no'>g</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Chi-squared approximation may be incorrect</span></div><div class='output co'>#&gt; var        total      a          b          c          d                    
+#&gt; n          100        28 (28.0%) 23 (23.0%) 19 (19.0%) 30 (30.0%)           
+#&gt; z (= 1)    74 (74.0%) 18 (64.3%) 18 (78.3%) 15 (78.9%) 23 (76.7%)     ""    
 #&gt; ---
 #&gt; ') Kruskal-Wallis test, ") Fisher exact test, "") Chi-Square test
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 #&gt; </div><div class='input'>
-<span class='fu'>TOne</span>(<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>z</span> <span class='kw'>=</span> <span class='no'>z</span>), <span class='no'>g</span>)</div><div class='output co'>#&gt; var        total      a          b          c          d                    
-#&gt; n          100        29 (29.0%) 23 (23.0%) 20 (20.0%) 28 (28.0%)           
-#&gt; z (= 0)    28 (28.0%) 11 (37.9%) 5 (21.7%)  4 (20.0%)  8 (28.6%)      ""    
+<span class='fu'>TOne</span>(<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>z</span> <span class='kw'>=</span> <span class='no'>z</span>), <span class='no'>g</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Chi-squared approximation may be incorrect</span></div><div class='output co'>#&gt; var        total      a          b          c          d                    
+#&gt; n          100        28 (28.0%) 23 (23.0%) 19 (19.0%) 30 (30.0%)           
+#&gt; z (= 0)    26 (26.0%) 10 (35.7%) 5 (21.7%)  4 (21.1%)  7 (23.3%)      ""    
 #&gt; ---
 #&gt; ') Kruskal-Wallis test, ") Fisher exact test, "") Chi-Square test
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
