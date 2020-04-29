@@ -15,7 +15,7 @@ Desc(d.sub, plotit=TRUE)
 Desc(temperature ~ driver, d.pizza, plotit=TRUE)
 Desc(driver ~ temperature, d.pizza, plotit=TRUE)
 Desc(temperature ~ delivery_min, d.pizza, plotit=TRUE)
-Desc(quality ~ driver, d.pizza, plotit=TRUE, rfrq=("111")) # show all rel. frequencies
+Desc(quality ~ driver, d.pizza, plotit=TRUE, rfrq="111") # show all rel. frequencies
 
 
 # generate all pairwise descriptions
