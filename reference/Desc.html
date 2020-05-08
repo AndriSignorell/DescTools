@@ -80,7 +80,7 @@ A 2-dimensional table will be described with it's relative frequencies, a short 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.35</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.36</span>
       </span>
     </div>
 
@@ -205,7 +205,7 @@ A 2-dimensional table will be described with it's relative frequencies, a short 
       <span class='kw'>sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>nomain</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for Desc</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>x</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,  <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>x</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,  <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -384,7 +384,7 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/summary.html'>summary</a></code>, <code><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></code>
+    <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/summary.html'>summary</a></code>, <code><a href='https://rdrr.io/r/base/plot.html'>plot</a></code>
     <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -480,8 +480,8 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 #&gt; 
 #&gt; Pearson's Chi-squared test:
 #&gt;   X-squared = 17.905, df = 4, p-value = 0.001288
-#&gt; Likelihood Ratio:
-#&gt;   X-squared = 18.099, df = 4, p-value = 0.001181
+#&gt; Log likelihood ratio (G-test) test of independence:
+#&gt;   G = 18.099, X-squared df = 4, p-value = 0.001181
 #&gt; Mantel-Haenszel Chi-squared:
 #&gt;   X-squared = 8.6654, df = 1, p-value = 0.003243
 #&gt; 
@@ -556,7 +556,7 @@ measured at the time when the pizza is delivered to the client."</span>
 <span class='fu'>Desc</span>(<span class='no'>d.pizza</span>$<span class='no'>temperature</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x): "_DescTools_n_pow_sum" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='co'># try as well:      Desc(d.pizza$temperature, wrd=GetNewWrd())</span>
 
 <span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'>Desc</span>(<span class='no'>d.pizza</span>$<span class='no'>temperature</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x): "_DescTools_n_pow_sum" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>z</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>plotit</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in print(z, digits = 1, plotit = FALSE): object 'z' not found</span></div><div class='input'><span class='co'># plot (additional arguments are passed on to the underlying plot function)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>z</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"The pizza's temperature in Celsius"</span>, <span class='kw'>args.hist</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>breaks</span><span class='kw'>=</span><span class='fl'>50</span>))</div><div class='output co'>#&gt; <span class='error'>Error in plot(z, main = "The pizza's temperature in Celsius", args.hist = list(breaks = 50)): object 'z' not found</span></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>z</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"The pizza's temperature in Celsius"</span>, <span class='kw'>args.hist</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>breaks</span><span class='kw'>=</span><span class='fl'>50</span>))</div><div class='output co'>#&gt; <span class='error'>Error in plot(z, main = "The pizza's temperature in Celsius", args.hist = list(breaks = 50)): object 'z' not found</span></div><div class='input'>
 
 <span class='co'># formula interface for single variables</span>
 <span class='fu'>Desc</span>(~ <span class='no'>uptake</span> + <span class='no'>Type</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>CO2</span>, <span class='kw'>plotit</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x): "_DescTools_n_pow_sum" not available for .Call() for package "DescTools"</span></div><div class='input'>
@@ -569,8 +569,8 @@ measured at the time when the pizza is delivered to the client."</span>
 #&gt; 
 #&gt; Pearson's Chi-squared test:
 #&gt;   X-squared = 133.06, df = 12, p-value &lt; 2.2e-16
-#&gt; Likelihood Ratio:
-#&gt;   X-squared = 133.53, df = 12, p-value &lt; 2.2e-16
+#&gt; Log likelihood ratio (G-test) test of independence:
+#&gt;   G = 133.53, X-squared df = 12, p-value &lt; 2.2e-16
 #&gt; Mantel-Haenszel Chi-squared:
 #&gt;   X-squared = 33.539, df = 1, p-value = 0.000000006984
 #&gt; 
@@ -630,8 +630,8 @@ measured at the time when the pizza is delivered to the client."</span>
 #&gt; 
 #&gt; Pearson's Chi-squared test:
 #&gt;   X-squared = 1009.5, df = 12, p-value &lt; 2.2e-16
-#&gt; Likelihood Ratio:
-#&gt;   X-squared = 1020.9, df = 12, p-value &lt; 2.2e-16
+#&gt; Log likelihood ratio (G-test) test of independence:
+#&gt;   G = 1020.9, X-squared df = 12, p-value &lt; 2.2e-16
 #&gt; Mantel-Haenszel Chi-squared:
 #&gt;   X-squared = 2.6144, df = 1, p-value = 0.1059
 #&gt; 
@@ -691,8 +691,8 @@ measured at the time when the pizza is delivered to the client."</span>
 #&gt; 
 #&gt; Pearson's Chi-squared test:
 #&gt;   X-squared = 133.06, df = 12, p-value &lt; 2.2e-16
-#&gt; Likelihood Ratio:
-#&gt;   X-squared = 133.53, df = 12, p-value &lt; 2.2e-16
+#&gt; Log likelihood ratio (G-test) test of independence:
+#&gt;   G = 133.53, X-squared df = 12, p-value &lt; 2.2e-16
 #&gt; Mantel-Haenszel Chi-squared:
 #&gt;   X-squared = 33.539, df = 1, p-value = 0.000000006984
 #&gt; 
@@ -752,8 +752,8 @@ measured at the time when the pizza is delivered to the client."</span>
 #&gt; 
 #&gt; Pearson's Chi-squared test:
 #&gt;   X-squared = 133.06, df = 12, p-value &lt; 2.2e-16
-#&gt; Likelihood Ratio:
-#&gt;   X-squared = 133.53, df = 12, p-value &lt; 2.2e-16
+#&gt; Log likelihood ratio (G-test) test of independence:
+#&gt;   G = 133.53, X-squared df = 12, p-value &lt; 2.2e-16
 #&gt; Mantel-Haenszel Chi-squared:
 #&gt;   X-squared = 33.539, df = 1, p-value = 0.000000006984
 #&gt; 
@@ -813,8 +813,8 @@ measured at the time when the pizza is delivered to the client."</span>
 #&gt; 
 #&gt; Pearson's Chi-squared test:
 #&gt;   X-squared = 17.905, df = 4, p-value = 0.001288
-#&gt; Likelihood Ratio:
-#&gt;   X-squared = 18.099, df = 4, p-value = 0.001181
+#&gt; Log likelihood ratio (G-test) test of independence:
+#&gt;   G = 18.099, X-squared df = 4, p-value = 0.001181
 #&gt; Mantel-Haenszel Chi-squared:
 #&gt;   X-squared = 8.6654, df = 1, p-value = 0.003243
 #&gt; 
@@ -855,8 +855,8 @@ measured at the time when the pizza is delivered to the client."</span>
 #&gt; 
 #&gt; Pearson's Chi-squared test:
 #&gt;   X-squared = 133.06, df = 12, p-value &lt; 2.2e-16
-#&gt; Likelihood Ratio:
-#&gt;   X-squared = 133.53, df = 12, p-value &lt; 2.2e-16
+#&gt; Log likelihood ratio (G-test) test of independence:
+#&gt;   G = 133.53, X-squared df = 12, p-value &lt; 2.2e-16
 #&gt; Mantel-Haenszel Chi-squared:
 #&gt;   X-squared = 33.539, df = 1, p-value = 0.000000006984
 #&gt; 
@@ -919,8 +919,8 @@ measured at the time when the pizza is delivered to the client."</span>
 #&gt;   X-squared = 133.06, df = 12, p-value &lt; 2.2e-16
 #&gt; Pearson's Chi-squared test (cont. adj):
 #&gt;   X-squared = 133.06, df = 12, p-value &lt; 2.2e-16
-#&gt; Likelihood Ratio:
-#&gt;   X-squared = 133.53, df = 12, p-value &lt; 2.2e-16
+#&gt; Log likelihood ratio (G-test) test of independence:
+#&gt;   G = 133.53, X-squared df = 12, p-value &lt; 2.2e-16
 #&gt; Mantel-Haenszel Chi-squared:
 #&gt;   X-squared = 33.539, df = 1, p-value = 0.000000006984
 #&gt; 
@@ -1001,8 +1001,8 @@ measured at the time when the pizza is delivered to the client."</span>
 #&gt; 
 #&gt; Pearson's Chi-squared test:
 #&gt;   X-squared = 138.29, df = 9, p-value &lt; 2.2e-16
-#&gt; Likelihood Ratio:
-#&gt;   X-squared = 146.44, df = 9, p-value &lt; 2.2e-16
+#&gt; Log likelihood ratio (G-test) test of independence:
+#&gt;   G = 146.44, X-squared df = 9, p-value &lt; 2.2e-16
 #&gt; Mantel-Haenszel Chi-squared:
 #&gt;   X-squared = 109.64, df = 1, p-value &lt; 2.2e-16
 #&gt; 
@@ -1033,7 +1033,7 @@ measured at the time when the pizza is delivered to the client."</span>
 #&gt;                                                   
 #&gt; </div><div class='input'>
 <span class='co'># do the plot by hand, while setting the colours for the mosaics</span>
-<span class='no'>cols1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sienna4"</span>, <span class='st'>"burlywood"</span>, <span class='st'>"chartreuse3"</span>, <span class='st'>"slategray1"</span>), <span class='fl'>0.6</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='no'>cols2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"moccasin"</span>, <span class='st'>"salmon1"</span>, <span class='st'>"wheat3"</span>, <span class='st'>"gray32"</span>), <span class='fl'>0.8</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'>Desc</span>(<span class='no'>tab</span>), <span class='kw'>col1</span><span class='kw'>=</span><span class='no'>cols1</span>, <span class='kw'>col2</span><span class='kw'>=</span><span class='no'>cols2</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.Desc.table(z, main = main, ...): object 'cols1' not found</span></div><div class='input'>
+<span class='no'>cols1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sienna4"</span>, <span class='st'>"burlywood"</span>, <span class='st'>"chartreuse3"</span>, <span class='st'>"slategray1"</span>), <span class='fl'>0.6</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='no'>cols2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"moccasin"</span>, <span class='st'>"salmon1"</span>, <span class='st'>"wheat3"</span>, <span class='st'>"gray32"</span>), <span class='fl'>0.8</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'>Desc</span>(<span class='no'>tab</span>), <span class='kw'>col1</span><span class='kw'>=</span><span class='no'>cols1</span>, <span class='kw'>col2</span><span class='kw'>=</span><span class='no'>cols2</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.Desc.table(z, main = main, ...): object 'cols1' not found</span></div><div class='input'>
 
 <span class='co'># use global format options for presentation</span>
 <span class='fu'><a href='Format.html'>Fmt</a></span>(<span class='kw'>abs</span><span class='kw'>=</span><span class='fu'><a href='Format.html'>as.fmt</a></span>(<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>0</span>, <span class='kw'>big.mark</span><span class='kw'>=</span><span class='st'>""</span>))</div><div class='output co'>#&gt; $abs
@@ -1078,8 +1078,8 @@ measured at the time when the pizza is delivered to the client."</span>
 #&gt; 
 #&gt; Pearson's Chi-squared test:
 #&gt;   X-squared = 1009.5, df = 12, p-value &lt; 2.2e-16
-#&gt; Likelihood Ratio:
-#&gt;   X-squared = 1020.9, df = 12, p-value &lt; 2.2e-16
+#&gt; Log likelihood ratio (G-test) test of independence:
+#&gt;   G = 1020.9, X-squared df = 12, p-value &lt; 2.2e-16
 #&gt; Mantel-Haenszel Chi-squared:
 #&gt;   X-squared = 2.6144, df = 1, p-value = 0.1059
 #&gt; 
@@ -1178,8 +1178,8 @@ measured at the time when the pizza is delivered to the client."</span>
 #&gt; 
 #&gt; Pearson's Chi-squared test:
 #&gt;   X-squared = 1009.5, df = 12, p-value &lt; 2.2e-16
-#&gt; Likelihood Ratio:
-#&gt;   X-squared = 1020.9, df = 12, p-value &lt; 2.2e-16
+#&gt; Log likelihood ratio (G-test) test of independence:
+#&gt;   G = 1020.9, X-squared df = 12, p-value &lt; 2.2e-16
 #&gt; Mantel-Haenszel Chi-squared:
 #&gt;   X-squared = 2.6144, df = 1, p-value = 0.1059
 #&gt; 
@@ -1237,7 +1237,7 @@ measured at the time when the pizza is delivered to the client."</span>
 #&gt;                                    
 #&gt; </div><div class='input'>
 <span class='co'># plot arguments can be fixed in detail</span>
-<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'>Desc</span>(<span class='fu'><a href='BoxCox.html'>BoxCox</a></span>(<span class='no'>d.pizza</span>$<span class='no'>temperature</span>, <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='fl'>1.5</span>))</div><div class='output co'>#&gt; <span class='error'>Error in .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x): "_DescTools_n_pow_sum" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>z</span>, <span class='kw'>mar</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>2.1</span>, <span class='fl'>4.1</span>, <span class='fl'>2.1</span>), <span class='kw'>args.rug</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>args.hist</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>breaks</span><span class='kw'>=</span><span class='fl'>50</span>),
+<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'>Desc</span>(<span class='fu'><a href='BoxCox.html'>BoxCox</a></span>(<span class='no'>d.pizza</span>$<span class='no'>temperature</span>, <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='fl'>1.5</span>))</div><div class='output co'>#&gt; <span class='error'>Error in .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x): "_DescTools_n_pow_sum" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>z</span>, <span class='kw'>mar</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>2.1</span>, <span class='fl'>4.1</span>, <span class='fl'>2.1</span>), <span class='kw'>args.rug</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>args.hist</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>breaks</span><span class='kw'>=</span><span class='fl'>50</span>),
      <span class='kw'>args.dens</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>from</span><span class='kw'>=</span><span class='fl'>0</span>))</div><div class='output co'>#&gt; <span class='error'>Error in plot(z, mar = c(0, 2.1, 4.1, 2.1), args.rug = TRUE, args.hist = list(breaks = 50),     args.dens = list(from = 0)): object 'z' not found</span></div><div class='input'>
 <span class='co'># The default description for count variables can be inappropriate,</span>
 <span class='co'># the density curve does not represent the variable well.</span>
