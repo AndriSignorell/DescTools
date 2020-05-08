@@ -109,7 +109,8 @@ Conf.default <-  function(x, ref, pos = NULL, na.rm = TRUE, ...) {
   }
   clvl <- CombLevels(x, ref)
 
-  Conf.table(table(pred=factor(x, levels=clvl), obs=factor(ref, levels=clvl)), pos = pos, ...)
+  Conf.table(table(Prediction=factor(x, levels=clvl), 
+                   Reference=factor(ref, levels=clvl)), pos = pos, ...)
 }
 
 Conf.matrix <- function(x, pos = NULL, ...) {
@@ -190,7 +191,8 @@ plot.Conf <- function(x, main="Confusion Matrix", ...){
 print.Conf <- function(x, digits = max(3, getOption("digits") - 3), ...) {
   cat("\nConfusion Matrix and Statistics\n\n")
 
-  names(attr(x$table, "dimnames")) <- c("Prediction","Reference")
+  if(all(names(attr(x$table, "dimnames")) == ""))
+    names(attr(x$table, "dimnames")) <- c("Prediction","Reference")
   print(x$table, ...)
 
   if(nrow(x$table)!=2) cat("\nOverall Statistics\n")
@@ -501,6 +503,16 @@ Cstat.default <- function(x, resp, ...) {
   return((z$C + 0.5*z$T)/(z$D+z$C+z$T))
 
 }
+
+# test:
+    # resp <- c(1,1,0,0)
+    # pred <- c(1,1,1,0)
+    # model <- glm(resp~pred, family = binomial())
+    # 
+    # Cstat(model)
+    # Cstat(pred, resp = resp)
+    # ROC(FitMod(resp~pred, fitfn="logit"))$auc
+
 
 # alternative
 # library(rms)

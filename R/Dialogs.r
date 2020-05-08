@@ -29,8 +29,7 @@
   # alternative:
   # tcltk::tkwm.iconbitmap(top, file.path(find.package("DescTools"), "extdata", paste(ico, "ico", sep=".")))
   #    
-  tcltk::tkwm.iconbitmap(top,
-                         gettextf("%s/%s.ico", .getDescToolsPath()))
+  tcltk::tkwm.iconbitmap(top, gettextf("%s/%s.ico", .getDescToolsPath(), ico))
   
   return(top)
 

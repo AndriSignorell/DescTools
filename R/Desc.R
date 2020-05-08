@@ -455,7 +455,7 @@ calcDesc.numeric   <- function(x, n, maxrows = NULL, conf.level=0.95, ...) {
     # check for remarkably frequent values in a numeric variable
     # say the most frequent value has significantly more than 5% from the total sample
     modefreq_crit <- binom.test(attr(modex, "freq"), n = n, p = 0.05, alternative = "greater")
-    if(modefreq_crit$p.value < 0.05)
+    if(modefreq_crit$p.value < 0.05 & psum$unique > 12)
       modefreq_crit <- gettextf("heap(?): remarkable frequency (%s) for the mode(s) (= %s)", 
                                 Format(modefreq_crit$estimate, fmt="%", digits=1), paste(modex, collapse=", "))
     else
@@ -616,18 +616,18 @@ calcDesc.ts <- function(x, ...){
 
 calcDesc.table <- function(x, n, conf.level=0.95, verbose, rfrq, margins, p, digits, ...) {
 
-  loglik.chisq <- function(r.chisq) {
-    # Log-likelihood chi-squared (G2) test of independence (homogeneity)
-
-    lhrat <- 2 * sum(r.chisq$observed * log(r.chisq$observed/r.chisq$expected), na.rm=TRUE)
-
-    structure(list(
-      statistic = structure(lhrat, .Names = "X-squared"),
-      parameter = structure(r.chisq$parameter, .Names = "df"),
-      p.value   = structure(pchisq(lhrat, df=r.chisq$parameter, lower.tail = FALSE), .Names = "X-squared"),
-      method    = "Likelihood Ratio:",
-      data.name = r.chisq$data.name), .Names = c("statistic", "parameter", "p.value", "method", "data.name"), class = "htest")
-  }
+  # loglik.chisq <- function(r.chisq) {
+  #   # Log-likelihood chi-squared (G2) test of independence (homogeneity)
+  # 
+  #   lhrat <- 2 * sum(r.chisq$observed * log(r.chisq$observed/r.chisq$expected), na.rm=TRUE)
+  # 
+  #   structure(list(
+  #     statistic = structure(lhrat, .Names = "X-squared"),
+  #     parameter = structure(r.chisq$parameter, .Names = "df"),
+  #     p.value   = structure(pchisq(lhrat, df=r.chisq$parameter, lower.tail = FALSE), .Names = "X-squared"),
+  #     method    = "Likelihood Ratio:",
+  #     data.name = r.chisq$data.name), .Names = c("statistic", "parameter", "p.value", "method", "data.name"), class = "htest")
+  # }
 
   n.chisq.test <- function(tab) {
 
@@ -661,13 +661,15 @@ calcDesc.table <- function(x, n, conf.level=0.95, verbose, rfrq, margins, p, dig
     conf.level        = conf.level,
     chisq.test        = r.chisq,   # if(ttype=="tndim") n.chisq.test(x) else r.chisq,
     chisq.test.cont   = if(ttype %in% c("t2x2", "trxc")) suppressWarnings(chisq.test(x, correct = TRUE)) else NULL,
-    loglik.chisq.test = if(ttype!="tndim") loglik.chisq(r.chisq) else NULL,
+    loglik.chisq.test = if(ttype!="tndim") suppressWarnings(GTest(x)) else NULL,
     mh.test           = if(ttype %in% c("t2x2","trxc")) MHChisqTest(x) else NULL,
     fisher.test       = if(ttype=="t2x2") fisher.test(x) else NULL,
     mcnemar.test      = if(ttype=="t2x2") mcnemar.test(x),
     or                = if(ttype=="t2x2") OddsRatio(x, conf.level = conf.level),
     relrisk1          = if(ttype=="t2x2") RelRisk(x, conf.level = conf.level, method="wald", delta=0),
-    relrisk2          = if(ttype=="t2x2") RelRisk(x[,c(2,1)], conf.level = conf.level, method="wald", delta=0),
+    relrisk2          = if(ttype=="t2x2") RelRisk(Rev(x, margin=2), conf.level = conf.level, method="wald", delta=0),
+    relrisk1r         = if(ttype=="t2x2") RelRisk(t(x), conf.level = conf.level, method="wald", delta=0),
+    relrisk2r         = if(ttype=="t2x2") RelRisk(t(Rev(x, margin=1)), conf.level = conf.level, method="wald", delta=0),
     assocs            = if(ttype %in% c("t2x2","trxc")) Assocs(x, conf.level=conf.level, verbose=verbose) else NULL,
     tab               = x,
     pfreq             = prop.table(x),
@@ -1207,12 +1209,20 @@ print.Desc.table    <- function(x, digits = NULL, ...) {
 
         if(x$verbose %in% c("2","3")){ # print only with verbosity > 1
           cat("\n")
-          m <- ftable(format(rbind(
-            "odds ratio    "       = x$or
-            , "rel. risk (col1)  " = x$relrisk1
-            , "rel. risk (col2)  " = x$relrisk2
-          ), digits=3, nsmall=3))
-
+          if(x$verbose == "2")
+            m <- ftable(format(rbind(
+              "odds ratio    "       = x$or
+              , "rel. risk (col1)  " = x$relrisk1
+              , "rel. risk (col2)  " = x$relrisk2
+            ), digits=3, nsmall=3))
+          else
+            m <- ftable(format(rbind(
+              "odds ratio    "       = x$or
+              , "rel. risk (col1)  " = x$relrisk1
+              , "rel. risk (col2)  " = x$relrisk2
+              , "rel. risk (row1)  " = x$relrisk1r
+              , "rel. risk (row2)  " = x$relrisk2r
+            ), digits=3, nsmall=3))
           attr(m, "col.vars")[[1]][1] <- "estimate"
           txt <- capture.output(print(m))
           txt[1] <- paste(txt[1], DescToolsOptions("footnote")[1], sep="")
@@ -1232,7 +1242,7 @@ print.Desc.table    <- function(x, digits = NULL, ...) {
         if(x$verbose > 1){ # print only with verbosity > 1
 
           # Log-likelihood chi-squared (G2) test of independence (homogeneity)
-          cat("Likelihood Ratio:\n  ", .CaptOut(x$loglik.chisq.test)[5], "\n", sep="")
+          cat("Log likelihood ratio (G-test) test of independence:\n  ", .CaptOut(x$loglik.chisq.test)[5], "\n", sep="")
           # Mantel-Haenszel ChiSquared (linear hypothesis)
           cat("Mantel-Haenszel Chi-squared:\n  ", .CaptOut(x$mh.test)[5], "\n", sep="")
 
@@ -1887,7 +1897,7 @@ plot.Desc.table     <- function(x, main=NULL, col1 = NULL, col2 = NULL, horiz = 
     if(is.null(col1))
       col1 <- colorRampPalette(c(Pal()[1], "white", Pal()[2]), space = "rgb")(ncol(x$tab))
     if(is.null(col2))
-      col2 <- colorRampPalette(c(Pal()[1], "white", Pal()[2]), space = "rgb")(nrow(x$tab))
+      col2 <- colorRampPalette(c(Pal()[2], "white", Pal()[1]), space = "rgb")(nrow(x$tab))
 
     if(horiz){
       # width <- 16
@@ -1905,8 +1915,8 @@ plot.Desc.table     <- function(x, main=NULL, col1 = NULL, col2 = NULL, horiz = 
     PlotMosaic(x$tab, main=NA, xlab=NA, ylab=NA, horiz=TRUE, cols = col1)
     PlotMosaic(x$tab, main=NA, xlab=NA, ylab=NA, horiz=FALSE, cols = col2)
 
-    title(xlab=Coalesce(names(dimnames(x$tab))[2], "x"), outer=TRUE, line=-1)
-    title(ylab=Coalesce(names(dimnames(x$tab))[1], "y"), outer=TRUE, line=0)
+    title(xlab=Coalesce(names(dimnames(x$tab))[2], "x"), outer=TRUE, line=-1, font=2)
+    title(ylab=Coalesce(names(dimnames(x$tab))[1], "y"), outer=TRUE, line=0, font=2)
 
   }
 
