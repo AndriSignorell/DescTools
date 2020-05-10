@@ -6463,7 +6463,7 @@ SetNames <- function (x, ...) {
   if (is.null(names(args)))
     names(args) <- "names"
   
-  names(args) <- lapply(names(args), match.arg, c("names", "rownames", "colnames"))
+  names(args) <- lapply(names(args), match.arg, c("names", "rownames", "colnames", "dimnames"))
   
   if ("colnames" %in% names(args)) {
     if(is.null(args[["colnames"]]))
@@ -6486,7 +6486,15 @@ SetNames <- function (x, ...) {
       names(x) <- rep_len(args[["names"]], length(x))
   }
   
+  if ("dimnames" %in% names(args)) {
+    if(is.null(args[["dimnames"]]))
+      dimnames(x) <-NULL
+    else
+      dimnames(x) <- args[["dimnames"]]
+  }
+  
   x
+  
 }
 
 
