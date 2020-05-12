@@ -825,7 +825,7 @@ Vigenere <- function(x, key = NULL, decrypt = FALSE) {
 ## =============================================================================
 
 UnirootAll <- function (f, interval, lower= min(interval),
-                         upper= max(interval), tol= .Machine$double.eps^0.2,
+                         upper= max(interval), tol= .Machine$double.eps^0.5,
                          maxiter= 1000, n = 100, ... ) {
 
   # this is a copy of rootSolve::uniroot.all v. 1.8.2.1
@@ -6465,11 +6465,11 @@ SetNames <- function (x, ...) {
   
   names(args) <- lapply(names(args), match.arg, c("names", "rownames", "colnames", "dimnames"))
   
-  if ("colnames" %in% names(args)) {
-    if(is.null(args[["colnames"]]))
-      colnames(x) <- NULL
+  if ("dimnames" %in% names(args)) {
+    if(is.null(args[["dimnames"]]))
+      dimnames(x) <-NULL
     else
-      colnames(x) <- rep_len(args[["colnames"]], dim(x)[2])
+      dimnames(x) <- args[["dimnames"]]
   }
   
   if ("rownames" %in% names(args)) {
@@ -6479,18 +6479,18 @@ SetNames <- function (x, ...) {
       rownames(x) <- rep_len(args[["rownames"]], dim(x)[1])
   }
   
+  if ("colnames" %in% names(args)) {
+    if(is.null(args[["colnames"]]))
+      colnames(x) <- NULL
+    else
+      colnames(x) <- rep_len(args[["colnames"]], dim(x)[2])
+  }
+  
   if ("names" %in% names(args)) {
     if(is.null(args[["names"]]))
       names(x) <-NULL
     else
       names(x) <- rep_len(args[["names"]], length(x))
-  }
-  
-  if ("dimnames" %in% names(args)) {
-    if(is.null(args[["dimnames"]]))
-      dimnames(x) <-NULL
-    else
-      dimnames(x) <- args[["dimnames"]]
   }
   
   x
