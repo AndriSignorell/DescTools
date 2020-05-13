@@ -155,7 +155,7 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>the names to be assigned to the object. This should be a character vector of names named <code>rownames</code>, <code>colnames</code> or <code>names</code>. Setting <code>rownames=NULL</code> would remove existing rownames. All kind of names can be changed at the same time. Default would be <code>names</code>. Abbreviations are supported.
+      <td><p>the names to be assigned to the object. This should be a character vector of names named <code>dimnames</code>, <code>rownames</code>, <code>colnames</code> or <code>names</code>. Setting <code>rownames=NULL</code> would remove existing rownames. All kind of names can be changed at the same time. Default would be <code>names</code>. Abbreviations are supported.
 <!-- %%     ~~Describe \code{nm} here~~ --></p></td>
     </tr>
     </table>
@@ -197,7 +197,13 @@
 #&gt;  0 0 1 0 0 0
 #&gt;  0 0 0 1 0 0
 #&gt;  0 0 0 0 1 0
-#&gt;  0 0 0 0 0 1</div></pre>
+#&gt;  0 0 0 0 0 1</div><div class='input'>
+<span class='co'># setting dimnames works as well</span>
+<span class='no'>tab</span> <span class='kw'>&lt;-</span> <span class='fu'>SetNames</span>(
+  <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>84</span>,<span class='fl'>43</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10</span>,<span class='fl'>92</span>))),
+    <span class='kw'>dimnames</span><span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
+       <span class='kw'>dipstick</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"positive"</span>,<span class='st'>"negative"</span>),
+       <span class='kw'>culture</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"positive"</span>,<span class='st'>"negative"</span>)))</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

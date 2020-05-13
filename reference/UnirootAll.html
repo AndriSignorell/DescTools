@@ -143,7 +143,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>UnirootAll</span>(<span class='no'>f</span>, <span class='no'>interval</span>, <span class='kw'>lower</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='no'>interval</span>), <span class='kw'>upper</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='no'>interval</span>),
-            <span class='kw'>tol</span> <span class='kw'>=</span> <span class='no'>.Machine</span>$<span class='no'>double.eps</span>^<span class='fl'>0.2</span>, <span class='kw'>maxiter</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='no'>...</span>)</pre>
+            <span class='kw'>tol</span> <span class='kw'>=</span> <span class='no'>.Machine</span>$<span class='no'>double.eps</span>^<span class='fl'>0.5</span>, <span class='kw'>maxiter</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -230,14 +230,15 @@
 <span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span> (<span class='no'>x</span>) <span class='fl'>1</span>/<span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>cos</a></span>(<span class='fl'>1</span>+<span class='no'>x</span>^<span class='fl'>2</span>)
 <span class='no'>AA</span> <span class='kw'>&lt;-</span> <span class='fu'>UnirootAll</span>(<span class='no'>f</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>5</span>, <span class='fl'>5</span>))
 <span class='fu'><a href='https://rdrr.io/r/graphics/curve.html'>curve</a></span>(<span class='fu'>f</span>(<span class='no'>x</span>), -<span class='fl'>5</span>, <span class='fl'>5</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"UnirootAll"</span>)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span>(<span class='no'>AA</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>0</span>, <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>AA</span>)), <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>16</span>)</div><div class='img'><img src='UnirootAll-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'>f</span>(<span class='no'>AA</span>)  <span class='co'># !!!</span></div><div class='output co'>#&gt;  [1]   296   392   385  -200  -380  -491   401 -1687 -1687   401  -491  -380
-#&gt; [13]  -200   385   392   296</div><div class='input'>
+<span class='fu'>f</span>(<span class='no'>AA</span>)  <span class='co'># !!!</span></div><div class='output co'>#&gt;  [1] -19783385  10048135 -17778378  17716401  19705646  21300284 -61531208
+#&gt;  [8] -52150718 -52150685 -61531329  21300313  19705621  17716401 -17778378
+#&gt; [15]  10048135 -19783436</div><div class='input'>
 
 <span class='co'>## =======================================================================</span>
 <span class='co'>## Vectorisation:</span>
 <span class='co'>## =======================================================================</span>
 <span class='co'># from R-help Digest, Vol 130, Issue 27</span>
-<span class='co'>#https://stat.ethz.ch/pipermail/r-help/2013-December/364799.html</span>
+<span class='co'># https://stat.ethz.ch/pipermail/r-help/2013-December/364799.html</span>
 
 <span class='no'>integrand1</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fl'>1</span>/<span class='no'>x</span>*<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>dnorm</a></span>(<span class='no'>x</span>)
 <span class='no'>integrand2</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fl'>1</span>/(<span class='fl'>2</span>*<span class='no'>x</span>-<span class='fl'>50</span>)*<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>dnorm</a></span>(<span class='no'>x</span>)
