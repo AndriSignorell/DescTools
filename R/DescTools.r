@@ -825,10 +825,10 @@ Vigenere <- function(x, key = NULL, decrypt = FALSE) {
 ## =============================================================================
 
 UnirootAll <- function (f, interval, lower= min(interval),
-                         upper= max(interval), tol= .Machine$double.eps^0.2,
+                         upper= max(interval), tol= .Machine$double.eps^0.5,
                          maxiter= 1000, n = 100, ... ) {
 
-  # this is a copy of rootSolve::uniroot.all v. 1.7
+  # this is a copy of rootSolve::uniroot.all v. 1.8.2.1
   # author: Karline Soetaert
 
 
@@ -838,21 +838,30 @@ UnirootAll <- function (f, interval, lower= min(interval),
   if (!is.numeric(lower) || !is.numeric(upper) || lower >=
       upper)
     stop("lower < upper  is not fulfilled")
-
+  
   ## subdivide interval in n subintervals and estimate the function values
   xseq <- seq(lower, upper, len=n+1)
-  mod  <- f(xseq, ...)
-
+  #   changed in 0.99.36 5.5.2020
+  # but we should maybe vectorize the functions in order to allow the user not to
+  # bother about internal applies
+  # ... not sure about the impact..
+  
+  # Original: mod  <- f(xseq, ...)
+  mod  <- Vectorize(f)(xseq, ...)
+  
   ## some function values may already be 0
   Equi <- xseq[which(mod==0)]
-
-  ss   <- mod[1:n] * mod[2:(n+1)]  # interval where functionvalues change sign
+  
+  ss   <- mod[1:n]*mod[2:(n+1)]  # interval where function values change sign
   ii   <- which(ss<0)
-
+  
   for (i in ii)
-    Equi <- c(Equi, uniroot(f, lower=xseq[i], upper=xseq[i+1], ...)$root)
-
+    Equi <- c(Equi, uniroot(f, lower=xseq[i], upper=xseq[i+1], 
+                            maxiter = maxiter, tol = tol, ...)$root)
+  
   return(Equi)
+  
+  
 }
 
 
@@ -3787,28 +3796,74 @@ Dummy <- function (x, method = c("treatment", "sum", "helmert", "poly", "full"),
 
 # would not return characters correctly
 #
-Coalesce <- function(..., method = c("is.na", "is.finite")) {
+Coalesce <- function(..., method = c("is.na", "is.null","is.finite"), flatten=TRUE) {
   # Returns the first element in x which is not NA
 
-  if(length(list(...)) > 1L) {
+  # problem: if we want the first list element of ... which is not NULL
+  # the function fails and returns the first element of this list element
+  # by using unlist().
+  # An alternative would be: Filter(Negate(is.null), list(...))
+  
+  if(...length() > 1L) {
     if(all(lapply(list(...), length) > 1L)){
-      x <- data.frame(..., stringsAsFactors = FALSE)
+      lst <- data.frame(..., stringsAsFactors = FALSE)
     } else {
-      x <- unlist(list(...))
+        lst <- list(...)
+        if(flatten) lst <- unlist(lst)
     }
   } else {
     if(is.matrix(...)) {
-      x <- data.frame(..., stringsAsFactors = FALSE)
+      lst <- data.frame(..., stringsAsFactors = FALSE)
     } else {
-      x <- (...)
+      lst <- (...)
     }
   }
-  switch(match.arg(method, choices=c("is.na", "is.finite")),
-    "is.na" = res <- Reduce(function (x,y) ifelse(!is.na(x), x, y), x),
-    "is.finite" = res <- Reduce(function (x,y) ifelse(is.finite(x), x, y), x)
+  
+  switch(match.arg(method, choices=c("is.na", "is.null", "is.finite")),
+    
+      # "is.na"     = res <- 
+      #           Reduce(function (x,y) ifelse(!is.na(x), x, y), x),
+      # "is.finite" = res <- 
+      #   Reduce(function (x,y) ifelse(is.finite(x), x, y), lst)
+      
+      "is.na"     = res <- 
+        Reduce(function (x, y){ 
+              i <- which(is.na(x))
+              x[i] <- y[i]
+              return(x)
+            }, lst) ,
+
+      "is.null"     = res <- 
+        Reduce(function (x, y){ 
+          i <- which(is.null(x))
+          x[i] <- y[i]
+          return(x)
+        }, lst) ,
+      
+      "is.finite"     = res <- 
+        Reduce(function (x, y){ 
+          i <- which(is.finite(x))
+          x[i] <- y[i]
+          return(x)
+        }, lst) 
   )
+  
   return(res)
 }
+
+
+# lightning fast:
+#
+# coalesce2 <- function(...) {
+#   Reduce(function(x, y) {
+#     i <- which(is.na(x))
+#     x[i] <- y[i]
+#     return(x)
+#   },
+#   list(...))
+# }
+
+
 
 
 # defunct by 0.99.26
@@ -6408,13 +6463,13 @@ SetNames <- function (x, ...) {
   if (is.null(names(args)))
     names(args) <- "names"
   
-  names(args) <- lapply(names(args), match.arg, c("names", "rownames", "colnames"))
+  names(args) <- lapply(names(args), match.arg, c("names", "rownames", "colnames", "dimnames"))
   
-  if ("colnames" %in% names(args)) {
-    if(is.null(args[["colnames"]]))
-      colnames(x) <- NULL
+  if ("dimnames" %in% names(args)) {
+    if(is.null(args[["dimnames"]]))
+      dimnames(x) <-NULL
     else
-      colnames(x) <- rep_len(args[["colnames"]], dim(x)[2])
+      dimnames(x) <- args[["dimnames"]]
   }
   
   if ("rownames" %in% names(args)) {
@@ -6422,6 +6477,13 @@ SetNames <- function (x, ...) {
       rownames(x) <- NULL
     else
       rownames(x) <- rep_len(args[["rownames"]], dim(x)[1])
+  }
+  
+  if ("colnames" %in% names(args)) {
+    if(is.null(args[["colnames"]]))
+      colnames(x) <- NULL
+    else
+      colnames(x) <- rep_len(args[["colnames"]], dim(x)[2])
   }
   
   if ("names" %in% names(args)) {
@@ -6432,9 +6494,21 @@ SetNames <- function (x, ...) {
   }
   
   x
+  
 }
 
 
+
+StripAttr <- function(x, attr_names=NULL) {
+  
+  if(is.null(attr_names))
+    attributes(x) <- NULL
+  else
+    for(a in attr_names) 
+      attr(x, which = a) <- NULL
+
+  return(x)
+}
 
 
 
@@ -9123,7 +9197,7 @@ PlotFdist <- function (x, main = deparse(substitute(x)), xlab = ""
     pp <- prop.table(table(x))
 
     if(is.null(ylim))
-      ylim <- c(0, max(pp))
+      ylim <- c(0, max(pretty(pp)))
 
     plot(pp, type = "h", lwd=lwd, col=col,
          xlab = "", ylab = "", cex.axis=cex.axis, xlim=xlim, ylim=ylim,
@@ -9284,12 +9358,13 @@ PlotFdist <- function (x, main = deparse(substitute(x)), xlab = ""
     n <- max(floor(log(ticks, base = 10)))    # highest power of ten
     if(abs(n)>2) {
       lab <- Format(ticks * 10^(-n), digits=max(Ndec(as.character(zapsmall(ticks*10^(-n))))))
-      axis(side=2, at=ticks, labels=lab, las=las, cex.axis=cex.axis)
+      axis(side=2, at=ticks, labels=lab, las=las, cex.axis=par("cex.axis"))
 
-      text(x=par("usr")[1], y=par("usr")[4], bquote(~~~x~10^.(n)), xpd=NA, pos = 3, cex=cex.axis*0.9)
+      text(x=par("usr")[1], y=par("usr")[4], bquote(~~~x~10^.(n)), xpd=NA, 
+           pos = 3, cex=par("cex.axis") * 0.8)
 
     } else {
-      axis(side=2, cex.axis=cex.axis, las=las)
+      axis(side=2, cex.axis=par("cex.axis"), las=las)
 
     }
 
@@ -9336,8 +9411,10 @@ PlotFdist <- function (x, main = deparse(substitute(x)), xlab = ""
     # do not draw a histogram, but a line bar chart
     # PlotMass
     args.hist1 <- list(x = x, xlab = "", ylab = "", xlim = xlim,
-                       xaxt = ifelse(add.boxplot || add.ecdf, "n", "s"), ylim = NULL, main = NA, las = 1,
-                       yaxt="n", col=1, lwd=3, pch=NA, col.pch=1, cex.pch=2, bg.pch=0, cex.axis=cex.axis)
+                       xaxt = ifelse(add.boxplot || add.ecdf, "n", "s"), 
+                       ylim = NULL, main = NA, las = 1,
+                       yaxt="n", col=1, lwd=3, pch=NA, col.pch=1, 
+                       cex.pch=2, bg.pch=0, cex.axis=cex.axis)
     if (is.null(xlim))    args.hist1$xlim <- range(pretty(x.hist$breaks))
 
     if (!is.null(args.hist)) {

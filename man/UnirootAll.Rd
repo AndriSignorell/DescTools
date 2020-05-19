@@ -10,7 +10,7 @@
 }
 \usage{
 UnirootAll(f, interval, lower = min(interval), upper = max(interval),
-            tol = .Machine$double.eps^0.2, maxiter = 1000, n = 100, ...)}
+            tol = .Machine$double.eps^0.5, maxiter = 1000, n = 100, ...)}
 \arguments{
   \item{f }{the function for which the root is sought.
   }
@@ -64,7 +64,7 @@ f(AA)  # !!!
 ## Vectorisation:
 ## =======================================================================
 # from R-help Digest, Vol 130, Issue 27
-#https://stat.ethz.ch/pipermail/r-help/2013-December/364799.html
+# https://stat.ethz.ch/pipermail/r-help/2013-December/364799.html
 
 integrand1 <- function(x) 1/x*dnorm(x)
 integrand2 <- function(x) 1/(2*x-50)*dnorm(x)

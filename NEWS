@@ -1,27 +1,61 @@
 
 
-DescTools 0.99.35 (2020-06-08)
+DescTools 0.99.36 (2020-06-26)
+------------------------------
+
+NEW FUNCTIONS ADDED:
+  * 
+
+UPDATED FUNCTIONS:
+  * Plot Desc.table object now reverses the default color for the second
+    mosaicplot to ensure the upper left cell has the same color in both 
+    cases.
+  * Desc.table() will also report relative risks for rows when verbose is 
+    set to 3.
+  * Documentation and github integration have been improved (thanks to 
+    Vilmantas Gegzna).
+  * TMod() will report number of variables in the model and the
+    number of estimated coefficients.
+  * tol in UnirootAll has been decreased as the default was too coarse.  
+    
+BUGFIXES:
+  * PasswordDlg() gets all its required arguments back again.    
+    
+    
+
+
+DescTools 0.99.35 (2020-04-26)
 ------------------------------
 
 NEW FUNCTIONS ADDED:
   * HunterGaston() calculates the index of dicrimination for nominal data, 
     going back to Simpson, published by Hunter-Gaston.
   * Desc interface for classes ts and xts has been added.    
+  * New documentation to be published as a pkgdown website (Credits for that 
+    go to Vilmantas Gegzna).
+  * The vignettes are built now by means of R.rsp    
+  * StripAttr() removes attributes from an object.
   
 UPDATED FUNCTIONS:
   * PlotACF() gets some better defaults and new arguments.
   * PlotECDF() loses its argument cex.axis, which is not necessary as we 
     should use the general par approach.
-  * PlotFdist() will support defining the ylims in the histogram now. 
+  * PlotFdist() will support user defined ylims in the histogram now. 
     Moreover some internal arguments are handled more consistently.
-  * print.TMod() will accept argument "digits" now.
+  * print.TMod() will accept argument "digits" now (as Beat Bruengger required)
   * Desc.numeric will support conf.levels now instead of set fixed 95%-CI.
   * ToWrdPlot() gains another argument "pointsize". 
   * Desc.formula() supports one sided formulas.
-  * Desc.formula() now propagates arguments for tables as rfrq and freq.
+  * Desc.formula() now propagates arguments for tables as rfrq and freq 
+    (Credits to Sereina Graber).
+  * Desc() for numeric ~ categorical variables can report more descripitve
+    statistics by setting the verbose argument to 3.
   
 BUGFIXES:
   * Outlier() will now use the third quartile instead of NA.
+  * Cstat() did not respect ties correctly.
+  * Two errors due to archaic code in demo(describe) and demo(plots)
+    were spotted by V. Gegzna.
 
 
 

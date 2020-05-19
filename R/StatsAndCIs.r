@@ -2944,6 +2944,11 @@ MedianCI <- function(x, conf.level=0.95, sides = c("two.sided","left","right"), 
               attr(ci, "conf.level") <- pbinom(k, size=n, prob=0.5)
             }
     )
+    # confints for small samples can be outside the observed range e.g. n < 6
+    if(identical(StripAttr(ci), NA_real_)) {
+      ci <- c(-Inf, Inf)
+      attr(ci, "conf.level") <- 1
+    }  
     return(ci)
   }
   
@@ -6463,7 +6468,7 @@ PlotBinTree <- function(x, main="Binary tree", horiz=FALSE, cex=1.0, col=1, ...)
   res <- .Call("conc", PACKAGE="DescTools", y[ord,], as.double(wts[ord]),
                as.integer(idx), as.integer(n2))
 
-  return(list(pi.c = NA, pi.d = NA, C = res[2], D = res[1]))
+  return(list(pi.c = NA, pi.d = NA, C = res[2], D = res[1], T=res[3], N=res[4]))
 
 }
 

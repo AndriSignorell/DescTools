@@ -15,7 +15,7 @@ SetNames(x, ...)
   \item{x}{an object for which a names attribute will be meaningful
 %%     ~~Describe \code{object} here~~
 }
-  \item{...}{the names to be assigned to the object. This should be a character vector of names named \code{rownames}, \code{colnames} or \code{names}. Setting \code{rownames=NULL} would remove existing rownames. All kind of names can be changed at the same time. Default would be \code{names}. Abbreviations are supported.
+  \item{...}{the names to be assigned to the object. This should be a character vector of names named \code{dimnames}, \code{rownames}, \code{colnames} or \code{names}. Setting \code{rownames=NULL} would remove existing rownames. All kind of names can be changed at the same time. Default would be \code{names}. Abbreviations are supported.
 %%     ~~Describe \code{nm} here~~
 }
 }
@@ -45,6 +45,13 @@ SetNames(BinomCI(tab[,1], rowSums(tab)),
          
 # can also be used to set the names to an empty string
 SetNames(diag(6), rownames="", colnames="")
+
+# setting dimnames works as well
+tab <- SetNames(
+  as.table(rbind(c(84,43), c(10,92))), 
+    dimnames= list(
+       dipstick=c("positive","negative"),
+       culture=c("positive","negative")))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

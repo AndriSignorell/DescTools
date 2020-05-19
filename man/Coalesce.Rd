@@ -6,14 +6,15 @@
 \description{Return the first element of a vector, not being NA.
 }
 \usage{
-Coalesce(\dots, method = c("is.na", "is.finite"))
+Coalesce(\dots, method = c("is.na", "is.null", "is.finite"), flatten = TRUE)
 }
 \arguments{
   \item{\dots}{the elements to be evaluated. This can either be a single vector, several
   vectors of same length, a matrix, a data.frame or a list of vectors (of same length). See examples.}
-  \item{method}{one out of \code{"is.na"} (default) or \code{"is.finite"}. The \code{"is.na"} option allows \code{Inf} values to
+  \item{method}{one out of \code{"is.na"} (default), \code{"is.null"}  or \code{"is.finite"}. The \code{"is.na"} option allows \code{Inf} values to
    be in the result, the second one eliminates them.
 }
+\item{flatten}{logical, defines whether lists are going to be flattened (default \code{TRUE}).}
 }
 \details{
 If several vectors are supplied, the evaluation will be elementwise, resp. rowwise if x is a data.frame or a matrix. The first element of the result

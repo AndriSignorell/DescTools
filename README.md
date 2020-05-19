@@ -11,7 +11,6 @@ status](https://www.r-pkg.org/badges/version-last-release/DescTools)](https://CR
 v2+](https://img.shields.io/badge/License-GPL%20v2+-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
-[![Documentation](https://img.shields.io/badge/Updated%20on-2020--04--22-yellowgreen.svg)](/commits/master)
 [![R build
 status](https://github.com/AndriSignorell/DescTools/workflows/R-CMD-check/badge.svg)](https://github.com/AndriSignorell/DescTools/actions)
 <!-- badges: end -->

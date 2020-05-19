@@ -18,10 +18,10 @@ Cstat(x, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{the linear model
+  \item{x}{the logistic model for the glm interface or the predicted probabilities of the model for the default.
 %%     ~~Describe \code{x} here~~
 }
- \item{resp}{the response variable
+ \item{resp}{the response variable (coded as c(0, 1))
 %%     ~~Describe \code{resp} here~~
 }
    \item{\dots}{further arguments to be passed to other functions. }
@@ -44,7 +44,11 @@ Confidence intervals for this measure can be calculated by bootstrap.
 }
 \examples{
 r.glm <- glm(Survived ~ ., data=Untable(Titanic), family=binomial)
-
 Cstat(r.glm)
+
+# default interface
+Cstat(x = predict(r.glm, method="response"), 
+      resp = model.response(model.frame(r.glm)))
 }
 \keyword{mod}
+

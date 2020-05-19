@@ -29,3 +29,6 @@ RTempdirAlive <- function() {
   
 }
 
+
+.getDescToolsPath <- function() system.file("extdata", package="DescTools")
+

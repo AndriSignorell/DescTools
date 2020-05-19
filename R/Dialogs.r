@@ -3,7 +3,8 @@
 ## GUI-Elements: select variables by dialog, FileOpen, DescDlg, ObjectBrowse ====
 
 
-.InitDlg <- function(width, height, x=NULL, y=NULL, resizex=FALSE, resizey=FALSE, main="Dialog", ico="R"){
+.InitDlg <- function(width, height, x=NULL, y=NULL, resizex=FALSE, 
+                     resizey=FALSE, main="Dialog", ico="R"){
 
   top <- tcltk::tktoplevel()
 
@@ -26,9 +27,10 @@
   tcltk::tkwm.title(top, main)
   tcltk::tkwm.resizable(top, resizex, resizey)
   # alternative:
-  #    system.file("extdata", paste(ico, "ico", sep="."), package="DescTools")
-  tcltk::tkwm.iconbitmap(top, file.path(find.package("DescTools"), "extdata", paste(ico, "ico", sep=".")))
-
+  # tcltk::tkwm.iconbitmap(top, file.path(find.package("DescTools"), "extdata", paste(ico, "ico", sep=".")))
+  #    
+  tcltk::tkwm.iconbitmap(top, gettextf("%s/%s.ico", .getDescToolsPath(), ico))
+  
   return(top)
 
 }
