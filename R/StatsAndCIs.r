@@ -3982,6 +3982,11 @@ CramerV <- function(x, y = NULL, conf.level = NA,
 
 
   lochi <- function(chival, df, conf) {
+    
+    # we don't have lochi for chival==0 
+    # optimize would report minval = maxval
+    if(chival==0) return(NA)
+    
     ulim <- 1 - (1-conf)/2
     #  This first part finds a lower value from which to start.
     lc <- c(.001, chival/2, chival)
@@ -4003,6 +4008,10 @@ CramerV <- function(x, y = NULL, conf.level = NA,
   }
 
   hichi <- function(chival,df,conf) {
+    
+    # we don't have hichi for chival==0 
+    if(chival==0) return(NA)
+    
     #	This first part finds upper and lower startinig values.
     uc <- c(chival, 2*chival, 3*chival)
     llim <- (1-conf)/2

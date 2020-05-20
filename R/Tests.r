@@ -3699,9 +3699,34 @@ Contrasts <- function (levs) {
 ScheffeTest <- function (x, ...)
   UseMethod("ScheffeTest")
 
+
 ScheffeTest.default <- function (x, g = NULL, which = NULL, contrasts = NULL, conf.level = 0.95, ...) {
   ScheffeTest(x=aov(x~g), which=which, contrasts=contrasts, conf.level=conf.level, ...)
 }
+
+
+ScheffeTest.formula <- function (formula, data, subset, na.action, ...) {
+  
+  if (missing(formula) || (length(formula) != 3L) || (length(attr(terms(formula[-2L]),
+                                                                  "term.labels")) != 1L))
+    stop("'formula' missing or incorrect")
+  m <- match.call(expand.dots = FALSE)
+  if (is.matrix(eval(m$data, parent.frame())))
+    m$data <- as.data.frame(data)
+  m[[1L]] <- quote(stats::model.frame)
+  m$... <- NULL
+  mf <- eval(m, parent.frame())
+  if (length(mf) > 2L)
+    stop("'formula' should be of the form response ~ group")
+  DNAME <- paste(names(mf), collapse = " by ")
+  names(mf) <- NULL
+  response <- attr(attr(mf, "terms"), "response")
+  y <- DoCall("ScheffeTest", c(as.list(mf), list(...)))
+  y$data.name <- DNAME
+  y
+}
+
+
 
 
 

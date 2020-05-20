@@ -18,7 +18,8 @@ Desc <- function (x, ..., main=NULL, plotit=NULL, wrd = NULL) {
 
       # only if header exists (it does not for single variables!!)
       if(!is.null(z[["_objheader"]]))
-        z[["_objheader"]]["main"] <- gettextf("Describe %s (%s):", deparse(substitute(x)), class(x))
+        z[["_objheader"]]["main"] <- gettextf("Describe %s (%s):", paste(deparse(substitute(x)), collapse=" "), 
+                                              paste(class(x), collapse=" ,"))
 
       printWrd(x=z, main=main, plotit=plotit, ..., wrd=wrd)
 
@@ -364,10 +365,14 @@ Desc.formula <- function(formula, data = parent.frame(), subset, main=NULL, plot
         lst[[paste(resp, pred, sep=" ~ ")]][["digits"]] <- digits     # would not accept vectors when ["digits"] used. Why??
         
         lst[[paste(resp, pred, sep=" ~ ")]]["main"] <- if(is.null(main))
-            gettextf("%s ~ %s (%s)",
+            gettextf("%s ~ %s%s",
                 lst[[paste(resp, pred, sep=" ~ ")]]["xname"], 
                 lst[[paste(resp, pred, sep=" ~ ")]]["gname"], 
-                deparse(substitute(data)))
+                # don't display parent.frame() for simple formulas in main titles
+                if((ctxt <- deparse(substitute(data))) == "parent.frame()") 
+                  "" 
+                else 
+                  paste0(" (", ctxt,")"))
       }
     }
   
@@ -2101,7 +2106,15 @@ plot.Desc.numnum    <- function(x, main = NULL, col=SetAlpha(1, 0.3),
   } else if(smooth=="spline"){
     with(na.omit(data.frame(y=x$x, x=x$g)),
        lines(smooth.spline(x=x, y=y)))
-  }
+    
+  } else if(smooth=="lin"){
+    with(na.omit(data.frame(y=x$x, x=x$g)),
+         lines(lm(x=x, y=y)))
+    
+  # } else if(smooth=="exp"){
+  #   with(na.omit(data.frame(y=x$x, x=x$g)),
+  #        lines(smooth.spline(x=x, y=y)))
+  } 
 
   if(!smooth.front)
     points(x=x$g, y=x$x, col=col, pch=pch, cex=cex, bg=bg)
