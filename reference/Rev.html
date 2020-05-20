@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Reverse Elements of a Vector or the Rows/Columns of Matrices, Tables or Data.frames — Rev • DescTools</title>
+<title>Reverse Elements of a Vector, a Matrix, a Table, an Array or a Data.frame — Rev • DescTools</title>
 
 
 <!-- jquery -->
@@ -41,9 +41,9 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Reverse Elements of a Vector or the Rows/Columns of Matrices, Tables or Data.frames — Rev" />
+<meta property="og:title" content="Reverse Elements of a Vector, a Matrix, a Table, an Array or a Data.frame — Rev" />
 <meta property="og:description" content="Rev provides a reversed version of its argument.
-It wraps the base function rev and provides an additional method for matrices and higher dimensional tables, such as to reverse the order of rows and columns." />
+Unlike the basic function, it does in higher-dimensional structures such as matrices not reverse the elements, but the order of the rows and/or columns. It further offers additional interfaces for higher dimensional arrays or tables." />
 
 
 
@@ -130,14 +130,14 @@ It wraps the base function rev and provides an additional method for matrices an
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Reverse Elements of a Vector or the Rows/Columns of Matrices, Tables or Data.frames</h1>
+    <h1>Reverse Elements of a Vector, a Matrix, a Table, an Array or a Data.frame</h1>
     
     <div class="hidden name"><code>Rev.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p><code>Rev</code> provides a reversed version of its argument.
-It wraps the base function <code>rev</code> and provides an additional method for matrices and higher dimensional tables, such as to reverse the order of rows and columns.</p>
+Unlike the basic function, it does in higher-dimensional structures such as matrices not reverse the elements, but the order of the rows and/or columns. It further offers additional interfaces for higher dimensional arrays or tables.</p>
     </div>
 
     <pre class="usage"><span class='fu'>Rev</span>(<span class='no'>x</span>, <span class='no'>...</span>)
@@ -146,6 +146,9 @@ It wraps the base function <code>rev</code> and provides an additional method fo
 <span class='fu'>Rev</span>(<span class='no'>x</span>, <span class='no'>margin</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for table</span>
+<span class='fu'>Rev</span>(<span class='no'>x</span>, <span class='no'>margin</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for array</span>
 <span class='fu'>Rev</span>(<span class='no'>x</span>, <span class='no'>margin</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for data.frame</span>
@@ -160,11 +163,11 @@ It wraps the base function <code>rev</code> and provides an additional method fo
     </tr>
     <tr>
       <th>margin</th>
-      <td><p>vector of dimensions which to be reversed (1 for rows, 2 for columns, etc.).</p></td>
+      <td><p>vector of dimensions which to be reversed (1 for rows, 2 for columns, etc.). If not defined, all dimensions will be reverted.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>the dots are passed to the matrix, resp. table interface.</p></td>
+      <td><p>the dots are passed to the array interface.</p></td>
     </tr>
     </table>
 
@@ -173,22 +176,108 @@ It wraps the base function <code>rev</code> and provides an additional method fo
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/rev.html'>rev</a></code>, <code><a href='https://rdrr.io/r/base/order.html'>order</a></code>, <code><a href='https://rdrr.io/r/base/sort.html'>sort</a></code>, <code><a href='https://rdrr.io/r/base/seq.html'>seq</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>tab</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>( <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>( <span class='fl'>1</span>, <span class='fl'>11</span>, <span class='fl'>111</span>,
-                  <span class='fl'>2</span>, <span class='fl'>22</span>, <span class='fl'>222</span>,
-                  <span class='fl'>3</span>, <span class='fl'>33</span>, <span class='fl'>333</span>), <span class='kw'>byrow</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>nrow</span><span class='kw'>=</span><span class='fl'>3</span>)
+    <pre class="examples"><div class='input'><span class='no'>tab</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>11</span>, <span class='fl'>111</span>,
+                <span class='fl'>2</span>, <span class='fl'>22</span>, <span class='fl'>222</span>,
+                <span class='fl'>3</span>, <span class='fl'>33</span>, <span class='fl'>333</span>),
+              <span class='kw'>byrow</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>nrow</span><span class='kw'>=</span><span class='fl'>3</span>,
+              <span class='kw'>dimnames</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>mar1</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>3</span>, <span class='kw'>mar2</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>,<span class='st'>"b"</span>,<span class='st'>"c"</span>)))
 
-<span class='fu'>Rev</span>(<span class='no'>tab</span>, <span class='kw'>margin</span><span class='kw'>=</span><span class='fl'>1</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3]
-#&gt; [1,]    3   33  333
-#&gt; [2,]    2   22  222
-#&gt; [3,]    1   11  111</div><div class='input'><span class='fu'>Rev</span>(<span class='no'>tab</span>, <span class='kw'>margin</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3]
-#&gt; [1,]  111   11    1
-#&gt; [2,]  222   22    2
-#&gt; [3,]  333   33    3</div><div class='input'>
+<span class='fu'>Rev</span>(<span class='no'>tab</span>, <span class='kw'>margin</span><span class='kw'>=</span><span class='fl'>1</span>)</div><div class='output co'>#&gt;     mar2
+#&gt; mar1 a  b   c
+#&gt;    3 3 33 333
+#&gt;    2 2 22 222
+#&gt;    1 1 11 111</div><div class='input'><span class='fu'>Rev</span>(<span class='no'>tab</span>, <span class='kw'>margin</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='output co'>#&gt;     mar2
+#&gt; mar1   c  b a
+#&gt;    1 111 11 1
+#&gt;    2 222 22 2
+#&gt;    3 333 33 3</div><div class='input'>
 <span class='co'># reverse both dimensions</span>
-<span class='fu'>Rev</span>(<span class='no'>tab</span>, <span class='kw'>margin</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>))</div><div class='output co'>#&gt;      [,1] [,2] [,3]
-#&gt; [1,]  333   33    3
-#&gt; [2,]  222   22    2
-#&gt; [3,]  111   11    1</div></pre>
+<span class='fu'>Rev</span>(<span class='no'>tab</span>, <span class='kw'>margin</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>))</div><div class='output co'>#&gt;     mar2
+#&gt; mar1   c  b a
+#&gt;    3 333 33 3
+#&gt;    2 222 22 2
+#&gt;    1 111 11 1</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span>(<span class='no'>tab</span>)</div><div class='output co'>#&gt;     mar1
+#&gt; mar2   1   2   3
+#&gt;    a   1   2   3
+#&gt;    b  11  22  33
+#&gt;    c 111 222 333</div><div class='input'>
+<span class='co'># reverse 3dimensional array</span>
+<span class='no'>aa</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='Abind.html'>Abind</a></span>(<span class='no'>tab</span>, <span class='fl'>2</span> * <span class='no'>tab</span>, <span class='kw'>along</span><span class='kw'>=</span><span class='fl'>3</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span>(<span class='no'>aa</span>)<span class='kw'>[[</span><span class='fl'>3</span>]] <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"A"</span>,<span class='st'>"Z"</span>)
+
+<span class='co'># reverse rows</span>
+<span class='fu'>Rev</span>(<span class='no'>aa</span>, <span class='fl'>1</span>)</div><div class='output co'>#&gt; , , A
+#&gt; 
+#&gt;   a  b   c
+#&gt; 3 3 33 333
+#&gt; 2 2 22 222
+#&gt; 1 1 11 111
+#&gt; 
+#&gt; , , Z
+#&gt; 
+#&gt;   a  b   c
+#&gt; 3 6 66 666
+#&gt; 2 4 44 444
+#&gt; 1 2 22 222
+#&gt; </div><div class='input'><span class='co'># reverse columns</span>
+<span class='fu'>Rev</span>(<span class='no'>aa</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt; , , A
+#&gt; 
+#&gt;     c  b a
+#&gt; 1 111 11 1
+#&gt; 2 222 22 2
+#&gt; 3 333 33 3
+#&gt; 
+#&gt; , , Z
+#&gt; 
+#&gt;     c  b a
+#&gt; 1 222 22 2
+#&gt; 2 444 44 4
+#&gt; 3 666 66 6
+#&gt; </div><div class='input'><span class='co'># reverse 3th dimension</span>
+<span class='fu'>Rev</span>(<span class='no'>aa</span>, <span class='fl'>3</span>)</div><div class='output co'>#&gt; , , Z
+#&gt; 
+#&gt;   a  b   c
+#&gt; 1 2 22 222
+#&gt; 2 4 44 444
+#&gt; 3 6 66 666
+#&gt; 
+#&gt; , , A
+#&gt; 
+#&gt;   a  b   c
+#&gt; 1 1 11 111
+#&gt; 2 2 22 222
+#&gt; 3 3 33 333
+#&gt; </div><div class='input'>
+<span class='co'># reverse all dimensions</span>
+<span class='fu'>Rev</span>(<span class='no'>aa</span>)</div><div class='output co'>#&gt; , , Z
+#&gt; 
+#&gt;     c  b a
+#&gt; 3 666 66 6
+#&gt; 2 444 44 4
+#&gt; 1 222 22 2
+#&gt; 
+#&gt; , , A
+#&gt; 
+#&gt;     c  b a
+#&gt; 3 333 33 3
+#&gt; 2 222 22 2
+#&gt; 1 111 11 1
+#&gt; </div><div class='input'><span class='co'># same as</span>
+<span class='fu'>Rev</span>(<span class='no'>aa</span>, <span class='kw'>margin</span><span class='kw'>=</span>(<span class='fl'>1</span>:<span class='fl'>3</span>))</div><div class='output co'>#&gt; , , Z
+#&gt; 
+#&gt;     c  b a
+#&gt; 3 666 66 6
+#&gt; 2 444 44 4
+#&gt; 1 222 22 2
+#&gt; 
+#&gt; , , A
+#&gt; 
+#&gt;     c  b a
+#&gt; 3 333 33 3
+#&gt; 2 222 22 2
+#&gt; 1 111 11 1
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

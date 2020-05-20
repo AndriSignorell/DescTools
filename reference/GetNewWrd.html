@@ -181,8 +181,8 @@ By means of this handle we can then control the word application. <br />
 
     <p>The package <b>RDCOMClient</b> reveals the whole VBA-world of MS-Word. So generally speaking any VBA code can be run fully controlled by R. In practise, it might be a good idea to record a macro and rewrite the VB-code in R.<br /></p>
 <p>Here's a list of some frequently used commands. Let's assume we have a handle to the application  and a handle to the current selection defined as:</p><pre>
-<span class='no'>wrd</span> <span class='kw'>&amp;</span><span class='no'>lt</span>;- <span class='fu'>GetNewWrd</span>()
-<span class='no'>sel</span> <span class='kw'>&amp;</span><span class='no'>lt</span>;- <span class='no'>wrd</span>$<span class='fu'>Selection</span>()</pre><p>Then we can access the most common properties as follows:</p><table class='table'>
+<span class='no'>wrd</span> <span class='kw'>&lt;-</span> <span class='fu'>GetNewWrd</span>()
+<span class='no'>sel</span> <span class='kw'>&lt;-</span> <span class='no'>wrd</span>$<span class='fu'>Selection</span>()</pre><p>Then we can access the most common properties as follows:</p><table class='table'>
 <tr><td>new document</td><td><code>wrd[["Documents"]]$Add(template, FALSE, 0)</code>, template is the templatename.</td></tr>
 <tr><td>open document</td><td><code>wrd[["Documents"]]$Open(Filename="C:/MyPath/MyDocument.docx")</code>.</td></tr>
 <tr><td>save document</td><td><code>wrd$ActiveDocument()$SaveAs2(FileName="P:/MyFile.docx")</code></td></tr>

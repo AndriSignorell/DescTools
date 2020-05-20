@@ -224,14 +224,14 @@ Be then prepared to encounter <code>NULL</code> values. Those will prevent from 
 the square data structure to a data.frame.</p>
 <p>The following code will replace the <code>NULL</code> values by <code>NA</code> and coerce the data to a data.frame.</p><pre>
   <span class='co'># get the range D1:J69 from an excel file</span>
-  <span class='no'>xlrng</span> <span class='kw'>&amp;</span><span class='no'>lt</span>;- <span class='fu'>XLGetRange</span>(<span class='kw'>file</span><span class='kw'>=</span><span class='st'>"myfile.xlsx"</span>, <span class='kw'>sheet</span><span class='kw'>=</span><span class='st'>"Tabelle1"</span>,
+  <span class='no'>xlrng</span> <span class='kw'>&lt;-</span> <span class='fu'>XLGetRange</span>(<span class='kw'>file</span><span class='kw'>=</span><span class='st'>"myfile.xlsx"</span>, <span class='kw'>sheet</span><span class='kw'>=</span><span class='st'>"Tabelle1"</span>,
                       <span class='kw'>range</span><span class='kw'>=</span><span class='st'>"D1:J69"</span>, <span class='kw'>as.data.frame</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 
   <span class='co'># replace NULL values by NA</span>
-  <span class='no'>xlrng</span>[<span class='fu'><a href='https://rdrr.io/r/base/unlist.html'>unlist</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>xlrng</span>, <span class='no'>is.null</span>))] <span class='kw'>&amp;</span><span class='no'>lt</span>;- <span class='fl'>NA</span>
+  <span class='no'>xlrng</span>[<span class='fu'><a href='https://rdrr.io/r/base/unlist.html'>unlist</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>xlrng</span>, <span class='no'>is.null</span>))] <span class='kw'>&lt;-</span> <span class='fl'>NA</span>
 
   <span class='co'># coerce the square data structure to a data.frame</span>
-  <span class='no'>d.lka</span> <span class='kw'>&amp;</span><span class='no'>lt</span>;- <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='no'>xlrng</span>), <span class='no'>unlist</span>))</pre><p>This of course can be avoided by setting <code>as.data.frame</code> = <code>TRUE</code>.</p>
+  <span class='no'>d.lka</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='no'>xlrng</span>), <span class='no'>unlist</span>))</pre><p>This of course can be avoided by setting <code>as.data.frame</code> = <code>TRUE</code>.</p>
 <p>The function will return dates as integers, because MS-Excel stores them internally as integers.
 Such a date can subsequently be converted with the (unusual) origin of
 <code><a href='https://rdrr.io/r/base/as.Date.html'>as.Date(myDate, origin="1899-12-30")</a></code>. See also <code><a href='XLDateToPOSIXct.html'>XLDateToPOSIXct</a></code>, which does the job. The conversion can directly be performed by <code>XLGetRange()</code> if <code>datecols</code> is used and contains the date columns in the sheet data.</p>
