@@ -2099,7 +2099,10 @@ plot.Desc.numnum    <- function(x, main = NULL, col=SetAlpha(1, 0.3),
       smooth <- "spline"
   }
 
-  if(smooth=="loess"){
+  if(identical(smooth, NA)){
+    # do nothing
+    
+  } else if(smooth=="loess"){
     # lines(loess(x=x$g, y=x$x, na.action = na.omit))
     lines(loess(x$x ~ x$g, na.action = na.omit))
 
@@ -2108,12 +2111,11 @@ plot.Desc.numnum    <- function(x, main = NULL, col=SetAlpha(1, 0.3),
        lines(smooth.spline(x=x, y=y)))
     
   } else if(smooth=="lin"){
-    with(na.omit(data.frame(y=x$x, x=x$g)),
-         lines(lm(x=x, y=y)))
+#    lines(lm(x$x ~ x$g, na.action = na.omit))  
+    lines(lm(y~x, data=data.frame(y=x$x, x=x$g)))
     
-  # } else if(smooth=="exp"){
-  #   with(na.omit(data.frame(y=x$x, x=x$g)),
-  #        lines(smooth.spline(x=x, y=y)))
+  } else if(smooth=="exp"){
+    lines.lmlog(lm(log(y)~x, data=data.frame(y=x$x, x=x$g)))  
   } 
 
   if(!smooth.front)

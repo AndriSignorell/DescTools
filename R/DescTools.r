@@ -7342,82 +7342,178 @@ lines.smooth.spline <- function (x, col = Pal()[1], lwd = 2, lty = "solid",
 
 
 
+# lines.lm <- function (x, col = Pal()[1], lwd = 2, lty = "solid",
+#                       type = "l", n = 100, conf.level = 0.95, args.cband = NULL,
+#                       pred.level = NA, args.pband = NULL, ...) {
+# 
+#   # ** BUG ** BUG ** BUG ** BUG **BUG ** BUG **BUG ** BUG **BUG ** BUG **
+#   #  \__/  \__/  \__/  \__/  \__/  \__/  \__/  \__/  \__/  \__/  \__/  \__/
+#   #  (oo)  (oo)  (oo)  (oo)  (oo)  (oo)  (oo)  (oo)  (oo)  (oo)  (oo)  (oo)
+#   # //||\\//||\\//||\\//||\\//||\\//||\\//||\\//||\\//||\\//||\\//||\\//||\\
+#   # ** BUG ** BUG ** BUG ** BUG **BUG ** BUG **BUG ** BUG **BUG ** BUG **
+# 
+#   # # does not work with all transformations!!!!!!!!!!
+#   # plot(log(Fertility) ~ log(Examination), data=swiss)
+#   # r.lm <- lm(log(Fertility) ~ log(Examination), data=swiss)
+#   # lines(r.lm)
+#   #
+#   # swiss$lEx <- log(swiss$Examination)
+#   # r.lm <- lm(log(Fertility) ~ lEx, data=swiss)
+#   # lines(r.lm)
+# 
+# 
+#   mod <- x$model
+# 
+#   # we take simply the second column of the model data.frame to identify the x variable
+#   # this will crash, if there are several resps and yield nonsense if there is
+#   # more than one pred,
+#   # so check for a simple regression model y ~ x (just one resp, just one pred)
+# 
+#   # Note:
+#   # The following will not work, because predict does not correctly recognise the newdata data.frame:
+#   # lines(lm(d.pizza$temperature ~ d.pizza$delivery_min), col=hred, lwd=3)
+#   # see what happens to the data.frame colnames in: predict(x, newdata=data.frame("d.pizza$delivery_min"=1:20))
+#   # this predict won't work.
+#   # always provide data:    y ~ x, data
+# 
+#   # this is not a really new problem:
+#   # http://faustusnotes.wordpress.com/2012/02/16/problems-with-out-of-sample-prediction-using-r/
+# 
+#   # we would only plot lines if there's only one predictor
+# 
+#   pred <- all.vars(formula(x)[[3]])
+#   if(length(pred) > 1) {
+#     stop("Can't plot a linear model with more than 1 predictor.")
+#   }
+# 
+#   # the values of the predictor
+#   xpred <- eval(x$call$data)[, pred]
+# 
+#   newx <- data.frame(seq(from = min(xpred, na.rm = TRUE),
+#                          to = max(xpred, na.rm = TRUE), length = n))
+# 
+#   colnames(newx) <- pred
+#   fit <- predict(x, newdata = newx)
+# 
+#   if (!(is.na(pred.level) || identical(args.pband, NA)) ) {
+#     args.pband1 <- list(col = SetAlpha(col, 0.12), border = NA)
+#     if (!is.null(args.pband))
+#       args.pband1[names(args.pband)] <- args.pband
+# 
+#     ci <- predict(x, interval="prediction", newdata=newx, level=pred.level) # Vorhersageband
+#     do.call("DrawBand", c(args.pband1, list(x = c(unlist(newx), rev(unlist(newx)))),
+#                           list(y = c(ci[,2], rev(ci[,3])))))
+#   }
+# 
+#   if (!(is.na(conf.level) || identical(args.cband, NA)) ) {
+#     args.cband1 <- list(col = SetAlpha(col, 0.12), border = NA)
+#     if (!is.null(args.cband))
+#       args.cband1[names(args.cband)] <- args.cband
+# 
+#     ci <- predict(x, interval="confidence", newdata=newx, level=conf.level) # Vertrauensband
+#     do.call("DrawBand", c(args.cband1, list(x = c(unlist(newx), rev(unlist(newx)))),
+#                           list(y = c(ci[,2], rev(ci[,3])))))
+#   }
+# 
+#   lines(y = fit, x = unlist(newx), col = col, lwd = lwd, lty = lty,
+#         type = type)
+# }
+
+
+
+
+.CalcTrendline <- function (x, n = 100, conf.level = 0.95, pred.level = 0.95, ...) {
+ 
+  # this takes the model x and calculates a set of n points
+  # including the function, confidence band for E[X] and for the prediction
+   
+  mod <- x$model
+  # all.vars returns all used variables in the model, even when poly models are used
+  # the result will be the name of the predictor
+  pred <- all.vars(formula(x)[[3]])
+  if (length(pred) > 1) {
+    stop("Can't plot a linear model with more than 1 predictor.")
+  }
+  
+  # xpred <- model.frame(x)[, pred]
+  # we cannot simply take the model frame here as we would miss poly(..) models
+  # which could well be plotted as well   
+  xpred <- eval(x$call$data, parent.frame(n=2))[, pred]
+  
+  newx <- data.frame(seq(from = min(xpred, na.rm = TRUE), 
+                         to = max(xpred, na.rm = TRUE), length = n))
+  colnames(newx) <- pred
+  
+  fit <- predict(x, newdata = newx)
+  
+  if (!(is.na(conf.level))) {
+    ci <- predict(x, interval = "confidence", newdata = newx, 
+                   level = conf.level)[, -1]
+  } else ci <- NULL
+  
+  if (!(is.na(pred.level))) {
+    pci <- predict(x, interval = "prediction", newdata = newx, 
+                   level = pred.level)[, -1]
+  } else pci <- NULL
+  
+  return(list(x=newx, y=fit, ci=ci, pci=pci))
+  
+}
+
+
+.DrawTrendLine <- function(z, col = Pal()[1], lwd = 2, lty = "solid", type = "l", 
+                        args.cband = NULL,  args.pband = NULL) {
+  
+  # this draws a trendline in an existing plot
+  
+  args.pband1 <- list(col = SetAlpha(col, 0.12), border = NA)
+  if (!identical(args.pband, NA) && !is.null(z$pci)) {
+    if (!is.null(args.pband))
+      args.pband1[names(args.pband)] <- args.pband
+    do.call("DrawBand", c(args.pband1, list(x = c(unlist(z$x), rev(unlist(z$x)))), 
+                        list(y = c(z$pci[, 1], rev(z$pci[, 2])))))
+  }
+  
+  args.cband1 <- list(col = SetAlpha(col, 0.12), border = NA)
+  if (!identical(args.cband, NA) && !is.null(z$ci)) {
+    if (!is.null(args.cband))
+      args.cband1[names(args.cband)] <- args.cband
+    do.call("DrawBand", c(args.cband1, list(x = c(unlist(z$x), rev(unlist(z$x)))), 
+                        list(y = c(z$ci[, 1], rev(z$ci[, 2])))))
+  }
+  
+  lines(y = z$y, x = unlist(z$x), col = col, lwd = lwd, lty = lty,
+        type = type)
+  
+}
+
+
+
 lines.lm <- function (x, col = Pal()[1], lwd = 2, lty = "solid",
                       type = "l", n = 100, conf.level = 0.95, args.cband = NULL,
                       pred.level = NA, args.pband = NULL, ...) {
+  
+  z <- .CalcTrendline(x, n=n, conf.level=conf.level, pred.level=pred.level)  
+  .DrawTrendLine(z, col=col, lwd=lwd, lty=lty, args.cband=args.cband, args.pband=args.pband)
 
-  # ** BUG ** BUG ** BUG ** BUG **BUG ** BUG **BUG ** BUG **BUG ** BUG **
-  #  \__/  \__/  \__/  \__/  \__/  \__/  \__/  \__/  \__/  \__/  \__/  \__/
-  #  (oo)  (oo)  (oo)  (oo)  (oo)  (oo)  (oo)  (oo)  (oo)  (oo)  (oo)  (oo)
-  # //||\\//||\\//||\\//||\\//||\\//||\\//||\\//||\\//||\\//||\\//||\\//||\\
-  # ** BUG ** BUG ** BUG ** BUG **BUG ** BUG **BUG ** BUG **BUG ** BUG **
-
-  # # does not work with all transformations!!!!!!!!!!
-  # plot(log(Fertility) ~ log(Examination), data=swiss)
-  # r.lm <- lm(log(Fertility) ~ log(Examination), data=swiss)
-  # lines(r.lm)
-  #
-  # swiss$lEx <- log(swiss$Examination)
-  # r.lm <- lm(log(Fertility) ~ lEx, data=swiss)
-  # lines(r.lm)
-
-
-  mod <- x$model
-
-  # we take simply the second column of the model data.frame to identify the x variable
-  # this will crash, if there are several resps and yield nonsense if there is
-  # more than one pred,
-  # so check for a simple regression model y ~ x (just one resp, just one pred)
-
-  # Note:
-  # The following will not work, because predict does not correctly recognise the newdata data.frame:
-  # lines(lm(d.pizza$temperature ~ d.pizza$delivery_min), col=hred, lwd=3)
-  # see what happens to the data.frame colnames in: predict(x, newdata=data.frame("d.pizza$delivery_min"=1:20))
-  # this predict won't work.
-  # always provide data:    y ~ x, data
-
-  # this is not a really new problem:
-  # http://faustusnotes.wordpress.com/2012/02/16/problems-with-out-of-sample-prediction-using-r/
-
-  # we would only plot lines if there's only one predictor
-
-  pred <- all.vars(formula(x)[[3]])
-  if(length(pred) > 1) {
-    stop("Can't plot a linear model with more than 1 predictor.")
-  }
-
-  # the values of the predictor
-  xpred <- eval(x$call$data)[, pred]
-
-  newx <- data.frame(seq(from = min(xpred, na.rm = TRUE),
-                         to = max(xpred, na.rm = TRUE), length = n))
-
-  colnames(newx) <- pred
-  fit <- predict(x, newdata = newx)
-
-  if (!(is.na(pred.level) || identical(args.pband, NA)) ) {
-    args.pband1 <- list(col = SetAlpha(col, 0.12), border = NA)
-    if (!is.null(args.pband))
-      args.pband1[names(args.pband)] <- args.pband
-
-    ci <- predict(x, interval="prediction", newdata=newx, level=pred.level) # Vorhersageband
-    do.call("DrawBand", c(args.pband1, list(x = c(unlist(newx), rev(unlist(newx)))),
-                          list(y = c(ci[,2], rev(ci[,3])))))
-  }
-
-  if (!(is.na(conf.level) || identical(args.cband, NA)) ) {
-    args.cband1 <- list(col = SetAlpha(col, 0.12), border = NA)
-    if (!is.null(args.cband))
-      args.cband1[names(args.cband)] <- args.cband
-
-    ci <- predict(x, interval="confidence", newdata=newx, level=conf.level) # Vertrauensband
-    do.call("DrawBand", c(args.cband1, list(x = c(unlist(newx), rev(unlist(newx)))),
-                          list(y = c(ci[,2], rev(ci[,3])))))
-  }
-
-  lines(y = fit, x = unlist(newx), col = col, lwd = lwd, lty = lty,
-        type = type)
 }
+
+
+lines.lmlog <- function (x, col = Pal()[1], lwd = 2, lty = "solid",
+                      type = "l", n = 100, conf.level = 0.95, args.cband = NULL,
+                      pred.level = NA, args.pband = NULL, ...) {
+  
+  # expects a model of the form log(y) ~ x
+  
+  z <- .CalcTrendline(x, n=n, conf.level=conf.level, pred.level=pred.level)
+  # exponentiate y and all ci results, but not x (,1)
+  i <- which(!sapply(z[2:4], is.null)) + 1
+  z[i] <- lapply(z[i], exp)
+
+  .DrawTrendLine(z, col=col, lwd=lwd, lty=lty, args.cband=args.cband, args.pband=args.pband)
+  
+}
+
 
 
 
