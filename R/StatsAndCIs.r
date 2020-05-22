@@ -6251,69 +6251,145 @@ StuartTauC <- function(x, y = NULL, conf.level = NA, ...) {
 
 
 
+# SpearmanRho <- function(x, y = NULL, use = c("everything", "all.obs", "complete.obs",
+#                                              "na.or.complete","pairwise.complete.obs"), conf.level = NA ) {
+# 
+#   if(is.null(y)) {
+#     x <- Untable(x)
+#     y <- x[,2]
+#     x <- x[,1]
+#   }
+#   # Reference:
+#   #   https://stat.ethz.ch/pipermail/r-help/2006-October/114319.html
+#   # fisher z transformation for calc SpearmanRho ci :
+#   # Conover WJ, Practical Nonparametric Statistics (3rd edition). Wiley 1999.
+# 
+#   # http://support.sas.com/documentation/cdl/en/statugfreq/63124/PDF/default/statugfreq.pdf
+#   # pp 1738
+# 
+# 
+#   # n <- sum(tab)
+#   # ni. <- apply(tab, 1, sum)
+#   # n.j <- apply(tab, 2, sum)
+#   # F <- n^3 - sum(ni.^3)
+#   # G <- n^3 - sum(n.j^3)
+#   # w <- 1/12*sqrt(F * G)
+# 
+#   # ### Asymptotic standard error: sqrt(sigma2)
+#   # sigma2 <- 1
+#   # ### debug: print(sqrt(sigma2))
+# 
+#   # ### Tau-c = (C - D)*[2m/(n2(m-1))]
+#   # est <- 1
+# 
+#   # if(is.na(conf.level)){
+#   # result <- tauc
+#   # } else {
+#   # pr2 <- 1 - (1 - conf.level)/2
+#   # CI <- qnorm(pr2) * sqrt(sigma2) * c(-1, 1) + est
+#   # result <- c(SpearmanRho = est,  lwr.ci=max(CI[1], -1), ups.ci=min(CI[2], 1))
+#   # }
+# 
+#   # return(result)
+# 
+# 
+#   # Ref:
+#   # http://www-01.ibm.com/support/docview.wss?uid=swg21478368
+# 
+#   use <- match.arg(use, choices=c("everything", "all.obs", "complete.obs",
+#                                   "na.or.complete","pairwise.complete.obs"))
+# 
+#   rho <- cor(as.numeric(x), as.numeric(y), method="spearman", use = use)
+# 
+#   e_fx <- exp( 2 * ((.5 * log((1+rho) / (1-rho))) - c(1, -1) *
+#                       (abs(qnorm((1 - conf.level)/2))) * (1 / sqrt(sum(complete.cases(x,y)) - 3)) ))
+#   ci <- (e_fx - 1) / (e_fx + 1)
+# 
+#   if (is.na(conf.level)) {
+#     result <- rho
+#   } else {
+#     pr2 <- 1 - (1 - conf.level) / 2
+#     result <- c(rho = rho, lwr.ci = max(ci[1], -1), upr.ci = min(ci[2], 1))
+#   }
+#   return(result)
+# 
+# }
+
+
+# replaced by DescTools v 0.99.36
+# as Untable() is a nogo for tables with high frequencies...
+
 SpearmanRho <- function(x, y = NULL, use = c("everything", "all.obs", "complete.obs",
                                              "na.or.complete","pairwise.complete.obs"), conf.level = NA ) {
 
   if(is.null(y)) {
-    x <- Untable(x)
-    y <- x[,2]
-    x <- x[,1]
+    # implemented following
+    # https://support.sas.com/documentation/onlinedoc/stat/151/freq.pdf
+    # S. 3103
+    
+    # http://support.sas.com/documentation/cdl/en/statugfreq/63124/PDF/default/statugfreq.pdf
+    # pp 1738
+    
+    # Old References:
+    # https://stat.ethz.ch/pipermail/r-help/2006-October/114319.html
+    # fisher z transformation for calc SpearmanRho ci :
+    # Conover WJ, Practical Nonparametric Statistics (3rd edition). Wiley 1999.
+    
+    
+    n <- sum(x)
+    ni. <- apply(x, 1, sum)
+    n.j <- apply(x, 2, sum)
+    
+    ri <- rank(rownames(x))
+    ci <- rank(colnames(x))
+    ri <- 1:nrow(x)
+    ci <- 1:ncol(x)
+    
+    R1i <- c(sapply(seq_along(ri), 
+                    function(i) ifelse(i==1, 0, cumsum(ni.)[i-1]) + ni.[i]/2))
+    C1i <- c(sapply(seq_along(ci), 
+                    function(i) ifelse(i==1, 0, cumsum(n.j)[i-1]) + n.j[i]/2))
+    
+    Ri <- R1i - n/2
+    Ci <- C1i - n/2
+    
+    v <- sum(x * outer(Ri, Ci))
+    F <- n^3 - sum(ni.^3)
+    G <- n^3 - sum(n.j^3)
+    
+    w <- 1/12*sqrt(F * G)
+    
+    rho <- v/w
+    
+  } else {
+    
+    # http://www-01.ibm.com/support/docview.wss?uid=swg21478368
+    
+    use <- match.arg(use, choices=c("everything", "all.obs", "complete.obs",
+                                    "na.or.complete","pairwise.complete.obs"))
+    
+    rho <- cor(as.numeric(x), as.numeric(y), method="spearman", use = use)
+    
+    n <- complete.cases(x,y)
+    
   }
-  # Reference:
-  #   https://stat.ethz.ch/pipermail/r-help/2006-October/114319.html
-  # fisher z transformation for calc SpearmanRho ci :
-  # Conover WJ, Practical Nonparametric Statistics (3rd edition). Wiley 1999.
-
-  # http://support.sas.com/documentation/cdl/en/statugfreq/63124/PDF/default/statugfreq.pdf
-  # pp 1738
-
-
-  # n <- sum(tab)
-  # ni. <- apply(tab, 1, sum)
-  # n.j <- apply(tab, 2, sum)
-  # F <- n^3 - sum(ni.^3)
-  # G <- n^3 - sum(n.j^3)
-  # w <- 1/12*sqrt(F * G)
-
-  # ### Asymptotic standard error: sqrt(sigma2)
-  # sigma2 <- 1
-  # ### debug: print(sqrt(sigma2))
-
-  # ### Tau-c = (C - D)*[2m/(n2(m-1))]
-  # est <- 1
-
-  # if(is.na(conf.level)){
-  # result <- tauc
-  # } else {
-  # pr2 <- 1 - (1 - conf.level)/2
-  # CI <- qnorm(pr2) * sqrt(sigma2) * c(-1, 1) + est
-  # result <- c(SpearmanRho = est,  lwr.ci=max(CI[1], -1), ups.ci=min(CI[2], 1))
-  # }
-
-  # return(result)
-
-
-  # Ref:
-  # http://www-01.ibm.com/support/docview.wss?uid=swg21478368
-
-  use <- match.arg(use, choices=c("everything", "all.obs", "complete.obs",
-                                  "na.or.complete","pairwise.complete.obs"))
-
-  rho <- cor(as.numeric(x), as.numeric(y), method="spearman", use = use)
-
+  
+  
   e_fx <- exp( 2 * ((.5 * log((1+rho) / (1-rho))) - c(1, -1) *
-                      (abs(qnorm((1 - conf.level)/2))) * (1 / sqrt(sum(complete.cases(x,y)) - 3)) ))
+                      (abs(qnorm((1 - conf.level)/2))) * (1 / sqrt(sum(n) - 3)) ))
   ci <- (e_fx - 1) / (e_fx + 1)
-
+  
   if (is.na(conf.level)) {
     result <- rho
   } else {
     pr2 <- 1 - (1 - conf.level) / 2
     result <- c(rho = rho, lwr.ci = max(ci[1], -1), upr.ci = min(ci[2], 1))
   }
+  
   return(result)
 
 }
+
 
 
 

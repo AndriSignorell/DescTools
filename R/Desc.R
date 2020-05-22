@@ -2055,7 +2055,7 @@ plot.Desc.numfact <- function(x, main=NULL, add_ni = TRUE
 
     if(add_ni)
       mtext(paste("n=", bx$n, sep=""), side=3, line=1, at=1:length(bx$n), cex=0.8)
-    d.frm <- data.frame(x$x, x$g)
+    d.frm <- data.frame(x$x, factor(x$g))
     names(d.frm) <- c(x$xname, x$gname)
     plot.design(d.frm, cex=0.8, xlab="", ylab="", cex.axis=0.8, main="")
 
@@ -2082,7 +2082,8 @@ plot.Desc.numfact <- function(x, main=NULL, add_ni = TRUE
 
 plot.Desc.numnum    <- function(x, main = NULL, col=SetAlpha(1, 0.3),
                                 pch = NULL, cex = par("cex"), bg = par("bg"),
-                                xlab= NULL, ylab= NULL, smooth = NULL, smooth.front = TRUE, ...) {
+                                xlab= NULL, ylab= NULL, smooth = NULL, smooth.front = TRUE, 
+                                conf.level=0.95, ...) {
 
   if(is.null(main))
     main <- x$main
@@ -2092,6 +2093,8 @@ plot.Desc.numnum    <- function(x, main = NULL, col=SetAlpha(1, 0.3),
   if(smooth.front)   # smoother should be in front of the points, this is ok, if x is long
     points(x=x$g, y=x$x, col=col, pch=pch, cex=cex, bg=bg)
 
+  smoot <- match.arg(smooth, choices = c("none", "loess", "lm", "spline", "exp"))
+  
   if(is.null(smooth)) {
     if(x$nvalid < 500)
       smooth <- "loess"
@@ -2099,23 +2102,23 @@ plot.Desc.numnum    <- function(x, main = NULL, col=SetAlpha(1, 0.3),
       smooth <- "spline"
   }
 
-  if(identical(smooth, NA)){
+  if(identical(smooth, NA) || smooth=="none"){
     # do nothing
     
   } else if(smooth=="loess"){
     # lines(loess(x=x$g, y=x$x, na.action = na.omit))
-    lines(loess(x$x ~ x$g, na.action = na.omit))
+    lines(loess(x$x ~ x$g, na.action = na.omit), conf.level=conf.level)
 
   } else if(smooth=="spline"){
     with(na.omit(data.frame(y=x$x, x=x$g)),
-       lines(smooth.spline(x=x, y=y)))
+       lines(smooth.spline(x=x, y=y)), conf.level=conf.level)
     
-  } else if(smooth=="lin"){
+  } else if(smooth=="lm"){
 #    lines(lm(x$x ~ x$g, na.action = na.omit))  
-    lines(lm(y~x, data=data.frame(y=x$x, x=x$g)))
+    lines(lm(y~x, data=data.frame(y=x$x, x=x$g)), conf.level=conf.level)
     
   } else if(smooth=="exp"){
-    lines.lmlog(lm(log(y)~x, data=data.frame(y=x$x, x=x$g)))  
+    lines.lmlog(lm(log(y)~x, data=data.frame(y=x$x, x=x$g)), conf.level=conf.level)  
   } 
 
   if(!smooth.front)
