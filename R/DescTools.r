@@ -6576,9 +6576,39 @@ Append.matrix <- function(x, values, after = NULL, rows=FALSE, names=NULL, ...){
 }
 
 
-Append.data.frame <- function(x, values, after = NULL, names=NULL, ...){
-  as.data.frame(append(x, SetNames(list(values), names=names), after = after))
+Append.data.frame <- function(x, values, after = NULL, rows=FALSE, names=NULL, ...){
+
+  # appending to a data.frame is by nature append columns, as it is 
+  # intrinsically a list. 
+  # Inserting rows is however clumsy by hand and so we offer an argument to
+  # do that as well
+  
+  .InsertRow <- function(x, val, after=nrow(x)) {
+    
+    # insert a row in a data.frame
+    # note: we should not use rbind here, as it is not general enough in cases,
+    # when not only numeric values are present in the data.frame
+    
+    x[seq(after+1, nrow(x)+1), ] <- x[seq(after, nrow(x)), ]
+    x[after, ] <- val
+    
+    x
+    
+  }
+  
+  if(rows)
+    .InsertRow(x, values, after=after)
+  
+  else 
+    as.data.frame(append(x, SetNames(list(values), names=names), after = after))
+  
 }
+
+
+
+
+
+
 
 
 # InsRow <- function(m, x, i, row.names=NULL){
@@ -10023,6 +10053,108 @@ PlotMarDens <- function( x, y, grp=1, xlim = NULL, ylim = NULL
 }
 
 
+PlotConDens <- function(formula, data, col=NULL, lwd=2, lty=1, xlim=NULL, rev=TRUE, args.dens=NULL, ...) { 
+  
+  deparen <- function(expr) {
+    while (is.language(expr) && !is.name(expr) && deparse(expr[[1L]])[1L] == 
+           "(") expr <- expr[[2L]]
+    expr
+  }
+  bad.formula <- function() stop("invalid conditioning formula")
+  bad.lengths <- function() stop("incompatible variable lengths")
+  getOp <- function(call) deparse(call[[1L]], backtick = FALSE)[[1L]]
+  formula <- deparen(formula)
+  if (!inherits(formula, "formula")) 
+    bad.formula()
+  y <- deparen(formula[[2L]])
+  rhs <- deparen(formula[[3L]])
+  if (getOp(rhs) != "|") 
+    bad.formula()
+  x <- deparen(rhs[[2L]])
+  rhs <- deparen(rhs[[3L]])
+  if (is.language(rhs) && !is.name(rhs) && getOp(rhs) %in% 
+      c("*", "+")) {
+    have.b <- TRUE
+    a <- deparen(rhs[[2L]])
+    b <- deparen(rhs[[3L]])
+  }
+  else {
+    have.b <- FALSE
+    a <- rhs
+  }
+  if (missing(data)) 
+    data <- parent.frame()
+  x.name <- deparse(x)
+  x <- eval(x, data, parent.frame())
+  nobs <- length(x)
+  y.name <- deparse(y)
+  y <- eval(y, data, parent.frame())
+  if (length(y) != nobs) 
+    bad.lengths()
+  a.name <- deparse(a)
+  a <- eval(a, data, parent.frame())
+  if (length(a) != nobs) 
+    bad.lengths()
+  if (is.character(a)) 
+    a <- as.factor(a)
+  a.is.fac <- is.factor(a)
+  if (have.b) {
+    b.name <- deparse(b)
+    b <- eval(b, data, parent.frame())
+    if (length(b) != nobs) 
+      bad.lengths()
+    if (is.character(b)) 
+      b <- as.factor(b)
+    b.is.fac <- is.factor(b)
+    missingrows <- which(is.na(x) | is.na(y) | is.na(a) | 
+                           is.na(b))
+  }
+  else {
+    missingrows <- which(is.na(x) | is.na(y) | is.na(a))
+    b <- NULL
+    b.name <- ""
+  }
+  
+  args.dens <- c(args.dens, bw = "nrd0")
+  args.dens <- args.dens[!duplicated(names(args.dens))]
+  
+  if(is.null(xlim))
+    ptx <- pretty(range(x), n = 1000)
+  else
+    ptx <- pretty(xlim, n = 1000)
+  
+  args.plot <- c(list(y=c(0,1), x=range(pretty(ptx)), type="n"), ..., las=1, xlab=x.name, ylab="density")
+  args.plot <- args.plot[!duplicated(names(args.plot))]
+  do.call(plot, args.plot)
+  
+  if(is.null(col))
+    col <- Pal("Helsana")
+  
+  a <- factor(a)
+  largs <- Recycle(col=col, lty=lty, lwd=lwd, lvl=levels(a))
+  
+  for(i in seq_along(levels(a))) {
+    
+    ll <- with(data.frame(x,y)[a==levels(a)[i],], 
+               do.call(cdplot, c(formula=as.formula(y~x), plot=FALSE, args.dens)))
+    
+    if(rev)
+      lines(x=ptx, 1-ll[[1]](ptx), col=largs$col[i], lwd=largs$lwd[i], lty=largs$lty[i])
+    else
+      lines(x=ptx, ll[[1]](ptx), col=largs$col[i], lwd=largs$lwd[i], lty=largs$lty[i])
+    
+    
+  }
+  
+  invisible(list(x=x, y=y, a=a))   
+  
+}
+
+
+
+
+
+
 ###
 
 ## plots: PlotArea ====
@@ -11849,7 +11981,8 @@ PlotCandlestick <-  function(x, y, xlim = NULL, ylim = NULL, col = c("springgree
 
 
 
-PlotCashFlow <- function(x, y, xlim=NULL, labels=y){
+PlotCashFlow <- function(x, y, xlim=NULL, labels=y, mar=NULL, cex.per=par("cex"), 
+                         cex.tck=par("cex") * 0.8, cex.cash=par("cex")){
 
   if(is.null(xlim))
     xlim <- if (is.null(xlim))
@@ -11859,7 +11992,9 @@ PlotCashFlow <- function(x, y, xlim=NULL, labels=y){
 
   yf <- max(abs(range(c(0, y[is.finite(y)]))))
 
-  Canvas(xlim=xlim, ylim=c(-1,1), xpd=TRUE, asp=NULL)
+  if(is.null(mar))  mar <- c(5.1,5.1,5.1,5.1)
+  
+  Canvas(xlim=xlim, ylim=c(-1,1), xpd=TRUE, asp=NULL, mar=mar)
   arrows(xlim[1], 0, xlim[2]+1, code=0)
   DrawRegPolygon(x=xlim[2]+1, y=0, rot=2*pi/3, radius.x = .09, col=1)
 
@@ -11869,12 +12004,16 @@ PlotCashFlow <- function(x, y, xlim=NULL, labels=y){
   #  points(x=x, y=y/30, pch=17, cex=1.2)
   DrawRegPolygon(x=x, y=y/yf, rot=pi/6 + (y>0) * pi, radius.x = .1, col=1)
 
-  BoxedText(x0, -.3, Format(x0, leading="00", digits=0), border = NA)
-  BoxedText(x0 + 0.5, .2, Format(seq_along(x0), leading="00", digits=0), border = NA, cex=.8)
-
-  BoxedText(x=x, y=sign(y) *(abs(y/yf)+.3), labels = labels, border = NA)
+  # periods
+  BoxedText(x0, -.3, Format(x0, leading="00", digits=0), border = NA, cex=cex.per)
+  # ticks
+  BoxedText(x0 + 0.5, .2, Format(seq_along(x0), leading="00", digits=0), 
+            border = NA, cex=cex.tck)
+  # cashflows
+  BoxedText(x=x, y=sign(y) *(abs(y/yf)+.3), labels = labels, border = NA, cex=cex.cash)
 
 }
+
 
 
 SaveAs <- function(x, objectname, file, ...){

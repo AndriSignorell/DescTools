@@ -15,7 +15,7 @@
 Append(x, values, after = NULL, ...)
 
 \method{Append}{matrix}(x, values, after = NULL, rows = FALSE, names = NULL, ...)
-\method{Append}{data.frame}(x, values, after = NULL, names = NULL, ...)
+\method{Append}{data.frame}(x, values, after = NULL, rows = FALSE, names = NULL, ...)
 \method{Append}{default}(x, values, after = NULL, ...)
 
 }
