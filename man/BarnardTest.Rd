@@ -7,20 +7,24 @@ using Score or Wald statistics for the difference between two binomial proportio
 }
 \usage{
 BarnardTest(x, y = NULL, alternative = c("two.sided", "less", "greater"),
-            dp = 0.001, pooled = TRUE)
+            method = c("csm", "csm approximate", "z-pooled", "z-unpooled",
+                       "boschloo", "santner and snell"), fixed = 1, ...)
 }
 \arguments{
 
  \item{x}{a numeric vector or a two-dimensional contingency table in matrix form. \code{x} and \code{y} can also both be factors. }
  \item{y}{a factor object; ignored if \code{x} is a matrix.}
 
-  \item{dp}{ The resolution of the search space for the nuisance parameter }
-  \item{pooled}{ Z statistic with pooled (Score) or unpooled (Wald) variance }
-
   \item{alternative}{a character string specifying the alternative
     hypothesis, must be one of \code{"two.sided"} (default),
     \code{"greater"} or \code{"less"}.  You can specify just the initial
     letter.}
+
+  \item{method}{Indicates the method for finding the more extreme tables: must be either \code{"Zpooled"}, \code{"Z-unpooled"}, \code{"Santner and Snell"}, \code{"Boschloo"}, \code{"CSM"}, or \code{"CSM approximate"}. CSM tests cannot be calculated for multinomial models.}
+
+  \item{fixed}{indicates which margins are fixed. \code{1} stands for row, \code{2} for columns, \code{NA} for none of both. }
+
+\item{\dots}{the dots are passed on to the \code{Exact::exact.test()} function.}
 
 }
 
@@ -34,12 +38,17 @@ BarnardTest(x, y = NULL, alternative = c("two.sided", "less", "greater"),
    \item{method}{the character string
      \code{"Barnards Unconditional 2x2-test"}.}
    \item{data.name}{a character string giving the names of the data.}
-  \item{statistic.table }{The contingency tables considered in the analysis represented by 'n1' and 'n2', their scores, and whether they are included in the one-sided (1), two-sided (2) tests, or not included at all (0)}
-   \item{nuisance.matrix }{Nuisance parameters, \eqn{p}, and the corresponding p-values for both one- and two-sided tests}
+  \item{statistic.table }{The contingency tables considered in the analysis represented by \code{n1} and \code{n2}, their scores, and whether they are included in the one-sided (\code{1}), two-sided (\code{2}) tests, or not included at all (\code{0})}
+   \item{nuisance.matrix }{Nuisance parameters, \code{p}, and the corresponding p-values for both one- and two-sided tests}
 
  }
 
 \details{
+There are two fundamentally different exact tests for comparing the equality of two binomial probabilities - Fisher's exact test (Fisher, 1925), and Barnard's exact test (Barnard, 1945). Fisher's exact test (Fisher, 1925) is the more popular of the two. In fact, Fisher was bitterly critical of Barnard's proposal for esoteric reasons that we will not go into here. For 2 x 2 tables, Barnard's test is more powerful than Fisher's, as Barnard noted in his 1945 paper, much to Fisher's chagrin. Anyway, perhaps due to its computational difficulty the Barnard's is not widely used. (Mehta et.al., 2003)
+
+Unconditional exact tests can be performed for binomial or multinomial models. The binomial model assumes the row or column margins (but not both) are known in advance, while the multinomial model assumes only the total sample size is known beforehand. 
+For the binomial model, the user needs to specify which margin is fixed (default is rows). Conditional tests (e.g., Fisher's exact test) have both row and column margins fixed, but this is a very uncommon design. (See Calhoun (2019) for more details.)
+
 If \code{x} is a matrix, it is taken as a two-dimensional contingency
    table, and hence its entries should be nonnegative integers.
    Otherwise, both \code{x} and \code{y} must be vectors of the same
@@ -70,9 +79,14 @@ Galili T. (2010) \url{http://www.r-statistics.com/2010/02/barnards-exact-test-a-
 Lin C.Y., Yang M.C. (2009) Improved p-value tests for comparing two independent binomial proportions. \emph{Communications in Statistics-Simulation and Computation}, 38(1):78-91.
 
 Trujillo-Ortiz, A., R. Hernandez-Walls, A. Castro-Perez, L. Rodriguez-Cardozo N.A. Ramos-Delgado and R. Garcia-Sanchez. (2004). Barnardextest:Barnard's Exact Probability Test. A MATLAB file. [WWW document]. \url{http://www.mathworks.com/}
+
+Mehta, C.R., Senchaudhuri, P. (2003) Conditional versus unconditional exact tests for comparing two binomials. \url{http://https://www.researchgate.net/publication/242179503_Conditional_versus_Unconditional_Exact_Tests_for_Comparing_Two_Binomials}
+
+Calhoun, P. (2019) Exact: Unconditional Exact Test. R package version
+  2.0. \cr \url{https://CRAN.R-project.org/package=Exact}
 }
 \author{
-Kamil Erguler, <k.erguler@cyi.ac.cy>, Peter Calhoun <calhoun.peter@gmail.com>, Rodrigo Duprat, Andri Signorell <andri@signorell.net> (interface)
+Peter Calhoun <calhoun.peter@gmail.com>, Andri Signorell <andri@signorell.net> (interface)
 }
 \seealso{\code{\link{fisher.test}}}
 
@@ -83,8 +97,6 @@ BarnardTest(tab)
 
 # Plotting the search for the nuisance parameter for a one-sided test
 bt <- BarnardTest(tab)
-plot(bt$nuisance.matrix[, 1:2],
-     t="l", xlab="nuisance parameter", ylab="p-value")
 
 # Plotting the tables included in the p-value
 ttab <- as.table(matrix(c(40, 14, 10, 30), nrow=2,
@@ -92,16 +104,12 @@ ttab <- as.table(matrix(c(40, 14, 10, 30), nrow=2,
 
 bt <- BarnardTest(ttab)
 bts <- bt$statistic.table
-plot(bts[, 1], bts[, 2],
-     col=hsv(bts[, 4] / 4, 1, 1),
-     t="p", xlab="n1", ylab="n2")
 
-# Plotting the difference between pooled and unpooled tests
-bts <- BarnardTest(ttab, pooled=TRUE)$statistic.table
-btw <- BarnardTest(ttab, pooled=FALSE)$statistic.table
-plot(bts[, 1], bts[, 2],
-     col=c("black", "white")[1 + as.numeric(bts[, 4]==btw[, 4])],
-     t="p", xlab="n1", ylab="n2")
+# Mehta et. al (2003)
+tab <- as.table(matrix(c(7, 12, 8, 3), nrow=2,
+                       dimnames=list(treat=c("vaccine","placebo"),
+                                     infection=c("yes","no"))))
+BarnardTest(tab, alternative="less")
 }
 
 \keyword{nonparametric}

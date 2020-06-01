@@ -10570,9 +10570,9 @@ PlotLinesA <- function(x, y, col=1:5, lty=1, lwd=1, lend = par("lend"), xlab = N
   }
 
   if(missing(y))
-    z <- x
+    z <- as.matrix(x)
   else
-    z <- y
+    z <- as.matrix(y)
 
 
   add.legend <- !identical(args.legend, NA)
@@ -10591,18 +10591,19 @@ PlotLinesA <- function(x, y, col=1:5, lty=1, lwd=1, lend = par("lend"), xlab = N
     do.call(Mar, as.list(mar))
   }
 
-  matplot(x, y, type="n", las=1, xlim=xlim, ylim=ylim, xaxt="n", yaxt=yaxt, main=main, xlab=xlab, ylab=ylab, cex = cex, ...)
-
-  # not clear what for, replaced by 0.99.27
-  # matplot(x, y, type="n", las=1, xlim=xlim, ylim=ylim, xaxt="n", yaxt=yaxt, main=main, xlab=xlab, ylab=ylab, cex = cex, ...)
-  if(!identical(xaxt, "n"))
-    # use rownames for x-axis if available, but only if either x or y is missing
-    if(!is.null(rownames(z)) && (missing(x) || missing(y)))
-      axis(side = 1, at=c(1:nrow(z)), rownames(z))
-    else
-      axis(side=1)
-
-  if(grid) grid()
+  if(!InDots(..., arg = "add", default=FALSE)){
+    # do not draw axes, labels and grid when only lines have to be added
+    matplot(x, y, type="n", las=1, xlim=xlim, ylim=ylim, xaxt="n", yaxt=yaxt, main=main, xlab=xlab, ylab=ylab, cex = cex, ...)
+    if(!identical(xaxt, "n"))
+      # use rownames for x-axis if available, but only if either x or y is missing
+      if(!is.null(rownames(z)) && (missing(x) || missing(y)))
+        axis(side = 1, at=c(1:nrow(z)), rownames(z))
+      else
+        axis(side=1)
+  
+    if(grid) grid()
+  }
+  
   matplot(x, y, type="l", lty=lty, col=col, lwd=lwd, lend=lend, xaxt="n", yaxt="n", add=TRUE)
 
   if(!is.na(pch))
@@ -10644,6 +10645,10 @@ PlotLinesA <- function(x, y, col=1:5, lty=1, lwd=1, lend = par("lend"), xlab = N
   if(!is.null(DescToolsOptions("stamp")))
     Stamp()
 
+  invisible()
+  
+  invisible(list(x=x, y=if(!missing(y)) y else NULL , args.legend=args.legend1))
+  
 }
 
 

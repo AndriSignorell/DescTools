@@ -54,12 +54,12 @@ PlotConDens(formula, data, col = NULL, lwd = 2, lty = 1, xlim = NULL, rev = TRUE
 %%  ~~who you are~~
 }
 
-\seealso{\code{\link{cdplot}}, \code{\link{spineplot}}, \code{\link{density}}, \code{\link{PlotMultDens}}
+\seealso{\code{\link{cdplot}}, \code{\link{spineplot}}, \code{\link{density}}, \code{\link{PlotMultiDens}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
 data(Pima.tr2, package="MASS")
-PlotConDens (diabetes ~ age | I((pregnant>0)*1L), 
+PlotConDens (type ~ age | I((npreg > 0)*1L), 
              data=Pima.tr2, col=c(hblue, hred), rev=FALSE, 
              panel.first=quote(grid()))
 }

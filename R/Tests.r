@@ -3161,106 +3161,181 @@ CochranArmitageTest <- function(x, alternative = c("two.sided","increasing","dec
 
 
 
-BarnardTest <- function (x, y = NULL, alternative = c("two.sided", "less", "greater"), dp = 0.001, pooled = TRUE ) {
+# BarnardTest <- function (x, y = NULL, alternative = c("two.sided", "less", "greater"), 
+#                          dp = 0.001, pooled = TRUE ) {
+# 
+#   # https://cran.r-project.org/web/packages/Barnard/index.html
+#   # Version:
+#   #   1.8
+#   # Published:
+#   #   2016-10-20
+#   
+#   if (is.matrix(x)) {
+#     r <- nrow(x)
+#     if ((r < 2) || (ncol(x) != r))
+#       stop("'x' must be square with at least two rows and columns")
+#     if (any(x < 0) || anyNA(x))
+#       stop("all entries of 'x' must be nonnegative and finite")
+#     DNAME <- deparse(substitute(x))
+#   } else {
+#     if (is.null(y))
+#       stop("if 'x' is not a matrix, 'y' must be given")
+#     if (length(x) != length(y))
+#       stop("'x' and 'y' must have the same length")
+#     DNAME <- paste(deparse(substitute(x)), "and", deparse(substitute(y)))
+#     OK <- complete.cases(x, y)
+#     x <- as.factor(x[OK])
+#     y <- as.factor(y[OK])
+#     r <- nlevels(x)
+#     if ((r < 2) || (nlevels(y) != r))
+#       stop("'x' and 'y' must have the same number of levels (minimum 2)")
+#     x <- table(x, y)
+#   }
+# 
+#   nr <- nrow(x)
+#   nc <- ncol(x)
+# 
+#   alternative <- match.arg(alternative)
+# 
+# 
+#   method <- c("Wald", "Score")[1 + pooled]
+#   METHOD <- gettextf("Barnards Unconditional 2x2-test", method)
+# 
+#   n1 <- x[1]
+#   n2 <- x[3]
+#   n3 <- x[2]
+#   n4 <- x[4]
+#   
+#   
+#   vec.size <- 1.0 + 1.0 / dp
+#   mat.size <- 4.0*(n1+n3+1)*(n2+n4+1) - 4.0*2.0 # correction for (0,0) and (n1+n3,n2+n4)
+# #    mat.size <- 4.0 * prod(rowSums(x) + 1) - 4.0*2.0 # (n1 + n3 + 1) * (n2 + n4 + 1)
+#   
+#   if(pooled)
+#     ret1 <- .C("ScoreS",
+#             as.integer(n1),
+#             as.integer(n2),
+#             as.integer(n3),
+#             as.integer(n4),
+#             as.numeric(dp),
+#             mat.size = as.integer(0),
+#             statistic.table = as.double(vector("double",mat.size)),
+#             statistic = as.double(0.0))
+#   else
+#     ret1 <- .C("WaldS",
+#                as.integer(n1),
+#                as.integer(n2),
+#                as.integer(n3),
+#                as.integer(n4),
+#                as.numeric(dp),
+#                mat.size = as.integer(0),
+#                statistic.table = as.double(vector("double",mat.size)),
+#                statistic = as.double(0.0))
+#   
+#   xr<-seq(1,ret1$mat.size,4)+2
+#   ret1$statistic.table[xr+1][(ret1$statistic<=0 & ret1$statistic.table[xr]<=ret1$statistic) | (ret1$statistic>=0 & ret1$statistic.table[xr]>=ret1$statistic)]<-1
+#   ret1$statistic.table[xr+1][(ret1$statistic<=0 & ret1$statistic.table[xr]>=-ret1$statistic) | (ret1$statistic>=0 & ret1$statistic.table[xr]<=-ret1$statistic)]<-2
+#   
+#   ret2 <- .C("Barnard",
+#             as.integer(n1),
+#             as.integer(n2),
+#             as.integer(n3),
+#             as.integer(n4),
+#             as.numeric(dp),
+#             as.integer(ret1$mat.size),
+#             nuisance.vector.x = as.double(vector("double",vec.size)),
+#             nuisance.vector.y0 = as.double(vector("double",vec.size)),
+#             nuisance.vector.y1 = as.double(vector("double",vec.size)),
+#             statistic.table = as.double(ret1$statistic.table),
+#             NAOK=TRUE)
+#   
+#   np0<-which.max(ret2$nuisance.vector.y0)
+#   np1<-which.max(ret2$nuisance.vector.y1)
+#   
+#   nuisance.matrix<-matrix(cbind(ret2$nuisance.vector.x,ret2$nuisance.vector.y0,ret2$nuisance.vector.y1),ncol=3)
+#   statistic.table<-matrix(ret1$statistic.table,ncol=4,byrow=TRUE,dimnames=list(c(),c("n1","n2","statistic","include.in.p.value")))
+# 
+# 
+#   STATISTIC <- ret1$statistic
+#   if(alternative == "two.sided"){
+#     PVAL <- ret2$nuisance.vector.y1[np1]
+#     ESTIMATE <- c(`Nuisance parameter` = ret2$nuisance.vector.x[np1])
+#   } else {
+#     PVAL <- ret2$nuisance.vector.y0[np0]
+#     ESTIMATE <- c(`Nuisance parameter` = ret2$nuisance.vector.x[np0])
+#   }
+# 
+#   names(STATISTIC) <- gettextf("%s statistic", method)
+#   RVAL <- list(statistic = STATISTIC, alternative = alternative, estimate = ESTIMATE,
+#                p.value = PVAL, method = METHOD, data.name = DNAME,
+#                statistic.table = statistic.table, nuisance.matrix = nuisance.matrix)
+# 
+#   class(RVAL) <- "htest"
+#   return(RVAL)
+#   
+# }
 
+
+BarnardTest <- function (x, y = NULL, alternative = c("two.sided", "less", "greater"), 
+                          method = c("csm", "csm approximate", "z-pooled", "z-unpooled", "boschloo", 
+                                     "santner and snell"), 
+                          fixed = 1, ...) {
+  
   if (is.matrix(x)) {
     r <- nrow(x)
-    if ((r < 2) || (ncol(x) != r))
+    if ((r < 2) || (ncol(x) != r)) 
       stop("'x' must be square with at least two rows and columns")
-    if (any(x < 0) || anyNA(x))
+    if (any(x < 0) || anyNA(x)) 
       stop("all entries of 'x' must be nonnegative and finite")
     DNAME <- deparse(substitute(x))
+    
   } else {
-    if (is.null(y))
+    if (is.null(y)) 
       stop("if 'x' is not a matrix, 'y' must be given")
-    if (length(x) != length(y))
+    if (length(x) != length(y)) 
       stop("'x' and 'y' must have the same length")
     DNAME <- paste(deparse(substitute(x)), "and", deparse(substitute(y)))
     OK <- complete.cases(x, y)
     x <- as.factor(x[OK])
     y <- as.factor(y[OK])
     r <- nlevels(x)
-    if ((r < 2) || (nlevels(y) != r))
+    if ((r < 2) || (nlevels(y) != r)) 
       stop("'x' and 'y' must have the same number of levels (minimum 2)")
     x <- table(x, y)
   }
-
-  nr <- nrow(x)
-  nc <- ncol(x)
-
-  # if ((nr == 2) && (nc == 2)) {
-  #   alternative <- char.expand(alternative, c("two.sided", "less", "greater"))
-  #   if (length(alternative) > 1L || is.na(alternative))
-  #     stop("alternative must be \"two.sided\", \"less\" or \"greater\"")
-  # }
-  alternative <- match.arg(alternative)
-
-  method <- c("Wald", "Score")[1 + pooled]
-  METHOD <- gettextf("Barnards Unconditional 2x2-test", method)
-
-  vec.size <- 1.0 + 1.0 / dp
-  mat.size <- 4.0 * prod(rowSums(x) + 1) # (n1 + n3 + 1) * (n2 + n4 + 1)
-
-
-  if(pooled)
-    ret1 <- .C( "ScoreS",
-                as.integer(x[1]), as.integer(x[2]), as.integer(x[3]), as.integer(x[4]),
-                as.numeric(dp),
-                mat.size = as.integer(0),
-                statistic.table = as.double(vector("double", mat.size)),
-                statistic = as.double(0.0))
-  else
-    ret1 <- .C( "WaldS",
-                as.integer(x[1]), as.integer(x[2]), as.integer(x[3]), as.integer(x[4]),
-                as.numeric(dp),
-                mat.size = as.integer(0),
-                statistic.table = as.double(vector("double", mat.size)),
-                statistic = as.double(0.0))
-
-
-  xr <- seq(1, ret1$mat.size, 4) + 2
-
-  ret1$statistic.table[xr + 1][
-    (ret1$statistic <= 0 & ret1$statistic.table[xr] <= ret1$statistic) |
-      (ret1$statistic >= 0 & ret1$statistic.table[xr] >= ret1$statistic)] <- 1
-
-  ret1$statistic.table[xr + 1][
-    (ret1$statistic <= 0 & ret1$statistic.table[xr] >= -ret1$statistic) |
-      (ret1$statistic >= 0 & ret1$statistic.table[xr] <= -ret1$statistic)] <- 2
-
-  ret2 <- .C("Barnard",
-             as.integer(x[1]), as.integer(x[2]), as.integer(x[3]), as.integer(x[4]),
-             as.numeric(dp),
-             as.integer(ret1$mat.size),
-             nuisance.vector.x = as.double(vector("double",vec.size)),
-             nuisance.vector.y0 = as.double(vector("double",vec.size)),
-             nuisance.vector.y1 = as.double(vector("double",vec.size)),
-             statistic.table = as.double(ret1$statistic.table))
-
-  np0 <- which.max(ret2$nuisance.vector.y0)
-  np1 <- which.max(ret2$nuisance.vector.y1)
-
-  nuisance.matrix <- matrix(cbind(ret2$nuisance.vector.x, ret2$nuisance.vector.y0, ret2$nuisance.vector.y1), ncol=3)
-  statistic.table <- matrix(ret1$statistic.table, ncol=4, byrow=TRUE, dimnames=list(c(), c("n1", "n2", "statistic", "include.in.p.value")))
-
-
-  STATISTIC <- ret1$statistic
-  if(alternative == "two.sided"){
-    PVAL <- ret2$nuisance.vector.y1[np1]
-    ESTIMATE <- c(`Nuisance parameter` = ret2$nuisance.vector.x[np1])
-  } else {
-    PVAL <- ret2$nuisance.vector.y0[np0]
-    ESTIMATE <- c(`Nuisance parameter` = ret2$nuisance.vector.x[np0])
+  
+  
+  lst <- list(data=x, 
+              alternative=match.arg(alternative), 
+              method=match.arg(method), 
+              to.plot = FALSE, ...)
+  
+  if(identical(fixed, 1)) {
+    lst[["model"]] <- c(lst, model="binomial")[["model"]]
+    lst[["cond.row"]] <- c(list(...), cond.row=TRUE)[["cond.row"]]
+    
+  } else if(identical(fixed, 2)) {
+    lst[["model"]] <- c(lst, model="binomial")[["model"]]
+    lst[["cond.row"]] <- c(list(...), cond.row=FALSE)[["cond.row"]]
+    
+  } else if(identical(fixed, NA)) {
+    lst[["model"]] <- c(lst, model="multinomial")[["model"]]
+    
+  } else if(identical(sort(fixed), c(1,2))) {
+    stop("Use fisher.test() if both margins, rows AND columns, are fixed")
+    # return(fisher.test(x, alternative = alternative))
+    
   }
+  
+  res <- do.call(exact.test, lst)
+  
+  
+  return(res)
+  
+}  
 
-  names(STATISTIC) <- gettextf("%s statistic", method)
-  RVAL <- list(statistic = STATISTIC, alternative = alternative, estimate = ESTIMATE,
-               p.value = PVAL, method = METHOD, data.name = DNAME,
-               statistic.table = statistic.table, nuisance.matrix = nuisance.matrix)
 
-  class(RVAL) <- "htest"
-  return(RVAL)
-}
+
 
 
 

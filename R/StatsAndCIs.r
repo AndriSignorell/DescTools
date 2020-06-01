@@ -548,16 +548,24 @@ CorCI <- function(rho, n, conf.level = 0.95, alternative = c("two.sided","less",
 
   alternative <- match.arg(alternative)
 
-  z <- FisherZ(rho)
-  sigma <- 1/sqrt(n - 3)
-
-  ci <- switch(alternative,
-               less = c(-Inf, z + sigma * qnorm(conf.level)),
-               greater = c(z - sigma * qnorm(conf.level), Inf),
-               two.sided = z + c(-1, 1) * sigma * qnorm((1 + conf.level)/2))
-  ci <- FisherZInv(ci)
+  # correct rho == 1 with rho == almost 1 in order to return ci = c(1, 1)
+  # which is a sensible value for the confidence interval
+  if(rho==1) 
+    ci <- c(1, 1)
+  
+  else {
+    z <- FisherZ(rho)
+    sigma <- 1/sqrt(n - 3)
+  
+    ci <- switch(alternative,
+                 less = c(-Inf, z + sigma * qnorm(conf.level)),
+                 greater = c(z - sigma * qnorm(conf.level), Inf),
+                 two.sided = z + c(-1, 1) * sigma * qnorm((1 + conf.level)/2))
+    ci <- FisherZInv(ci)
+  }
 
   return(c(cor = rho, lwr.ci = ci[1], upr.ci = ci[2]))
+  
 }
 
 
@@ -6155,6 +6163,10 @@ KendallTauB <- function(x, y = NULL, conf.level = NA, ...){
   # Compute asymptotic standard errors taub
   tauphi <- (2 * pdiff + Pdiff * colmat) * delta2 * delta1 + (Pdiff * rowmat * delta2)/delta1
   sigma2 <- ((sum(pi * tauphi^2) - sum(pi * tauphi)^2)/(delta1 * delta2)^4) / n
+  
+  # for very small pi/tauph it's possible that sigma2 gets negative so we cut small negative values here
+  # example:  KendallTauB(table(iris$Species, iris$Species))
+  if(sigma2 < .Machine$double.eps * 10) sigma2 <- 0
 
   if (is.na(conf.level)) {
     result <- taub
@@ -6382,8 +6394,14 @@ SpearmanRho <- function(x, y = NULL, use = c("everything", "all.obs", "complete.
   if (is.na(conf.level)) {
     result <- rho
   } else {
-    pr2 <- 1 - (1 - conf.level) / 2
-    result <- c(rho = rho, lwr.ci = max(ci[1], -1), upr.ci = min(ci[2], 1))
+    
+    if(rho == 1){     # will blast the fisher z transformation
+      result <- c(rho=1, lwr.ci=1, upr.ci=1)
+      
+    } else {
+      pr2 <- 1 - (1 - conf.level) / 2
+      result <- c(rho = rho, lwr.ci = max(ci[1], -1), upr.ci = min(ci[2], 1))
+    }
   }
   
   return(result)
