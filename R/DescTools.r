@@ -1881,6 +1881,48 @@ StrSpell <- function(x, upr="CAP", type = c("NATO", "Morse")){
 
 
 
+StrSplit <- function (x, split="", fixed = FALSE, perl = FALSE, useBytes = FALSE) {
+  # same as strsplit, but nicer defaults
+  res <- strsplit(x=x, split=split, fixed=fixed, perl=perl, useBytes=useBytes)
+  if(length(res)==1)
+    res <-  res[[1]]
+}
+
+
+
+SplitToCol <- function(x, split=" ", fixed = TRUE, na.form="", colnames=NULL){
+  
+  lst <- lapply(x, function(z)
+    strsplit(z, split = split, fixed = fixed))
+  
+  # we don't want to have values recycled here, but need same number
+  # of elements to afterwards be able to use rbind()
+  for(i in seq_along(lst)){
+    # find the maximal length of the splits in the column
+    maxlen <- max(sapply(lst[[i]], length))
+    # set all character vectors to same length
+    for(j in seq_along(lst[[i]])){
+      length(lst[[i]][[j]]) <- maxlen
+      # set na.form for missings
+      lst[[i]][[j]][is.na(lst[[i]][[j]])] <- na.form
+    }
+  }
+
+  # rbind all the columns
+  lst <- lapply(lst, function(z) do.call(rbind, z))
+  
+  res <- do.call(data.frame, list(lst, stringsAsFactors=FALSE))
+  
+  if(!is.null(colnames))
+    colnames(res) <- rep(colnames, length.out=ncol(res))
+  
+  # communicate the number of columns found 
+  attr(res, "cols") <- sapply(lst, ncol)
+  
+  return(res)
+  
+}
+
 
 
 

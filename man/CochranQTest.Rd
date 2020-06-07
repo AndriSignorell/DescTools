@@ -81,6 +81,15 @@ d.long <- reshape(d.frm, varying=1:3, times=names(d.frm)[c(1:3)],
 
 # after having done the hard work of data organisation, performing the test is a piece of cake....
 CochranQTest(resp ~ time | id, data=d.long)
+
+# and let's perform a post hoc analysis using mcnemar's test
+z <- split(d.long, f=d.long$time)
+pairwise.table(function(i, j) { 
+    mcnemar.test(z[[i]]$resp, z[[j]]$resp, correct=FALSE)$p.value
+  }, 
+  level.names = names(z), 
+  p.adjust.method = "fdr"
+)
 }
 
 
