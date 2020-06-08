@@ -1,12 +1,16 @@
 on:
   push:
-    branches: master
+    branches:
+      - master
+      - enable_automatic_checking
 
 name: pkgdown
 
 jobs:
   pkgdown:
-    runs-on: macOS-latest
+    runs-on: windows-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v2
 
@@ -18,19 +22,20 @@ jobs:
         run: |
           install.packages('remotes')
           saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
+          writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
         shell: Rscript {0}
 
       - name: Cache R packages
         uses: actions/cache@v1
         with:
           path: ${{ env.R_LIBS_USER }}
-          key: macOS-r-3.6-${{ hashFiles('.github/depends.Rds') }}
-          restore-keys: macOS-r-3.6-
+          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
 
       - name: Install dependencies
         run: |
           install.packages("remotes")
-          install.packages("http://www.omegahat.net/R/bin/windows/contrib/3.5.1/RDCOMClient_0.93-0.zip", repos = NULL, type="binary")
+          install.packages("http://www.omegahat.net/R/bin/windows/contrib/4.0/RDCOMClient_0.94-0.zip", repos = NULL, type="binary")
           Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS="true")
           remotes::install_deps(dependencies = TRUE)
           remotes::install_dev("pkgdown")
