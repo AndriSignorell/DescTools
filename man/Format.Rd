@@ -21,22 +21,22 @@ There's also an easygoing interface for format templates, defined as a list cons
 Format(x, digits = NULL, sci = NULL, big.mark = NULL,
        leading = NULL, zero.form = NULL, na.form = NULL,
        fmt = NULL, align = NULL, width = NULL, lang = NULL, 
-       eps = .Machine$double.eps, ...)
+       eps = NULL, ...)
 
 \method{Format}{table}(x, digits = NULL, sci = NULL, big.mark = NULL,
        leading = NULL, zero.form = NULL, na.form = NULL,
        fmt = NULL, align = NULL, width = NULL, lang = NULL, 
-       eps = .Machine$double.eps, ...)
+       eps = NULL, ...)
 
 \method{Format}{matrix}(x, digits = NULL, sci = NULL, big.mark = NULL,
        leading = NULL, zero.form = NULL, na.form = NULL,
        fmt = NULL, align = NULL, width = NULL, lang = NULL, 
-       eps = .Machine$double.eps, ...)
+       eps = NULL, ...)
 
 \method{Format}{default}(x, digits = NULL, sci = NULL, big.mark = NULL,
        leading = NULL, zero.form = NULL, na.form = NULL,
        fmt = NULL, align = NULL, width = NULL, lang = NULL, 
-       eps = .Machine$double.eps, ...)
+       eps = NULL, ...)
 
 Fmt(...)
 
@@ -84,7 +84,7 @@ This argument is send directly to the function \code{\link{StrAlign}()} as argum
   \item{lang}{optional value setting the language for the months and daynames. Can be either \code{"local"} for current locale or \code{"engl"} for english. If left to \code{NULL}, the DescToolsOption \code{"lang"} will be searched for and if not found \code{"local"} will be taken as default.
 %%     ~~Describe \code{value} here~~
 }
-\item{eps}{a numerical tolerance used mainly for formatting p values, those less than eps are formatted as "\code{< [eps]}" (where '[eps]' stands for \code{format(eps, digits))}.}
+\item{eps}{a numerical tolerance used mainly for formatting p values, those less than eps are formatted as "\code{< [eps]}" (where '[eps]' stands for \code{format(eps, digits))}. Default is \code{.Machine$double.eps}.}
 % \item{value}{the value to be overridden in the function \code{fmt}}.
 % \item{name}{the name of the format in \code{fmt}.}
 \item{\dots}{further arguments to be passed to or from methods. }

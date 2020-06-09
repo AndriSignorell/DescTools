@@ -6657,7 +6657,7 @@ Assocs <- function(x, conf.level = 0.95, verbose=NULL){
   if(verbose=="3") {
 
     # this is from boot::corr combined with ci logic from cor.test
-    r <- corr(d=CombPairs(1:nrow(x), 1:ncol(x)), as.vector(x))
+    r <- boot::corr(d=CombPairs(1:nrow(x), 1:ncol(x)), as.vector(x))
     r.ci <- CorCI(rho = r, n = sum(x), conf.level = conf.level)
 
     res <- rbind(res

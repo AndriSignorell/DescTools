@@ -4797,7 +4797,7 @@ Format <- function(x, digits = NULL, sci = NULL
                    , big.mark=NULL, leading = NULL
                    , zero.form = NULL, na.form = NULL
                    , fmt = NULL, align = NULL, width = NULL
-                   , lang = NULL,  eps = .Machine$double.eps, ...){
+                   , lang = NULL,  eps = NULL, ...){
   UseMethod("Format")
 }
 
@@ -4822,7 +4822,7 @@ Format <- function(x, digits = NULL, sci = NULL
 Format.data.frame <- function(x, digits = NULL, sci = NULL
                               , big.mark=NULL, leading = NULL
                               , zero.form = NULL, na.form = NULL
-                              , fmt = NULL, align = NULL, width = NULL, lang = NULL, eps = .Machine$double.eps, ...){
+                              , fmt = NULL, align = NULL, width = NULL, lang = NULL, eps = NULL, ...){
 
   # organise arguments as list ...
   lst <- list(digits=digits, sci=sci, big.mark=big.mark, leading=leading,
@@ -4849,7 +4849,7 @@ Format.data.frame <- function(x, digits = NULL, sci = NULL
 Format.matrix <- function(x, digits = NULL, sci = NULL
                            , big.mark=NULL, leading = NULL
                            , zero.form = NULL, na.form = NULL
-                           , fmt = NULL, align = NULL, width = NULL, lang = NULL,  eps = .Machine$double.eps, ...){
+                           , fmt = NULL, align = NULL, width = NULL, lang = NULL,  eps = NULL, ...){
 
   x[,] <- Format.default(x=x, digits=digits, sci=sci, big.mark=big.mark,
                          leading=leading, zero.form=zero.form, na.form=na.form,
@@ -4863,7 +4863,7 @@ Format.matrix <- function(x, digits = NULL, sci = NULL
 Format.table <- function(x, digits = NULL, sci = NULL
                           , big.mark = NULL, leading = NULL
                           , zero.form = NULL, na.form = NULL
-                          , fmt = NULL, align = NULL, width = NULL, lang = NULL,  eps = .Machine$double.eps, ...){
+                          , fmt = NULL, align = NULL, width = NULL, lang = NULL,  eps = NULL, ...){
   x[] <- Format.default(x=x, digits=digits, sci=sci, big.mark=big.mark,
                          leading=leading, zero.form=zero.form, na.form=na.form,
                          fmt=fmt, align=align, width=width, lang=lang, eps=eps, ...)
@@ -4969,7 +4969,9 @@ as.CDateFmt <- function(fmt) {
 Format.default <- function(x, digits = NULL, sci = NULL
                            , big.mark = NULL, leading = NULL
                            , zero.form = NULL, na.form = NULL
-                           , fmt = NULL, align = NULL, width = NULL, lang = NULL,  eps = .Machine$double.eps, ...){
+                           , fmt = NULL, align = NULL, width = NULL
+                           , lang = NULL
+                           , eps = NULL, ...){
   
   
   .format.pval <- function(x, eps, digits=NULL){
@@ -5102,7 +5104,7 @@ Format.default <- function(x, digits = NULL, sci = NULL
     if(!is.null(align))     fmt$align <- align
     if(!is.null(width))     fmt$sci <- width
     if(!is.null(lang))      fmt$lang <- lang
-    fmt$eps <- eps
+    if(!is.null(eps))       fmt$eps <- eps
     
     return(do.call(Format, c(fmt, x=list(x))))
   }
@@ -5127,6 +5129,9 @@ Format.default <- function(x, digits = NULL, sci = NULL
     sci <- Coalesce(NAIfZero(getOption("scipen")), 7) # default
   
   sci <- rep(sci, length.out=2)
+  
+  if(is.null(eps))
+    eps <- .Machine$double.eps
   
   if(is.null(big.mark)) big.mark <- ""
   
@@ -5195,11 +5200,18 @@ Format.default <- function(x, digits = NULL, sci = NULL
     if(fmt != "")
       warning(gettextf("Non interpretable fmt code will be ignored.", fmt))
     
-    if(all(is.na(sci))) {
+    if(identical(sci, NA)) {
       # use is.na(sci) to inhibit scientific notation
       r <- formatC(x, digits = digits, width = width, format = "f",
                    big.mark=big.mark)
     } else {
+      
+      # so far a numeric value, interpret negative digits
+      if(!is.null(digits) && digits < 0){
+        x <- round(x, digits=digits)
+        digits <- 0
+      }
+      
       idx <- (((abs(x) > .Machine$double.eps) & (abs(x) <= 10^-sci[2])) | (abs(x) >= 10^sci[1]))
       r <- as.character(rep(NA, length(x)))
       
@@ -5459,7 +5471,7 @@ print.fmt <- function(x, ...){
     return(z)
   }
 
-  cat(gettextf("Format name:    %s%s\n", attr(x, "name"), # deparse(substitute(x)),
+  cat(gettextf("Format name:    %s%s\n", attr(x, "fmt_name"), # deparse(substitute(x)),
                ifelse(identical(attr(x, "default"), TRUE), " (default)", "")),  # deparse(substitute(x))),
       gettextf("Description:   %s\n", Label(x)),
       gettextf("Definition:    %s\n", CollapseList(x)),
