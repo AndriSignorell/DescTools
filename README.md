@@ -83,10 +83,12 @@ install.packages("RDCOMClient", repos="http://www.omegahat.net/R")
 
 The *omegahat* repository does not benefit from the same update service
 as CRAN. So you may be forced to install a package compiled with an
-earlier version, which usually is not a problem. Use, e.g., for R 3.6x:
+earlier version, which usually is not a problem. Use e.g. for R 3.6.x/R
+4.0:
 
 ``` r
 url <- "http://www.omegahat.net/R/bin/windows/contrib/3.5.1/RDCOMClient_0.93-0.zip"
+url <- "http://www.omegahat.net/R/bin/windows/contrib/4.0/RDCOMClient_0.94-0.zip"
 install.packages(url, repos = NULL, type = "binary")
 ```
 
