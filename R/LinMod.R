@@ -568,7 +568,7 @@ MAE.lm <- function(x, ...)
 MAE.default <- function (x, ref, na.rm=FALSE, ...) {
   # mean will bark, if there are NAs, so no need to do here anyhing further
   # (the difference will report NAs anyway)
-  mean(abs(ref-x), na.rm=na.rm)
+  mean(abs(ref-x), na.rm=na.rm, ...)
 }
 
 MSE <- function(x, ...) UseMethod("MSE")
@@ -578,7 +578,7 @@ MSE.lm <- function(x, ...)
   MSE(predict(x, type="response"), model.response(x$model), na.rm=FALSE)
 
 MSE.default <- function (x, ref, na.rm=FALSE, ...) {
-  mean((ref-x)^2, na.rm=na.rm)
+  mean((ref-x)^2, na.rm=na.rm, ...)
 }
 
 RMSE <- function(x, ...) UseMethod("RMSE")
@@ -589,7 +589,7 @@ RMSE.lm <- function(x, ...)
 
 
 RMSE.default <- function (x, ref, na.rm=FALSE, ...) {
-  sqrt(MSE(x, ref, na.rm))
+  sqrt(MSE(x, ref, na.rm, ...))
 }
 
 
@@ -602,7 +602,7 @@ MAPE.lm <- function(x, ...)
 MAPE.default <- function (x, ref, na.rm=FALSE, ...) {
   # mean will bark, if there are NAs, so no need to do here anyhing further
   # (the difference will report NAs anyway)
-  mean(abs((ref-x)/ref), na.rm=na.rm)
+  mean(abs((ref-x)/ref), na.rm=na.rm, ...)
 }
 
 
@@ -614,7 +614,7 @@ SMAPE.lm <- function(x, ...)
 
 SMAPE.default <- function (x, ref, na.rm=FALSE, ...) {
   
-  mean( 2 * abs(ref-x) / (abs(x) + abs(ref)) )
+  mean( 2 * abs(ref-x) / (abs(x) + abs(ref)), na.rm=na.rm, ...)
 }
 
 # Chen and Yang (2004), in an unpublished working paper, defined the sMAPE as
