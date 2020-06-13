@@ -48,9 +48,10 @@ A vector with the length of the number of columns of the data.frame containing t
 }
 \examples{
 d.frm <- data.frame(res1=c("2 [-3,5] **", "5 [-2,6] ***", "9 [-3,1]"),
-                    res2=c("5 [6,8] **", "7 [-2,9]", "4 [3,5] **"))
+                    res2=c("5 [6,8] **", "7 [-2,9]", "4 [3,5] **"), 
+                    stringsAsFactors=FALSE)
 
-SplitToCol(d.frm, na.form = "-", colnames=c("coef", "ci", "pval"))
+SplitToCol(d.frm, na.form="-", colnames=c("coef", "ci", "pval"))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory (show via RShowDoc("KEYWORDS")):

@@ -10699,9 +10699,8 @@ PlotLinesA <- function(x, y, col=1:5, lty=1, lwd=1, lend = par("lend"), xlab = N
   if(!is.null(DescToolsOptions("stamp")))
     Stamp()
 
-  invisible()
-  
-  invisible(list(x=x, y=if(!missing(y)) y else NULL , args.legend=args.legend1))
+  invisible(list(x=x, y= if (!missing(y)) y else NULL, 
+                 args.legend = if(add.legend) args.legend1 else NULL))
   
 }
 
@@ -14173,9 +14172,27 @@ WrdStyle <- function (wrd = DescToolsOptions("lastWord")) {
 
 WrdGoto <- function (name, what = wdConst$wdGoToBookmark, wrd = DescToolsOptions("lastWord")) {
   wrdSel <- wrd[["Selection"]]
-  wrdSel$GoTo(what=what, Name=name)
+  
+  if(what == wdConst$wdGoToBookmark){
+    wrdBookmarks <- wrd[["ActiveDocument"]][["Bookmarks"]]
+    if(wrdBookmarks$exists(name)){
+      wrdSel$GoTo(what=what, Name=name)
+      res <- TRUE
+    } else {
+      warning(gettextf("Bookmark %s does not exist, so there's nothing to select", name))
+      res <- FALSE
+    }
+  } else {
+    wrdSel$GoTo(what=what, Name=name)
+    
+  }
+  
   invisible()
 }
+
+
+
+
 
 
 WrdPageBreak <- function(wrd = DescToolsOptions("lastWord")) {
@@ -14185,7 +14202,7 @@ WrdPageBreak <- function(wrd = DescToolsOptions("lastWord")) {
 
 
 
-WrdBookmark <- function(bookmark, wrd = DescToolsOptions("lastWord")){
+WrdBookmark <- function(name, wrd = DescToolsOptions("lastWord")){
   
   wbms <- wrd[["ActiveDocument"]][["Bookmarks"]]
   
@@ -14193,7 +14210,7 @@ WrdBookmark <- function(bookmark, wrd = DescToolsOptions("lastWord")){
     # get bookmark names
     bmnames <- sapply(seq(wbms$count()), function(i) wbms[[i]]$name())
     
-    id <- which(bookmark == bmnames)
+    id <- which(name == bmnames)
     
     if(length(id)==0)   # name found?
       res <- NULL 
@@ -14211,6 +14228,27 @@ WrdBookmark <- function(bookmark, wrd = DescToolsOptions("lastWord")){
   return(res)  
   
 }
+
+
+# WrdGetBookmarkID <- function(name, wrd = DescToolsOptions("lastWord")){
+#   
+#   wrdBookmarks <- wrd[["ActiveDocument"]][["Bookmarks"]]
+#   
+#   if(wrdBookmarks$exists(name)){
+#     if((n <- wrdBookmarks$count()) > 0) {
+#       for(i in 1:n){
+#         if(name == wrdBookmarks[[i]]$name())
+#           return(i)
+#       }
+#     }
+#   } else {
+#     warning(gettextf("Bookmark %s does not exist.", name))
+#     return(NA_integer_)
+#   }
+#   
+# }
+
+
 
 
 WrdInsertBookmark <- function (name, wrd = DescToolsOptions("lastWord")) {
@@ -14243,6 +14281,26 @@ WrdUpdateBookmark <- function (name, text, what = wdConst$wdGoToBookmark, wrd = 
   wrdBookmarks$Add(name)
   invisible()
 }
+
+
+
+
+WrdDeleteBookmark <- function(name, wrd = DescToolsOptions("lastWord")){
+  
+  wrdBookmarks <- wrd[["ActiveDocument"]][["Bookmarks"]]
+  if(wrdBookmarks$exists(name)){
+    WrdBookmark(name)$Delete()
+    res <- TRUE
+  } else {
+    warning(gettextf("Bookmark %s does not exist, so there's nothing to delete", name))
+    res <- FALSE
+  }
+  
+  return(res)
+  # TRUE for success / FALSE for fail
+}  
+
+
 
 
 
@@ -15527,7 +15585,7 @@ GetNewWrd <- function (visible = TRUE, template = "Normal", header = FALSE,
       .WrdPrepRep(wrd = hwnd, main = main)
     
     # Check for existance of bookmark Main and update if found
-    if(!is.null(WrdBookmark(bookmark = "Main", wrd = hwnd))){
+    if(!is.null(WrdBookmark(name = "Main", wrd = hwnd))){
       WrdUpdateBookmark(name="Main", text = main, wrd=hwnd)
       WrdUpdateFields(wrd=hwnd, where = c(1,7))
     }
