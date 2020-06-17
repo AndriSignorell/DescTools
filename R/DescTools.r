@@ -5089,6 +5089,11 @@ Format.default <- function(x, digits = NULL, sci = NULL
   
   
   if(is.null(fmt)) fmt <- ""
+  
+  if (length(fmt) ==1 & is.character(fmt) & (fmt %in% names(DescToolsOptions("fmt")))) {
+    fmt <- Fmt(fmt)
+  }  
+  
   if(class(fmt) == "fmt") {
     
     # we want to offer the user the option to overrun format definitions
@@ -7948,7 +7953,8 @@ Pal <- function(pal, n=100, alpha=1) {
                   "RedWhiteBlue0","RedWhiteBlue1","RedWhiteBlue2","RedWhiteBlue3","Helsana","Helsana1","Tibco","RedGreen1",
                   "Spring","Soap","Maiden","Dark","Accent","Pastel","Fragile","Big","Long","Night","Dawn","Noon","Light",
                   "GrandBudapest","Moonrise1","Royal1","Moonrise2","Cavalcanti","Royal2","GrandBudapest2","Moonrise3",
-                  "Chevalier","Zissou","FantasticFox","Darjeeling","Rushmore","BottleRocket","Darjeeling2","Helsana2")
+                  "Chevalier","Zissou","FantasticFox","Darjeeling","Rushmore","BottleRocket","Darjeeling2","Helsana2",
+                  "Tequila")
 
 
     if(is.numeric(pal)){
@@ -8028,6 +8034,8 @@ Pal <- function(pal, n=100, alpha=1) {
            , Rushmore = res <- c("#E1BD6D", "#EABE94", "#0B775E", "#35274A", "#F2300F")
            , BottleRocket = res <- c("#A42820", "#5F5647", "#9B110E", "#3F5151", "#4E2A1E", "#550307", "#0C1707")
            , Darjeeling2 = res <- c("#ECCBAE", "#046C9A", "#D69C4E", "#ABDDDE",  "#000000")
+           , Tequila = res <- c("#642580", "#853b88","#ab4189","#c52966","#d34376","#d55586","#d55586","#ba3723","#cc6101","#c6904a","#eebd00","#f7d501","#060c18","#00323b","#00484f")
+
     )
 
     attr(res, "name") <- pal
@@ -8989,6 +8997,90 @@ HexToRgb <- function(hex) {
 RgbToHex <- function(col){
   paste0("#", paste0(DecToHex(round(col)), collapse=""))
 }
+
+
+
+CmykToRgb <- function(cyan, magenta, yellow, black, maxColorValue=1){
+  
+  if (missing(black)) {
+    res <- rgb(red= maxColorValue- cyan,
+               green= maxColorValue - magenta,
+               blue = maxColorValue - yellow, 
+               maxColorValue = maxColorValue)
+    
+  } else {
+    
+    res <-  rgb(
+      red= ((maxColorValue-cyan) * (maxColorValue-black)) / maxColorValue,
+      green= ((maxColorValue-magenta) * (maxColorValue-black)) / maxColorValue,
+      blue = ((maxColorValue-yellow) * (maxColorValue-black)) / maxColorValue,
+      maxColorValue = maxColorValue)
+    
+  }
+  
+  return(res)
+  
+}
+
+
+RgbToCmy <- function(col, maxColorValue=1) {
+  
+  if(!is.matrix(col)) {
+    col <- lapply(col, function(x) c(strtoi(substr(x,2,3), 16L), strtoi(substr(x,4,5), 16L), strtoi(substr(x,6,7), 16L)))
+    col <- do.call("cbind", col)
+  }
+  
+  cbind(
+    C = 1 - ( col[,1] / maxColorValue ),
+    M = 1 - ( col[,2] / maxColorValue ),
+    Y = 1 - ( col[,3] / maxColorValue )
+  )   
+  
+}
+
+
+CmyToCmyk <- function(col){
+  # CMY values <- From 0 to 1
+  
+  if (is.null(dim(col))) 
+    if (length(col) > 2) 
+      col <- matrix(col, ncol=3, byrow=TRUE)
+    
+    var.K <- rep(1, dim(col)[1])
+    
+    CC <- which(col[,1] < var.K)
+    if (length(CC)>0) var.K[CC] <- col[CC,1]
+    
+    CM <- which(col[,2] < var.K)
+    if (length(CM)>0) var.K[CM] <- col[CM,2]
+    
+    CY <- which(col[,3] < var.K)
+    if (length(CY)>0) var.K[CY] <- col[CY,3]
+    
+    cbind(
+      C = ( col[,1] - var.K ) / ( 1 - var.K ),
+      M = ( col[,2] - var.K ) / ( 1 - var.K ), 
+      Y = ( col[,3] - var.K ) / ( 1 - var.K ), 
+      K = var.K )
+}
+
+
+CmykToCmy <- function(col){
+  
+  #CMYK values <- From 0 to 1
+  
+  if (is.null(dim(col))) 
+    if (length(col)>2) 
+      col <- matrix(col, ncol=4,byrow=TRUE)
+    cbind(
+      C = ( col[,1] * ( 1 - col[,4] ) + col[,4] ),
+      M = ( col[,2] * ( 1 - col[,4] ) + col[,4] ),
+      Y = ( col[,3] * ( 1 - col[,4] ) + col[,4] )
+    )
+    
+}
+
+
 
 
 ColToOpaque <- function(col, alpha=NULL, bg=NULL){
@@ -12719,45 +12811,45 @@ PlotPairs <- function(x, g=NULL, col=1, pch=19, col.smooth=1, main="",
 
 
 
+
+
 TOne <- function(x, grp = NA, add.length=TRUE,
                  colnames=NULL, vnames=NULL, total=TRUE,
                  align="\\l", FUN = NULL, TEST = NULL, intref="high",
-                 fmt.pval= as.fmt(fmt="*", na.form="   ")){
-
-
-  afmt <- Fmt("abs")
-  pfmt <- Fmt("per")
-  nfmt <- Fmt("num")
-
+                 fmt=list(abs  = Fmt("abs"),
+                          num  = Fmt("num"), per=Fmt("per"),
+                          pval = as.fmt(fmt = "*", na.form = "   ")) ) {
+  
+  
   if(is.null(vnames)){
     vnames <- if(is.null(colnames(x))) "Var1" else colnames(x)
     default_vnames <- TRUE
   } else {
     default_vnames <- TRUE
   }
-
+  
   # creates the table one in a study
   if(is.null(FUN)){
     num_fun <- function(x){
       # wie soll die einzelne Zelle fuer numerische Daten aussehen
       gettextf("%s (%s)",
-               Format(mean(x, na.rm=TRUE), fmt=nfmt),
-               Format(sd(x, na.rm=TRUE), fmt=nfmt))
+               Format(mean(x, na.rm=TRUE), fmt=fmt$num),
+               Format(sd(x, na.rm=TRUE), fmt=fmt$num))
     }
   } else {
     num_fun <- FUN
   }
-
+  
   TEST.def <- list(num=list(fun=function(x, g){kruskal.test(x, g)$p.val},
-                     lbl="Kruskal-Wallis test"),
-            cat=list(fun=function(x, g){chisq.test(table(x, g))$p.val},
-                     lbl="Chi-Square test"),
-            dich=list(fun=function(x, g){fisher.test(table(x, g))$p.val},
-                      lbl="Fisher exact test"))
-
+                            lbl="Kruskal-Wallis test"),
+                   cat=list(fun=function(x, g){chisq.test(table(x, g))$p.val},
+                            lbl="Chi-Square test"),
+                   dich=list(fun=function(x, g){fisher.test(table(x, g))$p.val},
+                             lbl="Fisher exact test"))
+  
   if(is.null(TEST))  # the defaults
-     TEST <- TEST.def
-
+    TEST <- TEST.def
+  
   # define test for the singlest tests
   if(is.null(TEST[["num"]]))
     TEST[["num"]] <- TEST.def[["num"]]
@@ -12765,11 +12857,11 @@ TOne <- function(x, grp = NA, add.length=TRUE,
     TEST[["cat"]] <- TEST.def[["cat"]]
   if(is.null(TEST[["dich"]]))
     TEST[["dich"]] <- TEST.def[["dich"]]
-
+  
   num_test <- TEST[["num"]]$fun
   cat_test <- TEST[["cat"]]$fun
   dich_test <- TEST[["dich"]]$fun
-
+  
   # replaced for flexible test in 0.99.19
   # num_row <- function(x, g, total=TRUE, test="kruskal.test", vname = deparse(substitute(x))){
   #   # wie soll die zeile aussehen fuer numerische Daten
@@ -12778,11 +12870,11 @@ TOne <- function(x, grp = NA, add.length=TRUE,
   #   #      paste(Format(p$p.value, fmt="*", na.form = "   "), ifelse(is.na(p), "", .FootNote(1))))
   #         paste(Format(p$p.value, fmt="*", na.form = "   "), ifelse(is.na(p$p.value), "", .FootNote(1))))
   # }
-
-
+  
+  
   num_row <- function(x, g, total=TRUE, vname = deparse(substitute(x))){
     if(!identical(g, NA)) {
-      res <- Format(num_test(x, g), fmt=fmt.pval)
+      res <- Format(num_test(x, g), fmt=fmt$pval)
       num_test_label <- names(res)
     } else {
       res <- ""
@@ -12790,27 +12882,27 @@ TOne <- function(x, grp = NA, add.length=TRUE,
     cbind(var=vname, total = num_fun(x), rbind(tapply(x, g, num_fun)),
           paste(res, .FootNote(1)))
   }
-
-
+  
+  
   cat_mat <- function(x, g, vname=deparse(substitute(x))){
-
+    
     if(inherits(x, "character"))
       x <- factor(x)
-
+    
     tab <- table(x, g)
     ptab <- prop.table(tab, margin = 2)
     tab <- addmargins(tab, 2)
     ptab <- cbind(ptab, Sum=prop.table(table(x)))
-
-
+    
+    
     # crunch tab and ptab
     m <- matrix(NA, nrow=nrow(tab), ncol=ncol(tab))
     m[,] <- gettextf("%s (%s)",
-                     Format(tab, fmt=afmt),
-                     Format(ptab, fmt=pfmt))
+                     Format(tab, fmt=fmt$abs),
+                     Format(ptab, fmt=fmt$per))
     # totals to the left
     m <- m[, c(ncol(m), 1:(ncol(m)-1))]
-
+    
     # set rownames
     m <- cbind( c(vname, paste(" ", levels(x))),
                 rbind("", m))
@@ -12820,63 +12912,63 @@ TOne <- function(x, grp = NA, add.length=TRUE,
       p <- cat_test(x, g)
     else
       p <- NA
-    m <- cbind(m, c(paste(Format(p, fmt=fmt.pval), ifelse(is.na(p), "", .FootNote(3))), rep("", nlevels(x))))
-
+    m <- cbind(m, c(paste(Format(p, fmt=fmt$pval), ifelse(is.na(p), "", .FootNote(3))), rep("", nlevels(x))))
+    
     if(nrow(m) <=3) {
       m[2,1] <- gettextf("%s (= %s)", m[1, 1], row.names(tab)[1])
       m <- m[2, , drop=FALSE]
     }
-
+    
     colnames(m) <- c("var","total", head(colnames(tab), -1), "")
     m
   }
-
+  
   dich_mat <- function(x, g, vname=deparse(substitute(x))){
-
+    
     tab <- table(x, g)
-
+    
     if(identical(dim(tab), c(2L,2L))){
-#      p <- fisher.test(tab)$p.value
+      #      p <- fisher.test(tab)$p.value
       p <- dich_test(x, g)
       foot <- .FootNote(2)
     } else {
-#      p <- chisq.test(tab)$p.value
+      #      p <- chisq.test(tab)$p.value
       p <- cat_test(x, g)
       foot <- .FootNote(3)
     }
-
+    
     ptab <- prop.table(tab, 2)
     tab <- addmargins(tab, 2)
     ptab <- cbind(ptab, Sum = prop.table(tab[,"Sum"]))
-
+    
     m <- matrix(NA, nrow=nrow(tab), ncol=ncol(tab))
     m[,] <- gettextf("%s (%s)",
-                     Format(tab, fmt=afmt),
-                     Format(ptab, fmt=pfmt))
-
+                     Format(tab, fmt=fmt$abs),
+                     Format(ptab, fmt=fmt$per))
+    
     # totals to the left
     m <- m[, c(ncol(m), 1:(ncol(m)-1)), drop=FALSE]
-
-    m <- rbind(c(vname, m[1,], paste(Format(p, fmt=fmt.pval), foot)))
+    
+    m <- rbind(c(vname, m[1,], paste(Format(p, fmt=fmt$pval), foot)))
     colnames(m) <- c("var","total", head(colnames(tab), -1), "")
-
+    
     m
   }
-
-
+  
+  
   intref <- match.arg(intref, choices = c("high", "low"))
-
+  
   if(mode(x) %in% c("logical","numeric","complex","character"))
     x <- data.frame(x)
-
+  
   # find description types
   ctype <- sapply(x, class)
   # should we add "identical type": only one value??
   ctype[sapply(x, IsDichotomous, strict=TRUE, na.rm=TRUE)] <- "dich"
-
+  
   ctype[sapply(ctype, function(x) any(x %in% c("numeric","integer")))] <- "num"
   ctype[sapply(ctype, function(x) any(x %in% c("factor","ordered","character")))] <- "cat"
-
+  
   if(identical(grp, NA)){
     # no grouping factor, let's define something appropriate
     grp <- rep(1, nrow(x))
@@ -12887,34 +12979,34 @@ TOne <- function(x, grp = NA, add.length=TRUE,
     TEST[["cat"]]$lbl <- "None"
     TEST[["dich"]]$lbl <- "None"
   }
-
+  
   lst <- list()
   for(i in 1:ncol(x)){
     if(ctype[i] == "num"){
       lst[[i]] <- num_row(x[,i], grp, vname=vnames[i])
-
+      
     } else if(ctype[i] == "cat") {
       lst[[i]] <- cat_mat(x[,i], grp, vname=vnames[i])
-
+      
     } else if(ctype[i] == "dich") {
-
+      
       # refactor all types, numeric, logic but not factors and let user choose
       # the level to be reported.
       if(!is.factor(x[, i])) {   # should only apply to boolean, integer or numerics
         xi <- factor(x[, i])
         if(match.arg(intref, choices = c("high", "low")) == "high")
           xi <- relevel(xi, tail(levels(xi), 1))
-
+        
       } else {
         xi <- x[, i]
       }
-
+      
       if (default_vnames) {
         lst[[i]] <- dich_mat(xi, grp, vname = gettextf("%s (= %s)", vnames[i], head(levels(xi), 1)))
       } else {
         lst[[i]] <- dich_mat(xi, grp, vname = gettextf("%s", vnames[i]))
       }
-
+      
       #
       # if(default_vnames){
       #   # only declare the ref level on default_vnames
@@ -12924,43 +13016,44 @@ TOne <- function(x, grp = NA, add.length=TRUE,
       #   # the user is expected to define ref level, if he wants one
       #   lst[[i]] <- dich_mat(x[,i], grp, vname=gettextf("%s", vnames[i]))
       # }
-
+      
     } else {
       lst[[i]] <- rbind(c(colnames(x)[i], rep(NA, nlevels(grp) + 2)))
     }
-
+    
   }
-
+  
   res <- do.call(rbind, lst)
-
+  
   if(add.length)
-    res <- rbind(c("n", c(Format(sum(!is.na(grp)), fmt=afmt),
-                          paste(Format(table(grp), fmt=afmt), " (",
-                                Format(prop.table(table(grp)), fmt=pfmt), ")", sep=""), ""))
+    res <- rbind(c("n", c(Format(sum(!is.na(grp)), fmt=fmt$abs),
+                          paste(Format(table(grp), fmt=fmt$abs), " (",
+                                Format(prop.table(table(grp)), fmt=fmt$per), ")", sep=""), ""))
                  , res)
-
+  
   if(!is.null(colnames))
     colnames(res) <- colnames
-
+  
   # align the table
   if(align != "\\l")
     res[,-c(1, ncol(res))] <- StrAlign(res[,-c(1, ncol(res))], sep = align)
-
+  
   if(all(grp==1)){
     res <- res[, -3]
     total <- TRUE
   }
-
+  
   if(!total)
     res <- res[, -2]
-
-
+  
+  
   attr(res, "legend") <- gettextf("%s) %s, %s) %s, %s) %s\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1",
                                   .FootNote(1), TEST[["num"]]$lbl, .FootNote(2), TEST[["dich"]]$lbl, .FootNote(3), TEST[["cat"]]$lbl)
-
+  
   class(res) <- "TOne"
   return(res)
 }
+
 
 
 

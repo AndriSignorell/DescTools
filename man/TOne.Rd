@@ -10,7 +10,8 @@ Create a table summarizing continuous, categorical and dichotomous variables, op
 \usage{
 TOne(x, grp = NA, add.length = TRUE, colnames = NULL, vnames = NULL, total = TRUE,
      align = "\\\\l", FUN = NULL, TEST = NULL, intref = "high",
-     fmt.pval = as.fmt(fmt = "*", na.form = "   "))
+     fmt = list(abs = Fmt("abs"), num  = Fmt("num"), per = Fmt("per"),
+              pval = as.fmt(fmt = "*", na.form = "   ")) )
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -37,7 +38,8 @@ TOne(x, grp = NA, add.length = TRUE, colnames = NULL, vnames = NULL, total = TRU
 \item{FUN}{the function to be used as location and dispersion measure (typically \code{mean}/\code{sd} or alternatively \code{median}/\code{IQR}). See examples.}
 \item{TEST}{a list of functions to be used to test the variables. Must be named as "num", "cat" and "dich" and be defined as function with arguments \code{(x, g)}, generating something similar to a p.value. (See examples.) }
 \item{intref}{one out of \code{"high"} (default) or \code{"low"}, defining which value of a dichotomous numeric or logical variable should be reported. Usually this will be \code{1} or \code{TRUE}. Setting it to \code{"low"} will report the lower value \code{0} or \code{FALSE}. }
-\item{fmt.pval}{format code or function for the p-values of the tests, default is \code{as.fmt(fmt = "p", na.form = "   ")}}
+
+\item{fmt}{format codes for absolute, numeric and percentage values, and for the p-values of the tests. }
 }
 \details{There are three types of variables currently implemented: numeric, factor and variables with only two levels.
 %%  ~~ If necessary, more details than the description above ~~
@@ -95,7 +97,8 @@ TOne(x = iris[, -5], grp = iris[, 5],
                         lbl = "Chi-Square test"),
                dich = list(fun = function(x, g){fisher.test(table(x, g))$p.val},
                          lbl = "Fisher exact test")),
-     fmt.pval = as.fmt(fmt = "p", na.form = "   ")
+       fmt = list(abs = Fmt("abs"), num  = Fmt("num"), per = Fmt("per"),
+                pval = as.fmt(fmt = "*", na.form = "   ")) 
 )
 
 # dichotomous integer or logical values can be reported by the high or low value

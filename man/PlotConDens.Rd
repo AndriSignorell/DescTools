@@ -8,7 +8,8 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-PlotConDens(formula, data, col = NULL, lwd = 2, lty = 1, xlim = NULL, rev = TRUE, args.dens = NULL, ...)
+PlotConDens(formula, data, col = NULL, lwd = 2, lty = 1, xlim = NULL, rev = TRUE, 
+            args.dens = NULL, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
