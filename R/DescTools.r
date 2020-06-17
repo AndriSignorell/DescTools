@@ -5090,9 +5090,10 @@ Format.default <- function(x, digits = NULL, sci = NULL
   
   if(is.null(fmt)) fmt <- ""
   
-  if (length(fmt) ==1 & is.character(fmt) & (fmt %in% names(DescToolsOptions("fmt")))) {
-    fmt <- Fmt(fmt)
-  }  
+  if (length(fmt) == 1) 
+    if(is.character(fmt) & (fmt %in% names(DescToolsOptions("fmt")))) {
+      fmt <- Fmt(fmt)
+    }  
   
   if(class(fmt) == "fmt") {
     
