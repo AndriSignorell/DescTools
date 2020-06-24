@@ -1828,6 +1828,8 @@ SplitPath <- function(path, last.is.file=NULL) {
   lst$dirname <- paste(lst$dirname, "/", sep="")
   lst$fullfilename <- basename(path)
 
+  lst$fullpath <- paste0(BlankIfNA(lst$drive), lst$dirname)
+  
   # lst$filename <- strsplit(lst$fullfilename, "\\.")[[1]][1]
   # lst$extension <- strsplit(lst$fullfilename, "\\.")[[1]][2]
 
