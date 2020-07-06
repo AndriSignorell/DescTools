@@ -1413,23 +1413,47 @@ StrExtract <- function(x, pattern, ...){
 
 
 
-StrTrunc <- function(x, maxlen = 20) {
+# StrTrunc <- function(x, maxlen = 20) {
+# 
+#   # original truncString from prettyR
+#   # author: Jim Lemon
+# 
+#   #   toolong <- nchar(x) > maxlen
+#   #   maxwidth <- ifelse(toolong, maxlen - 3, maxlen)
+#   #   chopx <- substr(x, 1, maxwidth)
+#   #
+#   #   for(i in 1:length(x)) if(toolong[i]) chopx[i] <- paste(chopx[i], "...", sep="")
+#   #
+#   #   return(formatC(chopx, width = maxlen, flag = ifelse(justify == "left", "-", " ")) )
+# 
+#   # ... but this is all a bit clumsy, let's have it shorter - and much faster!  ;-)
+# 
+#   paste(substr(x, 0L, maxlen), ifelse(nchar(x) > maxlen, "...", ""), sep="")
+# }
 
-  # original truncString from prettyR
-  # author: Jim Lemon
 
-  #   toolong <- nchar(x) > maxlen
-  #   maxwidth <- ifelse(toolong, maxlen - 3, maxlen)
-  #   chopx <- substr(x, 1, maxwidth)
-  #
-  #   for(i in 1:length(x)) if(toolong[i]) chopx[i] <- paste(chopx[i], "...", sep="")
-  #
-  #   return(formatC(chopx, width = maxlen, flag = ifelse(justify == "left", "-", " ")) )
-
-  # ... but this is all a bit clumsy, let's have it shorter - and much faster!  ;-)
-
-  paste(substr(x, 0L, maxlen), ifelse(nchar(x) > maxlen, "...", ""), sep="")
+StrTrunc <- function (x, maxlen = 20, ellipsis="...", useWordBoundaries=FALSE) {
+  
+  # recycle max length
+  maxlen <- rep(maxlen, length.out=length(x))
+  
+  # correct for word boundaries
+  if(useWordBoundaries){
+    # use minimum of original maxlen and closest smaller maxlen respecting word boundaries 
+    maxlen <- sapply(seq_along(x), function(i) {
+      ll <- gregexpr("\\b\\W+\\b", x[i], perl = TRUE)[[1]]
+      ll <- max(ll[ll <= maxlen[i]]) 
+      return( if(ll < maxlen[i])
+        ll
+        else 
+          maxlen[i] )
+    })
+    
+  }
+  paste0(substr(x, 0L, maxlen), ifelse(nchar(x) > maxlen, ellipsis, ""))
 }
+
+
 
 
 StrAbbr <- function(x, minchar=1, method=c("left","fix")){
