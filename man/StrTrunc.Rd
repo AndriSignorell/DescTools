@@ -4,7 +4,7 @@
  Truncate Strings and Add Ellipses If a String is Truncated.
 }
 \usage{
- StrTrunc(x, maxlen = 20, ellipsis = "...", wbound = FALSE))
+ StrTrunc(x, maxlen = 20, ellipsis = "...", wbound = FALSE)
 }
 \arguments{
  \item{x}{a vector of strings.}

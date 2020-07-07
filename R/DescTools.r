@@ -1432,13 +1432,13 @@ StrExtract <- function(x, pattern, ...){
 # }
 
 
-StrTrunc <- function (x, maxlen = 20, ellipsis="...", useWordBoundaries=FALSE) {
+StrTrunc <- function (x, maxlen = 20, ellipsis="...", wbound=FALSE) {
   
   # recycle max length
   maxlen <- rep(maxlen, length.out=length(x))
   
   # correct for word boundaries
-  if(useWordBoundaries){
+  if(wbound){
     # use minimum of original maxlen and closest smaller maxlen respecting word boundaries 
     maxlen <- sapply(seq_along(x), function(i) {
       ll <- gregexpr("\\b\\W+\\b", x[i], perl = TRUE)[[1]]
