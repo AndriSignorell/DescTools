@@ -14,7 +14,7 @@
 }
 \description{
  Truncates one or more strings to a specified length, adding an ellipsis (...)
- to those strings that have been truncated. 
+ to those strings that have been truncated. The truncation can also be performed using word boundaries.
  Use \code{\link{formatC}} to justify the strings if needed.
 }
 \value{
@@ -28,11 +28,22 @@
 }
 
 \examples{
-set.seed(1789)
-x <- sapply(seq(10),  function(x) paste(sample(letters, sample(20,1)), collapse=""))
-x
+x <- c("this is short", "and this is a longer text", 
+       "whereas this is a much longer story, which could not be told shorter")
 
+# simple truncation on 10 characters
 StrTrunc(x, maxlen=10)
+
+# NAs remain NA
+StrTrunc(c(x, NA_character_), maxlen=15, wbound=TRUE)
+
+# using word boundaries
+for(i in -5:20)
+  print(StrTrunc(x, maxlen=i, wbound=TRUE))
+
+# compare
+for(i in -5:20)
+  print(StrTrunc(x, maxlen=i, wbound=FALSE))
 
 # right justification
 formatC(StrTrunc(x, maxlen=10), width=10, flag=" ")

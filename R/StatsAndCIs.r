@@ -550,7 +550,7 @@ CorCI <- function(rho, n, conf.level = 0.95, alternative = c("two.sided","less",
 
   # correct rho == 1 with rho == almost 1 in order to return ci = c(1, 1)
   # which is a sensible value for the confidence interval
-  if(rho==1) 
+  if(identical(rho, 1)) 
     ci <- c(1, 1)
   
   else {
@@ -6395,7 +6395,7 @@ SpearmanRho <- function(x, y = NULL, use = c("everything", "all.obs", "complete.
     result <- rho
   } else {
     
-    if(rho == 1){     # will blast the fisher z transformation
+    if(identical(rho, 1)){     # will blast the fisher z transformation
       result <- c(rho=1, lwr.ci=1, upr.ci=1)
       
     } else {
