@@ -6479,14 +6479,19 @@ fmt <- function(...){
 
 as.fmt <- function(...){
 
-  # dots <- match.call(expand.dots=FALSE)$...
-  # new by 0.99.22
-
   dots <- list(...)
+  
+  # extract special argument "label" from dots arguments
+  if(!is.null(lbl <- dots[["label"]])){
+    dots[["label"]] <- NULL
+  } else {
+    # the default label
+    lbl <- "Number format"
+  }
 
   structure(dots,
             .Names = names(dots),
-            label = "Number format",
+            label = lbl,
             class = "fmt")
 
 }
@@ -12865,6 +12870,18 @@ TOne <- function(x, grp = NA, add.length=TRUE,
                           pval = as.fmt(fmt = "*", na.form = "   ")) ) {
   
   
+  # set the formats, take the provided fmt and combine with defaults
+  fmt <- c(fmt,
+           list(abs  = Fmt("abs"),
+                num  = Fmt("num"), 
+                per=Fmt("per"),
+                pval = as.fmt(fmt = "*", na.form = "   ")))
+  # use the first instance, so user defined formats are preferred 
+  # and the standards come into effect if there are no user specifications
+  fmt <- fmt[!duplicated(fmt)]
+  # we could restrict the names here to c("abs","num","per","pval")
+  
+  
   if(is.null(vnames)){
     vnames <- if(is.null(colnames(x))) "Var1" else colnames(x)
     default_vnames <- TRUE
@@ -12875,7 +12892,7 @@ TOne <- function(x, grp = NA, add.length=TRUE,
   # creates the table one in a study
   if(is.null(FUN)){
     num_fun <- function(x){
-      # wie soll die einzelne Zelle fuer numerische Daten aussehen
+      # the cell for numeric data
       gettextf("%s (%s)",
                Format(mean(x, na.rm=TRUE), fmt=fmt$num),
                Format(sd(x, na.rm=TRUE), fmt=fmt$num))
@@ -12884,6 +12901,7 @@ TOne <- function(x, grp = NA, add.length=TRUE,
     num_fun <- FUN
   }
   
+  # the default tests for quantitative and categorical data
   TEST.def <- list(num=list(fun=function(x, g){kruskal.test(x, g)$p.val},
                             lbl="Kruskal-Wallis test"),
                    cat=list(fun=function(x, g){chisq.test(table(x, g))$p.val},
