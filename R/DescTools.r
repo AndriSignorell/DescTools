@@ -1406,7 +1406,7 @@ StrExtract <- function(x, pattern, ...){
   regmatches(x, m)
 
   res <- rep(NA_character_, length(m))
-  res[m>0] <- regmatches(x, m)
+  res[ZeroIfNA(m)>0] <- regmatches(x, m)
   res
 
 }

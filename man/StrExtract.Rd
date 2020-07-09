@@ -38,9 +38,10 @@ StrExtract(x, pattern, ...)
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-txt <- c("G1:E001", "G2:E002", "G3:E003")
+txt <- c("G1:E001", "No points here", "G2:E002", "G3:E003", NA)
+
 # extract everything after the :
-StrExtract(":.*", txt)
+StrExtract(x=txt, pattern=":.*")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 \keyword{character}
