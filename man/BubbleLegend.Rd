@@ -69,7 +69,7 @@ PlotBubble(x=d.pizza$delivery_min, y=d.pizza$temperature, area=d.pizza$price,
 
 BubbleLegend("bottomleft", area=c(1500, 1000, 500), frame=TRUE,
              cols=SetAlpha("steelblue",0.5), bg="green",
-             radius = c(1, 2.5, 5), labels=c(1500, 1000, 500), cex=0.8,
+             labels=c(1500, 1000, 500), cex=0.8,
              cols.lbl=c("yellow", "red","blue"))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

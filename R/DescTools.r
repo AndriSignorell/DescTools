@@ -4837,7 +4837,7 @@ Prec <- function (x) {
 # http://www.originlab.com/doc/Origin-Help/Options-Dialog-NumFormat-Tab
 
 Format <- function(x, digits = NULL, sci = NULL
-                   , big.mark=NULL, leading = NULL
+                   , big.mark=NULL, ldigits = NULL
                    , zero.form = NULL, na.form = NULL
                    , fmt = NULL, align = NULL, width = NULL
                    , lang = NULL,  eps = NULL, ...){
@@ -4863,12 +4863,12 @@ Format <- function(x, digits = NULL, sci = NULL
 
 
 Format.data.frame <- function(x, digits = NULL, sci = NULL
-                              , big.mark=NULL, leading = NULL
+                              , big.mark=NULL, ldigits = NULL
                               , zero.form = NULL, na.form = NULL
                               , fmt = NULL, align = NULL, width = NULL, lang = NULL, eps = NULL, ...){
 
   # organise arguments as list ...
-  lst <- list(digits=digits, sci=sci, big.mark=big.mark, leading=leading,
+  lst <- list(digits=digits, sci=sci, big.mark=big.mark, ldigits=ldigits,
               zero.form=zero.form, na.form=na.form, fmt=fmt, align=align,
               width=width, lang=lang, eps=eps)
   # ... in order to be able to filter NULLs
@@ -4878,7 +4878,7 @@ Format.data.frame <- function(x, digits = NULL, sci = NULL
 
   for(i in seq(attr(arg, "maxdim")))
     x[,i] <- Format(x[,i], digits = arg$digits[i],
-                    sci = arg$sci[i], big.mark = arg$big.mark[i], leading = arg$leading[i],
+                    sci = arg$sci[i], big.mark = arg$big.mark[i], ldigits = arg$ldigits[i],
                     zero.form = arg$zero.form[i],
                     na.form = arg$na.form[i], fmt = arg$fmt[i], align = arg$align[i],
                     width = arg$width[i], lang = arg$lang[i], eps= arg$eps[i])
@@ -4890,12 +4890,12 @@ Format.data.frame <- function(x, digits = NULL, sci = NULL
 
 
 Format.matrix <- function(x, digits = NULL, sci = NULL
-                           , big.mark=NULL, leading = NULL
+                           , big.mark=NULL, ldigits = NULL
                            , zero.form = NULL, na.form = NULL
                            , fmt = NULL, align = NULL, width = NULL, lang = NULL,  eps = NULL, ...){
 
   x[,] <- Format.default(x=x, digits=digits, sci=sci, big.mark=big.mark,
-                         leading=leading, zero.form=zero.form, na.form=na.form,
+                         ldigits=ldigits, zero.form=zero.form, na.form=na.form,
                          fmt=fmt, align=align, width=width, lang=lang, eps=eps,...)
 
   class(x) <- c("Format", class(x))
@@ -4904,11 +4904,11 @@ Format.matrix <- function(x, digits = NULL, sci = NULL
 
 
 Format.table <- function(x, digits = NULL, sci = NULL
-                          , big.mark = NULL, leading = NULL
+                          , big.mark = NULL, ldigits = NULL
                           , zero.form = NULL, na.form = NULL
                           , fmt = NULL, align = NULL, width = NULL, lang = NULL,  eps = NULL, ...){
   x[] <- Format.default(x=x, digits=digits, sci=sci, big.mark=big.mark,
-                         leading=leading, zero.form=zero.form, na.form=na.form,
+                        ldigits=ldigits, zero.form=zero.form, na.form=na.form,
                          fmt=fmt, align=align, width=width, lang=lang, eps=eps, ...)
 
   class(x) <- c("Format", class(x))
@@ -5010,7 +5010,7 @@ as.CDateFmt <- function(fmt) {
 
 
 Format.default <- function(x, digits = NULL, sci = NULL
-                           , big.mark = NULL, leading = NULL
+                           , big.mark = NULL, ldigits = NULL
                            , zero.form = NULL, na.form = NULL
                            , fmt = NULL, align = NULL, width = NULL
                            , lang = NULL
@@ -5077,24 +5077,24 @@ Format.default <- function(x, digits = NULL, sci = NULL
     
   }
   
-  .format.eng <- function(x, digits = NULL, leading = NULL
+  .format.eng <- function(x, digits = NULL, ldigits = 1
                           , zero.form = NULL, na.form = NULL){
     
     s <- lapply(strsplit(format(x, scientific=TRUE), "e"), as.numeric)
     y <- unlist(lapply(s, "[[", 1))
     pwr <- unlist(lapply(s, "[", 2))
     
-    return(paste(Format(y * 10^(pwr %% 3), digits=digits, leading=leading,
+    return(paste(Format(y * 10^(pwr %% 3), digits=digits, ldigits=ldigits,
                         zero.form = zero.form, na.form=na.form)
                  , "e"
                  , c("-","+")[(pwr >= 0) + 1]
-                 , Format(abs((pwr - (pwr %% 3))), leading = "00", digits=0)
+                 , Format(abs((pwr - (pwr %% 3))), ldigits = 2, digits=0)
                  , sep="")
     )
     
   }
   
-  .format.engabb <- function(x, digits = NULL, leading = NULL
+  .format.engabb <- function(x, digits = NULL, ldigits = 1
                              , zero.form = NULL, na.form = NULL){
     
     s <- lapply(strsplit(format(x, scientific=TRUE), "e"), as.numeric)
@@ -5103,14 +5103,14 @@ Format.default <- function(x, digits = NULL, sci = NULL
     
     a <- paste("1e"
                , c("-","+")[(pwr >= 0) + 1]
-               , Format(abs((pwr - (pwr %% 3))), leading = "00", digits=0)
+               , Format(abs((pwr - (pwr %% 3))), ldigits=2, digits=0)
                , sep="")
     am <- d.prefix$abbr[match(as.numeric(a), d.prefix$mult)]
     
     a[!is.na(am)] <- am[!is.na(am)]
     a[a == "1e+00"] <- ""
     
-    return(paste(Format(y * 10^(pwr %% 3), digits=digits, leading=leading,
+    return(paste(Format(y * 10^(pwr %% 3), digits=digits, ldigits=ldigits,
                         zero.form = zero.form, na.form=na.form)
                  , " " , a
                  , sep="")
@@ -5147,7 +5147,7 @@ Format.default <- function(x, digits = NULL, sci = NULL
     if(!is.null(digits))    fmt$digits <- digits
     if(!is.null(sci))       fmt$sci <- sci
     if(!is.null(big.mark))  fmt$big.mark <- big.mark
-    if(!is.null(leading))   fmt$leading <- leading
+    if(!is.null(ldigits))   fmt$ldigits <- ldigits
     if(!is.null(zero.form)) fmt$zero.form <- zero.form
     if(!is.null(na.form))   fmt$na.form <- na.form
     if(!is.null(align))     fmt$align <- align
@@ -5223,10 +5223,10 @@ Format.default <- function(x, digits = NULL, sci = NULL
     r <- .format.pstars(x, eps, digits)
     
   } else if(fmt=="eng"){
-    r <- .format.eng(x, digits=digits, leading=leading, zero.form=zero.form, na.form=na.form)
+    r <- .format.eng(x, digits=digits, ldigits=ldigits, zero.form=zero.form, na.form=na.form)
     
   } else if(fmt=="engabb"){
-    r <- .format.engabb(x, digits=digits, leading=leading, zero.form=zero.form, na.form=na.form)
+    r <- .format.engabb(x, digits=digits, ldigits=ldigits, zero.form=zero.form, na.form=na.form)
     
   } else if(fmt=="e"){
     r <- formatC(x, digits = digits, width = width, format = "e",
@@ -5278,9 +5278,9 @@ Format.default <- function(x, digits = NULL, sci = NULL
                                                  big.mark=big.mark, drop0trailing = FALSE))
     }
     
-    if(!is.null(leading)){
+    if(!is.null(ldigits)){
       # handle leading zeros ------------------------------
-      if(leading %in% c("","drop")) {
+      if(ldigits == 0) {
         # drop leading zeros
         r <- gsub("(?<![0-9])0+\\.", "\\.", r, perl = TRUE)
         
@@ -5290,14 +5290,14 @@ Format.default <- function(x, digits = NULL, sci = NULL
         # old: mind the minus
         # res <- gsub("[^[:digit:]]0+\\.","\\.", res)
         
-      } else if(grepl("^[0]*$", leading)){
+      } else {
         # leading contains only zeros, so let's use them as leading zeros
         #         old:
         #         n <- nchar(leading) - unlist(lapply(lapply(strsplit(res, "\\."), "[", 1), nchar))
         
         # old: did not handle - correctly
         # res <- StrPad(res, pad = "0", width=nchar(res) + pmax(n, 0), adj="right")
-        r <- .leading.zero(r, nchar(leading))
+        r <- .leading.zero(r, ldigits)
       }
     }
     
@@ -9342,15 +9342,24 @@ FindColor <- function(x, cols=rev(heat.colors(100)), min.x=NULL, max.x=NULL,
 
 SetAlpha <- function(col, alpha=0.5) {
 
-  if (length(alpha) < length(col)) alpha <- rep(alpha, length.out = length(col))
-  alpha[na <- alpha %)(% c(0, 1)] <- NA
-  if (length(col) < length(alpha)) col <- rep(col, length.out = length(alpha))
-  col[na] <- NA
+  # by 0.99.37.001
+  # this is redundant (since when actually??), as adjustcolor() does the same job
+  # ???
+  # should we deprecate?
   
-  acol <- substr(ColToHex(col), 1, 7)
-  acol[!is.na(alpha)] <- paste(acol[!is.na(alpha)], DecToHex(round(alpha[!is.na(alpha)]*255,0)), sep="")
-  acol[is.na(col)] <- NA
-  return(acol)
+  # if (length(alpha) < length(col)) alpha <- rep(alpha, length.out = length(col))
+  # alpha[na <- alpha %)(% c(0, 1)] <- NA
+  # if (length(col) < length(alpha)) col <- rep(col, length.out = length(alpha))
+  # col[na] <- NA
+  # 
+  # acol <- substr(ColToHex(col), 1, 7)
+  # acol[!is.na(alpha)] <- paste(acol[!is.na(alpha)], DecToHex(round(alpha[!is.na(alpha)]*255,0)), sep="")
+  # acol[is.na(col)] <- NA
+  # return(acol)
+  
+  
+  Vectorize(adjustcolor)(col= col, alpha.f = alpha)
+  
 }
 
 
@@ -9987,7 +9996,7 @@ PlotECDF <- function(x, breaks=NULL, col=Pal()[1],
 
   # the defaults
   axargs1 <- list(side = 2, at = seq(0, 1, 0.25),
-                  labels = Format(seq(0, 1, 0.25), leading = "", digits=2),
+                  labels = Format(seq(0, 1, 0.25), ldigits = 0, digits=2),
                   las = 1, xaxs = "e", lwd.axis=1) 
   
   axargs1 <- ClearArgs(provided = c(as.list(environment()), list(...)),  # all provided arguments and their values 
@@ -12107,7 +12116,7 @@ PlotWeb <- function(m, col=c(hred, hblue), lty=NULL, lwd = NULL, args.legend=NUL
   i <- c(which.min(d.m$d), which.max(ifelse(d.m$d<=0, d.m$d, NA)), which.min(ifelse(d.m$d>0, d.m$d, NA)), which.max(d.m$d))
 
   args.legend1 <- list( x="bottomright",
-                        legend=Format(d.m$d[i], digits=3, leading="drop"), lwd = d.m$d.sc[i],
+                        legend=Format(d.m$d[i], digits=3, ldigits=0), lwd = d.m$d.sc[i],
                         col=rep(col, each=2), bg="white", cex=0.8)
   if ( !is.null(args.legend) ) { args.legend1[names(args.legend)] <- args.legend }
   add.legend <- TRUE
@@ -12204,9 +12213,9 @@ PlotCashFlow <- function(x, y, xlim=NULL, labels=y, mar=NULL, cex.per=par("cex")
   DrawRegPolygon(x=x, y=y/yf, rot=pi/6 + (y>0) * pi, radius.x = .1, col=1)
 
   # periods
-  BoxedText(x0, -.3, Format(x0, leading="00", digits=0), border = NA, cex=cex.per)
+  BoxedText(x0, -.3, Format(x0, ldigits=2, digits=0), border = NA, cex=cex.per)
   # ticks
-  BoxedText(x0 + 0.5, .2, Format(seq_along(x0), leading="00", digits=0), 
+  BoxedText(x0 + 0.5, .2, Format(seq_along(x0), ldigits=2, digits=0), 
             border = NA, cex=cex.tck)
   # cashflows
   BoxedText(x=x, y=sign(y) *(abs(y/yf)+.3), labels = labels, border = NA, cex=cex.cash)

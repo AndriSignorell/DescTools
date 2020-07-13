@@ -2091,8 +2091,8 @@ BinomDiffCI <- function(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided"
              l2 <- w2[2]
              u2 <- w2[3]
 
-             CI.lower <- max(-1, est + kappa * sqrt(l1*(1-l1)/n1 + u2*(1-u2)/n2))
-             CI.upper <- min( 1, est - kappa * sqrt(u1*(1-u1)/n1 + l2*(1-l2)/n2))
+             CI.lower <- est - kappa * sqrt(l1*(1-l1)/n1 + u2*(1-u2)/n2)
+             CI.upper <- est + kappa * sqrt(u1*(1-u1)/n1 + l2*(1-l2)/n2)
            },
            "scorecc" = {   # Newcombe
 
@@ -2103,8 +2103,8 @@ BinomDiffCI <- function(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided"
              l2 <- w2[2]
              u2 <- w2[3]
 
-             CI.lower <- max(-1, est + sqrt((p1.hat - l1)^2 + (u2-p2.hat)^2) )
-             CI.upper <- min( 1, est - sqrt((u1-p1.hat)^2 + (p2.hat-l2)^2) )
+             CI.lower <- max(-1, est - sqrt((p1.hat - l1)^2 + (u2-p2.hat)^2) )
+             CI.upper <- min( 1, est + sqrt((u1-p1.hat)^2 + (p2.hat-l2)^2) )
 
            },
            "mee" = {   # Mee, also called Farrington-Mannig

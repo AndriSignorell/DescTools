@@ -19,22 +19,22 @@ There's also an easygoing interface for format templates, defined as a list cons
 }
 \usage{
 Format(x, digits = NULL, sci = NULL, big.mark = NULL,
-       leading = NULL, zero.form = NULL, na.form = NULL,
+       ldigits = NULL, zero.form = NULL, na.form = NULL,
        fmt = NULL, align = NULL, width = NULL, lang = NULL, 
        eps = NULL, ...)
 
 \method{Format}{table}(x, digits = NULL, sci = NULL, big.mark = NULL,
-       leading = NULL, zero.form = NULL, na.form = NULL,
+       ldigits = NULL, zero.form = NULL, na.form = NULL,
        fmt = NULL, align = NULL, width = NULL, lang = NULL, 
        eps = NULL, ...)
 
 \method{Format}{matrix}(x, digits = NULL, sci = NULL, big.mark = NULL,
-       leading = NULL, zero.form = NULL, na.form = NULL,
+       ldigits = NULL, zero.form = NULL, na.form = NULL,
        fmt = NULL, align = NULL, width = NULL, lang = NULL, 
        eps = NULL, ...)
 
 \method{Format}{default}(x, digits = NULL, sci = NULL, big.mark = NULL,
-       leading = NULL, zero.form = NULL, na.form = NULL,
+       ldigits = NULL, zero.form = NULL, na.form = NULL,
        fmt = NULL, align = NULL, width = NULL, lang = NULL, 
        eps = NULL, ...)
 
@@ -59,7 +59,7 @@ as.CDateFmt(fmt)
   \item{big.mark}{character; if not empty used as mark between every 3 decimals before the decimal point. Default is "" (none).
 %%     ~~Describe \code{big.mark} here~~  big.interval is not implemented, would anyone need that??
 }
-  \item{leading}{character string that can be used for setting leading zeros. "000" would make sure that at least 3 digits on the left side will be printed. Setting leading to "drop" will yield results like ".452" for 0.452. The default \code{NULL} will leave the numbers as they are.
+  \item{ldigits}{number of leading zeros. 3 would make sure that at least 3 digits on the left side will be printed. Setting ldigits to 0 will yield results like ".452" for 0.452. The default \code{NULL} will leave the numbers as they are (meaning at least one 0 digit).
 %%     ~~Describe \code{drop0leading} here~~
 }
   \item{zero.form}{character, string specifying how zeros should be specially formatted. Useful for pretty printing 'sparse' objects.
@@ -194,7 +194,7 @@ Format(as.Date(c("2014-11-28", "2014-1-2")), fmt="ddd, d mmmm yyyy", lang="engl"
 x <- pi * 10^(-10:10)
 
 Format(x, digits=3, fmt="\%", sci=NA)
-Format(x, digits=4, sci=c(4, 6), leading = "drop", width=9, align=".")
+Format(x, digits=4, sci=c(4, 6), ldigits=0, width=9, align=".")
 
 
 # format a matrix
@@ -205,9 +205,9 @@ Format(m, digits=1)
 
 # engineering format
 Format(x, fmt="eng",  digits=2)
-Format(x, fmt="engabb", leading="00", digits=2)
+Format(x, fmt="engabb", ldigits=2, digits=2)
 # combine with grams [g]
-paste(Format(x, fmt="engabb", leading="00", digits=2), "g", sep="")
+paste(Format(x, fmt="engabb", ldigits=2, digits=2), "g", sep="")
 
 # example form symnum
 pval <- rev(sort(c(outer(1:6, 10^-(1:3)))))

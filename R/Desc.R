@@ -1080,7 +1080,7 @@ print.Desc.logical  <- function(x, digits = NULL, ...) {
     rownames(out) <- rownames(x$afrq)
     colnames(out) <- c("freq", "perc",
                        gettextf(c("lci%s", "uci%s"),
-                                Format(x$conf.level, digits=2, leading="drop")))
+                                Format(x$conf.level, digits=2, ldigits=0)))
 
     txt <- capture.output(print(StrTrim(out), quote=FALSE, right=TRUE, print.gap=2))
     cat(paste(txt[1], DescToolsOptions("footnote")[1],

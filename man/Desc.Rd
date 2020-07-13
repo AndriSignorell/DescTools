@@ -334,7 +334,7 @@ Fmt(per=as.fmt(digits=2, fmt="\%"))
 Desc(area ~ driver, d.pizza, plotit=FALSE)
 
 Fmt(abs=as.fmt(digits=0, big.mark="'"))
-Fmt(per=as.fmt(digits=3, leading="drop"))
+Fmt(per=as.fmt(digits=3, ldigits=0))
 Desc(area ~ driver, d.pizza, plotit=FALSE)
 
 # plot arguments can be fixed in detail
