@@ -2004,7 +2004,7 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
 
 BinomDiffCI <- function(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided","left","right"),
                         method=c("wald", "waldcc", "ac", "score", "scorecc", "mn",
-                                 "mee", "blj", "ha","beal")) {
+                                 "mee", "blj", "ha", "hal", "jp")) {
 
 
   if(missing(method)) method <- "ac"
@@ -2014,7 +2014,7 @@ BinomDiffCI <- function(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided"
 
   iBinomDiffCI <- function(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided","left","right"),
                         method=c("wald", "waldcc", "ac", "score", "scorecc", "mn",
-                                 "mee", "blj", "ha", "beal")) {
+                                 "mee", "blj", "ha", "hal", "jp")) {
     #   .Wald #1
     #   .Wald (Corrected) #2
     #   .Exact
@@ -2026,9 +2026,13 @@ BinomDiffCI <- function(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided"
     # http://www.jiangtanghu.com/blog/2012/09/23/statistical-notes-5-confidence-intervals-for-difference-between-independent-binomial-proportions-using-sas/
     #  Interval estimation for the difference between independent proportions: comparison of eleven methods.
 
+    # https://www.lexjansen.com/wuss/2016/127_Final_Paper_PDF.pdf
+    # http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.633.9380&rep=rep1&type=pdf
+    # Newcombe 1998 is free
+    
     method <- match.arg(arg = method,
                         choices = c("wald", "waldcc", "ac", "score", "scorecc", "mn",
-                                    "mee", "blj", "ha"))
+                                    "mee", "blj", "ha", "hal", "jp"))
 
     sides <- match.arg(sides, choices = c("two.sided","left","right"), several.ok = FALSE)
     if(sides!="two.sided")
@@ -2111,17 +2115,25 @@ BinomDiffCI <- function(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided"
 
              .score <- function (p1, n1, p2, n2, dif) {
 
+               if(dif > 1) dif <- 1
+               if(dif < -1) dif <- -1
+               
                diff <- p1 - p2 - dif
+               
                if (abs(diff) == 0) {
                  res <- 0
-               }
-               else {
+                 
+               } else {
                  t <- n2/n1
                  a <- 1 + t
                  b <- -(1 + t + p1 + t * p2 + dif * (t + 2))
                  c <- dif * dif + dif * (2 * p1 + t + 1) + p1 + t * p2
                  d <- -p1 * dif * (1 + dif)
                  v <- (b/a/3)^3 - b * c/(6 * a * a) + d/a/2
+                 # v might be very small, resulting in a value v/u^3 > |1| 
+                 # causing a numeric error for acos(v/u^3)
+                 # see:  x1=10, n1=10, x2=0, n1=10
+                 if(abs(v) < .Machine$double.eps) v <- 0
                  s <- sqrt((b/a/3)^2 - c/a/3)
                  u <- ifelse(v>0, 1,-1) * s
                  w <- (3.141592654 + acos(v/u^3))/3
@@ -2129,7 +2141,10 @@ BinomDiffCI <- function(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided"
                  p2d <- p1d - dif
                  n <- n1 + n2
                  res <- (p1d * (1 - p1d)/n1 + p2d * (1 - p2d)/n2)
+                 # res <- max(0, res)   # might result in a value slightly negative
+                    
                }
+               
                return(sqrt(res))
              }
 
@@ -2138,13 +2153,15 @@ BinomDiffCI <- function(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided"
                2 * min(pnorm(z), 1-pnorm(z))
              }
 
-             CI.lower <- uniroot(
-               function(delta) pval(delta) - alpha, interval = c(-1+1e-6, est-1e-6)
-             )$root
+             CI.lower <- max(-1, uniroot(
+               function(delta) pval(delta) - alpha, 
+               interval = c(-1+1e-6, est-1e-6)
+             )$root)
 
-             CI.upper <- uniroot(
-               function(delta) pval(delta) - alpha, interval = c(est+1e-6, 1-1e-6)
-             )$root
+             CI.upper <- min(1, uniroot(
+               function(delta) pval(delta) - alpha, 
+               interval = c(est + 1e-6, 1-1e-6)
+             )$root)
 
            },
 
@@ -2224,6 +2241,8 @@ BinomDiffCI <- function(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided"
 
            },
            "beal" = {
+             
+             # experimental code only...
              # http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.633.9380&rep=rep1&type=pdf
 
              a <- p1.hat + p2.hat
@@ -2238,8 +2257,44 @@ BinomDiffCI <- function(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided"
              CI.lower <- max(-1, B - A / (1 + z*u))
              CI.upper <- min(1, B + A / (1 + z*u))
 
-           }
-
+           },
+           "hal" = {  # haldane 
+             
+             psi <- (p1.hat + p2.hat) / 2
+             u <- (1/n1 + 1/n2) / 4
+             v <- (1/n1 - 1/n2) / 4
+             
+             z <- kappa
+             
+             theta <- ((p1.hat - p2.hat) + z^2 * v* (1-2*psi)) / (1+z^2*u)
+             w <- z / (1+z^2*u) * sqrt(u * (4*psi*(1-psi) - (p1.hat - p2.hat)^2) + 
+                                         2*v*(1-2*psi) *(p1.hat - p2.hat) + 
+                                         4*z^2*u^2*(1-psi)*psi + z^2*v^2*(1-2*psi)^2)
+             c(theta + w, theta - w)
+             CI.lower <- max(-1, theta - w)
+             CI.upper <- min(1, theta + w)
+             
+           },
+           "jp" = {   # jeffery perks
+             
+             # same as haldane but with other psi
+             psi <- 0.5 * ((x1 + 0.5) / (n1 + 1) + (x2 + 0.5) / (n2 + 1) )
+             
+             u <- (1/n1 + 1/n2) / 4
+             v <- (1/n1 - 1/n2) / 4
+             
+             z <- kappa
+             
+             theta <- ((p1.hat - p2.hat) + z^2 * v* (1-2*psi)) / (1+z^2*u)
+             w <- z / (1+z^2*u) * sqrt(u * (4*psi*(1-psi) - (p1.hat - p2.hat)^2) + 
+                                         2*v*(1-2*psi) *(p1.hat - p2.hat) + 
+                                         4*z^2*u^2*(1-psi)*psi + z^2*v^2*(1-2*psi)^2)
+             c(theta + w, theta - w)
+             CI.lower <- max(-1, theta - w)
+             CI.upper <- min(1, theta + w)
+             
+           },
+           
     )
 
     ci <- c(est = est, lwr.ci = min(CI.lower, CI.upper), upr.ci = max(CI.lower, CI.upper))
