@@ -1,17 +1,24 @@
 \name{ORToRelRisk}
 \alias{ORToRelRisk}
+\alias{ORToRelRisk.default}
+\alias{ORToRelRisk.OddsRatio}
 \title{ Transform Odds Ratio to Relative Risk }
 \description{
   Transform a given odds-ratio (OR) to the respective
   relative risk (RR).
 }
 \usage{
-ORToRelRisk(or, p0)
+ORToRelRisk(...)
+
+\method{ORToRelRisk}{OddsRatio}(x, \dots )
+\method{ORToRelRisk}{default}(or, p0, \dots)
 }
 \arguments{
+  \item{x}{the OddsRatios as returned by \code{\link{OddsRatio}()} of a logistic model}
   \item{or}{ numeric vector: OR (odds-ratio). }
   \item{p0}{ numeric vector: incidence of the outcome of interest in the
              nonexposed group.}
+  \item{\dots}{further arguments, are not used here.}           
 }
 \details{
   The function transforms a given odds-ratio (OR) to the respective

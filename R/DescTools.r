@@ -1929,6 +1929,8 @@ StrSplit <- function (x, split="", fixed = FALSE, perl = FALSE, useBytes = FALSE
   res <- strsplit(x=x, split=split, fixed=fixed, perl=perl, useBytes=useBytes)
   if(length(res)==1)
     res <-  res[[1]]
+  
+  return(res)
 }
 
 
@@ -5330,6 +5332,7 @@ Format.default <- function(x, digits = NULL, sci = NULL
 print.Format <- function (x, ...) {
 
   class(x) <- class(x)[class(x)!="Format"]
+  # print(x, quote=FALSE, right=TRUE, ...)
   NextMethod("print", quote = FALSE, right=TRUE, ...)
 }
 

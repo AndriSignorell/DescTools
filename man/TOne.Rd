@@ -8,10 +8,11 @@
 Create a table summarizing continuous, categorical and dichotomous variables, optionally stratified by one or more variables, while performing adequate statistical tests.
 }
 \usage{
-TOne(x, grp = NA, add.length = TRUE, colnames = NULL, vnames = NULL, total = TRUE,
-     align = "\\\\l", FUN = NULL, TEST = NULL, intref = "high",
+TOne(x, grp = NA, add.length = TRUE, colnames = NULL, vnames = NULL, 
+     total = TRUE, align = "\\\\l", 
+     FUN = NULL, TEST = NULL, intref = "high",
      fmt = list(abs = Fmt("abs"), num  = Fmt("num"), per = Fmt("per"),
-              pval = as.fmt(fmt = "*", na.form = "   ")) )
+                pval = as.fmt(fmt = "*", na.form = "   ")) )
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -30,18 +31,25 @@ TOne(x, grp = NA, add.length = TRUE, colnames = NULL, vnames = NULL, total = TRU
   \item{vnames}{a vector of variablenames to be placed in the first column instead of the real names.
 %%     ~~Describe \code{grp} here~~
 }
-\item{total}{logical, \code{TRUE} if totals should be added.}
+\item{total}{logical (default \code{TRUE}), defines whether the results should also be displayed for the whole, ungrouped variable.}
 
   \item{align}{the character on whose position the strings will be aligned. Left alignment can be requested by setting \code{sep = "\\\\l"}, right alignment by \code{"\\\\r"} and center alignment by \code{"\\\\c"}. Mind the backslashes, as if they are omitted, strings would be aligned to the \bold{character} l, r or c respectively. Default value is \code{"\\\\l"}, thus left alignment.
 %%     ~~Describe \code{sep} here~~
 }
-\item{FUN}{the function to be used as location and dispersion measure (typically \code{mean}/\code{sd} or alternatively \code{median}/\code{IQR}). See examples.}
-\item{TEST}{a list of functions to be used to test the variables. Must be named as "num", "cat" and "dich" and be defined as function with arguments \code{(x, g)}, generating something similar to a p.value. (See examples.) }
+\item{FUN}{the function to be used as location and dispersion measure for numeric (including integer) variables (typically \code{mean}/\code{sd} (default) or alternatively \code{median}/\code{IQR}). See examples.}
+
+\item{TEST}{a list of functions to be used to test the variables. Must be named as \code{"num"}, \code{"cat"} and \code{"dich"} and be defined as function with arguments \code{(x, g)}, generating something similar to a p-value. (See examples.) }
 \item{intref}{one out of \code{"high"} (default) or \code{"low"}, defining which value of a dichotomous numeric or logical variable should be reported. Usually this will be \code{1} or \code{TRUE}. Setting it to \code{"low"} will report the lower value \code{0} or \code{FALSE}. }
 
 \item{fmt}{format codes for absolute, numeric and percentage values, and for the p-values of the tests. }
 }
-\details{There are three types of variables currently implemented: numeric, factor and variables with only two levels.
+\details{In research the characteristics of study populations are often characterised through some kind of a "Table 1", containing descriptives of the used variables, as mean/standard deviation for continuous variables, and proportions for categorical variables. In many cases, a comparison is made between two or more groups within the framework of the scientific question. Creating such a table can be very time consuming and there's a need for a flexible function that helps us to solve the task. \code{TOne()} should be as easy to use as possible and yet so flexible that the essential design elements can be freely defined.
+
+This is done by dividing the world into 3 groups: numeric, factor and dichotomous variables (having exactly two values or levels). Depending on the group, the descriptives and the according sensible tests are chosen. By default mean/sd is chosen for numeric values. Their difference is tested with the Kruskal-Wallis test. For categorical variables the absolute and relative frequencies are calculated and tested with a chi-square test. The tests can be changed with the argument \code{TEST}. These must be organised as list containing elements named \code{"num"}, \code{"cat"} and \code{"dich"}. Each of them must be a function with arguments \code{(x, g)}, returning something similar to a p-value. The legend text of the test, which is appended to the table, can be set with the variable \code{lbl}.
+
+Great importance was attached to the free definition of the number formats. By default, the optionally definable format templates of \bold{DescTools} are used. Deviations from this can be freely passed as arguments to the function. Formats can be defined for integers, floating point numbers, percentages and for the p-values of statistical tests. All options of the function \code{\link{Format}()} are available and can be provided as a list. See examples which show several different implementations.
+
+The function returns a character matrix as result, which can easily be subset or combined with other matrices. An interface for \code{\link{ToWrd}()} is available such that the matrix can be transferred to MS-Word. Both font and alignment are freely selectable in the Word table. 
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{a character matrix
@@ -56,7 +64,7 @@ TOne(x, grp = NA, add.length = TRUE, colnames = NULL, vnames = NULL, total = TRU
 }
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{ \code{\link{WrdTable}}
+\seealso{ \code{\link{WrdTable}()}, \code{\link{ToWrd.TOne}()}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
@@ -65,11 +73,9 @@ opt <- DescToolsOptions()
 
 # define some special formats for count data, percentages and numeric results
 # (those will be supported by TOne)
-Fmt(abs = as.fmt(digits = 0, big.mark = "'"))
-
-Fmt(per = as.fmt(digits = 1, fmt = "\%"))
-
-Fmt(num = as.fmt(digits = 1, big.mark = "'"))
+Fmt(abs = as.fmt(digits = 0, big.mark = "'"))   # counts
+Fmt(per = as.fmt(digits = 1, fmt = "\%"))        # percentages
+Fmt(num = as.fmt(digits = 1, big.mark = "'"))   # numeric
 
 TOne(x = d.pizza[, c("temperature", "delivery_min", "driver", "wine_ordered")],
   grp = d.pizza$quality)
@@ -119,15 +125,19 @@ TOne(data.frame(z = z), g)
 
 options(opt)
 
+
 \dontrun{  
   
 # Send the whole stuff to Word
 wrd <- GetNewWrd()
 ToWrd(
-  TOne(x = d.pizza[, c("temperature", "delivery_min", "driver", "wine_ordered")],
-       grp = d.pizza$quality)
+  TOne(x   = d.pizza[, c("temperature", "delivery_min", "driver", "wine_ordered")],
+       grp = d.pizza$quality,
+       fmt = list(num=Fmt("num", digits=1))
+       ),
+  font = list(name="Arial narrow", size=8),
+  align = c("l","r")      # this will be recycled: left-right-left-right ...
 )
-
 }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

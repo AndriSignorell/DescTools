@@ -2028,7 +2028,9 @@ BinomDiffCI <- function(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided"
 
     # https://www.lexjansen.com/wuss/2016/127_Final_Paper_PDF.pdf
     # http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.633.9380&rep=rep1&type=pdf
-    # Newcombe 1998 is free
+    
+    # Newcombe (1998) (free):
+    # http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.408.7354&rep=rep1&type=pdf
     
     method <- match.arg(arg = method,
                         choices = c("wald", "waldcc", "ac", "score", "scorecc", "mn",
@@ -5311,7 +5313,7 @@ OddsRatio.glm <- function(x, conf.level = NULL, digits=3, use.profile=TRUE, ...)
   
   res <- list(or=d.print, call=x$call,
               BrierScore=BrierScore(x), PseudoR2=PseudoR2(x, which="all"), res=d.res,
-              nobs=nobs(x), terms=mterms)
+              nobs=nobs(x), terms=mterms, model=x$model)
 
   class(res) <- "OddsRatio"
 
@@ -5530,22 +5532,74 @@ OddsRatio.default <- function(x, conf.level = NULL, y = NULL, method=c("wald", "
 
 
 ## odds ratio (OR) to relative risk (RR)
-ORToRelRisk <- function(or, p0){
 
+
+ORToRelRisk <- function(...) {
+  UseMethod("ORToRelRisk")
+}
+  
+
+ORToRelRisk.default <- function(or, p0, ...) {
+  
   if(any(or <= 0))
     stop("'or' has to be positive")
-
-  if(p0 <= 0 | p0 >= 1)
+  
+  if(!all(ZeroIfNA(p0) %[]% c(0,1)))
     stop("'p0' has to be in (0,1)")
-
-  if(length(p0) != 1)
-    stop("'p0' has to be of length 1")
-
-  names(or) <- NULL
-
+  
   or / (1 - p0 + p0*or)
-
+  
 }
+
+
+
+ORToRelRisk.OddsRatio <- function(x, ...){
+  
+  .PredPrevalence <- function(model) {
+    
+    isNumericPredictor <- function(model, term){
+      unname(attr(attr(model, "terms"), "dataClasses")[term] == "numeric")
+    }
+    
+    # mean of response ist used for all numeric predictors
+    meanresp <- mean(as.numeric(model.response(model)) - 1)
+    # this is ok, as the second level is the one we predict in glm
+    # https://stackoverflow.com/questions/23282048/logistic-regression-defining-reference-level-in-r
+    
+    preds <- attr(terms(model), "term.labels")
+
+    # first the intercept
+    res <- NA_real_
+    
+    for(i in seq_along(preds))
+      if(isNumericPredictor(model=model, term=preds[i]))
+        res <- c(res, meanresp)
+      else {
+        # get the proportions of the levels of the factor with the response ...
+        fprev <- prop.table(table(model.frame(model)[, preds[i]], 
+                                  model.response(model)), 1)
+        # .. and use the proportion of positive response of the reference level
+        res <- c(res, rep(fprev[1, 2], times=nrow(fprev)-1))
+    }
+ 
+    return(res)
+  }
+ 
+  
+  or <- x$res[, c("or", "or.lci", "or.uci")]
+  pprev <-  .PredPrevalence(x$model)
+  
+  res <- sapply(or, function(x) ORToRelRisk(x, pprev))
+  rownames(res) <- rownames(or)
+  colnames(res) <- c("rr", "rr.lci", "rr.uci")
+  
+  return(res)  
+  
+} 
+
+
+
+
 
 
 # Cohen, Jacob. 1988. Statistical power analysis for the behavioral
@@ -5585,7 +5639,7 @@ ORToRelRisk <- function(or, p0){
 
 # N.B. One should use the values for the significance of the
 # Goodman-Kruskal lambda and Theil's UC with reservation, as these
-# have been modeled to mimic the the behavior of the same statistics
+# have been modeled to mimic the behavior of the same statistics
 # in SPSS.
 
 

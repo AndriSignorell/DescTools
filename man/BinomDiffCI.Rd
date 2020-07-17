@@ -4,7 +4,7 @@
 \title{Confidence Interval for a Difference of Binomials
 %%  ~~function to do ... ~~
 }
-\description{Several confidence intervals for the difference between proportions are available, but they can produce markedly different results. Traditional approaches, such as the Wald interval do not perform well unless the sample size is large. Better intervals are available. These include the Agresti/Caffo method (2000), Newcombe Score method (1998) and a more computing intensive ones as by Miettinen and Nurminen (1985) or Mee (1984).
+\description{Several confidence intervals for the difference between proportions are available, but they can produce markedly different results. Traditional approaches, such as the Wald interval do not perform well unless the sample size is large. Better intervals are available. These include the Agresti/Caffo method (2000), Newcombe Score method (1998) and more computing intensive ones as by Miettinen and Nurminen (1985) or Mee (1984). The latter ones are favoured by Newcombe (when forced to choose between a rock and a hard place).
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
