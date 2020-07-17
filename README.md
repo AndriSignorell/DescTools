@@ -13,6 +13,7 @@ v2+](https://img.shields.io/badge/License-GPL%20v2+-blue.svg)](https://www.gnu.o
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![R build
 status](https://github.com/AndriSignorell/DescTools/workflows/R-CMD-check/badge.svg)](https://github.com/AndriSignorell/DescTools/actions)
+[![pkgdown](https://github.com/AndriSignorell/DescTools/workflows/pkgdown/badge.svg)](https://andrisignorell.github.io/DescTools/)
 <!-- badges: end -->
 
 # Tools for Descriptive Statistics and Exploratory Data Analysis
