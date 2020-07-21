@@ -5064,20 +5064,51 @@ Format.default <- function(x, digits = NULL, sci = NULL
   .format.pstars <- function(x, eps, digits)
     paste(.format.pval(x, eps, digits), .format.stars(x))
   
-  .leading.zero <- function(x, n){
+  # .leading.zero <- function(x, n, big.mark=NULL){
+  #   # just add a given number of leading zeros
+  #   # split at the decimal separator
+  #   outdec <- getOption("OutDec")
+  #   z <- strsplit(as.character(x), split=outdec, fixed = TRUE)
+  #   # left side
+  #   zl <- lapply(z, "[", 1)
+  #   zl <- sapply(zl, function(x) sprintf(paste0("%0", n + (x<0)*1, "i"), as.numeric(x)))
+  #   # right side
+  #   zr <- sapply(z, "[", 2)
+  #   zr <- ifelse(is.na(zr), "", paste(outdec, zr, sep=""))
+  #   
+  #   paste(zl, zr, sep="")
+  #   
+  # }
+  
+  .leading.zero <- function(x, n, big.mark=NULL){
     # just add a given number of leading zeros
-    # split at the .
-    z <- strsplit(as.character(x), split=".", fixed = TRUE)
+    # split at the decimal separator
+    outdec <- getOption("OutDec")
+    z <- strsplit(as.character(x), split=outdec, fixed = TRUE)
     # left side
     zl <- lapply(z, "[", 1)
-    zl <- sapply(zl, function(x) sprintf(paste0("%0", n + (x<0)*1, "i"), as.numeric(x)))
+    zl <- sapply(zl, 
+                 function(x) {
+                   # remove big.marks
+                   if(!is.null(big.mark))
+                     x <- gsub(big.mark, "", x)
+                   # append leading 0s
+                   res <- sprintf(paste0("%0", n + (x<0)*1, "i"), 
+                                  as.numeric(x))
+                   if(!is.null(big.mark))
+                     # restore big.marks
+                     res <- StrRev(paste(StrChop(StrRev(res), 
+                                                 len = rep(3, times=nchar(res) %/% 3 + ((nchar(res) %% 3)!=0)*1L)), collapse=big.mark))
+                   return(res)
+                 })
     # right side
     zr <- sapply(z, "[", 2)
-    zr <- ifelse(is.na(zr), "", paste(".", zr, sep=""))
+    zr <- ifelse(is.na(zr), "", paste(outdec, zr, sep=""))
     
     paste(zl, zr, sep="")
     
   }
+  
   
   .format.eng <- function(x, digits = NULL, ldigits = 1
                           , zero.form = NULL, na.form = NULL){
@@ -5131,7 +5162,8 @@ Format.default <- function(x, digits = NULL, sci = NULL
   #
   #   Format(7845, fmt=fmt.int)
   
-  
+  if(!is.null(InDots(..., arg = "leading")))
+    warning("Argument 'leading' is not supported anymore, use 'ldigits' (see help)!")
   
   if(is.null(fmt)) fmt <- ""
   
@@ -5293,13 +5325,7 @@ Format.default <- function(x, digits = NULL, sci = NULL
         # res <- gsub("[^[:digit:]]0+\\.","\\.", res)
         
       } else {
-        # leading contains only zeros, so let's use them as leading zeros
-        #         old:
-        #         n <- nchar(leading) - unlist(lapply(lapply(strsplit(res, "\\."), "[", 1), nchar))
-        
-        # old: did not handle - correctly
-        # res <- StrPad(res, pad = "0", width=nchar(res) + pmax(n, 0), adj="right")
-        r <- .leading.zero(r, ldigits)
+        r <- .leading.zero(r, ldigits, big.mark = big.mark)
       }
     }
     

@@ -187,7 +187,7 @@ r.gam <- glm(Fertility ~ . , swiss, family=Gamma(link="identity"))
 # reporting function (FUN) with | as column splitter
 tm <- TMod(OLS=r.ols, Gamma=r.gam, 
            FUN=function(est, se, tval, pval, lci, uci){
-              gettextf("%s|[%s, %s]|%s",
+              gettextf("\%s|[\%s, \%s]|\%s",
                        Format(est, fmt=Fmt("num"), digits=2),
                        Format(lci, fmt=Fmt("num"), digits=2), 
                        Format(uci, fmt=Fmt("num"), digits=2),

@@ -94,7 +94,7 @@ Andri Signorell <andri@signorell.net>
 \examples{
 \dontrun{ # Windows-specific example
 
-XLGetRange(file="C:\My Documents\data.xls",
+XLGetRange(file="C:/My Documents/data.xls",
            sheet="Sheet1",
            range=c("A2:B5","M6:X23","C4:D40"))
 
