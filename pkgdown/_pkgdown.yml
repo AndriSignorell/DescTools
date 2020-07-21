@@ -1,5 +1,8 @@
 destination: docs
 
+development:
+  mode: auto
+
 template:
   default_assets: true
   params:
@@ -29,9 +32,10 @@ reference:
 
 
 # Data Manipulation ==========================================================
+  - title: "Data Manipulation"
 
 # ~ Operators ----------------------------------------------------------------
-  - title: "Operators"
+  - subtitle: "Operators"
     contents: 
     - "%()%"  
     - "%)(%" 
@@ -43,7 +47,7 @@ reference:
     - "%overlaps%" 
 
 # ~ Transformations & Recoding -----------------------------------------------
-  - title: "Transformations & Recoding"
+  - subtitle: "Transformations & Recoding"
     contents: 
     # Transform: numeric to numeric
     - BoxCox # - BoxCoxInv
@@ -74,7 +78,7 @@ reference:
     - GeomTrans
 
 # ~ Change Order -------------------------------------------------------------
-  - title: "Change Order"
+  - subtitle: "Change Order"
     contents: 
     - LOCF
     - reorder.factor
@@ -84,15 +88,16 @@ reference:
     - VecRot # - VecShift
 
 # ~ Change Size -------------------------------------------------------------
-  - title: "Change Size"
+  - subtitle: "Change Size"
     contents: 
     - Abind
     - Append
     - Trim
 
 # ~ Reshape Data -------------------------------------------------------------
-  - title: "Reshape Data"
+  - subtitle: "Reshape Data"
     contents: 
+    - SplitToCol
     - CollapseTable
     - Untable
     - ToLong
@@ -102,7 +107,7 @@ reference:
     - as.matrix.xtabs
 
 # ~ Names and Metadata -------------------------------------------------------
-  - title: "Names and Metadata"
+  - subtitle: "Names and Metadata"
     contents: 
     - Rename
     - SetNames
@@ -110,8 +115,9 @@ reference:
     - Unit
 
 # ~ String Functions -----------------------------------------------------------
-  - title: "String Functions"
+  - subtitle: "String Functions"
     contents:
+    - BlankIfNA
     - ColumnWrap
     - FixToTable
     - StrAbbr
@@ -128,13 +134,13 @@ reference:
     - StrRev
     - StrRight
     - StrSpell
+    - StrSplit
     - StrTrim
     - StrTrunc
     - StrVal
-    - BlankIfNA
 
 # ~ Date Functions -------------------------------------------------------------
-  - title: "Date Functions"
+  - subtitle: "Date Functions"
     contents:
     - day.name
     - day.abb
@@ -167,7 +173,7 @@ reference:
     - Zodiac
 
 # ~ Conversion functions -------------------------------------------------------
-  - title: "Conversion Functions"
+  - subtitle: "Conversion Functions"
     contents:
     - AscToChar
     - CharToAsc
@@ -185,6 +191,7 @@ reference:
     - SphToCart
     - RomanToInt
     - RgbToLong
+    - RgbToCmy
     - LongToRgb
     - ColToGray
     - ColToGrey
@@ -198,8 +205,10 @@ reference:
     - ConvUnit
 
 # Plotting ===================================================================
+  - title: "Plotting"
+
 # ~ Plots (high level) ---------------------------------------------------------
-  - title: "Plots (High Level) "
+  - subtitle: "Plots (High Level) "
     contents:
     - Lc
     - PlotACF
@@ -211,6 +220,7 @@ reference:
     - PlotCandlestick
     - PlotCashFlow
     - PlotCirc
+    - PlotConDens
     - PlotCorr
     - PlotDot
     - PlotECDF
@@ -238,7 +248,7 @@ reference:
     # - PlotDev
 
 # ~ Plots (low level)-----------------------------------------------------------
-  - title: "Plots (Low Level)"
+  - subtitle: "Plots (Low Level)"
     contents:
     - Arrow
     - Asp
@@ -272,7 +282,7 @@ reference:
     - TitleRect
 
 # ~ Colors ---------------------------------------------------------------------
-  - title: "Colors"
+  - subtitle: "Colors"
     contents:
     - ColorLegend
     - FindColor
@@ -312,10 +322,13 @@ reference:
     - DoBy
     - PairApply
 
+# ~ Statistics: Statistics and Coefficients ----------------------------------
+  - title: "Statistics and Coefficients"
+
 # ~ Statistics: Central tendency -----------------------------------------------
-  - title: "Statistics: Central Tendency / Location"
+  
+  - subtitle: "Statistics: Central Tendency / Location"
     contents:
-    - CentralValue
     - Mode
     - Mean
     - MeanSE
@@ -332,7 +345,7 @@ reference:
     - HodgesLehmann
     
 # ~ Statistics: Dispersion / Variation -----------------------------------------
-  - title: "Statistics: Dispersion / Variation"
+  - subtitle: "Statistics: Dispersion / Variation"
     contents:
     - Range
     - SD
@@ -345,7 +358,7 @@ reference:
     - Gsd
 
 # ~ Statistics: Shape of Distribtuon -------------------------------------------
-  - title: "Statistics: Shape of Distribution"
+  - subtitle: "Statistics: Shape of Distribution"
     contents:
     - Skew
     - Kurt
@@ -353,12 +366,12 @@ reference:
     - LOF
 
 # ~ Statistics: Count Variables ------------------------------------------------
-  - title: "Statistics: Count Variables"
+  - subtitle: "Statistics: Count Variables"
     contents:
     - PoissonCI
     
 # ~ Statistics: Proportions ----------------------------------------------------
-  - title: "Statistics: Proportions"
+  - subtitle: "Statistics: Proportions"
     contents:
     - BinomCI
     - MultinomCI
@@ -370,7 +383,7 @@ reference:
     - ORToRelRisk
     
 # ~ Statistics: Correlation ----------------------------------------------------
-  - title: "Statistics: Correlation"
+  - subtitle: "Statistics: Correlation"
     contents:
     - Cor
     - CorCI
@@ -390,7 +403,7 @@ reference:
     - ConDisPairs
     
 # ~ Statistics: Association ----------------------------------------------------
-  - title: "Statistics: Association"
+  - subtitle: "Statistics: Association"
     contents:
     - Assocs
     - SomersDelta
@@ -418,8 +431,8 @@ reference:
     - KrippAlpha
     
 # ~ Statistics: Concentration ----------------------------------------------------
-  - title: "Statistics: Concentration"
-    - LC
+  - subtitle: "Statistics: Concentration"
+    contents:
     - Gini
     - Atkinson
     - Herfindahl
@@ -427,7 +440,7 @@ reference:
     - GiniSimpson
     
 # ~ Statistics: Effect Size and Model Assesmant --------------------------------
-  - title: "Statistics: Effect Size and Model Assessment"
+  - subtitle: "Statistics: Effect Size and Model Assessment"
     contents:
 
     - CohenD
@@ -608,6 +621,7 @@ reference:
     - SendOutlookMail
     - split.formula
     - SplitAt
+    - StripAttr
     - SplitPath
     - SysInfo
     - Unwhich
@@ -650,16 +664,19 @@ reference:
 
 # Data =======================================================================
 # ~ Datasets & Reference Data ------------------------------------------------
-  - title: "Datasets & Reference Data"
-    contents:
+  - title: "Data"
 
 # ~ Datasets
+  - subtitle: "Datasets"
+    contents:
     - CourseData
     - d.pizza
     - d.whisky
     - d.diamonds
 
 # ~ Reference Data 
+  - subtitle: "Reference Data"
+    contents:
     - d.units
     - cards
     - d.countries
