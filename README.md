@@ -104,8 +104,7 @@ HWZ University of Applied Sciences in Business Administration Zurich.
 R is a community project. This can be seen from the fact that this
 package includes R source code and/or documentation previously published
 by [various authors and
-contributors](https://github.com/AndriSignorell/DescTools).
-<!-- This link will work after pkgdown website for DescTools is deployed. -->
+contributors](https://andrisignorell.github.io/DescTools/authors.html).
 Special thanks go to Beat Bruengger, Mathias Frueh, Daniel Wollschlaeger
 for their valuable contributions and testing. The good things come from
 all these guys, any problems are likely due to my tweaking. Thank you
