@@ -78,7 +78,7 @@ The null hypothesis is the hypothesis of no trend, which means that the binomial
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.005</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.006</span>
       </span>
     </div>
 
@@ -190,7 +190,47 @@ The null hypothesis is the hypothesis of no trend, which means that the binomial
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># http://www.lexjansen.com/pharmasug/2007/sp/sp05.pdf, pp. 4</span>
 <span class='no'>dose</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10</span>,<span class='fl'>9</span>,<span class='fl'>10</span>,<span class='fl'>7</span>, <span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>3</span>), <span class='kw'>byrow</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>nrow</span><span class='kw'>=</span><span class='fl'>2</span>, <span class='kw'>dimnames</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>resp</span><span class='kw'>=</span><span class='fl'>0</span>:<span class='fl'>1</span>, <span class='kw'>dose</span><span class='kw'>=</span><span class='fl'>0</span>:<span class='fl'>3</span>))
-<span class='fu'><a href='Desc.html'>Desc</a></span>(<span class='no'>dose</span>)</div><div class='output co'>#&gt; <span class='error'>Error in InDots(..., arg = "leading"): argument "default" is missing, with no default</span></div><div class='input'>
+<span class='fu'><a href='Desc.html'>Desc</a></span>(<span class='no'>dose</span>)</div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
+#&gt; <span style='font-weight: bold;'>dose (matrix, array)</span><span>
+#&gt; 
+#&gt; Summary: 
+#&gt; n: 40, rows: 2, columns: 4
+#&gt; 
+#&gt; Pearson's Chi-squared test:
+#&gt;   X-squared = 6.6667, df = 3, p-value = 0.08332
+#&gt; Log likelihood ratio (G-test) test of independence:
+#&gt;   G = 7.2877, X-squared df = 3, p-value = 0.06327
+#&gt; Mantel-Haenszel Chi-squared:
+#&gt;   X-squared = 3.4667, df = 1, p-value = 0.06262
+#&gt; 
+#&gt; Warning message:
+#&gt;   Exp. counts &lt; 5: Chi-squared approx. may be incorrect!!
+#&gt; 
+#&gt; 
+#&gt; Phi-Coefficient        0.408
+#&gt; Contingency Coeff.     0.378
+#&gt; Cramer's V             0.408
+#&gt; 
+#&gt;                                                
+#&gt;        dose       0      1      2      3    Sum
+#&gt; resp                                           
+#&gt;                                                
+#&gt; 0      freq      10      9     10      7     36
+#&gt;        perc   25.0%  22.5%  25.0%  17.5%  90.0%
+#&gt;        p.row  27.8%  25.0%  27.8%  19.4%      .
+#&gt;        p.col 100.0%  90.0% 100.0%  70.0%      .
+#&gt;                                                
+#&gt; 1      freq       0      1      0      3      4
+#&gt;        perc    0.0%   2.5%   0.0%   7.5%  10.0%
+#&gt;        p.row   0.0%  25.0%   0.0%  75.0%      .
+#&gt;        p.col   0.0%  10.0%   0.0%  30.0%      .
+#&gt;                                                
+#&gt; Sum    freq      10     10     10     10     40
+#&gt;        perc   25.0%  25.0%  25.0%  25.0% 100.0%
+#&gt;        p.row      .      .      .      .      .
+#&gt;        p.col      .      .      .      .      .
+#&gt;                                                
+#&gt; </div><div class='img'><img src='CochranArmitageTest-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'>CochranArmitageTest</span>(<span class='no'>dose</span>, <span class='st'>"increasing"</span>)</div><div class='output co'>#&gt; 
 #&gt; 	Cochran-Armitage test for trend
 #&gt; 
@@ -232,7 +272,7 @@ The null hypothesis is the hypothesis of no trend, which means that the binomial
 #&gt; data:  tab[, 1] out of apply(tab, 1, sum) ,
 #&gt;  using scores: 1 2 3
 #&gt; X-squared = 10.716, df = 1, p-value = 0.001062
-#&gt; </div></pre>
+#&gt; </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

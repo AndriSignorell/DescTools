@@ -78,7 +78,7 @@ connecting lines between the points." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.005</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.006</span>
       </span>
     </div>
 
@@ -247,7 +247,24 @@ connecting lines between the points.</p>
 <span class='co'># ok, got all the p-values, now replace &gt; 0.05 with NAs</span>
 <span class='no'>m</span>[<span class='no'>ctest</span> <span class='kw'>&gt;</span> <span class='fl'>0.05</span>] <span class='kw'>&lt;-</span> <span class='fl'>NA</span>
 <span class='co'># How does that look like now?</span>
-<span class='fu'><a href='Format.html'>Format</a></span>(<span class='no'>m</span>, <span class='kw'>na.form</span> <span class='kw'>=</span> <span class='st'>". "</span>, <span class='kw'>ldigits</span><span class='kw'>=</span><span class='fl'>0</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>3</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"right"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in InDots(..., arg = "leading"): argument "default" is missing, with no default</span></div><div class='input'>
+<span class='fu'><a href='Format.html'>Format</a></span>(<span class='no'>m</span>, <span class='kw'>na.form</span> <span class='kw'>=</span> <span class='st'>". "</span>, <span class='kw'>ldigits</span><span class='kw'>=</span><span class='fl'>0</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>3</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"right"</span>)</div><div class='output co'>#&gt;                weekday  count  price delivery_min temperature wine_ordered
+#&gt; weekday         1.000     .      .            .        -.105           .  
+#&gt; count              .   1.000   .807           .           .            .  
+#&gt; price              .    .807  1.000         .095          .          .510 
+#&gt; delivery_min       .      .    .095        1.000       -.575         .076 
+#&gt; temperature     -.105     .      .         -.575       1.000           .  
+#&gt; wine_ordered       .      .    .510         .076          .         1.000 
+#&gt; wine_delivered     .      .    .478         .082       -.067         .923 
+#&gt;                wine_delivered
+#&gt; weekday                   .  
+#&gt; count                     .  
+#&gt; price                   .478 
+#&gt; delivery_min            .082 
+#&gt; temperature            -.067 
+#&gt; wine_ordered            .923 
+#&gt; wine_delivered         1.000 
+#&gt; attr(,"class")
+#&gt; [1] matrix  array</div><div class='input'>
 <span class='fu'>PlotWeb</span>(<span class='no'>m</span>, <span class='kw'>las</span><span class='kw'>=</span><span class='fl'>2</span>, <span class='kw'>cex</span><span class='kw'>=</span><span class='fl'>1.2</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div><div class='img'><img src='PlotWeb-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># define line widths</span>
 <span class='fu'>PlotWeb</span>(<span class='no'>m</span>, <span class='kw'>lwd</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span>(<span class='no'>m</span>[<span class='fu'><a href='https://rdrr.io/r/base/lower.tri.html'>lower.tri</a></span>(<span class='no'>m</span>)] * <span class='fl'>10</span>))</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div></pre>

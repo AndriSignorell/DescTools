@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.005</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.006</span>
       </span>
     </div>
 
@@ -206,9 +206,26 @@
 <span class='co'>#   applied number format</span>
 
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>100000</span>, <span class='fl'>4564654632</span>, -<span class='fl'>456463</span>)
-<span class='no'>xf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='Format.html'>Format</a></span>(<span class='no'>x</span>, <span class='kw'>big.mark</span><span class='kw'>=</span><span class='st'>"'"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in InDots(..., arg = "leading"): argument "default" is missing, with no default</span></div><div class='input'>
-<span class='fu'>StrVal</span>(<span class='no'>xf</span>, <span class='kw'>paste</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>as.numeric</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in gregexpr(pattern = pat, text = x): object 'xf' not found</span></div><div class='input'>
-<span class='fu'>StrVal</span>(<span class='no'>xf</span>, <span class='kw'>paste</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>as.numeric</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in gregexpr(pattern = pat, text = x): object 'xf' not found</span></div><div class='input'><span class='fu'>StrVal</span>(<span class='no'>xf</span>, <span class='kw'>paste</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>as.numeric</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in gregexpr(pattern = pat, text = x): object 'xf' not found</span></div><div class='input'><span class='fu'>StrVal</span>(<span class='no'>xf</span>, <span class='kw'>paste</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>as.numeric</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in gregexpr(pattern = pat, text = x): object 'xf' not found</span></div><div class='input'>
+<span class='no'>xf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='Format.html'>Format</a></span>(<span class='no'>x</span>, <span class='kw'>big.mark</span><span class='kw'>=</span><span class='st'>"'"</span>)
+
+<span class='fu'>StrVal</span>(<span class='no'>xf</span>, <span class='kw'>paste</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>as.numeric</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1]     100000 4564700000    -456463</div><div class='input'>
+<span class='fu'>StrVal</span>(<span class='no'>xf</span>, <span class='kw'>paste</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>as.numeric</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] "100000.0000"  "4.5647e+09"   "-456463.0000"</div><div class='input'><span class='fu'>StrVal</span>(<span class='no'>xf</span>, <span class='kw'>paste</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>as.numeric</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] 100   0
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] 4564700000
+#&gt; 
+#&gt; [[3]]
+#&gt; [1] -456  463
+#&gt; </div><div class='input'><span class='fu'>StrVal</span>(<span class='no'>xf</span>, <span class='kw'>paste</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>as.numeric</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] "100"      "000.0000"
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] "4.5647e+09"
+#&gt; 
+#&gt; [[3]]
+#&gt; [1] "-456"     "463.0000"
+#&gt; </div><div class='input'>
 <span class='co'># use an alternative decimal point</span>
 <span class='fu'>StrVal</span>(<span class='st'>"8 452,12"</span>, <span class='kw'>dec</span><span class='kw'>=</span><span class='st'>","</span>)</div><div class='output co'>#&gt;      [,1]    
 #&gt; [1,] "8"     

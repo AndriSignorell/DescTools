@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.005</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.006</span>
       </span>
     </div>
 
@@ -240,7 +240,14 @@ Nemenyi proposed a test based on rank sums and the application of the family-wis
 
 <span class='fu'>NemenyiTest</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>z</span>))</div><div class='output co'>#&gt; 
 #&gt;  Nemenyi's test of multiple comparisons for independent samples (tukey)  
-#&gt; </div><div class='output co'>#&gt; <span class='error'>Error in InDots(..., arg = "leading"): argument "default" is missing, with no default</span></div><div class='input'>
+#&gt; 
+#&gt;     mean.rank.diff   pval    
+#&gt; 2-1            1.8 0.7972    
+#&gt; 3-1           -0.6 0.9720    
+#&gt; 3-2           -2.4 0.6686    
+#&gt; ---
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#&gt; </div><div class='input'>
 <span class='co'>## Equivalently,</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>z</span>)
 <span class='no'>g</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>4</span>, <span class='fl'>5</span>)),
@@ -250,18 +257,50 @@ Nemenyi proposed a test based on rank sums and the application of the family-wis
 
 <span class='fu'>NemenyiTest</span>(<span class='no'>x</span>, <span class='no'>g</span>)</div><div class='output co'>#&gt; 
 #&gt;  Nemenyi's test of multiple comparisons for independent samples (tukey)  
-#&gt; </div><div class='output co'>#&gt; <span class='error'>Error in InDots(..., arg = "leading"): argument "default" is missing, with no default</span></div><div class='input'>
+#&gt; 
+#&gt;                                                                   mean.rank.diff
+#&gt; Subjects with obstructive airway disease-Normal subjects                     1.8
+#&gt; Subjects with asbestosis-Normal subjects                                    -0.6
+#&gt; Subjects with asbestosis-Subjects with obstructive airway disease           -2.4
+#&gt;                                                                     pval    
+#&gt; Subjects with obstructive airway disease-Normal subjects          0.7972    
+#&gt; Subjects with asbestosis-Normal subjects                          0.9720    
+#&gt; Subjects with asbestosis-Subjects with obstructive airway disease 0.6686    
+#&gt; ---
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#&gt; </div><div class='input'>
 <span class='co'>## Formula interface.</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/boxplot.html'>boxplot</a></span>(<span class='no'>Ozone</span> ~ <span class='no'>Month</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>airquality</span>)</div><div class='img'><img src='NemenyiTest-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>NemenyiTest</span>(<span class='no'>Ozone</span> ~ <span class='no'>Month</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>airquality</span>)</div><div class='output co'>#&gt; 
 #&gt;  Nemenyi's test of multiple comparisons for independent samples (tukey)  
-#&gt; </div><div class='output co'>#&gt; <span class='error'>Error in InDots(..., arg = "leading"): argument "default" is missing, with no default</span></div><div class='input'>
+#&gt; 
+#&gt;     mean.rank.diff     pval    
+#&gt; 6-5    12.02991453  0.88737    
+#&gt; 7-5    41.21153846 0.000097 ***
+#&gt; 8-5    38.53846154  0.00035 ***
+#&gt; 9-5    11.99734748  0.67819    
+#&gt; 7-6    29.18162393  0.16373    
+#&gt; 8-6    26.50854701  0.24773    
+#&gt; 9-6    -0.03256705  1.00000    
+#&gt; 8-7    -2.67307692  0.99853    
+#&gt; 9-7   -29.21419098  0.01136 *  
+#&gt; 9-8   -26.54111406  0.02867 *  
+#&gt; ---
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#&gt; </div><div class='input'>
 <span class='co'># Hedderich &amp; Sachs, 2012, p. 555</span>
 <span class='no'>d.frm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>28</span>,<span class='fl'>30</span>,<span class='fl'>33</span>,<span class='fl'>35</span>,<span class='fl'>38</span>,<span class='fl'>41</span>, <span class='fl'>36</span>,<span class='fl'>39</span>,<span class='fl'>40</span>,<span class='fl'>43</span>,<span class='fl'>45</span>,<span class='fl'>50</span>, <span class='fl'>44</span>,<span class='fl'>45</span>,<span class='fl'>47</span>,<span class='fl'>49</span>,<span class='fl'>53</span>,<span class='fl'>54</span>),
                     <span class='kw'>g</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='no'>LETTERS</span>[<span class='fl'>1</span>:<span class='fl'>3</span>], <span class='kw'>each</span><span class='kw'>=</span><span class='fl'>6</span>)), <span class='kw'>stringsAsFactors</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
 
 <span class='fu'>NemenyiTest</span>(<span class='no'>x</span>~<span class='no'>g</span>, <span class='no'>d.frm</span>)</div><div class='output co'>#&gt; 
 #&gt;  Nemenyi's test of multiple comparisons for independent samples (tukey)  
-#&gt; </div><div class='output co'>#&gt; <span class='error'>Error in InDots(..., arg = "leading"): argument "default" is missing, with no default</span></div></pre>
+#&gt; 
+#&gt;     mean.rank.diff   pval    
+#&gt; B-A       5.583333 0.1658    
+#&gt; C-A      10.416667 0.0021 ** 
+#&gt; C-B       4.833333 0.2595    
+#&gt; ---
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

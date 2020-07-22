@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.005</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.006</span>
       </span>
     </div>
 
@@ -232,7 +232,15 @@
 <span class='fu'>DunnettTest</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>z</span>))</div><div class='output co'>#&gt; 
 #&gt;   Dunnett's test for comparing several treatments with a control :  
 #&gt;     95% family-wise confidence level
-#&gt; </div><div class='output co'>#&gt; <span class='error'>Error in InDots(..., arg = "leading"): argument "default" is missing, with no default</span></div><div class='input'>
+#&gt; 
+#&gt; $`1`
+#&gt;       diff     lwr.ci    upr.ci   pval    
+#&gt; 2-1  0.385 -0.6901497 1.4601497 0.5832    
+#&gt; 3-1 -0.020 -1.0336608 0.9936608 0.9982    
+#&gt; 
+#&gt; ---
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#&gt; </div><div class='input'>
 <span class='co'>## Equivalently,</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>z</span>)
 <span class='no'>g</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>4</span>, <span class='fl'>5</span>)),
@@ -243,16 +251,47 @@
 <span class='fu'>DunnettTest</span>(<span class='no'>x</span>, <span class='no'>g</span>)</div><div class='output co'>#&gt; 
 #&gt;   Dunnett's test for comparing several treatments with a control :  
 #&gt;     95% family-wise confidence level
-#&gt; </div><div class='output co'>#&gt; <span class='error'>Error in InDots(..., arg = "leading"): argument "default" is missing, with no default</span></div><div class='input'>
+#&gt; 
+#&gt; $`Normal subjects`
+#&gt;                                                            diff     lwr.ci
+#&gt; Subjects with obstructive airway disease-Normal subjects  0.385 -0.6901497
+#&gt; Subjects with asbestosis-Normal subjects                 -0.020 -1.0336608
+#&gt;                                                             upr.ci   pval    
+#&gt; Subjects with obstructive airway disease-Normal subjects 1.4601497 0.5832    
+#&gt; Subjects with asbestosis-Normal subjects                 0.9936608 0.9982    
+#&gt; 
+#&gt; ---
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#&gt; </div><div class='input'>
 <span class='co'>## Formula interface</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/boxplot.html'>boxplot</a></span>(<span class='no'>Ozone</span> ~ <span class='no'>Month</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>airquality</span>)</div><div class='img'><img src='DunnettTest-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>DunnettTest</span>(<span class='no'>Ozone</span> ~ <span class='no'>Month</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>airquality</span>)</div><div class='output co'>#&gt; 
 #&gt;   Dunnett's test for comparing several treatments with a control :  
 #&gt;     95% family-wise confidence level
-#&gt; </div><div class='output co'>#&gt; <span class='error'>Error in InDots(..., arg = "leading"): argument "default" is missing, with no default</span></div><div class='input'>
+#&gt; 
+#&gt; $`5`
+#&gt;          diff    lwr.ci   upr.ci     pval    
+#&gt; 6-5  5.829060 -22.43792 34.09604  0.96467    
+#&gt; 7-5 35.500000  15.22870 55.77130  0.00011 ***
+#&gt; 8-5 36.346154  16.07486 56.61745 0.000097 ***
+#&gt; 9-5  7.832891 -11.90719 27.57297  0.73506    
+#&gt; 
+#&gt; ---
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#&gt; </div><div class='input'>
 <span class='fu'>DunnettTest</span>(<span class='no'>Ozone</span> ~ <span class='no'>Month</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>airquality</span>, <span class='kw'>control</span><span class='kw'>=</span><span class='st'>"8"</span>, <span class='kw'>conf.level</span><span class='kw'>=</span><span class='fl'>0.9</span>)</div><div class='output co'>#&gt; 
 #&gt;   Dunnett's test for comparing several treatments with a control :  
 #&gt;     90% family-wise confidence level
-#&gt; </div><div class='output co'>#&gt; <span class='error'>Error in InDots(..., arg = "leading"): argument "default" is missing, with no default</span></div></pre>
+#&gt; 
+#&gt; $`8`
+#&gt;            diff    lwr.ci     upr.ci     pval    
+#&gt; 5-8 -36.3461538 -54.26925 -18.423062 0.000075 ***
+#&gt; 6-8 -30.5170940 -55.50965  -5.524537   0.0298 *  
+#&gt; 7-8  -0.8461538 -18.76925  17.076938   0.9999    
+#&gt; 9-8 -28.5132626 -45.96667 -11.059853   0.0019 ** 
+#&gt; 
+#&gt; ---
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

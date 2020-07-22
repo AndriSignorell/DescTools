@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.005</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.006</span>
       </span>
     </div>
 
@@ -227,11 +227,33 @@ the <b>Jeffreys-Perks</b> (code <code>"jp"</code>).</p>
     <pre class="examples"><div class='input'><span class='no'>x1</span> <span class='kw'>&lt;-</span> <span class='fl'>56</span>; <span class='no'>n1</span> <span class='kw'>&lt;-</span> <span class='fl'>70</span>; <span class='no'>x2</span> <span class='kw'>&lt;-</span> <span class='fl'>48</span>; <span class='no'>n2</span> <span class='kw'>&lt;-</span> <span class='fl'>80</span>
 <span class='no'>xci</span> <span class='kw'>&lt;-</span> <span class='fu'>BinomDiffCI</span>(<span class='no'>x1</span>, <span class='no'>n1</span>, <span class='no'>x2</span>, <span class='no'>n2</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"wald"</span>, <span class='st'>"waldcc"</span>, <span class='st'>"ac"</span>, <span class='st'>"score"</span>,
             <span class='st'>"scorecc"</span>, <span class='st'>"mn"</span>, <span class='st'>"mee"</span>, <span class='st'>"blj"</span>, <span class='st'>"ha"</span>))
-<span class='fu'><a href='Format.html'>Format</a></span>(<span class='no'>xci</span>[,-<span class='fl'>1</span>], <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>4</span>)</div><div class='output co'>#&gt; <span class='error'>Error in InDots(..., arg = "leading"): argument "default" is missing, with no default</span></div><div class='input'>
+<span class='fu'><a href='Format.html'>Format</a></span>(<span class='no'>xci</span>[,-<span class='fl'>1</span>], <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>4</span>)</div><div class='output co'>#&gt;         lwr.ci upr.ci
+#&gt; wald    0.0575 0.3425
+#&gt; waldcc  0.0441 0.3559
+#&gt; ac      0.0525 0.3358
+#&gt; score   0.0524 0.3339
+#&gt; scorecc 0.0428 0.3422
+#&gt; mn      0.0528 0.3382
+#&gt; mee     0.0534 0.3377
+#&gt; blj     0.0540 0.3400
+#&gt; ha      0.0494 0.3506
+#&gt; attr(,"class")
+#&gt; [1] matrix  array</div><div class='input'>
 <span class='no'>x1</span> <span class='kw'>&lt;-</span> <span class='fl'>9</span>; <span class='no'>n1</span> <span class='kw'>&lt;-</span> <span class='fl'>10</span>; <span class='no'>x2</span> <span class='kw'>&lt;-</span> <span class='fl'>3</span>; <span class='no'>n2</span> <span class='kw'>&lt;-</span> <span class='fl'>10</span>
 <span class='no'>yci</span> <span class='kw'>&lt;-</span> <span class='fu'>BinomDiffCI</span>(<span class='no'>x1</span>, <span class='no'>n1</span>, <span class='no'>x2</span>, <span class='no'>n2</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"wald"</span>, <span class='st'>"waldcc"</span>, <span class='st'>"ac"</span>, <span class='st'>"score"</span>,
             <span class='st'>"scorecc"</span>, <span class='st'>"mn"</span>, <span class='st'>"mee"</span>, <span class='st'>"blj"</span>, <span class='st'>"ha"</span>))
-<span class='fu'><a href='Format.html'>Format</a></span>(<span class='no'>yci</span>[, -<span class='fl'>1</span>], <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>4</span>)</div><div class='output co'>#&gt; <span class='error'>Error in InDots(..., arg = "leading"): argument "default" is missing, with no default</span></div><div class='input'>
+<span class='fu'><a href='Format.html'>Format</a></span>(<span class='no'>yci</span>[, -<span class='fl'>1</span>], <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>4</span>)</div><div class='output co'>#&gt;         lwr.ci upr.ci
+#&gt; wald    0.2605 0.9395
+#&gt; waldcc  0.1605 1.0000
+#&gt; ac      0.1600 0.8400
+#&gt; score   0.1705 0.8090
+#&gt; scorecc 0.1013 0.8387
+#&gt; mn      0.1700 0.8406
+#&gt; mee     0.1821 0.8370
+#&gt; blj     0.1869 0.9040
+#&gt; ha      0.1922 1.0000
+#&gt; attr(,"class")
+#&gt; [1] matrix  array</div><div class='input'>
 <span class='co'># https://www.lexjansen.com/wuss/2016/127_Final_Paper_PDF.pdf, page 9</span>
 <span class='fu'><a href='SetNames.html'>SetNames</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(
   <span class='fu'>BinomDiffCI</span>(<span class='fl'>56</span>, <span class='fl'>70</span>, <span class='fl'>48</span>, <span class='fl'>80</span>,

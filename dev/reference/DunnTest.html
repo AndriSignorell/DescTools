@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.005</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.006</span>
       </span>
     </div>
 
@@ -247,7 +247,14 @@ Dunn's test is constructed in part by summing jointly ranked data. The rank sum 
 <span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2.8</span>, <span class='fl'>3.4</span>, <span class='fl'>3.7</span>, <span class='fl'>2.2</span>, <span class='fl'>2.0</span>) <span class='co'># with asbestosis</span>
 <span class='fu'>DunnTest</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>z</span>))</div><div class='output co'>#&gt; 
 #&gt;  Dunn's test of multiple comparisons using rank sums : holm  
-#&gt; </div><div class='output co'>#&gt; <span class='error'>Error in InDots(..., arg = "leading"): argument "default" is missing, with no default</span></div><div class='input'>
+#&gt; 
+#&gt;     mean.rank.diff   pval    
+#&gt; 2-1            1.8 1.0000    
+#&gt; 3-1           -0.6 1.0000    
+#&gt; 3-2           -2.4 1.0000    
+#&gt; ---
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#&gt; </div><div class='input'>
 <span class='co'>## Equivalently,</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>z</span>)
 <span class='no'>g</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>4</span>, <span class='fl'>5</span>)),
@@ -265,11 +272,36 @@ Dunn's test is constructed in part by summing jointly ranked data. The rank sum 
 <span class='co'># ...and the pairwise test afterwards</span>
 <span class='fu'>DunnTest</span>(<span class='no'>x</span>, <span class='no'>g</span>)</div><div class='output co'>#&gt; 
 #&gt;  Dunn's test of multiple comparisons using rank sums : holm  
-#&gt; </div><div class='output co'>#&gt; <span class='error'>Error in InDots(..., arg = "leading"): argument "default" is missing, with no default</span></div><div class='input'>
+#&gt; 
+#&gt;                                                                   mean.rank.diff
+#&gt; Subjects with obstructive airway disease-Normal subjects                     1.8
+#&gt; Subjects with asbestosis-Normal subjects                                    -0.6
+#&gt; Subjects with asbestosis-Subjects with obstructive airway disease           -2.4
+#&gt;                                                                     pval    
+#&gt; Subjects with obstructive airway disease-Normal subjects          1.0000    
+#&gt; Subjects with asbestosis-Normal subjects                          1.0000    
+#&gt; Subjects with asbestosis-Subjects with obstructive airway disease 1.0000    
+#&gt; ---
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#&gt; </div><div class='input'>
 <span class='co'>## Formula interface.</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/boxplot.html'>boxplot</a></span>(<span class='no'>Ozone</span> ~ <span class='no'>Month</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>airquality</span>)</div><div class='img'><img src='DunnTest-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>DunnTest</span>(<span class='no'>Ozone</span> ~ <span class='no'>Month</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>airquality</span>)</div><div class='output co'>#&gt; 
 #&gt;  Dunn's test of multiple comparisons using rank sums : holm  
-#&gt; </div><div class='output co'>#&gt; <span class='error'>Error in InDots(..., arg = "leading"): argument "default" is missing, with no default</span></div></pre>
+#&gt; 
+#&gt;     mean.rank.diff     pval    
+#&gt; 6-5    12.02991453  1.00000    
+#&gt; 7-5    41.21153846 0.000099 ***
+#&gt; 8-5    38.53846154  0.00032 ***
+#&gt; 9-5    11.99734748  0.74574    
+#&gt; 7-6    29.18162393  0.14891    
+#&gt; 8-6    26.50854701  0.20743    
+#&gt; 9-6    -0.03256705  1.00000    
+#&gt; 8-7    -2.67307692  1.00000    
+#&gt; 9-7   -29.21419098  0.01036 *  
+#&gt; 9-8   -26.54111406  0.02428 *  
+#&gt; ---
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

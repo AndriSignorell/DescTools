@@ -80,7 +80,7 @@ If OR is not given, the Mantel-Haenszel estimate is used.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.005</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.006</span>
       </span>
     </div>
 
@@ -202,13 +202,145 @@ likelihood ratio test using the <code>anova</code> function).</p>
 
 <span class='co'># get rid of gender</span>
 <span class='no'>tab</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span>(<span class='no'>Freq</span> ~ <span class='no'>treatment</span> + <span class='no'>response</span>, <span class='no'>migraine</span>)
-<span class='fu'><a href='Desc.html'>Desc</a></span>(<span class='no'>tab</span>)</div><div class='output co'>#&gt; <span class='error'>Error in InDots(..., arg = "leading"): argument "default" is missing, with no default</span></div><div class='input'>
+<span class='fu'><a href='Desc.html'>Desc</a></span>(<span class='no'>tab</span>)</div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
+#&gt; <span style='font-weight: bold;'>tab (xtabs, table)</span><span>
+#&gt; 
+#&gt; Summary: 
+#&gt; n: 106, rows: 2, columns: 2
+#&gt; 
+#&gt; Pearson's Chi-squared test (cont. adj):
+#&gt;   X-squared = 7.3178, df = 1, p-value = 0.006827
+#&gt; Fisher's exact test p-value = 0.00491
+#&gt; McNemar's chi-squared = 5.0256, df = 1, p-value = 0.02497
+#&gt; 
+#&gt;                     estimate lwr.ci upr.ci'
+#&gt;                                           
+#&gt; odds ratio             3.370  1.462  7.772
+#&gt; rel. risk (col1)       2.164  1.237  3.783
+#&gt; rel. risk (col2)       0.642  0.471  0.875
+#&gt; 
+#&gt; 
+#&gt; Phi-Coefficient        0.282
+#&gt; Contingency Coeff.     0.272
+#&gt; Cramer's V             0.282
+#&gt; 
+#&gt;                                            
+#&gt;             response   better   same    Sum
+#&gt; treatment                                  
+#&gt;                                            
+#&gt; active      freq           28     27     55
+#&gt;             perc        26.4%  25.5%  51.9%
+#&gt;             p.row       50.9%  49.1%      .
+#&gt;             p.col       70.0%  40.9%      .
+#&gt;                                            
+#&gt; placebo     freq           12     39     51
+#&gt;             perc        11.3%  36.8%  48.1%
+#&gt;             p.row       23.5%  76.5%      .
+#&gt;             p.col       30.0%  59.1%      .
+#&gt;                                            
+#&gt; Sum         freq           40     66    106
+#&gt;             perc        37.7%  62.3% 100.0%
+#&gt;             p.row           .      .      .
+#&gt;             p.col           .      .      .
+#&gt;                                            
+#&gt; </span><span style='color: #808080;'>
+#&gt; ----------
+#&gt; ' 95% conf. level</span><span>
+#&gt; </div><div class='img'><img src='BreslowDayTest-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># only the women</span>
 <span class='no'>female</span> <span class='kw'>&lt;-</span> <span class='no'>migraine</span>[,, <span class='fl'>1</span>]
-<span class='fu'><a href='Desc.html'>Desc</a></span>(<span class='no'>female</span>)</div><div class='output co'>#&gt; <span class='error'>Error in InDots(..., arg = "leading"): argument "default" is missing, with no default</span></div><div class='input'>
+<span class='fu'><a href='Desc.html'>Desc</a></span>(<span class='no'>female</span>)</div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
+#&gt; </span><span style='font-weight: bold;'>female (table)</span><span>
+#&gt; 
+#&gt; Summary: 
+#&gt; n: 52, rows: 2, columns: 2
+#&gt; 
+#&gt; Pearson's Chi-squared test (cont. adj):
+#&gt;   X-squared = 6.7595, df = 1, p-value = 0.009325
+#&gt; Fisher's exact test p-value = 0.005189
+#&gt; McNemar's chi-squared = 1.5625, df = 1, p-value = 0.2113
+#&gt; 
+#&gt;                     estimate lwr.ci upr.ci'
+#&gt;                                           
+#&gt; odds ratio             5.818  1.676 20.203
+#&gt; rel. risk (col1)       2.963  1.274  6.891
+#&gt; rel. risk (col2)       0.509  0.310  0.836
+#&gt; 
+#&gt; 
+#&gt; Phi-Coefficient        0.400
+#&gt; Contingency Coeff.     0.371
+#&gt; Cramer's V             0.400
+#&gt; 
+#&gt;                                            
+#&gt;             response   better   same    Sum
+#&gt; treatment                                  
+#&gt;                                            
+#&gt; active      freq           16     11     27
+#&gt;             perc        30.8%  21.2%  51.9%
+#&gt;             p.row       59.3%  40.7%      .
+#&gt;             p.col       76.2%  35.5%      .
+#&gt;                                            
+#&gt; placebo     freq            5     20     25
+#&gt;             perc         9.6%  38.5%  48.1%
+#&gt;             p.row       20.0%  80.0%      .
+#&gt;             p.col       23.8%  64.5%      .
+#&gt;                                            
+#&gt; Sum         freq           21     31     52
+#&gt;             perc        40.4%  59.6% 100.0%
+#&gt;             p.row           .      .      .
+#&gt;             p.col           .      .      .
+#&gt;                                            
+#&gt; </span><span style='color: #808080;'>
+#&gt; ----------
+#&gt; ' 95% conf. level</span><span>
+#&gt; </div><div class='img'><img src='BreslowDayTest-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># .. and the men</span>
 <span class='no'>male</span> <span class='kw'>&lt;-</span> <span class='no'>migraine</span>[,, <span class='fl'>2</span>]
-<span class='fu'><a href='Desc.html'>Desc</a></span>(<span class='no'>male</span>)</div><div class='output co'>#&gt; <span class='error'>Error in InDots(..., arg = "leading"): argument "default" is missing, with no default</span></div><div class='input'>
+<span class='fu'><a href='Desc.html'>Desc</a></span>(<span class='no'>male</span>)</div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
+#&gt; </span><span style='font-weight: bold;'>male (table)</span><span>
+#&gt; 
+#&gt; Summary: 
+#&gt; n: 54, rows: 2, columns: 2
+#&gt; 
+#&gt; Pearson's Chi-squared test (cont. adj):
+#&gt;   X-squared = 0.88353, df = 1, p-value = 0.3472
+#&gt; Fisher's exact test p-value = 0.2635
+#&gt; McNemar's chi-squared = 2.7826, df = 1, p-value = 0.09529
+#&gt; 
+#&gt;                     estimate lwr.ci upr.ci'
+#&gt;                                           
+#&gt; odds ratio             2.036  0.648  6.398
+#&gt; rel. risk (col1)       1.592  0.741  3.418
+#&gt; rel. risk (col2)       0.782  0.526  1.163
+#&gt; 
+#&gt; 
+#&gt; Phi-Coefficient        0.167
+#&gt; Contingency Coeff.     0.164
+#&gt; Cramer's V             0.167
+#&gt; 
+#&gt;                                            
+#&gt;             response   better   same    Sum
+#&gt; treatment                                  
+#&gt;                                            
+#&gt; active      freq           12     16     28
+#&gt;             perc        22.2%  29.6%  51.9%
+#&gt;             p.row       42.9%  57.1%      .
+#&gt;             p.col       63.2%  45.7%      .
+#&gt;                                            
+#&gt; placebo     freq            7     19     26
+#&gt;             perc        13.0%  35.2%  48.1%
+#&gt;             p.row       26.9%  73.1%      .
+#&gt;             p.col       36.8%  54.3%      .
+#&gt;                                            
+#&gt; Sum         freq           19     35     54
+#&gt;             perc        35.2%  64.8% 100.0%
+#&gt;             p.row           .      .      .
+#&gt;             p.col           .      .      .
+#&gt;                                            
+#&gt; </span><span style='color: #808080;'>
+#&gt; ----------
+#&gt; ' 95% conf. level</span><span>
+#&gt; </div><div class='img'><img src='BreslowDayTest-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'>BreslowDayTest</span>(<span class='no'>migraine</span>)</div><div class='output co'>#&gt; 
 #&gt; 	Breslow-Day test on Homogeneity of Odds Ratios
 #&gt; 
@@ -236,7 +368,7 @@ likelihood ratio test using the <code>anova</code> function).</p>
 #&gt; 
 #&gt; data:  salary
 #&gt; X-squared = 0.080143, df = 1, p-value = 0.7771
-#&gt; </div></pre>
+#&gt; </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
