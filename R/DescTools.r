@@ -5162,7 +5162,7 @@ Format.default <- function(x, digits = NULL, sci = NULL
   #
   #   Format(7845, fmt=fmt.int)
   
-  if(!is.null(InDots(..., arg = "leading")))
+  if(!is.null(InDots(..., arg = "leading", default=NULL)))
     warning("Argument 'leading' is not supported anymore, use 'ldigits' (see help)!")
   
   if(is.null(fmt)) fmt <- ""
