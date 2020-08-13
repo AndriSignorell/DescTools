@@ -75,7 +75,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.006</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.008</span>
       </span>
     </div>
 
@@ -152,16 +152,16 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>the OddsRatios as returned by <code><a href='OddsRatio.html'>OddsRatio</a>()</code> of a logistic model</p></td>
+      <td><p>the OddsRatios of a logistic model as returned by <code><a href='OddsRatio.html'>OddsRatio</a>()</code></p></td>
     </tr>
     <tr>
       <th>or</th>
-      <td><p>numeric vector: OR (odds-ratio).</p></td>
+      <td><p>numeric vector, containing odds-ratios.</p></td>
     </tr>
     <tr>
       <th>p0</th>
-      <td><p>numeric vector: incidence of the outcome of interest in the
-             nonexposed group.</p></td>
+      <td><p>numeric vector, incidence of the outcome of interest in the
+             nonexposed group ("baseline risk").</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -171,10 +171,14 @@
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The function transforms a given odds-ratio (OR) to the respective
-  relative risk (RR). It can also be used to transform the limits
+    <p>The function transforms a given odds-ratio (or) to the respective
+  relative risk (rr). It can also be used to transform the limits
   of confidence intervals.</p>
-<p>It uses the formula of Zhang and Yu (1998).</p>
+<p>The formula for converting an odds ratio to a relative risk is
+$$rr = \frac{or}{1 - p_0 + p_0 \cdot or}$$</p>
+<p>where \(p_0\) is the baseline risk.</p>
+
+<p>For transformation of odds ratios resulting from a logit model, we use the formula of Zhang and Yu (1998).</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>relative risk.</p>
@@ -184,7 +188,18 @@
   studies of common outcomes. <em>JAMA</em>, <b>280</b>(19):1690-1691.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>## We use data from Zhang and Yu (1998)</span>
+    <pre class="examples"><div class='input'>(<span class='no'>heart</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>11</span>, <span class='fl'>2</span>, <span class='fl'>4</span>, <span class='fl'>6</span>), <span class='kw'>nrow</span><span class='kw'>=</span><span class='fl'>2</span>,
+                          <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>Exposure</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"High"</span>, <span class='st'>"Low"</span>),
+                                          <span class='kw'>Response</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Yes"</span>, <span class='st'>"No"</span>)))))</div><div class='output co'>#&gt;         Response
+#&gt; Exposure Yes No
+#&gt;     High  11  4
+#&gt;     Low    2  6</div><div class='input'><span class='fu'><a href='RelRisk.html'>RelRisk</a></span>(<span class='no'>heart</span>)</div><div class='output co'>#&gt; [1] 2.933333</div><div class='input'><span class='co'># calculated as (11/15)/(2/8)</span>
+
+<span class='fu'><a href='OddsRatio.html'>OddsRatio</a></span>(<span class='no'>heart</span>)</div><div class='output co'>#&gt; [1] 8.25</div><div class='input'><span class='co'># calculated as (11/4)/(2/6)</span>
+
+<span class='fu'>ORToRelRisk</span>(<span class='fu'><a href='OddsRatio.html'>OddsRatio</a></span>(<span class='no'>heart</span>), <span class='kw'>p0</span> <span class='kw'>=</span> <span class='fl'>2</span>/<span class='fl'>8</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='co'># Relative risk = odds ratio / (1 - p0 + (p0 * odds ratio))</span>
+<span class='co'># where p0 is the baseline risk</span>
+
 
 <span class='co'>## single OR to RR</span>
 <span class='fu'>ORToRelRisk</span>(<span class='fl'>14.1</span>, <span class='fl'>0.05</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div><div class='input'>

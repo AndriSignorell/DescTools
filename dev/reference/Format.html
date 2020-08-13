@@ -79,7 +79,7 @@ There's also an easygoing interface for format templates, defined as a list cons
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.006</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.008</span>
       </span>
     </div>
 
@@ -281,7 +281,7 @@ The argument <code>fmt</code> is very flexible and is used to generate a variety
 <tr><td>percent</td><td>will divide the given number by 100 and append the %-sign (without a separator).</td><td></td></tr>
 <tr><td></td><td><code>p</code></td><td>p-value</td></tr>
 <tr><td>will wrap the function <code><a href='https://rdrr.io/r/base/format.pval.html'>format.pval</a></code> and return a p-value format. Use <code>eps</code> to define the threshold to switch to a <code> &lt; 000 </code> representation.</td><td></td><td></td></tr>
-<tr><td><code>frac</code></td><td>fractions</td><td>will try to convert numbers to fractions. See <code><a href='https://rdrr.io/pkg/MASS/man/fractions.html'>fractions</a>()</code>.</td></tr>
+<tr><td><code>frac</code></td><td>fractions</td><td>will (try to) convert numbers to fractions. So 0.1 will be displayed as 1/10. See <code><a href='https://rdrr.io/pkg/MASS/man/fractions.html'>fractions</a>()</code>.</td></tr>
 <tr><td></td><td></td><td><code>*</code></td></tr>
 <tr><td>significance</td><td>will produce a significance representation of a p-value consisting of *  and .,</td><td></td></tr>
 <tr><td></td><td>while the breaks are set according to the used defaults e.g. in <code>lm</code> as</td><td></td></tr>
@@ -300,9 +300,9 @@ This allows to store and manage the full format in variables or as options (in <
 The following code will define a new format template named "<code>myNumFmt</code>" of the class <code>"fmt"</code>. Provided to <code>Format()</code> this will result in a number displayed with 2 fixed digits and a comma as big mark:</p><pre>myNumFmt &amp;lt;- as.fmt(digits=2, big.mark=",")
 Format(12222.89345, fmt=myNumFmt) = 12,222.89</pre><p>The latter returns the same result as if the arguments would have been supplied directly: 
 <code>Format(12222.89345, digits=2, big.mark=",")</code>.</p>
-<p><b>DescTools</b> defines three default formats for counts (named <code>"abs"</code>), numeric values (<code>"num"</code>) and percentages (<code>"per"</code>). These formats can also be set by the user as options (see <code><a href='DescToolsOptions.html'>DescToolsOptions</a>()</code>. The standard formats are referred to in other functions (e.g. <code><a href='TOne.html'>TOne</a>()</code>. In addition, any number of any named formats can be defined.</p>
-<p><code>Fmt()</code> is used to access the existing Formats. It also can directly adapt defined properties. <code>Fmt("num", digits=1, sci=10)</code> will use the currently defined version of the numeric format and change the digits to 1 and the threshold to switch to scientifc presentation to numbers &gt;1e10 and &lt;1e-10.
-Alread existing format templates can be altered with <code>Fmt(abs=Fmt("abs", big.mark=" "))</code>. So the format template will be overwritten with the new values and stored in in the options.</p>
+<p>Many report functions (e.g. <code><a href='TOne.html'>TOne</a>()</code>) in <b>DescTools</b> use three default formats for counts (named <code>"abs"</code>), numeric values (<code>"num"</code>) and percentages (<code>"per"</code>). These formats can be set by the user as options (see <code><a href='DescToolsOptions.html'>DescToolsOptions</a>()</code>. For other purposes any number of any named formats can be defined.</p>
+<p><code>Fmt()</code> is used to access and edit already defined Formats. It can directly adapt defined properties and returns the format template. <code>Fmt("num", digits=1, sci=10)</code> will use the current version of the numeric format and change the digits to 1 and the threshold to switch to scientifc presentation to numbers &gt;1e10 and &lt;1e-10.
+Format templates can be altered using their names. With <code>Fmt(abs=Fmt("abs", big.mark=" "))</code> the format template for count values <code>"abs"</code> will be overwritten with the new values and stored as option for the current session.</p>
 <p>The formats can as well be organized as options. <code><a href='DescToolsOptions.html'>DescToolsOptions("fmt")</a></code> would display the currently defined formats. This mechanic works analogously to the <code><a href='https://rdrr.io/r/base/options.html'>options()</a></code> procedure of base R. So to store the current settings we can use</p><pre>opt &amp;lt;- DescToolsOptions("fmt")
 ... do some stuff like redefining the global formats ...
 DescToolOptions(opt)  </pre><p>The last command resets the options and so we have again the initial definitions for the format templates.</p>
