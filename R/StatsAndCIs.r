@@ -3229,9 +3229,9 @@ MeanDiffCI.default <- function (x, y, method = c("classic", "norm","basic","stud
   if(method == "classic"){
     a <- t.test(x, y, conf.level = conf.level, paired = paired)
     if(paired)
-      res <- c(meandiff = mean(x) - mean(y), lwr.ci = a$conf.int[1], upr.ci = a$conf.int[2])
-    else
       res <- c(meandiff = mean(x - y), lwr.ci = a$conf.int[1], upr.ci = a$conf.int[2])
+    else
+      res <- c(meandiff = mean(x) - mean(y), lwr.ci = a$conf.int[1], upr.ci = a$conf.int[2])
 
   } else {
 

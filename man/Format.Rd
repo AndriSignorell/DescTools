@@ -127,7 +127,7 @@ Even more variability is needed to display numeric values. For the most frequent
 \tab\cr
 \code{p} \tab p-value \tab will wrap the function \code{\link{format.pval}} and return a p-value format. Use \code{eps} to define the threshold to switch to a \code{ < 000 } representation.\cr
 \tab\cr
-\code{frac} \tab fractions \tab will try to convert numbers to fractions. See \code{\link[MASS]{fractions}()}.\cr
+\code{frac} \tab fractions \tab will (try to) convert numbers to fractions. So 0.1 will be displayed as 1/10. See \code{\link[MASS]{fractions}()}.\cr
 \tab\cr
 
 \code{*} \tab significance \tab will produce a significance representation of a p-value consisting of *  and .,  \cr
@@ -154,10 +154,10 @@ Format(12222.89345, fmt=myNumFmt) = 12,222.89}
 The latter returns the same result as if the arguments would have been supplied directly: 
 \code{Format(12222.89345, digits=2, big.mark=",")}.
 
-\bold{DescTools} defines three default formats for counts (named \code{"abs"}), numeric values (\code{"num"}) and percentages (\code{"per"}). These formats can also be set by the user as options (see \code{\link{DescToolsOptions}()}. The standard formats are referred to in other functions (e.g. \code{\link{TOne}()}. In addition, any number of any named formats can be defined. 
+Many report functions (e.g. \code{\link{TOne}()}) in \bold{DescTools} use three default formats for counts (named \code{"abs"}), numeric values (\code{"num"}) and percentages (\code{"per"}). These formats can be set by the user as options (see \code{\link{DescToolsOptions}()}. For other purposes any number of any named formats can be defined. 
 
-\code{Fmt()} is used to access the existing Formats. It also can directly adapt defined properties. \code{Fmt("num", digits=1, sci=10)} will use the currently defined version of the numeric format and change the digits to 1 and the threshold to switch to scientifc presentation to numbers >1e10 and <1e-10.
-Alread existing format templates can be altered with \code{Fmt(abs=Fmt("abs", big.mark=" "))}. So the format template will be overwritten with the new values and stored in in the options.
+\code{Fmt()} is used to access and edit already defined Formats. It can directly adapt defined properties and returns the format template. \code{Fmt("num", digits=1, sci=10)} will use the current version of the numeric format and change the digits to 1 and the threshold to switch to scientifc presentation to numbers >1e10 and <1e-10.
+Format templates can be altered using their names. With \code{Fmt(abs=Fmt("abs", big.mark=" "))} the format template for count values \code{"abs"} will be overwritten with the new values and stored as option for the current session.
 
 The formats can as well be organized as options. \code{DescToolsOptions("fmt")} would display the currently defined formats. This mechanic works analogously to the \code{options()} procedure of base R. So to store the current settings we can use 
 \preformatted{opt <- DescToolsOptions("fmt")

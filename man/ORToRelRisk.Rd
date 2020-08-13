@@ -14,18 +14,24 @@ ORToRelRisk(...)
 \method{ORToRelRisk}{default}(or, p0, \dots)
 }
 \arguments{
-  \item{x}{the OddsRatios as returned by \code{\link{OddsRatio}()} of a logistic model}
-  \item{or}{ numeric vector: OR (odds-ratio). }
-  \item{p0}{ numeric vector: incidence of the outcome of interest in the
-             nonexposed group.}
+  \item{x}{the OddsRatios of a logistic model as returned by \code{\link{OddsRatio}()}}
+  \item{or}{ numeric vector, containing odds-ratios. }
+  \item{p0}{ numeric vector, incidence of the outcome of interest in the
+             nonexposed group ("baseline risk").}
   \item{\dots}{further arguments, are not used here.}           
 }
 \details{
-  The function transforms a given odds-ratio (OR) to the respective
-  relative risk (RR). It can also be used to transform the limits
+  The function transforms a given odds-ratio (or) to the respective
+  relative risk (rr). It can also be used to transform the limits
   of confidence intervals.
 
-  It uses the formula of Zhang and Yu (1998).
+The formula for converting an odds ratio to a relative risk is
+\deqn{rr = \frac{or}{1 - p_0 + p_0 \cdot or}}{rr = or / (1 - p_0 + p_0 * or)}
+
+where \eqn{p_0} is the baseline risk.
+
+
+For transformation of odds ratios resulting from a logit model, we use the formula of Zhang and Yu (1998).
 }
 \value{
   relative risk.
@@ -36,7 +42,19 @@ ORToRelRisk(...)
 }
 \author{ Matthias Kohl <matthias.kohl@stamats.de>}
 \examples{
-## We use data from Zhang and Yu (1998)
+(heart <- as.table(matrix(c(11, 2, 4, 6), nrow=2,
+                          dimnames = list(Exposure = c("High", "Low"), 
+                                          Response = c("Yes", "No")))))
+RelRisk(heart)
+# calculated as (11/15)/(2/8)
+
+OddsRatio(heart)
+# calculated as (11/4)/(2/6)
+
+ORToRelRisk(OddsRatio(heart), p0 = 2/8)
+# Relative risk = odds ratio / (1 - p0 + (p0 * odds ratio))
+# where p0 is the baseline risk
+
 
 ## single OR to RR
 ORToRelRisk(14.1, 0.05)

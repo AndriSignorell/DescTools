@@ -14751,7 +14751,7 @@ Phrase <- function(x, g, glabels=NULL, xname=NULL, unit=NULL, lang="engl", na.rm
   names(lst) <- c("x","y")
 
   n <- sapply(lst, length)
-  meanage <- format(sapply(lst, mean), digits=3)
+  mx <- format(sapply(lst, mean), digits=3)
 
   txt <- gettextf(txt1
                   , Format(sum(n), digits=0, big.mark="'")
@@ -14759,22 +14759,21 @@ Phrase <- function(x, g, glabels=NULL, xname=NULL, unit=NULL, lang="engl", na.rm
                   , glabels[1]
                   , Format(n[1]/sum(n), digits=1, fmt="%")
                   , xname
-                  , meanage[1]
+                  , mx[1]
                   , unit
                   , Format(n[2], digits=0, big.mark="'")
                   , glabels[2]
                   , Format(n[2]/sum(n), digits=1, fmt="%")
                   , xname
-                  , meanage[2]
+                  , mx[2]
                   , unit
   )
-
 
   r.t <- t.test(lst$x, lst$y)
 
   if(r.t$p.value < 0.05){
     md <- format(MeanDiffCI(lst$x, lst$y), digits=3)
-    txt <- paste(txt, gettextf(txt2, format.pval(r.t$p.value), md[1], unit, md[2], md[3], "%"), sep="" )
+    txt <- paste(txt, gettextf(txt2, Format(r.t$p.value, fmt="p"), md[1], unit, md[2], md[3], "%"), sep="" )
   } else {
     txt <- paste(txt, txt3, sep="")
   }
