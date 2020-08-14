@@ -15001,7 +15001,7 @@ Phrase <- function(x, g, glabels=NULL, xname=NULL, unit=NULL, lang="engl", na.rm
 
 
 
-XLView <- function (x, col.names = TRUE, row.names = FALSE, na = "", preserveStrings=FALSE) {
+XLView <- function (x, col.names = TRUE, row.names = FALSE, na = "", preserveStrings=FALSE, sep=";") {
 
   # # define some XL constants
   # xlToRight <- -4161
@@ -15025,7 +15025,7 @@ XLView <- function (x, col.names = TRUE, row.names = FALSE, na = "", preserveStr
       }
     }
 
-    write.table(x, file = fn, sep = ";", col.names = col.names,
+    write.table(x, file = fn, sep = sep, col.names = col.names,
                 qmethod = "double", row.names = row.names, na=na)
     ob <- owb$Open(fn)
     # if row.names are saved there's the first cell in the first line missing
