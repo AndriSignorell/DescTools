@@ -3,10 +3,13 @@
 \alias{ORToRelRisk.default}
 \alias{ORToRelRisk.OddsRatio}
 \title{ Transform Odds Ratio to Relative Risk }
-\description{
-  Transform a given odds-ratio (OR) to the respective
-  relative risk (RR).
+\description{The odds ratio is a common measure when comparing two groups in
+terms of an outcome that is either present or absent. As the odds ratio is in general poorly understood, odds ratios are often discussed in terms of risks, relying on the approximation, that odds ratio and relative risk are about the same when the outcome is rare. However the relative risk also depends on the risk of the baseline group and if the outcome is not rare there can be large differences between both measures and the odds ratio may substantially overestimate the relative risk. In fact, the same odds ratio could imply a very different relative risk for subgroups of the population with different baseline risks.
+
+The present function transforms a given odds-ratio (OR) to the respective relative risk (RR) either for simple odds ratios but also for odds ratios resulting from a logistic model.
 }
+
+
 \usage{
 ORToRelRisk(...)
 
@@ -14,7 +17,7 @@ ORToRelRisk(...)
 \method{ORToRelRisk}{default}(or, p0, \dots)
 }
 \arguments{
-  \item{x}{the OddsRatios of a logistic model as returned by \code{\link{OddsRatio}()}}
+  \item{x}{the odds ratios of a logistic model as returned by \code{\link{OddsRatio}()}}
   \item{or}{ numeric vector, containing odds-ratios. }
   \item{p0}{ numeric vector, incidence of the outcome of interest in the
              nonexposed group ("baseline risk").}
@@ -39,6 +42,9 @@ For transformation of odds ratios resulting from a logit model, we use the formu
 \references{
   Zhang, J. and Yu, K. F. (1998). What's the relative risk? A method of correcting the odds ratio in cohort
   studies of common outcomes. \emph{JAMA}, \bold{280}(19):1690-1691.
+
+Grant, R. L. (2014) Converting an odds ratio to a range of plausible relative
+risks for better communication of research findings. BMJ 2014;348:f7450 doi: 10.1136/bmj.f7450
 }
 \author{ Matthias Kohl <matthias.kohl@stamats.de>}
 \examples{

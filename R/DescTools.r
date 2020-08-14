@@ -2360,6 +2360,18 @@ Recode <- function(x, ..., elselevel=NA, use.empty=FALSE, num=FALSE){
 }
 
 
+RevCode <- function(x, lbound=min(x, na.rm=TRUE), ubound=max(x, na.rm=TRUE)) {
+  
+  x <- as.numeric(x)
+  
+  x[x %)(% c(lbound, ubound)] <- NA
+  
+  return(lbound + ubound - x)
+  
+}
+
+
+
 
 ZeroIfNA <- function(x) {
 #  same as zeroifnull in SQL
