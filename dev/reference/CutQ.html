@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.010</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.011</span>
       </span>
     </div>
 
@@ -150,7 +150,7 @@
     </tr>
     <tr>
       <th>breaks</th>
-      <td><p>the breaks for creating groups. By default the quartiles will be used, say <code>quantile</code> <code><a href='https://rdrr.io/r/base/seq.html'>seq(0, 1, by = 0.25)</a></code> quantiles. See <code><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></code> for details.</p></td>
+      <td><p>the breaks for creating groups. By default the quartiles will be used, say <code>quantile</code> <code><a href='https://rdrr.io/r/base/seq.html'>seq(0, 1, by = 0.25)</a></code> quantiles. See <code><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></code> for details. If breaks is given as a single integer it is interpreted as the intended number of groups, e.g. <code>breaks=10</code> will return x cut in deciles.</p></td>
     </tr>
     <tr>
       <th>labels</th>
@@ -197,10 +197,10 @@
 #&gt;  Q1  Q2  Q3  Q4 
 #&gt; 250 250 250 250 </div><div class='input'>
 <span class='co'># cut into deciles</span>
-<span class='no'>deciles</span> <span class='kw'>&lt;-</span> <span class='fu'>CutQ</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='kw'>by</span><span class='kw'>=</span><span class='fl'>0.1</span>), <span class='kw'>labels</span><span class='kw'>=</span><span class='kw'>NULL</span>)
+<span class='no'>deciles</span> <span class='kw'>&lt;-</span> <span class='fu'>CutQ</span>(<span class='no'>x</span>, <span class='kw'>breaks</span><span class='kw'>=</span><span class='fl'>10</span>, <span class='kw'>labels</span><span class='kw'>=</span><span class='kw'>NULL</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='no'>deciles</span>)</div><div class='output co'>#&gt; deciles
 #&gt;  Q1  Q2  Q3  Q4  Q5  Q6  Q7  Q8  Q9 Q10 
-#&gt;  34  53  34  34  40  33  36  28  19  29 </div><div class='input'>
+#&gt; 100 100 100 100 100 100 100 100 100 100 </div><div class='input'>
 <span class='co'># show handling of 'tied' quantiles.</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='no'>x</span>)  <span class='co'># discretize to create ties</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/stem.html'>stem</a></span>(<span class='no'>x</span>)        <span class='co'># display the ties</span></div><div class='output co'>#&gt; 
@@ -220,11 +220,11 @@
 #&gt;    2 | 000000000000000000000000000000000000000000000000000000000000000
 #&gt;    2 | 
 #&gt;    3 | 00000
-#&gt; </div><div class='input'><span class='no'>deciles</span> <span class='kw'>&lt;-</span> <span class='fu'>CutQ</span>( <span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='kw'>by</span><span class='kw'>=</span><span class='fl'>0.1</span>) )
+#&gt; </div><div class='input'><span class='no'>deciles</span> <span class='kw'>&lt;-</span> <span class='fu'>CutQ</span>(<span class='no'>x</span>, <span class='kw'>breaks</span><span class='kw'>=</span><span class='fl'>10</span>)
 
 <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='no'>deciles</span>) <span class='co'># note that there are only 5 groups (not 10) </span></div><div class='output co'>#&gt; deciles
-#&gt;  Q1  Q2  Q3  Q4  Q5  Q6  Q7  Q8  Q9 Q10 
-#&gt; 390   0   0   0   0   0   0   0   0 220 </div><div class='input'>               # due to duplicates
+#&gt; [-3,-1)      -1       0       1   (1,3] 
+#&gt;      61     261     390     220      68 </div><div class='input'>               # due to duplicates
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

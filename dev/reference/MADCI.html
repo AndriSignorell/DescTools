@@ -6,7 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Identify Closest Match to a Color Given by a Hexadecimal String — HexToCol • DescTools</title>
+<title>Confidence Intervals for Median Absolute Deviations
+<!-- %%  ~~function to do ... ~~ --> — MADCI • DescTools</title>
 
 
 <!-- jquery -->
@@ -41,9 +42,9 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Identify Closest Match to a Color Given by a Hexadecimal String — HexToCol" />
-<meta property="og:description" content="Given a color as a hex string #rrggbb, find the closest match in the
- table of known (named) colors." />
+<meta property="og:title" content="Confidence Intervals for Median Absolute Deviations
+<!-- %%  ~~function to do ... ~~ --> — MADCI" />
+<meta property="og:description" content="A function for the median absolute deviation is included in base R, mad, but there's no function for calculating confidence intervals. Arachchige/Prendergast introduce interval estimators of the MAD to make reliable inferences for dispersion for a single population and ratios and differences of MADs for comparing two populations." />
 
 
 <meta name="robots" content="noindex">
@@ -130,53 +131,85 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Identify Closest Match to a Color Given by a Hexadecimal String</h1>
+    <h1>Confidence Intervals for Median Absolute Deviations
+<!-- %%  ~~function to do ... ~~ --></h1>
     
-    <div class="hidden name"><code>HexToCol.Rd</code></div>
+    <div class="hidden name"><code>MADCI.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Given a color as a hex string #rrggbb, find the closest match in the
- table of known (named) colors.</p>
+    <p>A function for the median absolute deviation is included in base R, <code><a href='https://rdrr.io/r/stats/mad.html'>mad</a></code>, but there's no function for calculating confidence intervals. Arachchige/Prendergast introduce interval estimators of the MAD to make reliable inferences for dispersion for a single population and ratios and differences of MADs for comparing two populations.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>HexToCol</span>(<span class='no'>hexstr</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"rgb"</span>, <span class='kw'>metric</span> <span class='kw'>=</span> <span class='st'>"euclidean"</span>)</pre>
+    <pre class="usage"><span class='fu'>MADCI</span>(<span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>two.samp.diff</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>gld.est</span> <span class='kw'>=</span> <span class='st'>"TM"</span>,
+      <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>sides</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"two.sided"</span>,<span class='st'>"left"</span>,<span class='st'>"right"</span>),
+      <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>hexstr</th>
-      <td><p>a color or a vector of colors specified as hexadecimal string of the form "#RRGGBB" or "#RRGGBBAA"</p></td>
+      <th>x</th>
+      <td><p>a (non-empty) numeric vector of data values.</p></td>
     </tr>
     <tr>
-      <th>method</th>
-      <td><p>character string specifying the color space to be used. Can be "rgb" (default) or "hsv".</p></td>
+      <th>y</th>
+      <td><p>a second (non-empty) numeric vector of data values.
+<!-- %%     ~~Describe \code{y} here~~ --></p></td>
     </tr>
     <tr>
-      <th>metric</th>
-      <td><p>character string specifying the metric to be used for calculating distances between the colors.
-Available options are "euclidean" (default) and "manhattan". Euclidean distances are root sum-of-squares of differences, and manhattan distances are the sum of absolute differences.</p></td>
+      <th>two.samp.diff</th>
+      <td><p>logical, defining if the confidence intervals for a difference of x and y should be calculated.
+<!-- %%     ~~Describe \code{two.samp.diff} here~~ --></p></td>
+    </tr>
+    <tr>
+      <th>gld.est</th>
+      <td><p>type of gld estimator.
+<!-- %%     ~~Describe \code{gld.est} here~~ --></p></td>
+    </tr>
+    <tr>
+      <th>conf.level</th>
+      <td><p>confidence level of the interval</p></td>
+    </tr>
+    <tr>
+      <th>sides</th>
+      <td><p>a character string specifying the side of the confidence interval, must be one of <code>"two.sided"</code> (default), <code>"left"</code> or <code>"right"</code>. You can specify just the initial letter. <code>"left"</code> would be analogue to a hypothesis of <code>"greater"</code> in a <code>t.test</code>.</p></td>
+    </tr>
+    <tr>
+      <th>na.rm</th>
+      <td><p>logical. Should missing values be removed? Defaults to <code>FALSE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>further arguments, not used here</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Finds the color with the minimum squared distance in RGB space.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The colorname(s) of the closest match(es) (if more than one).</p>
+    <p>a numeric vector with 3 elements:</p>
+<dt>mad</dt><dd><p>median absolute deviation</p></dd>
+  <dt>lwr.ci</dt><dd><p>lower bound of the confidence interval</p></dd>
+  <dt>upr.ci</dt><dd><p>upper bound of the confidence interval</p></dd>
+
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Arachchige Chandima N. P. G., Prendergast Luke A. (2019) Confidence intervals for median absolute deviations, arXiv:1910.00229 [math.ST]
+<!-- %% ~put references to the literature/web site here ~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='ColToHex.html'>ColToHex</a>, <a href='ColToRgb.html'>ColToRgb</a>, <a href='https://rdrr.io/r/grDevices/colors.html'>colors</a></p></div>
+    <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/mad.html'>mad</a></code>, <code><a href='MAD.html'>MAD</a></code>
+<!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='ColToHex.html'>ColToHex</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"lightblue"</span>, <span class='st'>"salmon"</span>))</div><div class='output co'>#&gt; [1] "#ADD8E6" "#FA8072"</div><div class='input'>
-<span class='fu'>HexToCol</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"#ADD8E6"</span>, <span class='st'>"#FA1572"</span>))</div><div class='output co'>#&gt; [1] "lightblue" "deeppink2"</div><div class='input'><span class='fu'>HexToCol</span>(<span class='fu'><a href='Pal.html'>Pal</a></span>(<span class='st'>"Helsana"</span>))</div><div class='output co'>#&gt;  [1] "deeppink4"    "darkorange2"  "goldenrod1"   "navajowhite3" "hotpink3"    
-#&gt;  [6] "skyblue3"     "gold3"        "gray80"       "gray40"       "white"       </div><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ColToRgb.html'>ColToRgb</a></span>(<span class='st'>"darkmagenta"</span>)
-<span class='no'>x</span>[<span class='fl'>2</span>,] <span class='kw'>&lt;-</span> <span class='no'>x</span>[<span class='fl'>2</span>,] + <span class='fl'>155</span>
-<span class='fu'><a href='RgbToCol.html'>RgbToCol</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "gray57"</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span>(<span class='fl'>100</span>)
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span>(<span class='fl'>200</span>, <span class='kw'>meanlog</span><span class='kw'>=</span><span class='fl'>1.2</span>)
+
+<span class='fu'>MADCI</span>(<span class='no'>x</span>)                           <span class='co'># single sample</span></div><div class='output co'>#&gt;       mad    lwr.ci    upr.ci 
+#&gt; 0.7844891 0.3406550 1.2283233 </div><div class='input'>
+<span class='fu'>MADCI</span>(<span class='no'>x</span>, <span class='no'>y</span>)                        <span class='co'># two sample difference</span></div><div class='output co'>#&gt;       mad    lwr.ci    upr.ci 
+#&gt; -2.045040 -2.697248 -1.392833 </div><div class='input'><span class='fu'>MADCI</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>two.samp.diff</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>) <span class='co'># two sample squared ratio </span></div><div class='output co'>#&gt;        mad     lwr.ci     upr.ci 
+#&gt; 0.07686797 0.02359939 0.25037452 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
