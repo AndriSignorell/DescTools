@@ -5367,11 +5367,11 @@ Format.default <- function(x, digits = NULL, sci = NULL
 
 
 
-print.Format <- function (x, ...) {
+print.Format <- function (x, quote=FALSE, ...) {
 
   class(x) <- class(x)[class(x)!="Format"]
   # print(x, quote=FALSE, right=TRUE, ...)
-  NextMethod("print", quote = FALSE, right=TRUE, ...)
+  NextMethod("print", quote = quote, right=TRUE, ...)
 }
 
 
@@ -5493,6 +5493,14 @@ Fmt <- function(...){
 
 }
 
+
+# this does not work...
+
+# `Fmt<-` <- function (name, value){
+#   opt <- options("DescTools")
+#   opt$fmt[[name]] <- value
+#   DescToolsOptions(opt)
+# }
 
 
 
@@ -14278,6 +14286,7 @@ WrdFont <- function(wrd = DescToolsOptions("lastWord") ) {
 
   return(wrd)
 }
+
 
 
 # Get and set ParagraphFormat

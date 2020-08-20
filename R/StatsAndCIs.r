@@ -171,6 +171,75 @@ MAD <- function(x, weights = NULL, center = Median, constant = 1.4826, na.rm = F
 
 
 
+MADCI <- function(x, y = NULL, two.samp.diff = TRUE, gld.est = "TM", 
+                  conf.level = 0.95, sides = c("two.sided","left","right"), 
+                  na.rm = FALSE, ...) {
+
+  if (na.rm) x <- na.omit(x)
+  
+  sides <- match.arg(sides, choices = c("two.sided","left","right"), 
+                     several.ok = FALSE)
+  
+  if(sides!="two.sided")
+    conf.level <- 1 - 2*(1-conf.level)
+
+  asv.mad <- function(x, method = "TM"){
+    lambda <- fit.fkml(x, method = method)$lambda
+    m  <- median(x)
+    mad.x <- mad(x)
+    fFinv <- dgl(c(m - mad.x, m + mad.x, m), lambda1 = lambda)
+    FFinv <- pgl(c(m - mad.x, m + mad.x), lambda1 = lambda)
+    A <- fFinv[1] + fFinv[2]
+    C <- fFinv[1] - fFinv[2]
+    B <- C^2 + 4*C*fFinv[3]*(1 - FFinv[2] - FFinv[1])
+    
+    (1/(4 * A^2))*(1 + B/fFinv[3]^2)
+    
+  } 
+  
+  alpha <- 1 - conf.level
+  z <- qnorm(1 - alpha/2)
+  
+  est <- mad.x <- mad(x)
+  
+  n.x <- length(x)
+  asv.x <- asv.mad(x, method = gld.est)
+  
+  if(is.null(y)){
+    ci <- mad.x + c(-z, z) * sqrt(asv.x / n.x)
+    
+  } else{
+    y <- y[!is.na(y)]
+    mad.y <- mad(y)
+    n.y <- length(y)
+    
+    asv.y <- asv.mad(y, method = gld.est)
+    
+    if(two.samp.diff){
+      est <- mad.x - mad.y
+      ci <- est + c(-z, z)*sqrt(asv.x/n.x + asv.y/n.y)
+    } else{
+      est <- (mad.x/mad.y)^2
+      log.est <- log(est)
+      var.est <- 4 * est * ((1/mad.y^2)*asv.x/n.x + (est/mad.y^2)*asv.y/n.y)
+      Var.log.est <- (1 / est^2) * var.est
+      
+      ci <- exp(log.est + c(-z, z) * sqrt(Var.log.est))
+    }
+  }
+  
+  res <- c(est, ci)
+  
+  names(res) <- c("mad","lwr.ci","upr.ci")
+  
+  if(sides=="left")
+    res[3] <- Inf
+  else if(sides=="right")
+    res[2] <- -Inf
+  
+  return( res )
+  
+}
 
 
 
@@ -3924,7 +3993,8 @@ Rosenbluth <- function(x, n = rep(1, length(x)), na.rm = FALSE) {
 ## stats: assocs etc. ====
 
 
-CutQ <- function(x, breaks=quantile(x, seq(0, 1, by=0.25), na.rm=TRUE), labels=NULL, na.rm = FALSE, ...){
+CutQ <- function(x, breaks=quantile(x, seq(0, 1, by=0.25), na.rm=TRUE), 
+                 labels=NULL, na.rm = FALSE, ...){
 
   # old version:
   #  cut(x, breaks=probsile(x, breaks=probs, na.rm = na.rm), include.lowest=TRUE, labels=labels)
@@ -3934,6 +4004,9 @@ CutQ <- function(x, breaks=quantile(x, seq(0, 1, by=0.25), na.rm=TRUE), labels=N
 
   if(na.rm) x <- na.omit(x)
 
+  if(length(breaks)==1 && IsWhole(breaks))
+    breaks <- quantile(x, seq(0, 1, by = 1/breaks), na.rm = TRUE)
+  
   if(is.null(labels)) labels <- gettextf("Q%s", 1:(length(breaks)-1))
 
   # probs <- quantile(x, probs)
@@ -3956,7 +4029,7 @@ CutQ <- function(x, breaks=quantile(x, seq(0, 1, by=0.25), na.rm=TRUE), labels=N
     newprobs <- sapply(uniqs, reposition)
     retval[!flag] <- as.character(cut(x[!flag], breaks=newprobs, include.lowest=TRUE,...))
 
-    levs <- unique(retval[order(x)]) # ensure factor levels are
+    levs <- unique(retval[order(x)])        # ensure factor levels are
     # properly ordered
     retval <- factor(retval, levels=levs)
 
@@ -3969,15 +4042,15 @@ CutQ <- function(x, breaks=quantile(x, seq(0, 1, by=0.25), na.rm=TRUE), labels=N
     rownames(pairs) <- c("lower.bound","upper.bound")
     colnames(pairs) <- levs
 
-    closed.lower <- rep(F,ncol(pairs)) # default lower is open
-    closed.upper <- rep(T,ncol(pairs)) # default upper is closed
-    closed.lower[1] <- TRUE             # lowest interval is always closed
+    closed.lower <- rep(FALSE, ncol(pairs)) # default lower is open
+    closed.upper <- rep(TRUE, ncol(pairs))  # default upper is closed
+    closed.lower[1] <- TRUE                 # lowest interval is always closed
 
-    for(i in 2:ncol(pairs))            # open lower interval if above singlet
+    for(i in 2:ncol(pairs))                 # open lower interval if above singlet
       if(pairs[1,i]==pairs[1,i-1] && pairs[1,i]==pairs[2,i-1])
         closed.lower[i] <- FALSE
 
-    for(i in 1:(ncol(pairs)-1))        # open upper interval if below singlet
+    for(i in 1:(ncol(pairs)-1))             # open upper interval if below singlet
       if(pairs[2,i]==pairs[1,i+1] && pairs[2,i]==pairs[2,i+1])
         closed.upper[i] <- FALSE
 

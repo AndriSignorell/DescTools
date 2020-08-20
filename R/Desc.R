@@ -821,7 +821,9 @@ calcDesc.bivar     <- function(x, g, xname = NULL, gname = NULL, margin=FALSE, b
   } else if(!is.numeric(x) && !is.numeric(g)) {
 
     res$class  <- "factfact"
-    res$tab <- table(x[ok], g[ok])
+#    res$tab <- table(x[ok], g[ok], useNA=InDots(..., arg="useNA", default = "no"))
+# do not use x[ok] here, as we could not use NAs in the output
+    res$tab <- table(x, g, useNA=InDots(..., arg="useNA", default = "no"))
     res$rfrq <- InDots(..., arg="rfrq", default = "111")
     res$conf.level <- conf.level
     res$verbose <- verbose
