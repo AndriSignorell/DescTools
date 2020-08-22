@@ -6,8 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Determines If And How Extensively Two Date Ranges Overlap
-<!-- %%  ~~function to do ... ~~ --> — %overlaps% • DescTools</title>
+<title>Confidence Interval for Any Quantile
+<!-- %%  ~~function to do ... ~~ --> — QuantileCI • DescTools</title>
 
 
 <!-- jquery -->
@@ -42,11 +42,10 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Determines If And How Extensively Two Date Ranges Overlap
-<!-- %%  ~~function to do ... ~~ --> — %overlaps%" />
-<meta property="og:description" content="%overlaps% determines if two date ranges overlap at all and returns a logical value.
-Interval returns the number of days of the overlapping part of the
-two date periods. Inspired by the eponymous SQL-functions." />
+<meta property="og:title" content="Confidence Interval for Any Quantile
+<!-- %%  ~~function to do ... ~~ --> — QuantileCI" />
+<meta property="og:description" content="Calculates the confidence interval for any quantile. Although bootstrapping might be a good approach for getting senisble confidence intervals there's sometimes need to have a nonparameteric alternative. This function offers one.
+" />
 
 
 <meta name="robots" content="noindex">
@@ -133,75 +132,102 @@ two date periods. Inspired by the eponymous SQL-functions." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Determines If And How Extensively Two Date Ranges Overlap
+    <h1>Confidence Interval for Any Quantile
 <!-- %%  ~~function to do ... ~~ --></h1>
     
-    <div class="hidden name"><code>overlaps.Rd</code></div>
+    <div class="hidden name"><code>QuantileCI.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>%overlaps% determines if two date ranges overlap at all and returns a logical value.
-Interval returns the number of days of the overlapping part of the
-two date periods. Inspired by the eponymous SQL-functions.</p>
+    <p>Calculates the confidence interval for any quantile. Although bootstrapping might be a good approach for getting senisble confidence intervals there's sometimes need to have a nonparameteric alternative. This function offers one.
+<!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='no'>x</span> <span class='kw'>%overlaps%</span> <span class='no'>y</span>
-
-<span class='fu'>Overlap</span>(<span class='no'>x</span>, <span class='no'>y</span>)
-
-<span class='fu'>Interval</span>(<span class='no'>x</span>, <span class='no'>y</span>)</pre>
+    <pre class="usage"><span class='fu'>QuantileCI</span>(<span class='no'>x</span>, <span class='kw'>probs</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>.25</span>), <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>sides</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"two.sided"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span>),
+           <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"exact"</span>, <span class='st'>"boot"</span>), <span class='kw'>R</span> <span class='kw'>=</span> <span class='fl'>999</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>range 1, vector of 2 numeric values or matrix with 2 columns, the first defining the left point the second the right point of the range.</p></td>
+      <td><p>a (non-empty) numeric vector of data values.</p></td>
     </tr>
     <tr>
-      <th>y</th>
-      <td><p>range 2, vector of 2 numeric values or matrix with 2 columns, the first defining the left point the second the right point of the range.</p></td>
+      <th>probs</th>
+      <td><p>numeric vector of probabilities with values in <em>[0,1]</em>. (Values up to <code>2e-14</code> outside that range are accepted and moved to the nearby endpoint.)</p></td>
+    </tr>
+    <tr>
+      <th>conf.level</th>
+      <td><p>confidence level of the interval</p></td>
+    </tr>
+    <tr>
+      <th>sides</th>
+      <td><p>a character string specifying the side of the confidence interval, must be one of <code>"two.sided"</code> (default), <code>"left"</code> or <code>"right"</code> (abbreviations allowed). <br /><code>"left"</code> would be analogue to a <code>"greater"</code> hypothesis in a <code>t.test</code>.</p></td>
+    </tr>
+    <tr>
+      <th>na.rm</th>
+      <td><p>logical. Should missing values be removed? Defaults to <code>FALSE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>method</th>
+      <td><p>defining the type of interval that should be calculated (one out of <code>"exact"</code>, <code>"boot"</code>). Default is <code>"exact"</code>. See Details.</p></td>
+    </tr>
+    <tr>
+      <th>R</th>
+      <td><p>The number of bootstrap replicates. Usually this will be a single positive integer. See
+<code>boot.ci</code> for details.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>%overlaps%</code> returns <code>TRUE</code> or <code>FALSE</code> depending on if the two ranges overlap. The function <code>Overlap</code> returns the range of the overlapping region as numeric value. This will be 0, if the ranges do not overlap. <br />
-<code>Interval</code> returns the width of the empty space between 2 ranges. Again this will be 0 if the ranges overlap.</p>
-<p>To handle overlapping ranges there are 4 cases to consider:</p><pre>
-range a:     |--------------|
-range b:  |-----|
-range c:              |--------|
-range d:           |-----|
-          1  2  3  4  5  6  7  8</pre>
-
-<p>Ranges a and b overlap, the function <code>Overlap</code> will return the absolute value of the overlapping region (which will be 3 - 2 = 1 in this case). The result will be the same for <code>Overlap(a, b)</code> and <code>Overlap(b, a)</code>.<br /> <code>Interval</code> will have a direction. Ranges b and c do not overlap, <code>Overlap</code> will return 0, <code>%overlaps%</code> FALSE. <code>Interval</code> will return 2 for the case <code>Interval(a, b)</code> and -2 for <code>Interval(b, a)</code>.</p>
-<p>This functions can be of value, if one has to decide, whether confidence intervals overlap or not.</p>
+    <p>The <code>"exact"</code> method corresponds to the way the confidence interval for the median is calculated in SAS. <br />
+The boot confidence interval type is calculated by means of <code>boot.ci</code> with default type <code>"basic"</code>.
+<!-- %%  ~~ If necessary, more details than the description above ~~ --></p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>returns a logical vector (match or not for each element of x). <br />
-Interval and Overlap return a numeric vector.
-<!-- %%  ~Describe the value returned -->
-<!-- %%  If it is a LIST, use -->
-<!-- %%  \item{comp1 }{Description of 'comp1'} -->
-<!-- %%  \item{comp2 }{Description of 'comp2'} -->
-<!-- %% ... --></p>
+    <p>if probs was of length 1
+a numeric vector with 3 elements:</p>
+<dt>est</dt><dd><p>est</p></dd>
+  <dt>lwr.ci</dt><dd><p>lower bound of the confidence interval</p></dd>
+  <dt>upr.ci</dt><dd><p>upper bound of the confidence interval</p></dd>
+  
+or, if probs was a vector, a matrix with 3 columns consisting of estimate, lower ci, upper ci
+  est, lwr.ci, upr.ci
+
+
+%%  ~Describe the value returned
+%%  If it is a LIST, use
+%%  \item{comp1 }{Description of 'comp1'}
+%%  \item{comp2 }{Description of 'comp2'}
+%% ...
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>similar operators: <code><a href='Between.html'>Between</a></code>, <code><a href='like.html'>%like%</a></code> <br />
-for calculating the overlapping time: <code><a href='https://rdrr.io/r/base/difftime.html'>difftime</a></code>
+    <div class='dont-index'><p><code><a href='Quantile.html'>Quantile</a></code>,  <code><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></code>,  <code><a href='MedianCI.html'>MedianCI</a></code>
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2012-01-03"</span>, <span class='st'>"2012-02-03"</span>)) <span class='kw'>%overlaps%</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2012-03-01"</span>, <span class='st'>"2012-03-03"</span>))</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2012-01-03"</span>, <span class='st'>"2012-02-03"</span>)) <span class='kw'>%overlaps%</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2012-01-15"</span>, <span class='st'>"2012-01-21"</span>))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='fu'>Interval</span>(<span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2012-01-03"</span>, <span class='st'>"2012-02-03"</span>)), <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2012-03-01"</span>, <span class='st'>"2012-03-03"</span>)))</div><div class='output co'>#&gt; [1] 27</div><div class='input'>
-
-<span class='co'># both ranges are recyled if necessary</span>
-<span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2012-01-03"</span>) <span class='kw'>%overlaps%</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2012-03-01"</span>, <span class='st'>"2012-03-03"</span>))</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
-<span class='co'># works with numerics as well</span>
-<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>18</span>) <span class='kw'>%overlaps%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10</span>, <span class='fl'>45</span>)</div><div class='output co'>#&gt; [1] TRUE</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>QuantileCI</span>(<span class='no'>d.pizza</span>$<span class='no'>price</span>, <span class='kw'>probs</span><span class='kw'>=</span><span class='fl'>0.25</span>, <span class='kw'>na.rm</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;    est lwr.ci upr.ci 
+#&gt;  30.98  29.98  33.98 
+#&gt; attr(,"conf.level")
+#&gt; [1] 0.9502599</div><div class='input'>
+<span class='fu'>QuantileCI</span>(<span class='no'>d.pizza</span>$<span class='no'>price</span>, <span class='kw'>na.rm</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;          est   lwr.ci upr.ci
+#&gt; 0%     8.792       NA  8.792
+#&gt; 25%   30.980  29.9800 33.980
+#&gt; 50%   46.764  44.9700 47.970
+#&gt; 75%   63.180  61.0056 65.655
+#&gt; 100% 134.334 124.4340     NA
+#&gt; attr(,"conf.level")
+#&gt; [1] 1.0000000 0.9502599 0.9503030 0.9502599 1.0000000</div><div class='input'><span class='fu'>QuantileCI</span>(<span class='no'>d.pizza</span>$<span class='no'>price</span>, <span class='kw'>conf.level</span><span class='kw'>=</span><span class='fl'>0.99</span>, <span class='kw'>na.rm</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;          est  lwr.ci upr.ci
+#&gt; 0%     8.792      NA  8.792
+#&gt; 25%   30.980  29.980 35.176
+#&gt; 50%   46.764  44.970 47.970
+#&gt; 75%   63.180  59.660 66.360
+#&gt; 100% 134.334 124.434     NA
+#&gt; attr(,"conf.level")
+#&gt; [1] 1.0000000 0.9901407 0.9902694 0.9901407 1.0000000</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
