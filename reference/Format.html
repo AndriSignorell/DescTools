@@ -44,9 +44,9 @@
 
 <meta property="og:title" content="Format Numbers and Dates
 <!-- %%  ~~function to do ... ~~ --> — Format" />
-<meta property="og:description" content="Formatting numbers in R often degenerates into a major intellectual challenge for us little minds down here in the Valley of Tears. We have several functions available and quite often it's hard to work out which one to use, when an uncommon option is needed.
-This function wraps those functions and tries to offer a simpler, less technical, but still flexible interface.
-There's also an easygoing interface for format templates, defined as a list consisting of any accepted format features. In this way templates can be defined outside and may easily be changed or modified later.
+<meta property="og:description" content="Formatting numbers with base R tools often degenerates into a major intellectual challenge for us little minds down here in the valley of tears. There are a number of options available and quite often it's hard to work out which one to use, when a more uncommon setting is needed.
+The Format() function wraps all these functions and tries to offer a simpler, less technical, but still flexible interface.
+There's also an easygoing interface for format templates, defined as a list consisting of any accepted format features. This enables to define templates globally and easily change or modify them later.
 " />
 
 
@@ -79,7 +79,7 @@ There's also an easygoing interface for format templates, defined as a list cons
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.36.0002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.38</span>
       </span>
     </div>
 
@@ -141,34 +141,34 @@ There's also an easygoing interface for format templates, defined as a list cons
     </div>
 
     <div class="ref-description">
-    <p>Formatting numbers in R often degenerates into a major intellectual challenge for us little minds down here in the Valley of Tears. We have several functions available and quite often it's hard to work out which one to use, when an uncommon option is needed.
-This function wraps those functions and tries to offer a simpler, less technical, but still flexible interface.</p>
-<p>There's also an easygoing interface for format templates, defined as a list consisting of any accepted format features. In this way templates can be defined outside and may easily be changed or modified later.
+    <p>Formatting numbers with base R tools often degenerates into a major intellectual challenge for us little minds down here in the valley of tears. There are a number of options available and quite often it's hard to work out which one to use, when a more uncommon setting is needed.
+The <code>Format()</code> function wraps all these functions and tries to offer a simpler, less technical, but still flexible interface.</p>
+<p>There's also an easygoing interface for format templates, defined as a list consisting of any accepted format features. This enables to define templates globally and easily change or modify them later.
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
     <pre class="usage"><span class='fu'>Format</span>(<span class='no'>x</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sci</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>big.mark</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-       <span class='kw'>leading</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>zero.form</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na.form</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+       <span class='kw'>ldigits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>zero.form</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na.form</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
        <span class='kw'>fmt</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>lang</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-       <span class='kw'>eps</span> <span class='kw'>=</span> <span class='no'>.Machine</span>$<span class='no'>double.eps</span>, <span class='no'>...</span>)
+       <span class='kw'>eps</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for table</span>
 <span class='fu'>Format</span>(<span class='no'>x</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sci</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>big.mark</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-       <span class='kw'>leading</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>zero.form</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na.form</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+       <span class='kw'>ldigits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>zero.form</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na.form</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
        <span class='kw'>fmt</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>lang</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-       <span class='kw'>eps</span> <span class='kw'>=</span> <span class='no'>.Machine</span>$<span class='no'>double.eps</span>, <span class='no'>...</span>)
+       <span class='kw'>eps</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for matrix</span>
 <span class='fu'>Format</span>(<span class='no'>x</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sci</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>big.mark</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-       <span class='kw'>leading</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>zero.form</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na.form</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+       <span class='kw'>ldigits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>zero.form</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na.form</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
        <span class='kw'>fmt</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>lang</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-       <span class='kw'>eps</span> <span class='kw'>=</span> <span class='no'>.Machine</span>$<span class='no'>double.eps</span>, <span class='no'>...</span>)
+       <span class='kw'>eps</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for default</span>
 <span class='fu'>Format</span>(<span class='no'>x</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sci</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>big.mark</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-       <span class='kw'>leading</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>zero.form</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na.form</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+       <span class='kw'>ldigits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>zero.form</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na.form</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
        <span class='kw'>fmt</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>lang</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-       <span class='kw'>eps</span> <span class='kw'>=</span> <span class='no'>.Machine</span>$<span class='no'>double.eps</span>, <span class='no'>...</span>)
+       <span class='kw'>eps</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
 <span class='fu'>Fmt</span>(<span class='no'>...</span>)
 
@@ -201,8 +201,8 @@ This function wraps those functions and tries to offer a simpler, less technical
 <!-- %%     ~~Describe \code{big.mark} here~~  big.interval is not implemented, would anyone need that?? --></p></td>
     </tr>
     <tr>
-      <th>leading</th>
-      <td><p>character string that can be used for setting leading zeros. "000" would make sure that at least 3 digits on the left side will be printed. Setting leading to "drop" will yield results like ".452" for 0.452. The default <code>NULL</code> will leave the numbers as they are.
+      <th>ldigits</th>
+      <td><p>number of leading zeros. <code>ldigits=3</code> would make sure that at least 3 digits on the left side will be printed, say <code>3.4</code> will be printed as <code>003.4</code>. Setting <code>ldigits</code> to <code>0</code> will yield results like <code>.452</code> for <code>0.452</code>. The default <code>NULL</code> will leave the numbers as they are (meaning at least one 0 digit).
 <!-- %%     ~~Describe \code{drop0leading} here~~ --></p></td>
     </tr>
     <tr>
@@ -240,7 +240,7 @@ This argument is send directly to the function <code><a href='StrAlign.html'>Str
     </tr>
     <tr>
       <th>eps</th>
-      <td><p>a numerical tolerance used mainly for formatting p values, those less than eps are formatted as "<code>&lt; [eps]</code>" (where '[eps]' stands for <code>format(eps, digits))</code>.</p></td>
+      <td><p>a numerical tolerance used mainly for formatting p values, those less than eps are formatted as "<code>&lt; [eps]</code>" (where '[eps]' stands for <code>format(eps, digits))</code>. Default is <code>.Machine$double.eps</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -250,11 +250,10 @@ This argument is send directly to the function <code><a href='StrAlign.html'>Str
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>Format()</code> is used to format numbers. <code>Fmt()</code> can be used to display existing or define new format templates. <code>as.fmt()</code> will convert a list to a format object (class <code>fmt</code>).<br /><br />
-The argument <code>fmt</code> can be used be used to generate different formats. When <code>x</code> is a date,
-it can be formatted with any combination of the format codes <code>d</code>, <code>m</code> and <code>y</code> for day, month or year.
-Repeting the specific code defines the degree of abbreviation:</p><table class='table'>
-<tr><td>Date codes</td><td></td></tr>
+    <p><code>Format()</code> is the workhorse here and formats numbers and dates. <br /><br />
+The argument <code>fmt</code> is very flexible and is used to generate a variety of different formats. When <code>x</code> is a date, it can take ISO-8601-date-and-time-format codes consisting of (<code>d</code>, <code>m</code> and <code>y</code> for day, month or year) and defining the combination of day month and year representation. Repeating the specific code defines the degree of abbreviation. The format <code>'yyyy-mm-dd'</code> would yield a date as <code>2020-10-12</code>.</p>
+<table class='table'>
+<tr><td><b>Date Codes</b></td><td></td></tr>
 <tr><td><code>d </code></td><td>day of the month without leading zero (1 - 31)</td></tr>
 <tr><td><code>dd</code></td><td>day of the month with leading zero (01 - 31)</td></tr>
 <tr><td><code>ddd</code></td><td>abbreviated name for the day of the week (e.g. Mon) in the current user's language</td></tr>
@@ -270,17 +269,19 @@ Repeting the specific code defines the degree of abbreviation:</p><table class='
 </table>
 
 
-<p>For numeric values there are the following special codes:</p><table class='table'>
-<tr><td>Code</td><td></td><td></td></tr>
+<p>The function <code>as.CDateFmt()</code> converts ISO-8601 codes into the C-format codes used in base R.<br /> So
+<code>as.CDateFmt("yyyy mm dd")</code> yields <code> "%Y %m %d"</code>.</p>
+<p>Even more variability is needed to display numeric values. For the most frequently used formats there are the following special codes available:</p><table class='table'>
+<tr><td><b>Code</b></td><td></td><td></td></tr>
 <tr><td><code>e</code></td><td>scientific</td><td>forces scientific representation of x, e.g. 3.141e-05. The number of digits, alignment</td></tr>
-<tr><td></td><td></td><td>and zero values are respected.</td></tr>
+<tr><td></td><td></td><td>and zero values are further respected.</td></tr>
 <tr><td></td><td></td><td><code>eng</code></td></tr>
-<tr><td>engineering</td><td>forces scientific representation of x, but only with powers that are a multiple of 3.</td><td><code>engabb</code></td></tr>
-<tr><td>engineering abbr.</td><td>same as <code>eng</code>, but replaces the exponential representation by codes. See <code><a href='ConvUnit.html'>d.prefix</a></code>.</td><td><code>%</code></td></tr>
+<tr><td>engineering</td><td>forces scientific representation of <code>x</code>, but only with powers that are a multiple of 3.</td><td><code>engabb</code></td></tr>
+<tr><td>engineering abbr.</td><td>same as <code>eng</code>, but replaces the exponential representation by codes, e.g. <code>M</code> for mega (1e6). See <code><a href='ConvUnit.html'>d.prefix</a></code>.</td><td><code>%</code></td></tr>
 <tr><td>percent</td><td>will divide the given number by 100 and append the %-sign (without a separator).</td><td></td></tr>
 <tr><td></td><td><code>p</code></td><td>p-value</td></tr>
-<tr><td>will wrap the function <code><a href='https://rdrr.io/r/base/format.pval.html'>format.pval</a></code> and return a p-value format.</td><td></td><td></td></tr>
-<tr><td><code>frac</code></td><td>fractions</td><td>will try to convert numbers to fractions. See <code><a href='https://rdrr.io/pkg/MASS/man/fractions.html'>fractions</a>()</code>.</td></tr>
+<tr><td>will wrap the function <code><a href='https://rdrr.io/r/base/format.pval.html'>format.pval</a></code> and return a p-value format. Use <code>eps</code> to define the threshold to switch to a <code> &lt; 000 </code> representation.</td><td></td><td></td></tr>
+<tr><td><code>frac</code></td><td>fractions</td><td>will (try to) convert numbers to fractions. So 0.1 will be displayed as 1/10. See <code><a href='https://rdrr.io/pkg/MASS/man/fractions.html'>fractions</a>()</code>.</td></tr>
 <tr><td></td><td></td><td><code>*</code></td></tr>
 <tr><td>significance</td><td>will produce a significance representation of a p-value consisting of *  and .,</td><td></td></tr>
 <tr><td></td><td>while the breaks are set according to the used defaults e.g. in <code>lm</code> as</td><td></td></tr>
@@ -293,13 +294,18 @@ Repeting the specific code defines the degree of abbreviation:</p><table class='
 
 
 <p><code>fmt</code> can as well be an object of class <code>fmt</code> consisting of a list out of the arguments above.
-This allows to store the full format in a variable or as an option and use it as format template subsequently. <br /> If we would want to define a format for counts, we could create a list  with a big mark and with 0 digits and subsequently call the <code>Format</code> function with this format:<br /><br />
-<code>fmt.count &lt;- as.fmt(digits=0, big.mark="'")</code> <br />
-<code>Format(4231.2, fmt=fmt.count)</code> <br /> <br />
-where the latter returns the same result as if the arguments would have been supplied directly: <br />
-<code>Format(4231.2, digits=0, big.mark="'")</code>.</p>
+This allows to store and manage the full format in variables or as options (in <code><a href='DescToolsOptions.html'>DescToolsOptions()</a></code>) and use it as format template subsequently.</p>
 <p>Finally <code>fmt</code> can also be a function in x, which makes formatting very flexible.</p>
-<p>The formats can as well be organized as options. <code><a href='DescToolsOptions.html'>DescToolsOptions("fmt")</a></code> would display the currently defined formats. The function <code>Fmt()</code> can be used to get, modify and store new formats in dependency of the arguments given. See examples.</p>
+<p>New formats can be created by means of <code>as.fmt()</code>. This works quite straight on. We can use any of the arguments from <code>Format()</code> and combine them to a list. <br />
+The following code will define a new format template named "<code>myNumFmt</code>" of the class <code>"fmt"</code>. Provided to <code>Format()</code> this will result in a number displayed with 2 fixed digits and a comma as big mark:</p><pre>myNumFmt &amp;lt;- as.fmt(digits=2, big.mark=",")
+Format(12222.89345, fmt=myNumFmt) = 12,222.89</pre><p>The latter returns the same result as if the arguments would have been supplied directly: 
+<code>Format(12222.89345, digits=2, big.mark=",")</code>.</p>
+<p>Many report functions (e.g. <code><a href='TOne.html'>TOne</a>()</code>) in <b>DescTools</b> use three default formats for counts (named <code>"abs"</code>), numeric values (<code>"num"</code>) and percentages (<code>"per"</code>). These formats can be set by the user as options (see <code><a href='DescToolsOptions.html'>DescToolsOptions</a>()</code>. For other purposes any number of any named formats can be defined.</p>
+<p><code>Fmt()</code> is used to access and edit already defined Formats. It can directly adapt defined properties and returns the format template. <code>Fmt("num", digits=1, sci=10)</code> will use the current version of the numeric format and change the digits to 1 and the threshold to switch to scientifc presentation to numbers &gt;1e10 and &lt;1e-10.
+Format templates can be altered using their names. With <code>Fmt(abs=Fmt("abs", big.mark=" "))</code> the format template for count values <code>"abs"</code> will be overwritten with the new values and stored as option for the current session.</p>
+<p>The formats can as well be organized as options. <code><a href='DescToolsOptions.html'>DescToolsOptions("fmt")</a></code> would display the currently defined formats. This mechanic works analogously to the <code><a href='https://rdrr.io/r/base/options.html'>options()</a></code> procedure of base R. So to store the current settings we can use</p><pre>opt &amp;lt;- DescToolsOptions("fmt")
+... do some stuff like redefining the global formats ...
+DescToolOptions(opt)  </pre><p>The last command resets the options and so we have again the initial definitions for the format templates.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>the formatted values as characters. <br />
@@ -326,7 +332,7 @@ If <code>x</code> was a <code>matrix</code>, then a the result will also be a <c
 #&gt;  [9]             3.142%            31.416%           314.159%          3141.593%
 #&gt; [13]         31415.927%        314159.265%       3141592.654%      31415926.536%
 #&gt; [17]     314159265.359%    3141592653.590%   31415926535.898%  314159265358.979%
-#&gt; [21] 3141592653589.793%</div><div class='input'><span class='fu'>Format</span>(<span class='no'>x</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>4</span>, <span class='kw'>sci</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>6</span>), <span class='kw'>leading</span> <span class='kw'>=</span> <span class='st'>"drop"</span>, <span class='kw'>width</span><span class='kw'>=</span><span class='fl'>9</span>, <span class='kw'>align</span><span class='kw'>=</span><span class='st'>"."</span>)</div><div class='output co'>#&gt;  [1]    3.1416e-10    3.1416e-09    3.1416e-08    3.1416e-07     .0000    
+#&gt; [21] 3141592653589.793%</div><div class='input'><span class='fu'>Format</span>(<span class='no'>x</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>4</span>, <span class='kw'>sci</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>6</span>), <span class='kw'>ldigits</span><span class='kw'>=</span><span class='fl'>0</span>, <span class='kw'>width</span><span class='kw'>=</span><span class='fl'>9</span>, <span class='kw'>align</span><span class='kw'>=</span><span class='st'>"."</span>)</div><div class='output co'>#&gt;  [1]    3.1416e-10    3.1416e-09    3.1416e-08    3.1416e-07     .0000    
 #&gt;  [6]     .0000         .0003         .0031         .0314         .3142    
 #&gt; [11]    3.1416       31.4159      314.1593     3141.5927        3.1416e+04
 #&gt; [16]    3.1416e+05    3.1416e+06    3.1416e+07    3.1416e+08    3.1416e+09
@@ -353,10 +359,10 @@ If <code>x</code> was a <code>matrix</code>, then a the result will also be a <c
 <span class='fu'>Format</span>(<span class='no'>x</span>, <span class='kw'>fmt</span><span class='kw'>=</span><span class='st'>"eng"</span>,  <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='output co'>#&gt;  [1] 314.16e-12   3.14e-09  31.42e-09 314.16e-09   3.14e-06  31.42e-06
 #&gt;  [7] 314.16e-06   3.14e-03  31.42e-03 314.16e-03   3.14e+00  31.42e+00
 #&gt; [13] 314.16e+00   3.14e+03  31.42e+03 314.16e+03   3.14e+06  31.42e+06
-#&gt; [19] 314.16e+06   3.14e+09  31.42e+09</div><div class='input'><span class='fu'>Format</span>(<span class='no'>x</span>, <span class='kw'>fmt</span><span class='kw'>=</span><span class='st'>"engabb"</span>, <span class='kw'>leading</span><span class='kw'>=</span><span class='st'>"00"</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='output co'>#&gt;  [1] 314.16 p  03.14 n  31.42 n 314.16 n  03.14 u  31.42 u 314.16 u  03.14 m
+#&gt; [19] 314.16e+06   3.14e+09  31.42e+09</div><div class='input'><span class='fu'>Format</span>(<span class='no'>x</span>, <span class='kw'>fmt</span><span class='kw'>=</span><span class='st'>"engabb"</span>, <span class='kw'>ldigits</span><span class='kw'>=</span><span class='fl'>2</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='output co'>#&gt;  [1] 314.16 p  03.14 n  31.42 n 314.16 n  03.14 u  31.42 u 314.16 u  03.14 m
 #&gt;  [9]  31.42 m 314.16 m   03.14    31.42   314.16   03.14 k  31.42 k 314.16 k
 #&gt; [17]  03.14 M  31.42 M 314.16 M  03.14 G  31.42 G</div><div class='input'><span class='co'># combine with grams [g]</span>
-<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='fu'>Format</span>(<span class='no'>x</span>, <span class='kw'>fmt</span><span class='kw'>=</span><span class='st'>"engabb"</span>, <span class='kw'>leading</span><span class='kw'>=</span><span class='st'>"00"</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>2</span>), <span class='st'>"g"</span>, <span class='kw'>sep</span><span class='kw'>=</span><span class='st'>""</span>)</div><div class='output co'>#&gt;  [1] "314.16 pg" "03.14 ng"  "31.42 ng"  "314.16 ng" "03.14 ug"  "31.42 ug" 
+<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='fu'>Format</span>(<span class='no'>x</span>, <span class='kw'>fmt</span><span class='kw'>=</span><span class='st'>"engabb"</span>, <span class='kw'>ldigits</span><span class='kw'>=</span><span class='fl'>2</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>2</span>), <span class='st'>"g"</span>, <span class='kw'>sep</span><span class='kw'>=</span><span class='st'>""</span>)</div><div class='output co'>#&gt;  [1] "314.16 pg" "03.14 ng"  "31.42 ng"  "314.16 ng" "03.14 ug"  "31.42 ug" 
 #&gt;  [7] "314.16 ug" "03.14 mg"  "31.42 mg"  "314.16 mg" "03.14 g"   "31.42 g"  
 #&gt; [13] "314.16 g"  "03.14 kg"  "31.42 kg"  "314.16 kg" "03.14 Mg"  "31.42 Mg" 
 #&gt; [19] "314.16 Mg" "03.14 Gg"  "31.42 Gg" </div><div class='input'>
@@ -383,91 +389,75 @@ If <code>x</code> was a <code>matrix</code>, then a the result will also be a <c
 #&gt; [18,] 0.0010 *** </div><div class='input'>
 <span class='co'># use Fmt() to get and define new formats stored as option</span>
 <span class='fu'>Fmt</span>()                        <span class='co'># all defined formats</span></div><div class='output co'>#&gt; $abs
-#&gt; Format name:    abs (default)
 #&gt;  Description:   Number format for counts
 #&gt;  Definition:    digits=0, big.mark="'"
 #&gt;  Example:       314'159
 #&gt; 
 #&gt; $per
-#&gt; Format name:    per (default)
 #&gt;  Description:   Percentage number format
 #&gt;  Definition:    digits=1, fmt='%'
 #&gt;  Example:       31415926.5%
 #&gt; 
 #&gt; $num
-#&gt; Format name:    num (default)
 #&gt;  Description:   Number format for floats
 #&gt;  Definition:    digits=3, big.mark="'"
 #&gt;  Example:       314'159.265
-#&gt; </div><div class='input'><span class='fu'>Fmt</span>(<span class='st'>"abs"</span>)                   <span class='co'># only format named "abs"</span></div><div class='output co'>#&gt; Format name:    abs (default)
-#&gt;  Description:   Number format for counts
+#&gt; </div><div class='input'><span class='fu'>Fmt</span>(<span class='st'>"abs"</span>)                   <span class='co'># only format named "abs"</span></div><div class='output co'>#&gt;  Description:   Number format for counts
 #&gt;  Definition:    digits=0, big.mark="'"
 #&gt;  Example:       314'159</div><div class='input'><span class='fu'>Fmt</span>(<span class='st'>"nexist"</span>)                <span class='co'># only format named "nexist" (nonexisting)</span></div><div class='output co'>#&gt; NULL</div><div class='input'><span class='fu'>Fmt</span>(<span class='st'>"abs"</span>, <span class='st'>"per"</span>, <span class='st'>"nexist"</span>)</div><div class='output co'>#&gt; $abs
-#&gt; Format name:    abs (default)
 #&gt;  Description:   Number format for counts
 #&gt;  Definition:    digits=0, big.mark="'"
 #&gt;  Example:       314'159
 #&gt; 
 #&gt; $per
-#&gt; Format name:    per (default)
 #&gt;  Description:   Percentage number format
 #&gt;  Definition:    digits=1, fmt='%'
 #&gt;  Example:       31415926.5%
 #&gt; 
 #&gt; $&lt;NA&gt;
 #&gt; NULL
-#&gt; </div><div class='input'><span class='fu'>Fmt</span>(<span class='st'>"abs"</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>3</span>)         <span class='co'># get Fmt("abs") and overwrite digits</span></div><div class='output co'>#&gt; Format name:    abs (default)
-#&gt;  Description:   Number format for counts
+#&gt; </div><div class='input'><span class='fu'>Fmt</span>(<span class='st'>"abs"</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>3</span>)         <span class='co'># get Fmt("abs") and overwrite digits</span></div><div class='output co'>#&gt;  Description:   Number format for counts
 #&gt;  Definition:    digits=3, big.mark="'"
-#&gt;  Example:       314'159.265</div><div class='input'><span class='fu'>Fmt</span>(<span class='st'>"abs"</span>, <span class='kw'>na.form</span><span class='kw'>=</span><span class='st'>"-"</span>)      <span class='co'># get Fmt("abs") and add user defined na.form</span></div><div class='output co'>#&gt; Format name:    abs (default)
-#&gt;  Description:   Number format for counts
+#&gt;  Example:       314'159.265</div><div class='input'><span class='fu'>Fmt</span>(<span class='st'>"abs"</span>, <span class='kw'>na.form</span><span class='kw'>=</span><span class='st'>"-"</span>)      <span class='co'># get Fmt("abs") and add user defined na.form</span></div><div class='output co'>#&gt;  Description:   Number format for counts
 #&gt;  Definition:    digits=0, big.mark="'", na.form="-"
 #&gt;  Example:       314'159</div><div class='input'>
 <span class='co'># define totally new format and store as option</span>
 <span class='fu'>Fmt</span>(<span class='kw'>nob</span><span class='kw'>=</span><span class='fu'>as.fmt</span>(<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>10</span>, <span class='kw'>na.form</span><span class='kw'>=</span><span class='st'>"nodat"</span>))</div><div class='output co'>#&gt; $abs
-#&gt; Format name:    abs (default)
 #&gt;  Description:   Number format for counts
 #&gt;  Definition:    digits=0, big.mark="'"
 #&gt;  Example:       314'159
 #&gt; 
 #&gt; $per
-#&gt; Format name:    per (default)
 #&gt;  Description:   Percentage number format
 #&gt;  Definition:    digits=1, fmt='%'
 #&gt;  Example:       31415926.5%
 #&gt; 
 #&gt; $num
-#&gt; Format name:    num (default)
 #&gt;  Description:   Number format for floats
 #&gt;  Definition:    digits=3, big.mark="'"
 #&gt;  Example:       314'159.265
 #&gt; </div><div class='input'>
 <span class='co'># overwrite an existing format</span>
 <span class='fu'>Fmt</span>(<span class='kw'>nob</span><span class='kw'>=</span><span class='fu'>Fmt</span>(<span class='st'>"nob"</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>5</span>))</div><div class='output co'>#&gt; $abs
-#&gt; Format name:    abs (default)
 #&gt;  Description:   Number format for counts
 #&gt;  Definition:    digits=0, big.mark="'"
 #&gt;  Example:       314'159
 #&gt; 
 #&gt; $per
-#&gt; Format name:    per (default)
 #&gt;  Description:   Percentage number format
 #&gt;  Definition:    digits=1, fmt='%'
 #&gt;  Example:       31415926.5%
 #&gt; 
 #&gt; $num
-#&gt; Format name:    num (default)
 #&gt;  Description:   Number format for floats
 #&gt;  Definition:    digits=3, big.mark="'"
 #&gt;  Example:       314'159.265
 #&gt; 
 #&gt; $nob
-#&gt; Format name:    nob
 #&gt;  Description:   Number format
 #&gt;  Definition:    digits=10, na.form='nodat'
 #&gt;  Example:       314159.2653589793
-#&gt; </div><div class='input'><span class='fu'>Fmt</span>(<span class='st'>"nob"</span>)</div><div class='output co'>#&gt; Format name:    nob
-#&gt;  Description:   Number format
+#&gt; </div><div class='input'><span class='fu'>Fmt</span>(<span class='st'>"nob"</span>)</div><div class='output co'>#&gt;  Description:   Number format
 #&gt;  Definition:    digits=5, na.form='nodat'
 #&gt;  Example:       314159.26536</div><div class='input'>
 <span class='co'># change the character to be used as the decimal point</span>
@@ -488,7 +478,7 @@ If <code>x</code> was a <code>matrix</code>, then a the result will also be a <c
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

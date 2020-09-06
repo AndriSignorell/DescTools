@@ -6,8 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Return a Handle to a Word Bookmark Given as Name
-<!-- %%  ~~function to do ... ~~ --> — WrdBookmark • DescTools</title>
+<title>Some Functions to Handle MS-Word Bookmarks — WrdBookmark • DescTools</title>
 
 
 <!-- jquery -->
@@ -42,9 +41,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Return a Handle to a Word Bookmark Given as Name
-<!-- %%  ~~function to do ... ~~ --> — WrdBookmark" />
-<meta property="og:description" content="Accessing bookmarks by name is only possible by browsing the bookmark names. This function returns a handle to a bookmark by name.
+<meta property="og:title" content="Some Functions to Handle MS-Word Bookmarks — WrdBookmark" />
+<meta property="og:description" content="Accessing bookmarks by name is only possible by browsing the bookmark names. WrdBookmark returns a handle to a bookmark by taking its name as argument. WrdInsertBookmark, WrdDeleteBookmark inserts/deletes a bookmark in a Word document. WrdGotoBookmark allows to place the cursor on the bookmark and WrdUpdateBookmark replaces the content within the range of the bookmark in a Word document with the given text.
 " />
 
 
@@ -77,7 +75,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.36.0002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.38</span>
       </span>
     </div>
 
@@ -132,61 +130,71 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Return a Handle to a Word Bookmark Given as Name
-<!-- %%  ~~function to do ... ~~ --></h1>
+    <h1>Some Functions to Handle MS-Word Bookmarks</h1>
     
     <div class="hidden name"><code>WrdBookmark.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Accessing bookmarks by name is only possible by browsing the bookmark names. This function returns a handle to a bookmark by name.
+    <p>Accessing bookmarks by name is only possible by browsing the bookmark names. <code>WrdBookmark</code> returns a handle to a bookmark by taking its name as argument. <code>WrdInsertBookmark</code>, <code>WrdDeleteBookmark</code> inserts/deletes a bookmark in a Word document. <code>WrdGotoBookmark</code> allows to place the cursor on the bookmark and <code>WrdUpdateBookmark</code> replaces the content within the range of the bookmark in a Word document with the given text.
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>WrdBookmark</span>(<span class='no'>bookmark</span>, <span class='kw'>wrd</span> <span class='kw'>=</span> <span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span>(<span class='st'>"lastWord"</span>))</pre>
+    <pre class="usage"><span class='fu'>WrdBookmark</span>(<span class='no'>name</span>, <span class='kw'>wrd</span> <span class='kw'>=</span> <span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span>(<span class='st'>"lastWord"</span>))
+
+<span class='fu'>WrdInsertBookmark</span>(<span class='no'>name</span>, <span class='kw'>wrd</span> <span class='kw'>=</span> <span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span>(<span class='st'>"lastWord"</span>))
+<span class='fu'>WrdDeleteBookmark</span>(<span class='no'>name</span>, <span class='kw'>wrd</span> <span class='kw'>=</span> <span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span>(<span class='st'>"lastWord"</span>))
+
+<span class='fu'>WrdGoto</span>(<span class='no'>name</span>, <span class='kw'>what</span> <span class='kw'>=</span> <span class='no'>wdConst</span>$<span class='no'>wdGoToBookmark</span>, <span class='kw'>wrd</span> <span class='kw'>=</span> <span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span>(<span class='st'>"lastWord"</span>))
+
+<span class='fu'>WrdUpdateBookmark</span>(<span class='no'>name</span>, <span class='no'>text</span>, <span class='kw'>what</span> <span class='kw'>=</span> <span class='no'>wdConst</span>$<span class='no'>wdGoToBookmark</span>,
+                  <span class='kw'>wrd</span> <span class='kw'>=</span> <span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span>(<span class='st'>"lastWord"</span>))</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>bookmark</th>
-      <td><p>character, the bookmark name 
-<!-- %%     ~~Describe \code{bookmark} here~~ --></p></td>
+      <th>name</th>
+      <td><p>the name of the bookmark.
+<!-- %%     ~~Describe \code{name} here~~ --></p></td>
+    </tr>
+    <tr>
+      <th>text</th>
+      <td><p>the text of the bookmark.
+<!-- %%     ~~Describe \code{what} here~~ --></p></td>
+    </tr>
+    <tr>
+      <th>what</th>
+      <td><p>a word constant, defining the type of object to be used to place the cursor.
+<!-- %%     ~~Describe \code{what} here~~ --></p></td>
     </tr>
     <tr>
       <th>wrd</th>
-      <td><p>the pointer to a word instance, typically an existing one, created by <code><a href='GetCurrWrd.html'>GetCurrWrd()</a></code>. Default is the last created pointer stored in <code><a href='DescToolsOptions.html'>DescToolsOptions("lastWord")</a></code>.
-<!-- %%     ~~Describe \code{wrd} here~~ --></p></td>
+      <td><p>the pointer to a word instance. Can be a new one, created by <code><a href='GetNewWrd.html'>GetNewWrd()</a></code>
+  or an existing one, created by <code><a href='GetCurrWrd.html'>GetCurrWrd()</a></code>.
+  Default is the last created pointer stored in <code><a href='DescToolsOptions.html'>DescToolsOptions("lastWord")</a></code>.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>a handle to the bookmark
-<!-- %%  ~Describe the value returned -->
-<!-- %%  If it is a LIST, use -->
-<!-- %%  \item{comp1 }{Description of 'comp1'} -->
-<!-- %%  \item{comp2 }{Description of 'comp2'} -->
-<!-- %% ... --></p>
+    <p>Bookmarks are useful to build structured documents, which can be updated later.
+<!-- %%  ~~ If necessary, more details than the description above ~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='WrdInsertBookmark.html'>WrdInsertBookmark</a></code>
+    <div class='dont-index'><p><code><a href='WrdFont.html'>WrdFont</a></code>, <code><a href='WrdPlot.html'>WrdPlot</a></code>, <code><a href='GetNewWrd.html'>GetNewWrd</a></code>, <code><a href='GetCurrWrd.html'>GetCurrWrd</a></code>
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='co'># we can't get this through the CRAN test - run it with copy/paste to console</span>
-
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>)  <span class='co'># we can't get this through the CRAN test - run it with copy/paste to console</span>
 <span class='no'>wrd</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='GetNewWrd.html'>GetNewWrd</a></span>()
-<span class='fu'><a href='WrdInsertBookmark.html'>WrdInsertBookmark</a></span>(<span class='st'>"mybookmark"</span>)
-<span class='fu'><a href='ToWrd.html'>ToWrd</a></span>(<span class='st'>"A longer text\n\n\n"</span>)
-
+<span class='fu'>WrdText</span>(<span class='st'>"a)\n\n\nb)"</span>, <span class='kw'>fontname</span><span class='kw'>=</span><span class='fu'>WrdGetFont</span>()$<span class='no'>name</span>, <span class='kw'>fontsize</span><span class='kw'>=</span><span class='fu'>WrdGetFont</span>()$<span class='no'>size</span>)</div><div class='output co'>#&gt; <span class='error'>Error in WrdText("a)\n\n\nb)", fontname = WrdGetFont()$name, fontsize = WrdGetFont()$size): could not find function "WrdText"</span></div><div class='input'><span class='fu'>WrdInsertBookmark</span>(<span class='st'>"chap_b"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in wrdBookmarks$Add(name): attempt to apply non-function</span></div><div class='input'><span class='fu'>WrdText</span>(<span class='st'>"\n\n\nc)\n\n\n"</span>, <span class='kw'>fontname</span><span class='kw'>=</span><span class='fu'>WrdGetFont</span>()$<span class='no'>name</span>, <span class='kw'>fontsize</span><span class='kw'>=</span><span class='fu'>WrdGetFont</span>()$<span class='no'>size</span>)</div><div class='output co'>#&gt; <span class='error'>Error in WrdText("\n\n\nc)\n\n\n", fontname = WrdGetFont()$name, fontsize = WrdGetFont()$size): could not find function "WrdText"</span></div><div class='input'>
+<span class='fu'>WrdGoto</span>(<span class='st'>"chap_b"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in wrdBookmarks$exists(name): attempt to apply non-function</span></div><div class='input'><span class='fu'>WrdUpdateBookmark</span>(<span class='st'>"chap_b"</span>, <span class='st'>"Goto chapter B and set text"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in wrdSel$GoTo(What = what, Name = name): attempt to apply non-function</span></div><div class='input'>
+<span class='fu'>WrdInsertBookmark</span>(<span class='st'>"mybookmark"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in wrdBookmarks$Add(name): attempt to apply non-function</span></div><div class='input'><span class='fu'><a href='ToWrd.html'>ToWrd</a></span>(<span class='st'>"A longer text\n\n\n"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in wrd[["Selection"]]$InsertAfter(paste(x, collapse = "\n")): attempt to apply non-function</span></div><div class='input'>
 <span class='co'># Now returning the bookmark</span>
-<span class='no'>bm</span> <span class='kw'>&lt;-</span> <span class='fu'>WrdBookmark</span>(<span class='st'>"mybookmark"</span>)
-
+<span class='no'>bm</span> <span class='kw'>&lt;-</span> <span class='fu'>WrdBookmark</span>(<span class='st'>"mybookmark"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in wbms$count(): attempt to apply non-function</span></div><div class='input'>
 <span class='co'># get the automatically created name of the bookmark</span>
-<span class='no'>bm</span>$<span class='fu'><a href='https://rdrr.io/r/base/name.html'>name</a></span>()
-}</div></pre>
+<span class='no'>bm</span>$<span class='fu'><a href='https://rdrr.io/r/base/name.html'>name</a></span>()</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'bm' not found</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -202,7 +210,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

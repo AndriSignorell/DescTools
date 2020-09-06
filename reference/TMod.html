@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.36.0002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.38</span>
       </span>
     </div>
 
@@ -380,7 +380,7 @@
 <span class='no'>r.glm1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>Survived</span> ~ <span class='no'>Class</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>d.titanic</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='st'>"binomial"</span>)
 <span class='no'>r.glm2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>Survived</span> ~ <span class='no'>.</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>d.titanic</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='st'>"binomial"</span>)
 
-<span class='fu'>TMod</span>(<span class='no'>r.glm0</span>, <span class='no'>r.glm1</span>, <span class='no'>r.glm2</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(x$call$data): object 'd.titanic' not found</span></div><div class='input'>
+<span class='fu'>TMod</span>(<span class='no'>r.glm0</span>, <span class='no'>r.glm1</span>, <span class='no'>r.glm2</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt; <span class='error'>Error in .Call("conc", PACKAGE = "DescTools", y[ord, ], as.double(wts[ord]),     as.integer(idx), as.integer(n2)): "conc" not available for .Call() for package "DescTools"</span></div><div class='input'>
 <span class='co'># plot OddsRatios</span>
 <span class='no'>d.pima</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>MASS</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/MASS/man/Pima.tr.html'>Pima.tr2</a></span>
 
@@ -388,13 +388,14 @@
 <span class='no'>r.b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>type</span> ~ <span class='no'>npreg</span> + <span class='no'>glu</span> + <span class='no'>bp</span> + <span class='no'>skin</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>d.pima</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='no'>binomial</span>)
 <span class='no'>r.c</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>type</span> ~ <span class='no'>npreg</span> + <span class='no'>age</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>d.pima</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='no'>binomial</span>)
 
-<span class='no'>or.a</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='OddsRatio.html'>OddsRatio</a></span>(<span class='no'>r.a</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(x$call$data): object 'd.pima' not found</span></div><div class='input'><span class='no'>or.b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='OddsRatio.html'>OddsRatio</a></span>(<span class='no'>r.b</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(x$call$data): object 'd.pima' not found</span></div><div class='input'><span class='no'>or.c</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='OddsRatio.html'>OddsRatio</a></span>(<span class='no'>r.c</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(x$call$data): object 'd.pima' not found</span></div><div class='input'>
+<span class='no'>or.a</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='OddsRatio.html'>OddsRatio</a></span>(<span class='no'>r.a</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='input'><span class='no'>or.b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='OddsRatio.html'>OddsRatio</a></span>(<span class='no'>r.b</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='input'><span class='no'>or.c</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='OddsRatio.html'>OddsRatio</a></span>(<span class='no'>r.c</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='input'>
 
 <span class='co'># create the model table</span>
-<span class='no'>tm</span> <span class='kw'>&lt;-</span> <span class='fu'>TMod</span>(<span class='kw'>m_A</span><span class='kw'>=</span><span class='no'>or.a</span>, <span class='kw'>m_B</span><span class='kw'>=</span><span class='no'>or.b</span>, <span class='kw'>m_C</span><span class='kw'>=</span><span class='no'>or.c</span>)</div><div class='output co'>#&gt; <span class='error'>Error in TMod(m_A = or.a, m_B = or.b, m_C = or.c): object 'or.a' not found</span></div><div class='input'><span class='co'># .. and plotit</span>
+<span class='no'>tm</span> <span class='kw'>&lt;-</span> <span class='fu'>TMod</span>(<span class='kw'>m_A</span><span class='kw'>=</span><span class='no'>or.a</span>, <span class='kw'>m_B</span><span class='kw'>=</span><span class='no'>or.b</span>, <span class='kw'>m_C</span><span class='kw'>=</span><span class='no'>or.c</span>)
+<span class='co'># .. and plotit</span>
 <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>tm</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"ORs for Models A, B, C"</span>, <span class='kw'>intercept</span><span class='kw'>=</span><span class='fl'>FALSE</span>,
      <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>15</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>hred</span>, <span class='no'>hblue</span>, <span class='no'>horange</span>),
-     <span class='kw'>panel.first</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span>(<span class='kw'>v</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"grey30"</span>))</div><div class='output co'>#&gt; <span class='error'>Error in plot(tm, main = "ORs for Models A, B, C", intercept = FALSE,     pch = 15, col = c(hred, hblue, horange), panel.first = abline(v = 1,         col = "grey30")): object 'tm' not found</span></div></pre>
+     <span class='kw'>panel.first</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span>(<span class='kw'>v</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"grey30"</span>))</div><div class='img'><img src='TMod-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -410,7 +411,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

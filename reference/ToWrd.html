@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.36.0002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.38</span>
       </span>
     </div>
 
@@ -165,6 +165,11 @@
 <span class='fu'>ToWrd</span>(<span class='no'>x</span>, <span class='kw'>font</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>para</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
       <span class='kw'>autofit</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>, <span class='kw'>wrd</span> <span class='kw'>=</span> <span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span>(<span class='st'>"lastWord"</span>))
 
+<span class='co'># S3 method for TMod</span>
+<span class='fu'>ToWrd</span>(<span class='no'>x</span>, <span class='kw'>font</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>para</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+      <span class='kw'>split</span> <span class='kw'>=</span> <span class='st'>" "</span>, <span class='kw'>fixed</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>autofit</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>na.form</span> <span class='kw'>=</span> <span class='st'>"-"</span>, <span class='no'>...</span>,
+      <span class='kw'>wrd</span> <span class='kw'>=</span> <span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span>(<span class='st'>"lastWord"</span>))
+
 <span class='co'># S3 method for lm</span>
 <span class='fu'>ToWrd</span>(<span class='no'>x</span>, <span class='kw'>font</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>, <span class='kw'>wrd</span> <span class='kw'>=</span> <span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span>(<span class='st'>"lastWord"</span>))
 
@@ -207,7 +212,7 @@
       <th>method</th>
       <td><p>string specifying how the <code>"ftable"</code> object is formatted
      (and printed if used as in <code><a href='https://rdrr.io/r/stats/read.ftable.html'>write.ftable()</a></code> or the <code>print</code>
-     method).  Can be abbreviated.  Available methods are (see the examples):</p><dl>
+     method).  Can be abbreviated.  Available methods are (see the examples):</p><dl'>
        <dt><code>"non.compact"</code></dt><dd><p>the default representation of an
          <code>"ftable"</code> object.</p></dd>
        <dt><code>"row.compact"</code></dt><dd><p>a row-compact version without empty cells
@@ -254,6 +259,25 @@
       <td><p>logical, defines if the text should be formatted as bullet points.</p></td>
     </tr>
     <tr>
+      <th>split</th>
+      <td><p>character vector (or object which can be coerced to such) containing regular expression(s) (unless <code>fixed = TRUE</code>) to use for splitting. If empty matches occur, in particular if <code>split</code> has length 0, x is split into single characters. If <code>split</code> has length greater than 1, it is re-cycled along x.</p></td>
+    </tr>
+    <tr>
+      <th>fixed</th>
+      <td><p>logical. If TRUE match split exactly, otherwise use regular expressions. Has priority over perl.</p></td>
+    </tr>
+    <tr>
+      <th>digits</th>
+      <td><p>integer, the desired (fixed) number of digits after the decimal point. Unlike <code><a href='https://rdrr.io/r/base/formatc.html'>formatC</a></code> you will always get this number of digits even if the last digit is 0.
+<!-- %%     ~~Describe \code{digits} here~~ --></p></td>
+    </tr>
+    <tr>
+      <th>na.form</th>
+      <td><p>character, string specifying how <code>NA</code>s should be specially formatted.
+  If set to <code>NULL</code> (default) no special action will be taken.
+<!-- %%     ~~Describe \code{pad} here~~ --></p></td>
+    </tr>
+    <tr>
       <th>wrd</th>
       <td><p>the pointer to a word instance. Can be a new one, created by <code><a href='GetNewWrd.html'>GetNewWrd()</a></code>
   or an existing one, created by <code><a href='GetCurrWrd.html'>GetCurrWrd()</a></code>.
@@ -283,47 +307,7 @@
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='co'># we can't get this through the CRAN test - run it with copy/paste to console</span>
-
-<span class='no'>wrd</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='GetNewWrd.html'>GetNewWrd</a></span>()
-<span class='fu'>ToWrd</span>(<span class='st'>"This is centered Text in Arial Black\n"</span>,
-      <span class='kw'>para</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>Alignment</span><span class='kw'>=</span><span class='no'>wdConst</span>$<span class='no'>wdAlignParagraphCenter</span>,
-                <span class='kw'>SpaceBefore</span><span class='kw'>=</span><span class='fl'>3</span>, <span class='kw'>SpaceAfter</span><span class='kw'>=</span><span class='fl'>6</span>),
-      <span class='kw'>font</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>name</span><span class='kw'>=</span><span class='st'>"Arial Black"</span>, <span class='kw'>size</span><span class='kw'>=</span><span class='fl'>14</span>),
-      <span class='kw'>wrd</span><span class='kw'>=</span><span class='no'>wrd</span>)
-
-<span class='no'>sel</span> <span class='kw'>&lt;-</span> <span class='no'>wrd</span>$<span class='fu'>Selection</span>()$<span class='fu'>Borders</span>(<span class='no'>wdConst</span>$<span class='no'>wdBorderBottom</span>)
-<span class='no'>sel</span><span class='kw'>[[</span><span class='st'>"LineStyle"</span>]] <span class='kw'>&lt;-</span> <span class='no'>wdConst</span>$<span class='no'>wdLineStyleSingle</span>
-
-
-<span class='no'>t1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='TOne.html'>TOne</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>d.pizza</span>[, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"temperature"</span>,<span class='st'>"delivery_min"</span>,<span class='st'>"driver"</span>,<span class='st'>"wine_ordered"</span>)],
-           <span class='kw'>grp</span><span class='kw'>=</span><span class='no'>d.pizza</span>$<span class='no'>wine_delivered</span>)
-
-<span class='fu'>ToWrd</span>(<span class='no'>t1</span>, <span class='kw'>font</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>name</span><span class='kw'>=</span><span class='st'>"Algerian"</span>), <span class='kw'>wrd</span><span class='kw'>=</span><span class='no'>wrd</span>)
-
-
-<span class='no'>tab</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='no'>d.pizza</span>$<span class='no'>driver</span>, <span class='no'>d.pizza</span>$<span class='no'>area</span>)
-
-<span class='no'>tab</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='no'>d.pizza</span>$<span class='no'>driver</span>, <span class='no'>d.pizza</span>$<span class='no'>area</span>)
-<span class='fu'>ToWrd</span>(<span class='no'>tab</span>, <span class='kw'>font</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>size</span><span class='kw'>=</span><span class='fl'>15</span>, <span class='kw'>name</span><span class='kw'>=</span><span class='st'>"Arial"</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>col.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-      <span class='kw'>main</span><span class='kw'>=</span> <span class='st'>"my Title"</span>, <span class='kw'>wrd</span><span class='kw'>=</span><span class='no'>wrd</span>)
-<span class='fu'>ToWrd</span>(<span class='no'>tab</span>, <span class='kw'>font</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>size</span><span class='kw'>=</span><span class='fl'>10</span>, <span class='kw'>name</span><span class='kw'>=</span><span class='st'>"Arial narrow"</span>),
-      <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>col.names</span><span class='kw'>=</span><span class='fl'>FALSE</span>, <span class='kw'>wrd</span><span class='kw'>=</span><span class='no'>wrd</span>)
-<span class='fu'>ToWrd</span>(<span class='no'>tab</span>, <span class='kw'>font</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>size</span><span class='kw'>=</span><span class='fl'>15</span>, <span class='kw'>name</span><span class='kw'>=</span><span class='st'>"Arial"</span>), <span class='kw'>align</span><span class='kw'>=</span><span class='st'>"r"</span>,
-      <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col.names</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>wrd</span><span class='kw'>=</span><span class='no'>wrd</span>)
-<span class='fu'>ToWrd</span>(<span class='no'>tab</span>, <span class='kw'>font</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>size</span><span class='kw'>=</span><span class='fl'>15</span>, <span class='kw'>name</span><span class='kw'>=</span><span class='st'>"Arial"</span>),
-      <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col.names</span><span class='kw'>=</span><span class='fl'>FALSE</span>, <span class='kw'>wrd</span><span class='kw'>=</span><span class='no'>wrd</span>)
-
-<span class='fu'>ToWrd</span>(<span class='no'>tab</span>, <span class='kw'>tablestyle</span> <span class='kw'>=</span> <span class='st'>"Mittlere Schattierung 2 - Akzent 4"</span>,
-      <span class='kw'>row.names</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>col.names</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>wrd</span><span class='kw'>=</span><span class='no'>wrd</span>)
-
-<span class='fu'>ToWrd</span>(<span class='fu'><a href='Format.html'>Format</a></span>(<span class='no'>tab</span>, <span class='kw'>big.mark</span> <span class='kw'>=</span> <span class='st'>"'"</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>0</span>), <span class='kw'>wrd</span><span class='kw'>=</span><span class='no'>wrd</span>)
-
-<span class='no'>zz</span> <span class='kw'>&lt;-</span> <span class='fu'>ToWrd</span>(<span class='fu'><a href='Format.html'>Format</a></span>(<span class='no'>tab</span>, <span class='kw'>big.mark</span> <span class='kw'>=</span> <span class='st'>"'"</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>0</span>), <span class='kw'>wrd</span><span class='kw'>=</span><span class='no'>wrd</span>)
-<span class='no'>zz</span>$<span class='fu'>Rows</span>(<span class='fl'>1</span>)$<span class='fu'>Select</span>()
-<span class='fu'><a href='WrdFont.html'>WrdFont</a></span>(<span class='kw'>wrd</span> <span class='kw'>=</span> <span class='no'>wrd</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>name</span><span class='kw'>=</span><span class='st'>"Algerian"</span>, <span class='kw'>size</span><span class='kw'>=</span><span class='fl'>14</span>, <span class='kw'>bold</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
-}</div></pre>
+    <pre class="examples"></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -339,7 +323,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.36.0002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.38</span>
       </span>
     </div>
 
@@ -141,7 +141,8 @@
     <pre class="usage"><span class='fu'>ColorLegend</span>(<span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rev.html'>rev</a></span>(<span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>heat.colors</a></span>(<span class='fl'>100</span>)), <span class='kw'>labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
             <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>horiz</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>xjust</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>yjust</span> <span class='kw'>=</span> <span class='fl'>1</span>,
             <span class='kw'>inset</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>frame</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>cntrlbl</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-            <span class='kw'>adj</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='no'>horiz</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.5</span>, <span class='fl'>1</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>0.5</span>)), <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)</pre>
+            <span class='kw'>adj</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='no'>horiz</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.5</span>, <span class='fl'>1</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>0.5</span>)), <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+            <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title.adj</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -209,6 +210,14 @@
       <td><p>character extension for the labels, default 1.0.</p></td>
     </tr>
     <tr>
+      <th>title</th>
+      <td><p>a character string or length-one expression giving a title to be placed at the top of the legend.</p></td>
+    </tr>
+    <tr>
+      <th>title.adj</th>
+      <td><p>horizontal adjustment for title: see the help for <code><a href='https://rdrr.io/r/graphics/par.html'>par</a>("adj")</code>.</p></td>
+    </tr>
+    <tr>
       <th>...</th>
       <td><p>further arguments are passed to the function <code>text</code>.</p></td>
     </tr>
@@ -245,7 +254,8 @@ The location may also be specified by setting x to a single keyword from the lis
   <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"black"</span>,<span class='st'>"blue"</span>,<span class='st'>"green"</span>,<span class='st'>"yellow"</span>,<span class='st'>"red"</span>), <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>"rgb"</span>)(<span class='fl'>100</span>), <span class='kw'>horiz</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='input'>
 <span class='co'># G</span>
 <span class='fu'>ColorLegend</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>y</span><span class='kw'>=</span><span class='fl'>12</span>, <span class='kw'>width</span><span class='kw'>=</span><span class='fl'>6</span>, <span class='kw'>height</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/grDevices/colorRamp.html'>colorRampPalette</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"black"</span>,<span class='st'>"blue"</span>,
-            <span class='st'>"green"</span>,<span class='st'>"yellow"</span>,<span class='st'>"red"</span>), <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>"rgb"</span>)(<span class='fl'>10</span>), <span class='kw'>horiz</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>border</span><span class='kw'>=</span><span class='st'>"black"</span>)</div><div class='input'>
+            <span class='st'>"green"</span>,<span class='st'>"yellow"</span>,<span class='st'>"red"</span>), <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>"rgb"</span>)(<span class='fl'>10</span>), <span class='kw'>horiz</span><span class='kw'>=</span><span class='fl'>TRUE</span>,
+            <span class='kw'>border</span><span class='kw'>=</span><span class='st'>"black"</span>, <span class='kw'>title</span><span class='kw'>=</span><span class='st'>"From black to red"</span>, <span class='kw'>title.adj</span><span class='kw'>=</span><span class='fl'>0</span>)</div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>8</span>,<span class='fl'>0.5</span>,<span class='fl'>2.5</span>,<span class='fl'>4.5</span>,<span class='fl'>0.5</span>,<span class='fl'>0.5</span>,<span class='fl'>0.5</span>)+<span class='fl'>.2</span>, <span class='kw'>y</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>14</span>,<span class='fl'>9</span>,<span class='fl'>9</span>,<span class='fl'>9</span>,<span class='fl'>2</span>,<span class='fl'>14</span>,<span class='fl'>12</span>), <span class='no'>LETTERS</span>[<span class='fl'>1</span>:<span class='fl'>7</span>], <span class='kw'>cex</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='img'><img src='ColorLegend-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
@@ -263,7 +273,7 @@ The location may also be specified by setting x to a single keyword from the lis
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

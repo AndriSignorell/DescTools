@@ -76,7 +76,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.36.0002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.38</span>
       </span>
     </div>
 
@@ -141,9 +141,11 @@
     <p>Create a table summarizing continuous, categorical and dichotomous variables, optionally stratified by one or more variables, while performing adequate statistical tests.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>TOne</span>(<span class='no'>x</span>, <span class='kw'>grp</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>add.length</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>colnames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>vnames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>total</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-     <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"\\l"</span>, <span class='kw'>FUN</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>TEST</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>intref</span> <span class='kw'>=</span> <span class='st'>"high"</span>,
-     <span class='kw'>fmt.pval</span> <span class='kw'>=</span> <span class='fu'><a href='Format.html'>as.fmt</a></span>(<span class='kw'>fmt</span> <span class='kw'>=</span> <span class='st'>"*"</span>, <span class='kw'>na.form</span> <span class='kw'>=</span> <span class='st'>"   "</span>))</pre>
+    <pre class="usage"><span class='fu'>TOne</span>(<span class='no'>x</span>, <span class='kw'>grp</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>add.length</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>colnames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>vnames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+     <span class='kw'>total</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"\\l"</span>,
+     <span class='kw'>FUN</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>TEST</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>intref</span> <span class='kw'>=</span> <span class='st'>"high"</span>,
+     <span class='kw'>fmt</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>abs</span> <span class='kw'>=</span> <span class='fu'><a href='Format.html'>Fmt</a></span>(<span class='st'>"abs"</span>), <span class='kw'>num</span>  <span class='kw'>=</span> <span class='fu'><a href='Format.html'>Fmt</a></span>(<span class='st'>"num"</span>), <span class='kw'>per</span> <span class='kw'>=</span> <span class='fu'><a href='Format.html'>Fmt</a></span>(<span class='st'>"per"</span>),
+                <span class='kw'>pval</span> <span class='kw'>=</span> <span class='fu'><a href='Format.html'>as.fmt</a></span>(<span class='kw'>fmt</span> <span class='kw'>=</span> <span class='st'>"*"</span>, <span class='kw'>na.form</span> <span class='kw'>=</span> <span class='st'>"   "</span>)) )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -175,7 +177,7 @@
     </tr>
     <tr>
       <th>total</th>
-      <td><p>logical, <code>TRUE</code> if totals should be added.</p></td>
+      <td><p>logical (default <code>TRUE</code>), defines whether the results should also be displayed for the whole, ungrouped variable.</p></td>
     </tr>
     <tr>
       <th>align</th>
@@ -184,25 +186,28 @@
     </tr>
     <tr>
       <th>FUN</th>
-      <td><p>the function to be used as location and dispersion measure (typically <code>mean</code>/<code>sd</code> or alternatively <code>median</code>/<code>IQR</code>). See examples.</p></td>
+      <td><p>the function to be used as location and dispersion measure for numeric (including integer) variables (typically <code>mean</code>/<code>sd</code> (default) or alternatively <code>median</code>/<code>IQR</code>). See examples.</p></td>
     </tr>
     <tr>
       <th>TEST</th>
-      <td><p>a list of functions to be used to test the variables. Must be named as "num", "cat" and "dich" and be defined as function with arguments <code>(x, g)</code>, generating something similar to a p.value. (See examples.)</p></td>
+      <td><p>a list of functions to be used to test the variables. Must be named as <code>"num"</code>, <code>"cat"</code> and <code>"dich"</code> and be defined as function with arguments <code>(x, g)</code>, generating something similar to a p-value. (See examples.)</p></td>
     </tr>
     <tr>
       <th>intref</th>
       <td><p>one out of <code>"high"</code> (default) or <code>"low"</code>, defining which value of a dichotomous numeric or logical variable should be reported. Usually this will be <code>1</code> or <code>TRUE</code>. Setting it to <code>"low"</code> will report the lower value <code>0</code> or <code>FALSE</code>.</p></td>
     </tr>
     <tr>
-      <th>fmt.pval</th>
-      <td><p>format code or function for the p-values of the tests, default is <code><a href='Format.html'>as.fmt(fmt = "p", na.form = "   ")</a></code></p></td>
+      <th>fmt</th>
+      <td><p>format codes for absolute, numeric and percentage values, and for the p-values of the tests.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>There are three types of variables currently implemented: numeric, factor and variables with only two levels.
+    <p>In research the characteristics of study populations are often characterised through some kind of a "Table 1", containing descriptives of the used variables, as mean/standard deviation for continuous variables, and proportions for categorical variables. In many cases, a comparison is made between two or more groups within the framework of the scientific question. Creating such a table can be very time consuming and there's a need for a flexible function that helps us to solve the task. <code>TOne()</code> should be as easy to use as possible and yet so flexible that the essential design elements can be freely defined.</p>
+<p>This is done by dividing the world into 3 groups: numeric, factor and dichotomous variables (having exactly two values or levels). Depending on the group, the descriptives and the according sensible tests are chosen. By default mean/sd is chosen for numeric values. Their difference is tested with the Kruskal-Wallis test. For categorical variables the absolute and relative frequencies are calculated and tested with a chi-square test. The tests can be changed with the argument <code>TEST</code>. These must be organised as list containing elements named <code>"num"</code>, <code>"cat"</code> and <code>"dich"</code>. Each of them must be a function with arguments <code>(x, g)</code>, returning something similar to a p-value. The legend text of the test, which is appended to the table, can be set with the variable <code>lbl</code>.</p>
+<p>Great importance was attached to the free definition of the number formats. By default, the optionally definable format templates of <b>DescTools</b> are used. Deviations from this can be freely passed as arguments to the function. Formats can be defined for integers, floating point numbers, percentages and for the p-values of statistical tests. All options of the function <code><a href='Format.html'>Format</a>()</code> are available and can be provided as a list. See examples which show several different implementations.</p>
+<p>The function returns a character matrix as result, which can easily be subset or combined with other matrices. An interface for <code><a href='ToWrd.html'>ToWrd</a>()</code> is available such that the matrix can be transferred to MS-Word. Both font and alignment are freely selectable in the Word table. 
 <!-- %%  ~~ If necessary, more details than the description above ~~ --></p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
@@ -214,7 +219,7 @@
 <!-- %% ... --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='WrdTable.html'>WrdTable</a></code>
+    <div class='dont-index'><p><code><a href='WrdTable.html'>WrdTable</a>()</code>, <code><a href='ToWrd.html'>ToWrd.TOne</a>()</code>
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -223,74 +228,60 @@
 
 <span class='co'># define some special formats for count data, percentages and numeric results</span>
 <span class='co'># (those will be supported by TOne)</span>
-<span class='fu'><a href='Format.html'>Fmt</a></span>(<span class='kw'>abs</span> <span class='kw'>=</span> <span class='fu'><a href='Format.html'>as.fmt</a></span>(<span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>big.mark</span> <span class='kw'>=</span> <span class='st'>"'"</span>))</div><div class='output co'>#&gt; $abs
-#&gt; Format name:    abs (default)
+<span class='fu'><a href='Format.html'>Fmt</a></span>(<span class='kw'>abs</span> <span class='kw'>=</span> <span class='fu'><a href='Format.html'>as.fmt</a></span>(<span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>big.mark</span> <span class='kw'>=</span> <span class='st'>"'"</span>))   <span class='co'># counts</span></div><div class='output co'>#&gt; $abs
 #&gt;  Description:   Number format for counts
 #&gt;  Definition:    digits=0, big.mark="'"
 #&gt;  Example:       314'159
 #&gt; 
 #&gt; $per
-#&gt; Format name:    per (default)
 #&gt;  Description:   Percentage number format
 #&gt;  Definition:    digits=1, fmt='%'
 #&gt;  Example:       31415926.5%
 #&gt; 
 #&gt; $num
-#&gt; Format name:    num (default)
 #&gt;  Description:   Number format for floats
 #&gt;  Definition:    digits=3, big.mark="'"
 #&gt;  Example:       314'159.265
 #&gt; 
 #&gt; $nob
-#&gt; Format name:    nob
 #&gt;  Description:   Number format
 #&gt;  Definition:    digits=5, na.form='nodat'
 #&gt;  Example:       314159.26536
-#&gt; </div><div class='input'>
-<span class='fu'><a href='Format.html'>Fmt</a></span>(<span class='kw'>per</span> <span class='kw'>=</span> <span class='fu'><a href='Format.html'>as.fmt</a></span>(<span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fmt</span> <span class='kw'>=</span> <span class='st'>"%"</span>))</div><div class='output co'>#&gt; $abs
-#&gt; Format name:    abs
+#&gt; </div><div class='input'><span class='fu'><a href='Format.html'>Fmt</a></span>(<span class='kw'>per</span> <span class='kw'>=</span> <span class='fu'><a href='Format.html'>as.fmt</a></span>(<span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fmt</span> <span class='kw'>=</span> <span class='st'>"%"</span>))        <span class='co'># percentages</span></div><div class='output co'>#&gt; $abs
 #&gt;  Description:   Number format
 #&gt;  Definition:    digits=0, big.mark="'"
 #&gt;  Example:       314'159
 #&gt; 
 #&gt; $per
-#&gt; Format name:    per (default)
 #&gt;  Description:   Percentage number format
 #&gt;  Definition:    digits=1, fmt='%'
 #&gt;  Example:       31415926.5%
 #&gt; 
 #&gt; $num
-#&gt; Format name:    num (default)
 #&gt;  Description:   Number format for floats
 #&gt;  Definition:    digits=3, big.mark="'"
 #&gt;  Example:       314'159.265
 #&gt; 
 #&gt; $nob
-#&gt; Format name:    nob
 #&gt;  Description:   Number format
 #&gt;  Definition:    digits=5, na.form='nodat'
 #&gt;  Example:       314159.26536
-#&gt; </div><div class='input'>
-<span class='fu'><a href='Format.html'>Fmt</a></span>(<span class='kw'>num</span> <span class='kw'>=</span> <span class='fu'><a href='Format.html'>as.fmt</a></span>(<span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>big.mark</span> <span class='kw'>=</span> <span class='st'>"'"</span>))</div><div class='output co'>#&gt; $abs
-#&gt; Format name:    abs
+#&gt; </div><div class='input'><span class='fu'><a href='Format.html'>Fmt</a></span>(<span class='kw'>num</span> <span class='kw'>=</span> <span class='fu'><a href='Format.html'>as.fmt</a></span>(<span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>big.mark</span> <span class='kw'>=</span> <span class='st'>"'"</span>))   <span class='co'># numeric</span></div><div class='output co'>#&gt; $abs
 #&gt;  Description:   Number format
 #&gt;  Definition:    digits=0, big.mark="'"
 #&gt;  Example:       314'159
 #&gt; 
 #&gt; $per
-#&gt; Format name:    per
 #&gt;  Description:   Number format
 #&gt;  Definition:    digits=1, fmt='%'
 #&gt;  Example:       31415926.5%
 #&gt; 
 #&gt; $num
-#&gt; Format name:    num (default)
 #&gt;  Description:   Number format for floats
 #&gt;  Definition:    digits=3, big.mark="'"
 #&gt;  Example:       314'159.265
 #&gt; 
 #&gt; $nob
-#&gt; Format name:    nob
 #&gt;  Description:   Number format
 #&gt;  Definition:    digits=5, na.form='nodat'
 #&gt;  Example:       314159.26536
@@ -344,13 +335,14 @@
                         <span class='kw'>lbl</span> <span class='kw'>=</span> <span class='st'>"Chi-Square test"</span>),
                <span class='kw'>dich</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>fun</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>x</span>, <span class='no'>g</span>){<span class='fu'><a href='https://rdrr.io/r/stats/fisher.test.html'>fisher.test</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='no'>x</span>, <span class='no'>g</span>))$<span class='no'>p.val</span>},
                          <span class='kw'>lbl</span> <span class='kw'>=</span> <span class='st'>"Fisher exact test"</span>)),
-     <span class='kw'>fmt.pval</span> <span class='kw'>=</span> <span class='fu'><a href='Format.html'>as.fmt</a></span>(<span class='kw'>fmt</span> <span class='kw'>=</span> <span class='st'>"p"</span>, <span class='kw'>na.form</span> <span class='kw'>=</span> <span class='st'>"   "</span>)
+       <span class='kw'>fmt</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>abs</span> <span class='kw'>=</span> <span class='fu'><a href='Format.html'>Fmt</a></span>(<span class='st'>"abs"</span>), <span class='kw'>num</span>  <span class='kw'>=</span> <span class='fu'><a href='Format.html'>Fmt</a></span>(<span class='st'>"num"</span>), <span class='kw'>per</span> <span class='kw'>=</span> <span class='fu'><a href='Format.html'>Fmt</a></span>(<span class='st'>"per"</span>),
+                <span class='kw'>pval</span> <span class='kw'>=</span> <span class='fu'><a href='Format.html'>as.fmt</a></span>(<span class='kw'>fmt</span> <span class='kw'>=</span> <span class='st'>"*"</span>, <span class='kw'>na.form</span> <span class='kw'>=</span> <span class='st'>"   "</span>))
 )</div><div class='output co'>#&gt; var          total        setosa       versicolor   virginica                
 #&gt; n            150          50 (33.3%)   50 (33.3%)   50 (33.3%)               
-#&gt; Sepal.Length 5.8 / 0.828  5.0 / 0.352  5.9 / 0.516  6.6 / 0.636  &lt; 2.2e-16 ' 
-#&gt; Sepal.Width  3.1 / 0.436  3.4 / 0.379  2.8 / 0.314  3.0 / 0.322  &lt; 2.2e-16 ' 
-#&gt; Petal.Length 3.8 / 1.765  1.5 / 0.174  4.3 / 0.470  5.6 / 0.552  &lt; 2.2e-16 ' 
-#&gt; Petal.Width  1.2 / 0.762  0.2 / 0.105  1.3 / 0.198  2.0 / 0.275  &lt; 2.2e-16 ' 
+#&gt; Sepal.Length 5.8 / 0.828  5.0 / 0.352  5.9 / 0.516  6.6 / 0.636  *** '       
+#&gt; Sepal.Width  3.1 / 0.436  3.4 / 0.379  2.8 / 0.314  3.0 / 0.322  *** '       
+#&gt; Petal.Length 3.8 / 1.765  1.5 / 0.174  4.3 / 0.470  5.6 / 0.552  *** '       
+#&gt; Petal.Width  1.2 / 0.762  0.2 / 0.105  1.3 / 0.198  2.0 / 0.275  *** '       
 #&gt; ---
 #&gt; ') ANOVA, ") Fisher exact test, "") Chi-Square test
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
@@ -363,49 +355,53 @@
 <span class='no'>d.set</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>z</span> <span class='kw'>=</span> <span class='no'>z</span>, <span class='kw'>g</span> <span class='kw'>=</span> <span class='no'>g</span>)
 
 <span class='fu'>TOne</span>(<span class='no'>d.set</span>[<span class='fl'>1</span>:<span class='fl'>3</span>], <span class='no'>d.set</span>$<span class='no'>g</span>, <span class='kw'>intref</span> <span class='kw'>=</span> <span class='st'>"low"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Chi-squared approximation may be incorrect</span></div><div class='output co'>#&gt; var         total       a           b           c           d                      
-#&gt; n           100         28 (28.0%)  23 (23.0%)  19 (19.0%)  30 (30.0%)             
-#&gt; x (= 0)     28 (28.0%)  10 (35.7%)  5 (21.7%)   4 (21.1%)   9 (30.0%)       ""     
-#&gt; y (= FALSE) 39 (39.0%)  12 (42.9%)  8 (34.8%)   9 (47.4%)   10 (33.3%)      ""     
-#&gt; z (= 0)     26 (26.0%)  10 (35.7%)  5 (21.7%)   4 (21.1%)   7 (23.3%)       ""     
+#&gt; n           100         29 (29.0%)  22 (22.0%)  28 (28.0%)  21 (21.0%)             
+#&gt; x (= 0)     25 (25.0%)  7 (24.1%)   2 (9.1%)    9 (32.1%)   7 (33.3%)       ""     
+#&gt; y (= FALSE) 21 (21.0%)  8 (27.6%)   3 (13.6%)   5 (17.9%)   5 (23.8%)       ""     
+#&gt; z (= 0)     25 (25.0%)  9 (31.0%)   3 (13.6%)   10 (35.7%)  3 (14.3%)       ""     
 #&gt; ---
 #&gt; ') Kruskal-Wallis test, ") Fisher exact test, "") Chi-Square test
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 #&gt; </div><div class='input'>
 <span class='fu'>TOne</span>(<span class='no'>d.set</span>[<span class='fl'>1</span>:<span class='fl'>3</span>], <span class='no'>d.set</span>$<span class='no'>g</span>, <span class='kw'>intref</span> <span class='kw'>=</span> <span class='st'>"high"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Chi-squared approximation may be incorrect</span></div><div class='output co'>#&gt; var        total      a          b          c          d                    
-#&gt; n          100        28 (28.0%) 23 (23.0%) 19 (19.0%) 30 (30.0%)           
-#&gt; x (= 1)    72 (72.0%) 18 (64.3%) 18 (78.3%) 15 (78.9%) 21 (70.0%)     ""    
-#&gt; y (= TRUE) 61 (61.0%) 16 (57.1%) 15 (65.2%) 10 (52.6%) 20 (66.7%)     ""    
-#&gt; z (= 0)    26 (26.0%) 10 (35.7%) 5 (21.7%)  4 (21.1%)  7 (23.3%)      ""    
+#&gt; n          100        29 (29.0%) 22 (22.0%) 28 (28.0%) 21 (21.0%)           
+#&gt; x (= 1)    75 (75.0%) 22 (75.9%) 20 (90.9%) 19 (67.9%) 14 (66.7%)     ""    
+#&gt; y (= TRUE) 79 (79.0%) 21 (72.4%) 19 (86.4%) 23 (82.1%) 16 (76.2%)     ""    
+#&gt; z (= 0)    25 (25.0%) 9 (31.0%)  3 (13.6%)  10 (35.7%) 3 (14.3%)      ""    
 #&gt; ---
 #&gt; ') Kruskal-Wallis test, ") Fisher exact test, "") Chi-Square test
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 #&gt; </div><div class='input'>
 <span class='co'># intref would not control factors, use relevel to change reported value</span>
-<span class='fu'>TOne</span>(<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>z</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/relevel.html'>relevel</a></span>(<span class='no'>z</span>, <span class='st'>"1"</span>)), <span class='no'>g</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Chi-squared approximation may be incorrect</span></div><div class='output co'>#&gt; var        total      a          b          c          d                    
-#&gt; n          100        28 (28.0%) 23 (23.0%) 19 (19.0%) 30 (30.0%)           
-#&gt; z (= 1)    74 (74.0%) 18 (64.3%) 18 (78.3%) 15 (78.9%) 23 (76.7%)     ""    
+<span class='fu'>TOne</span>(<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>z</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/relevel.html'>relevel</a></span>(<span class='no'>z</span>, <span class='st'>"1"</span>)), <span class='no'>g</span>)</div><div class='output co'>#&gt; var        total      a          b          c          d                    
+#&gt; n          100        29 (29.0%) 22 (22.0%) 28 (28.0%) 21 (21.0%)           
+#&gt; z (= 1)    75 (75.0%) 20 (69.0%) 19 (86.4%) 18 (64.3%) 18 (85.7%)     ""    
 #&gt; ---
 #&gt; ') Kruskal-Wallis test, ") Fisher exact test, "") Chi-Square test
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 #&gt; </div><div class='input'>
-<span class='fu'>TOne</span>(<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>z</span> <span class='kw'>=</span> <span class='no'>z</span>), <span class='no'>g</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Chi-squared approximation may be incorrect</span></div><div class='output co'>#&gt; var        total      a          b          c          d                    
-#&gt; n          100        28 (28.0%) 23 (23.0%) 19 (19.0%) 30 (30.0%)           
-#&gt; z (= 0)    26 (26.0%) 10 (35.7%) 5 (21.7%)  4 (21.1%)  7 (23.3%)      ""    
+<span class='fu'>TOne</span>(<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>z</span> <span class='kw'>=</span> <span class='no'>z</span>), <span class='no'>g</span>)</div><div class='output co'>#&gt; var        total      a          b          c          d                    
+#&gt; n          100        29 (29.0%) 22 (22.0%) 28 (28.0%) 21 (21.0%)           
+#&gt; z (= 0)    25 (25.0%) 9 (31.0%)  3 (13.6%)  10 (35.7%) 3 (14.3%)      ""    
 #&gt; ---
 #&gt; ') Kruskal-Wallis test, ") Fisher exact test, "") Chi-Square test
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 #&gt; </div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span>(<span class='no'>opt</span>)
 
+
 <span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 
 <span class='co'># Send the whole stuff to Word</span>
 <span class='no'>wrd</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='GetNewWrd.html'>GetNewWrd</a></span>()
 <span class='fu'><a href='ToWrd.html'>ToWrd</a></span>(
-  <span class='fu'>TOne</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>d.pizza</span>[, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"temperature"</span>, <span class='st'>"delivery_min"</span>, <span class='st'>"driver"</span>, <span class='st'>"wine_ordered"</span>)],
-       <span class='kw'>grp</span> <span class='kw'>=</span> <span class='no'>d.pizza</span>$<span class='no'>quality</span>)
+  <span class='fu'>TOne</span>(<span class='kw'>x</span>   <span class='kw'>=</span> <span class='no'>d.pizza</span>[, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"temperature"</span>, <span class='st'>"delivery_min"</span>, <span class='st'>"driver"</span>, <span class='st'>"wine_ordered"</span>)],
+       <span class='kw'>grp</span> <span class='kw'>=</span> <span class='no'>d.pizza</span>$<span class='no'>quality</span>,
+       <span class='kw'>fmt</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>num</span><span class='kw'>=</span><span class='fu'><a href='Format.html'>Fmt</a></span>(<span class='st'>"num"</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>1</span>))
+       ),
+  <span class='kw'>font</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>name</span><span class='kw'>=</span><span class='st'>"Arial narrow"</span>, <span class='kw'>size</span><span class='kw'>=</span><span class='fl'>8</span>),
+  <span class='kw'>align</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"l"</span>,<span class='st'>"r"</span>)      <span class='co'># this will be recycled: left-right-left-right ...</span>
 )
-
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -422,7 +418,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

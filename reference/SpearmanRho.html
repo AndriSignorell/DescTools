@@ -44,7 +44,7 @@
 
 <meta property="og:title" content="Spearman Rank Correlation
 <!-- %%  ~~function to do ... ~~ --> — SpearmanRho" />
-<meta property="og:description" content="Calculate Spearman correlation coefficient and it's confidence interval.
+<meta property="og:description" content="Calculate Spearman correlation coefficient and its confidence interval. In addition to the base R function cor(), frequency tables are also accepted as arguments (i.e. actually weights are used).
 " />
 
 
@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.36.0002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.38</span>
       </span>
     </div>
 
@@ -139,8 +139,8 @@
     </div>
 
     <div class="ref-description">
-    <p>Calculate Spearman correlation coefficient and it's confidence interval.
-<!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
+    <p>Calculate Spearman correlation coefficient and its confidence interval. In addition to the base R function <code><a href='https://rdrr.io/r/stats/cor.html'>cor</a>()</code>, frequency tables are also accepted as arguments (i.e. actually weights are used).</p>
+<p><!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
     <pre class="usage"><span class='fu'>SpearmanRho</span>(<span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>use</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"everything"</span>, <span class='st'>"all.obs"</span>, <span class='st'>"complete.obs"</span>,
@@ -176,7 +176,7 @@ This must be (an abbreviation of) one of the strings <code>"everything"</code>, 
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The function calculates  Spearman's rho statistic by means of <code><a href='https://rdrr.io/r/stats/cor.html'>cor(..., method="spearman")</a></code>. 
+    <p>The function calculates Spearman's rho statistic by means of <code><a href='https://rdrr.io/r/stats/cor.html'>cor(..., method="spearman")</a></code> when two variables <code>x</code> and <code>y</code> are supplied. If a frequency table is provided an implementation based on SAS documentation is used.<br />
 The confidence intervals are calculated via z-Transformation.<br /></p>
  
 <p><!-- %%  ~~ If necessary, more details than the description above ~~ --></p>
@@ -199,9 +199,19 @@ or a vector with 3 elements for estimate, lower and upper confidence intervall.
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>SpearmanRho</span>(<span class='no'>d.diamonds</span>$<span class='no'>clarity</span>, <span class='no'>d.diamonds</span>$<span class='no'>cut</span>)</div><div class='output co'>#&gt; [1] 0.1614232</div><div class='input'>
-<span class='fu'>SpearmanRho</span>(<span class='no'>d.diamonds</span>$<span class='no'>clarity</span>, <span class='no'>d.diamonds</span>$<span class='no'>cut</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>)</div><div class='output co'>#&gt;        rho     lwr.ci     upr.ci 
-#&gt; 0.16142325 0.06898016 0.25111778 </div></pre>
+    <pre class="examples"><div class='input'><span class='no'>pain</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>26</span>,  <span class='fl'>6</span>, <span class='fl'>26</span>, <span class='fl'>7</span>, <span class='fl'>23</span>,
+                           <span class='fl'>9</span>, <span class='fl'>18</span>, <span class='fl'>14</span>, <span class='fl'>9</span>, <span class='fl'>23</span>),
+                           <span class='kw'>ncol</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>byrow</span><span class='kw'>=</span><span class='fl'>TRUE</span>,
+        <span class='kw'>dimnames</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>adverse</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"no"</span>, <span class='st'>"yes"</span>), <span class='kw'>dose</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>5</span>)))
+
+<span class='fu'>SpearmanRho</span>(<span class='no'>pain</span>)</div><div class='output co'>#&gt; [1] 0.10208</div><div class='input'>
+<span class='fu'>SpearmanRho</span>(<span class='no'>pain</span>, <span class='kw'>conf.level</span><span class='kw'>=</span><span class='fl'>0.95</span>)</div><div class='output co'>#&gt;         rho      lwr.ci      upr.ci 
+#&gt;  0.10208002 -0.05343858  0.25276393 </div><div class='input'>
+<span class='co'># must be the same as</span>
+<span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='fu'><a href='Untable.html'>Untable</a></span>(<span class='no'>pain</span>),
+     <span class='fu'>SpearmanRho</span>(<span class='no'>adverse</span>, <span class='no'>dose</span>, <span class='kw'>conf.level</span><span class='kw'>=</span><span class='fl'>0.95</span>))</div><div class='output co'>#&gt;         rho      lwr.ci      upr.ci 
+#&gt;  0.10208002 -0.05343858  0.25276393 </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -217,7 +227,7 @@ or a vector with 3 elements for estimate, lower and upper confidence intervall.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

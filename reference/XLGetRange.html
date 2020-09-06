@@ -79,7 +79,7 @@ XLGetWorkbook() does the same for all the sheets in an Excel workbook.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.36.0002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.38</span>
       </span>
     </div>
 
@@ -224,14 +224,14 @@ Be then prepared to encounter <code>NULL</code> values. Those will prevent from 
 the square data structure to a data.frame.</p>
 <p>The following code will replace the <code>NULL</code> values by <code>NA</code> and coerce the data to a data.frame.</p><pre>
   <span class='co'># get the range D1:J69 from an excel file</span>
-  <span class='no'>xlrng</span> <span class='kw'>&lt;-</span> <span class='fu'>XLGetRange</span>(<span class='kw'>file</span><span class='kw'>=</span><span class='st'>"myfile.xlsx"</span>, <span class='kw'>sheet</span><span class='kw'>=</span><span class='st'>"Tabelle1"</span>,
+  <span class='no'>xlrng</span> <span class='kw'>&amp;</span><span class='no'>lt</span>;- <span class='fu'>XLGetRange</span>(<span class='kw'>file</span><span class='kw'>=</span><span class='st'>"myfile.xlsx"</span>, <span class='kw'>sheet</span><span class='kw'>=</span><span class='st'>"Tabelle1"</span>,
                       <span class='kw'>range</span><span class='kw'>=</span><span class='st'>"D1:J69"</span>, <span class='kw'>as.data.frame</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 
   <span class='co'># replace NULL values by NA</span>
-  <span class='no'>xlrng</span>[<span class='fu'><a href='https://rdrr.io/r/base/unlist.html'>unlist</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>xlrng</span>, <span class='no'>is.null</span>))] <span class='kw'>&lt;-</span> <span class='fl'>NA</span>
+  <span class='no'>xlrng</span>[<span class='fu'><a href='https://rdrr.io/r/base/unlist.html'>unlist</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>xlrng</span>, <span class='no'>is.null</span>))] <span class='kw'>&amp;</span><span class='no'>lt</span>;- <span class='fl'>NA</span>
 
   <span class='co'># coerce the square data structure to a data.frame</span>
-  <span class='no'>d.lka</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='no'>xlrng</span>), <span class='no'>unlist</span>))</pre><p>This of course can be avoided by setting <code>as.data.frame</code> = <code>TRUE</code>.</p>
+  <span class='no'>d.lka</span> <span class='kw'>&amp;</span><span class='no'>lt</span>;- <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='no'>xlrng</span>), <span class='no'>unlist</span>))</pre><p>This of course can be avoided by setting <code>as.data.frame</code> = <code>TRUE</code>.</p>
 <p>The function will return dates as integers, because MS-Excel stores them internally as integers.
 Such a date can subsequently be converted with the (unusual) origin of
 <code><a href='https://rdrr.io/r/base/as.Date.html'>as.Date(myDate, origin="1899-12-30")</a></code>. See also <code><a href='XLDateToPOSIXct.html'>XLDateToPOSIXct</a></code>, which does the job. The conversion can directly be performed by <code>XLGetRange()</code> if <code>datecols</code> is used and contains the date columns in the sheet data.</p>
@@ -246,7 +246,25 @@ If set to <code>FALSE</code> a list of the cell values in the specified Excel ra
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>)  <span class='co'># Windows-specific example</span>
+
+<span class='fu'>XLGetRange</span>(<span class='kw'>file</span><span class='kw'>=</span><span class='st'>"C:/My Documents/data.xls"</span>,
+           <span class='kw'>sheet</span><span class='kw'>=</span><span class='st'>"Sheet1"</span>,
+           <span class='kw'>range</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"A2:B5"</span>,<span class='st'>"M6:X23"</span>,<span class='st'>"C4:D40"</span>))
+
+
+<span class='co'># if the current region has to be read (incl. a header), place the cursor in the interesting region</span>
+<span class='co'># and run:</span>
+<span class='no'>d.set</span> <span class='kw'>&lt;-</span> <span class='fu'>XLGetRange</span>(<span class='kw'>header</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required namespace: RDCOMClient</span></div><div class='output co'>#&gt; <span class='warning'>Warning: RDCOMClient is unfortunately not available for Darwin systems (Windows-only).</span></div><div class='output co'>#&gt; <span class='error'>Error in xl$ActiveSheet(): attempt to apply non-function</span></div><div class='input'>
+<span class='co'># Get XL nameslist</span>
+<span class='no'>nm</span> <span class='kw'>&lt;-</span> <span class='no'>xl</span>$<span class='fu'>ActiveWorkbook</span>()$<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>()</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'xl' not found</span></div><div class='input'>
+<span class='no'>lst</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>()
+<span class='kw'>for</span>(<span class='no'>i</span> <span class='kw'>in</span> <span class='fl'>1</span>:<span class='no'>nm</span>$<span class='fu'>count</span>())
+  <span class='no'>lst</span><span class='kw'>[[</span><span class='no'>i</span>]] <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>name</span><span class='kw'>=</span><span class='no'>nm</span><span class='kw'>[[</span><span class='no'>i</span>]]$<span class='fu'><a href='https://rdrr.io/r/base/name.html'>name</a></span>(),
+                <span class='kw'>address</span><span class='kw'>=</span><span class='no'>nm</span><span class='kw'>[[</span><span class='no'>i</span>]]$<span class='fu'>refersToRange</span>()$<span class='fu'>Address</span>())</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'nm' not found</span></div><div class='input'>
+<span class='co'># the defined names</span>
+<span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span>(<span class='no'>rbind</span>, <span class='no'>lst</span>), <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; data frame with 0 columns and 0 rows</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -262,7 +280,7 @@ If set to <code>FALSE</code> a list of the cell values in the specified Excel ra
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

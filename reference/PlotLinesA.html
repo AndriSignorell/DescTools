@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.36.0002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.38</span>
       </span>
     </div>
 
@@ -187,7 +187,7 @@
     </tr>
     <tr>
       <th>args.legend</th>
-      <td><p>list of additional arguments for the legend; names of the list are used as argument names. If set to NA, the legend will be suppressed.</p></td>
+      <td><p>list of additional arguments for the legend; names of the list are used as argument names. If set to NA, the legend will be suppressed. See details.</p></td>
     </tr>
     <tr>
       <th>main</th>
@@ -230,6 +230,13 @@
 
     <p>This function is rather a template, than a function. It wraps <code><a href='https://rdrr.io/r/graphics/matplot.html'>matplot</a></code> to generate a lines plot and adds a rather sophisticated legend on the right side, while calculating appropriate margins. A grid option is included (as <code>panel.first</code> does not work in matplot).</p>
 <p>As in matplot, the first column of x is plotted against the first column of y, the second column of x against the second column of y, etc. If one matrix has fewer columns, plotting will cycle back through the columns again. (In particular, either x or y may be a vector, against which all columns of the other argument will be plotted.)</p>
+<p>The legend can be controlled by following arguments:</p>
+<pre><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>line</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>), <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='SpreadOut.html'>SpreadOut</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/unlist.html'>unlist</a></span>(<span class='no'>last</span>),
+     <span class='kw'>mindist</span> <span class='kw'>=</span> <span class='fl'>1.2</span> * <span class='fu'><a href='https://rdrr.io/r/graphics/strwidth.html'>strheight</a></span>(<span class='st'>"M"</span>) * <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"cex"</span>)),
+     <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>last</span>), <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"cex"</span>), <span class='kw'>col</span> <span class='kw'>=</span> <span class='no'>col</span>[<span class='no'>ord</span>],
+     <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='no'>lwd</span>[<span class='no'>ord</span>], <span class='kw'>lty</span> <span class='kw'>=</span> <span class='no'>lty</span>[<span class='no'>ord</span>])</pre>
+     
+<p>All arguments are recycled.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/graphics/matplot.html'>matplot</a></code>, <code><a href='https://rdrr.io/r/graphics/par.html'>par</a></code>
@@ -266,7 +273,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

@@ -43,7 +43,7 @@
 
 <meta property="og:title" content="Truncate Strings and Add Ellipses If a String is Truncated. — StrTrunc" />
 <meta property="og:description" content="Truncates one or more strings to a specified length, adding an ellipsis (...)
- to those strings that have been truncated. 
+ to those strings that have been truncated. The truncation can also be performed using word boundaries.
  Use formatC to justify the strings if needed." />
 
 
@@ -76,7 +76,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.36.0002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.38</span>
       </span>
     </div>
 
@@ -138,11 +138,11 @@
 
     <div class="ref-description">
     <p>Truncates one or more strings to a specified length, adding an ellipsis (...)
- to those strings that have been truncated. 
+ to those strings that have been truncated. The truncation can also be performed using word boundaries.
  Use <code><a href='https://rdrr.io/r/base/formatc.html'>formatC</a></code> to justify the strings if needed.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>StrTrunc</span>(<span class='no'>x</span>, <span class='kw'>maxlen</span> <span class='kw'>=</span> <span class='fl'>20</span>)</pre>
+    <pre class="usage"><span class='fu'>StrTrunc</span>(<span class='no'>x</span>, <span class='kw'>maxlen</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>ellipsis</span> <span class='kw'>=</span> <span class='st'>"..."</span>, <span class='kw'>wbound</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -153,7 +153,15 @@
     </tr>
     <tr>
       <th>maxlen</th>
-      <td><p>the maximum length of the returned strings.</p></td>
+      <td><p>the maximum length of the returned strings (NOT counting the appended ellipsis). <code>maxlen</code> is recycled.</p></td>
+    </tr>
+    <tr>
+      <th>ellipsis</th>
+      <td><p>the string to be appended, if the string is longer than the given maximal length. The default is <code>"..."</code>.</p></td>
+    </tr>
+    <tr>
+      <th>wbound</th>
+      <td><p>logical. Determines if the maximal length should be reduced to the next smaller word boundary and so words are not chopped. Default is <code>FALSE</code>.</p></td>
     </tr>
     </table>
 
@@ -167,19 +175,73 @@
 <code><a href='StrTrim.html'>StrTrim</a></code>, <code><a href='StrDist.html'>StrDist</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1789</span>)
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>10</span>),  <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='no'>letters</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>20</span>,<span class='fl'>1</span>)),<span class='kw'>collapse</span><span class='kw'>=</span><span class='st'>""</span>))
-<span class='no'>x</span></div><div class='output co'>#&gt;  [1] "kaiuoxbtjlrgdc"       "nu"                   "qlejtsaioykuwghzcxvf"
-#&gt;  [4] "hrpatocjueqybkslinmg" "npa"                  "pu"                  
-#&gt;  [7] "uozmqcrtjilpnfegx"    "cnamblhzptrdkqv"      "hyvja"               
-#&gt; [10] "urj"                 </div><div class='input'>
-<span class='fu'>StrTrunc</span>(<span class='no'>x</span>, <span class='kw'>maxlen</span><span class='kw'>=</span><span class='fl'>10</span>)</div><div class='output co'>#&gt;  [1] "kaiuoxbtjl..." "nu"            "qlejtsaioy..." "hrpatocjue..."
-#&gt;  [5] "npa"           "pu"            "uozmqcrtji..." "cnamblhzpt..."
-#&gt;  [9] "hyvja"         "urj"          </div><div class='input'>
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"this is short"</span>, <span class='st'>"and this is a longer text"</span>,
+       <span class='st'>"whereas this is a much longer story, which could not be told shorter"</span>)
+
+<span class='co'># simple truncation on 10 characters</span>
+<span class='fu'>StrTrunc</span>(<span class='no'>x</span>, <span class='kw'>maxlen</span><span class='kw'>=</span><span class='fl'>10</span>)</div><div class='output co'>#&gt; [1] "this is sh..." "and this i..." "whereas th..."</div><div class='input'>
+<span class='co'># NAs remain NA</span>
+<span class='fu'>StrTrunc</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>x</span>, <span class='fl'>NA_character_</span>), <span class='kw'>maxlen</span><span class='kw'>=</span><span class='fl'>15</span>, <span class='kw'>wbound</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "this is short"     "and this is a ..." "whereas this ..." 
+#&gt; [4] NA                 </div><div class='input'>
+<span class='co'># using word boundaries</span>
+<span class='kw'>for</span>(<span class='no'>i</span> <span class='kw'>in</span> -<span class='fl'>5</span>:<span class='fl'>20</span>)
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>StrTrunc</span>(<span class='no'>x</span>, <span class='kw'>maxlen</span><span class='kw'>=</span><span class='no'>i</span>, <span class='kw'>wbound</span><span class='kw'>=</span><span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; [1] "..." "..." "..."
+#&gt; [1] "..." "..." "..."
+#&gt; [1] "..." "..." "..."
+#&gt; [1] "..." "..." "..."
+#&gt; [1] "..." "..." "..."
+#&gt; [1] "..." "..." "..."
+#&gt; [1] "t..." "a..." "w..."
+#&gt; [1] "th..." "an..." "wh..."
+#&gt; [1] "thi..." "and..." "whe..."
+#&gt; [1] "this..." "and ..." "wher..."
+#&gt; [1] "this ..." "and ..."  "where..."
+#&gt; [1] "this ..."  "and ..."   "wherea..."
+#&gt; [1] "this ..."   "and ..."    "whereas..."
+#&gt; [1] "this is ..." "and ..."     "whereas ..."
+#&gt; [1] "this is ..."  "and this ..." "whereas ..." 
+#&gt; [1] "this is ..."  "and this ..." "whereas ..." 
+#&gt; [1] "this is ..."  "and this ..." "whereas ..." 
+#&gt; [1] "this is ..."     "and this is ..." "whereas ..."    
+#&gt; [1] "this is short"    "and this is ..."  "whereas this ..."
+#&gt; [1] "this is short"     "and this is a ..." "whereas this ..." 
+#&gt; [1] "this is short"     "and this is a ..." "whereas this ..." 
+#&gt; [1] "this is short"       "and this is a ..."   "whereas this is ..."
+#&gt; [1] "this is short"       "and this is a ..."   "whereas this is ..."
+#&gt; [1] "this is short"         "and this is a ..."     "whereas this is a ..."
+#&gt; [1] "this is short"         "and this is a ..."     "whereas this is a ..."
+#&gt; [1] "this is short"         "and this is a ..."     "whereas this is a ..."</div><div class='input'>
+<span class='co'># compare</span>
+<span class='kw'>for</span>(<span class='no'>i</span> <span class='kw'>in</span> -<span class='fl'>5</span>:<span class='fl'>20</span>)
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>StrTrunc</span>(<span class='no'>x</span>, <span class='kw'>maxlen</span><span class='kw'>=</span><span class='no'>i</span>, <span class='kw'>wbound</span><span class='kw'>=</span><span class='fl'>FALSE</span>))</div><div class='output co'>#&gt; [1] "..." "..." "..."
+#&gt; [1] "..." "..." "..."
+#&gt; [1] "..." "..." "..."
+#&gt; [1] "..." "..." "..."
+#&gt; [1] "..." "..." "..."
+#&gt; [1] "..." "..." "..."
+#&gt; [1] "t..." "a..." "w..."
+#&gt; [1] "th..." "an..." "wh..."
+#&gt; [1] "thi..." "and..." "whe..."
+#&gt; [1] "this..." "and ..." "wher..."
+#&gt; [1] "this ..." "and t..." "where..."
+#&gt; [1] "this i..." "and th..." "wherea..."
+#&gt; [1] "this is..." "and thi..." "whereas..."
+#&gt; [1] "this is ..." "and this..." "whereas ..."
+#&gt; [1] "this is s..." "and this ..." "whereas t..."
+#&gt; [1] "this is sh..." "and this i..." "whereas th..."
+#&gt; [1] "this is sho..." "and this is..." "whereas thi..."
+#&gt; [1] "this is shor..." "and this is ..." "whereas this..."
+#&gt; [1] "this is short"    "and this is a..." "whereas this ..."
+#&gt; [1] "this is short"     "and this is a ..." "whereas this i..."
+#&gt; [1] "this is short"      "and this is a l..." "whereas this is..."
+#&gt; [1] "this is short"       "and this is a lo..." "whereas this is ..."
+#&gt; [1] "this is short"        "and this is a lon..." "whereas this is a..."
+#&gt; [1] "this is short"         "and this is a long..." "whereas this is a ..."
+#&gt; [1] "this is short"          "and this is a longe..." "whereas this is a m..."
+#&gt; [1] "this is short"           "and this is a longer..."
+#&gt; [3] "whereas this is a mu..."</div><div class='input'>
 <span class='co'># right justification</span>
-<span class='fu'><a href='https://rdrr.io/r/base/formatc.html'>formatC</a></span>(<span class='fu'>StrTrunc</span>(<span class='no'>x</span>, <span class='kw'>maxlen</span><span class='kw'>=</span><span class='fl'>10</span>), <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>flag</span><span class='kw'>=</span><span class='st'>" "</span>)</div><div class='output co'>#&gt;  [1] "kaiuoxbtjl..." "           nu" "qlejtsaioy..." "hrpatocjue..."
-#&gt;  [5] "          npa" "           pu" "uozmqcrtji..." "cnamblhzpt..."
-#&gt;  [9] "        hyvja" "          urj"</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/formatc.html'>formatC</a></span>(<span class='fu'>StrTrunc</span>(<span class='no'>x</span>, <span class='kw'>maxlen</span><span class='kw'>=</span><span class='fl'>10</span>), <span class='kw'>width</span><span class='kw'>=</span><span class='fl'>10</span>, <span class='kw'>flag</span><span class='kw'>=</span><span class='st'>" "</span>)</div><div class='output co'>#&gt; [1] "this is sh..." "and this i..." "whereas th..."</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -195,7 +257,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

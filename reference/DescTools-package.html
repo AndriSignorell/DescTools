@@ -43,7 +43,7 @@
 
 <meta property="og:title" content="Tools for Descriptive Statistics and Exploratory Data Analysis — DescTools-package" />
 <meta property="og:description" content="DescTools is an extensive collection of miscellaneous basic statistics functions and comfort wrappers not available in the R basic system for efficient description of data.
-The author's intention was to create a toolbox, which facilitates the (notoriously time consuming) first descriptive tasks in data analysis, consisting of calculating descriptive statistics, drawing graphical summaries and reporting the results. The package contains furthermore functions to produce documents using MS Word (or PowerPoint) and functions to import data from Excel. 
+The author's intention was to create a toolbox, which facilitates the (notoriously time consuming) first descriptive tasks in data analysis, consisting of calculating descriptive statistics, drawing graphical summaries and reporting the results. Special attention was paid to the integration of various approaches to the calculation of confidence intervals. For most basic statistics functions, variants are included that allow the use of weights. The package contains furthermore functions to produce documents using MS Word (or PowerPoint) and functions to import data from Excel. 
 A considerable part of the included functions can be found scattered in other packages and other sources written partly by Titans of R. The reason for collecting them here, was primarily to have them consolidated in ONE instead of dozens of packages (which themselves might depend on other packages which are not needed at all), and to provide a common and consistent interface as far as function and arguments naming, NA handling, recycling rules etc. are concerned. Google style guides were used as naming rules (in absence of convincing alternatives). The 'CamelStyle' was consequently applied to functions borrowed from contributed R packages as well.
 
 Feedback, feature requests, bugreports and other suggestions are welcome! Please report problems to Stack Overflow using tag [desctools] or directly to the maintainer." />
@@ -78,7 +78,7 @@ Feedback, feature requests, bugreports and other suggestions are welcome! Please
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.36.0002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.38</span>
       </span>
     </div>
 
@@ -140,7 +140,7 @@ Feedback, feature requests, bugreports and other suggestions are welcome! Please
 
     <div class="ref-description">
     <p>DescTools is an extensive collection of miscellaneous basic statistics functions and comfort wrappers not available in the R basic system for efficient description of data.
-The author's intention was to create a toolbox, which facilitates the (notoriously time consuming) first descriptive tasks in data analysis, consisting of calculating descriptive statistics, drawing graphical summaries and reporting the results. The package contains furthermore functions to produce documents using MS Word (or PowerPoint) and functions to import data from Excel. <br />
+The author's intention was to create a toolbox, which facilitates the (notoriously time consuming) first descriptive tasks in data analysis, consisting of calculating descriptive statistics, drawing graphical summaries and reporting the results. Special attention was paid to the integration of various approaches to the calculation of confidence intervals. For most basic statistics functions, variants are included that allow the use of weights. The package contains furthermore functions to produce documents using MS Word (or PowerPoint) and functions to import data from Excel. <br />
 A considerable part of the included functions can be found scattered in other packages and other sources written partly by Titans of R. The reason for collecting them here, was primarily to have them consolidated in ONE instead of dozens of packages (which themselves might depend on other packages which are not needed at all), and to provide a common and consistent interface as far as function and arguments naming, <code>NA</code> handling, recycling rules etc. are concerned. Google style guides were used as naming rules (in absence of convincing alternatives). The 'CamelStyle' was consequently applied to functions borrowed from contributed R packages as well.
 <br /></p>
 <p>Feedback, feature requests, bugreports and other suggestions are welcome! Please report problems to Stack Overflow using tag [desctools] or directly to the maintainer.</p>
@@ -150,7 +150,7 @@ A considerable part of the included functions can be found scattered in other pa
 
     <h2 class="hasAnchor" id="warning"><a class="anchor" href="#warning"></a>Warning</h2>
 
-    <p>This package is still under development. Although the code seems meanwhile quite stable, until release of version 1.0 (which is expected in hmm: new future?) you should be aware that everything in the package might be subject to change. Backward compatibility is not yet guaranteed. Functions may be deleted or renamed and new syntax may be inconsistent with earlier versions. By release of version 1.0 the "deprecated-defunct process" will be installed.</p>
+    <p>This package is still under development. Although the code seems meanwhile quite stable, until release of version 1.0 (which is expected in hmm: near future?) you should be aware that everything in the package might be subject to change. Backward compatibility is not yet guaranteed. Functions may be deleted or renamed and new syntax may be inconsistent with earlier versions. By release of version 1.0 the "deprecated-defunct process" will be installed.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     
@@ -240,6 +240,7 @@ A considerable part of the included functions can be found scattered in other pa
 <tr><td><a href='SetNames.html'>SetNames</a></td><td>Set the names, rownames or columnnames in an object and return it</td></tr>
 <tr><td><a href='Some.html'>Some</a></td><td>Return some randomly chosen elements of an object</td></tr>
 <tr><td><a href='SplitAt.html'>SplitAt</a></td><td>Split a vector into several pieces at given positions</td></tr>
+<tr><td><a href='SplitToCol.html'>SplitToCol</a></td><td>Splits the columns of a data frame using a split character</td></tr>
 <tr><td><a href='SplitPath.html'>SplitPath</a></td><td>Split a path string in drive, path, filename</td></tr>
 <tr><td><a href='Str.html'>Str</a></td><td>Compactly display the structure of any R object</td></tr>
 <tr><td><a href='TextToTable.html'>TextToTable</a></td><td>Converts a string to a table</td></tr>
@@ -538,9 +539,10 @@ A considerable part of the included functions can be found scattered in other pa
 <tr><td><a href='WrdTableBorders.html'>WrdTableBorders</a></td><td>Set or edit table border style of a table in Word</td></tr>
 <tr><td><a href='ToWrd.html'>ToWrd</a>, <a href='XLView.html'>ToXL</a></td><td>Mord flexible wrapper to send diverse objects to Word, resp. Excel</td></tr>
 <tr><td><a href='WrdPlot.html'>WrdPlot</a></td><td>Insert the active plot to Word</td></tr>
-<tr><td><a href='WrdInsertBookmark.html'>WrdInsertBookmark</a></td><td>Insert a new bookmark in a Word document</td></tr>
-<tr><td><a href='WrdInsertBookmark.html'>WrdGoto</a></td><td>Place cursor to a specific bookmark, or another text position.</td></tr>
-<tr><td><a href='WrdInsertBookmark.html'>WrdUpdateBookmark</a></td><td>Update the text of a bookmark's range</td></tr>
+<tr><td><a href='WrdBookmark.html'>WrdInsertBookmark</a></td><td>Insert a new bookmark in a Word document</td></tr>
+<tr><td><a href='WrdBookmark.html'>WrdDeleteBookmark</a></td><td>Delete an existing bookmark in a Word document</td></tr>
+<tr><td><a href='WrdBookmark.html'>WrdGoto</a></td><td>Place cursor to a specific bookmark, or another text position.</td></tr>
+<tr><td><a href='WrdBookmark.html'>WrdUpdateBookmark</a></td><td>Update the text of a bookmark's range</td></tr>
 <tr><td><a href='WrdSaveAs.html'>WrdSaveAs</a></td><td>Saves documents in Word</td></tr>
 <tr><td><a href='WrdStyle.html'>WrdStyle</a></td><td>Get and set the style of a paragraph in Word</td></tr>
 <tr><td><a href='XLDateToPOSIXct.html'>XLDateToPOSIXct</a></td><td>Convert XL-Date format to POSIXct format</td></tr>
@@ -581,18 +583,19 @@ A considerable part of the included functions can be found scattered in other pa
     <p>To make use of MS-Office features you must have Office in one of its variants installed.
 All <code>Wrd*</code>, <code>XL*</code> and <code>Pp*</code> functions require as well the package <b>RDCOMClient</b> to be installed. Hence the use of these functions is restricted to Windows systems.
 <b>RDCOMClient</b> can be installed with: <br /></p><pre><span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span>(<span class='st'>"RDCOMClient"</span>, <span class='kw'>repos</span><span class='kw'>=</span><span class='st'>"http://www.omegahat.net/R"</span>)</pre><p>The omegahat repository does not benefit from the same update service as CRAN. So you may be forced to install a package compiled with an earlier version, which usually is not a problem. Use e.g. for R 3.6x/R 4.0<br /></p><pre>
-<span class='no'>url</span> <span class='kw'>&lt;-</span> <span class='st'>"http://www.omegahat.net/R/bin/windows/contrib/3.5.1/RDCOMClient_0.93-0.zip"</span>
-<span class='no'>url</span> <span class='kw'>&lt;-</span> <span class='st'>"http://www.omegahat.net/R/bin/windows/contrib/4.0/RDCOMClient_0.94-0.zip"</span>
+<span class='no'>url</span> <span class='kw'>&amp;</span><span class='no'>lt</span>;- <span class='st'>"http://www.omegahat.net/R/bin/windows/contrib/3.5.1/RDCOMClient_0.93-0.zip"</span>
+<span class='no'>url</span> <span class='kw'>&amp;</span><span class='no'>lt</span>;- <span class='st'>"http://www.omegahat.net/R/bin/windows/contrib/4.0/RDCOMClient_0.94-0.zip"</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span>(<span class='no'>url</span>, <span class='kw'>repos</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"binary"</span>)</pre><p><b>RDCOMClient</b> does not exist for Mac or Linux, sorry.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># ******************************************************</span>
-<span class='co'># There are no examples defined here. But see the demos:</span>
-<span class='co'>#</span>
-<span class='co'># demo(describe)</span>
-<span class='co'># demo(plots))</span>
-<span class='co'>#</span>
-<span class='co'># ******************************************************</span></div></pre>
+    <pre class="examples"><div class='input'># ******************************************************
+# There are no examples defined here. But see the demos:
+#
+# demo(describe)
+# demo(plots))
+#
+# ******************************************************
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -608,7 +611,7 @@ All <code>Wrd*</code>, <code>XL*</code> and <code>Pp*</code> functions require a
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

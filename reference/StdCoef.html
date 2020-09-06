@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.36.0002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.38</span>
       </span>
     </div>
 
@@ -249,14 +249,16 @@ Statistician</em> 48, 209-213.</p>
 <span class='no'>fmg</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='no'>Fertility</span>) ~ <span class='no'>Agriculture</span> + <span class='no'>Examination</span> + <span class='no'>Education</span> + <span class='no'>Catholic</span>,
            <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>swiss</span>, <span class='kw'>family</span> <span class='kw'>=</span> <span class='no'>fam</span>)
 
-<span class='no'>psdg</span> <span class='kw'>&lt;-</span> <span class='fu'>PartialSD</span>(<span class='no'>fmg</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: longer object length is not a multiple of shorter object length</span></div><div class='input'><span class='co'># zGPA &lt;- stdize(GPA, scale = c(NA, psdg[-1]), center = FALSE)</span>
-<span class='co'># fmgz &lt;- glm(log(y) ~ z.x1 + z.x2 + z.x3 + z.x4, zGPA, family = fam)</span>
+<span class='no'>psdg</span> <span class='kw'>&lt;-</span> <span class='fu'>PartialSD</span>(<span class='no'>fmg</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: longer object length is not a multiple of shorter object length</span></div><div class='input'># zGPA &lt;- stdize(GPA, scale = c(NA, psdg[-1]), center = FALSE)
+# fmgz &lt;- glm(log(y) ~ z.x1 + z.x2 + z.x3 + z.x4, zGPA, family = fam)
 
-<span class='co'># Coefficients using standardized data:</span>
-<span class='co'># coef(fmgz) # (intercept is unchanged because the variables haven't been</span>
-           <span class='co'>#  centred)</span>
-<span class='co'># Standardized coefficients:</span>
-<span class='co'># coef(fmg) * psdg</span></div></pre>
+# Coefficients using standardized data:
+# coef(fmgz) # (intercept is unchanged because the variables haven't been
+           #  centred)
+# Standardized coefficients:
+# coef(fmg) * psdg
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -272,7 +274,7 @@ Statistician</em> 48, 209-213.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
