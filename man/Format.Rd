@@ -59,7 +59,7 @@ as.CDateFmt(fmt)
   \item{big.mark}{character; if not empty used as mark between every 3 decimals before the decimal point. Default is "" (none).
 %%     ~~Describe \code{big.mark} here~~  big.interval is not implemented, would anyone need that??
 }
-  \item{ldigits}{number of leading zeros. 3 would make sure that at least 3 digits on the left side will be printed. Setting ldigits to 0 will yield results like ".452" for 0.452. The default \code{NULL} will leave the numbers as they are (meaning at least one 0 digit).
+  \item{ldigits}{number of leading zeros. \code{ldigits=3} would make sure that at least 3 digits on the left side will be printed, say \code{3.4} will be printed as \code{003.4}. Setting \code{ldigits} to \code{0} will yield results like \code{.452} for \code{0.452}. The default \code{NULL} will leave the numbers as they are (meaning at least one 0 digit).
 %%     ~~Describe \code{drop0leading} here~~
 }
   \item{zero.form}{character, string specifying how zeros should be specially formatted. Useful for pretty printing 'sparse' objects.

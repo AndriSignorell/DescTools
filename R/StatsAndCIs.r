@@ -2072,6 +2072,12 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
 }
 
 
+BinomCIn <- function(p=0.5, width, interval=c(1, 1e5), conf.level=0.95, sides="two.sided", method="wilson") {
+  uniroot(f = function(n) diff(BinomCI(x=p*n, n=n, conf.level=conf.level, 
+                                       sides=sides, method=method)[, -1]) - width, 
+          interval = interval)$root
+}
+
 
 
 BinomDiffCI <- function(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided","left","right"),
