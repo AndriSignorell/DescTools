@@ -76,7 +76,7 @@ Matrix of cumulative sums that was used for plotting.
 %% ...
 }
 \references{
-\url{http://r.789695.n4.nabble.com/areaplot-td2255121.html}
+\url{https://r.789695.n4.nabble.com/areaplot-td2255121.html}
 %% ~put references to the literature/web site here ~
 }
 \author{

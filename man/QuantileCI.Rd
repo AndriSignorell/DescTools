@@ -8,7 +8,8 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-QuantileCI(x, probs=seq(0, 1, .25), conf.level = 0.95, sides = c("two.sided", "left", "right"),
+QuantileCI(x, probs=seq(0, 1, .25), conf.level = 0.95, 
+           sides = c("two.sided", "left", "right"),
            na.rm = FALSE, method = c("exact", "boot"), R = 999)
 }
 %- maybe also 'usage' for other objects documented here.

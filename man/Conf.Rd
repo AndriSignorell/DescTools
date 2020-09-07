@@ -121,7 +121,7 @@ a list with elements
   \item{byClass}{the sensitivity, specificity, positive predictive value, negative predictive value, prevalence, dection rate and detection prevalence for each class. For two class systems, this is calculated once using the \code{positive} argument}
 }
 \references{
-Kuhn, M. (2008) Building predictive models in R using the caret package \emph{Journal of Statistical Software}, (\url{http://www.jstatsoft.org/v28/i05/}).
+Kuhn, M. (2008) Building predictive models in R using the caret package \emph{Journal of Statistical Software}, (\url{https://www.jstatsoft.org/v28/i05/}).
 
 Powers, David M W (2011) Evaluation: From Precision, Recall and F-Measure to ROC, Informedness, Markedness & Correlation (PDF). \emph{Journal of Machine Learning Technologies} 2 (1): 37-63.
 

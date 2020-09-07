@@ -72,13 +72,13 @@ Barnard, G.A. (1947) Significance tests for 2x2 tables. \emph{Biometrika}, 34:12
 
 Suissa, S. and Shuster, J. J. (1985), Exact Unconditional Sample Sizes for the 2x2 Binomial Trial, \emph{Journal of the Royal Statistical Society}, Ser. A, 148, 317-327.
 
-Cardillo G. (2009) MyBarnard: a very compact routine for Barnard's exact test on 2x2 matrix. \url{http://ch.mathworks.com/matlabcentral/fileexchange/25760-mybarnard}
+Cardillo G. (2009) MyBarnard: a very compact routine for Barnard's exact test on 2x2 matrix. \url{https://ch.mathworks.com/matlabcentral/fileexchange/25760-mybarnard}
 
-Galili T. (2010) \url{http://www.r-statistics.com/2010/02/barnards-exact-test-a-powerful-alternative-for-fishers-exact-test-implemented-in-r/}
+Galili T. (2010) \url{https://www.r-statistics.com/2010/02/barnards-exact-test-a-powerful-alternative-for-fishers-exact-test-implemented-in-r/}
 
 Lin C.Y., Yang M.C. (2009) Improved p-value tests for comparing two independent binomial proportions. \emph{Communications in Statistics-Simulation and Computation}, 38(1):78-91.
 
-Trujillo-Ortiz, A., R. Hernandez-Walls, A. Castro-Perez, L. Rodriguez-Cardozo N.A. Ramos-Delgado and R. Garcia-Sanchez. (2004). Barnardextest:Barnard's Exact Probability Test. A MATLAB file. [WWW document]. \url{http://www.mathworks.com/}
+Trujillo-Ortiz, A., R. Hernandez-Walls, A. Castro-Perez, L. Rodriguez-Cardozo N.A. Ramos-Delgado and R. Garcia-Sanchez. (2004). Barnardextest:Barnard's Exact Probability Test. A MATLAB file. [WWW document]. \url{https://www.mathworks.com/}
 
 Mehta, C.R., Senchaudhuri, P. (2003) Conditional versus unconditional exact tests for comparing two binomials. \url{https://www.researchgate.net/publication/242179503_Conditional_versus_Unconditional_Exact_Tests_for_Comparing_Two_Binomials}
 

@@ -23,7 +23,7 @@ x \%c\% y
 \cr
 See the discussion:
 \url{https://stat.ethz.ch/pipermail/r-devel/2006-August/039013.html}\cr
-and \url{http://stackoverflow.com/questions/1319698/why-doesnt-operate-on-characters-in-r?lq=1}\cr
+and \url{https://stackoverflow.com/questions/1319698/why-doesnt-operate-on-characters-in-r?lq=1}\cr
 
 Still the paste syntax seems sometimes clumsy in daily life and so \%c\% might spare some keys.
 }

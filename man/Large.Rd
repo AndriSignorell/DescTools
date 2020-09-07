@@ -52,9 +52,9 @@ else: a list, containing the k most extreme values and their frequencies.
 C++ parts by Nathan Russell and Romain Francois
 }
 
-\references{\url{http://stackoverflow.com/questions/36993935/find-the-largest-n-unique-values-and-their-frequencies-in-r-and-rcpp/}
+\references{\url{https://stackoverflow.com/questions/36993935/find-the-largest-n-unique-values-and-their-frequencies-in-r-and-rcpp/}
 
-\url{http://gallery.rcpp.org/articles/top-elements-from-vectors-using-priority-queue/}
+\url{https://gallery.rcpp.org/articles/top-elements-from-vectors-using-priority-queue/}
 }
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 

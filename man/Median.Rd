@@ -71,7 +71,7 @@ Note that there are alternative approaches for calculating weighted median (e.g.
 \seealso{\code{\link{quantile}} for general quantiles.
 \url{https://stat.ethz.ch/pipermail/r-help/2003-November/042684.html}
 
-\url{http://stackoverflow.com/questions/7925102/idiomatic-method-of-finding-the-median-of-an-ordinal}
+\url{https://stackoverflow.com/questions/7925102/idiomatic-method-of-finding-the-median-of-an-ordinal}
 }
 \examples{
 Median(1:4)                # = 2.5 [even number]

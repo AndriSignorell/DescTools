@@ -22,8 +22,8 @@
     \item{\code{gcpi2012}}{the gross national income (per capita) in dollars per country in 2012.}
   }
 }
-\references{\url{http://en.wikipedia.org/wiki/ISO_3166-1}\cr
-\url{http://data.worldbank.org/data-catalog/health-nutrition-and-population-statistics}
+\references{\url{https://en.wikipedia.org/wiki/ISO_3166-1}\cr
+\url{https://datacatalog.worldbank.org/dataset/health-nutrition-and-population-statistics}
 %%  ~~ possibly secondary sources and usages ~~
 }
 \examples{
