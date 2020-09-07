@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Format Cells Of a Word Table
-<!-- %%  ~~function to do ... ~~ --> — WrdFormatCells • DescTools</title>
+ — WrdFormatCells • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Format Cells Of a Word Table
-<!-- %%  ~~function to do ... ~~ --> — WrdFormatCells" />
+ — WrdFormatCells" />
 <meta property="og:description" content="Format cells of a Word table.
 " />
 
@@ -143,8 +143,8 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>WrdFormatCells</span>(<span class='no'>wtab</span>, <span class='no'>rstart</span>, <span class='no'>rend</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bg</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-               <span class='kw'>font</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>WrdFormatCells</span>(<span class='kw'>wtab</span>, <span class='kw'>rstart</span>, <span class='kw'>rend</span>, col = <span class='kw'>NULL</span>, bg = <span class='kw'>NULL</span>,
+               font = <span class='kw'>NULL</span>, border = <span class='kw'>NULL</span>, align = <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -206,22 +206,29 @@ $wdBorderVertical, $wdBorderDiagonalUp, $wdBorderDiagonalDown. linestyle, linewi
 <!-- %%  \item{comp1 }{Description of 'comp1'} -->
 <!-- %%  \item{comp2 }{Description of 'comp2'} -->
 <!-- %% ... --></p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;
+<!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='WrdTable.html'>WrdTable</a></code>
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>)    <span class='co'># Windows-specific example</span>
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>)    <span class='co'># Windows-specific example</span>
 
-<span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>12</span>)*<span class='fl'>100</span>, <span class='kw'>nrow</span><span class='kw'>=</span><span class='fl'>4</span>,
-            <span class='kw'>dimnames</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>LETTERS</span>[<span class='fl'>1</span>:<span class='fl'>4</span>], <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Variable"</span>,<span class='st'>"Value"</span>,<span class='st'>"Remark"</span>)))
+<span class='kw'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>12</span>)<span class='op'>*</span><span class='fl'>100</span>, nrow=<span class='fl'>4</span>,
+            dimnames=<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>LETTERS</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>], <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Variable"</span>,<span class='st'>"Value"</span>,<span class='st'>"Remark"</span>)))
 
-<span class='no'>wrd</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='GetNewWrd.html'>GetNewWrd</a></span>()</div><div class='output co'>#&gt; <span class='message'>Loading required namespace: RDCOMClient</span></div><div class='output co'>#&gt; <span class='warning'>Warning: RDCOMClient is unfortunately not available for Darwin systems (Windows-only).</span></div><div class='input'><span class='no'>wt</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ToWrd.html'>ToWrd</a></span>(<span class='no'>m</span>)</div><div class='output co'>#&gt; <span class='error'>Error in ToWrd(m): object 'm' not found</span></div><div class='input'>
-<span class='fu'>WrdFormatCells</span>(<span class='no'>wt</span>, <span class='kw'>rstart</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>1</span>), <span class='kw'>rend</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>,<span class='fl'>3</span>),
-               <span class='kw'>bg</span><span class='kw'>=</span><span class='no'>wdConst</span>$<span class='no'>wdColorGold</span>, <span class='kw'>font</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>name</span><span class='kw'>=</span><span class='st'>"Arial Narrow"</span>, <span class='kw'>bold</span><span class='kw'>=</span><span class='fl'>TRUE</span>),
-               <span class='kw'>align</span><span class='kw'>=</span><span class='st'>"c"</span>, <span class='kw'>border</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>color</span><span class='kw'>=</span><span class='no'>wdConst</span>$<span class='no'>wdColorTeal</span>,
-                                      <span class='kw'>linewidth</span><span class='kw'>=</span><span class='no'>wdConst</span>$<span class='no'>wdLineWidth300pt</span>))</div><div class='output co'>#&gt; <span class='error'>Error in WrdCellRange(wtab, rstart, rend): object 'wt' not found</span></div><div class='input'>
+<span class='kw'>wrd</span> <span class='op'>&lt;-</span> <span class='fu'><a href='GetNewWrd.html'>GetNewWrd</a></span>()
+</div><div class='output co'>#&gt; <span class='message'>Loading required namespace: RDCOMClient</span></div><div class='output co'>#&gt; <span class='warning'>Warning: RDCOMClient is unfortunately not available for Darwin systems (Windows-only).</span></div><div class='input'><span class='kw'>wt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ToWrd.html'>ToWrd</a></span>(<span class='kw'>m</span>)
+</div><div class='output co'>#&gt; <span class='error'>Error in ToWrd(m): object 'm' not found</span></div><div class='input'>
+<span class='fu'>WrdFormatCells</span>(<span class='kw'>wt</span>, rstart=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>1</span>), rend=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>,<span class='fl'>3</span>),
+               bg=<span class='kw'>wdConst</span><span class='op'>$</span><span class='kw'>wdColorGold</span>, font=<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(name=<span class='st'>"Arial Narrow"</span>, bold=<span class='fl'>TRUE</span>),
+               align=<span class='st'>"c"</span>, border=<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(color=<span class='kw'>wdConst</span><span class='op'>$</span><span class='kw'>wdColorTeal</span>,
+                                      linewidth=<span class='kw'>wdConst</span><span class='op'>$</span><span class='kw'>wdLineWidth300pt</span>))
+</div><div class='output co'>#&gt; <span class='error'>Error in WrdCellRange(wtab, rstart, rend): object 'wt' not found</span></div><div class='input'>
 
 </div></pre>
   </div>
@@ -239,7 +246,7 @@ $wdBorderVertical, $wdBorderDiagonalUp, $wdBorderDiagonalDown. linestyle, linewi
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

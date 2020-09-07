@@ -140,7 +140,7 @@ as.Date(&quot;2013-01-31&quot;) + 1 month will be &quot;2013-02-28&quot;. If num
 <code>as.Date("2013-01-31") + 1 month</code> will be <code>"2013-02-28"</code>. If number <code>n</code> is negative, the months will be subtracted.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>AddMonths</span>(<span class='no'>x</span>, <span class='no'>n</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>AddMonths</span>(<span class='kw'>x</span>, <span class='kw'>n</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -171,27 +171,35 @@ as.Date(&quot;2013-01-31&quot;) + 1 month will be &quot;2013-02-28&quot;. If num
     <p>a vector of class <code>Date</code> with the same dimension as <code>x</code>, containing the transformed dates.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Thanks to Antonio: <a href='http://stackoverflow.com/questions/14169620/add-a-month-to-a-date'>http://stackoverflow.com/questions/14169620/add-a-month-to-a-date</a></p>
+    <p>Thanks to Antonio: <a href='https://stackoverflow.com/questions/14169620/add-a-month-to-a-date'>https://stackoverflow.com/questions/14169620/add-a-month-to-a-date</a></p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;, based on code by Roland Rapold and Antonio</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='AddMonthsYM.html'>AddMonthsYM</a></code>; Date functions: <code><a href='DateFunctions.html'>Year</a></code>, <code><a href='DateFunctions.html'>Month</a></code>, etc.
+    <div class='dont-index'><p><code><a href='AddMonthsYM.html'>AddMonthsYM</a></code>; Date functions: <code><a href='Date Functions.html'>Year</a></code>, <code><a href='Date Functions.html'>Month</a></code>, etc.
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># characters will be coerced to Date</span>
-<span class='fu'>AddMonths</span>(<span class='st'>"2013-01-31"</span>, <span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "2013-02-28"</div><div class='input'>
+<span class='fu'>AddMonths</span>(<span class='st'>"2013-01-31"</span>, <span class='fl'>1</span>)
+</div><div class='output co'>#&gt; [1] "2013-02-28"</div><div class='input'>
 <span class='co'># negative n</span>
-<span class='fu'>AddMonths</span>(<span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2013-03-31"</span>), -<span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "2013-02-28"</div><div class='input'>
+<span class='fu'>AddMonths</span>(<span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2013-03-31"</span>), <span class='op'>-</span><span class='fl'>1</span>)
+</div><div class='output co'>#&gt; [1] "2013-02-28"</div><div class='input'>
 <span class='co'># Arguments will be recycled</span>
 <span class='co'># (with warning if the longer is not a multiple of length of shorter)</span>
-<span class='fu'>AddMonths</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2013-01-31"</span>, <span class='st'>"2013-03-31"</span>, <span class='st'>"2013-10-31"</span>, <span class='st'>"2013-12-31"</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,-<span class='fl'>1</span>))</div><div class='output co'>#&gt; [1] "2013-02-28" "2013-02-28" "2013-11-30" "2013-11-30"</div><div class='input'>
+<span class='fu'>AddMonths</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2013-01-31"</span>, <span class='st'>"2013-03-31"</span>, <span class='st'>"2013-10-31"</span>, <span class='st'>"2013-12-31"</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='op'>-</span><span class='fl'>1</span>))
+</div><div class='output co'>#&gt; [1] "2013-02-28" "2013-02-28" "2013-11-30" "2013-11-30"</div><div class='input'>
 
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.POSIXlt.html'>as.POSIXct</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2015-01-31"</span>, <span class='st'>"2015-08-31"</span>))
-<span class='no'>n</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>3</span>)
-<span class='fu'>AddMonths</span>(<span class='no'>x</span>, <span class='no'>n</span>)</div><div class='output co'>#&gt; [1] "2015-02-28" "2015-11-30"</div><div class='input'>
+<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.POSIXlt.html'>as.POSIXct</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2015-01-31"</span>, <span class='st'>"2015-08-31"</span>))
+<span class='kw'>n</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>3</span>)
+<span class='fu'>AddMonths</span>(<span class='kw'>x</span>, <span class='kw'>n</span>)
+</div><div class='output co'>#&gt; [1] "2015-02-28" "2015-11-30"</div><div class='input'>
 <span class='co'># mind the origin if x supplied as numeric ...</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='no'>x</span>))
-<span class='fu'>AddMonths</span>(<span class='no'>x</span>, <span class='no'>n</span>, <span class='kw'>origin</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"1970-01-01"</span>))</div><div class='output co'>#&gt; [1] "2015-02-28" "2015-11-30"</div></pre>
+<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='kw'>x</span>))
+<span class='fu'>AddMonths</span>(<span class='kw'>x</span>, <span class='kw'>n</span>, origin=<span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"1970-01-01"</span>))
+</div><div class='output co'>#&gt; [1] "2015-02-28" "2015-11-30"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -207,7 +215,7 @@ as.Date(&quot;2013-01-31&quot;) + 1 month will be &quot;2013-02-28&quot;. If num
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

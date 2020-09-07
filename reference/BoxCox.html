@@ -140,8 +140,8 @@ BoxCoxInv() reverses the transformation." />
 <code>BoxCoxInv()</code> reverses the transformation.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>BoxCox</span>(<span class='no'>x</span>, <span class='no'>lambda</span>)
-<span class='fu'>BoxCoxInv</span>(<span class='no'>x</span>, <span class='no'>lambda</span>)</pre>
+    <pre class="usage"><span class='fu'>BoxCox</span>(<span class='kw'>x</span>, <span class='kw'>lambda</span>)
+<span class='fu'>BoxCoxInv</span>(<span class='kw'>x</span>, <span class='kw'>lambda</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -183,22 +183,27 @@ $$</p>
     <p>Box, G. E. P. and Cox, D. R. (1964) An analysis of transformations. <em>JRSS B</em> <b>26</b> 211--246.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Use <code><a href='BoxCoxLambda.html'>BoxCoxLambda</a></code> or <code><a href='https://rdrr.io/pkg/MASS/man/boxcox.html'>boxcox</a></code> in <code><a href='https://rdrr.io/pkg/MASS/man'>library(MASS)</a></code> to find optimal lambda values.</p></div>
+    <div class='dont-index'><p>Use <code><a href='BoxCoxLambda.html'>BoxCoxLambda</a></code> or <code><a href='https://rdrr.io/pkg/MASS/man/boxcox.html'>boxcox</a></code> in <code><a href='http://www.stats.ox.ac.uk/pub/MASS4'>library(MASS)</a></code> to find optimal lambda values.</p></div>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>These two functions are borrowed from <code><a href='https://rdrr.io/pkg/forecast/man'>library(forecast)</a></code>.</p>
+    <p>These two functions are borrowed from <code>library(forecast)</code>.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Rob J Hyndman &lt;rob.hyndman@monash.edu&gt;</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># example by Greg Snow</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span>(<span class='fl'>500</span>, <span class='fl'>3</span>, <span class='fl'>2</span>)
+<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span>(<span class='fl'>500</span>, <span class='fl'>3</span>, <span class='fl'>2</span>)
 
-<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>2</span>))
-<span class='fu'><a href='https://rdrr.io/r/stats/qqnorm.html'>qqnorm</a></span>(<span class='no'>x</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Lognormal"</span>)
-<span class='fu'><a href='https://rdrr.io/r/stats/qqnorm.html'>qqnorm</a></span>(<span class='fu'>BoxCox</span>(<span class='no'>x</span>, <span class='fl'>1</span>/<span class='fl'>2</span>), <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"BoxCox(lambda=0.5)"</span>)
-<span class='fu'><a href='https://rdrr.io/r/stats/qqnorm.html'>qqnorm</a></span>(<span class='fu'>BoxCox</span>(<span class='no'>x</span>, <span class='fl'>0</span>), <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"BoxCox(lambda=0)"</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(mfrow=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>2</span>))
+<span class='fu'><a href='https://rdrr.io/r/stats/qqnorm.html'>qqnorm</a></span>(<span class='kw'>x</span>, main=<span class='st'>"Lognormal"</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/qqnorm.html'>qqnorm</a></span>(<span class='fu'>BoxCox</span>(<span class='kw'>x</span>, <span class='fl'>1</span><span class='op'>/</span><span class='fl'>2</span>), main=<span class='st'>"BoxCox(lambda=0.5)"</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/qqnorm.html'>qqnorm</a></span>(<span class='fu'>BoxCox</span>(<span class='kw'>x</span>, <span class='fl'>0</span>), main=<span class='st'>"BoxCox(lambda=0)"</span>)
 
-<span class='fu'><a href='PlotFdist.html'>PlotFdist</a></span>(<span class='fu'>BoxCox</span>(<span class='no'>x</span>, <span class='fl'>0</span>))</div><div class='img'><img src='BoxCox-1.png' alt='' width='700' height='433' /></div><div class='img'><img src='BoxCox-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>bx</span> <span class='kw'>&lt;-</span> <span class='fu'>BoxCox</span>(<span class='no'>x</span>, <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='fu'><a href='BoxCoxLambda.html'>BoxCoxLambda</a></span>(<span class='no'>x</span>) )</div></pre>
+<span class='fu'><a href='PlotFdist.html'>PlotFdist</a></span>(<span class='fu'>BoxCox</span>(<span class='kw'>x</span>, <span class='fl'>0</span>))
+</div><div class='img'><img src='BoxCox-1.png' alt='' width='700' height='433' /></div><div class='img'><img src='BoxCox-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>bx</span> <span class='op'>&lt;-</span> <span class='fu'>BoxCox</span>(<span class='kw'>x</span>, lambda = <span class='fu'><a href='BoxCoxLambda.html'>BoxCoxLambda</a></span>(<span class='kw'>x</span>) )
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -214,7 +219,7 @@ $$</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

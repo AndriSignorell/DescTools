@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Started Logarithmic Transformation and Its Inverse
-<!-- %%  ~~function to do ... ~~ --> — LogSt • DescTools</title>
+ — LogSt • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Started Logarithmic Transformation and Its Inverse
-<!-- %%  ~~function to do ... ~~ --> — LogSt" />
+ — LogSt" />
 <meta property="og:description" content="Transforms the data by a log transformation, modifying small and zero observations such that the transformation is linear for \(x &amp;lt;= threshold\) and logarithmic for x &amp;gt; threshold. So the transformation yields finite values and is continuously differentiable.
 " />
 
@@ -143,9 +143,9 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>LogSt</span>(<span class='no'>x</span>, <span class='kw'>base</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>calib</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>threshold</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mult</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+    <pre class="usage"><span class='fu'>LogSt</span>(<span class='kw'>x</span>, base = <span class='fl'>10</span>, calib = <span class='kw'>x</span>, threshold = <span class='kw'>NULL</span>, mult = <span class='fl'>1</span>)
 
-<span class='fu'>LogStInv</span>(<span class='no'>x</span>, <span class='kw'>base</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>threshold</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+<span class='fu'>LogStInv</span>(<span class='kw'>x</span>, base = <span class='kw'>NULL</span>, threshold = <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -201,13 +201,16 @@ The rationale is, that, for lognormal data, this constant identifies 2 percent o
 Beyond this limit, the transformation continues linear with the derivative of the log curve at this point. <br /></p>
 <p>Another idea for choosing the threshold \(c\) was: median(x) / (median(x)/quantile(x, 0.25))^2.9)<br /><br />
 The function chooses \(log_{10}\) rather than natural logs by default because they can be backtransformed relatively easily in mind.</p>
-<p>A generalized log (see: Rocke 2003) can be calculated in order to stabilize the variance as:</p><pre><span class='kw'>function</span> (<span class='no'>x</span>, <span class='no'>a</span>) {
- <span class='fu'><a href='https://rdrr.io/r/base/function.html'>return</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>((<span class='no'>x</span> + <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span>(<span class='no'>x</span>^<span class='fl'>2</span> + <span class='no'>a</span>^<span class='fl'>2</span>)) / <span class='fl'>2</span>))
+<p>A generalized log (see: Rocke 2003) can be calculated in order to stabilize the variance as:</p><pre><span class='fu'>function</span> (<span class='kw'>x</span>, <span class='kw'>a</span>) {
+ <span class='fu'><a href='https://rdrr.io/r/base/function.html'>return</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>((<span class='kw'>x</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span>(<span class='kw'>x</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>+</span> <span class='kw'>a</span><span class='op'>^</span><span class='fl'>2</span>)) <span class='op'>/</span> <span class='fl'>2</span>))
 }</pre>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>the transformed data. The value \(c\) used for the transformation and needed for inverse transformation is returned as <code><a href='https://rdrr.io/r/base/attr.html'>attr(.,"threshold")</a></code> and the used base as  <code><a href='https://rdrr.io/r/base/attr.html'>attr(.,"base")</a></code>.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Werner A. Stahel, ETH Zurich <br /> slight modifications Andri Signorell &lt;andri@signorell.net&gt;</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Rocke, D M, Durbin B (2003): Approximate variance-stabilizing transformations for gene-expression microarray data, <em>Bioinformatics</em>. 22;19(8):966-72.</p>
@@ -216,13 +219,16 @@ The function chooses \(log_{10}\) rather than natural logs by default because th
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/Log.html'>log</a></code>, <code><a href='https://rdrr.io/r/base/Log.html'>log10</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>dd</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0.1</span>), <span class='fl'>5</span> * <span class='fl'>10</span>^<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>, <span class='fl'>0</span>, <span class='fl'>0.2</span>))
-<span class='no'>dd</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span>(<span class='no'>dd</span>)
-<span class='no'>r.dl</span> <span class='kw'>&lt;-</span> <span class='fu'>LogSt</span>(<span class='no'>dd</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>dd</span>, <span class='no'>r.dl</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"l"</span>)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span>(<span class='kw'>v</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span>(<span class='no'>r.dl</span>, <span class='st'>"threshold"</span>), <span class='kw'>lty</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='img'><img src='LogSt-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Chisquare.html'>rchisq</a></span>(<span class='kw'>df</span><span class='kw'>=</span><span class='fl'>3</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>100</span>)
+    <pre class="examples"><div class='input'><span class='kw'>dd</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0.1</span>), <span class='fl'>5</span> <span class='op'>*</span> <span class='fl'>10</span><span class='op'>^</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>, <span class='fl'>0</span>, <span class='fl'>0.2</span>))
+<span class='kw'>dd</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span>(<span class='kw'>dd</span>)
+<span class='kw'>r.dl</span> <span class='op'>&lt;-</span> <span class='fu'>LogSt</span>(<span class='kw'>dd</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>dd</span>, <span class='kw'>r.dl</span>, type=<span class='st'>"l"</span>)
+</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span>(v=<span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span>(<span class='kw'>r.dl</span>, <span class='st'>"threshold"</span>), lty=<span class='fl'>2</span>)
+</div><div class='img'><img src='LogSt-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Chisquare.html'>rchisq</a></span>(df=<span class='fl'>3</span>, n=<span class='fl'>100</span>)
 <span class='co'># should give 0 (or at least something small):</span>
-<span class='fu'>LogStInv</span>(<span class='fu'>LogSt</span>(<span class='no'>x</span>)) - <span class='no'>x</span></div><div class='output co'>#&gt;   [1]  4.440892e-16  0.000000e+00  0.000000e+00  0.000000e+00  0.000000e+00
+<span class='fu'>LogStInv</span>(<span class='fu'>LogSt</span>(<span class='kw'>x</span>)) <span class='op'>-</span> <span class='kw'>x</span>
+</div><div class='output co'>#&gt;   [1]  4.440892e-16  0.000000e+00  0.000000e+00  0.000000e+00  0.000000e+00
 #&gt;   [6]  0.000000e+00 -1.776357e-15  0.000000e+00  0.000000e+00  0.000000e+00
 #&gt;  [11]  0.000000e+00  0.000000e+00  8.881784e-16  0.000000e+00  0.000000e+00
 #&gt;  [16]  5.551115e-17  8.881784e-16  0.000000e+00  0.000000e+00  0.000000e+00
@@ -257,7 +263,7 @@ The function chooses \(log_{10}\) rather than natural logs by default because th
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

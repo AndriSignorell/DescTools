@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Draw a Circle
-<!-- %%  ~~function to do ... ~~ --> — DrawCircle • DescTools</title>
+ — DrawCircle • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Draw a Circle
-<!-- %%  ~~function to do ... ~~ --> — DrawCircle" />
+ — DrawCircle" />
 <meta property="og:description" content="Draw one or several circle on an existing plot.
 " />
 
@@ -143,10 +143,10 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>DrawCircle</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>r.out</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>r.in</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-           <span class='kw'>theta.1</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>theta.2</span> <span class='kw'>=</span> <span class='fl'>2</span>*<span class='no'>pi</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"fg"</span>),
-           <span class='kw'>col</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"lty"</span>), <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"lwd"</span>),
-           <span class='kw'>nv</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>DrawCircle</span>(x = <span class='fl'>0</span>, y = <span class='kw'>x</span>, r.out = <span class='fl'>1</span>, r.in = <span class='fl'>0</span>,
+           theta.1 = <span class='fl'>0</span>, theta.2 = <span class='fl'>2</span><span class='op'>*</span><span class='kw'>pi</span>, border = <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"fg"</span>),
+           col = <span class='fl'>NA</span>, lty = <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"lty"</span>), lwd = <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"lwd"</span>),
+           nv = <span class='fl'>100</span>, plot = <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -224,45 +224,63 @@ structures to a polygon.
 <!-- %%  \item{comp1 }{Description of 'comp1'} -->
 <!-- %%  \item{comp2 }{Description of 'comp2'} -->
 <!-- %% ... --></p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;
+<!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/graphics/polygon.html'>polygon</a></code>, <code><a href='DrawRegPolygon.html'>DrawRegPolygon</a></code>, <code><a href='DrawEllipse.html'>DrawEllipse</a></code>, <code><a href='DrawArc.html'>DrawArc</a></code>
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='Canvas.html'>Canvas</a></span>(<span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>5</span>,<span class='fl'>5</span>), <span class='kw'>xpd</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='input'><span class='no'>cols</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='Pal.html'>Pal</a></span>(<span class='st'>"Helsana"</span>)[<span class='fl'>1</span>:<span class='fl'>4</span>]
+    <pre class="examples"><div class='input'><span class='fu'><a href='Canvas.html'>Canvas</a></span>(xlim = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>5</span>,<span class='fl'>5</span>), xpd=<span class='fl'>TRUE</span>)
+</div><div class='input'><span class='kw'>cols</span> <span class='op'>&lt;-</span> <span class='fu'><a href='DescTools Palettes.html'>Pal</a></span>(<span class='st'>"Helsana"</span>)[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>]
 
 <span class='co'># Draw ring</span>
-<span class='fu'>DrawCircle</span> (<span class='kw'>r.in</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>r.out</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>border</span><span class='kw'>=</span><span class='st'>"darkgrey"</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span>(<span class='no'>hyellow</span>, <span class='fl'>0.2</span>), <span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='input'>
+<span class='fu'>DrawCircle</span> (r.in = <span class='fl'>1</span>, r.out = <span class='fl'>5</span>, border=<span class='st'>"darkgrey"</span>, col=<span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span>(<span class='kw'>hyellow</span>, <span class='fl'>0.2</span>), lwd=<span class='fl'>2</span>)
+</div><div class='input'>
 <span class='co'># Draw circle</span>
-<span class='fu'>DrawCircle</span> (<span class='kw'>r.in</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>border</span><span class='kw'>=</span><span class='no'>hgreen</span>, <span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>3</span>)</div><div class='input'>
+<span class='fu'>DrawCircle</span> (r.in = <span class='fl'>6</span>, border=<span class='kw'>hgreen</span>, lwd=<span class='fl'>3</span>)
+</div><div class='input'>
 <span class='co'># Draw sectors</span>
-<span class='no'>geom</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='no'>pi</span>, <span class='fl'>0</span>, <span class='fl'>.25</span>, <span class='fl'>.5</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='no'>pi</span>, <span class='fl'>1</span>, <span class='fl'>2</span>),
-              <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='no'>pi</span>/<span class='fl'>2</span>, <span class='no'>pi</span>/<span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2.5</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>pi</span>/<span class='fl'>2</span>, <span class='fl'>3</span> * <span class='no'>pi</span>/<span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>4</span>),
-              <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>pi</span> - <span class='no'>pi</span>/<span class='fl'>8</span>, <span class='no'>pi</span> + <span class='no'>pi</span>/<span class='fl'>8</span>, <span class='fl'>1.5</span>, <span class='fl'>2.5</span>))
+<span class='kw'>geom</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='kw'>pi</span>, <span class='fl'>0</span>, <span class='fl'>.25</span>, <span class='fl'>.5</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='kw'>pi</span>, <span class='fl'>1</span>, <span class='fl'>2</span>),
+              <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='kw'>pi</span><span class='op'>/</span><span class='fl'>2</span>, <span class='kw'>pi</span><span class='op'>/</span><span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2.5</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>pi</span><span class='op'>/</span><span class='fl'>2</span>, <span class='fl'>3</span> <span class='op'>*</span> <span class='kw'>pi</span><span class='op'>/</span><span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>4</span>),
+              <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>pi</span> <span class='op'>-</span> <span class='kw'>pi</span><span class='op'>/</span><span class='fl'>8</span>, <span class='kw'>pi</span> <span class='op'>+</span> <span class='kw'>pi</span><span class='op'>/</span><span class='fl'>8</span>, <span class='fl'>1.5</span>, <span class='fl'>2.5</span>))
 
-<span class='fu'>DrawCircle</span> (<span class='kw'>r.in</span> <span class='kw'>=</span> <span class='no'>geom</span>[,<span class='fl'>3</span>], <span class='kw'>r.out</span> <span class='kw'>=</span> <span class='no'>geom</span>[,<span class='fl'>4</span>],
-           <span class='kw'>theta.1</span> <span class='kw'>=</span> <span class='no'>geom</span>[,<span class='fl'>1</span>], <span class='kw'>theta.2</span> <span class='kw'>=</span> <span class='no'>geom</span>[,<span class='fl'>2</span>],
-           <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span>(<span class='no'>cols</span>, <span class='fl'>0.6</span>),
-           <span class='kw'>border</span> <span class='kw'>=</span> <span class='no'>cols</span>, <span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>1</span>)</div><div class='img'><img src='DrawCircle-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>DrawCircle</span> (r.in = <span class='kw'>geom</span>[,<span class='fl'>3</span>], r.out = <span class='kw'>geom</span>[,<span class='fl'>4</span>],
+           theta.1 = <span class='kw'>geom</span>[,<span class='fl'>1</span>], theta.2 = <span class='kw'>geom</span>[,<span class='fl'>2</span>],
+           col = <span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span>(<span class='kw'>cols</span>, <span class='fl'>0.6</span>),
+           border = <span class='kw'>cols</span>, lwd=<span class='fl'>1</span>)
+</div><div class='img'><img src='DrawCircle-1.png' alt='' width='700' height='433' /></div><div class='input'>
 
 <span class='co'># clipping</span>
-<span class='fu'><a href='Canvas.html'>Canvas</a></span>(<span class='kw'>bg</span><span class='kw'>=</span><span class='st'>"lightgrey"</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Yin ~ Yang"</span>)</div><div class='input'><span class='fu'>DrawCircle</span> (<span class='kw'>r.out</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"white"</span>)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/clip.html'>clip</a></span>(<span class='fl'>0</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, -<span class='fl'>2</span>)
-<span class='fu'>DrawCircle</span>(<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"black"</span>)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/clip.html'>clip</a></span>(-<span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, -<span class='fl'>2</span>)
-<span class='fu'>DrawCircle</span> (<span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>0.5</span>,<span class='fl'>0.5</span>), <span class='kw'>r.out</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"black"</span>, <span class='st'>"white"</span>), <span class='kw'>border</span><span class='kw'>=</span><span class='fl'>NA</span>)</div><div class='input'><span class='fu'>DrawCircle</span> (<span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>0.5</span>,<span class='fl'>0.5</span>), <span class='kw'>r.out</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"white"</span>, <span class='st'>"black"</span>), <span class='kw'>border</span><span class='kw'>=</span><span class='fl'>NA</span>)</div><div class='input'><span class='fu'>DrawCircle</span> ()</div><div class='img'><img src='DrawCircle-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='Canvas.html'>Canvas</a></span>(bg=<span class='st'>"lightgrey"</span>, main=<span class='st'>"Yin ~ Yang"</span>)
+</div><div class='input'><span class='fu'>DrawCircle</span> (r.out = <span class='fl'>1</span>, col=<span class='st'>"white"</span>)
+</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/clip.html'>clip</a></span>(<span class='fl'>0</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='op'>-</span><span class='fl'>2</span>)
+<span class='fu'>DrawCircle</span>(col=<span class='st'>"black"</span>)
+</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/clip.html'>clip</a></span>(<span class='op'>-</span><span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='op'>-</span><span class='fl'>2</span>)
+<span class='fu'>DrawCircle</span> (y = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>0.5</span>,<span class='fl'>0.5</span>), r.out = <span class='fl'>0.5</span>, col=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"black"</span>, <span class='st'>"white"</span>), border=<span class='fl'>NA</span>)
+</div><div class='input'><span class='fu'>DrawCircle</span> (y = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>0.5</span>,<span class='fl'>0.5</span>), r.out = <span class='fl'>0.1</span>, col=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"white"</span>, <span class='st'>"black"</span>), border=<span class='fl'>NA</span>)
+</div><div class='input'><span class='fu'>DrawCircle</span> ()
+</div><div class='img'><img src='DrawCircle-2.png' alt='' width='700' height='433' /></div><div class='input'>
 
 <span class='co'># overplotting circles</span>
-<span class='fu'><a href='Canvas.html'>Canvas</a></span>(<span class='kw'>xlim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>5</span>,<span class='fl'>5</span>))</div><div class='input'><span class='fu'>DrawCircle</span> (<span class='kw'>r.out</span><span class='kw'>=</span><span class='fl'>4</span>:<span class='fl'>1</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"white"</span>, <span class='st'>"steelblue2"</span>, <span class='st'>"white"</span>, <span class='st'>"red"</span>), <span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>3</span>, <span class='kw'>nv</span><span class='kw'>=</span><span class='fl'>300</span>)</div><div class='img'><img src='DrawCircle-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='Canvas.html'>Canvas</a></span>(xlim=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>5</span>,<span class='fl'>5</span>))
+</div><div class='input'><span class='fu'>DrawCircle</span> (r.out=<span class='fl'>4</span><span class='op'>:</span><span class='fl'>1</span>, col=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"white"</span>, <span class='st'>"steelblue2"</span>, <span class='st'>"white"</span>, <span class='st'>"red"</span>), lwd=<span class='fl'>3</span>, nv=<span class='fl'>300</span>)
+</div><div class='img'><img src='DrawCircle-3.png' alt='' width='700' height='433' /></div><div class='input'>
 
 <span class='co'># rotation</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(-<span class='fl'>3</span>, <span class='fl'>3</span>, <span class='kw'>length.out</span><span class='kw'>=</span><span class='fl'>10</span>)
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>0</span>, <span class='kw'>length.out</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>x</span>))
+<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='op'>-</span><span class='fl'>3</span>, <span class='fl'>3</span>, length.out=<span class='fl'>10</span>)
+<span class='kw'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>0</span>, length.out=<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='kw'>x</span>))
 
-<span class='fu'><a href='Canvas.html'>Canvas</a></span>(<span class='kw'>xlim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>5</span>,<span class='fl'>5</span>), <span class='kw'>bg</span><span class='kw'>=</span><span class='st'>"black"</span>)</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>( (<span class='fl'>0</span>:<span class='fl'>11</span>) * <span class='no'>pi</span>/<span class='fl'>6</span>, <span class='kw'>function</span>(<span class='no'>theta</span>) {
-  <span class='no'>xy</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='Rotate.html'>Rotate</a></span>(<span class='no'>x</span>, <span class='kw'>y</span><span class='kw'>=</span><span class='no'>y</span>, <span class='kw'>theta</span><span class='kw'>=</span><span class='no'>theta</span>)
-  <span class='fu'>DrawCircle</span> (<span class='kw'>x</span><span class='kw'>=</span><span class='no'>xy</span>$<span class='no'>x</span>, <span class='kw'>y</span><span class='kw'>=</span><span class='no'>xy</span>$<span class='no'>y</span>, <span class='kw'>r.in</span><span class='kw'>=</span><span class='fl'>2.4</span>, <span class='kw'>border</span><span class='kw'>=</span><span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span>(<span class='st'>"white"</span>, <span class='fl'>0.2</span>))
-} )</div><div class='img'><img src='DrawCircle-4.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt;       [,1]   [,2]   [,3]   [,4]   [,5]   [,6]   [,7]   [,8]   [,9]   [,10] 
+<span class='fu'><a href='Canvas.html'>Canvas</a></span>(xlim=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>5</span>,<span class='fl'>5</span>), bg=<span class='st'>"black"</span>)
+</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>( (<span class='fl'>0</span><span class='op'>:</span><span class='fl'>11</span>) <span class='op'>*</span> <span class='kw'>pi</span><span class='op'>/</span><span class='fl'>6</span>, <span class='fu'>function</span>(<span class='kw'>theta</span>) {
+  <span class='kw'>xy</span> <span class='op'>&lt;-</span> <span class='fu'><a href='Rotate.html'>Rotate</a></span>(<span class='kw'>x</span>, y=<span class='kw'>y</span>, theta=<span class='kw'>theta</span>)
+  <span class='fu'>DrawCircle</span> (x=<span class='kw'>xy</span><span class='op'>$</span><span class='kw'>x</span>, y=<span class='kw'>xy</span><span class='op'>$</span><span class='kw'>y</span>, r.in=<span class='fl'>2.4</span>, border=<span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span>(<span class='st'>"white"</span>, <span class='fl'>0.2</span>))
+} )
+</div><div class='img'><img src='DrawCircle-4.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt;       [,1]   [,2]   [,3]   [,4]   [,5]   [,6]   [,7]   [,8]   [,9]   [,10] 
 #&gt;  [1,] List,2 List,2 List,2 List,2 List,2 List,2 List,2 List,2 List,2 List,2
 #&gt;  [2,] List,2 List,2 List,2 List,2 List,2 List,2 List,2 List,2 List,2 List,2
 #&gt;  [3,] List,2 List,2 List,2 List,2 List,2 List,2 List,2 List,2 List,2 List,2
@@ -299,7 +317,7 @@ structures to a polygon.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

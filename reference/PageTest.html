@@ -140,13 +140,13 @@
   with unreplicated blocked data.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>PageTest</span>(<span class='no'>y</span>, <span class='no'>...</span>)
-
+    <pre class="usage"><span class='fu'>PageTest</span>(<span class='kw'>y</span>, <span class='kw'>...</span>)
+  
 <span class='co'># S3 method for default</span>
-<span class='fu'>PageTest</span>(<span class='no'>y</span>, <span class='no'>groups</span>, <span class='no'>blocks</span>, <span class='no'>...</span>)
-
+<span class='fu'>PageTest</span>(<span class='kw'>y</span>, <span class='kw'>groups</span>, <span class='kw'>blocks</span>, <span class='kw'>...</span>)
+  
 <span class='co'># S3 method for formula</span>
-<span class='fu'>PageTest</span>(<span class='no'>formula</span>, <span class='no'>data</span>, <span class='no'>subset</span>, <span class='no'>na.action</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>PageTest</span>(<span class='kw'>formula</span>, <span class='kw'>data</span>, <span class='kw'>subset</span>, <span class='kw'>na.action</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -240,34 +240,39 @@
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>Special thanks to Prof. S. Wellek for porting old GAUSS code to R.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Stefan Wellek &lt;stefan.wellek@zi-mannheim.de&gt; (exact p-values), Andri Signorell &lt;andri@signorell.net&gt; (interface) (strongly based on R-Core code)</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'> <span class='co'># Craig's data from Siegel &amp; Castellan, p 186</span>
- <span class='no'>soa.mat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.797</span>,<span class='fl'>.873</span>,<span class='fl'>.888</span>,<span class='fl'>.923</span>,<span class='fl'>.942</span>,<span class='fl'>.956</span>,
+ <span class='kw'>soa.mat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.797</span>,<span class='fl'>.873</span>,<span class='fl'>.888</span>,<span class='fl'>.923</span>,<span class='fl'>.942</span>,<span class='fl'>.956</span>,
   <span class='fl'>.794</span>,<span class='fl'>.772</span>,<span class='fl'>.908</span>,<span class='fl'>.982</span>,<span class='fl'>.946</span>,<span class='fl'>.913</span>,
   <span class='fl'>.838</span>,<span class='fl'>.801</span>,<span class='fl'>.853</span>,<span class='fl'>.951</span>,<span class='fl'>.883</span>,<span class='fl'>.837</span>,
-  <span class='fl'>.815</span>,<span class='fl'>.801</span>,<span class='fl'>.747</span>,<span class='fl'>.859</span>,<span class='fl'>.887</span>,<span class='fl'>.902</span>), <span class='kw'>nrow</span><span class='kw'>=</span><span class='fl'>4</span>, <span class='kw'>byrow</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
- <span class='fu'>PageTest</span>(<span class='no'>soa.mat</span>)</div><div class='output co'>#&gt; 
+  <span class='fl'>.815</span>,<span class='fl'>.801</span>,<span class='fl'>.747</span>,<span class='fl'>.859</span>,<span class='fl'>.887</span>,<span class='fl'>.902</span>), nrow=<span class='fl'>4</span>, byrow=<span class='fl'>TRUE</span>)
+ <span class='fu'>PageTest</span>(<span class='kw'>soa.mat</span>)
+</div><div class='output co'>#&gt; 
 #&gt; 	Page test for ordered alternatives
 #&gt; 
 #&gt; data:  soa.mat
 #&gt; L = 342, p-value = 0.0005661
-#&gt; </div><div class='input'>
+#&gt; </div><div class='input'> 
 
 <span class='co'># Duller, pg. 236 </span>
-<span class='no'>pers</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
+<span class='kw'>pers</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
 <span class='fl'>1</span>, <span class='fl'>72</span>, <span class='fl'>72</span>, <span class='fl'>71.5</span>, <span class='fl'>69</span>, <span class='fl'>70</span>, <span class='fl'>69.5</span>, <span class='fl'>68</span>, <span class='fl'>68</span>, <span class='fl'>67</span>, <span class='fl'>68</span>,
 <span class='fl'>2</span>, <span class='fl'>83</span>, <span class='fl'>81</span>, <span class='fl'>81</span>, <span class='fl'>82</span>, <span class='fl'>82.5</span>, <span class='fl'>81</span>, <span class='fl'>79</span>, <span class='fl'>80.5</span>, <span class='fl'>80</span>, <span class='fl'>81</span>,
 <span class='fl'>3</span>, <span class='fl'>95</span>, <span class='fl'>92</span>, <span class='fl'>91.5</span>, <span class='fl'>89</span>, <span class='fl'>89</span>, <span class='fl'>90.5</span>, <span class='fl'>89</span>, <span class='fl'>89</span>, <span class='fl'>88</span>, <span class='fl'>88</span>,
 <span class='fl'>4</span>, <span class='fl'>71</span>, <span class='fl'>72</span>, <span class='fl'>71</span>, <span class='fl'>70.5</span>, <span class='fl'>70</span>, <span class='fl'>71</span>, <span class='fl'>71</span>, <span class='fl'>70</span>, <span class='fl'>69.5</span>, <span class='fl'>69</span>,
 <span class='fl'>5</span>, <span class='fl'>79</span>, <span class='fl'>79</span>, <span class='fl'>78.5</span>, <span class='fl'>77</span>, <span class='fl'>77.5</span>, <span class='fl'>78</span>, <span class='fl'>77.5</span>, <span class='fl'>76</span>, <span class='fl'>76.5</span>, <span class='fl'>76</span>,
 <span class='fl'>6</span>, <span class='fl'>80</span>, <span class='fl'>78.5</span>, <span class='fl'>78</span>, <span class='fl'>77</span>, <span class='fl'>77.5</span>, <span class='fl'>77</span>, <span class='fl'>76</span>, <span class='fl'>76</span>, <span class='fl'>75.5</span>, <span class='fl'>75.5</span>
-), <span class='kw'>nrow</span><span class='kw'>=</span><span class='fl'>6</span>, <span class='kw'>byrow</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
+), nrow=<span class='fl'>6</span>, byrow=<span class='fl'>TRUE</span>) 
 
-<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>pers</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"person"</span>, <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='st'>"week"</span>,<span class='fl'>1</span>:<span class='fl'>10</span>))
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='kw'>pers</span>) <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"person"</span>, <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='st'>"week"</span>,<span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>))
 
 <span class='co'># Alternative: week10 &lt; week9 &lt; week8 ... </span>
-<span class='fu'>PageTest</span>(<span class='no'>pers</span>[, <span class='fl'>11</span>:<span class='fl'>2</span>])</div><div class='output co'>#&gt; 
+<span class='fu'>PageTest</span>(<span class='kw'>pers</span>[, <span class='fl'>11</span><span class='op'>:</span><span class='fl'>2</span>])
+</div><div class='output co'>#&gt; 
 #&gt; 	Page test for ordered alternatives
 #&gt; 
 #&gt; data:  pers[, 11:2]
@@ -276,7 +281,7 @@
 
 <span class='co'># Sachs, pg. 464</span>
 
-<span class='no'>pers</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
+<span class='kw'>pers</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
   <span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>4</span>,
   <span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,
   <span class='fl'>4</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,
@@ -285,11 +290,12 @@
   <span class='fl'>4</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,
   <span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,
   <span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>4</span>,
-  <span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>4</span>,<span class='fl'>2</span>),
-  <span class='kw'>nrow</span><span class='kw'>=</span><span class='fl'>9</span>, <span class='kw'>byrow</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>dimnames</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>1</span>:<span class='fl'>9</span>, <span class='no'>LETTERS</span>[<span class='fl'>1</span>:<span class='fl'>4</span>]))
+  <span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>4</span>,<span class='fl'>2</span>), 
+  nrow=<span class='fl'>9</span>, byrow=<span class='fl'>TRUE</span>, dimnames=<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>9</span>, <span class='kw'>LETTERS</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>]))  
 
 <span class='co'># Alternative: B &lt; C &lt; D &lt; A</span>
-<span class='fu'>PageTest</span>(<span class='no'>pers</span>[, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"B"</span>,<span class='st'>"C"</span>,<span class='st'>"D"</span>,<span class='st'>"A"</span>)])</div><div class='output co'>#&gt; 
+<span class='fu'>PageTest</span>(<span class='kw'>pers</span>[, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"B"</span>,<span class='st'>"C"</span>,<span class='st'>"D"</span>,<span class='st'>"A"</span>)])
+</div><div class='output co'>#&gt; 
 #&gt; 	Page test for ordered alternatives
 #&gt; 
 #&gt; data:  pers[, c("B", "C", "D", "A")]
@@ -297,17 +303,19 @@
 #&gt; </div><div class='input'>
 
 <span class='co'># long shape and formula interface</span>
-<span class='no'>plng</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span>(<span class='fl'>1</span>:<span class='fl'>9</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"B"</span>,<span class='st'>"C"</span>,<span class='st'>"D"</span>,<span class='st'>"A"</span>)),
-                   <span class='fu'><a href='https://rdrr.io/r/base/vector.html'>as.vector</a></span>(<span class='no'>pers</span>[, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"B"</span>,<span class='st'>"C"</span>,<span class='st'>"D"</span>,<span class='st'>"A"</span>)]))
-<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>plng</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"block"</span>,<span class='st'>"group"</span>,<span class='st'>"x"</span>)
+<span class='kw'>plng</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>9</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"B"</span>,<span class='st'>"C"</span>,<span class='st'>"D"</span>,<span class='st'>"A"</span>)), 
+                   <span class='fu'><a href='https://rdrr.io/r/base/vector.html'>as.vector</a></span>(<span class='kw'>pers</span>[, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"B"</span>,<span class='st'>"C"</span>,<span class='st'>"D"</span>,<span class='st'>"A"</span>)]))
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='kw'>plng</span>) <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"block"</span>,<span class='st'>"group"</span>,<span class='st'>"x"</span>)
 
-<span class='fu'>PageTest</span>(<span class='no'>plng</span>$<span class='no'>x</span>, <span class='no'>plng</span>$<span class='no'>group</span>, <span class='no'>plng</span>$<span class='no'>block</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>PageTest</span>(<span class='kw'>plng</span><span class='op'>$</span><span class='kw'>x</span>, <span class='kw'>plng</span><span class='op'>$</span><span class='kw'>group</span>, <span class='kw'>plng</span><span class='op'>$</span><span class='kw'>block</span>)
+</div><div class='output co'>#&gt; 
 #&gt; 	Page test for ordered alternatives
 #&gt; 
 #&gt; data:  plng$x, plng$group and plng$block
 #&gt; L = 252, p-value = 0.0007053
 #&gt; </div><div class='input'>
-<span class='fu'>PageTest</span>(<span class='no'>x</span> ~ <span class='no'>group</span> <span class='kw'>|</span> <span class='no'>block</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>plng</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>PageTest</span>(<span class='kw'>x</span> <span class='op'>~</span> <span class='kw'>group</span> <span class='op'>|</span> <span class='kw'>block</span>, data = <span class='kw'>plng</span>)
+</div><div class='output co'>#&gt; 
 #&gt; 	Page test for ordered alternatives
 #&gt; 
 #&gt; data:  x and group and block
@@ -315,16 +323,17 @@
 #&gt; </div><div class='input'>
 
 
-<span class='no'>score</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
+<span class='kw'>score</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
   <span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>6</span>,<span class='fl'>9</span>,
   <span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>7</span>,<span class='fl'>8</span>,
   <span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>6</span>,
   <span class='fl'>5</span>,<span class='fl'>6</span>,<span class='fl'>8</span>,<span class='fl'>9</span>,
   <span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>9</span>,<span class='fl'>9</span>,
   <span class='fl'>6</span>,<span class='fl'>7</span>,<span class='fl'>11</span>,<span class='fl'>10</span>
-  ), <span class='kw'>nrow</span><span class='kw'>=</span><span class='fl'>6</span>, <span class='kw'>byrow</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
+  ), nrow=<span class='fl'>6</span>, byrow=<span class='fl'>TRUE</span>) 
 
-<span class='fu'>PageTest</span>(<span class='no'>score</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>PageTest</span>(<span class='kw'>score</span>)
+</div><div class='output co'>#&gt; 
 #&gt; 	Page test for ordered alternatives
 #&gt; 
 #&gt; data:  score
@@ -345,7 +354,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

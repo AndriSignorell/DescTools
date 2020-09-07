@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Parse a Formula and Create a Model Frame
-<!-- %%  ~~function to do ... ~~ --> — ParseFormula • DescTools</title>
+ — ParseFormula • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Parse a Formula and Create a Model Frame
-<!-- %%  ~~function to do ... ~~ --> — ParseFormula" />
+ — ParseFormula" />
 <meta property="og:description" content="Create a model frame for a formula object, by handling the left hand side the same way
 the right hand side is handled in model.frame. Especially variables separated by + are interpreted as separate 
 variables.
@@ -147,7 +147,7 @@ variables.
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>ParseFormula</span>(<span class='no'>formula</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(), <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>ParseFormula</span>(<span class='kw'>formula</span>, data = <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(), drop = <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -190,6 +190,9 @@ variables.
         mf.eval: data.frame, the evaluated model.frame of the right hand side of the formula<br />
         vars:  the names of the evaluated model.frame</p></dd>
 
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>The functions used to handle formulas: <code><a href='https://rdrr.io/r/stats/model.frame.html'>model.frame</a></code>, <code><a href='https://rdrr.io/r/stats/terms.html'>terms</a></code>, <code><a href='https://rdrr.io/r/stats/formula.html'>formula</a></code> <br />
@@ -197,21 +200,22 @@ Used in: <code><a href='Desc.html'>Desc.formula</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>17</span>)
-<span class='no'>piz</span> <span class='kw'>&lt;-</span> <span class='no'>d.pizza</span>[<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>d.pizza</span>),<span class='fl'>10</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"temperature"</span>,<span class='st'>"price"</span>,<span class='st'>"driver"</span>,<span class='st'>"weekday"</span>)]
+<span class='kw'>piz</span> <span class='op'>&lt;-</span> <span class='kw'>d.pizza</span>[<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='kw'>d.pizza</span>),<span class='fl'>10</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"temperature"</span>,<span class='st'>"price"</span>,<span class='st'>"driver"</span>,<span class='st'>"weekday"</span>)]
 
-<span class='no'>f1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span>(<span class='no'>.</span> ~ <span class='no'>driver</span>)
-<span class='no'>f2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span>(<span class='no'>temperature</span> ~ <span class='no'>.</span>)
-<span class='no'>f3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span>(<span class='no'>temperature</span> + <span class='no'>price</span> ~ <span class='no'>.</span>)
-<span class='no'>f4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span>(<span class='no'>temperature</span> ~ <span class='no'>.</span> - <span class='no'>driver</span>)
-<span class='no'>f5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span>(<span class='no'>temperature</span> + <span class='no'>price</span> ~ <span class='no'>driver</span>)
-<span class='no'>f6</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span>(<span class='no'>temperature</span> + <span class='no'>price</span> ~ <span class='no'>driver</span> * <span class='no'>weekday</span>)
-<span class='no'>f7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span>(<span class='no'>temperature</span>^<span class='fl'>2</span>) + <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span>(<span class='no'>price</span>) ~ <span class='no'>driver</span> + <span class='no'>weekday</span>)
-<span class='no'>f8</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span>(<span class='no'>temperature</span> + <span class='no'>price</span> ~ <span class='fl'>1</span>)
-<span class='no'>f9</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span>(<span class='no'>temperature</span> + <span class='no'>price</span> ~ <span class='no'>driver</span> * <span class='no'>weekday</span> - <span class='no'>price</span>)
+<span class='kw'>f1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span>(<span class='kw'>.</span> <span class='op'>~</span> <span class='kw'>driver</span>)
+<span class='kw'>f2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span>(<span class='kw'>temperature</span> <span class='op'>~</span> <span class='kw'>.</span>)
+<span class='kw'>f3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span>(<span class='kw'>temperature</span> <span class='op'>+</span> <span class='kw'>price</span> <span class='op'>~</span> <span class='kw'>.</span>)
+<span class='kw'>f4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span>(<span class='kw'>temperature</span> <span class='op'>~</span> <span class='kw'>.</span> <span class='op'>-</span> <span class='kw'>driver</span>)
+<span class='kw'>f5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span>(<span class='kw'>temperature</span> <span class='op'>+</span> <span class='kw'>price</span> <span class='op'>~</span> <span class='kw'>driver</span>)
+<span class='kw'>f6</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span>(<span class='kw'>temperature</span> <span class='op'>+</span> <span class='kw'>price</span> <span class='op'>~</span> <span class='kw'>driver</span> <span class='op'>*</span> <span class='kw'>weekday</span>)
+<span class='kw'>f7</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span>(<span class='kw'>temperature</span><span class='op'>^</span><span class='fl'>2</span>) <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span>(<span class='kw'>price</span>) <span class='op'>~</span> <span class='kw'>driver</span> <span class='op'>+</span> <span class='kw'>weekday</span>)
+<span class='kw'>f8</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span>(<span class='kw'>temperature</span> <span class='op'>+</span> <span class='kw'>price</span> <span class='op'>~</span> <span class='fl'>1</span>)
+<span class='kw'>f9</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span>(<span class='kw'>temperature</span> <span class='op'>+</span> <span class='kw'>price</span> <span class='op'>~</span> <span class='kw'>driver</span> <span class='op'>*</span> <span class='kw'>weekday</span> <span class='op'>-</span> <span class='kw'>price</span>)
 
-<span class='fu'>ParseFormula</span>(<span class='no'>f1</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>piz</span>)</div><div class='output co'>#&gt; $formula
+<span class='fu'>ParseFormula</span>(<span class='kw'>f1</span>, data=<span class='kw'>piz</span>)  
+</div><div class='output co'>#&gt; $formula
 #&gt; . ~ driver
-#&gt; &lt;environment: 0x7ff2733b4b10&gt;
+#&gt; &lt;environment: 0x7ffc53711400&gt;
 #&gt; 
 #&gt; $lhs
 #&gt; $lhs$mf
@@ -274,9 +278,10 @@ Used in: <code><a href='Desc.html'>Desc.formula</a></code></p></div>
 #&gt; $rhs$vars
 #&gt; [1] "driver"
 #&gt; 
-#&gt; </div><div class='input'><span class='fu'>ParseFormula</span>(<span class='no'>f2</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>piz</span>)</div><div class='output co'>#&gt; $formula
+#&gt; </div><div class='input'><span class='fu'>ParseFormula</span>(<span class='kw'>f2</span>, data=<span class='kw'>piz</span>)  
+</div><div class='output co'>#&gt; $formula
 #&gt; temperature ~ .
-#&gt; &lt;environment: 0x7ff2733b4b10&gt;
+#&gt; &lt;environment: 0x7ffc53711400&gt;
 #&gt; 
 #&gt; $lhs
 #&gt; $lhs$mf
@@ -339,9 +344,10 @@ Used in: <code><a href='Desc.html'>Desc.formula</a></code></p></div>
 #&gt; $rhs$vars
 #&gt; [1] "price"   "driver"  "weekday"
 #&gt; 
-#&gt; </div><div class='input'><span class='fu'>ParseFormula</span>(<span class='no'>f3</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>piz</span>)</div><div class='output co'>#&gt; $formula
+#&gt; </div><div class='input'><span class='fu'>ParseFormula</span>(<span class='kw'>f3</span>, data=<span class='kw'>piz</span>)
+</div><div class='output co'>#&gt; $formula
 #&gt; temperature + price ~ .
-#&gt; &lt;environment: 0x7ff2733b4b10&gt;
+#&gt; &lt;environment: 0x7ffc53711400&gt;
 #&gt; 
 #&gt; $lhs
 #&gt; $lhs$mf
@@ -404,9 +410,10 @@ Used in: <code><a href='Desc.html'>Desc.formula</a></code></p></div>
 #&gt; $rhs$vars
 #&gt; [1] "driver"  "weekday"
 #&gt; 
-#&gt; </div><div class='input'><span class='fu'>ParseFormula</span>(<span class='no'>f4</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>piz</span>)</div><div class='output co'>#&gt; $formula
+#&gt; </div><div class='input'><span class='fu'>ParseFormula</span>(<span class='kw'>f4</span>, data=<span class='kw'>piz</span>)
+</div><div class='output co'>#&gt; $formula
 #&gt; temperature ~ . - driver
-#&gt; &lt;environment: 0x7ff2733b4b10&gt;
+#&gt; &lt;environment: 0x7ffc53711400&gt;
 #&gt; 
 #&gt; $lhs
 #&gt; $lhs$mf
@@ -469,9 +476,10 @@ Used in: <code><a href='Desc.html'>Desc.formula</a></code></p></div>
 #&gt; $rhs$vars
 #&gt; [1] "price"   "weekday"
 #&gt; 
-#&gt; </div><div class='input'><span class='fu'>ParseFormula</span>(<span class='no'>f5</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>piz</span>)</div><div class='output co'>#&gt; $formula
+#&gt; </div><div class='input'><span class='fu'>ParseFormula</span>(<span class='kw'>f5</span>, data=<span class='kw'>piz</span>)
+</div><div class='output co'>#&gt; $formula
 #&gt; temperature + price ~ driver
-#&gt; &lt;environment: 0x7ff2733b4b10&gt;
+#&gt; &lt;environment: 0x7ffc53711400&gt;
 #&gt; 
 #&gt; $lhs
 #&gt; $lhs$mf
@@ -534,9 +542,10 @@ Used in: <code><a href='Desc.html'>Desc.formula</a></code></p></div>
 #&gt; $rhs$vars
 #&gt; [1] "driver"
 #&gt; 
-#&gt; </div><div class='input'><span class='fu'>ParseFormula</span>(<span class='no'>f6</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>piz</span>)</div><div class='output co'>#&gt; $formula
+#&gt; </div><div class='input'><span class='fu'>ParseFormula</span>(<span class='kw'>f6</span>, data=<span class='kw'>piz</span>)
+</div><div class='output co'>#&gt; $formula
 #&gt; temperature + price ~ driver * weekday
-#&gt; &lt;environment: 0x7ff2733b4b10&gt;
+#&gt; &lt;environment: 0x7ffc53711400&gt;
 #&gt; 
 #&gt; $lhs
 #&gt; $lhs$mf
@@ -599,9 +608,10 @@ Used in: <code><a href='Desc.html'>Desc.formula</a></code></p></div>
 #&gt; $rhs$vars
 #&gt; [1] "driver"         "weekday"        "driver:weekday"
 #&gt; 
-#&gt; </div><div class='input'><span class='fu'>ParseFormula</span>(<span class='no'>f7</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>piz</span>)</div><div class='output co'>#&gt; $formula
+#&gt; </div><div class='input'><span class='fu'>ParseFormula</span>(<span class='kw'>f7</span>, data=<span class='kw'>piz</span>)
+</div><div class='output co'>#&gt; $formula
 #&gt; I(temperature^2) + sqrt(price) ~ driver + weekday
-#&gt; &lt;environment: 0x7ff2733b4b10&gt;
+#&gt; &lt;environment: 0x7ffc53711400&gt;
 #&gt; 
 #&gt; $lhs
 #&gt; $lhs$mf
@@ -664,9 +674,10 @@ Used in: <code><a href='Desc.html'>Desc.formula</a></code></p></div>
 #&gt; $rhs$vars
 #&gt; [1] "driver"  "weekday"
 #&gt; 
-#&gt; </div><div class='input'><span class='fu'>ParseFormula</span>(<span class='no'>f8</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>piz</span>)</div><div class='output co'>#&gt; $formula
+#&gt; </div><div class='input'><span class='fu'>ParseFormula</span>(<span class='kw'>f8</span>, data=<span class='kw'>piz</span>)
+</div><div class='output co'>#&gt; $formula
 #&gt; temperature + price ~ 1
-#&gt; &lt;environment: 0x7ff2733b4b10&gt;
+#&gt; &lt;environment: 0x7ffc53711400&gt;
 #&gt; 
 #&gt; $lhs
 #&gt; $lhs$mf
@@ -725,7 +736,7 @@ Used in: <code><a href='Desc.html'>Desc.formula</a></code></p></div>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

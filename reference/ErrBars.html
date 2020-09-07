@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Add Error Bars to an Existing Plot
-<!-- %%  ~~function to do ... ~~ --> — ErrBars • DescTools</title>
+ — ErrBars • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Add Error Bars to an Existing Plot
-<!-- %%  ~~function to do ... ~~ --> — ErrBars" />
+ — ErrBars" />
 <meta property="og:description" content="Add error bars to an existing plot.
 " />
 
@@ -143,10 +143,10 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>ErrBars</span>(<span class='no'>from</span>, <span class='kw'>to</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pos</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mid</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>horiz</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"fg"</span>),
-        <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"lty"</span>), <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"lwd"</span>), <span class='kw'>code</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>length</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
-        <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>cex.pch</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"cex"</span>), <span class='kw'>col.pch</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"fg"</span>), <span class='kw'>bg.pch</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"bg"</span>),
-        <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>ErrBars</span>(<span class='kw'>from</span>, to = <span class='kw'>NULL</span>, pos = <span class='kw'>NULL</span>, mid = <span class='kw'>NULL</span>, horiz = <span class='fl'>FALSE</span>, col = <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"fg"</span>),
+        lty = <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"lty"</span>), lwd = <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"lwd"</span>), code = <span class='fl'>3</span>, length = <span class='fl'>0.05</span>,
+        pch = <span class='fl'>NA</span>, cex.pch = <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"cex"</span>), col.pch = <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"fg"</span>), bg.pch = <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"bg"</span>),
+        <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -230,6 +230,10 @@
 
     <p>A short wrapper for plotting error bars by means of <code><a href='https://rdrr.io/r/graphics/arrows.html'>arrows</a></code>.
 <!-- %%  ~~ If necessary, more details than the description above ~~ --></p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;
+<!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/graphics/arrows.html'>arrows</a></code>, <code><a href='lines.loess.html'>lines.loess</a></code>
@@ -237,19 +241,21 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>2</span>))
-<span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span>(<span class='fl'>1</span>:<span class='fl'>5</span>, <span class='kw'>ylim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>6</span>))
-<span class='fu'>ErrBars</span>(<span class='kw'>from</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>5</span>-<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>0.5</span>,<span class='fl'>5</span>), <span class='kw'>to</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>5</span>+<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>0.5</span>,<span class='fl'>5</span>), <span class='kw'>pos</span><span class='kw'>=</span><span class='no'>b</span>, <span class='kw'>length</span><span class='kw'>=</span><span class='fl'>0.2</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(mfrow=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>2</span>))
+<span class='kw'>b</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, ylim=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>6</span>))
+<span class='fu'>ErrBars</span>(from=<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>0.5</span>,<span class='fl'>5</span>), to=<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>+</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>0.5</span>,<span class='fl'>5</span>), pos=<span class='kw'>b</span>, length=<span class='fl'>0.2</span>)
 
 <span class='co'># just on one side</span>
-<span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span>(<span class='fl'>1</span>:<span class='fl'>5</span>, <span class='kw'>ylim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>6</span>))
-<span class='fu'>ErrBars</span>(<span class='kw'>from</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>5</span>, <span class='kw'>to</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>5</span>+<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>0.5</span>,<span class='fl'>5</span>), <span class='kw'>pos</span><span class='kw'>=</span><span class='no'>b</span>, <span class='kw'>length</span><span class='kw'>=</span><span class='fl'>0.2</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"red"</span>, <span class='kw'>code</span><span class='kw'>=</span><span class='fl'>2</span>, <span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>)
+<span class='kw'>b</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, ylim=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>6</span>))
+<span class='fu'>ErrBars</span>(from=<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, to=<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>+</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>0.5</span>,<span class='fl'>5</span>), pos=<span class='kw'>b</span>, length=<span class='fl'>0.2</span>, col=<span class='st'>"red"</span>, code=<span class='fl'>2</span>, lwd=<span class='fl'>2</span>)
 
-<span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span>(<span class='fl'>1</span>:<span class='fl'>5</span>, <span class='kw'>xlim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>6</span>), <span class='kw'>horiz</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
-<span class='fu'>ErrBars</span>(<span class='kw'>from</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>5</span>, <span class='kw'>to</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>5</span>+<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>0.2</span>,<span class='fl'>5</span>), <span class='kw'>pos</span><span class='kw'>=</span><span class='no'>b</span>, <span class='kw'>horiz</span><span class='kw'>=</span><span class='fl'>TRUE</span>,  <span class='kw'>length</span><span class='kw'>=</span><span class='fl'>0.2</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"red"</span>, <span class='kw'>code</span><span class='kw'>=</span><span class='fl'>2</span>, <span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>)
+<span class='kw'>b</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, xlim=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>6</span>), horiz=<span class='fl'>TRUE</span>)
+<span class='fu'>ErrBars</span>(from=<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, to=<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>+</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>0.2</span>,<span class='fl'>5</span>), pos=<span class='kw'>b</span>, horiz=<span class='fl'>TRUE</span>,  length=<span class='fl'>0.2</span>, col=<span class='st'>"red"</span>, code=<span class='fl'>2</span>, lwd=<span class='fl'>2</span>)
 
-<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>xpd</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
-<span class='fu'><a href='https://rdrr.io/r/graphics/dotchart.html'>dotchart</a></span>(<span class='fl'>1</span>:<span class='fl'>5</span>, <span class='kw'>xlim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>6</span>))</div><div class='input'><span class='fu'>ErrBars</span>(<span class='kw'>from</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>5</span>-<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>0.2</span>,<span class='fl'>5</span>), <span class='kw'>to</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>5</span>+<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>0.2</span>,<span class='fl'>5</span>), <span class='kw'>horiz</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>length</span><span class='kw'>=</span><span class='fl'>0.1</span>)</div><div class='img'><img src='ErrBars-1.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(xpd=<span class='fl'>FALSE</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/dotchart.html'>dotchart</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, xlim=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>6</span>))
+</div><div class='input'><span class='fu'>ErrBars</span>(from=<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>0.2</span>,<span class='fl'>5</span>), to=<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>+</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>0.2</span>,<span class='fl'>5</span>), horiz=<span class='fl'>TRUE</span>, length=<span class='fl'>0.1</span>)
+</div><div class='img'><img src='ErrBars-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -265,7 +271,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

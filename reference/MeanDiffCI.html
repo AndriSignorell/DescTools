@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Confidence Interval For Difference of Means
-<!-- %%  ~~function to do ... ~~ --> — MeanDiffCI • DescTools</title>
+ — MeanDiffCI • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Confidence Interval For Difference of Means
-<!-- %%  ~~function to do ... ~~ --> — MeanDiffCI" />
+ — MeanDiffCI" />
 <meta property="og:description" content="Calculates the confidence interval for the difference of two means either the classical way or with the bootstrap approach.
 " />
 
@@ -143,15 +143,15 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>MeanDiffCI</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>MeanDiffCI</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>MeanDiffCI</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"classic"</span>, <span class='st'>"norm"</span>, <span class='st'>"basic"</span>, <span class='st'>"stud"</span>, <span class='st'>"perc"</span>, <span class='st'>"bca"</span>),
-           <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>sides</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"two.sided"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span>), <span class='kw'>paired</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-           <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>R</span> <span class='kw'>=</span> <span class='fl'>999</span>, <span class='no'>...</span>)
+<span class='fu'>MeanDiffCI</span>(<span class='kw'>x</span>, <span class='kw'>y</span>, method = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"classic"</span>, <span class='st'>"norm"</span>, <span class='st'>"basic"</span>, <span class='st'>"stud"</span>, <span class='st'>"perc"</span>, <span class='st'>"bca"</span>),
+           conf.level = <span class='fl'>0.95</span>, sides = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"two.sided"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span>), paired = <span class='fl'>FALSE</span>,
+           na.rm = <span class='fl'>FALSE</span>, R = <span class='fl'>999</span>, <span class='kw'>...</span>)
 
 <span class='co'># S3 method for formula</span>
-<span class='fu'>MeanDiffCI</span>(<span class='no'>formula</span>, <span class='no'>data</span>, <span class='no'>subset</span>, <span class='no'>na.action</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>MeanDiffCI</span>(<span class='kw'>formula</span>, <span class='kw'>data</span>, <span class='kw'>subset</span>, <span class='kw'>na.action</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -170,7 +170,7 @@
       <th>method</th>
       <td><p>a vector of character strings representing the type of intervals required. The value should be any subset of the values
   <code>"classic"</code>, <code>"norm"</code>, <code>"basic"</code>, <code>"stud"</code>, <code>"perc"</code>, <code>"bca"</code>.
-  See <code>boot.ci</code>.
+  See <code><a href='https://rdrr.io/pkg/boot/man/boot.ci.html'>boot.ci</a></code>.
 <!-- %%     ~~Describe \code{x} here~~ --></p></td>
     </tr>
     <tr>
@@ -194,7 +194,7 @@
     <tr>
       <th>R</th>
       <td><p>the number of bootstrap replicates. Usually this will be a single positive integer. For importance resampling, some resamples may use one set of weights and others use a different set of weights. In this case R would be a vector of integers where each component gives the number of resamples from each of the rows of weights.
-  See <code>boot</code>.
+  See <code><a href='https://rdrr.io/pkg/boot/man/boot.html'>boot</a></code>.
 <!-- %%     ~~Describe \code{x} here~~ --></p></td>
     </tr>
     <tr>
@@ -223,7 +223,7 @@
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function collects code from two sources. The classical confidence interval is calculated by means of <code><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></code>.
-The bootstrap intervals are strongly based on the example in <code>boot</code>.
+The bootstrap intervals are strongly based on the example in <code><a href='https://rdrr.io/pkg/boot/man/boot.html'>boot</a></code>.
 <!-- %%  ~~ If necessary, more details than the description above ~~ --></p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
@@ -232,26 +232,36 @@ The bootstrap intervals are strongly based on the example in <code>boot</code>.
   <dt>lwr.ci</dt><dd><p>lower bound of the confidence interval</p></dd>
   <dt>upr.ci</dt><dd><p>upper bound of the confidence interval</p></dd>
 
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='MeanCI.html'>MeanCI</a></code>, <code><a href='VarCI.html'>VarCI</a></code>, <code><a href='MedianCI.html'>MedianCI</a></code>, <code>boot.ci</code></p></div>
+    <div class='dont-index'><p><code><a href='MeanCI.html'>MeanCI</a></code>, <code><a href='VarCI.html'>VarCI</a></code>, <code><a href='MedianCI.html'>MedianCI</a></code>, <code><a href='https://rdrr.io/pkg/boot/man/boot.ci.html'>boot.ci</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>d.pizza</span>$<span class='no'>price</span>[<span class='no'>d.pizza</span>$<span class='no'>driver</span><span class='kw'>==</span><span class='st'>"Carter"</span>]
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='no'>d.pizza</span>$<span class='no'>price</span>[<span class='no'>d.pizza</span>$<span class='no'>driver</span><span class='kw'>==</span><span class='st'>"Miller"</span>]
+    <pre class="examples"><div class='input'><span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>price</span>[<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>driver</span><span class='op'>==</span><span class='st'>"Carter"</span>]
+<span class='kw'>y</span> <span class='op'>&lt;-</span> <span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>price</span>[<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>driver</span><span class='op'>==</span><span class='st'>"Miller"</span>]
 
-<span class='fu'>MeanDiffCI</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>na.rm</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;   meandiff     lwr.ci     upr.ci 
-#&gt; -4.5735546 -9.2621803  0.1150712 </div><div class='input'><span class='fu'>MeanDiffCI</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>conf.level</span><span class='kw'>=</span><span class='fl'>0.99</span>, <span class='kw'>na.rm</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;   meandiff     lwr.ci     upr.ci 
+<span class='fu'>MeanDiffCI</span>(<span class='kw'>x</span>, <span class='kw'>y</span>, na.rm=<span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt;   meandiff     lwr.ci     upr.ci 
+#&gt; -4.5735546 -9.2621803  0.1150712 </div><div class='input'><span class='fu'>MeanDiffCI</span>(<span class='kw'>x</span>, <span class='kw'>y</span>, conf.level=<span class='fl'>0.99</span>, na.rm=<span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt;   meandiff     lwr.ci     upr.ci 
 #&gt;  -4.573555 -10.752249   1.605140 </div><div class='input'>
 <span class='co'># the different types of bootstrap confints</span>
-<span class='fu'>MeanDiffCI</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"norm"</span>, <span class='kw'>na.rm</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;   meandiff     lwr.ci     upr.ci 
-#&gt; -4.5735546 -9.0187192 -0.1785966 </div><div class='input'><span class='fu'>MeanDiffCI</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"basic"</span>, <span class='kw'>na.rm</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;    meandiff      lwr.ci      upr.ci 
+<span class='fu'>MeanDiffCI</span>(<span class='kw'>x</span>, <span class='kw'>y</span>, method=<span class='st'>"norm"</span>, na.rm=<span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt;   meandiff     lwr.ci     upr.ci 
+#&gt; -4.5735546 -9.0187192 -0.1785966 </div><div class='input'><span class='fu'>MeanDiffCI</span>(<span class='kw'>x</span>, <span class='kw'>y</span>, method=<span class='st'>"basic"</span>, na.rm=<span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt;    meandiff      lwr.ci      upr.ci 
 #&gt; -4.57355457 -8.93133232 -0.08220136 </div><div class='input'><span class='co'># MeanDiffCI(x, y, method="stud", na.rm=TRUE)</span>
-<span class='fu'>MeanDiffCI</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"perc"</span>, <span class='kw'>na.rm</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;    meandiff      lwr.ci      upr.ci 
-#&gt; -4.57355457 -8.98938243 -0.09801212 </div><div class='input'><span class='fu'>MeanDiffCI</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"bca"</span>, <span class='kw'>na.rm</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;   meandiff     lwr.ci     upr.ci 
+<span class='fu'>MeanDiffCI</span>(<span class='kw'>x</span>, <span class='kw'>y</span>, method=<span class='st'>"perc"</span>, na.rm=<span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt;    meandiff      lwr.ci      upr.ci 
+#&gt; -4.57355457 -8.98938243 -0.09801212 </div><div class='input'><span class='fu'>MeanDiffCI</span>(<span class='kw'>x</span>, <span class='kw'>y</span>, method=<span class='st'>"bca"</span>, na.rm=<span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt;   meandiff     lwr.ci     upr.ci 
 #&gt; -4.5735546 -8.9225752  0.1912086 </div><div class='input'>
 <span class='co'># the formula interface</span>
-<span class='fu'>MeanDiffCI</span>(<span class='no'>price</span> ~ <span class='no'>driver</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>d.pizza</span>, <span class='kw'>subset</span><span class='kw'>=</span><span class='no'>driver</span> <span class='kw'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Carter"</span>,<span class='st'>"Miller"</span>))</div><div class='output co'>#&gt;   meandiff     lwr.ci     upr.ci 
+<span class='fu'>MeanDiffCI</span>(<span class='kw'>price</span> <span class='op'>~</span> <span class='kw'>driver</span>, data=<span class='kw'>d.pizza</span>, subset=<span class='kw'>driver</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Carter"</span>,<span class='st'>"Miller"</span>))
+</div><div class='output co'>#&gt;   meandiff     lwr.ci     upr.ci 
 #&gt; -4.5735546 -9.2621803  0.1150712 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -268,7 +278,7 @@ The bootstrap intervals are strongly based on the example in <code>boot</code>.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

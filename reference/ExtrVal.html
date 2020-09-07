@@ -142,13 +142,13 @@
   independent variables from a specified distribution.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>dExtrVal</span>(<span class='no'>x</span>, <span class='no'>densfun</span>, <span class='no'>distnfun</span>, <span class='no'>...</span>, <span class='no'>distn</span>, <span class='kw'>mlen</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>largest</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-    <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'>pExtrVal</span>(<span class='no'>q</span>, <span class='no'>distnfun</span>, <span class='no'>...</span>, <span class='no'>distn</span>, <span class='kw'>mlen</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>largest</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-    <span class='kw'>lower.tail</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='fu'>qExtrVal</span>(<span class='no'>p</span>, <span class='no'>quantfun</span>, <span class='no'>...</span>, <span class='no'>distn</span>, <span class='kw'>mlen</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>largest</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-    <span class='kw'>lower.tail</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='fu'>rExtrVal</span>(<span class='no'>n</span>, <span class='no'>quantfun</span>, <span class='no'>...</span>, <span class='no'>distn</span>, <span class='kw'>mlen</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>largest</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>dExtrVal</span>(<span class='kw'>x</span>, <span class='kw'>densfun</span>, <span class='kw'>distnfun</span>, <span class='kw'>...</span>, <span class='kw'>distn</span>, mlen = <span class='fl'>1</span>, largest = <span class='fl'>TRUE</span>,
+    log = <span class='fl'>FALSE</span>)
+<span class='fu'>pExtrVal</span>(<span class='kw'>q</span>, <span class='kw'>distnfun</span>, <span class='kw'>...</span>, <span class='kw'>distn</span>, mlen = <span class='fl'>1</span>, largest = <span class='fl'>TRUE</span>,
+    lower.tail = <span class='fl'>TRUE</span>)
+<span class='fu'>qExtrVal</span>(<span class='kw'>p</span>, <span class='kw'>quantfun</span>, <span class='kw'>...</span>, <span class='kw'>distn</span>, mlen = <span class='fl'>1</span>, largest = <span class='fl'>TRUE</span>,
+    lower.tail = <span class='fl'>TRUE</span>)
+<span class='fu'>rExtrVal</span>(<span class='kw'>n</span>, <span class='kw'>quantfun</span>, <span class='kw'>...</span>, <span class='kw'>distn</span>, mlen = <span class='fl'>1</span>, largest = <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -213,10 +213,20 @@
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='GenExtrVal.html'>rGenExtrVal</a></code>, <code><a href='Order.html'>rOrder</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Alec Stephenson &lt;alec_stephenson@hotmail.com&gt;</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>dExtrVal</span>(<span class='fl'>2</span>:<span class='fl'>4</span>, <span class='no'>dnorm</span>, <span class='no'>pnorm</span>, <span class='kw'>mean</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>sd</span> <span class='kw'>=</span> <span class='fl'>1.2</span>, <span class='kw'>mlen</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; [1] 0.48689660 0.17602941 0.02346192</div><div class='input'><span class='fu'>dExtrVal</span>(<span class='fl'>2</span>:<span class='fl'>4</span>, <span class='kw'>distn</span> <span class='kw'>=</span> <span class='st'>"norm"</span>, <span class='kw'>mean</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>sd</span> <span class='kw'>=</span> <span class='fl'>1.2</span>, <span class='kw'>mlen</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; [1] 0.48689660 0.17602941 0.02346192</div><div class='input'><span class='fu'>dExtrVal</span>(<span class='fl'>2</span>:<span class='fl'>4</span>, <span class='kw'>distn</span> <span class='kw'>=</span> <span class='st'>"exp"</span>, <span class='kw'>mlen</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>largest</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] 0.0366312778 0.0049575044 0.0006709253</div><div class='input'><span class='fu'>pExtrVal</span>(<span class='fl'>2</span>:<span class='fl'>4</span>, <span class='kw'>distn</span> <span class='kw'>=</span> <span class='st'>"exp"</span>, <span class='kw'>rate</span> <span class='kw'>=</span> <span class='fl'>1.2</span>, <span class='kw'>mlen</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [1] 0.8267938 0.9460991 0.9836082</div><div class='input'><span class='fu'>qExtrVal</span>(<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0.9</span>, <span class='fl'>0.6</span>, -<span class='fl'>0.1</span>), <span class='kw'>distn</span> <span class='kw'>=</span> <span class='st'>"exp"</span>, <span class='kw'>rate</span> <span class='kw'>=</span> <span class='fl'>1.2</span>, <span class='kw'>mlen</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [1] 2.474783 1.873629 1.509935 1.241553</div><div class='input'><span class='fu'>rExtrVal</span>(<span class='fl'>5</span>, <span class='no'>qgamma</span>, <span class='kw'>shape</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>mlen</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; [1] 1.894598 2.402970 2.619867 2.828091 2.221762</div><div class='input'><span class='no'>p</span> <span class='kw'>&lt;-</span> (<span class='fl'>1</span>:<span class='fl'>9</span>)/<span class='fl'>10</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/Exponential.html'>pexp</a></span>(<span class='fu'>qExtrVal</span>(<span class='no'>p</span>, <span class='kw'>distn</span> <span class='kw'>=</span> <span class='st'>"exp"</span>, <span class='kw'>rate</span> <span class='kw'>=</span> <span class='fl'>1.2</span>, <span class='kw'>mlen</span> <span class='kw'>=</span> <span class='fl'>1</span>), <span class='kw'>rate</span> <span class='kw'>=</span> <span class='fl'>1.2</span>)</div><div class='output co'>#&gt; [1] 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9</div><div class='input'>## [1] 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9
+    <pre class="examples"><div class='input'><span class='fu'>dExtrVal</span>(<span class='fl'>2</span><span class='op'>:</span><span class='fl'>4</span>, <span class='kw'>dnorm</span>, <span class='kw'>pnorm</span>, mean = <span class='fl'>0.5</span>, sd = <span class='fl'>1.2</span>, mlen = <span class='fl'>5</span>)
+</div><div class='output co'>#&gt; [1] 0.48689660 0.17602941 0.02346192</div><div class='input'><span class='fu'>dExtrVal</span>(<span class='fl'>2</span><span class='op'>:</span><span class='fl'>4</span>, distn = <span class='st'>"norm"</span>, mean = <span class='fl'>0.5</span>, sd = <span class='fl'>1.2</span>, mlen = <span class='fl'>5</span>)
+</div><div class='output co'>#&gt; [1] 0.48689660 0.17602941 0.02346192</div><div class='input'><span class='fu'>dExtrVal</span>(<span class='fl'>2</span><span class='op'>:</span><span class='fl'>4</span>, distn = <span class='st'>"exp"</span>, mlen = <span class='fl'>2</span>, largest = <span class='fl'>FALSE</span>)
+</div><div class='output co'>#&gt; [1] 0.0366312778 0.0049575044 0.0006709253</div><div class='input'><span class='fu'>pExtrVal</span>(<span class='fl'>2</span><span class='op'>:</span><span class='fl'>4</span>, distn = <span class='st'>"exp"</span>, rate = <span class='fl'>1.2</span>, mlen = <span class='fl'>2</span>)
+</div><div class='output co'>#&gt; [1] 0.8267938 0.9460991 0.9836082</div><div class='input'><span class='fu'>qExtrVal</span>(<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0.9</span>, <span class='fl'>0.6</span>, <span class='op'>-</span><span class='fl'>0.1</span>), distn = <span class='st'>"exp"</span>, rate = <span class='fl'>1.2</span>, mlen = <span class='fl'>2</span>)
+</div><div class='output co'>#&gt; [1] 2.474783 1.873629 1.509935 1.241553</div><div class='input'><span class='fu'>rExtrVal</span>(<span class='fl'>5</span>, <span class='kw'>qgamma</span>, shape = <span class='fl'>1</span>, mlen = <span class='fl'>10</span>)
+</div><div class='output co'>#&gt; [1] 1.894598 2.402970 2.619867 2.828091 2.221762</div><div class='input'><span class='kw'>p</span> <span class='op'>&lt;-</span> (<span class='fl'>1</span><span class='op'>:</span><span class='fl'>9</span>)<span class='op'>/</span><span class='fl'>10</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/Exponential.html'>pexp</a></span>(<span class='fu'>qExtrVal</span>(<span class='kw'>p</span>, distn = <span class='st'>"exp"</span>, rate = <span class='fl'>1.2</span>, mlen = <span class='fl'>1</span>), rate = <span class='fl'>1.2</span>)
+</div><div class='output co'>#&gt; [1] 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9</div><div class='input'><span class='co'>## [1] 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -233,7 +243,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

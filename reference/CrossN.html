@@ -138,7 +138,7 @@
     <p>Vector cross product of <code>n-1</code> vectors in n-dimensional space</p>
     </div>
 
-    <pre class="usage"><span class='fu'>CrossN</span>(<span class='no'>A</span>)</pre>
+    <pre class="usage"><span class='fu'>CrossN</span>(<span class='kw'>A</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -166,14 +166,19 @@
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='Cross.html'>Cross</a></code>, <code><a href='Dot.html'>Dot</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Hans W. Borchers &lt;hwborchers@googlemail.com&gt;</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>A</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>, <span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>), <span class='kw'>nrow</span><span class='kw'>=</span><span class='fl'>2</span>, <span class='kw'>ncol</span><span class='kw'>=</span><span class='fl'>3</span>, <span class='kw'>byrow</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
-<span class='fu'>CrossN</span>(<span class='no'>A</span>)  <span class='co'>#=&gt; 0 0 1</span></div><div class='output co'>#&gt; [1] 0 0 1</div><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1.0</span>, <span class='fl'>0.0</span>, <span class='fl'>0.0</span>)
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1.0</span>, <span class='fl'>0.5</span>, <span class='fl'>0.0</span>)
-<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.0</span>, <span class='fl'>0.0</span>, <span class='fl'>1.0</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='fu'><a href='Dot.html'>Dot</a></span>(<span class='no'>x</span>, <span class='fu'>CrossN</span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='no'>y</span>, <span class='no'>z</span>))), <span class='fu'><a href='https://rdrr.io/r/base/det.html'>det</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>z</span>)))</div><div class='output co'>#&gt; [1] TRUE</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>A</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>, <span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>), nrow=<span class='fl'>2</span>, ncol=<span class='fl'>3</span>, byrow=<span class='fl'>TRUE</span>)
+<span class='fu'>CrossN</span>(<span class='kw'>A</span>)  <span class='co'>#=&gt; 0 0 1</span>
+</div><div class='output co'>#&gt; [1] 0 0 1</div><div class='input'>
+<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1.0</span>, <span class='fl'>0.0</span>, <span class='fl'>0.0</span>)
+<span class='kw'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1.0</span>, <span class='fl'>0.5</span>, <span class='fl'>0.0</span>)
+<span class='kw'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.0</span>, <span class='fl'>0.0</span>, <span class='fl'>1.0</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='fu'><a href='Dot.html'>Dot</a></span>(<span class='kw'>x</span>, <span class='fu'>CrossN</span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='kw'>y</span>, <span class='kw'>z</span>))), <span class='fu'><a href='https://rdrr.io/r/base/det.html'>det</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>, <span class='kw'>z</span>)))
+</div><div class='output co'>#&gt; [1] TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -189,7 +194,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

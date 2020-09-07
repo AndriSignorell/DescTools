@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Skewness and Kurtosis
-<!-- %%  ~~function to do ... ~~ --> — Measures of Shape • DescTools</title>
+ — Measures of Shape • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Skewness and Kurtosis
-<!-- %%  ~~function to do ... ~~ --> — Measures of Shape" />
+ — Measures of Shape" />
 <meta property="og:description" content="Skew computes the skewness, Kurt the kurtosis of the values in x.
 " />
 
@@ -143,11 +143,11 @@
 <p><!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>Skew</span>(<span class='no'>x</span>, <span class='kw'>weights</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-     <span class='kw'>ci.type</span> <span class='kw'>=</span> <span class='st'>"bca"</span>, <span class='kw'>R</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>Skew</span>(<span class='kw'>x</span>, weights = <span class='kw'>NULL</span>, na.rm = <span class='fl'>FALSE</span>, method = <span class='fl'>3</span>, conf.level = <span class='fl'>NA</span>, 
+     ci.type = <span class='st'>"bca"</span>, R = <span class='fl'>1000</span>, <span class='kw'>...</span>)
 
-<span class='fu'>Kurt</span>(<span class='no'>x</span>, <span class='kw'>weights</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-     <span class='kw'>ci.type</span> <span class='kw'>=</span> <span class='st'>"bca"</span>, <span class='kw'>R</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>Kurt</span>(<span class='kw'>x</span>, weights = <span class='kw'>NULL</span>, na.rm = <span class='fl'>FALSE</span>, method = <span class='fl'>3</span>, conf.level = <span class='fl'>NA</span>, 
+     ci.type = <span class='st'>"bca"</span>, R = <span class='fl'>1000</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -190,7 +190,7 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>the dots are passed to the function <code>boot</code>, when confidence intervalls are calculated.</p></td>
+      <td><p>the dots are passed to the function <code><a href='https://rdrr.io/pkg/boot/man/boot.html'>boot</a></code>, when confidence intervalls are calculated.</p></td>
     </tr>
     </table>
 
@@ -221,21 +221,28 @@ if a conf.level is provided, a named numeric vector with 3 elements:
   <dt>lwr.ci</dt><dd><p>lower bound of the confidence interval</p></dd>
   <dt>upr.ci</dt><dd><p>upper bound of the confidence interval</p></dd>
 
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;, David Meyer &lt;david.meyer@r-project.org&gt; (method = 3)</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Cramer, D. (1997): <em>Basic Statistics for Social Research</em> Routledge.</p>
 <p>Joanes, D. N., Gill, C. A. (1998): Comparing measures of sample skewness and Kurt. <em>The Statistician</em>, 47, 183-189.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/mean.html'>mean</a></code>, <code><a href='https://rdrr.io/r/stats/sd.html'>sd</a></code>, similar code in <code><a href='https://rdrr.io/pkg/e1071/man'>library(e1071)</a></code>
+    <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/mean.html'>mean</a></code>, <code><a href='https://rdrr.io/r/stats/sd.html'>sd</a></code>, similar code in <code>library(e1071)</code>
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>Skew</span>(<span class='no'>d.pizza</span>$<span class='no'>price</span>, <span class='kw'>na.rm</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"): "rskew" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='fu'>Kurt</span>(<span class='no'>d.pizza</span>$<span class='no'>price</span>, <span class='kw'>na.rm</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .Call("rkurt", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"): "rkurt" not available for .Call() for package "DescTools"</span></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>Skew</span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>price</span>, na.rm=<span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; <span class='error'>Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"): "rskew" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='fu'>Kurt</span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>price</span>, na.rm=<span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; <span class='error'>Error in .Call("rkurt", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"): "rkurt" not available for .Call() for package "DescTools"</span></div><div class='input'>
 <span class='co'># use sapply to calculate skewness for a data.frame</span>
-<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>(<span class='no'>d.pizza</span>[,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"temperature"</span>,<span class='st'>"price"</span>,<span class='st'>"delivery_min"</span>)], <span class='no'>Skew</span>, <span class='kw'>na.rm</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"): "rskew" not available for .Call() for package "DescTools"</span></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>(<span class='kw'>d.pizza</span>[,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"temperature"</span>,<span class='st'>"price"</span>,<span class='st'>"delivery_min"</span>)], <span class='kw'>Skew</span>, na.rm=<span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; <span class='error'>Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"): "rskew" not available for .Call() for package "DescTools"</span></div><div class='input'>
 <span class='co'># or apply to do that columnwise with a matrix</span>
-<span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>d.pizza</span>[,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"temperature"</span>,<span class='st'>"price"</span>,<span class='st'>"delivery_min"</span>)]), <span class='fl'>2</span>, <span class='no'>Skew</span>, <span class='kw'>na.rm</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"): "rskew" not available for .Call() for package "DescTools"</span></div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='kw'>d.pizza</span>[,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"temperature"</span>,<span class='st'>"price"</span>,<span class='st'>"delivery_min"</span>)]), <span class='fl'>2</span>, <span class='kw'>Skew</span>, na.rm=<span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; <span class='error'>Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"): "rskew" not available for .Call() for package "DescTools"</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -251,7 +258,7 @@ if a conf.level is provided, a named numeric vector with 3 elements:
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

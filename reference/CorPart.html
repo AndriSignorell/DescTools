@@ -140,7 +140,7 @@ Input may be either a data matrix or a correlation matrix.  Variables in x and y
 Input may be either a data matrix or a correlation matrix.  Variables in x and y are specified by location.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>CorPart</span>(<span class='no'>m</span>, <span class='no'>x</span>, <span class='no'>y</span>)</pre>
+    <pre class="usage"><span class='fu'>CorPart</span>(<span class='kw'>m</span>, <span class='kw'>x</span>, <span class='kw'>y</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -170,6 +170,9 @@ various multiple correlations, and then correlating these residuals.  The matrix
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Revelle, W. <em>An introduction to psychometric theory with applications in R</em> Springer. <br /> (working draft available at  <a href='http://personality-project.org/r/book/'>http://personality-project.org/r/book/</a></p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>William Revelle</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/cor.html'>cor</a></code></p></div>
@@ -177,24 +180,27 @@ various multiple correlations, and then correlating these residuals.  The matrix
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># example from Bortz, J. (1993) Statistik fuer Sozialwissenschaftler, Springer, pp. 413</span>
 
-<span class='no'>abstr</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>9</span>,<span class='fl'>11</span>,<span class='fl'>13</span>,<span class='fl'>13</span>,<span class='fl'>14</span>,<span class='fl'>9</span>,<span class='fl'>10</span>,<span class='fl'>11</span>,<span class='fl'>10</span>,<span class='fl'>8</span>,<span class='fl'>13</span>,<span class='fl'>7</span>,<span class='fl'>9</span>,<span class='fl'>13</span>,<span class='fl'>14</span>)
-<span class='no'>coord</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>8</span>,<span class='fl'>12</span>,<span class='fl'>14</span>,<span class='fl'>13</span>,<span class='fl'>14</span>,<span class='fl'>8</span>,<span class='fl'>9</span>,<span class='fl'>12</span>,<span class='fl'>8</span>,<span class='fl'>9</span>,<span class='fl'>14</span>,<span class='fl'>7</span>,<span class='fl'>10</span>,<span class='fl'>12</span>,<span class='fl'>12</span>)
-<span class='no'>age</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>6</span>,<span class='fl'>8</span>,<span class='fl'>9</span>,<span class='fl'>9</span>,<span class='fl'>10</span>,<span class='fl'>7</span>,<span class='fl'>8</span>,<span class='fl'>9</span>,<span class='fl'>8</span>,<span class='fl'>7</span>,<span class='fl'>10</span>,<span class='fl'>6</span>,<span class='fl'>10</span>,<span class='fl'>10</span>,<span class='fl'>9</span>)
+<span class='kw'>abstr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>9</span>,<span class='fl'>11</span>,<span class='fl'>13</span>,<span class='fl'>13</span>,<span class='fl'>14</span>,<span class='fl'>9</span>,<span class='fl'>10</span>,<span class='fl'>11</span>,<span class='fl'>10</span>,<span class='fl'>8</span>,<span class='fl'>13</span>,<span class='fl'>7</span>,<span class='fl'>9</span>,<span class='fl'>13</span>,<span class='fl'>14</span>)
+<span class='kw'>coord</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>8</span>,<span class='fl'>12</span>,<span class='fl'>14</span>,<span class='fl'>13</span>,<span class='fl'>14</span>,<span class='fl'>8</span>,<span class='fl'>9</span>,<span class='fl'>12</span>,<span class='fl'>8</span>,<span class='fl'>9</span>,<span class='fl'>14</span>,<span class='fl'>7</span>,<span class='fl'>10</span>,<span class='fl'>12</span>,<span class='fl'>12</span>)
+<span class='kw'>age</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>6</span>,<span class='fl'>8</span>,<span class='fl'>9</span>,<span class='fl'>9</span>,<span class='fl'>10</span>,<span class='fl'>7</span>,<span class='fl'>8</span>,<span class='fl'>9</span>,<span class='fl'>8</span>,<span class='fl'>7</span>,<span class='fl'>10</span>,<span class='fl'>6</span>,<span class='fl'>10</span>,<span class='fl'>10</span>,<span class='fl'>9</span>)
 
 <span class='co'># calculate the correlation of abstr and coord, after without the effect of the age</span>
-<span class='fu'>CorPart</span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='no'>abstr</span>, <span class='no'>coord</span>, <span class='no'>age</span>), <span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fl'>3</span>)</div><div class='output co'>#&gt;           abstr     coord
+<span class='fu'>CorPart</span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='kw'>abstr</span>, <span class='kw'>coord</span>, <span class='kw'>age</span>), <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, <span class='fl'>3</span>)
+</div><div class='output co'>#&gt;           abstr     coord
 #&gt; abstr 1.0000000 0.7220272
 #&gt; coord 0.7220272 1.0000000</div><div class='input'>
 <span class='co'># by correlation matrix m</span>
-<span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='no'>abstr</span>, <span class='no'>coord</span>, <span class='no'>age</span>))
-<span class='fu'>CorPart</span>(<span class='no'>m</span>, <span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fl'>3</span>)</div><div class='output co'>#&gt;           abstr     coord
+<span class='kw'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='kw'>abstr</span>, <span class='kw'>coord</span>, <span class='kw'>age</span>))
+<span class='fu'>CorPart</span>(<span class='kw'>m</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, <span class='fl'>3</span>)
+</div><div class='output co'>#&gt;           abstr     coord
 #&gt; abstr 1.0000000 0.7220272
 #&gt; coord 0.7220272 1.0000000</div><div class='input'>
 <span class='co'># ... which would be the same as:</span>
-<span class='no'>lm1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>abstr</span> ~ <span class='no'>age</span>)
-<span class='no'>lm2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>coord</span> ~ <span class='no'>age</span>)
+<span class='kw'>lm1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='kw'>abstr</span> <span class='op'>~</span> <span class='kw'>age</span>)
+<span class='kw'>lm2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='kw'>coord</span> <span class='op'>~</span> <span class='kw'>age</span>)
 
-<span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/residuals.html'>resid</a></span>(<span class='no'>lm1</span>), <span class='fu'><a href='https://rdrr.io/r/stats/residuals.html'>resid</a></span>(<span class='no'>lm2</span>))</div><div class='output co'>#&gt; [1] 0.7220272</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/residuals.html'>resid</a></span>(<span class='kw'>lm1</span>), <span class='fu'><a href='https://rdrr.io/r/stats/residuals.html'>resid</a></span>(<span class='kw'>lm2</span>))
+</div><div class='output co'>#&gt; [1] 0.7220272</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -210,7 +216,7 @@ various multiple correlations, and then correlating these residuals.  The matrix
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

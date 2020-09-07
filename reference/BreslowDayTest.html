@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Breslow-Day Test for Homogeneity of the Odds Ratios
-<!-- %%  ~~function to do ... ~~ --> — BreslowDayTest • DescTools</title>
+ — BreslowDayTest • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Breslow-Day Test for Homogeneity of the Odds Ratios
-<!-- %%  ~~function to do ... ~~ --> — BreslowDayTest" />
+ — BreslowDayTest" />
 <meta property="og:description" content="Calculates the Breslow-Day test of homogeneity for a
   \(2 \times 2 \times k\) table, in order to investigate if
   all \(k\) strata have the same OR.
@@ -149,7 +149,7 @@ If OR is not given, the Mantel-Haenszel estimate is used.
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>BreslowDayTest</span>(<span class='no'>x</span>, <span class='kw'>OR</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>correct</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>BreslowDayTest</span>(<span class='kw'>x</span>, OR = <span class='fl'>NA</span>, correct = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -187,22 +187,27 @@ likelihood ratio test using the <code>anova</code> function).</p>
 <br /></p>
 <p>Breslow, N. E. (1996) Statistics in Epidemiology: The Case-Control Study <em>Journal of the American Statistical Association</em>, 91, 14-26.</p>
 <p><!-- %% ~put references to the literature/web site here ~ --></p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Michael Hoehle &lt;hoehle@math.su.se&gt;
+<!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='WoolfTest.html'>WoolfTest</a></code>
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>migraine</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span>(<span class='no'>freq</span> ~ <span class='no'>.</span>,
-            <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span>(<span class='kw'>treatment</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"active"</span>, <span class='st'>"placebo"</span>),
-                              <span class='kw'>response</span> <span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"better"</span>, <span class='st'>"same"</span>),
-                              <span class='kw'>gender</span>   <span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"female"</span>, <span class='st'>"male"</span>)),
-                  <span class='kw'>freq</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>16</span>, <span class='fl'>5</span>, <span class='fl'>11</span>, <span class='fl'>20</span>, <span class='fl'>12</span>, <span class='fl'>7</span>, <span class='fl'>16</span>, <span class='fl'>19</span>))
+    <pre class="examples"><div class='input'><span class='kw'>migraine</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span>(<span class='kw'>freq</span> <span class='op'>~</span> <span class='kw'>.</span>,
+            <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span>(treatment=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"active"</span>, <span class='st'>"placebo"</span>),
+                              response =<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"better"</span>, <span class='st'>"same"</span>),
+                              gender   =<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"female"</span>, <span class='st'>"male"</span>)),
+                  freq=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>16</span>, <span class='fl'>5</span>, <span class='fl'>11</span>, <span class='fl'>20</span>, <span class='fl'>12</span>, <span class='fl'>7</span>, <span class='fl'>16</span>, <span class='fl'>19</span>))
             )
 
 <span class='co'># get rid of gender</span>
-<span class='no'>tab</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span>(<span class='no'>Freq</span> ~ <span class='no'>treatment</span> + <span class='no'>response</span>, <span class='no'>migraine</span>)
-<span class='fu'><a href='Desc.html'>Desc</a></span>(<span class='no'>tab</span>)</div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
+<span class='kw'>tab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span>(<span class='kw'>Freq</span> <span class='op'>~</span> <span class='kw'>treatment</span> <span class='op'>+</span> <span class='kw'>response</span>, <span class='kw'>migraine</span>)
+<span class='fu'><a href='Desc.html'>Desc</a></span>(<span class='kw'>tab</span>)
+</div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
 #&gt; <span style='font-weight: bold;'>tab (xtabs, table)</span><span>
 #&gt; 
 #&gt; Summary: 
@@ -248,8 +253,9 @@ likelihood ratio test using the <code>anova</code> function).</p>
 #&gt; ' 95% conf. level</span><span>
 #&gt; </div><div class='img'><img src='BreslowDayTest-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># only the women</span>
-<span class='no'>female</span> <span class='kw'>&lt;-</span> <span class='no'>migraine</span>[,, <span class='fl'>1</span>]
-<span class='fu'><a href='Desc.html'>Desc</a></span>(<span class='no'>female</span>)</div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
+<span class='kw'>female</span> <span class='op'>&lt;-</span> <span class='kw'>migraine</span>[,, <span class='fl'>1</span>]
+<span class='fu'><a href='Desc.html'>Desc</a></span>(<span class='kw'>female</span>)
+</div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
 #&gt; </span><span style='font-weight: bold;'>female (table)</span><span>
 #&gt; 
 #&gt; Summary: 
@@ -295,8 +301,9 @@ likelihood ratio test using the <code>anova</code> function).</p>
 #&gt; ' 95% conf. level</span><span>
 #&gt; </div><div class='img'><img src='BreslowDayTest-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># .. and the men</span>
-<span class='no'>male</span> <span class='kw'>&lt;-</span> <span class='no'>migraine</span>[,, <span class='fl'>2</span>]
-<span class='fu'><a href='Desc.html'>Desc</a></span>(<span class='no'>male</span>)</div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
+<span class='kw'>male</span> <span class='op'>&lt;-</span> <span class='kw'>migraine</span>[,, <span class='fl'>2</span>]
+<span class='fu'><a href='Desc.html'>Desc</a></span>(<span class='kw'>male</span>)
+</div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
 #&gt; </span><span style='font-weight: bold;'>male (table)</span><span>
 #&gt; 
 #&gt; Summary: 
@@ -341,12 +348,14 @@ likelihood ratio test using the <code>anova</code> function).</p>
 #&gt; ----------
 #&gt; ' 95% conf. level</span><span>
 #&gt; </div><div class='img'><img src='BreslowDayTest-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'>BreslowDayTest</span>(<span class='no'>migraine</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>BreslowDayTest</span>(<span class='kw'>migraine</span>)
+</div><div class='output co'>#&gt; 
 #&gt; 	Breslow-Day test on Homogeneity of Odds Ratios
 #&gt; 
 #&gt; data:  migraine
 #&gt; X-squared = 1.4929, df = 1, p-value = 0.2218
-#&gt; </div><div class='input'><span class='fu'>BreslowDayTest</span>(<span class='no'>migraine</span>, <span class='kw'>correct</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; 
+#&gt; </div><div class='input'><span class='fu'>BreslowDayTest</span>(<span class='kw'>migraine</span>, correct = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; 
 #&gt; 	Breslow-Day Test on Homogeneity of Odds Ratios (with Tarone
 #&gt; 	correction)
 #&gt; 
@@ -354,16 +363,17 @@ likelihood ratio test using the <code>anova</code> function).</p>
 #&gt; X-squared = 1.4905, df = 1, p-value = 0.2221
 #&gt; </div><div class='input'>
 
-<span class='no'>salary</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span>(
+<span class='kw'>salary</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span>(
       <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>38</span>, <span class='fl'>12</span>, <span class='fl'>102</span>, <span class='fl'>141</span>, <span class='fl'>12</span>, <span class='fl'>9</span>, <span class='fl'>136</span>, <span class='fl'>383</span>),
-      <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>),
-      <span class='kw'>dimnames</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>exposure</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"exposed"</span>, <span class='st'>"not"</span>),
-                    <span class='kw'>disease</span> <span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"case"</span>, <span class='st'>"control"</span>),
-                    <span class='kw'>salary</span>  <span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"&lt;1000"</span>, <span class='st'>"&gt;=1000"</span>))
+      dim=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>),
+      dimnames=<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(exposure=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"exposed"</span>, <span class='st'>"not"</span>),
+                    disease =<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"case"</span>, <span class='st'>"control"</span>),
+                    salary  =<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"&lt;1000"</span>, <span class='st'>"&gt;=1000"</span>))
                     )
 
 <span class='co'># common odds ratio = 4.028269</span>
-<span class='fu'>BreslowDayTest</span>(<span class='no'>salary</span>, <span class='kw'>OR</span> <span class='kw'>=</span> <span class='fl'>4.02</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>BreslowDayTest</span>(<span class='kw'>salary</span>, OR = <span class='fl'>4.02</span>)
+</div><div class='output co'>#&gt; 
 #&gt; 	Breslow-Day test on Homogeneity of Odds Ratios
 #&gt; 
 #&gt; data:  salary
@@ -384,7 +394,7 @@ likelihood ratio test using the <code>anova</code> function).</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

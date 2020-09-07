@@ -140,15 +140,15 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>WrdBookmark</span>(<span class='no'>name</span>, <span class='kw'>wrd</span> <span class='kw'>=</span> <span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span>(<span class='st'>"lastWord"</span>))
+    <pre class="usage"><span class='fu'>WrdBookmark</span>(<span class='kw'>name</span>, wrd = <span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span>(<span class='st'>"lastWord"</span>))
 
-<span class='fu'>WrdInsertBookmark</span>(<span class='no'>name</span>, <span class='kw'>wrd</span> <span class='kw'>=</span> <span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span>(<span class='st'>"lastWord"</span>))
-<span class='fu'>WrdDeleteBookmark</span>(<span class='no'>name</span>, <span class='kw'>wrd</span> <span class='kw'>=</span> <span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span>(<span class='st'>"lastWord"</span>))
+<span class='fu'>WrdInsertBookmark</span>(<span class='kw'>name</span>, wrd = <span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span>(<span class='st'>"lastWord"</span>))
+<span class='fu'>WrdDeleteBookmark</span>(<span class='kw'>name</span>, wrd = <span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span>(<span class='st'>"lastWord"</span>))
 
-<span class='fu'>WrdGoto</span>(<span class='no'>name</span>, <span class='kw'>what</span> <span class='kw'>=</span> <span class='no'>wdConst</span>$<span class='no'>wdGoToBookmark</span>, <span class='kw'>wrd</span> <span class='kw'>=</span> <span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span>(<span class='st'>"lastWord"</span>))
+<span class='fu'>WrdGoto</span>(<span class='kw'>name</span>, what = <span class='kw'>wdConst</span><span class='op'>$</span><span class='kw'>wdGoToBookmark</span>, wrd = <span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span>(<span class='st'>"lastWord"</span>))
 
-<span class='fu'>WrdUpdateBookmark</span>(<span class='no'>name</span>, <span class='no'>text</span>, <span class='kw'>what</span> <span class='kw'>=</span> <span class='no'>wdConst</span>$<span class='no'>wdGoToBookmark</span>,
-                  <span class='kw'>wrd</span> <span class='kw'>=</span> <span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span>(<span class='st'>"lastWord"</span>))</pre>
+<span class='fu'>WrdUpdateBookmark</span>(<span class='kw'>name</span>, <span class='kw'>text</span>, what = <span class='kw'>wdConst</span><span class='op'>$</span><span class='kw'>wdGoToBookmark</span>,
+                  wrd = <span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span>(<span class='st'>"lastWord"</span>))</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -180,21 +180,34 @@
 
     <p>Bookmarks are useful to build structured documents, which can be updated later.
 <!-- %%  ~~ If necessary, more details than the description above ~~ --></p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;
+<!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='WrdFont.html'>WrdFont</a></code>, <code><a href='WrdPlot.html'>WrdPlot</a></code>, <code><a href='GetNewWrd.html'>GetNewWrd</a></code>, <code><a href='GetCurrWrd.html'>GetCurrWrd</a></code>
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>)  <span class='co'># we can't get this through the CRAN test - run it with copy/paste to console</span>
-<span class='no'>wrd</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='GetNewWrd.html'>GetNewWrd</a></span>()
-<span class='fu'>WrdText</span>(<span class='st'>"a)\n\n\nb)"</span>, <span class='kw'>fontname</span><span class='kw'>=</span><span class='fu'>WrdGetFont</span>()$<span class='no'>name</span>, <span class='kw'>fontsize</span><span class='kw'>=</span><span class='fu'>WrdGetFont</span>()$<span class='no'>size</span>)</div><div class='output co'>#&gt; <span class='error'>Error in WrdText("a)\n\n\nb)", fontname = WrdGetFont()$name, fontsize = WrdGetFont()$size): could not find function "WrdText"</span></div><div class='input'><span class='fu'>WrdInsertBookmark</span>(<span class='st'>"chap_b"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in wrdBookmarks$Add(name): attempt to apply non-function</span></div><div class='input'><span class='fu'>WrdText</span>(<span class='st'>"\n\n\nc)\n\n\n"</span>, <span class='kw'>fontname</span><span class='kw'>=</span><span class='fu'>WrdGetFont</span>()$<span class='no'>name</span>, <span class='kw'>fontsize</span><span class='kw'>=</span><span class='fu'>WrdGetFont</span>()$<span class='no'>size</span>)</div><div class='output co'>#&gt; <span class='error'>Error in WrdText("\n\n\nc)\n\n\n", fontname = WrdGetFont()$name, fontsize = WrdGetFont()$size): could not find function "WrdText"</span></div><div class='input'>
-<span class='fu'>WrdGoto</span>(<span class='st'>"chap_b"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in wrdBookmarks$exists(name): attempt to apply non-function</span></div><div class='input'><span class='fu'>WrdUpdateBookmark</span>(<span class='st'>"chap_b"</span>, <span class='st'>"Goto chapter B and set text"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in wrdSel$GoTo(What = what, Name = name): attempt to apply non-function</span></div><div class='input'>
-<span class='fu'>WrdInsertBookmark</span>(<span class='st'>"mybookmark"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in wrdBookmarks$Add(name): attempt to apply non-function</span></div><div class='input'><span class='fu'><a href='ToWrd.html'>ToWrd</a></span>(<span class='st'>"A longer text\n\n\n"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in wrd[["Selection"]]$InsertAfter(paste(x, collapse = "\n")): attempt to apply non-function</span></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>)  <span class='co'># we can't get this through the CRAN test - run it with copy/paste to console</span>
+<span class='kw'>wrd</span> <span class='op'>&lt;-</span> <span class='fu'><a href='GetNewWrd.html'>GetNewWrd</a></span>()
+<span class='fu'>WrdText</span>(<span class='st'>"a)\n\n\nb)"</span>, fontname=<span class='fu'>WrdGetFont</span>()<span class='op'>$</span><span class='kw'>name</span>, fontsize=<span class='fu'>WrdGetFont</span>()<span class='op'>$</span><span class='kw'>size</span>)
+</div><div class='output co'>#&gt; <span class='error'>Error in WrdText("a)\n\n\nb)", fontname = WrdGetFont()$name, fontsize = WrdGetFont()$size): could not find function "WrdText"</span></div><div class='input'><span class='fu'>WrdInsertBookmark</span>(<span class='st'>"chap_b"</span>)
+</div><div class='output co'>#&gt; <span class='error'>Error in wrdBookmarks$Add(name): attempt to apply non-function</span></div><div class='input'><span class='fu'>WrdText</span>(<span class='st'>"\n\n\nc)\n\n\n"</span>, fontname=<span class='fu'>WrdGetFont</span>()<span class='op'>$</span><span class='kw'>name</span>, fontsize=<span class='fu'>WrdGetFont</span>()<span class='op'>$</span><span class='kw'>size</span>)
+</div><div class='output co'>#&gt; <span class='error'>Error in WrdText("\n\n\nc)\n\n\n", fontname = WrdGetFont()$name, fontsize = WrdGetFont()$size): could not find function "WrdText"</span></div><div class='input'>
+<span class='fu'>WrdGoto</span>(<span class='st'>"chap_b"</span>)
+</div><div class='output co'>#&gt; <span class='error'>Error in wrdBookmarks$exists(name): attempt to apply non-function</span></div><div class='input'><span class='fu'>WrdUpdateBookmark</span>(<span class='st'>"chap_b"</span>, <span class='st'>"Goto chapter B and set text"</span>)
+</div><div class='output co'>#&gt; <span class='error'>Error in wrdSel$GoTo(What = what, Name = name): attempt to apply non-function</span></div><div class='input'>
+<span class='fu'>WrdInsertBookmark</span>(<span class='st'>"mybookmark"</span>)
+</div><div class='output co'>#&gt; <span class='error'>Error in wrdBookmarks$Add(name): attempt to apply non-function</span></div><div class='input'><span class='fu'><a href='ToWrd.html'>ToWrd</a></span>(<span class='st'>"A longer text\n\n\n"</span>)
+</div><div class='output co'>#&gt; <span class='error'>Error in wrd[["Selection"]]$InsertAfter(paste(x, collapse = "\n")): attempt to apply non-function</span></div><div class='input'>
 <span class='co'># Now returning the bookmark</span>
-<span class='no'>bm</span> <span class='kw'>&lt;-</span> <span class='fu'>WrdBookmark</span>(<span class='st'>"mybookmark"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in wbms$count(): attempt to apply non-function</span></div><div class='input'>
+<span class='kw'>bm</span> <span class='op'>&lt;-</span> <span class='fu'>WrdBookmark</span>(<span class='st'>"mybookmark"</span>)
+</div><div class='output co'>#&gt; <span class='error'>Error in wbms$count(): attempt to apply non-function</span></div><div class='input'>
 <span class='co'># get the automatically created name of the bookmark</span>
-<span class='no'>bm</span>$<span class='fu'><a href='https://rdrr.io/r/base/name.html'>name</a></span>()</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'bm' not found</span></div></pre>
+<span class='kw'>bm</span><span class='op'>$</span><span class='fu'><a href='https://rdrr.io/r/base/name.html'>name</a></span>()
+</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'bm' not found</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -210,7 +223,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

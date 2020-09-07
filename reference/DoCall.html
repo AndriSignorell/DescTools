@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Fast Alternative To The Internal <code>do.call</code> — DoCall • DescTools</title>
+<title>Fast Alternative To The Internal do.call — DoCall • DescTools</title>
 
 
 <!-- jquery -->
@@ -41,7 +41,7 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Fast Alternative To The Internal <code>do.call</code> — DoCall" />
+<meta property="og:title" content="Fast Alternative To The Internal do.call — DoCall" />
 <meta property="og:description" content="The do.call can be somewhat slow,
 especially when working with large objects. This function
 is based upon the suggestions from Hadley Wickham on the R
@@ -147,14 +147,14 @@ further enhancing the function." />
 especially when working with large objects. This function
 is based upon the suggestions from Hadley Wickham on the R
 mailing list, see
-<a href='http://r.789695.n4.nabble.com/call-do-call-expression-too-big-td3574335.html'>here</a>.
+<a href='https://r.789695.n4.nabble.com/call-do-call-expression-too-big-td3574335.html'>here</a>.
 Also thanks to <em>Tommy</em> at StackOverflow for
-<a href='http://stackoverflow.com/questions/10022436/do-call-in-combination-with'>suggesting</a>
-how to handle double and triple colon operators, <code>::</code>,
+<a href='https://stackoverflow.com/questions/10022436/do-call-in-combination-with'>suggesting</a>
+how to handle double and triple colon operators, <code><a href='https://rdrr.io/r/base/ns-dblcolon.html'>::</a></code>,
 further enhancing the function.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>DoCall</span>(<span class='no'>what</span>, <span class='no'>args</span>, <span class='kw'>quote</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>())</pre>
+    <pre class="usage"><span class='fu'>DoCall</span>(<span class='kw'>what</span>, <span class='kw'>args</span>, quote = <span class='fl'>FALSE</span>, envir = <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>())</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -184,6 +184,9 @@ further enhancing the function.</p>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Max Gordon &lt;max@gforge.se&gt;</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>While the function attempts to do most of what
@@ -199,20 +202,33 @@ further enhancing the function.</p>
     <p>This is a verbatim copy from <code>Gmisc::fastDoCall.</code></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>DoCall</span>(<span class='st'>"complex"</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>imaginary</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>))</div><div class='output co'>#&gt; [1] 0+1i 0+2i 0+3i</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>DoCall</span>(<span class='st'>"complex"</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(imaginary = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>))
+</div><div class='output co'>#&gt; [1] 0+1i 0+2i 0+3i</div><div class='input'>
 <span class='co'>## if we already have a list (e.g. a data frame)</span>
 <span class='co'>## we need c() to add further arguments</span>
-<span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>2</span>], <span class='fl'>1</span>:<span class='fl'>3</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"+"</span>, <span class='st'>"-"</span>))
-<span class='fu'>DoCall</span>(<span class='st'>"paste"</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>tmp</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>""</span>))</div><div class='output co'>#&gt;  [1] "a1+" "b1+" "a2+" "b2+" "a3+" "b3+" "a1-" "b1-" "a2-" "b2-" "a3-" "b3-"</div><div class='input'>
+<span class='kw'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span>(<span class='kw'>letters</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>], <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"+"</span>, <span class='st'>"-"</span>))
+<span class='fu'>DoCall</span>(<span class='st'>"paste"</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>tmp</span>, sep = <span class='st'>""</span>))
+</div><div class='output co'>#&gt;  [1] "a1+" "b1+" "a2+" "b2+" "a3+" "b3+" "a1-" "b1-" "a2-" "b2-" "a3-" "b3-"</div><div class='input'>
 <span class='co'>## examples of where objects will be found.</span>
-<span class='no'>A</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>
-<span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>^<span class='fl'>2</span>)
-<span class='no'>env</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>new.env</a></span>()
-<span class='fu'><a href='https://rdrr.io/r/base/assign.html'>assign</a></span>(<span class='st'>"A"</span>, <span class='fl'>10</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='no'>env</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/assign.html'>assign</a></span>(<span class='st'>"f"</span>, <span class='no'>f</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='no'>env</span>)
-<span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>)
-<span class='fu'>f</span>(<span class='no'>A</span>)                                         <span class='co'># 2</span></div><div class='output co'>#&gt; [1] 2</div><div class='input'><span class='fu'>DoCall</span>(<span class='st'>"f"</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>A</span>))                         <span class='co'># 2</span></div><div class='output co'>#&gt; [1] 2</div><div class='input'><span class='fu'>DoCall</span>(<span class='st'>"f"</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>A</span>), <span class='kw'>envir</span> <span class='kw'>=</span> <span class='no'>env</span>)            <span class='co'># 4</span></div><div class='output co'>#&gt; [1] 4</div><div class='input'><span class='fu'>DoCall</span>(<span class='no'>f</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>A</span>), <span class='kw'>envir</span> <span class='kw'>=</span> <span class='no'>env</span>)              <span class='co'># 2</span></div><div class='output co'>#&gt; [1] 2</div><div class='input'><span class='fu'>DoCall</span>(<span class='st'>"f"</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>quote</a></span>(<span class='no'>A</span>)), <span class='kw'>envir</span> <span class='kw'>=</span> <span class='no'>env</span>)     <span class='co'># 100</span></div><div class='output co'>#&gt; [1] 100</div><div class='input'><span class='fu'>DoCall</span>(<span class='no'>f</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>quote</a></span>(<span class='no'>A</span>)), <span class='kw'>envir</span> <span class='kw'>=</span> <span class='no'>env</span>)       <span class='co'># 10</span></div><div class='output co'>#&gt; [1] 10</div><div class='input'><span class='fu'>DoCall</span>(<span class='st'>"f"</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/name.html'>as.name</a></span>(<span class='st'>"A"</span>)), <span class='kw'>envir</span> <span class='kw'>=</span> <span class='no'>env</span>) <span class='co'># 100</span></div><div class='output co'>#&gt; [1] 100</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/call.html'>call</a></span>(<span class='st'>"f"</span>, <span class='no'>A</span>))                           <span class='co'># 2</span></div><div class='output co'>#&gt; [1] 2</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/call.html'>call</a></span>(<span class='st'>"f"</span>, <span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>quote</a></span>(<span class='no'>A</span>)))                    <span class='co'># 2</span></div><div class='output co'>#&gt; [1] 2</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/call.html'>call</a></span>(<span class='st'>"f"</span>, <span class='no'>A</span>), <span class='kw'>envir</span> <span class='kw'>=</span> <span class='no'>env</span>)              <span class='co'># 4</span></div><div class='output co'>#&gt; [1] 4</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/call.html'>call</a></span>(<span class='st'>"f"</span>, <span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>quote</a></span>(<span class='no'>A</span>)), <span class='kw'>envir</span> <span class='kw'>=</span> <span class='no'>env</span>)       <span class='co'># 100</span></div><div class='output co'>#&gt; [1] 100</div></pre>
+<span class='kw'>A</span> <span class='op'>&lt;-</span> <span class='fl'>2</span>
+<span class='kw'>f</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>x</span>) <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>x</span><span class='op'>^</span><span class='fl'>2</span>)
+<span class='kw'>env</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>new.env</a></span>()
+<span class='fu'><a href='https://rdrr.io/r/base/assign.html'>assign</a></span>(<span class='st'>"A"</span>, <span class='fl'>10</span>, envir = <span class='kw'>env</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/assign.html'>assign</a></span>(<span class='st'>"f"</span>, <span class='kw'>f</span>, envir = <span class='kw'>env</span>)
+<span class='kw'>f</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>x</span>) <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>x</span>)
+<span class='fu'>f</span>(<span class='kw'>A</span>)                                         <span class='co'># 2</span>
+</div><div class='output co'>#&gt; [1] 2</div><div class='input'><span class='fu'>DoCall</span>(<span class='st'>"f"</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>A</span>))                         <span class='co'># 2</span>
+</div><div class='output co'>#&gt; [1] 2</div><div class='input'><span class='fu'>DoCall</span>(<span class='st'>"f"</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>A</span>), envir = <span class='kw'>env</span>)            <span class='co'># 4</span>
+</div><div class='output co'>#&gt; [1] 4</div><div class='input'><span class='fu'>DoCall</span>(<span class='kw'>f</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>A</span>), envir = <span class='kw'>env</span>)              <span class='co'># 2</span>
+</div><div class='output co'>#&gt; [1] 2</div><div class='input'><span class='fu'>DoCall</span>(<span class='st'>"f"</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>quote</a></span>(<span class='kw'>A</span>)), envir = <span class='kw'>env</span>)     <span class='co'># 100</span>
+</div><div class='output co'>#&gt; [1] 100</div><div class='input'><span class='fu'>DoCall</span>(<span class='kw'>f</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>quote</a></span>(<span class='kw'>A</span>)), envir = <span class='kw'>env</span>)       <span class='co'># 10</span>
+</div><div class='output co'>#&gt; [1] 10</div><div class='input'><span class='fu'>DoCall</span>(<span class='st'>"f"</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/name.html'>as.name</a></span>(<span class='st'>"A"</span>)), envir = <span class='kw'>env</span>) <span class='co'># 100</span>
+</div><div class='output co'>#&gt; [1] 100</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/call.html'>call</a></span>(<span class='st'>"f"</span>, <span class='kw'>A</span>))                           <span class='co'># 2</span>
+</div><div class='output co'>#&gt; [1] 2</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/call.html'>call</a></span>(<span class='st'>"f"</span>, <span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>quote</a></span>(<span class='kw'>A</span>)))                    <span class='co'># 2</span>
+</div><div class='output co'>#&gt; [1] 2</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/call.html'>call</a></span>(<span class='st'>"f"</span>, <span class='kw'>A</span>), envir = <span class='kw'>env</span>)              <span class='co'># 4</span>
+</div><div class='output co'>#&gt; [1] 4</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/call.html'>call</a></span>(<span class='st'>"f"</span>, <span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>quote</a></span>(<span class='kw'>A</span>)), envir = <span class='kw'>env</span>)       <span class='co'># 100</span>
+</div><div class='output co'>#&gt; [1] 100</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -228,7 +244,7 @@ further enhancing the function.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

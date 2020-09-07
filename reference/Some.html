@@ -138,13 +138,13 @@
     <p>For displaying the first and last elements of an object there are the functions <code>head</code> and <code>tail</code>. Sometimes one might want to see more randomly scattered elements. This function returns some random parts of a vector, matrix or a data frame. The order of the elements within the object will be preserved.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>Some</span>(<span class='no'>x</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>6L</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>Some</span>(<span class='kw'>x</span>, n = <span class='fl'>6L</span>, <span class='kw'>...</span>)
 <span class='co'># S3 method for default</span>
-<span class='fu'>Some</span>(<span class='no'>x</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>6L</span>, <span class='no'>...</span>)
+<span class='fu'>Some</span>(<span class='kw'>x</span>, n = <span class='fl'>6L</span>, <span class='kw'>...</span>)
 <span class='co'># S3 method for data.frame</span>
-<span class='fu'>Some</span>(<span class='no'>x</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>6L</span>, <span class='no'>...</span>)
+<span class='fu'>Some</span>(<span class='kw'>x</span>, n = <span class='fl'>6L</span>, <span class='kw'>...</span>)
 <span class='co'># S3 method for matrix</span>
-<span class='fu'>Some</span>(<span class='no'>x</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>6L</span>, <span class='kw'>addrownums</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>Some</span>(<span class='kw'>x</span>, n = <span class='fl'>6L</span>, addrownums = <span class='fl'>TRUE</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -184,14 +184,20 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>An object (usually) like <code>x</code> but generally smaller.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell, basically copying and just slightly modifying Patrick Burns and R-Core code.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/utils/head.html'>head</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>Some</span>(<span class='no'>letters</span>)</div><div class='output co'>#&gt; [1] "j" "n" "s" "u" "v" "y"</div><div class='input'><span class='fu'>Some</span>(<span class='no'>letters</span>, <span class='kw'>n</span> <span class='kw'>=</span> -<span class='fl'>6L</span>)</div><div class='output co'>#&gt;  [1] "c" "d" "f" "g" "h" "i" "j" "k" "l" "n" "p" "q" "r" "s" "t" "v" "w" "x" "y"
+    <pre class="examples"><div class='input'><span class='fu'>Some</span>(<span class='kw'>letters</span>)
+</div><div class='output co'>#&gt; [1] "j" "n" "s" "u" "v" "y"</div><div class='input'><span class='fu'>Some</span>(<span class='kw'>letters</span>, n = <span class='op'>-</span><span class='fl'>6L</span>)
+</div><div class='output co'>#&gt;  [1] "c" "d" "f" "g" "h" "i" "j" "k" "l" "n" "p" "q" "r" "s" "t" "v" "w" "x" "y"
 #&gt; [20] "z"</div><div class='input'>
-<span class='fu'>Some</span>(<span class='no'>freeny.x</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10L</span>)</div><div class='output co'>#&gt;       lag quarterly revenue price index income level market potential
+<span class='fu'>Some</span>(<span class='kw'>freeny.x</span>, n = <span class='fl'>10L</span>)
+</div><div class='output co'>#&gt;       lag quarterly revenue price index income level market potential
 #&gt;  [1,]               8.79636     4.70997      5.82110          12.9699
 #&gt;  [2,]               8.79236     4.70217      5.82558          12.9733
 #&gt;  [3,]               8.79137     4.68944      5.83112          12.9774
@@ -230,7 +236,8 @@
 #&gt; [36,]               9.68683     4.30552      6.18231          13.1593
 #&gt; [37,]               9.71774     4.29627      6.18768          13.1579
 #&gt; [38,]               9.74924     4.27839      6.19377          13.1625
-#&gt; [39,]               9.77536     4.27789      6.20030          13.1664</div><div class='input'><span class='fu'>Some</span>(<span class='no'>freeny.y</span>)</div><div class='output co'>#&gt; [1] 8.79137 9.10698 9.23823 9.39767 9.53980 9.64390</div></pre>
+#&gt; [39,]               9.77536     4.27789      6.20030          13.1664</div><div class='input'><span class='fu'>Some</span>(<span class='kw'>freeny.y</span>)
+</div><div class='output co'>#&gt; [1] 8.79137 9.10698 9.23823 9.39767 9.53980 9.64390</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -246,7 +253,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

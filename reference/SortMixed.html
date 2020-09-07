@@ -149,13 +149,13 @@
   that "a", will come before "B" and "C".</p>
     </div>
 
-    <pre class="usage"><span class='fu'>SortMixed</span>(<span class='no'>x</span>, <span class='kw'>decreasing</span><span class='kw'>=</span><span class='fl'>FALSE</span>, <span class='kw'>na.last</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>blank.last</span><span class='kw'>=</span><span class='fl'>FALSE</span>,
-          <span class='kw'>numeric.type</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"decimal"</span>, <span class='st'>"roman"</span>),
-          <span class='kw'>roman.case</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"upper"</span>,<span class='st'>"lower"</span>,<span class='st'>"both"</span>) )
+    <pre class="usage"><span class='fu'>SortMixed</span>(<span class='kw'>x</span>, decreasing=<span class='fl'>FALSE</span>, na.last=<span class='fl'>TRUE</span>, blank.last=<span class='fl'>FALSE</span>,
+          numeric.type=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"decimal"</span>, <span class='st'>"roman"</span>),
+          roman.case=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"upper"</span>,<span class='st'>"lower"</span>,<span class='st'>"both"</span>) )
 
-<span class='fu'>OrderMixed</span>(<span class='no'>x</span>, <span class='kw'>decreasing</span><span class='kw'>=</span><span class='fl'>FALSE</span>, <span class='kw'>na.last</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>blank.last</span><span class='kw'>=</span><span class='fl'>FALSE</span>,
-          <span class='kw'>numeric.type</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"decimal"</span>, <span class='st'>"roman"</span>),
-          <span class='kw'>roman.case</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"upper"</span>,<span class='st'>"lower"</span>,<span class='st'>"both"</span>) )</pre>
+<span class='fu'>OrderMixed</span>(<span class='kw'>x</span>, decreasing=<span class='fl'>FALSE</span>, na.last=<span class='fl'>TRUE</span>, blank.last=<span class='fl'>FALSE</span>,
+          numeric.type=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"decimal"</span>, <span class='st'>"roman"</span>),
+          roman.case=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"upper"</span>,<span class='st'>"lower"</span>,<span class='st'>"both"</span>) )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -217,69 +217,85 @@
 
     <p><code>OrderMixed</code> returns a vector giving the sort order of the input
   elements. <code>SortMixed</code> returns the sorted vector.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Gregory R. Warnes <a href='mailto:greg@warnes.net'>greg@warnes.net</a></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/sort.html'>sort</a></code>, <code><a href='https://rdrr.io/r/base/order.html'>order</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## compound &amp; dose labels</span>
-<span class='no'>Treatment</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Control"</span>, <span class='st'>"Asprin 10mg/day"</span>, <span class='st'>"Asprin 50mg/day"</span>,
+<span class='kw'>Treatment</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Control"</span>, <span class='st'>"Asprin 10mg/day"</span>, <span class='st'>"Asprin 50mg/day"</span>,
                <span class='st'>"Asprin 100mg/day"</span>, <span class='st'>"Acetomycin 100mg/day"</span>,
                <span class='st'>"Acetomycin 1000mg/day"</span>)
 
 <span class='co'>## ordinary sort puts the dosages in the wrong order</span>
-<span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span>(<span class='no'>Treatment</span>)</div><div class='output co'>#&gt; [1] "Acetomycin 1000mg/day" "Acetomycin 100mg/day"  "Asprin 100mg/day"     
+<span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span>(<span class='kw'>Treatment</span>)
+</div><div class='output co'>#&gt; [1] "Acetomycin 1000mg/day" "Acetomycin 100mg/day"  "Asprin 100mg/day"     
 #&gt; [4] "Asprin 10mg/day"       "Asprin 50mg/day"       "Control"              </div><div class='input'>
 <span class='co'>## but SortMixed does the 'right' thing</span>
-<span class='fu'>SortMixed</span>(<span class='no'>Treatment</span>)</div><div class='output co'>#&gt; [1] "Acetomycin 100mg/day"  "Acetomycin 1000mg/day" "Asprin 10mg/day"      
+<span class='fu'>SortMixed</span>(<span class='kw'>Treatment</span>)
+</div><div class='output co'>#&gt; [1] "Acetomycin 100mg/day"  "Acetomycin 1000mg/day" "Asprin 10mg/day"      
 #&gt; [4] "Asprin 50mg/day"       "Asprin 100mg/day"      "Control"              </div><div class='input'>
 <span class='co'>## Here is a more complex example</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rev.html'>rev</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"AA 0.50 ml"</span>, <span class='st'>"AA 1.5 ml"</span>, <span class='st'>"AA 500 ml"</span>, <span class='st'>"AA 1500 ml"</span>,
+<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rev.html'>rev</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"AA 0.50 ml"</span>, <span class='st'>"AA 1.5 ml"</span>, <span class='st'>"AA 500 ml"</span>, <span class='st'>"AA 1500 ml"</span>,
            <span class='st'>"EXP 1"</span>, <span class='st'>"AA 1e3 ml"</span>, <span class='st'>"A A A"</span>, <span class='st'>"1 2 3 A"</span>, <span class='st'>"NA"</span>, <span class='fl'>NA</span>, <span class='st'>"1e2"</span>,
            <span class='st'>""</span>, <span class='st'>"-"</span>, <span class='st'>"1A"</span>, <span class='st'>"1 A"</span>, <span class='st'>"100"</span>, <span class='st'>"100A"</span>, <span class='st'>"Inf"</span>))
 
-<span class='fu'>OrderMixed</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt;  [1]  7 11  4  5  3  8  2  1  6 12 18 17 16 13 15 14 10  9</div><div class='input'>
-<span class='fu'>SortMixed</span>(<span class='no'>x</span>)  <span class='co'># Notice that plain numbers, including 'Inf' show up</span></div><div class='output co'>#&gt;  [1] ""           "1 2 3 A"    "1 A"        "1A"         "100"       
+<span class='fu'>OrderMixed</span>(<span class='kw'>x</span>)
+</div><div class='output co'>#&gt;  [1]  7 11  4  5  3  8  2  1  6 12 18 17 16 13 15 14 10  9</div><div class='input'>
+<span class='fu'>SortMixed</span>(<span class='kw'>x</span>)  <span class='co'># Notice that plain numbers, including 'Inf' show up</span>
+</div><div class='output co'>#&gt;  [1] ""           "1 2 3 A"    "1 A"        "1A"         "100"       
 #&gt;  [6] "1e2"        "100A"       "Inf"        "-"          "A A A"     
 #&gt; [11] "AA 0.50 ml" "AA 1.5 ml"  "AA 500 ml"  "AA 1e3 ml"  "AA 1500 ml"
 #&gt; [16] "EXP 1"      "NA"         NA          </div><div class='input'>              <span class='co'># before strings, NAs at the end, and blanks at the</span>
               <span class='co'># beginning .</span>
 
 
-<span class='fu'>SortMixed</span>(<span class='no'>x</span>, <span class='kw'>na.last</span><span class='kw'>=</span><span class='fl'>TRUE</span>)  <span class='co'># default</span></div><div class='output co'>#&gt;  [1] ""           "1 2 3 A"    "1 A"        "1A"         "100"       
+<span class='fu'>SortMixed</span>(<span class='kw'>x</span>, na.last=<span class='fl'>TRUE</span>)  <span class='co'># default</span>
+</div><div class='output co'>#&gt;  [1] ""           "1 2 3 A"    "1 A"        "1A"         "100"       
 #&gt;  [6] "1e2"        "100A"       "Inf"        "-"          "A A A"     
 #&gt; [11] "AA 0.50 ml" "AA 1.5 ml"  "AA 500 ml"  "AA 1e3 ml"  "AA 1500 ml"
-#&gt; [16] "EXP 1"      "NA"         NA          </div><div class='input'><span class='fu'>SortMixed</span>(<span class='no'>x</span>, <span class='kw'>na.last</span><span class='kw'>=</span><span class='fl'>FALSE</span>) <span class='co'># push NAs to the front</span></div><div class='output co'>#&gt;  [1] NA           ""           "1 2 3 A"    "1 A"        "1A"        
+#&gt; [16] "EXP 1"      "NA"         NA          </div><div class='input'><span class='fu'>SortMixed</span>(<span class='kw'>x</span>, na.last=<span class='fl'>FALSE</span>) <span class='co'># push NAs to the front</span>
+</div><div class='output co'>#&gt;  [1] NA           ""           "1 2 3 A"    "1 A"        "1A"        
 #&gt;  [6] "100"        "1e2"        "100A"       "Inf"        "-"         
 #&gt; [11] "A A A"      "AA 0.50 ml" "AA 1.5 ml"  "AA 500 ml"  "AA 1e3 ml" 
 #&gt; [16] "AA 1500 ml" "EXP 1"      "NA"        </div><div class='input'>
 
-<span class='fu'>SortMixed</span>(<span class='no'>x</span>, <span class='kw'>blank.last</span><span class='kw'>=</span><span class='fl'>FALSE</span>) <span class='co'># default</span></div><div class='output co'>#&gt;  [1] ""           "1 2 3 A"    "1 A"        "1A"         "100"       
+<span class='fu'>SortMixed</span>(<span class='kw'>x</span>, blank.last=<span class='fl'>FALSE</span>) <span class='co'># default</span>
+</div><div class='output co'>#&gt;  [1] ""           "1 2 3 A"    "1 A"        "1A"         "100"       
 #&gt;  [6] "1e2"        "100A"       "Inf"        "-"          "A A A"     
 #&gt; [11] "AA 0.50 ml" "AA 1.5 ml"  "AA 500 ml"  "AA 1e3 ml"  "AA 1500 ml"
-#&gt; [16] "EXP 1"      "NA"         NA          </div><div class='input'><span class='fu'>SortMixed</span>(<span class='no'>x</span>, <span class='kw'>blank.last</span><span class='kw'>=</span><span class='fl'>TRUE</span>)  <span class='co'># push blanks to the end</span></div><div class='output co'>#&gt;  [1] "1 2 3 A"    "1 A"        "1A"         "100"        "1e2"       
+#&gt; [16] "EXP 1"      "NA"         NA          </div><div class='input'><span class='fu'>SortMixed</span>(<span class='kw'>x</span>, blank.last=<span class='fl'>TRUE</span>)  <span class='co'># push blanks to the end</span>
+</div><div class='output co'>#&gt;  [1] "1 2 3 A"    "1 A"        "1A"         "100"        "1e2"       
 #&gt;  [6] "100A"       "Inf"        "-"          "A A A"      "AA 0.50 ml"
 #&gt; [11] "AA 1.5 ml"  "AA 500 ml"  "AA 1e3 ml"  "AA 1500 ml" "EXP 1"     
 #&gt; [16] "NA"         ""           NA          </div><div class='input'>
-<span class='fu'>SortMixed</span>(<span class='no'>x</span>, <span class='kw'>decreasing</span><span class='kw'>=</span><span class='fl'>FALSE</span>) <span class='co'># default</span></div><div class='output co'>#&gt;  [1] ""           "1 2 3 A"    "1 A"        "1A"         "100"       
+<span class='fu'>SortMixed</span>(<span class='kw'>x</span>, decreasing=<span class='fl'>FALSE</span>) <span class='co'># default</span>
+</div><div class='output co'>#&gt;  [1] ""           "1 2 3 A"    "1 A"        "1A"         "100"       
 #&gt;  [6] "1e2"        "100A"       "Inf"        "-"          "A A A"     
 #&gt; [11] "AA 0.50 ml" "AA 1.5 ml"  "AA 500 ml"  "AA 1e3 ml"  "AA 1500 ml"
-#&gt; [16] "EXP 1"      "NA"         NA          </div><div class='input'><span class='fu'>SortMixed</span>(<span class='no'>x</span>, <span class='kw'>decreasing</span><span class='kw'>=</span><span class='fl'>TRUE</span>)  <span class='co'># reverse sort order</span></div><div class='output co'>#&gt;  [1] NA           "NA"         "EXP 1"      "AA 1500 ml" "AA 1e3 ml" 
+#&gt; [16] "EXP 1"      "NA"         NA          </div><div class='input'><span class='fu'>SortMixed</span>(<span class='kw'>x</span>, decreasing=<span class='fl'>TRUE</span>)  <span class='co'># reverse sort order</span>
+</div><div class='output co'>#&gt;  [1] NA           "NA"         "EXP 1"      "AA 1500 ml" "AA 1e3 ml" 
 #&gt;  [6] "AA 500 ml"  "AA 1.5 ml"  "AA 0.50 ml" "A A A"      "-"         
 #&gt; [11] "Inf"        "100A"       "1e2"        "100"        "1A"        
 #&gt; [16] "1 A"        "1 2 3 A"    ""          </div><div class='input'>
 <span class='co'>## Roman numerals</span>
-<span class='no'>chapters</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"V. Non Sequiturs"</span>, <span class='st'>"II. More Nonsense"</span>,
+<span class='kw'>chapters</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"V. Non Sequiturs"</span>, <span class='st'>"II. More Nonsense"</span>,
               <span class='st'>"I. Nonsense"</span>, <span class='st'>"IV. Nonesensical Citations"</span>,
               <span class='st'>"III. Utter Nonsense"</span>)
-<span class='fu'>SortMixed</span>(<span class='no'>chapters</span>, <span class='kw'>numeric.type</span><span class='kw'>=</span><span class='st'>"roman"</span> )</div><div class='output co'>#&gt; [1] "I. Nonsense"                "II. More Nonsense"         
+<span class='fu'>SortMixed</span>(<span class='kw'>chapters</span>, numeric.type=<span class='st'>"roman"</span> )
+</div><div class='output co'>#&gt; [1] "I. Nonsense"                "II. More Nonsense"         
 #&gt; [3] "III. Utter Nonsense"        "IV. Nonesensical Citations"
 #&gt; [5] "V. Non Sequiturs"          </div><div class='input'>
 <span class='co'>## Lower-case Roman numerals</span>
-<span class='no'>vals</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"xix"</span>, <span class='st'>"xii"</span>, <span class='st'>"mcv"</span>, <span class='st'>"iii"</span>, <span class='st'>"iv"</span>, <span class='st'>"dcclxxii"</span>,   <span class='st'>"cdxcii"</span>,
+<span class='kw'>vals</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"xix"</span>, <span class='st'>"xii"</span>, <span class='st'>"mcv"</span>, <span class='st'>"iii"</span>, <span class='st'>"iv"</span>, <span class='st'>"dcclxxii"</span>,   <span class='st'>"cdxcii"</span>,
           <span class='st'>"dcxcviii"</span>,   <span class='st'>"dcvi"</span>,   <span class='st'>"cci"</span>)
-(<span class='no'>ordered</span> <span class='kw'>&lt;-</span> <span class='fu'>SortMixed</span>(<span class='no'>vals</span>, <span class='kw'>numeric.type</span><span class='kw'>=</span><span class='st'>"roman"</span>, <span class='kw'>roman.case</span><span class='kw'>=</span><span class='st'>"lower"</span>))</div><div class='output co'>#&gt;  [1] "cci"      "cdxcii"   "dcclxxii" "dcvi"     "dcxcviii" "iii"     
-#&gt;  [7] "iv"       "mcv"      "xii"      "xix"     </div><div class='input'><span class='fu'><a href='RomanToInt.html'>RomanToInt</a></span>(<span class='no'>ordered</span>)</div><div class='output co'>#&gt;      CCI   CDXCII DCCLXXII     DCVI DCXCVIII      III       IV      MCV 
+(<span class='kw'>ordered</span> <span class='op'>&lt;-</span> <span class='fu'>SortMixed</span>(<span class='kw'>vals</span>, numeric.type=<span class='st'>"roman"</span>, roman.case=<span class='st'>"lower"</span>))
+</div><div class='output co'>#&gt;  [1] "cci"      "cdxcii"   "dcclxxii" "dcvi"     "dcxcviii" "iii"     
+#&gt;  [7] "iv"       "mcv"      "xii"      "xix"     </div><div class='input'><span class='fu'><a href='RomanToInt.html'>RomanToInt</a></span>(<span class='kw'>ordered</span>)
+</div><div class='output co'>#&gt;      CCI   CDXCII DCCLXXII     DCVI DCXCVIII      III       IV      MCV 
 #&gt;       NA       NA       NA       NA       NA       NA       NA       NA 
 #&gt;      XII      XIX 
 #&gt;       NA       NA </div></pre>
@@ -298,7 +314,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

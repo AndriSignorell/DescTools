@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Split Path In Drive, Path, Filename
-<!-- %%  ~~function to do ... ~~ --> — SplitPath • DescTools</title>
+ — SplitPath • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Split Path In Drive, Path, Filename
-<!-- %%  ~~function to do ... ~~ --> — SplitPath" />
+ — SplitPath" />
 <meta property="og:description" content="Split a full path in its components. This is specifically an issue in Windows and not really interesting for other OSs.
 " />
 
@@ -143,7 +143,7 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>SplitPath</span>(<span class='no'>path</span>, <span class='kw'>last.is.file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>SplitPath</span>(<span class='kw'>path</span>, last.is.file = <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -169,17 +169,23 @@
   <dt>filename</dt><dd><p>the filename without extension</p></dd>
   <dt>extension</dt><dd><p>the file extension</p></dd>
 
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;
+<!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/basename.html'>dirname</a></code>, <code><a href='https://rdrr.io/r/base/basename.html'>basename</a></code>
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>)  <span class='co'># Windows-specific example</span>
-<span class='no'>path</span> <span class='kw'>&lt;-</span> <span class='st'>"C:/Documents/Projects/Import/eyestudy.dta"</span>
-<span class='fu'>SplitPath</span>(<span class='no'>path</span>)</div><div class='output co'>#&gt; <span class='error'>Error in grep(pattern = "[/\\]$", path): object 'path' not found</span></div><div class='input'>
-<span class='no'>path</span> <span class='kw'>&lt;-</span> <span class='st'>"C:/Documents/Projects/Import/"</span>
-<span class='fu'>SplitPath</span>(<span class='no'>path</span>)</div><div class='output co'>#&gt; $normpath
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>)  <span class='co'># Windows-specific example</span>
+<span class='kw'>path</span> <span class='op'>&lt;-</span> <span class='st'>"C:/Documents/Projects/Import/eyestudy.dta"</span>
+<span class='fu'>SplitPath</span>(<span class='kw'>path</span>)
+</div><div class='output co'>#&gt; <span class='error'>Error in grep(pattern = "[/\\]$", path): object 'path' not found</span></div><div class='input'>
+<span class='kw'>path</span> <span class='op'>&lt;-</span> <span class='st'>"C:/Documents/Projects/Import/"</span>
+<span class='fu'>SplitPath</span>(<span class='kw'>path</span>)
+</div><div class='output co'>#&gt; $normpath
 #&gt; [1] "C:/Documents/Projects/Import/"
 #&gt; 
 #&gt; $drive
@@ -200,8 +206,9 @@
 #&gt; $extension
 #&gt; [1] NA
 #&gt; </div><div class='input'>
-<span class='no'>path</span> <span class='kw'>&lt;-</span> <span class='st'>"C:/Documents/Projects/Import"</span>
-<span class='fu'>SplitPath</span>(<span class='no'>path</span>)  <span class='co'># last entry will be taken as filename</span></div><div class='output co'>#&gt; $normpath
+<span class='kw'>path</span> <span class='op'>&lt;-</span> <span class='st'>"C:/Documents/Projects/Import"</span>
+<span class='fu'>SplitPath</span>(<span class='kw'>path</span>)  <span class='co'># last entry will be taken as filename</span>
+</div><div class='output co'>#&gt; $normpath
 #&gt; [1] "C:/Documents/Projects/Import"
 #&gt; 
 #&gt; $drive
@@ -221,7 +228,8 @@
 #&gt; 
 #&gt; $extension
 #&gt; [1] NA
-#&gt; </div><div class='input'><span class='fu'>SplitPath</span>(<span class='no'>path</span>, <span class='kw'>last.is.file</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; $normpath
+#&gt; </div><div class='input'><span class='fu'>SplitPath</span>(<span class='kw'>path</span>, last.is.file=<span class='fl'>FALSE</span>)
+</div><div class='output co'>#&gt; $normpath
 #&gt; [1] "C:/Documents/Projects/Import"
 #&gt; 
 #&gt; $drive
@@ -258,7 +266,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

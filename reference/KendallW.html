@@ -138,7 +138,7 @@
     <p>Computes Kendall's coefficient of concordance,  a popular measure of association. It is  an index of interrater reliability of ordinal data. The coefficient could be corrected for ties within raters.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>KendallW</span>(<span class='no'>x</span>, <span class='kw'>correct</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>test</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>KendallW</span>(<span class='kw'>x</span>, correct = <span class='fl'>FALSE</span>, test = <span class='fl'>FALSE</span>, na.rm = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -185,18 +185,23 @@ integrated here without logical changes, but with some adaptations in the result
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Kendall, M.G. (1948) <em>Rank correlation methods</em>. London: Griffin.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Matthias Gamer &lt;m.gamer@uke.uni-hamburg.de&gt;</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/cor.html'>cor</a></code>, <code><a href='KappaM.html'>KappaM</a></code>, <code><a href='CronbachAlpha.html'>CronbachAlpha</a></code>, <code><a href='ICC.html'>ICC</a></code>, <code><a href='https://rdrr.io/r/stats/friedman.test.html'>friedman.test</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>anxiety</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>rater1</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>5</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>6</span>,<span class='fl'>1</span>,<span class='fl'>5</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>4</span>,<span class='fl'>3</span>),
-                      <span class='kw'>rater2</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>6</span>,<span class='fl'>4</span>,<span class='fl'>6</span>,<span class='fl'>2</span>,<span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>4</span>),
-                      <span class='kw'>rater3</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>6</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>2</span>))
+    <pre class="examples"><div class='input'><span class='kw'>anxiety</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(rater1=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>5</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>6</span>,<span class='fl'>1</span>,<span class='fl'>5</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>4</span>,<span class='fl'>3</span>),
+                      rater2=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>6</span>,<span class='fl'>4</span>,<span class='fl'>6</span>,<span class='fl'>2</span>,<span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>4</span>),
+                      rater3=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>6</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>2</span>))
 
-<span class='fu'>KendallW</span>(<span class='no'>anxiety</span>, <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] 0.5396569</div><div class='input'>
+<span class='fu'>KendallW</span>(<span class='kw'>anxiety</span>, <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; [1] 0.5396569</div><div class='input'>
 <span class='co'># with test results</span>
-<span class='fu'>KendallW</span>(<span class='no'>anxiety</span>, <span class='fl'>TRUE</span>, <span class='kw'>test</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>KendallW</span>(<span class='kw'>anxiety</span>, <span class='fl'>TRUE</span>, test=<span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; 
 #&gt; 	Kendall's coefficient of concordance Wt
 #&gt; 
 #&gt; data:  anxiety
@@ -208,19 +213,20 @@ integrated here without logical changes, but with some adaptations in the result
 #&gt; 0.5396569 
 #&gt; </div><div class='input'>
 <span class='co'># example from Siegel and Castellan (1988)</span>
-<span class='no'>d.att</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>id</span>        <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>,<span class='fl'>21</span>,<span class='fl'>11</span>),
-  <span class='kw'>airfare</span>   <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>,<span class='fl'>1</span>,<span class='fl'>4</span>),
-  <span class='kw'>climate</span>   <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>6</span>,<span class='fl'>7</span>,<span class='fl'>5</span>),
-  <span class='kw'>season</span>    <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>7</span>,<span class='fl'>6</span>,<span class='fl'>1</span>),
-  <span class='kw'>people</span>    <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>),
-  <span class='kw'>program</span>   <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>2</span>),
-  <span class='kw'>publicity</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>7</span>),
-  <span class='kw'>present</span>   <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>6</span>),
-  <span class='kw'>interest</span>  <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>8</span>,<span class='fl'>8</span>,<span class='fl'>8</span>)
+<span class='kw'>d.att</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+  id        = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>,<span class='fl'>21</span>,<span class='fl'>11</span>),
+  airfare   = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>,<span class='fl'>1</span>,<span class='fl'>4</span>),
+  climate   = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>6</span>,<span class='fl'>7</span>,<span class='fl'>5</span>),
+  season    = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>7</span>,<span class='fl'>6</span>,<span class='fl'>1</span>),
+  people    = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>),
+  program   = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>2</span>),
+  publicity = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>7</span>),
+  present   = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>6</span>),
+  interest  = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>8</span>,<span class='fl'>8</span>,<span class='fl'>8</span>)
 )
 
-<span class='fu'>KendallW</span>(<span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span>(<span class='no'>d.att</span>[, -<span class='fl'>1</span>]), <span class='kw'>test</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>KendallW</span>(<span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span>(<span class='kw'>d.att</span>[, <span class='op'>-</span><span class='fl'>1</span>]), test = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; 
 #&gt; 	Kendall's coefficient of concordance W
 #&gt; 
 #&gt; data:  t(d.att[, -1])
@@ -232,7 +238,8 @@ integrated here without logical changes, but with some adaptations in the result
 #&gt; 0.6560847 
 #&gt; </div><div class='input'>
 <span class='co'># which is perfectly the same as</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/friedman.test.html'>friedman.test</a></span>(<span class='kw'>y</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>d.att</span>[,-<span class='fl'>1</span>]), <span class='kw'>groups</span> <span class='kw'>=</span> <span class='no'>d.att</span>$<span class='no'>id</span>)</div><div class='output co'>#&gt; 
+<span class='fu'><a href='https://rdrr.io/r/stats/friedman.test.html'>friedman.test</a></span>(y=<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='kw'>d.att</span>[,<span class='op'>-</span><span class='fl'>1</span>]), groups = <span class='kw'>d.att</span><span class='op'>$</span><span class='kw'>id</span>)
+</div><div class='output co'>#&gt; 
 #&gt; 	Friedman rank sum test
 #&gt; 
 #&gt; data:  as.matrix(d.att[, -1])
@@ -253,7 +260,7 @@ integrated here without logical changes, but with some adaptations in the result
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

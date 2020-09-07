@@ -138,7 +138,7 @@
     <p>Returns for a vector or matrix of positive integers a logical object of the same dimension(s) containing <code>TRUE</code> for the elements that are prime and <code>FALSE</code> otherwise.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>IsPrime</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>IsPrime</span>(<span class='kw'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -156,13 +156,17 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>logical vector</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Hans W. Borchers &lt;hwborchers@googlemail.com&gt;</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='Factorize.html'>Factorize</a>, <a href='Primes.html'>Primes</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>nrow</span><span class='kw'>=</span><span class='fl'>10</span>, <span class='kw'>ncol</span><span class='kw'>=</span><span class='fl'>10</span>, <span class='kw'>byrow</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
-<span class='no'>x</span> * <span class='fu'>IsPrime</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt;       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+    <pre class="examples"><div class='input'><span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, nrow=<span class='fl'>10</span>, ncol=<span class='fl'>10</span>, byrow=<span class='fl'>TRUE</span>)
+<span class='kw'>x</span> <span class='op'>*</span> <span class='fu'>IsPrime</span>(<span class='kw'>x</span>)
+</div><div class='output co'>#&gt;       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
 #&gt;  [1,]    0    2    3    0    5    0    7    0    0     0
 #&gt;  [2,]    0    2    3    0    5    0    7    0    0     0
 #&gt;  [3,]    0    2    3    0    5    0    7    0    0     0
@@ -174,14 +178,15 @@
 #&gt;  [9,]    0    2    3    0    5    0    7    0    0     0
 #&gt; [10,]    0    2    3    0    5    0    7    0    0     0</div><div class='input'>
 <span class='co'># Find first prime number octett:</span>
-<span class='no'>octett</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>2</span>, <span class='fl'>6</span>, <span class='fl'>8</span>, <span class='fl'>30</span>, <span class='fl'>32</span>, <span class='fl'>36</span>, <span class='fl'>38</span>) - <span class='fl'>19</span>
-<span class='kw'>while</span> (<span class='fl'>TRUE</span>) {
-    <span class='no'>octett</span> <span class='kw'>&lt;-</span> <span class='no'>octett</span> + <span class='fl'>210</span>
-    <span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/all.html'>all</a></span>(<span class='fu'>IsPrime</span>(<span class='no'>octett</span>))) {
-        <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span>(<span class='no'>octett</span>, <span class='st'>"\n"</span>, <span class='kw'>sep</span><span class='kw'>=</span><span class='st'>"  "</span>)
-        <span class='kw'>break</span>
+<span class='kw'>octett</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>2</span>, <span class='fl'>6</span>, <span class='fl'>8</span>, <span class='fl'>30</span>, <span class='fl'>32</span>, <span class='fl'>36</span>, <span class='fl'>38</span>) <span class='op'>-</span> <span class='fl'>19</span>
+<span class='co'>while</span> (<span class='fl'>TRUE</span>) {
+    <span class='kw'>octett</span> <span class='op'>&lt;-</span> <span class='kw'>octett</span> <span class='op'>+</span> <span class='fl'>210</span>
+    <span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/all.html'>all</a></span>(<span class='fu'>IsPrime</span>(<span class='kw'>octett</span>))) {
+        <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span>(<span class='kw'>octett</span>, <span class='st'>"\n"</span>, sep=<span class='st'>"  "</span>)
+        <span class='co'>break</span>
     }
-}</div><div class='output co'>#&gt; 1006301  1006303  1006307  1006309  1006331  1006333  1006337  1006339  </div></pre>
+}
+</div><div class='output co'>#&gt; 1006301  1006303  1006307  1006309  1006331  1006333  1006337  1006339  </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -197,7 +202,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Use MS-Excel as Viewer for a Data.Frame
-<!-- %%  ~~function to do ... ~~ --> — XLView • DescTools</title>
+ — XLView • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Use MS-Excel as Viewer for a Data.Frame
-<!-- %%  ~~function to do ... ~~ --> — XLView" />
+ — XLView" />
 <meta property="og:description" content="XLView can be used to view and edit a data.frame directly in MS-Excel, resp. to create a new data.frame in MS-Excel.
 " />
 
@@ -143,16 +143,16 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>XLView</span>(<span class='no'>x</span>, <span class='kw'>col.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>""</span>,
-       <span class='kw'>preserveStrings</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>";"</span>)
+    <pre class="usage"><span class='fu'>XLView</span>(<span class='kw'>x</span>, col.names = <span class='fl'>TRUE</span>, row.names = <span class='fl'>FALSE</span>, na = <span class='st'>""</span>, 
+       preserveStrings = <span class='fl'>FALSE</span>, sep = <span class='st'>";"</span>)
 
-<span class='fu'>ToXL</span>(<span class='no'>x</span>, <span class='no'>at</span>, <span class='no'>...</span>, <span class='kw'>xl</span><span class='kw'>=</span><span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span>(<span class='st'>"lastXL"</span>))
+<span class='fu'>ToXL</span>(<span class='kw'>x</span>, <span class='kw'>at</span>, <span class='kw'>...</span>, xl=<span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span>(<span class='st'>"lastXL"</span>))
 <span class='co'># S3 method for data.frame</span>
-<span class='fu'>ToXL</span>(<span class='no'>x</span>, <span class='no'>at</span>, <span class='no'>...</span>, <span class='kw'>xl</span><span class='kw'>=</span><span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span>(<span class='st'>"lastXL"</span>))
+<span class='fu'>ToXL</span>(<span class='kw'>x</span>, <span class='kw'>at</span>, <span class='kw'>...</span>, xl=<span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span>(<span class='st'>"lastXL"</span>))
 <span class='co'># S3 method for matrix</span>
-<span class='fu'>ToXL</span>(<span class='no'>x</span>, <span class='no'>at</span>, <span class='no'>...</span>, <span class='kw'>xl</span><span class='kw'>=</span><span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span>(<span class='st'>"lastXL"</span>))
+<span class='fu'>ToXL</span>(<span class='kw'>x</span>, <span class='kw'>at</span>, <span class='kw'>...</span>, xl=<span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span>(<span class='st'>"lastXL"</span>))
 <span class='co'># S3 method for default</span>
-<span class='fu'>ToXL</span>(<span class='no'>x</span>, <span class='no'>at</span>, <span class='kw'>byrow</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>, <span class='kw'>xl</span><span class='kw'>=</span><span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span>(<span class='st'>"lastXL"</span>))
+<span class='fu'>ToXL</span>(<span class='kw'>x</span>, <span class='kw'>at</span>, byrow = <span class='fl'>FALSE</span>, <span class='kw'>...</span>, xl=<span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span>(<span class='st'>"lastXL"</span>))
 
 <span class='fu'>XLKill</span>()</pre>
 
@@ -220,6 +220,9 @@ would not terminate a running XL task, but only set it invisible (observe the Ta
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>the name/path of the temporary file edited in MS-Excel.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;, <code>ToXL()</code> is based on code of Duncan Temple Lang &lt;duncan@r-project.org&gt;</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>The function works only in Windows and requires <b>RDCOMClient</b> to be installed (see: Additional_repositories in DESCRIPTION of the package).
@@ -230,57 +233,58 @@ would not terminate a running XL task, but only set it invisible (observe the Ta
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'># Windows-specific example</span>
-<span class='fu'>XLView</span>(<span class='no'>d.diamonds</span>)
+<span class='fu'>XLView</span>(<span class='kw'>d.diamonds</span>)
 
 <span class='co'># edit an existing data.frame in MS-Excel, make changes and save there, return the filename</span>
-<span class='no'>fn</span> <span class='kw'>&lt;-</span> <span class='fu'>XLView</span>(<span class='no'>d.diamonds</span>)
+<span class='kw'>fn</span> <span class='op'>&lt;-</span> <span class='fu'>XLView</span>(<span class='kw'>d.diamonds</span>)
 <span class='co'># read the changed file and store in new data.frame</span>
-<span class='no'>d.frm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.table</a></span>(<span class='no'>fn</span>, <span class='kw'>header</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>quote</span><span class='kw'>=</span><span class='st'>""</span>, <span class='kw'>sep</span><span class='kw'>=</span><span class='st'>";"</span>)
+<span class='kw'>d.frm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.table</a></span>(<span class='kw'>fn</span>, header=<span class='fl'>TRUE</span>, quote=<span class='st'>""</span>, sep=<span class='st'>";"</span>)
 
 <span class='co'># Create a new file, edit it in MS-Excel...</span>
-<span class='no'>fn</span> <span class='kw'>&lt;-</span> <span class='fu'>XLView</span>()
+<span class='kw'>fn</span> <span class='op'>&lt;-</span> <span class='fu'>XLView</span>()
 <span class='co'># ... and read it into a data.frame when in R again</span>
-<span class='no'>d.set</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.table</a></span>(<span class='no'>fn</span>, <span class='kw'>header</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>quote</span><span class='kw'>=</span><span class='st'>""</span>, <span class='kw'>sep</span><span class='kw'>=</span><span class='st'>";"</span>)
+<span class='kw'>d.set</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.table</a></span>(<span class='kw'>fn</span>, header=<span class='fl'>TRUE</span>, quote=<span class='st'>""</span>, sep=<span class='st'>";"</span>)
 
 <span class='co'># Export a ftable object, quite elegant...</span>
-<span class='fu'>XLView</span>(<span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/ftable.html'>ftable</a></span>(<span class='no'>Titanic</span>), <span class='kw'>quote</span><span class='kw'>=</span><span class='fl'>FALSE</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col.names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>XLView</span>(<span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/ftable.html'>ftable</a></span>(<span class='kw'>Titanic</span>), quote=<span class='fl'>FALSE</span>), row.names = <span class='fl'>FALSE</span>, col.names = <span class='fl'>FALSE</span>)
 
 
 <span class='co'># Export a data.frame directly to XL, combined with subsequent formatting</span>
 
-<span class='no'>xl</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='GetNewXL.html'>GetNewXL</a></span>()
-<span class='no'>owb</span> <span class='kw'>&lt;-</span> <span class='no'>xl</span><span class='kw'>[[</span><span class='st'>"Workbooks"</span>]]$<span class='fu'>Add</span>()
-<span class='no'>sheet</span> <span class='kw'>&lt;-</span> <span class='no'>xl</span>$<span class='fu'>Sheets</span>()$<span class='fu'>Add</span>()
-<span class='no'>sheet</span><span class='kw'>[[</span><span class='st'>"name"</span>]] <span class='kw'>&lt;-</span> <span class='st'>"pizza"</span>
+<span class='kw'>xl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='GetNewXL.html'>GetNewXL</a></span>()
+<span class='kw'>owb</span> <span class='op'>&lt;-</span> <span class='kw'>xl</span>[[<span class='st'>"Workbooks"</span>]]<span class='op'>$</span><span class='fu'>Add</span>()
+<span class='kw'>sheet</span> <span class='op'>&lt;-</span> <span class='kw'>xl</span><span class='op'>$</span><span class='fu'>Sheets</span>()<span class='op'>$</span><span class='fu'>Add</span>()
+<span class='kw'>sheet</span>[[<span class='st'>"name"</span>]] <span class='op'>&lt;-</span> <span class='st'>"pizza"</span>
 
-<span class='fu'>ToXL</span>(<span class='no'>d.pizza</span>[<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fl'>1</span>:<span class='fl'>10</span>], <span class='no'>xl</span>$<span class='fu'>Cells</span>(<span class='fl'>1</span>,<span class='fl'>1</span>))
+<span class='fu'>ToXL</span>(<span class='kw'>d.pizza</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>], <span class='kw'>xl</span><span class='op'>$</span><span class='fu'>Cells</span>(<span class='fl'>1</span>,<span class='fl'>1</span>))
 
-<span class='no'>obj</span> <span class='kw'>&lt;-</span> <span class='no'>xl</span>$<span class='fu'>Cells</span>()$<span class='fu'>CurrentRegion</span>()
-<span class='no'>obj</span><span class='kw'>[[</span><span class='st'>"VerticalAlignment"</span>]] <span class='kw'>&lt;-</span> <span class='no'>xlConst</span>$<span class='no'>xlTop</span>
+<span class='kw'>obj</span> <span class='op'>&lt;-</span> <span class='kw'>xl</span><span class='op'>$</span><span class='fu'>Cells</span>()<span class='op'>$</span><span class='fu'>CurrentRegion</span>()
+<span class='kw'>obj</span>[[<span class='st'>"VerticalAlignment"</span>]] <span class='op'>&lt;-</span> <span class='kw'>xlConst</span><span class='op'>$</span><span class='kw'>xlTop</span>
 
-<span class='no'>row</span> <span class='kw'>&lt;-</span> <span class='no'>xl</span>$<span class='fu'>Cells</span>()$<span class='fu'>CurrentRegion</span>()$<span class='fu'>rows</span>(<span class='fl'>1</span>)
+<span class='kw'>row</span> <span class='op'>&lt;-</span> <span class='kw'>xl</span><span class='op'>$</span><span class='fu'>Cells</span>()<span class='op'>$</span><span class='fu'>CurrentRegion</span>()<span class='op'>$</span><span class='fu'>rows</span>(<span class='fl'>1</span>)
 <span class='co'># does not work:   row$font()[["bold"]] &lt;- TRUE</span>
 <span class='co'># works:</span>
-<span class='no'>obj</span> <span class='kw'>&lt;-</span> <span class='no'>row</span>$<span class='fu'>font</span>()
-<span class='no'>obj</span><span class='kw'>[[</span><span class='st'>"bold"</span>]] <span class='kw'>&lt;-</span> <span class='fl'>TRUE</span>
+<span class='kw'>obj</span> <span class='op'>&lt;-</span> <span class='kw'>row</span><span class='op'>$</span><span class='fu'>font</span>()
+<span class='kw'>obj</span>[[<span class='st'>"bold"</span>]] <span class='op'>&lt;-</span> <span class='fl'>TRUE</span>
 
-<span class='no'>obj</span> <span class='kw'>&lt;-</span> <span class='no'>row</span>$<span class='fu'>borders</span>(<span class='no'>xlConst</span>$<span class='no'>xlEdgeBottom</span>)
-<span class='no'>obj</span><span class='kw'>[[</span><span class='st'>"linestyle"</span>]] <span class='kw'>&lt;-</span> <span class='no'>xlConst</span>$<span class='no'>xlContinuous</span>
+<span class='kw'>obj</span> <span class='op'>&lt;-</span> <span class='kw'>row</span><span class='op'>$</span><span class='fu'>borders</span>(<span class='kw'>xlConst</span><span class='op'>$</span><span class='kw'>xlEdgeBottom</span>)
+<span class='kw'>obj</span>[[<span class='st'>"linestyle"</span>]] <span class='op'>&lt;-</span> <span class='kw'>xlConst</span><span class='op'>$</span><span class='kw'>xlContinuous</span>
 
-<span class='no'>cols</span> <span class='kw'>&lt;-</span> <span class='no'>xl</span>$<span class='fu'>Cells</span>()$<span class='fu'>CurrentRegion</span>()$<span class='fu'>columns</span>(<span class='fl'>1</span>)
-<span class='no'>cols</span><span class='kw'>[[</span><span class='st'>"HorizontalAlignment"</span>]] <span class='kw'>&lt;-</span> <span class='no'>xlConst</span>$<span class='no'>xlLeft</span>
+<span class='kw'>cols</span> <span class='op'>&lt;-</span> <span class='kw'>xl</span><span class='op'>$</span><span class='fu'>Cells</span>()<span class='op'>$</span><span class='fu'>CurrentRegion</span>()<span class='op'>$</span><span class='fu'>columns</span>(<span class='fl'>1</span>)
+<span class='kw'>cols</span>[[<span class='st'>"HorizontalAlignment"</span>]] <span class='op'>&lt;-</span> <span class='kw'>xlConst</span><span class='op'>$</span><span class='kw'>xlLeft</span>
 
-<span class='no'>xl</span>$<span class='fu'>Cells</span>()$<span class='fu'>CurrentRegion</span>()<span class='kw'>[[</span><span class='st'>"EntireColumn"</span>]]$<span class='fu'>AutoFit</span>()
-<span class='no'>cols</span> <span class='kw'>&lt;-</span> <span class='no'>xl</span>$<span class='fu'>Cells</span>()$<span class='fu'>CurrentRegion</span>()$<span class='fu'>columns</span>(<span class='fl'>4</span>)
-<span class='no'>cols</span><span class='kw'>[[</span><span class='st'>"WrapText"</span>]] <span class='kw'>&lt;-</span> <span class='fl'>TRUE</span>
-<span class='no'>cols</span><span class='kw'>[[</span><span class='st'>"ColumnWidth"</span>]] <span class='kw'>&lt;-</span> <span class='fl'>80</span>
-<span class='no'>xl</span>$<span class='fu'>Cells</span>()$<span class='fu'>CurrentRegion</span>()<span class='kw'>[[</span><span class='st'>"EntireRow"</span>]]$<span class='fu'>AutoFit</span>()
+<span class='kw'>xl</span><span class='op'>$</span><span class='fu'>Cells</span>()<span class='op'>$</span><span class='fu'>CurrentRegion</span>()[[<span class='st'>"EntireColumn"</span>]]<span class='op'>$</span><span class='fu'>AutoFit</span>()
+<span class='kw'>cols</span> <span class='op'>&lt;-</span> <span class='kw'>xl</span><span class='op'>$</span><span class='fu'>Cells</span>()<span class='op'>$</span><span class='fu'>CurrentRegion</span>()<span class='op'>$</span><span class='fu'>columns</span>(<span class='fl'>4</span>)
+<span class='kw'>cols</span>[[<span class='st'>"WrapText"</span>]] <span class='op'>&lt;-</span> <span class='fl'>TRUE</span>
+<span class='kw'>cols</span>[[<span class='st'>"ColumnWidth"</span>]] <span class='op'>&lt;-</span> <span class='fl'>80</span>
+<span class='kw'>xl</span><span class='op'>$</span><span class='fu'>Cells</span>()<span class='op'>$</span><span class='fu'>CurrentRegion</span>()[[<span class='st'>"EntireRow"</span>]]<span class='op'>$</span><span class='fu'>AutoFit</span>()
 
-<span class='no'>sheet</span> <span class='kw'>&lt;-</span> <span class='no'>xl</span>$<span class='fu'>Sheets</span>()$<span class='fu'>Add</span>()
-<span class='no'>sheet</span><span class='kw'>[[</span><span class='st'>"name"</span>]] <span class='kw'>&lt;-</span> <span class='st'>"whisky"</span>
-<span class='fu'>ToXL</span>(<span class='no'>d.whisky</span>[<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fl'>1</span>:<span class='fl'>10</span>], <span class='no'>xl</span>$<span class='fu'>Cells</span>(<span class='fl'>1</span>,<span class='fl'>1</span>))}</div></pre>
+<span class='kw'>sheet</span> <span class='op'>&lt;-</span> <span class='kw'>xl</span><span class='op'>$</span><span class='fu'>Sheets</span>()<span class='op'>$</span><span class='fu'>Add</span>()
+<span class='kw'>sheet</span>[[<span class='st'>"name"</span>]] <span class='op'>&lt;-</span> <span class='st'>"whisky"</span>
+<span class='fu'>ToXL</span>(<span class='kw'>d.whisky</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>], <span class='kw'>xl</span><span class='op'>$</span><span class='fu'>Cells</span>(<span class='fl'>1</span>,<span class='fl'>1</span>))}
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -296,7 +300,7 @@ would not terminate a running XL task, but only set it invisible (observe the Ta
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

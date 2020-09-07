@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Set Plot Margins and Distances
-<!-- %%  ~~function to do ... ~~ --> — Mar and Mgp • DescTools</title>
+ — Mar and Mgp • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Set Plot Margins and Distances
-<!-- %%  ~~function to do ... ~~ --> — Mar and Mgp" />
+ — Mar and Mgp" />
 <meta property="og:description" content="Plot margins are normally set by par(&quot;mar&quot;). However one is forced to always define all margins, even if just one should be altered. The convenience function Mar() allows to set one single margin (or several) while leaving the others unchanged.
 Mgp() does the same for the distances of axis title, labels and line.
 " />
@@ -145,9 +145,9 @@ Mgp() does the same for the distances of axis title, labels and line.
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>Mar</span>(<span class='kw'>bottom</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>left</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>top</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>right</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>outer</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-    <span class='kw'>reset</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'>Mgp</span>(<span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>line</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>reset</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>Mar</span>(bottom = <span class='kw'>NULL</span>, left = <span class='kw'>NULL</span>, top = <span class='kw'>NULL</span>, right = <span class='kw'>NULL</span>, outer = <span class='fl'>FALSE</span>, 
+    reset = <span class='fl'>FALSE</span>)
+<span class='fu'>Mgp</span>(title = <span class='kw'>NULL</span>, labels = <span class='kw'>NULL</span>, line = <span class='kw'>NULL</span>, reset = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -198,6 +198,10 @@ Mgp() does the same for the distances of axis title, labels and line.
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Running <code>Mar()</code> without any arguments will return the current settings, either <code><a href='https://rdrr.io/r/graphics/par.html'>par("mar")</a></code>, when outer is set to <code>FALSE</code> or <code><a href='https://rdrr.io/r/graphics/par.html'>par("oma")</a></code> for <code>outer = TRUE</code>.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;
+<!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/graphics/par.html'>par</a></code>
@@ -205,10 +209,11 @@ Mgp() does the same for the distances of axis title, labels and line.
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># largen the left margin only</span>
-<span class='fu'>Mar</span>(<span class='kw'>left</span><span class='kw'>=</span><span class='fl'>10.1</span>)   <span class='co'># or as alternative: Mar(, 10.1)</span>
-<span class='fu'>Mgp</span>(<span class='kw'>title</span><span class='kw'>=</span><span class='fl'>6</span>)     <span class='co'># ylab must be placed a little further to the left</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span>(<span class='fl'>1</span>:<span class='fl'>7</span>, <span class='kw'>names</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span>(<span class='no'>d.pizza</span>$<span class='no'>driver</span>), <span class='kw'>horiz</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>las</span><span class='kw'>=</span><span class='fl'>1</span>,
-        <span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"driver"</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='Pal.html'>Pal</a></span>(<span class='st'>"Helsana"</span>))</div><div class='img'><img src='Mar-1.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>Mar</span>(left=<span class='fl'>10.1</span>)   <span class='co'># or as alternative: Mar(, 10.1)</span>
+<span class='fu'>Mgp</span>(title=<span class='fl'>6</span>)     <span class='co'># ylab must be placed a little further to the left</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>7</span>, names=<span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>driver</span>), horiz=<span class='fl'>TRUE</span>, las=<span class='fl'>1</span>, 
+        ylab=<span class='st'>"driver"</span>, col=<span class='fu'><a href='DescTools Palettes.html'>Pal</a></span>(<span class='st'>"Helsana"</span>))
+</div><div class='img'><img src='Mar-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -224,7 +229,7 @@ Mgp() does the same for the distances of axis title, labels and line.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

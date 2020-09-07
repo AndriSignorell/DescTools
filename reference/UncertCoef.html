@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Uncertainty Coefficient
-<!-- %%  ~~function to do ... ~~ --> — UncertCoef • DescTools</title>
+ — UncertCoef • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Uncertainty Coefficient
-<!-- %%  ~~function to do ... ~~ --> — UncertCoef" />
+ — UncertCoef" />
 <meta property="og:description" content="The uncertainty coefficient U(C|R) measures the proportion of uncertainty (entropy) in the column
 variable Y that is explained by the row variable X. The function has interfaces for a table, a matrix, a data.frame and for single vectors.
 " />
@@ -145,8 +145,8 @@ variable Y that is explained by the row variable X. The function has interfaces 
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>UncertCoef</span>(<span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"symmetric"</span>, <span class='st'>"row"</span>, <span class='st'>"column"</span>),
-           <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>p.zero.correction</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>x</span>)^<span class='fl'>2</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>UncertCoef</span>(<span class='kw'>x</span>, y = <span class='kw'>NULL</span>, direction = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"symmetric"</span>, <span class='st'>"row"</span>, <span class='st'>"column"</span>), 
+           conf.level = <span class='fl'>NA</span>, p.zero.correction = <span class='fl'>1</span><span class='op'>/</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='kw'>x</span>)<span class='op'>^</span><span class='fl'>2</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -201,6 +201,10 @@ or a vector with 3 elements for estimate, lower and upper confidence intervall.
 
     <p>Theil, H. (1972), <em>Statistical Decomposition Analysis</em>, Amsterdam: North-Holland Publishing Company.
 <!-- %% ~put references to the literature/web site here ~ --></p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt; strongly based on code from Antti Arppe &lt;antti.arppe@helsinki.fi&gt;
+<!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='Entropy.html'>Entropy</a></code>, <code><a href='Lambda.html'>Lambda</a></code>, <code><a href='Assocs.html'>Assocs</a></code>
@@ -209,16 +213,21 @@ or a vector with 3 elements for estimate, lower and upper confidence intervall.
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># example from Goodman Kruskal (1954)</span>
 
-<span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1768</span>,<span class='fl'>946</span>,<span class='fl'>115</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>807</span>,<span class='fl'>1387</span>,<span class='fl'>438</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>189</span>,<span class='fl'>746</span>,<span class='fl'>288</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>47</span>,<span class='fl'>53</span>,<span class='fl'>16</span>)))
-<span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span>(<span class='no'>m</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='st'>"A"</span>, <span class='fl'>1</span>:<span class='fl'>3</span>), <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='st'>"B"</span>, <span class='fl'>1</span>:<span class='fl'>4</span>))
-<span class='no'>m</span></div><div class='output co'>#&gt;      B 1  B 2  B 3  B 4
+<span class='kw'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1768</span>,<span class='fl'>946</span>,<span class='fl'>115</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>807</span>,<span class='fl'>1387</span>,<span class='fl'>438</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>189</span>,<span class='fl'>746</span>,<span class='fl'>288</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>47</span>,<span class='fl'>53</span>,<span class='fl'>16</span>)))
+<span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span>(<span class='kw'>m</span>) <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='st'>"A"</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>), <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='st'>"B"</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>))
+<span class='kw'>m</span>
+</div><div class='output co'>#&gt;      B 1  B 2  B 3  B 4
 #&gt; A 1 1768  807  189   47
 #&gt; A 2  946 1387  746   53
 #&gt; A 3  115  438  288   16</div><div class='input'>
 <span class='co'># direction default is "symmetric"</span>
-<span class='fu'>UncertCoef</span>(<span class='no'>m</span>)</div><div class='output co'>#&gt; [1] 0.0799</div><div class='input'><span class='fu'>UncertCoef</span>(<span class='no'>m</span>, <span class='kw'>conf.level</span><span class='kw'>=</span><span class='fl'>0.95</span>)</div><div class='output co'>#&gt;     uc lwr.ci upr.ci 
+<span class='fu'>UncertCoef</span>(<span class='kw'>m</span>)
+</div><div class='output co'>#&gt; [1] 0.0799</div><div class='input'><span class='fu'>UncertCoef</span>(<span class='kw'>m</span>, conf.level=<span class='fl'>0.95</span>)
+</div><div class='output co'>#&gt;     uc lwr.ci upr.ci 
 #&gt; 0.0799 0.0713 0.0885 </div><div class='input'>
-<span class='fu'>UncertCoef</span>(<span class='no'>m</span>, <span class='kw'>direction</span><span class='kw'>=</span><span class='st'>"row"</span>)</div><div class='output co'>#&gt; [1] 0.0851</div><div class='input'><span class='fu'>UncertCoef</span>(<span class='no'>m</span>, <span class='kw'>direction</span><span class='kw'>=</span><span class='st'>"column"</span>)</div><div class='output co'>#&gt; [1] 0.0753</div></pre>
+<span class='fu'>UncertCoef</span>(<span class='kw'>m</span>, direction=<span class='st'>"row"</span>)
+</div><div class='output co'>#&gt; [1] 0.0851</div><div class='input'><span class='fu'>UncertCoef</span>(<span class='kw'>m</span>, direction=<span class='st'>"column"</span>)
+</div><div class='output co'>#&gt; [1] 0.0753</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -234,7 +243,7 @@ or a vector with 3 elements for estimate, lower and upper confidence intervall.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

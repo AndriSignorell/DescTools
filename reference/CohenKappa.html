@@ -8,7 +8,7 @@
 
 <title>Cohen's Kappa and Weighted Kappa
 
-<!-- %%  ~~function to do ... ~~ --> — CohenKappa • DescTools</title>
+ — CohenKappa • DescTools</title>
 
 
 <!-- jquery -->
@@ -45,7 +45,7 @@
 
 <meta property="og:title" content="Cohen's Kappa and Weighted Kappa
 
-<!-- %%  ~~function to do ... ~~ --> — CohenKappa" />
+ — CohenKappa" />
 <meta property="og:description" content="Computes the agreement rates Cohen's kappa and weighted kappa and their confidence intervals.
 
 " />
@@ -148,8 +148,8 @@
 <p><!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>CohenKappa</span>(<span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>weights</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Unweighted"</span>, <span class='st'>"Equal-Spacing"</span>, <span class='st'>"Fleiss-Cohen"</span>),
-           <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>CohenKappa</span>(<span class='kw'>x</span>, y = <span class='kw'>NULL</span>, weights = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Unweighted"</span>, <span class='st'>"Equal-Spacing"</span>, <span class='st'>"Fleiss-Cohen"</span>),
+           conf.level = <span class='fl'>NA</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -210,33 +210,39 @@ else a named numeric vector with 3 elements</p>
 <p>Cicchetti, D.V., Allison, T. (1971) A New Procedure for Assessing Reliability
 of Scoring EEG Sleep Recordings <em>American Journal of EEG Technology</em>, 11,
 101-109.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>David Meyer &lt;david.meyer@r-project.org&gt;, some slight changes Andri Signorell &lt;andri@signorell.net&gt;</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='CronbachAlpha.html'>CronbachAlpha</a></code>, <code><a href='KappaM.html'>KappaM</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># from Bortz et. al (1990) Verteilungsfreie Methoden in der Biostatistik, Springer, pp. 459</span>
-<span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>53</span>,  <span class='fl'>5</span>, <span class='fl'>2</span>,
+<span class='kw'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>53</span>,  <span class='fl'>5</span>, <span class='fl'>2</span>,
               <span class='fl'>11</span>, <span class='fl'>14</span>, <span class='fl'>5</span>,
-               <span class='fl'>1</span>,  <span class='fl'>6</span>, <span class='fl'>3</span>), <span class='kw'>nrow</span><span class='kw'>=</span><span class='fl'>3</span>, <span class='kw'>byrow</span><span class='kw'>=</span><span class='fl'>TRUE</span>,
-            <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>rater1</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"V"</span>,<span class='st'>"N"</span>,<span class='st'>"P"</span>), <span class='kw'>rater2</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"V"</span>,<span class='st'>"N"</span>,<span class='st'>"P"</span>)) )
+               <span class='fl'>1</span>,  <span class='fl'>6</span>, <span class='fl'>3</span>), nrow=<span class='fl'>3</span>, byrow=<span class='fl'>TRUE</span>,
+            dimnames = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(rater1 = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"V"</span>,<span class='st'>"N"</span>,<span class='st'>"P"</span>), rater2 = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"V"</span>,<span class='st'>"N"</span>,<span class='st'>"P"</span>)) )
 
 <span class='co'># confusion matrix interface</span>
-<span class='fu'>CohenKappa</span>(<span class='no'>m</span>, <span class='kw'>weight</span><span class='kw'>=</span><span class='st'>"Unweighted"</span>)</div><div class='output co'>#&gt; [1] 0.4285714</div><div class='input'>
+<span class='fu'>CohenKappa</span>(<span class='kw'>m</span>, weight=<span class='st'>"Unweighted"</span>)
+</div><div class='output co'>#&gt; [1] 0.4285714</div><div class='input'>
 <span class='co'># vector interface</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='Untable.html'>Untable</a></span>(<span class='no'>m</span>)
-<span class='fu'>CohenKappa</span>(<span class='no'>x</span>$<span class='no'>rater1</span>, <span class='no'>x</span>$<span class='no'>rater2</span>, <span class='kw'>weight</span><span class='kw'>=</span><span class='st'>"Unweighted"</span>)</div><div class='output co'>#&gt; [1] 0.4285714</div><div class='input'>
+<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='Untable.html'>Untable</a></span>(<span class='kw'>m</span>)
+<span class='fu'>CohenKappa</span>(<span class='kw'>x</span><span class='op'>$</span><span class='kw'>rater1</span>, <span class='kw'>x</span><span class='op'>$</span><span class='kw'>rater2</span>, weight=<span class='st'>"Unweighted"</span>)
+</div><div class='output co'>#&gt; [1] 0.4285714</div><div class='input'>
 <span class='co'># pairwise Kappa</span>
-<span class='no'>rating</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>rtr1</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>5</span>,<span class='fl'>2</span>, <span class='fl'>1</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>5</span>, <span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>2</span>, <span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>, <span class='fl'>5</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>1</span>, <span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>5</span>),
-  <span class='kw'>rtr2</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>5</span>,<span class='fl'>2</span>, <span class='fl'>1</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>5</span>, <span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>4</span>,<span class='fl'>2</span>, <span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>, <span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>4</span>, <span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>5</span>),
-  <span class='kw'>rtr3</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>5</span>,<span class='fl'>2</span>, <span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>5</span>, <span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>4</span>,<span class='fl'>4</span>, <span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>4</span>,<span class='fl'>3</span>, <span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>4</span>, <span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>5</span>),
-  <span class='kw'>rtr4</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>3</span>,<span class='fl'>5</span>,<span class='fl'>4</span>, <span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>5</span>, <span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>4</span>, <span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>1</span>,<span class='fl'>4</span>,<span class='fl'>5</span>, <span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>4</span>, <span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>5</span>),
-  <span class='kw'>rtr5</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>3</span>,<span class='fl'>5</span>,<span class='fl'>4</span>, <span class='fl'>3</span>,<span class='fl'>5</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>5</span>, <span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>4</span>, <span class='fl'>3</span>,<span class='fl'>5</span>,<span class='fl'>1</span>,<span class='fl'>4</span>,<span class='fl'>5</span>, <span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>4</span>, <span class='fl'>2</span>,<span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>5</span>),
-  <span class='kw'>rtr6</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>4</span>, <span class='fl'>3</span>,<span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>5</span>, <span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>5</span>, <span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>2</span>,<span class='fl'>4</span>,<span class='fl'>5</span>, <span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>5</span>, <span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>5</span>)
+<span class='kw'>rating</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+  rtr1 = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>5</span>,<span class='fl'>2</span>, <span class='fl'>1</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>5</span>, <span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>2</span>, <span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>, <span class='fl'>5</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>1</span>, <span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>5</span>),
+  rtr2 = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>5</span>,<span class='fl'>2</span>, <span class='fl'>1</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>5</span>, <span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>4</span>,<span class='fl'>2</span>, <span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>, <span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>4</span>, <span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>5</span>),
+  rtr3 = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>5</span>,<span class='fl'>2</span>, <span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>5</span>, <span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>4</span>,<span class='fl'>4</span>, <span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>4</span>,<span class='fl'>3</span>, <span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>4</span>, <span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>5</span>),
+  rtr4 = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>3</span>,<span class='fl'>5</span>,<span class='fl'>4</span>, <span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>5</span>, <span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>4</span>, <span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>1</span>,<span class='fl'>4</span>,<span class='fl'>5</span>, <span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>4</span>, <span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>5</span>),
+  rtr5 = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>3</span>,<span class='fl'>5</span>,<span class='fl'>4</span>, <span class='fl'>3</span>,<span class='fl'>5</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>5</span>, <span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>4</span>, <span class='fl'>3</span>,<span class='fl'>5</span>,<span class='fl'>1</span>,<span class='fl'>4</span>,<span class='fl'>5</span>, <span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>4</span>, <span class='fl'>2</span>,<span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>5</span>),
+  rtr6 = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>4</span>, <span class='fl'>3</span>,<span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>5</span>, <span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>5</span>, <span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>2</span>,<span class='fl'>4</span>,<span class='fl'>5</span>, <span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>5</span>, <span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>5</span>)
 )
 
-<span class='fu'><a href='PairApply.html'>PairApply</a></span>(<span class='no'>rating</span>, <span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>CohenKappa</span>, <span class='kw'>symmetric</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;            rtr1      rtr2      rtr3      rtr4      rtr5       rtr6
+<span class='fu'><a href='PairApply.html'>PairApply</a></span>(<span class='kw'>rating</span>, FUN=<span class='kw'>CohenKappa</span>, symmetric=<span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt;            rtr1      rtr2      rtr3      rtr4      rtr5       rtr6
 #&gt; rtr1 1.00000000 0.6511628 0.3838254 0.2583436 0.1881919 0.08088235
 #&gt; rtr2 0.65116279 1.0000000 0.6311475 0.4392523 0.3633952 0.17105263
 #&gt; rtr3 0.38382542 0.6311475 1.0000000 0.7260274 0.6401799 0.33333333
@@ -244,39 +250,44 @@ of Scoring EEG Sleep Recordings <em>American Journal of EEG Technology</em>, 11,
 #&gt; rtr5 0.18819188 0.3633952 0.6401799 0.8569157 1.0000000 0.64824121
 #&gt; rtr6 0.08088235 0.1710526 0.3333333 0.5192308 0.6482412 1.00000000</div><div class='input'>
 <span class='co'># Weighted Kappa</span>
-<span class='no'>cats</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"&lt;10%"</span>, <span class='st'>"11-20%"</span>, <span class='st'>"21-30%"</span>, <span class='st'>"31-40%"</span>, <span class='st'>"41-50%"</span>, <span class='st'>"&gt;50%"</span>)
-<span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>,<span class='fl'>8</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>4</span>,<span class='fl'>2</span>, <span class='fl'>3</span>,<span class='fl'>5</span>,<span class='fl'>3</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>0</span>, <span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>6</span>,<span class='fl'>11</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,
-              <span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>3</span>, <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>5</span>,<span class='fl'>2</span>, <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>4</span>), <span class='kw'>nrow</span><span class='kw'>=</span><span class='fl'>6</span>, <span class='kw'>byrow</span><span class='kw'>=</span><span class='fl'>TRUE</span>,
-            <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>rater1</span> <span class='kw'>=</span> <span class='no'>cats</span>, <span class='kw'>rater2</span> <span class='kw'>=</span> <span class='no'>cats</span>) )
-<span class='fu'>CohenKappa</span>(<span class='no'>m</span>, <span class='kw'>weight</span><span class='kw'>=</span><span class='st'>"Equal-Spacing"</span>)</div><div class='output co'>#&gt; [1] 0.3156685</div><div class='input'>
+<span class='kw'>cats</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"&lt;10%"</span>, <span class='st'>"11-20%"</span>, <span class='st'>"21-30%"</span>, <span class='st'>"31-40%"</span>, <span class='st'>"41-50%"</span>, <span class='st'>"&gt;50%"</span>)
+<span class='kw'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>,<span class='fl'>8</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>4</span>,<span class='fl'>2</span>, <span class='fl'>3</span>,<span class='fl'>5</span>,<span class='fl'>3</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>0</span>, <span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>6</span>,<span class='fl'>11</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,
+              <span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>3</span>, <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>5</span>,<span class='fl'>2</span>, <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>4</span>), nrow=<span class='fl'>6</span>, byrow=<span class='fl'>TRUE</span>,
+            dimnames = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(rater1 = <span class='kw'>cats</span>, rater2 = <span class='kw'>cats</span>) )
+<span class='fu'>CohenKappa</span>(<span class='kw'>m</span>, weight=<span class='st'>"Equal-Spacing"</span>)
+</div><div class='output co'>#&gt; [1] 0.3156685</div><div class='input'>
 
 <span class='co'># supply an explicit weight matrix</span>
-<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='no'>m</span>)</div><div class='output co'>#&gt; [1] 6</div><div class='input'>(<span class='no'>wm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/outer.html'>outer</a></span>(<span class='fl'>1</span>:<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='no'>m</span>), <span class='fl'>1</span>:<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='no'>m</span>), <span class='kw'>function</span>(<span class='no'>x</span>, <span class='no'>y</span>) {
-        <span class='fl'>1</span> - ((<span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span>(<span class='no'>x</span>-<span class='no'>y</span>)) / (<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='no'>m</span>)-<span class='fl'>1</span>)) } ))</div><div class='output co'>#&gt;      [,1] [,2] [,3] [,4] [,5] [,6]
+<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='kw'>m</span>)
+</div><div class='output co'>#&gt; [1] 6</div><div class='input'>(<span class='kw'>wm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/outer.html'>outer</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='kw'>m</span>), <span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='kw'>m</span>), <span class='fu'>function</span>(<span class='kw'>x</span>, <span class='kw'>y</span>) {
+        <span class='fl'>1</span> <span class='op'>-</span> ((<span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span>(<span class='kw'>x</span><span class='op'>-</span><span class='kw'>y</span>)) <span class='op'>/</span> (<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='kw'>m</span>)<span class='op'>-</span><span class='fl'>1</span>)) } ))
+</div><div class='output co'>#&gt;      [,1] [,2] [,3] [,4] [,5] [,6]
 #&gt; [1,]  1.0  0.8  0.6  0.4  0.2  0.0
 #&gt; [2,]  0.8  1.0  0.8  0.6  0.4  0.2
 #&gt; [3,]  0.6  0.8  1.0  0.8  0.6  0.4
 #&gt; [4,]  0.4  0.6  0.8  1.0  0.8  0.6
 #&gt; [5,]  0.2  0.4  0.6  0.8  1.0  0.8
-#&gt; [6,]  0.0  0.2  0.4  0.6  0.8  1.0</div><div class='input'><span class='fu'>CohenKappa</span>(<span class='no'>m</span>, <span class='kw'>weight</span><span class='kw'>=</span><span class='no'>wm</span>, <span class='kw'>conf.level</span><span class='kw'>=</span><span class='fl'>0.95</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Recycling array of length 1 in vector-array arithmetic is deprecated.</span>
+#&gt; [6,]  0.0  0.2  0.4  0.6  0.8  1.0</div><div class='input'><span class='fu'>CohenKappa</span>(<span class='kw'>m</span>, weight=<span class='kw'>wm</span>, conf.level=<span class='fl'>0.95</span>)
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Recycling array of length 1 in vector-array arithmetic is deprecated.</span>
 #&gt; <span class='warning'>  Use c() or as.vector() instead.</span></div><div class='output co'>#&gt;      kappa     lwr.ci     upr.ci 
 #&gt; 0.31566846 0.07905284 0.55228407 </div><div class='input'>
 
 <span class='co'># however, Fleiss, Cohen and Everitt weight similarities</span>
-<span class='no'>fleiss</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
+<span class='kw'>fleiss</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
   <span class='fl'>106</span>, <span class='fl'>10</span>,  <span class='fl'>4</span>,
   <span class='fl'>22</span>,  <span class='fl'>28</span>, <span class='fl'>10</span>,
    <span class='fl'>2</span>,  <span class='fl'>12</span>,  <span class='fl'>6</span>
-  ), <span class='kw'>ncol</span><span class='kw'>=</span><span class='fl'>3</span>, <span class='kw'>byrow</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
+  ), ncol=<span class='fl'>3</span>, byrow=<span class='fl'>TRUE</span>)
 
 <span class='co'>#Fleiss weights the similarities</span>
-<span class='no'>weights</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
+<span class='kw'>weights</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
  <span class='fl'>1.0000</span>, <span class='fl'>0.0000</span>, <span class='fl'>0.4444</span>,
  <span class='fl'>0.0000</span>, <span class='fl'>1.0000</span>, <span class='fl'>0.6666</span>,
  <span class='fl'>0.4444</span>, <span class='fl'>0.6666</span>, <span class='fl'>1.0000</span>
- ), <span class='kw'>ncol</span><span class='kw'>=</span><span class='fl'>3</span>)
+ ), ncol=<span class='fl'>3</span>)
 
-<span class='fu'>CohenKappa</span>(<span class='no'>fleiss</span>, <span class='no'>weights</span>)</div><div class='output co'>#&gt; [1] 0</div></pre>
+<span class='fu'>CohenKappa</span>(<span class='kw'>fleiss</span>, <span class='kw'>weights</span>)
+</div><div class='output co'>#&gt; [1] 0</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -292,7 +303,7 @@ of Scoring EEG Sleep Recordings <em>American Journal of EEG Technology</em>, 11,
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

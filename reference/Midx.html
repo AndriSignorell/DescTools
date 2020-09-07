@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Find the Midpoints of a Numeric Vector
-<!-- %%  ~~function to do ... ~~ --> — Midx • DescTools</title>
+ — Midx • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Find the Midpoints of a Numeric Vector
-<!-- %%  ~~function to do ... ~~ --> — Midx" />
+ — Midx" />
 <meta property="og:description" content="Calculate the midpoints of a sequence of numbers. This is e.g. useful for labelling stacked barplots.
 " />
 
@@ -143,7 +143,7 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>Midx</span>(<span class='no'>x</span>, <span class='kw'>incl.zero</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>cumulate</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>Midx</span>(<span class='kw'>x</span>, incl.zero = <span class='fl'>FALSE</span>, cumulate = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -171,20 +171,30 @@
 <!-- %%  \item{comp1 }{Description of 'comp1'} -->
 <!-- %%  \item{comp2 }{Description of 'comp2'} -->
 <!-- %% ... --></p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;
+<!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='MoveAvg.html'>MoveAvg</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>6</span>, <span class='fl'>7</span>)
+    <pre class="examples"><div class='input'><span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>6</span>, <span class='fl'>7</span>)
 
-<span class='fu'>Midx</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 2.0 4.5 6.5</div><div class='input'><span class='fu'>Midx</span>(<span class='no'>x</span>, <span class='kw'>incl.zero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] 0.5 2.0 4.5 6.5</div><div class='input'><span class='fu'>Midx</span>(<span class='no'>x</span>, <span class='kw'>incl.zero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>cumulate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1]  0.5  2.5  7.0 13.5</div><div class='input'>
+<span class='fu'>Midx</span>(<span class='kw'>x</span>)
+</div><div class='output co'>#&gt; [1] 2.0 4.5 6.5</div><div class='input'><span class='fu'>Midx</span>(<span class='kw'>x</span>, incl.zero = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; [1] 0.5 2.0 4.5 6.5</div><div class='input'><span class='fu'>Midx</span>(<span class='kw'>x</span>, incl.zero = <span class='fl'>TRUE</span>, cumulate = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; [1]  0.5  2.5  7.0 13.5</div><div class='input'>
 <span class='co'># an alternative to</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'><a href='MoveAvg.html'>MoveAvg</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='no'>x</span>), <span class='kw'>order</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"l"</span>), <span class='kw'>n</span> <span class='kw'>=</span> -<span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] 0.5 2.0 4.5 6.5</div><div class='input'>
-<span class='no'>tab</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>401</span>,<span class='fl'>216</span>,<span class='fl'>221</span>,<span class='fl'>254</span>,<span class='fl'>259</span>,<span class='fl'>169</span>), <span class='kw'>nrow</span><span class='kw'>=</span><span class='fl'>2</span>, <span class='kw'>byrow</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
-<span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span>(<span class='no'>tab</span>, <span class='kw'>beside</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>horiz</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span>(<span class='no'>tab</span>, <span class='fl'>2</span>, <span class='no'>Midx</span>, <span class='kw'>incl.zero</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>cumulate</span><span class='kw'>=</span><span class='fl'>TRUE</span>))
-<span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span>(<span class='no'>tab</span>, <span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span>, <span class='kw'>y</span><span class='kw'>=</span><span class='no'>b</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"red"</span>)</div><div class='img'><img src='Midx-1.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'><a href='MoveAvg.html'>MoveAvg</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='kw'>x</span>), order = <span class='fl'>2</span>, align = <span class='st'>"l"</span>), n = <span class='op'>-</span><span class='fl'>1</span>)
+</div><div class='output co'>#&gt; [1] 0.5 2.0 4.5 6.5</div><div class='input'>
+<span class='kw'>tab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>401</span>,<span class='fl'>216</span>,<span class='fl'>221</span>,<span class='fl'>254</span>,<span class='fl'>259</span>,<span class='fl'>169</span>), nrow=<span class='fl'>2</span>, byrow=<span class='fl'>TRUE</span>)
+<span class='kw'>b</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span>(<span class='kw'>tab</span>, beside = <span class='fl'>FALSE</span>, horiz=<span class='fl'>TRUE</span>)
+</div><div class='input'>
+<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span>(<span class='kw'>tab</span>, <span class='fl'>2</span>, <span class='kw'>Midx</span>, incl.zero=<span class='fl'>TRUE</span>, cumulate=<span class='fl'>TRUE</span>))
+<span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span>(<span class='kw'>tab</span>, x=<span class='kw'>x</span>, y=<span class='kw'>b</span>, col=<span class='st'>"red"</span>)
+</div><div class='img'><img src='Midx-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -200,7 +210,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

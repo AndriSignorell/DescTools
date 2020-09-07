@@ -138,13 +138,13 @@
     <p>Calculate a frequency distribution for two continuous variables.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>Freq2D</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>Freq2D</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
 
 <span class='co'># S3 method for formula</span>
-<span class='fu'>Freq2D</span>(<span class='no'>formula</span>, <span class='no'>data</span>, <span class='no'>subset</span>, <span class='no'>...</span>)
+<span class='fu'>Freq2D</span>(<span class='kw'>formula</span>, <span class='kw'>data</span>, <span class='kw'>subset</span>, <span class='kw'>...</span>)
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>Freq2D</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>20</span>, <span class='kw'>pad</span><span class='kw'>=</span><span class='fl'>0</span>, <span class='kw'>dnn</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>Freq2D</span>(<span class='kw'>x</span>, <span class='kw'>y</span>, n=<span class='fl'>20</span>, pad=<span class='fl'>0</span>, dnn=<span class='kw'>NULL</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -212,13 +212,17 @@
       can be analyzed further.</p></li>
 </ol>
 
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Arni Magnusson &lt;arnima@hafro.is&gt;</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/cut.html'>cut</a></code>, <code><a href='https://rdrr.io/r/base/table.html'>table</a></code>, and <code><a href='https://rdrr.io/r/base/print.html'>print.table</a></code>
   are the basic underlying functions.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>Freq2D</span>(<span class='no'>quakes</span>$<span class='no'>long</span>, <span class='no'>quakes</span>$<span class='no'>lat</span>, <span class='kw'>dnn</span><span class='kw'>=</span><span class='st'>""</span>)</div><div class='output co'>#&gt;      
+    <pre class="examples"><div class='input'><span class='fu'>Freq2D</span>(<span class='kw'>quakes</span><span class='op'>$</span><span class='kw'>long</span>, <span class='kw'>quakes</span><span class='op'>$</span><span class='kw'>lat</span>, dnn=<span class='st'>""</span>)
+</div><div class='output co'>#&gt;      
 #&gt;       166 167 168 169 170 171 172 173 174 175 176 177 178 179 180 181 182 183
 #&gt;   -11  13   3   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
 #&gt;   -12  16  11   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
@@ -279,7 +283,8 @@
 #&gt;   -36   0   0   0   0   0
 #&gt;   -37   0   0   0   0   0
 #&gt;   -38   0   0   0   0   0
-#&gt;   -39   0   0   0   0   0</div><div class='input'><span class='fu'>Freq2D</span>(<span class='no'>lat</span>~<span class='no'>long</span>, <span class='no'>quakes</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10</span>,<span class='fl'>20</span>), <span class='kw'>pad</span><span class='kw'>=</span><span class='fl'>1</span>)</div><div class='output co'>#&gt;      long
+#&gt;   -39   0   0   0   0   0</div><div class='input'><span class='fu'>Freq2D</span>(<span class='kw'>lat</span><span class='op'>~</span><span class='kw'>long</span>, <span class='kw'>quakes</span>, n=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10</span>,<span class='fl'>20</span>), pad=<span class='fl'>1</span>)
+</div><div class='output co'>#&gt;      long
 #&gt; lat   164 166 168 170 172 174 176 178 180 182 184 186 188 190
 #&gt;   -9    0   0   0   0   0   0   0   0   0   0   0   0   0   0
 #&gt;   -11   0  14   2   0   0   0   0   0   0   0   0   0   0   0
@@ -312,13 +317,13 @@
 #&gt;   -38   0   0   0   0   0   0   1   2   0   0   0   0   0   0
 #&gt;   -39   0   0   0   0   0   0   1   0   0   0   0   0   0   0
 #&gt;   -41   0   0   0   0   0   0   0   0   0   0   0   0   0   0</div><div class='input'>
-# range(Freq2D(saithe, print=FALSE))
+<span class='co'># range(Freq2D(saithe, print=FALSE))</span>
 
-# Layout, plot
-# Freq2D(saithe, layout=2)
-# Freq2D(saithe, layout=3)
-# contour(Freq2D(saithe, layout=2))
-# lattice::contourplot(Freq~Bio+HR, Freq2D(saithe,layout=3))
+<span class='co'># Layout, plot</span>
+<span class='co'># Freq2D(saithe, layout=2)</span>
+<span class='co'># Freq2D(saithe, layout=3)</span>
+<span class='co'># contour(Freq2D(saithe, layout=2))</span>
+<span class='co'># lattice::contourplot(Freq~Bio+HR, Freq2D(saithe,layout=3))</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -335,7 +340,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

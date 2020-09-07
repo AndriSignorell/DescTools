@@ -138,9 +138,9 @@
     <p>Convert a correlation to a z score or z to r using the Fisher transformation or find the confidence intervals for a specified correlation.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>FisherZ</span>(<span class='no'>rho</span>)
-<span class='fu'>FisherZInv</span>(<span class='no'>z</span>)
-<span class='fu'>CorCI</span>(<span class='no'>rho</span>, <span class='no'>n</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>alternative</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"two.sided"</span>, <span class='st'>"less"</span>, <span class='st'>"greater"</span>))</pre>
+    <pre class="usage"><span class='fu'>FisherZ</span>(<span class='kw'>rho</span>)
+<span class='fu'>FisherZInv</span>(<span class='kw'>z</span>)
+<span class='fu'>CorCI</span>(<span class='kw'>rho</span>, <span class='kw'>n</span>, conf.level = <span class='fl'>0.95</span>, alternative = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"two.sided"</span>, <span class='st'>"less"</span>, <span class='st'>"greater"</span>))</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -183,22 +183,28 @@ rho, lower and upper confidence intervals (CorCI) <br /></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/cor.test.html'>cor.test</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>William Revelle &lt;revelle@northwestern.edu&gt;, <br />
+slight modifications Andri Signorell &lt;andri@signorell.net&gt; based on R-Core code</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>cors</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(-<span class='fl'>.9</span>, <span class='fl'>.9</span>, <span class='fl'>.1</span>)
+    <pre class="examples"><div class='input'><span class='kw'>cors</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='op'>-</span><span class='fl'>.9</span>, <span class='fl'>.9</span>, <span class='fl'>.1</span>)
 
-<span class='no'>zs</span> <span class='kw'>&lt;-</span> <span class='fu'>FisherZ</span>(<span class='no'>cors</span>)
-<span class='no'>rs</span> <span class='kw'>&lt;-</span> <span class='fu'>FisherZInv</span>(<span class='no'>zs</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='no'>zs</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt;  [1] -1.47 -1.10 -0.87 -0.69 -0.55 -0.42 -0.31 -0.20 -0.10  0.00  0.10  0.20
-#&gt; [13]  0.31  0.42  0.55  0.69  0.87  1.10  1.47</div><div class='input'><span class='no'>n</span> <span class='kw'>&lt;-</span> <span class='fl'>30</span>
-<span class='no'>r</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>.9</span>, <span class='fl'>.1</span>)
-<span class='no'>rc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>(<span class='no'>r</span>, <span class='no'>CorCI</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='no'>n</span>))
-<span class='no'>t</span> <span class='kw'>&lt;-</span> <span class='no'>r</span> * <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span>(<span class='no'>n</span>-<span class='fl'>2</span>) / <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span>(<span class='fl'>1</span>-<span class='no'>r</span>^<span class='fl'>2</span>)
-<span class='no'>p</span> <span class='kw'>&lt;-</span> (<span class='fl'>1</span> - <span class='fu'><a href='https://rdrr.io/r/stats/TDist.html'>pt</a></span>(<span class='no'>t</span>, <span class='no'>n</span>-<span class='fl'>2</span>)) / <span class='fl'>2</span>
+<span class='kw'>zs</span> <span class='op'>&lt;-</span> <span class='fu'>FisherZ</span>(<span class='kw'>cors</span>)
+<span class='kw'>rs</span> <span class='op'>&lt;-</span> <span class='fu'>FisherZInv</span>(<span class='kw'>zs</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='kw'>zs</span>, <span class='fl'>2</span>)
+</div><div class='output co'>#&gt;  [1] -1.47 -1.10 -0.87 -0.69 -0.55 -0.42 -0.31 -0.20 -0.10  0.00  0.10  0.20
+#&gt; [13]  0.31  0.42  0.55  0.69  0.87  1.10  1.47</div><div class='input'><span class='kw'>n</span> <span class='op'>&lt;-</span> <span class='fl'>30</span>
+<span class='kw'>r</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>.9</span>, <span class='fl'>.1</span>)
+<span class='kw'>rc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>(<span class='kw'>r</span>, <span class='kw'>CorCI</span>, n=<span class='kw'>n</span>))
+<span class='kw'>t</span> <span class='op'>&lt;-</span> <span class='kw'>r</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span>(<span class='kw'>n</span><span class='op'>-</span><span class='fl'>2</span>) <span class='op'>/</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span>(<span class='fl'>1</span><span class='op'>-</span><span class='kw'>r</span><span class='op'>^</span><span class='fl'>2</span>)
+<span class='kw'>p</span> <span class='op'>&lt;-</span> (<span class='fl'>1</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/stats/TDist.html'>pt</a></span>(<span class='kw'>t</span>, <span class='kw'>n</span><span class='op'>-</span><span class='fl'>2</span>)) <span class='op'>/</span> <span class='fl'>2</span>
 
-<span class='no'>r.rc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>r</span><span class='kw'>=</span><span class='no'>r</span>, <span class='kw'>z</span><span class='kw'>=</span><span class='fu'>FisherZ</span>(<span class='no'>r</span>), <span class='kw'>lower</span><span class='kw'>=</span><span class='no'>rc</span>[,<span class='fl'>2</span>], <span class='kw'>upper</span><span class='kw'>=</span><span class='no'>rc</span>[,<span class='fl'>3</span>], <span class='kw'>t</span><span class='kw'>=</span><span class='no'>t</span>, <span class='kw'>p</span><span class='kw'>=</span><span class='no'>p</span>)
+<span class='kw'>r.rc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(r=<span class='kw'>r</span>, z=<span class='fu'>FisherZ</span>(<span class='kw'>r</span>), lower=<span class='kw'>rc</span>[,<span class='fl'>2</span>], upper=<span class='kw'>rc</span>[,<span class='fl'>3</span>], t=<span class='kw'>t</span>, p=<span class='kw'>p</span>)
 
-<span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='no'>r.rc</span>,<span class='fl'>2</span>)</div><div class='output co'>#&gt;      r    z lower upper     t    p
+<span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='kw'>r.rc</span>,<span class='fl'>2</span>)
+</div><div class='output co'>#&gt;      r    z lower upper     t    p
 #&gt; 1  0.0 0.00 -0.36  0.36  0.00 0.25
 #&gt; 2  0.1 0.10 -0.27  0.44  0.53 0.15
 #&gt; 3  0.2 0.20 -0.17  0.52  1.08 0.07
@@ -224,7 +230,7 @@ rho, lower and upper confidence intervals (CorCI) <br /></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>String Abbreviation
-<!-- %%  ~~function to do ... ~~ --> — StrAbbr • DescTools</title>
+ — StrAbbr • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="String Abbreviation
-<!-- %%  ~~function to do ... ~~ --> — StrAbbr" />
+ — StrAbbr" />
 <meta property="og:description" content="Abbreviate a character vector. The function includes starting from the first character 
 as many characters as there are needed to result in a vector of unique values.
 " />
@@ -145,7 +145,7 @@ as many characters as there are needed to result in a vector of unique values.
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>StrAbbr</span>(<span class='no'>x</span>, <span class='kw'>minchar</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"left"</span>, <span class='st'>"fix"</span>))</pre>
+    <pre class="usage"><span class='fu'>StrAbbr</span>(<span class='kw'>x</span>, minchar = <span class='fl'>1</span>, method = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"left"</span>, <span class='st'>"fix"</span>))</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -177,16 +177,25 @@ as many characters as there are needed to result in a vector of unique values.
 <!-- %%  \item{comp1 }{Description of 'comp1'} -->
 <!-- %%  \item{comp2 }{Description of 'comp2'} -->
 <!-- %% ... --></p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;
+<!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/abbreviate.html'>abbreviate</a></code>, <code><a href='StrTrunc.html'>StrTrunc</a></code>, <code><a href='StrTrim.html'>StrTrim</a></code>
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>StrAbbr</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span>(<span class='no'>d.pizza</span>$<span class='no'>driver</span>), <span class='kw'>minchar</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='output co'>#&gt; [1] "Bu"   "Carp" "Cart" "Fa"   "Hu"   "Mi"   "Ta"  </div><div class='input'><span class='fu'>StrAbbr</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span>(<span class='no'>d.pizza</span>$<span class='no'>driver</span>), <span class='kw'>minchar</span><span class='kw'>=</span><span class='fl'>2</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"left"</span>)</div><div class='output co'>#&gt; [1] "Bu"   "Carp" "Cart" "Fa"   "Hu"   "Mi"   "Ta"  </div><div class='input'><span class='fu'>StrAbbr</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span>(<span class='no'>d.pizza</span>$<span class='no'>driver</span>), <span class='kw'>minchar</span><span class='kw'>=</span><span class='fl'>2</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"fix"</span>)</div><div class='output co'>#&gt; [1] "Butc" "Carp" "Cart" "Farm" "Hunt" "Mill" "Tayl"</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>StrAbbr</span>(x=<span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>driver</span>), minchar=<span class='fl'>2</span>)
+</div><div class='output co'>#&gt; [1] "Bu"   "Carp" "Cart" "Fa"   "Hu"   "Mi"   "Ta"  </div><div class='input'><span class='fu'>StrAbbr</span>(x=<span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>driver</span>), minchar=<span class='fl'>2</span>, method=<span class='st'>"left"</span>)
+</div><div class='output co'>#&gt; [1] "Bu"   "Carp" "Cart" "Fa"   "Hu"   "Mi"   "Ta"  </div><div class='input'><span class='fu'>StrAbbr</span>(x=<span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>driver</span>), minchar=<span class='fl'>2</span>, method=<span class='st'>"fix"</span>)
+</div><div class='output co'>#&gt; [1] "Butc" "Carp" "Cart" "Farm" "Hunt" "Mill" "Tayl"</div><div class='input'>
 
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Aaron"</span>, <span class='st'>"Aaramis"</span>, <span class='st'>"Berta"</span>, <span class='st'>"Bello"</span>, <span class='st'>"Claudia"</span>, <span class='st'>"Cardinale"</span>, <span class='st'>"Doretta"</span>, <span class='st'>"Emilia"</span>)
-<span class='fu'>StrAbbr</span>(<span class='no'>x</span>, <span class='kw'>minchar</span><span class='kw'>=</span><span class='fl'>2</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"left"</span>)</div><div class='output co'>#&gt; [1] "Aaro" "Aara" "Ber"  "Bel"  "Cl"   "Ca"   "Do"   "Em"  </div><div class='input'><span class='fu'>StrAbbr</span>(<span class='no'>x</span>, <span class='kw'>minchar</span><span class='kw'>=</span><span class='fl'>2</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"fix"</span>)</div><div class='output co'>#&gt; [1] "Aaro" "Aara" "Bert" "Bell" "Clau" "Card" "Dore" "Emil"</div></pre>
+<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Aaron"</span>, <span class='st'>"Aaramis"</span>, <span class='st'>"Berta"</span>, <span class='st'>"Bello"</span>, <span class='st'>"Claudia"</span>, <span class='st'>"Cardinale"</span>, <span class='st'>"Doretta"</span>, <span class='st'>"Emilia"</span>)
+<span class='fu'>StrAbbr</span>(<span class='kw'>x</span>, minchar=<span class='fl'>2</span>, method=<span class='st'>"left"</span>)
+</div><div class='output co'>#&gt; [1] "Aaro" "Aara" "Ber"  "Bel"  "Cl"   "Ca"   "Do"   "Em"  </div><div class='input'><span class='fu'>StrAbbr</span>(<span class='kw'>x</span>, minchar=<span class='fl'>2</span>, method=<span class='st'>"fix"</span>)
+</div><div class='output co'>#&gt; [1] "Aaro" "Aara" "Bert" "Bell" "Clau" "Card" "Dore" "Emil"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -202,7 +211,7 @@ as many characters as there are needed to result in a vector of unique values.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

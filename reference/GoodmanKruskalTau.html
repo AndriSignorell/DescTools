@@ -144,7 +144,7 @@ The function has interfaces for a table (matrix) and for single vectors.
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>GoodmanKruskalTau</span>(<span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"row"</span>, <span class='st'>"column"</span>), <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>GoodmanKruskalTau</span>(<span class='kw'>x</span>, y = <span class='kw'>NULL</span>, direction = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"row"</span>, <span class='st'>"column"</span>), conf.level = <span class='fl'>NA</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -182,7 +182,7 @@ The function has interfaces for a table (matrix) and for single vectors.
     <p>Goodman-Kruskal tau measures association for cross tabulations of nominal level variables.
 Goodman-Kruskal tau is based on random category assignment. It measures the percentage improvement in predictability of the dependent variable (column or row variable) given the value of other variables (row or column variables). Goodman-Kruskal tau is the same as Goodman-Kruskal lambda except the calculations of the tau statistic are based on assignment probabilities specified by marginal or conditional proportions.
 Misclassification probabilities are based on random category assignment with probabilities specified by marginal or conditional proportion.</p>
-<p>Goodman Kruskal tau reduces to \(\phi^2\) (see: <code><a href='CramerV.html'>Phi</a></code>) in the 2x2-table case.<br /></p>
+<p>Goodman Kruskal tau reduces to \(\phi^2\) (see: <code><a href='Association measures.html'>Phi</a></code>) in the 2x2-table case.<br /></p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a single numeric value if no confidence intervals are requested,<br />
@@ -200,6 +200,10 @@ association for cross classifications III: Approximate
 sampling theory. <em>Journal of the American Statistical
 Association</em>, 58, 310-364.</p>
 <p>Liebetrau, A. M. (1983) <em>Measures of Association</em>, Sage University Papers Series on Quantitative Applications in the Social Sciences, 07-004. Newbury Park, CA: Sage, pp. 24--30</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;, based on code from Antti Arppe &lt;antti.arppe@helsinki.fi&gt;
+<!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='ConDisPairs.html'>ConDisPairs</a></code> yields concordant and discordant pairs <br /><br />
@@ -214,21 +218,26 @@ Other association measures: <br />
 <span class='co'># http://support.sas.com/documentation/cdl/en/statugfreq/63124/PDF/default/statugfreq.pdf</span>
 <span class='co'># pp. S. 1821</span>
 
-<span class='no'>tab</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>26</span>,<span class='fl'>26</span>,<span class='fl'>23</span>,<span class='fl'>18</span>,<span class='fl'>9</span>),<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>6</span>,<span class='fl'>7</span>,<span class='fl'>9</span>,<span class='fl'>14</span>,<span class='fl'>23</span>)))
+<span class='kw'>tab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>26</span>,<span class='fl'>26</span>,<span class='fl'>23</span>,<span class='fl'>18</span>,<span class='fl'>9</span>),<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>6</span>,<span class='fl'>7</span>,<span class='fl'>9</span>,<span class='fl'>14</span>,<span class='fl'>23</span>)))
 
 <span class='co'># Goodman Kruskal's tau C|R</span>
-<span class='fu'>GoodmanKruskalTau</span>(<span class='no'>tab</span>, <span class='kw'>direction</span><span class='kw'>=</span><span class='st'>"column"</span>, <span class='kw'>conf.level</span><span class='kw'>=</span><span class='fl'>0.95</span>)</div><div class='output co'>#&gt;        tauA      lwr.ci      upr.ci 
+<span class='fu'>GoodmanKruskalTau</span>(<span class='kw'>tab</span>, direction=<span class='st'>"column"</span>, conf.level=<span class='fl'>0.95</span>)
+</div><div class='output co'>#&gt;        tauA      lwr.ci      upr.ci 
 #&gt; 0.041216580 0.009920576 0.072512583 </div><div class='input'><span class='co'># Goodman Kruskal's tau R|C</span>
-<span class='fu'>GoodmanKruskalTau</span>(<span class='no'>tab</span>, <span class='kw'>direction</span><span class='kw'>=</span><span class='st'>"row"</span>, <span class='kw'>conf.level</span><span class='kw'>=</span><span class='fl'>0.95</span>)</div><div class='output co'>#&gt;       tauA     lwr.ci     upr.ci 
+<span class='fu'>GoodmanKruskalTau</span>(<span class='kw'>tab</span>, direction=<span class='st'>"row"</span>, conf.level=<span class='fl'>0.95</span>)
+</div><div class='output co'>#&gt;       tauA     lwr.ci     upr.ci 
 #&gt; 0.16523315 0.04921484 0.28125146 </div><div class='input'>
 <span class='co'># http://support.sas.com/documentation/cdl/en/statugfreq/63124/PDF/default/statugfreq.pdf</span>
 <span class='co'># pp. 1814 (143)</span>
-<span class='no'>tab</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>11</span>,<span class='fl'>2</span>),<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>,<span class='fl'>6</span>)))
+<span class='kw'>tab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>11</span>,<span class='fl'>2</span>),<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>,<span class='fl'>6</span>)))
 
-<span class='fu'>GoodmanKruskalTau</span>(<span class='no'>tab</span>, <span class='kw'>direction</span><span class='kw'>=</span><span class='st'>"row"</span>, <span class='kw'>conf.level</span><span class='kw'>=</span><span class='fl'>0.95</span>)</div><div class='output co'>#&gt;       tauA     lwr.ci     upr.ci 
-#&gt;  0.2156410 -0.1224903  0.5537724 </div><div class='input'><span class='fu'>GoodmanKruskalTau</span>(<span class='no'>tab</span>, <span class='kw'>direction</span><span class='kw'>=</span><span class='st'>"column"</span>, <span class='kw'>conf.level</span><span class='kw'>=</span><span class='fl'>0.95</span>)</div><div class='output co'>#&gt;       tauA     lwr.ci     upr.ci 
+<span class='fu'>GoodmanKruskalTau</span>(<span class='kw'>tab</span>, direction=<span class='st'>"row"</span>, conf.level=<span class='fl'>0.95</span>)
+</div><div class='output co'>#&gt;       tauA     lwr.ci     upr.ci 
+#&gt;  0.2156410 -0.1224903  0.5537724 </div><div class='input'><span class='fu'>GoodmanKruskalTau</span>(<span class='kw'>tab</span>, direction=<span class='st'>"column"</span>, conf.level=<span class='fl'>0.95</span>)
+</div><div class='output co'>#&gt;       tauA     lwr.ci     upr.ci 
 #&gt;  0.2156410 -0.1224903  0.5537724 </div><div class='input'><span class='co'># reduce both to:</span>
-<span class='fu'><a href='CramerV.html'>Phi</a></span>(<span class='no'>tab</span>)^<span class='fl'>2</span></div><div class='output co'>#&gt; [1] 0.215641</div></pre>
+<span class='fu'><a href='Association measures.html'>Phi</a></span>(<span class='kw'>tab</span>)<span class='op'>^</span><span class='fl'>2</span>
+</div><div class='output co'>#&gt; [1] 0.215641</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -244,7 +253,7 @@ Other association measures: <br />
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

@@ -138,7 +138,7 @@
     <p>This will scale the numeric vector <code>x</code> linearly from an old scale between <code>low</code> and <code>high</code> to a new one between <code>newlow</code> and <code>newhigh</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>LinScale</span>(<span class='no'>x</span>, <span class='kw'>low</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>high</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>newlow</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>newhigh</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+    <pre class="usage"><span class='fu'>LinScale</span>(<span class='kw'>x</span>, low = <span class='kw'>NULL</span>, high = <span class='kw'>NULL</span>, newlow = <span class='fl'>0</span>, newhigh = <span class='fl'>1</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -175,6 +175,10 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>The centered and scaled matrix. The numeric centering and scalings used (if any) are returned as attributes "<code>scaled:center</code>" and "<code>scaled:scale</code>"</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;
+<!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/scale.html'>scale</a></code>,  <code><a href='RobScale.html'>RobScale</a></code>, <code><a href='https://rdrr.io/r/base/sweep.html'>sweep</a></code>
@@ -182,7 +186,8 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># transform the temperature from Celsius to Fahrenheit</span>
-<span class='fu'>LinScale</span>(<span class='no'>d.pizza</span>[<span class='fl'>1</span>:<span class='fl'>20</span>, <span class='st'>"temperature"</span>], <span class='fl'>0</span>, <span class='fl'>100</span>, -<span class='fl'>17.8</span>, <span class='fl'>37.8</span> )</div><div class='output co'>#&gt;          [,1]
+<span class='fu'>LinScale</span>(<span class='kw'>d.pizza</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>20</span>, <span class='st'>"temperature"</span>], <span class='fl'>0</span>, <span class='fl'>100</span>, <span class='op'>-</span><span class='fl'>17.8</span>, <span class='fl'>37.8</span> )
+</div><div class='output co'>#&gt;          [,1]
 #&gt;  [1,] 11.6680
 #&gt;  [2,] 13.5584
 #&gt;  [3,]  2.4940
@@ -208,7 +213,8 @@
 #&gt; attr(,"scaled:scale")
 #&gt; [1] 1.798561</div><div class='input'>
 <span class='co'># and the price from Dollar to Euro</span>
-<span class='fu'>LinScale</span>(<span class='no'>d.pizza</span>[<span class='fl'>1</span>:<span class='fl'>20</span>, <span class='st'>"price"</span>], <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>0.76</span>)</div><div class='output co'>#&gt;           [,1]
+<span class='fu'>LinScale</span>(<span class='kw'>d.pizza</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>20</span>, <span class='st'>"price"</span>], <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>0.76</span>)
+</div><div class='output co'>#&gt;           [,1]
 #&gt;  [1,] 49.89780
 #&gt;  [2,] 20.50480
 #&gt;  [3,] 31.13720
@@ -234,8 +240,9 @@
 #&gt; attr(,"scaled:scale")
 #&gt; [1] 1.315789</div><div class='input'>
 <span class='co'># together</span>
-<span class='fu'>LinScale</span>(<span class='no'>d.pizza</span>[<span class='fl'>1</span>:<span class='fl'>20</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"temperature"</span>, <span class='st'>"price"</span>)],
-  <span class='fl'>0</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>100</span>, <span class='fl'>1</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>17.8</span>, <span class='fl'>0</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>37.8</span>, <span class='fl'>0.76</span>) )</div><div class='output co'>#&gt;    temperature    price
+<span class='fu'>LinScale</span>(<span class='kw'>d.pizza</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>20</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"temperature"</span>, <span class='st'>"price"</span>)],
+  <span class='fl'>0</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>100</span>, <span class='fl'>1</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>17.8</span>, <span class='fl'>0</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>37.8</span>, <span class='fl'>0.76</span>) )
+</div><div class='output co'>#&gt;    temperature    price
 #&gt; 1      11.6680 49.89780
 #&gt; 2      13.5584 20.50480
 #&gt; 3       2.4940 31.13720
@@ -261,13 +268,14 @@
 #&gt; attr(,"scaled:scale")
 #&gt; [1] 1.798561 1.315789</div><div class='input'>
 
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>1</span>), <span class='kw'>mar</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>5</span>,<span class='fl'>0</span>,<span class='fl'>3</span>), <span class='kw'>oma</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>,<span class='fl'>0</span>,<span class='fl'>5</span>,<span class='fl'>0</span>))
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'>LinScale</span>(<span class='no'>d.frm</span>[,<span class='fl'>1</span>]), <span class='kw'>ylim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>2</span>,<span class='fl'>2</span>), <span class='kw'>xaxt</span><span class='kw'>=</span><span class='st'>"n"</span>, <span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"LinScale"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'><a href='RobScale.html'>RobScale</a></span>(<span class='no'>d.frm</span>[,<span class='fl'>1</span>]), <span class='kw'>ylim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>2</span>,<span class='fl'>2</span>), <span class='kw'>xaxt</span><span class='kw'>=</span><span class='st'>"n"</span>, <span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"RobScale"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/scale.html'>scale</a></span>(<span class='no'>d.frm</span>[,<span class='fl'>1</span>]), <span class='kw'>ylim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>2</span>,<span class='fl'>2</span>), <span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"scale"</span>)
-<span class='fu'><a href='https://rdrr.io/r/graphics/title.html'>title</a></span>(<span class='st'>"Compare scales"</span>, <span class='kw'>outer</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-}</div></pre>
+<span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(mfrow=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>1</span>), mar=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>5</span>,<span class='fl'>0</span>,<span class='fl'>3</span>), oma=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>,<span class='fl'>0</span>,<span class='fl'>5</span>,<span class='fl'>0</span>))
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='fu'>LinScale</span>(<span class='kw'>d.frm</span>[,<span class='fl'>1</span>]), ylim=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>2</span>,<span class='fl'>2</span>), xaxt=<span class='st'>"n"</span>, ylab=<span class='st'>"LinScale"</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='fu'><a href='RobScale.html'>RobScale</a></span>(<span class='kw'>d.frm</span>[,<span class='fl'>1</span>]), ylim=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>2</span>,<span class='fl'>2</span>), xaxt=<span class='st'>"n"</span>, ylab=<span class='st'>"RobScale"</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/scale.html'>scale</a></span>(<span class='kw'>d.frm</span>[,<span class='fl'>1</span>]), ylim=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>2</span>,<span class='fl'>2</span>), ylab=<span class='st'>"scale"</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/title.html'>title</a></span>(<span class='st'>"Compare scales"</span>, outer = <span class='fl'>TRUE</span>)
+}
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -283,7 +291,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

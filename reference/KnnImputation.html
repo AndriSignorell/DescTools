@@ -150,7 +150,7 @@ If meth='median' it uses the median/most frequent value,
 instead.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ImputeKnn</span>(<span class='no'>data</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='no'>T</span>, <span class='kw'>meth</span> <span class='kw'>=</span> <span class='st'>"weighAvg"</span>, <span class='kw'>distData</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>ImputeKnn</span>(<span class='kw'>data</span>, k = <span class='fl'>10</span>, scale = <span class='kw'>T</span>, meth = <span class='st'>"weighAvg"</span>, distData = <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -204,13 +204,17 @@ NAs (x) and the neighbour k.</p>
     <p>Torgo, L. (2010) <em>Data Mining using R: learning with case studies</em>,
   CRC Press (ISBN: 9781439810187).</p>
 <p><a href='http://www.dcc.fc.up.pt/~ltorgo/DataMiningWithR'>http://www.dcc.fc.up.pt/~ltorgo/DataMiningWithR</a></p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Luis Torgo <a href='mailto:ltorgo@dcc.fc.up.pt'>ltorgo@dcc.fc.up.pt</a></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/complete.cases.html'>complete.cases</a></code>, <code><a href='https://rdrr.io/r/stats/na.fail.html'>na.omit</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>cleanPizza</span> <span class='kw'>&lt;-</span> <span class='fu'>ImputeKnn</span>(<span class='no'>d.pizza</span>[, -<span class='fl'>2</span>])   <span class='co'># no dates allowed</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>cleanPizza</span>)</div><div class='output co'>#&gt;      index           week          weekday               area    
+    <pre class="examples"><div class='input'><span class='kw'>cleanPizza</span> <span class='op'>&lt;-</span> <span class='fu'>ImputeKnn</span>(<span class='kw'>d.pizza</span>[, <span class='op'>-</span><span class='fl'>2</span>])   <span class='co'># no dates allowed</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='kw'>cleanPizza</span>)
+</div><div class='output co'>#&gt;      index           week          weekday               area    
 #&gt;  Min.   :   1   Min.   : 9.00   Min.   :1.000   Brent      :480  
 #&gt;  1st Qu.: 303   1st Qu.:10.00   1st Qu.:3.000   Camden     :346  
 #&gt;  Median : 605   Median :11.00   Median :5.000   Westminster:383  
@@ -257,7 +261,7 @@ NAs (x) and the neighbour k.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

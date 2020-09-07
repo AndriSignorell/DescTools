@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Plot Conditional Densities
-<!-- %%  ~~function to do ... ~~ --> — PlotConDens • DescTools</title>
+ — PlotConDens • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Plot Conditional Densities
-<!-- %%  ~~function to do ... ~~ --> — PlotConDens" />
+ — PlotConDens" />
 <meta property="og:description" content="Plot conditional densities by group. For describing how the conditional distribution of a categorical variable y changes over a numerical variable x we have the function cdplot. But if we want to compare multiple densities much work is required. PlotConDens allows to easily enter a grouping variable. 
 " />
 
@@ -143,8 +143,8 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>PlotConDens</span>(<span class='no'>formula</span>, <span class='no'>data</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>rev</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-            <span class='kw'>args.dens</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>PlotConDens</span>(<span class='kw'>formula</span>, <span class='kw'>data</span>, col = <span class='kw'>NULL</span>, lwd = <span class='fl'>2</span>, lty = <span class='fl'>1</span>, xlim = <span class='kw'>NULL</span>, rev = <span class='fl'>TRUE</span>, 
+            args.dens = <span class='kw'>NULL</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -191,7 +191,7 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>the dots are passed on to <code><a href='https://rdrr.io/r/base/plot.html'>plot()</a></code>.
+      <td><p>the dots are passed on to <code><a href='https://rdrr.io/r/graphics/plot.default.html'>plot()</a></code>.
 <!-- %%     ~~Describe \code{\dots} here~~ --></p></td>
     </tr>
     </table>
@@ -208,16 +208,21 @@
 <!-- %%  \item{comp1 }{Description of 'comp1'} -->
 <!-- %%  \item{comp2 }{Description of 'comp2'} -->
 <!-- %% ... --></p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;
+<!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/graphics/cdplot.html'>cdplot</a></code>, <code><a href='https://rdrr.io/r/graphics/spineplot.html'>spineplot</a></code>, <code><a href='https://rdrr.io/r/stats/density.html'>density</a></code>, <code><a href='PlotMultiDens.html'>PlotMultiDens</a></code>
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>Pima.tr2</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"MASS"</span>)
-<span class='fu'>PlotConDens</span> (<span class='no'>type</span> ~ <span class='no'>age</span> <span class='kw'>|</span> <span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span>((<span class='no'>npreg</span> <span class='kw'>&gt;</span> <span class='fl'>0</span>)*<span class='fl'>1L</span>),
-             <span class='kw'>data</span><span class='kw'>=</span><span class='no'>Pima.tr2</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>hblue</span>, <span class='no'>hred</span>), <span class='kw'>rev</span><span class='kw'>=</span><span class='fl'>FALSE</span>,
-             <span class='kw'>panel.first</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>quote</a></span>(<span class='fu'><a href='https://rdrr.io/r/graphics/grid.html'>grid</a></span>()))</div><div class='img'><img src='PlotConDens-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>Pima.tr2</span>, package=<span class='st'>"MASS"</span>)
+<span class='fu'>PlotConDens</span> (<span class='kw'>type</span> <span class='op'>~</span> <span class='kw'>age</span> <span class='op'>|</span> <span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span>((<span class='kw'>npreg</span> <span class='op'>&gt;</span> <span class='fl'>0</span>)<span class='op'>*</span><span class='fl'>1L</span>), 
+             data=<span class='kw'>Pima.tr2</span>, col=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>hblue</span>, <span class='kw'>hred</span>), rev=<span class='fl'>FALSE</span>, 
+             panel.first=<span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>quote</a></span>(<span class='fu'><a href='https://rdrr.io/r/graphics/grid.html'>grid</a></span>()))
+</div><div class='img'><img src='PlotConDens-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -233,7 +238,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

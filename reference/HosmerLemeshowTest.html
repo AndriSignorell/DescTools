@@ -142,7 +142,7 @@
   unweighted sum of squares test for global goodness of fit.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>HosmerLemeshowTest</span>(<span class='no'>fit</span>, <span class='no'>obs</span>, <span class='kw'>ngr</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='no'>X</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>HosmerLemeshowTest</span>(<span class='kw'>fit</span>, <span class='kw'>obs</span>, ngr = <span class='fl'>10</span>, <span class='kw'>X</span>, verbose = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -190,6 +190,9 @@
 <p>Hosmer, D.W., Hosmer, T., le Cessie, S., Lemeshow, S. (1997). A comparison
   of goodness-of-fit tests for the logistic regression model.
   <em>Statistics in Medicine</em>, <b>16</b>, 965-980.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Matthias Kohl &lt;Matthias.Kohl@stamats.de&gt;</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/glm.html'>glm</a></code></p></div>
@@ -197,13 +200,14 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>111</span>)
 
-<span class='no'>x1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>, <span class='fl'>50</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
-<span class='no'>x2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>50</span>)
-<span class='no'>obs</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>1</span>), <span class='fl'>50</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='kw'>x1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='fl'>50</span>, replace = <span class='fl'>TRUE</span>))
+<span class='kw'>x2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>50</span>)
+<span class='kw'>obs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>1</span>), <span class='fl'>50</span>, replace = <span class='fl'>TRUE</span>)
 
-<span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>obs</span> ~ <span class='no'>x1</span>+<span class='no'>x2</span>, <span class='kw'>family</span> <span class='kw'>=</span> <span class='no'>binomial</span>)
+<span class='kw'>fit</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='kw'>obs</span> <span class='op'>~</span> <span class='kw'>x1</span><span class='op'>+</span><span class='kw'>x2</span>, family = <span class='kw'>binomial</span>)
 
-<span class='fu'>HosmerLemeshowTest</span>(<span class='kw'>fit</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/fitted.values.html'>fitted</a></span>(<span class='no'>fit</span>), <span class='kw'>obs</span> <span class='kw'>=</span> <span class='no'>obs</span>, <span class='kw'>X</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='no'>x1</span>, <span class='no'>x2</span>))</div><div class='output co'>#&gt; $C
+<span class='fu'>HosmerLemeshowTest</span>(fit = <span class='fu'><a href='https://rdrr.io/r/stats/fitted.values.html'>fitted</a></span>(<span class='kw'>fit</span>), obs = <span class='kw'>obs</span>, X = <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='kw'>x1</span>, <span class='kw'>x2</span>))
+</div><div class='output co'>#&gt; $C
 #&gt; 
 #&gt; 	Hosmer-Lemeshow C statistic
 #&gt; 
@@ -242,7 +246,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

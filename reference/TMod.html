@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Comparison Table For Linear Models
-<!-- %%  ~~function to do ... ~~ --> — TMod • DescTools</title>
+ — TMod • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Comparison Table For Linear Models
-<!-- %%  ~~function to do ... ~~ --> — TMod" />
+ — TMod" />
 <meta property="og:description" content="Collect the coefficients and some qualifying statistics of linear models and organize it in a table for comparison and reporting. The function supports linear and general linear models.
 " />
 
@@ -143,19 +143,19 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>TMod</span>(<span class='no'>...</span>, <span class='kw'>FUN</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>TMod</span>(<span class='kw'>...</span>, FUN = <span class='kw'>NULL</span>)
 
-<span class='fu'>ModSummary</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'>ModSummary</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
 
 <span class='co'># S3 method for lm</span>
-<span class='fu'>ModSummary</span>(<span class='no'>x</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>...</span>)
+<span class='fu'>ModSummary</span>(<span class='kw'>x</span>, conf.level = <span class='fl'>0.95</span>, <span class='kw'>...</span>)
 <span class='co'># S3 method for glm</span>
-<span class='fu'>ModSummary</span>(<span class='no'>x</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>...</span>)
+<span class='fu'>ModSummary</span>(<span class='kw'>x</span>, conf.level = <span class='fl'>0.95</span>, <span class='kw'>...</span>)
 
 <span class='co'># S3 method for TMod</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>x</span>, <span class='kw'>terms</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>intercept</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>x</span>, terms = <span class='kw'>NULL</span>, intercept = <span class='fl'>FALSE</span>, <span class='kw'>...</span>)
 <span class='co'># S3 method for TMod</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>na.form</span> <span class='kw'>=</span> <span class='st'>"-"</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>x</span>, digits = <span class='fl'>3</span>, na.form = <span class='st'>"-"</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -209,20 +209,25 @@
 <!-- %%  \item{comp1 }{Description of 'comp1'} -->
 <!-- %%  \item{comp2 }{Description of 'comp2'} -->
 <!-- %% ... --></p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;
+<!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/utils/help.html'>help</a></code>
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>r.full</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>Fertility</span> ~ <span class='no'>.</span> , <span class='no'>swiss</span>)
-<span class='no'>r.nox</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>Fertility</span> ~ <span class='no'>.</span> -<span class='no'>Examination</span> - <span class='no'>Catholic</span>, <span class='no'>swiss</span>)
-<span class='no'>r.grp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>Fertility</span> ~ <span class='no'>.</span> -<span class='no'>Education</span> - <span class='no'>Catholic</span> + <span class='fu'><a href='CutQ.html'>CutQ</a></span>(<span class='no'>Catholic</span>), <span class='no'>swiss</span>)
-<span class='no'>r.gam</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>Fertility</span> ~ <span class='no'>.</span> , <span class='no'>swiss</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/stats/family.html'>Gamma</a></span>(<span class='kw'>link</span><span class='kw'>=</span><span class='st'>"identity"</span>))
-<span class='no'>r.gama</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>Fertility</span> ~ <span class='no'>.</span>- <span class='no'>Agriculture</span> , <span class='no'>swiss</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/stats/family.html'>Gamma</a></span>(<span class='kw'>link</span><span class='kw'>=</span><span class='st'>"identity"</span>))
-<span class='no'>r.gaml</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>Fertility</span> ~ <span class='no'>.</span> , <span class='no'>swiss</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/stats/family.html'>Gamma</a></span>(<span class='kw'>link</span><span class='kw'>=</span><span class='st'>"log"</span>))
+    <pre class="examples"><div class='input'><span class='kw'>r.full</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='kw'>Fertility</span> <span class='op'>~</span> <span class='kw'>.</span> , <span class='kw'>swiss</span>)
+<span class='kw'>r.nox</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='kw'>Fertility</span> <span class='op'>~</span> <span class='kw'>.</span> <span class='op'>-</span><span class='kw'>Examination</span> <span class='op'>-</span> <span class='kw'>Catholic</span>, <span class='kw'>swiss</span>)
+<span class='kw'>r.grp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='kw'>Fertility</span> <span class='op'>~</span> <span class='kw'>.</span> <span class='op'>-</span><span class='kw'>Education</span> <span class='op'>-</span> <span class='kw'>Catholic</span> <span class='op'>+</span> <span class='fu'><a href='CutQ.html'>CutQ</a></span>(<span class='kw'>Catholic</span>), <span class='kw'>swiss</span>)
+<span class='kw'>r.gam</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='kw'>Fertility</span> <span class='op'>~</span> <span class='kw'>.</span> , <span class='kw'>swiss</span>, family=<span class='fu'><a href='https://rdrr.io/r/stats/family.html'>Gamma</a></span>(link=<span class='st'>"identity"</span>))
+<span class='kw'>r.gama</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='kw'>Fertility</span> <span class='op'>~</span> <span class='kw'>.</span><span class='op'>-</span> <span class='kw'>Agriculture</span> , <span class='kw'>swiss</span>, family=<span class='fu'><a href='https://rdrr.io/r/stats/family.html'>Gamma</a></span>(link=<span class='st'>"identity"</span>))
+<span class='kw'>r.gaml</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='kw'>Fertility</span> <span class='op'>~</span> <span class='kw'>.</span> , <span class='kw'>swiss</span>, family=<span class='fu'><a href='https://rdrr.io/r/stats/family.html'>Gamma</a></span>(link=<span class='st'>"log"</span>))
 
-<span class='fu'>TMod</span>(<span class='no'>r.full</span>, <span class='no'>r.nox</span>, <span class='no'>r.grp</span>, <span class='no'>r.gam</span>, <span class='no'>r.gama</span>, <span class='no'>r.gaml</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt;                coef   r.full        r.nox        r.grp        r.gam    
+<span class='fu'>TMod</span>(<span class='kw'>r.full</span>, <span class='kw'>r.nox</span>, <span class='kw'>r.grp</span>, <span class='kw'>r.gam</span>, <span class='kw'>r.gama</span>, <span class='kw'>r.gaml</span>)
+</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt;                coef   r.full        r.nox        r.grp        r.gam    
 #&gt; 1       (Intercept)   66.915 ***   51.101 ***   53.411 ***   63.709 ***
 #&gt; 2       Agriculture   -0.172 *     -0.026       -0.096       -0.175 *  
 #&gt; 3       Examination   -0.258        -           -0.872 ***   -0.129    
@@ -293,13 +298,14 @@
 #&gt; 33    0.688        0.718    
 #&gt; 34    0.687        0.718    </div><div class='input'>
 <span class='co'># display confidence intervals</span>
-<span class='fu'>TMod</span>(<span class='no'>r.full</span>, <span class='no'>r.nox</span>, <span class='no'>r.gam</span>, <span class='kw'>FUN</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>est</span>, <span class='no'>se</span>, <span class='no'>tval</span>, <span class='no'>pval</span>, <span class='no'>lci</span>, <span class='no'>uci</span>){
+<span class='fu'>TMod</span>(<span class='kw'>r.full</span>, <span class='kw'>r.nox</span>, <span class='kw'>r.gam</span>, FUN = <span class='fu'>function</span>(<span class='kw'>est</span>, <span class='kw'>se</span>, <span class='kw'>tval</span>, <span class='kw'>pval</span>, <span class='kw'>lci</span>, <span class='kw'>uci</span>){
   <span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>gettextf</a></span>(<span class='st'>"%s [%s, %s]"</span>,
-           <span class='fu'><a href='Format.html'>Format</a></span>(<span class='no'>est</span>, <span class='kw'>fmt</span><span class='kw'>=</span><span class='fu'><a href='Format.html'>Fmt</a></span>(<span class='st'>"num"</span>)),
-           <span class='fu'><a href='Format.html'>Format</a></span>(<span class='no'>lci</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>3</span>),
-           <span class='fu'><a href='Format.html'>Format</a></span>(<span class='no'>uci</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>2</span>)
+           <span class='fu'><a href='Format.html'>Format</a></span>(<span class='kw'>est</span>, fmt=<span class='fu'><a href='Format.html'>Fmt</a></span>(<span class='st'>"num"</span>)),
+           <span class='fu'><a href='Format.html'>Format</a></span>(<span class='kw'>lci</span>, digits=<span class='fl'>3</span>),
+           <span class='fu'><a href='Format.html'>Format</a></span>(<span class='kw'>uci</span>, digits=<span class='fl'>2</span>)
            )
-})</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt;                coef               r.full                    r.nox    
+})
+</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt;                coef               r.full                    r.nox    
 #&gt; 1       (Intercept)   66.915 [45.294, 88.54]   51.101 [28.928, 73.27]
 #&gt; 2       Agriculture   -0.172 [-0.314, -0.03]   -0.026 [-0.173, 0.12] 
 #&gt; 3       Examination   -0.258 [-0.771, 0.25]     -                    
@@ -374,28 +380,33 @@
 <span class='co'># r.glm1 &lt;- glm(cbind(Freq.Yes, Freq.No) ~ Class, data=d.titanic, family="binomial")</span>
 <span class='co'># r.glm2 &lt;- glm(cbind(Freq.Yes, Freq.No) ~ ., data=d.titanic, family="binomial")</span>
 
-<span class='no'>d.titanic</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='Untable.html'>Untable</a></span>(<span class='no'>Titanic</span>)
+<span class='kw'>d.titanic</span> <span class='op'>&lt;-</span> <span class='fu'><a href='Untable.html'>Untable</a></span>(<span class='kw'>Titanic</span>)
 
-<span class='no'>r.glm0</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>Survived</span> ~ <span class='fl'>1</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>d.titanic</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='st'>"binomial"</span>)
-<span class='no'>r.glm1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>Survived</span> ~ <span class='no'>Class</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>d.titanic</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='st'>"binomial"</span>)
-<span class='no'>r.glm2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>Survived</span> ~ <span class='no'>.</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>d.titanic</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='st'>"binomial"</span>)
+<span class='kw'>r.glm0</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='kw'>Survived</span> <span class='op'>~</span> <span class='fl'>1</span>, data=<span class='kw'>d.titanic</span>, family=<span class='st'>"binomial"</span>)
+<span class='kw'>r.glm1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='kw'>Survived</span> <span class='op'>~</span> <span class='kw'>Class</span>, data=<span class='kw'>d.titanic</span>, family=<span class='st'>"binomial"</span>)
+<span class='kw'>r.glm2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='kw'>Survived</span> <span class='op'>~</span> <span class='kw'>.</span>, data=<span class='kw'>d.titanic</span>, family=<span class='st'>"binomial"</span>)
 
-<span class='fu'>TMod</span>(<span class='no'>r.glm0</span>, <span class='no'>r.glm1</span>, <span class='no'>r.glm2</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt; <span class='error'>Error in .Call("conc", PACKAGE = "DescTools", y[ord, ], as.double(wts[ord]),     as.integer(idx), as.integer(n2)): "conc" not available for .Call() for package "DescTools"</span></div><div class='input'>
+<span class='fu'>TMod</span>(<span class='kw'>r.glm0</span>, <span class='kw'>r.glm1</span>, <span class='kw'>r.glm2</span>)
+</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt; <span class='error'>Error in .Call("conc", PACKAGE = "DescTools", y[ord, ], as.double(wts[ord]),     as.integer(idx), as.integer(n2)): "conc" not available for .Call() for package "DescTools"</span></div><div class='input'>
 <span class='co'># plot OddsRatios</span>
-<span class='no'>d.pima</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>MASS</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/MASS/man/Pima.tr.html'>Pima.tr2</a></span>
+<span class='kw'>d.pima</span> <span class='op'>&lt;-</span> <span class='kw'>MASS</span>::<span class='kw'><a href='https://rdrr.io/pkg/MASS/man/Pima.tr.html'>Pima.tr2</a></span>
 
-<span class='no'>r.a</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>type</span> ~ <span class='no'>npreg</span> + <span class='no'>bp</span> + <span class='no'>skin</span> + <span class='no'>bmi</span> + <span class='no'>ped</span> + <span class='no'>age</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>d.pima</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='no'>binomial</span>)
-<span class='no'>r.b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>type</span> ~ <span class='no'>npreg</span> + <span class='no'>glu</span> + <span class='no'>bp</span> + <span class='no'>skin</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>d.pima</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='no'>binomial</span>)
-<span class='no'>r.c</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>type</span> ~ <span class='no'>npreg</span> + <span class='no'>age</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>d.pima</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='no'>binomial</span>)
+<span class='kw'>r.a</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='kw'>type</span> <span class='op'>~</span> <span class='kw'>npreg</span> <span class='op'>+</span> <span class='kw'>bp</span> <span class='op'>+</span> <span class='kw'>skin</span> <span class='op'>+</span> <span class='kw'>bmi</span> <span class='op'>+</span> <span class='kw'>ped</span> <span class='op'>+</span> <span class='kw'>age</span>, data=<span class='kw'>d.pima</span>, family=<span class='kw'>binomial</span>)
+<span class='kw'>r.b</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='kw'>type</span> <span class='op'>~</span> <span class='kw'>npreg</span> <span class='op'>+</span> <span class='kw'>glu</span> <span class='op'>+</span> <span class='kw'>bp</span> <span class='op'>+</span> <span class='kw'>skin</span>, data=<span class='kw'>d.pima</span>, family=<span class='kw'>binomial</span>)
+<span class='kw'>r.c</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='kw'>type</span> <span class='op'>~</span> <span class='kw'>npreg</span> <span class='op'>+</span> <span class='kw'>age</span>, data=<span class='kw'>d.pima</span>, family=<span class='kw'>binomial</span>)
 
-<span class='no'>or.a</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='OddsRatio.html'>OddsRatio</a></span>(<span class='no'>r.a</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='input'><span class='no'>or.b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='OddsRatio.html'>OddsRatio</a></span>(<span class='no'>r.b</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='input'><span class='no'>or.c</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='OddsRatio.html'>OddsRatio</a></span>(<span class='no'>r.c</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='input'>
+<span class='kw'>or.a</span> <span class='op'>&lt;-</span> <span class='fu'><a href='OddsRatio.html'>OddsRatio</a></span>(<span class='kw'>r.a</span>)
+</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='input'><span class='kw'>or.b</span> <span class='op'>&lt;-</span> <span class='fu'><a href='OddsRatio.html'>OddsRatio</a></span>(<span class='kw'>r.b</span>)
+</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='input'><span class='kw'>or.c</span> <span class='op'>&lt;-</span> <span class='fu'><a href='OddsRatio.html'>OddsRatio</a></span>(<span class='kw'>r.c</span>)
+</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='input'>
 
 <span class='co'># create the model table</span>
-<span class='no'>tm</span> <span class='kw'>&lt;-</span> <span class='fu'>TMod</span>(<span class='kw'>m_A</span><span class='kw'>=</span><span class='no'>or.a</span>, <span class='kw'>m_B</span><span class='kw'>=</span><span class='no'>or.b</span>, <span class='kw'>m_C</span><span class='kw'>=</span><span class='no'>or.c</span>)
+<span class='kw'>tm</span> <span class='op'>&lt;-</span> <span class='fu'>TMod</span>(m_A=<span class='kw'>or.a</span>, m_B=<span class='kw'>or.b</span>, m_C=<span class='kw'>or.c</span>)
 <span class='co'># .. and plotit</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>tm</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"ORs for Models A, B, C"</span>, <span class='kw'>intercept</span><span class='kw'>=</span><span class='fl'>FALSE</span>,
-     <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>15</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>hred</span>, <span class='no'>hblue</span>, <span class='no'>horange</span>),
-     <span class='kw'>panel.first</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span>(<span class='kw'>v</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"grey30"</span>))</div><div class='img'><img src='TMod-1.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>tm</span>, main=<span class='st'>"ORs for Models A, B, C"</span>, intercept=<span class='fl'>FALSE</span>,
+     pch=<span class='fl'>15</span>, col=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>hred</span>, <span class='kw'>hblue</span>, <span class='kw'>horange</span>), 
+     panel.first=<span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span>(v=<span class='fl'>1</span>, col=<span class='st'>"grey30"</span>))
+</div><div class='img'><img src='TMod-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -411,7 +422,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Round to Multiple
-<!-- %%  ~~function to do ... ~~ --> — RoundTo • DescTools</title>
+ — RoundTo • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Round to Multiple
-<!-- %%  ~~function to do ... ~~ --> — RoundTo" />
+ — RoundTo" />
 <meta property="og:description" content="Returns a number rounded to the nearest specified multiple.
 " />
 
@@ -143,7 +143,7 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>RoundTo</span>(<span class='no'>x</span>, <span class='kw'>multiple</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>FUN</span> <span class='kw'>=</span> <span class='no'>round</span>)</pre>
+    <pre class="usage"><span class='fu'>RoundTo</span>(<span class='kw'>x</span>, multiple = <span class='fl'>1</span>, FUN = <span class='kw'>round</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -179,39 +179,56 @@ If <code>FUN</code> is set to <code>ceiling</code> it will always round up, and 
 <!-- %%  \item{comp1 }{Description of 'comp1'} -->
 <!-- %%  \item{comp2 }{Description of 'comp2'} -->
 <!-- %% ... --></p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;
+<!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/Round.html'>round</a></code>, <code><a href='https://rdrr.io/r/base/Round.html'>trunc</a></code>, <code><a href='https://rdrr.io/r/base/Round.html'>ceiling</a></code>, <code><a href='https://rdrr.io/r/base/Round.html'>floor</a></code>
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>RoundTo</span>(<span class='fl'>10</span>, <span class='fl'>3</span>)     <span class='co'># Rounds 10 to a nearest multiple of 3 (9)</span></div><div class='output co'>#&gt; [1] 9</div><div class='input'><span class='fu'>RoundTo</span>(-<span class='fl'>10</span>, -<span class='fl'>3</span>)   <span class='co'># Rounds -10 to a nearest multiple of -3 (-9)</span></div><div class='output co'>#&gt; [1] -9</div><div class='input'>
-<span class='fu'>RoundTo</span>(<span class='fl'>1.3</span>, <span class='fl'>0.2</span>)  <span class='co'># Rounds 1.3 to a nearest multiple of 0.2 (1.2)</span></div><div class='output co'>#&gt; [1] 1.2</div><div class='input'><span class='fu'>RoundTo</span>(-<span class='fl'>1.3</span>, <span class='fl'>0.2</span>) <span class='co'># Rounds -1.3 to a nearest multiple of 0.2 (-1.2)</span></div><div class='output co'>#&gt; [1] -1.2</div><div class='input'><span class='fu'>RoundTo</span>(<span class='fl'>5</span>, -<span class='fl'>2</span>)     <span class='co'># Returns an error, because -2 and 5 have different signs</span></div><div class='output co'>#&gt; [1] 4</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>RoundTo</span>(<span class='fl'>10</span>, <span class='fl'>3</span>)     <span class='co'># Rounds 10 to a nearest multiple of 3 (9)</span>
+</div><div class='output co'>#&gt; [1] 9</div><div class='input'><span class='fu'>RoundTo</span>(<span class='op'>-</span><span class='fl'>10</span>, <span class='op'>-</span><span class='fl'>3</span>)   <span class='co'># Rounds -10 to a nearest multiple of -3 (-9)</span>
+</div><div class='output co'>#&gt; [1] -9</div><div class='input'>
+<span class='fu'>RoundTo</span>(<span class='fl'>1.3</span>, <span class='fl'>0.2</span>)  <span class='co'># Rounds 1.3 to a nearest multiple of 0.2 (1.2)</span>
+</div><div class='output co'>#&gt; [1] 1.2</div><div class='input'><span class='fu'>RoundTo</span>(<span class='op'>-</span><span class='fl'>1.3</span>, <span class='fl'>0.2</span>) <span class='co'># Rounds -1.3 to a nearest multiple of 0.2 (-1.2)</span>
+</div><div class='output co'>#&gt; [1] -1.2</div><div class='input'><span class='fu'>RoundTo</span>(<span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2</span>)     <span class='co'># Returns an error, because -2 and 5 have different signs</span>
+</div><div class='output co'>#&gt; [1] 4</div><div class='input'>
 <span class='co'># Round down</span>
-<span class='fu'>RoundTo</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,-<span class='fl'>1</span>) * <span class='fl'>1.2335</span>, <span class='fl'>0.05</span>, <span class='no'>floor</span>)</div><div class='output co'>#&gt; [1]  1.20 -1.25</div><div class='input'><span class='fu'>RoundTo</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,-<span class='fl'>1</span>) * <span class='fl'>1233.5</span>, <span class='fl'>100</span>, <span class='no'>floor</span>)</div><div class='output co'>#&gt; [1]  1200 -1300</div><div class='input'>
+<span class='fu'>RoundTo</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='op'>-</span><span class='fl'>1</span>) <span class='op'>*</span> <span class='fl'>1.2335</span>, <span class='fl'>0.05</span>, <span class='kw'>floor</span>)
+</div><div class='output co'>#&gt; [1]  1.20 -1.25</div><div class='input'><span class='fu'>RoundTo</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='op'>-</span><span class='fl'>1</span>) <span class='op'>*</span> <span class='fl'>1233.5</span>, <span class='fl'>100</span>, <span class='kw'>floor</span>)
+</div><div class='output co'>#&gt; [1]  1200 -1300</div><div class='input'>
 <span class='co'># Round up</span>
-<span class='fu'>RoundTo</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,-<span class='fl'>1</span>) * <span class='fl'>1.2335</span>, <span class='fl'>0.05</span>, <span class='no'>ceiling</span>)</div><div class='output co'>#&gt; [1]  1.25 -1.20</div><div class='input'><span class='fu'>RoundTo</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,-<span class='fl'>1</span>) * <span class='fl'>1233.5</span>, <span class='fl'>100</span>, <span class='no'>ceiling</span>)</div><div class='output co'>#&gt; [1]  1300 -1200</div><div class='input'>
+<span class='fu'>RoundTo</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='op'>-</span><span class='fl'>1</span>) <span class='op'>*</span> <span class='fl'>1.2335</span>, <span class='fl'>0.05</span>, <span class='kw'>ceiling</span>)
+</div><div class='output co'>#&gt; [1]  1.25 -1.20</div><div class='input'><span class='fu'>RoundTo</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='op'>-</span><span class='fl'>1</span>) <span class='op'>*</span> <span class='fl'>1233.5</span>, <span class='fl'>100</span>, <span class='kw'>ceiling</span>)
+</div><div class='output co'>#&gt; [1]  1300 -1200</div><div class='input'>
 <span class='co'># Round towards zero</span>
-<span class='fu'>RoundTo</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,-<span class='fl'>1</span>) * <span class='fl'>1.2335</span>, <span class='fl'>0.05</span>, <span class='no'>trunc</span>)</div><div class='output co'>#&gt; [1]  1.2 -1.2</div><div class='input'><span class='fu'>RoundTo</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,-<span class='fl'>1</span>) * <span class='fl'>1233.5</span>, <span class='fl'>100</span>, <span class='no'>trunc</span>)</div><div class='output co'>#&gt; [1]  1200 -1200</div><div class='input'>
+<span class='fu'>RoundTo</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='op'>-</span><span class='fl'>1</span>) <span class='op'>*</span> <span class='fl'>1.2335</span>, <span class='fl'>0.05</span>, <span class='kw'>trunc</span>)
+</div><div class='output co'>#&gt; [1]  1.2 -1.2</div><div class='input'><span class='fu'>RoundTo</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='op'>-</span><span class='fl'>1</span>) <span class='op'>*</span> <span class='fl'>1233.5</span>, <span class='fl'>100</span>, <span class='kw'>trunc</span>)
+</div><div class='output co'>#&gt; [1]  1200 -1200</div><div class='input'>
 
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>1.5</span>,-<span class='fl'>1.3</span>, <span class='fl'>1.3</span>, <span class='fl'>1.5</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='kw'>x</span> <span class='kw'>=</span>       <span class='no'>x</span>,
-      <span class='kw'>round</span> <span class='kw'>=</span>   <span class='fu'>RoundTo</span>(<span class='no'>x</span>, <span class='fl'>0.2</span>, <span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>round</span>),
-      <span class='kw'>trunc</span> <span class='kw'>=</span>   <span class='fu'>RoundTo</span>(<span class='no'>x</span>, <span class='fl'>0.2</span>, <span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>trunc</span>),
-      <span class='kw'>ceiling</span> <span class='kw'>=</span> <span class='fu'>RoundTo</span>(<span class='no'>x</span>, <span class='fl'>0.2</span>, <span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>ceiling</span>),
-      <span class='kw'>floor</span> <span class='kw'>=</span>   <span class='fu'>RoundTo</span>(<span class='no'>x</span>, <span class='fl'>0.2</span>, <span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>floor</span>)
-)</div><div class='output co'>#&gt;         x round trunc ceiling floor
+<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>1.5</span>,<span class='op'>-</span><span class='fl'>1.3</span>, <span class='fl'>1.3</span>, <span class='fl'>1.5</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(x =       <span class='kw'>x</span>,
+      round =   <span class='fu'>RoundTo</span>(<span class='kw'>x</span>, <span class='fl'>0.2</span>, FUN=<span class='kw'>round</span>),
+      trunc =   <span class='fu'>RoundTo</span>(<span class='kw'>x</span>, <span class='fl'>0.2</span>, FUN=<span class='kw'>trunc</span>),
+      ceiling = <span class='fu'>RoundTo</span>(<span class='kw'>x</span>, <span class='fl'>0.2</span>, FUN=<span class='kw'>ceiling</span>),
+      floor =   <span class='fu'>RoundTo</span>(<span class='kw'>x</span>, <span class='fl'>0.2</span>, FUN=<span class='kw'>floor</span>)
+)
+</div><div class='output co'>#&gt;         x round trunc ceiling floor
 #&gt; [1,] -1.5  -1.6  -1.4    -1.4  -1.6
 #&gt; [2,] -1.3  -1.2  -1.2    -1.2  -1.4
 #&gt; [3,]  1.3   1.2   1.2     1.4   1.2
 #&gt; [4,]  1.5   1.6   1.4     1.6   1.4</div><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> -<span class='fl'>10</span>:<span class='fl'>10</span>
-<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='kw'>x</span> <span class='kw'>=</span>       <span class='no'>x</span>,
-      <span class='kw'>round</span> <span class='kw'>=</span>   <span class='fu'>RoundTo</span>(<span class='no'>x</span>, <span class='fl'>2</span>, <span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>round</span>),
-      <span class='kw'>trunc</span> <span class='kw'>=</span>   <span class='fu'>RoundTo</span>(<span class='no'>x</span>, <span class='fl'>2</span>, <span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>trunc</span>),
-      <span class='kw'>ceiling</span> <span class='kw'>=</span> <span class='fu'>RoundTo</span>(<span class='no'>x</span>, <span class='fl'>2</span>, <span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>ceiling</span>),
-      <span class='kw'>floor</span> <span class='kw'>=</span>   <span class='fu'>RoundTo</span>(<span class='no'>x</span>, <span class='fl'>2</span>, <span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>floor</span>)
-)</div><div class='output co'>#&gt;         x round trunc ceiling floor
+<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='op'>-</span><span class='fl'>10</span><span class='op'>:</span><span class='fl'>10</span>
+<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(x =       <span class='kw'>x</span>,
+      round =   <span class='fu'>RoundTo</span>(<span class='kw'>x</span>, <span class='fl'>2</span>, FUN=<span class='kw'>round</span>),
+      trunc =   <span class='fu'>RoundTo</span>(<span class='kw'>x</span>, <span class='fl'>2</span>, FUN=<span class='kw'>trunc</span>),
+      ceiling = <span class='fu'>RoundTo</span>(<span class='kw'>x</span>, <span class='fl'>2</span>, FUN=<span class='kw'>ceiling</span>),
+      floor =   <span class='fu'>RoundTo</span>(<span class='kw'>x</span>, <span class='fl'>2</span>, FUN=<span class='kw'>floor</span>)
+)
+</div><div class='output co'>#&gt;         x round trunc ceiling floor
 #&gt;  [1,] -10   -10   -10     -10   -10
 #&gt;  [2,]  -9    -8    -8      -8   -10
 #&gt;  [3,]  -8    -8    -8      -8    -8
@@ -249,7 +266,7 @@ If <code>FUN</code> is set to <code>ceiling</code> it will always round up, and 
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Simple Bootstrap Confidence Intervals
-<!-- %%  ~~function to do ... ~~ --> — BootCI • DescTools</title>
+ — BootCI • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Simple Bootstrap Confidence Intervals
-<!-- %%  ~~function to do ... ~~ --> — BootCI" />
+ — BootCI" />
 <meta property="og:description" content="Convenience wrapper for calculating bootstrap confidence intervals for univariate and bivariate statistics.
 " />
 
@@ -143,8 +143,8 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>BootCI</span>(<span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>FUN</span>, <span class='no'>...</span>, <span class='kw'>bci.method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"norm"</span>, <span class='st'>"basic"</span>, <span class='st'>"stud"</span>, <span class='st'>"perc"</span>, <span class='st'>"bca"</span>),
-       <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>sides</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"two.sided"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span>), <span class='kw'>R</span> <span class='kw'>=</span> <span class='fl'>999</span>)</pre>
+    <pre class="usage"><span class='fu'>BootCI</span>(<span class='kw'>x</span>, y = <span class='kw'>NULL</span>, <span class='kw'>FUN</span>, <span class='kw'>...</span>, bci.method = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"norm"</span>, <span class='st'>"basic"</span>, <span class='st'>"stud"</span>, <span class='st'>"perc"</span>, <span class='st'>"bca"</span>),
+       conf.level = <span class='fl'>0.95</span>, sides = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"two.sided"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span>), R = <span class='fl'>999</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -192,20 +192,29 @@
   <dt>lwr.ci</dt><dd><p>lower bound of the confidence interval</p></dd>
   <dt>upr.ci</dt><dd><p>upper bound of the confidence interval</p></dd>
 
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;
+<!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='MeanCI.html'>MeanCI</a></code>, <code><a href='MedianCI.html'>MedianCI</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1984</span>)
-<span class='fu'>BootCI</span>(<span class='no'>d.pizza</span>$<span class='no'>temperature</span>, <span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>mean</span>, <span class='kw'>na.rm</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>bci.method</span><span class='kw'>=</span><span class='st'>"basic"</span>)</div><div class='output co'>#&gt;     mean   lwr.ci   upr.ci 
-#&gt; 47.93667 47.37436 48.49182 </div><div class='input'><span class='fu'>BootCI</span>(<span class='no'>d.pizza</span>$<span class='no'>temperature</span>, <span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>mean</span>, <span class='kw'>trim</span><span class='kw'>=</span><span class='fl'>0.1</span>, <span class='kw'>na.rm</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>bci.method</span><span class='kw'>=</span><span class='st'>"basic"</span>)</div><div class='output co'>#&gt;     mean   lwr.ci   upr.ci 
+<span class='fu'>BootCI</span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>temperature</span>, FUN=<span class='kw'>mean</span>, na.rm=<span class='fl'>TRUE</span>, bci.method=<span class='st'>"basic"</span>)
+</div><div class='output co'>#&gt;     mean   lwr.ci   upr.ci 
+#&gt; 47.93667 47.37436 48.49182 </div><div class='input'><span class='fu'>BootCI</span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>temperature</span>, FUN=<span class='kw'>mean</span>, trim=<span class='fl'>0.1</span>, na.rm=<span class='fl'>TRUE</span>, bci.method=<span class='st'>"basic"</span>)
+</div><div class='output co'>#&gt;     mean   lwr.ci   upr.ci 
 #&gt; 48.98024 48.39139 49.58832 </div><div class='input'>
-<span class='fu'>BootCI</span>(<span class='no'>d.pizza</span>$<span class='no'>temperature</span>, <span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>Skew</span>, <span class='kw'>na.rm</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>bci.method</span><span class='kw'>=</span><span class='st'>"basic"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"): "rskew" not available for .Call() for package "DescTools"</span></div><div class='input'>
-<span class='fu'>BootCI</span>(<span class='no'>d.pizza</span>$<span class='no'>operator</span>, <span class='no'>d.pizza</span>$<span class='no'>area</span>, <span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>CramerV</span>)</div><div class='output co'>#&gt;    CramerV     lwr.ci     upr.ci 
+<span class='fu'>BootCI</span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>temperature</span>, FUN=<span class='kw'>Skew</span>, na.rm=<span class='fl'>TRUE</span>, bci.method=<span class='st'>"basic"</span>)
+</div><div class='output co'>#&gt; <span class='error'>Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"): "rskew" not available for .Call() for package "DescTools"</span></div><div class='input'>
+<span class='fu'>BootCI</span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>operator</span>, <span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>area</span>, FUN=<span class='kw'>CramerV</span>)
+</div><div class='output co'>#&gt;    CramerV     lwr.ci     upr.ci 
 #&gt; 0.08670047 0.04138136 0.11738513 </div><div class='input'>
-<span class='no'>spearman</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>,<span class='no'>y</span>) <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"spearman"</span>, <span class='kw'>use</span><span class='kw'>=</span><span class='st'>"p"</span>)
-<span class='fu'>BootCI</span>(<span class='no'>d.pizza</span>$<span class='no'>temperature</span>, <span class='no'>d.pizza</span>$<span class='no'>delivery_min</span>, <span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>spearman</span>)</div><div class='output co'>#&gt;   spearman     lwr.ci     upr.ci 
+<span class='kw'>spearman</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>x</span>,<span class='kw'>y</span>) <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>, method=<span class='st'>"spearman"</span>, use=<span class='st'>"p"</span>)
+<span class='fu'>BootCI</span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>temperature</span>, <span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>delivery_min</span>, FUN=<span class='kw'>spearman</span>)
+</div><div class='output co'>#&gt;   spearman     lwr.ci     upr.ci 
 #&gt; -0.5734425 -0.6181943 -0.5275981 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -222,7 +231,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

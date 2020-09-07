@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Plot a Web of Connected Points
-<!-- %%  ~~function to do ... ~~ --> — PlotWeb • DescTools</title>
+ — PlotWeb • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Plot a Web of Connected Points
-<!-- %%  ~~function to do ... ~~ --> — PlotWeb" />
+ — PlotWeb" />
 <meta property="og:description" content="This plot can be used to graphically display a correlation matrix by using the linewidth between the nodes
 in proportion to the correlation of two variables. It will place the elements homogenously around a circle and draw
 connecting lines between the points." />
@@ -145,9 +145,9 @@ in proportion to the correlation of two variables. It will place the elements ho
 connecting lines between the points.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>PlotWeb</span>(<span class='no'>m</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>hred</span>, <span class='no'>hblue</span>), <span class='kw'>lty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>args.legend</span><span class='kw'>=</span><span class='kw'>NULL</span>,
-        <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>21</span>, <span class='kw'>pt.cex</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>pt.col</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>pt.bg</span> <span class='kw'>=</span> <span class='st'>"darkgrey"</span>,
-        <span class='kw'>cex.lab</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>las</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>adj</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>PlotWeb</span>(<span class='kw'>m</span>, col = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>hred</span>, <span class='kw'>hblue</span>), lty = <span class='kw'>NULL</span>, lwd = <span class='kw'>NULL</span>, args.legend=<span class='kw'>NULL</span>,
+        pch = <span class='fl'>21</span>, pt.cex = <span class='fl'>2</span>, pt.col = <span class='st'>"black"</span>, pt.bg = <span class='st'>"darkgrey"</span>,
+        cex.lab = <span class='fl'>1</span>, las = <span class='fl'>1</span>, adj = <span class='kw'>NULL</span>, dist = <span class='fl'>0.5</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -226,28 +226,33 @@ connecting lines between the points.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A list of x and y coordinates, giving the coordinates of all the points drawn, useful for adding other elements to the plot.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='PlotCorr.html'>PlotCorr</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span>(<span class='no'>d.pizza</span>[, <span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>(<span class='no'>d.pizza</span>, <span class='no'>IsNumeric</span>, <span class='kw'>na.rm</span><span class='kw'>=</span><span class='fl'>TRUE</span>))[-<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>)]],
-         <span class='kw'>use</span><span class='kw'>=</span><span class='st'>"pairwise.complete.obs"</span>)
-<span class='fu'>PlotWeb</span>(<span class='kw'>m</span><span class='kw'>=</span><span class='no'>m</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>hred</span>, <span class='no'>hblue</span>), <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Pizza Correlation"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div><div class='img'><img src='PlotWeb-1.png' alt='' width='700' height='433' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='kw'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span>(<span class='kw'>d.pizza</span>[, <span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>(<span class='kw'>d.pizza</span>, <span class='kw'>IsNumeric</span>, na.rm=<span class='fl'>TRUE</span>))[<span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>)]],
+         use=<span class='st'>"pairwise.complete.obs"</span>)
+<span class='fu'>PlotWeb</span>(m=<span class='kw'>m</span>, col=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>hred</span>, <span class='kw'>hblue</span>), main=<span class='st'>"Pizza Correlation"</span>)
+</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div><div class='img'><img src='PlotWeb-1.png' alt='' width='700' height='433' /></div><div class='input'>
 
 <span class='co'># let's describe only the significant corrs and start with a dataset</span>
-<span class='no'>d.m</span> <span class='kw'>&lt;-</span> <span class='no'>d.pizza</span>[, <span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>(<span class='no'>d.pizza</span>, <span class='no'>IsNumeric</span>, <span class='kw'>na.rm</span><span class='kw'>=</span><span class='fl'>TRUE</span>))[-<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>)]]
+<span class='kw'>d.m</span> <span class='op'>&lt;-</span> <span class='kw'>d.pizza</span>[, <span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>(<span class='kw'>d.pizza</span>, <span class='kw'>IsNumeric</span>, na.rm=<span class='fl'>TRUE</span>))[<span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>)]]
 
 <span class='co'># get the correlation matrix</span>
-<span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span>(<span class='no'>d.m</span>, <span class='kw'>use</span><span class='kw'>=</span><span class='st'>"pairwise.complete.obs"</span>)
+<span class='kw'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span>(<span class='kw'>d.m</span>, use=<span class='st'>"pairwise.complete.obs"</span>)
 
 <span class='co'># let's get rid of all non significant correlations</span>
-<span class='no'>ctest</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='PairApply.html'>PairApply</a></span>(<span class='no'>d.m</span>,  <span class='kw'>function</span>(<span class='no'>x</span>, <span class='no'>y</span>) <span class='fu'><a href='https://rdrr.io/r/stats/cor.test.html'>cor.test</a></span>(<span class='no'>x</span>, <span class='no'>y</span>)$<span class='no'>p.value</span>, <span class='kw'>symmetric</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
+<span class='kw'>ctest</span> <span class='op'>&lt;-</span> <span class='fu'><a href='PairApply.html'>PairApply</a></span>(<span class='kw'>d.m</span>,  <span class='fu'>function</span>(<span class='kw'>x</span>, <span class='kw'>y</span>) <span class='fu'><a href='https://rdrr.io/r/stats/cor.test.html'>cor.test</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)<span class='op'>$</span><span class='kw'>p.value</span>, symmetric=<span class='fl'>TRUE</span>)
 
 <span class='co'># ok, got all the p-values, now replace &gt; 0.05 with NAs</span>
-<span class='no'>m</span>[<span class='no'>ctest</span> <span class='kw'>&gt;</span> <span class='fl'>0.05</span>] <span class='kw'>&lt;-</span> <span class='fl'>NA</span>
+<span class='kw'>m</span>[<span class='kw'>ctest</span> <span class='op'>&gt;</span> <span class='fl'>0.05</span>] <span class='op'>&lt;-</span> <span class='fl'>NA</span>
 <span class='co'># How does that look like now?</span>
-<span class='fu'><a href='Format.html'>Format</a></span>(<span class='no'>m</span>, <span class='kw'>na.form</span> <span class='kw'>=</span> <span class='st'>". "</span>, <span class='kw'>ldigits</span><span class='kw'>=</span><span class='fl'>0</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>3</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"right"</span>)</div><div class='output co'>#&gt;                weekday  count  price delivery_min temperature wine_ordered
+<span class='fu'><a href='Format.html'>Format</a></span>(<span class='kw'>m</span>, na.form = <span class='st'>". "</span>, ldigits=<span class='fl'>0</span>, digits=<span class='fl'>3</span>, align = <span class='st'>"right"</span>)
+</div><div class='output co'>#&gt;                weekday  count  price delivery_min temperature wine_ordered
 #&gt; weekday         1.000     .      .            .        -.105           .  
 #&gt; count              .   1.000   .807           .           .            .  
 #&gt; price              .    .807  1.000         .095          .          .510 
@@ -265,9 +270,11 @@ connecting lines between the points.</p>
 #&gt; wine_delivered         1.000 
 #&gt; attr(,"class")
 #&gt; [1] matrix  array</div><div class='input'>
-<span class='fu'>PlotWeb</span>(<span class='no'>m</span>, <span class='kw'>las</span><span class='kw'>=</span><span class='fl'>2</span>, <span class='kw'>cex</span><span class='kw'>=</span><span class='fl'>1.2</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div><div class='img'><img src='PlotWeb-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>PlotWeb</span>(<span class='kw'>m</span>, las=<span class='fl'>2</span>, cex=<span class='fl'>1.2</span>)
+</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div><div class='img'><img src='PlotWeb-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># define line widths</span>
-<span class='fu'>PlotWeb</span>(<span class='no'>m</span>, <span class='kw'>lwd</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span>(<span class='no'>m</span>[<span class='fu'><a href='https://rdrr.io/r/base/lower.tri.html'>lower.tri</a></span>(<span class='no'>m</span>)] * <span class='fl'>10</span>))</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div></pre>
+<span class='fu'>PlotWeb</span>(<span class='kw'>m</span>, lwd=<span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span>(<span class='kw'>m</span>[<span class='fu'><a href='https://rdrr.io/r/base/lower.tri.html'>lower.tri</a></span>(<span class='kw'>m</span>)] <span class='op'>*</span> <span class='fl'>10</span>))
+</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -283,7 +290,7 @@ connecting lines between the points.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

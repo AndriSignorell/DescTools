@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Scheffe Test for Pairwise and Otherwise Comparisons
-<!-- %%  ~~function to do ... ~~ --> — ScheffeTest • DescTools</title>
+ — ScheffeTest • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Scheffe Test for Pairwise and Otherwise Comparisons
-<!-- %%  ~~function to do ... ~~ --> — ScheffeTest" />
+ — ScheffeTest" />
 <meta property="og:description" content="Scheffe's method applies to the set of estimates of all possible contrasts among the factor level means, not just the pairwise differences considered by Tukey's method. 
 " />
 
@@ -143,16 +143,16 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>ScheffeTest</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>ScheffeTest</span>(<span class='kw'>x</span>, <span class='kw'>...</span>) 
 
 <span class='co'># S3 method for formula</span>
-<span class='fu'>ScheffeTest</span>(<span class='no'>formula</span>, <span class='no'>data</span>, <span class='no'>subset</span>, <span class='no'>na.action</span>, <span class='no'>...</span>)
+<span class='fu'>ScheffeTest</span>(<span class='kw'>formula</span>, <span class='kw'>data</span>, <span class='kw'>subset</span>, <span class='kw'>na.action</span>, <span class='kw'>...</span>)
 <span class='co'># S3 method for aov</span>
-<span class='fu'>ScheffeTest</span>(<span class='no'>x</span>, <span class='kw'>which</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>contrasts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-            <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>...</span>)
+<span class='fu'>ScheffeTest</span>(<span class='kw'>x</span>, which = <span class='kw'>NULL</span>, contrasts = <span class='kw'>NULL</span>, 
+            conf.level = <span class='fl'>0.95</span>, <span class='kw'>...</span>)
 <span class='co'># S3 method for default</span>
-<span class='fu'>ScheffeTest</span>(<span class='no'>x</span>, <span class='kw'>g</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>which</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-            <span class='kw'>contrasts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>ScheffeTest</span>(<span class='kw'>x</span>, g = <span class='kw'>NULL</span>, which = <span class='kw'>NULL</span>, 
+            contrasts = <span class='kw'>NULL</span>, conf.level = <span class='fl'>0.95</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -222,15 +222,20 @@
 
     <p>Robert O. Kuehl, Steel R. (2000) <em>Design of experiments</em>. Duxbury</p>
 <p>Steel R.G.D., Torrie J.H., Dickey, D.A. (1997) <em>Principles and Procedures of Statistics, A Biometrical Approach</em>. McGraw-Hill</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;
+<!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/pairwise.t.test.html'>pairwise.t.test</a></code>, <code><a href='https://rdrr.io/r/stats/TukeyHSD.html'>TukeyHSD</a></code>
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>fm1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span>(<span class='no'>breaks</span> ~ <span class='no'>wool</span> + <span class='no'>tension</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>warpbreaks</span>)
+    <pre class="examples"><div class='input'><span class='kw'>fm1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span>(<span class='kw'>breaks</span> <span class='op'>~</span> <span class='kw'>wool</span> <span class='op'>+</span> <span class='kw'>tension</span>, data = <span class='kw'>warpbreaks</span>)
 
-<span class='fu'>ScheffeTest</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>fm1</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>ScheffeTest</span>(x=<span class='kw'>fm1</span>)
+</div><div class='output co'>#&gt; 
 #&gt;   Posthoc multiple comparisons of means: Scheffe Test 
 #&gt;     95% family-wise confidence level
 #&gt; 
@@ -246,7 +251,8 @@
 #&gt; 
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-#&gt; </div><div class='input'><span class='fu'>ScheffeTest</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>fm1</span>, <span class='kw'>which</span><span class='kw'>=</span><span class='st'>"tension"</span>)</div><div class='output co'>#&gt; 
+#&gt; </div><div class='input'><span class='fu'>ScheffeTest</span>(x=<span class='kw'>fm1</span>, which=<span class='st'>"tension"</span>)
+</div><div class='output co'>#&gt; 
 #&gt;   Posthoc multiple comparisons of means: Scheffe Test 
 #&gt;     95% family-wise confidence level
 #&gt; 
@@ -259,7 +265,8 @@
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; </div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/stats/TukeyHSD.html'>TukeyHSD</a></span>(<span class='no'>fm1</span>)</div><div class='output co'>#&gt;   Tukey multiple comparisons of means
+<span class='fu'><a href='https://rdrr.io/r/stats/TukeyHSD.html'>TukeyHSD</a></span>(<span class='kw'>fm1</span>)
+</div><div class='output co'>#&gt;   Tukey multiple comparisons of means
 #&gt;     95% family-wise confidence level
 #&gt; 
 #&gt; Fit: aov(formula = breaks ~ wool + tension, data = warpbreaks)
@@ -275,16 +282,17 @@
 #&gt; H-M  -4.722222 -14.07564  4.6311985 0.4474210
 #&gt; </div><div class='input'>
 <span class='co'># some special contrasts</span>
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>7</span>,<span class='fl'>33</span>,<span class='fl'>26</span>,<span class='fl'>27</span>,<span class='fl'>21</span>,<span class='fl'>6</span>,<span class='fl'>14</span>,<span class='fl'>19</span>,<span class='fl'>6</span>,<span class='fl'>11</span>,<span class='fl'>11</span>,<span class='fl'>18</span>,<span class='fl'>14</span>,<span class='fl'>18</span>,<span class='fl'>19</span>,<span class='fl'>14</span>,<span class='fl'>9</span>,<span class='fl'>12</span>,<span class='fl'>6</span>,
+<span class='kw'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>7</span>,<span class='fl'>33</span>,<span class='fl'>26</span>,<span class='fl'>27</span>,<span class='fl'>21</span>,<span class='fl'>6</span>,<span class='fl'>14</span>,<span class='fl'>19</span>,<span class='fl'>6</span>,<span class='fl'>11</span>,<span class='fl'>11</span>,<span class='fl'>18</span>,<span class='fl'>14</span>,<span class='fl'>18</span>,<span class='fl'>19</span>,<span class='fl'>14</span>,<span class='fl'>9</span>,<span class='fl'>12</span>,<span class='fl'>6</span>,
        <span class='fl'>24</span>,<span class='fl'>7</span>,<span class='fl'>10</span>,<span class='fl'>1</span>,<span class='fl'>10</span>,<span class='fl'>42</span>,<span class='fl'>25</span>,<span class='fl'>8</span>,<span class='fl'>28</span>,<span class='fl'>30</span>,<span class='fl'>22</span>,<span class='fl'>17</span>,<span class='fl'>32</span>,<span class='fl'>28</span>,<span class='fl'>6</span>,<span class='fl'>1</span>,<span class='fl'>15</span>,<span class='fl'>9</span>,<span class='fl'>15</span>,
        <span class='fl'>2</span>,<span class='fl'>37</span>,<span class='fl'>13</span>,<span class='fl'>18</span>,<span class='fl'>23</span>,<span class='fl'>1</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>6</span>,<span class='fl'>2</span>)
-<span class='no'>group</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,
+<span class='kw'>group</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,
        <span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>6</span>,<span class='fl'>6</span>,<span class='fl'>6</span>,<span class='fl'>6</span>,<span class='fl'>6</span>,<span class='fl'>6</span>,<span class='fl'>6</span>,<span class='fl'>6</span>))
 
-<span class='no'>r.aov</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span>(<span class='no'>y</span> ~ <span class='no'>group</span>)
+<span class='kw'>r.aov</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span>(<span class='kw'>y</span> <span class='op'>~</span> <span class='kw'>group</span>)
 
-<span class='fu'>ScheffeTest</span>(<span class='no'>r.aov</span>, <span class='kw'>contrasts</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>( <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,-<span class='fl'>0.5</span>,-<span class='fl'>0.5</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,
-                                       <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,-<span class='fl'>0.5</span>,-<span class='fl'>0.5</span>), <span class='kw'>ncol</span><span class='kw'>=</span><span class='fl'>2</span>) )</div><div class='output co'>#&gt; 
+<span class='fu'>ScheffeTest</span>(<span class='kw'>r.aov</span>, contrasts=<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>( <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='op'>-</span><span class='fl'>0.5</span>,<span class='op'>-</span><span class='fl'>0.5</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,
+                                       <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='op'>-</span><span class='fl'>0.5</span>,<span class='op'>-</span><span class='fl'>0.5</span>), ncol=<span class='fl'>2</span>) )
+</div><div class='output co'>#&gt; 
 #&gt;   Posthoc multiple comparisons of means: Scheffe Test 
 #&gt;     95% family-wise confidence level
 #&gt; 
@@ -297,7 +305,8 @@
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; </div><div class='input'>
 <span class='co'># just p-values:</span>
-<span class='fu'>ScheffeTest</span>(<span class='no'>r.aov</span>, <span class='kw'>conf.level</span><span class='kw'>=</span><span class='fl'>NA</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>ScheffeTest</span>(<span class='kw'>r.aov</span>, conf.level=<span class='fl'>NA</span>)
+</div><div class='output co'>#&gt; 
 #&gt;   Posthoc multiple comparisons of means: Scheffe Test 
 #&gt; 
 #&gt; $group
@@ -324,7 +333,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

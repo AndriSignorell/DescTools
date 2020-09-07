@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Area Under the Curve
-<!-- %%  ~~function to do ... ~~ --> — AUC • DescTools</title>
+ — AUC • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Area Under the Curve
-<!-- %%  ~~function to do ... ~~ --> — AUC" />
+ — AUC" />
 <meta property="og:description" content="Calculate the area under the curve with a naive algorithm and with a more elaborated spline approach. The curve must be given by vectors of xy-coordinates.
 " />
 
@@ -143,9 +143,9 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>AUC</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>from</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='no'>x</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>to</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='no'>x</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
-    <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"trapezoid"</span>, <span class='st'>"step"</span>, <span class='st'>"spline"</span>, <span class='st'>"linear"</span>),
-    <span class='kw'>absolutearea</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>subdivisions</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>AUC</span>(<span class='kw'>x</span>, <span class='kw'>y</span>, from = <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='kw'>x</span>, na.rm = <span class='fl'>TRUE</span>), to = <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='kw'>x</span>, na.rm = <span class='fl'>TRUE</span>), 
+    method = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"trapezoid"</span>, <span class='st'>"step"</span>, <span class='st'>"spline"</span>, <span class='st'>"linear"</span>), 
+    absolutearea = <span class='fl'>FALSE</span>, subdivisions = <span class='fl'>100</span>, na.rm = <span class='fl'>FALSE</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -212,17 +212,28 @@
 <!-- %%  \item{comp1 }{Description of 'comp1'} -->
 <!-- %%  \item{comp2 }{Description of 'comp2'} -->
 <!-- %% ... --></p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;, spline part by Claus Ekstrom &lt;claus@rprimer.dk&gt;
+<!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/integrate.html'>integrate</a></code>, <code><a href='https://rdrr.io/r/stats/splinefun.html'>splinefun</a></code>
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>AUC</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>3</span>), <span class='kw'>y</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>1</span>))</div><div class='output co'>#&gt; [1] 2</div><div class='input'>
-<span class='fu'>AUC</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>), <span class='kw'>y</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>4</span>), <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"trapezoid"</span>)</div><div class='output co'>#&gt; [1] 4.5</div><div class='input'><span class='fu'>AUC</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>), <span class='kw'>y</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>4</span>), <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"step"</span>)</div><div class='output co'>#&gt; [1] 3</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>2.5</span>), <span class='kw'>y</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>4</span>), <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"l"</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"blue"</span>, <span class='kw'>ylim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>4</span>))</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>2.5</span>), <span class='kw'>y</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>4</span>), <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"s"</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"red"</span>)</div><div class='img'><img src='AUC-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='no'>pi</span>, <span class='kw'>length.out</span><span class='kw'>=</span><span class='fl'>200</span>)
-<span class='fu'>AUC</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span>, <span class='kw'>y</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>sin</a></span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; [1] 1.999958</div><div class='input'><span class='fu'>AUC</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span>, <span class='kw'>y</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>sin</a></span>(<span class='no'>x</span>), <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"spline"</span>)</div><div class='output co'>#&gt; [1] 2</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>AUC</span>(x=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>3</span>), y=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>1</span>))
+</div><div class='output co'>#&gt; [1] 2</div><div class='input'>
+<span class='fu'>AUC</span>(x=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>), y=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>4</span>), method=<span class='st'>"trapezoid"</span>)
+</div><div class='output co'>#&gt; [1] 4.5</div><div class='input'><span class='fu'>AUC</span>(x=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>), y=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>4</span>), method=<span class='st'>"step"</span>)
+</div><div class='output co'>#&gt; [1] 3</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(x=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>2.5</span>), y=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>4</span>), type=<span class='st'>"l"</span>, col=<span class='st'>"blue"</span>, ylim=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>4</span>))
+</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span>(x=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>2.5</span>), y=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>4</span>), type=<span class='st'>"s"</span>, col=<span class='st'>"red"</span>)
+</div><div class='img'><img src='AUC-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='kw'>pi</span>, length.out=<span class='fl'>200</span>)
+<span class='fu'>AUC</span>(x=<span class='kw'>x</span>, y=<span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>sin</a></span>(<span class='kw'>x</span>)) 
+</div><div class='output co'>#&gt; [1] 1.999958</div><div class='input'><span class='fu'>AUC</span>(x=<span class='kw'>x</span>, y=<span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>sin</a></span>(<span class='kw'>x</span>), method=<span class='st'>"spline"</span>) 
+</div><div class='output co'>#&gt; [1] 2</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -238,7 +249,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

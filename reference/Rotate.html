@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Rotate a Geometric Structure
-<!-- %%  ~~function to do ... ~~ --> — Rotate • DescTools</title>
+ — Rotate • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Rotate a Geometric Structure
-<!-- %%  ~~function to do ... ~~ --> — Rotate" />
+ — Rotate" />
 <meta property="og:description" content="Rotate a geometric structure by an angle theta around a centerpoint xy.
 " />
 
@@ -143,7 +143,7 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>Rotate</span>(<span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mx</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>my</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>theta</span> <span class='kw'>=</span> <span class='no'>pi</span>/<span class='fl'>3</span>, <span class='kw'>asp</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+    <pre class="usage"><span class='fu'>Rotate</span>(<span class='kw'>x</span>, y = <span class='kw'>NULL</span>, mx = <span class='kw'>NULL</span>, my = <span class='kw'>NULL</span>, theta = <span class='kw'>pi</span><span class='op'>/</span><span class='fl'>3</span>, asp = <span class='fl'>1</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -178,6 +178,9 @@
 <!-- %%  \item{comp1 }{Description of 'comp1'} -->
 <!-- %%  \item{comp2 }{Description of 'comp2'} -->
 <!-- %% ... --></p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/graphics/polygon.html'>polygon</a></code>, <code><a href='DrawRegPolygon.html'>DrawRegPolygon</a></code>, <code><a href='DrawEllipse.html'>DrawEllipse</a></code>, <code><a href='DrawArc.html'>DrawArc</a></code>
@@ -185,12 +188,15 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># let's have a triangle</span>
-<span class='fu'><a href='Canvas.html'>Canvas</a></span>(<span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Rotation"</span>)</div><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='DrawRegPolygon.html'>DrawRegPolygon</a></span>(<span class='kw'>nv</span><span class='kw'>=</span><span class='fl'>3</span>)<span class='kw'>[[</span><span class='fl'>1</span>]]</div><div class='input'>
+<span class='fu'><a href='Canvas.html'>Canvas</a></span>(main=<span class='st'>"Rotation"</span>)
+</div><div class='input'><span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='DrawRegPolygon.html'>DrawRegPolygon</a></span>(nv=<span class='fl'>3</span>)[[<span class='fl'>1</span>]]
+</div><div class='input'>
 <span class='co'># and rotate</span>
-<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>( (<span class='fl'>0</span>:<span class='fl'>3</span>) * <span class='no'>pi</span>/<span class='fl'>6</span>, <span class='kw'>function</span>(<span class='no'>theta</span>) {
-  <span class='no'>xy</span> <span class='kw'>&lt;-</span> <span class='fu'>Rotate</span>( <span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span>, <span class='kw'>theta</span><span class='kw'>=</span><span class='no'>theta</span> )
-  <span class='fu'><a href='https://rdrr.io/r/graphics/polygon.html'>polygon</a></span>(<span class='no'>xy</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span>(<span class='st'>"blue"</span>, <span class='fl'>0.2</span>))
-} )</div><div class='output co'>#&gt; [[1]]
+<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>( (<span class='fl'>0</span><span class='op'>:</span><span class='fl'>3</span>) <span class='op'>*</span> <span class='kw'>pi</span><span class='op'>/</span><span class='fl'>6</span>, <span class='fu'>function</span>(<span class='kw'>theta</span>) {
+  <span class='kw'>xy</span> <span class='op'>&lt;-</span> <span class='fu'>Rotate</span>( x=<span class='kw'>x</span>, theta=<span class='kw'>theta</span> )
+  <span class='fu'><a href='https://rdrr.io/r/graphics/polygon.html'>polygon</a></span>(<span class='kw'>xy</span>, col=<span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span>(<span class='st'>"blue"</span>, <span class='fl'>0.2</span>))
+} )
+</div><div class='output co'>#&gt; [[1]]
 #&gt; NULL
 #&gt; 
 #&gt; [[2]]
@@ -202,7 +208,8 @@
 #&gt; [[4]]
 #&gt; NULL
 #&gt; </div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span>(<span class='kw'>v</span><span class='kw'>=</span><span class='fl'>0</span>, <span class='kw'>h</span><span class='kw'>=</span><span class='fl'>0</span>)</div><div class='img'><img src='Rotate-1.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span>(v=<span class='fl'>0</span>, h=<span class='fl'>0</span>)
+</div><div class='img'><img src='Rotate-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -218,7 +225,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Label, Unit Attribute of an Object
-<!-- %%  ~~function to do ... ~~ --> — Label, Unit • DescTools</title>
+ — Label, Unit • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Label, Unit Attribute of an Object
-<!-- %%  ~~function to do ... ~~ --> — Label, Unit" />
+ — Label, Unit" />
 <meta property="og:description" content="Set and retrieve the label, resp. unit attribute of x. This can be helpful for documenting the specific meaning of a variable, of an entire data.frame or any other object. For single vectors it can be useful to store the unit.
 " />
 
@@ -143,11 +143,11 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>Label</span>(<span class='no'>x</span>)
-<span class='fu'>Label</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span>
+    <pre class="usage"><span class='fu'>Label</span>(<span class='kw'>x</span>)
+<span class='fu'>Label</span>(<span class='kw'>x</span>) <span class='op'>&lt;-</span> <span class='kw'>value</span>
 
-<span class='fu'>Unit</span>(<span class='no'>x</span>)
-<span class='fu'>Unit</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span></pre>
+<span class='fu'>Unit</span>(<span class='kw'>x</span>)
+<span class='fu'>Unit</span>(<span class='kw'>x</span>) <span class='op'>&lt;-</span> <span class='kw'>value</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -171,6 +171,9 @@ It can be deleted by setting the label to <code>NULL</code>.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>Label</code> and <code>Unit</code> return the label attribute of x, if any; otherwise, NULL.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>A more elaborated label version can be found in package <span class="pkg">Hmisc</span> <code>label()</code>.
@@ -178,11 +181,12 @@ It can be deleted by setting the label to <code>NULL</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># add a descriptive label to a variable</span>
-<span class='fu'>Label</span>(<span class='no'>d.diamonds</span>$<span class='no'>colour</span>) <span class='kw'>&lt;-</span> <span class='st'>"The rating scale applied to diamonds ranges from colorless
+<span class='fu'>Label</span>(<span class='kw'>d.diamonds</span><span class='op'>$</span><span class='kw'>colour</span>) <span class='op'>&lt;-</span> <span class='st'>"The rating scale applied to diamonds ranges from colorless
 to yellow, as any other color is extremely rare."</span>
 
 <span class='co'># technically just appending the text as attribute to the variable</span>
-<span class='fu'><a href='https://rdrr.io/r/base/attributes.html'>attributes</a></span>(<span class='no'>d.diamonds</span>$<span class='no'>colour</span>)</div><div class='output co'>#&gt; $levels
+<span class='fu'><a href='https://rdrr.io/r/base/attributes.html'>attributes</a></span>(<span class='kw'>d.diamonds</span><span class='op'>$</span><span class='kw'>colour</span>)
+</div><div class='output co'>#&gt; $levels
 #&gt; [1] "D" "E" "F" "G" "H" "I" "J" "K" "L"
 #&gt; 
 #&gt; $class
@@ -192,7 +196,8 @@ to yellow, as any other color is extremely rare."</span>
 #&gt; [1] "The rating scale applied to diamonds ranges from colorless\nto yellow, as any other color is extremely rare."
 #&gt; </div><div class='input'>
 <span class='co'># label is supported while describing data</span>
-<span class='fu'><a href='Desc.html'>Desc</a></span>(<span class='no'>d.diamonds</span>$<span class='no'>colour</span>)</div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
+<span class='fu'><a href='Desc.html'>Desc</a></span>(<span class='kw'>d.diamonds</span><span class='op'>$</span><span class='kw'>colour</span>)
+</div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
 #&gt; <span style='font-weight: bold;'>d.diamonds$colour (factor)</span><span> :
 #&gt;   The rating scale applied to diamonds ranges from colorless to yellow,
 #&gt;   as any other color is extremely rare.
@@ -214,15 +219,16 @@ to yellow, as any other color is extremely rare."</span>
 #&gt; 9      L    12   2.7%      440   100.0%
 #&gt; </div><div class='img'><img src='Label-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># The label can be deleted by setting it to NULL</span>
-<span class='fu'>Label</span>(<span class='no'>d.diamonds</span>$<span class='no'>colour</span>) <span class='kw'>&lt;-</span> <span class='kw'>NULL</span>
+<span class='fu'>Label</span>(<span class='kw'>d.diamonds</span><span class='op'>$</span><span class='kw'>colour</span>) <span class='op'>&lt;-</span> <span class='kw'>NULL</span>
 
 <span class='co'># Labelling the columns of a data.frame is best done with a loop</span>
 <span class='co'># (all so far seen *apply aproaches lead to more complicated code...)</span>
-<span class='no'>lbl</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='RndPairs.html'>RndWord</a></span>(<span class='fl'>16</span>, <span class='fl'>7</span>)
-<span class='kw'>for</span>(<span class='no'>i</span> <span class='kw'>in</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_along</a></span>(<span class='no'>lbl</span>))
-  <span class='fu'>Label</span>(<span class='no'>d.pizza</span>[, <span class='no'>i</span>]) <span class='kw'>&lt;-</span> <span class='no'>lbl</span>[<span class='no'>i</span>]
+<span class='kw'>lbl</span> <span class='op'>&lt;-</span>  <span class='fu'><a href='RndPairs.html'>RndWord</a></span>(<span class='fl'>16</span>, <span class='fl'>7</span>)
+<span class='co'>for</span>(<span class='kw'>i</span> <span class='co'>in</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_along</a></span>(<span class='kw'>lbl</span>))
+  <span class='fu'>Label</span>(<span class='kw'>d.pizza</span>[, <span class='kw'>i</span>]) <span class='op'>&lt;-</span> <span class='kw'>lbl</span>[<span class='kw'>i</span>]
 
-<span class='fu'><a href='Str.html'>Str</a></span>(<span class='no'>d.pizza</span>)</div><div class='output co'>#&gt; 'data.frame':	1209 obs. of  16 variables:
+<span class='fu'><a href='Str.html'>Str</a></span>(<span class='kw'>d.pizza</span>)
+</div><div class='output co'>#&gt; 'data.frame':	1209 obs. of  16 variables:
 #&gt;   1 $ index         : int  1 2 3 4 5 6 7 8 9 10 ...
 #&gt;   ..- attr(*, "label")= chr "YUBIWKE"
 #&gt;   2 $ date          : Date, format: "2014-03-01" "2014-03-01" "2014-03-01" "2014-03-01" ...
@@ -269,7 +275,7 @@ to yellow, as any other color is extremely rare."</span>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

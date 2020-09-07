@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Get a Handle to a Running Word Instance
-<!-- %%  ~~function to do ... ~~ --> — GetCurrWrd • DescTools</title>
+ — GetCurrWrd • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Get a Handle to a Running Word Instance
-<!-- %%  ~~function to do ... ~~ --> — GetCurrWrd" />
+ — GetCurrWrd" />
 <meta property="og:description" content="Look for a running Word instance and return its handle. NULL is returned if nothing's found.
 " />
 
@@ -157,22 +157,28 @@ Whether the pointer is still valid can be checked by <code><a href='IsValidHwnd.
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>This does unfortunately not work with RDCOMClient (but it would with rcom)! Any better idea out there?</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;
+<!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='GetNewWrd.html'>GetNewWrd</a></code>, <code><a href='IsValidHwnd.html'>IsValidHwnd</a></code>
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='co'># Windows-specific example</span>
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) <span class='co'># Windows-specific example</span>
 
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>)
+<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>)
 
-<span class='no'>wrd</span> <span class='kw'>&lt;-</span> <span class='fu'>GetCurrWrd</span>()</div><div class='output co'>#&gt; <span class='message'>Loading required namespace: RDCOMClient</span></div><div class='output co'>#&gt; <span class='warning'>Warning: RDCOMClient is unfortunately not available for Darwin systems (Windows-only).</span></div><div class='input'>
-<span class='kw'>if</span>(<span class='fu'><a href='IsValidHwnd.html'>IsValidHwnd</a></span>(<span class='no'>wrd</span>)){
-  <span class='fu'><a href='Desc.html'>Desc</a></span>(<span class='no'>x</span>, <span class='kw'>wrd</span><span class='kw'>=</span><span class='no'>wrd</span>)
-} <span class='kw'>else</span> {
+<span class='kw'>wrd</span> <span class='op'>&lt;-</span> <span class='fu'>GetCurrWrd</span>()
+</div><div class='output co'>#&gt; <span class='message'>Loading required namespace: RDCOMClient</span></div><div class='output co'>#&gt; <span class='warning'>Warning: RDCOMClient is unfortunately not available for Darwin systems (Windows-only).</span></div><div class='input'>
+<span class='co'>if</span>(<span class='fu'><a href='IsValidHwnd.html'>IsValidHwnd</a></span>(<span class='kw'>wrd</span>)){ 
+  <span class='fu'><a href='Desc.html'>Desc</a></span>(<span class='kw'>x</span>, wrd=<span class='kw'>wrd</span>)
+} <span class='co'>else</span> {
   <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='st'>"GetCurrWrd: no running word instance found..."</span>)
-}</div><div class='output co'>#&gt; [1] "GetCurrWrd: no running word instance found..."</div><div class='input'>
+}
+</div><div class='output co'>#&gt; [1] "GetCurrWrd: no running word instance found..."</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -189,7 +195,7 @@ Whether the pointer is still valid can be checked by <code><a href='IsValidHwnd.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>
