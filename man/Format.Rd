@@ -49,7 +49,8 @@ as.CDateFmt(fmt)
   \item{x}{an atomic numerical, typically a vector of real numbers or a matrix of numerical values. Factors will be converted to strings.
 %%     ~~Describe \code{x} here~~
 }
-  \item{digits}{integer, the desired (fixed) number of digits after the decimal point. Unlike \code{\link{formatC}} you will always get this number of digits even if the last digit is 0.
+  \item{digits}{integer, the desired (fixed) number of digits after the decimal point. Unlike \code{\link{formatC}} you will always get this number of digits even if the last digit is 0. 
+  Negative numbers of digits round to a power of ten (\code{digits=-2} would round to the nearest hundred).
 %%     ~~Describe \code{digits} here~~
 }
   \item{sci}{integer. The power of 10 to be set when deciding to print numeric values in exponential notation. Fixed notation will be preferred unless the number is larger than 10^scipen. If just one value is set it will be used for the left border 10^(-scipen) as well as for the right one (10^scipen). A negative and a positive value can also be set independently. Default is

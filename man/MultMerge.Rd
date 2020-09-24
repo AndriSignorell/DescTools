@@ -8,7 +8,7 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-MultMerge(..., all.x = TRUE, all.y = TRUE)
+MultMerge(..., all.x = TRUE, all.y = TRUE, by = NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -21,6 +21,7 @@ MultMerge(..., all.x = TRUE, all.y = TRUE)
   \item{all.y}{logical; analogous to \code{all.x}.
 %%     ~~Describe \code{all.y} here~~
 }
+\item{by}{column used for merging, if this is not defined rownames will be used by default. The column must be included in all the provided data frames.}
 }
 \value{A data frame. The rows are sorted according to the appearance of previously unobserved rownames. So the rownames appearing in the first data frame are first, then the rownames in the second data frame, which have no corespondence in the first data frame and so on. The columns are the remaining columns in x1 and then those in x2 and then those in x3. The result has the row names resulting from the merge.
 %%  ~Describe the value returned

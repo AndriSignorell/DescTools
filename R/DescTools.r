@@ -2245,12 +2245,21 @@ DoCall <- function (what, args, quote = FALSE, envir = parent.frame())  {
 }
 
 
-MultMerge <- function(..., all.x=TRUE, all.y=TRUE) {
+MultMerge <- function(..., all.x=TRUE, all.y=TRUE, by=NULL) {
   
   lst <- list(...)
   
   # if just one object, there's nothing to merge
   if(length(lst)==1)  return(lst[[1]])
+  
+  if(!is.null(by)){
+    # merge column is given and must exist in all the data.frames
+    # we overwrite the row.names and remove the merge column
+    for(i in seq_along(lst)){
+      rownames(lst[[i]]) <- lst[[i]][[by]]
+      lst[[i]][by] <- NULL
+    }
+  }  
   
   # the columnnames must be unique within the resulting data.frame
   unames <- SplitAt(make.unique(unlist(lapply(lst, colnames)), sep = "."), 
@@ -2294,6 +2303,14 @@ MultMerge <- function(..., all.x=TRUE, all.y=TRUE) {
   
   res[ord, ]
   
+  if(!is.null(by)){
+    # restore key and remove rownames if there was one
+    res <- data.frame(row.names(res), res)
+    colnames(res)[1] <- by
+    rownames(res) <- c()
+  }
+  
+  return(res)
   
   
 }
@@ -14106,18 +14123,17 @@ ToWrd.table <- function (x, font = NULL, main = NULL, align=NULL, tablestyle=NUL
     wrdTable$Columns()$AutoFit()
 
 
-  # Cursor aus der Tabelle auf die letzte Postition im Dokument setzten
-  # This code will get you out of the table and put the text cursor directly behind it:
+  # this will get us out of the table and put the text cursor directly behind it
   wrdTable$Select()
   wrd[["Selection"]]$Collapse(wdConst$wdCollapseEnd)
 
-  # instead of goint to the end of the document ...
+  # instead of coarsely moving to the end of the document ...
   # Selection.GoTo What:=wdGoToPercent, Which:=wdGoToLast
   # wrd[["Selection"]]$GoTo(What = wdConst$wdGoToPercent, Which= wdConst$wdGoToLast)
 
   if(!is.null(main)){
     # insert caption
-    sel <- wrd$Selection()  # "Abbildung"
+    sel <- wrd$Selection()  
     sel$InsertCaption(Label=wdConst$wdCaptionTable, Title=paste(" - ", main, sep=""))
     sel$TypeParagraph()
 

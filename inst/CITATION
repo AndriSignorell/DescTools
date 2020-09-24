@@ -1,11 +1,11 @@
 citHeader("To cite package 'DescTools' in publications use:")
 
-year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date, perl = TRUE)
-vers <- paste("R package version", meta$Version)
+year <- sub("-.*", "", meta$Date)
+vers <- sprintf("R package version %s", meta$Version)
 
 citEntry(entry="Manual",
-         title = "DescTools: Tools for Descriptive Statistics",
-         author = "Andri Signorell et mult. al.",
+         title = "{DescTools}: Tools for Descriptive Statistics",
+         author = c(person("Signorell", "Andri et mult. al."))
          # list of all contributers removed: takes far too much space
          year = year,
          note = vers,
@@ -16,6 +16,7 @@ citEntry(entry="Manual",
                year,
                "). DescTools: Tools for descriptive statistics. ",
                vers, ".", sep=""))
+
 
 
 
