@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Generate Dummy Codes for a Factor
-<!-- %%  ~~function to do ... ~~ --> — Dummy • DescTools</title>
+ — Dummy • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Generate Dummy Codes for a Factor
-<!-- %%  ~~function to do ... ~~ --> — Dummy" />
+ — Dummy" />
 <meta property="og:description" content="Generate a matrix of dummy codes (class indicators) for a given factor. 
 " />
 
@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -143,8 +143,8 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>Dummy</span>(<span class='no'>x</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"treatment"</span>, <span class='st'>"sum"</span>, <span class='st'>"helmert"</span>, <span class='st'>"poly"</span>, <span class='st'>"full"</span>),
-      <span class='kw'>base</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>levels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>Dummy</span><span class='op'>(</span><span class='va'>x</span>, method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"treatment"</span>, <span class='st'>"sum"</span>, <span class='st'>"helmert"</span>, <span class='st'>"poly"</span>, <span class='st'>"full"</span><span class='op'>)</span>,
+      base <span class='op'>=</span> <span class='fl'>1</span>, levels <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -186,13 +186,17 @@ The number of rows correspond to the number of elements in <code>x</code> and th
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Venables, W N and Ripley, B D (2002): <em>Modern Applied Statistics with S</em>. Fourth edition. Springer.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/model.frame.html'>model.frame</a></code>,  <code><a href='https://rdrr.io/r/stats/contrasts.html'>contrasts</a></code>, <code><a href='https://rdrr.io/pkg/nnet/man/class.ind.html'>class.ind</a></code> in the package <span class="pkg">nnet</span></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"red"</span>,<span class='st'>"blue"</span>,<span class='st'>"green"</span>,<span class='st'>"blue"</span>,<span class='st'>"green"</span>,<span class='st'>"red"</span>,<span class='st'>"red"</span>,<span class='st'>"blue"</span>)
-<span class='fu'>Dummy</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt;   green red
+    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"red"</span>,<span class='st'>"blue"</span>,<span class='st'>"green"</span>,<span class='st'>"blue"</span>,<span class='st'>"green"</span>,<span class='st'>"red"</span>,<span class='st'>"red"</span>,<span class='st'>"blue"</span><span class='op'>)</span>
+<span class='fu'>Dummy</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   green red
 #&gt; 1     0   1
 #&gt; 2     0   0
 #&gt; 3     1   0
@@ -202,7 +206,8 @@ The number of rows correspond to the number of elements in <code>x</code> and th
 #&gt; 7     0   1
 #&gt; 8     0   0
 #&gt; attr(,"base")
-#&gt; [1] "blue"</div><div class='input'><span class='fu'>Dummy</span>(<span class='no'>x</span>, <span class='kw'>base</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='output co'>#&gt;   blue red
+#&gt; [1] "blue"</div><div class='input'><span class='fu'>Dummy</span><span class='op'>(</span><span class='va'>x</span>, base<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   blue red
 #&gt; 1    0   1
 #&gt; 2    1   0
 #&gt; 3    0   0
@@ -213,7 +218,8 @@ The number of rows correspond to the number of elements in <code>x</code> and th
 #&gt; 8    1   0
 #&gt; attr(,"base")
 #&gt; [1] "green"</div><div class='input'>
-<span class='fu'>Dummy</span>(<span class='no'>x</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"sum"</span>)</div><div class='output co'>#&gt;   green red
+<span class='fu'>Dummy</span><span class='op'>(</span><span class='va'>x</span>, method<span class='op'>=</span><span class='st'>"sum"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   green red
 #&gt; 1    -1  -1
 #&gt; 2     1   0
 #&gt; 3     0   1
@@ -225,9 +231,10 @@ The number of rows correspond to the number of elements in <code>x</code> and th
 #&gt; attr(,"base")
 #&gt; [1] "blue"</div><div class='input'>
 
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Max"</span>,<span class='st'>"Max"</span>,<span class='st'>"Max"</span>,<span class='st'>"Max"</span>,<span class='st'>"Max"</span>,<span class='st'>"Bill"</span>,<span class='st'>"Bill"</span>,<span class='st'>"Bill"</span>)
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Max"</span>,<span class='st'>"Max"</span>,<span class='st'>"Max"</span>,<span class='st'>"Max"</span>,<span class='st'>"Max"</span>,<span class='st'>"Bill"</span>,<span class='st'>"Bill"</span>,<span class='st'>"Bill"</span><span class='op'>)</span>
 
-<span class='fu'>Dummy</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt;   Max
+<span class='fu'>Dummy</span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   Max
 #&gt; 1   1
 #&gt; 2   1
 #&gt; 3   1
@@ -237,7 +244,8 @@ The number of rows correspond to the number of elements in <code>x</code> and th
 #&gt; 7   0
 #&gt; 8   0
 #&gt; attr(,"base")
-#&gt; [1] "Bill"</div><div class='input'><span class='fu'>Dummy</span>(<span class='no'>y</span>, <span class='kw'>base</span><span class='kw'>=</span><span class='st'>"Max"</span>)</div><div class='output co'>#&gt;   Bill
+#&gt; [1] "Bill"</div><div class='input'><span class='fu'>Dummy</span><span class='op'>(</span><span class='va'>y</span>, base<span class='op'>=</span><span class='st'>"Max"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   Bill
 #&gt; 1    0
 #&gt; 2    0
 #&gt; 3    0
@@ -248,7 +256,8 @@ The number of rows correspond to the number of elements in <code>x</code> and th
 #&gt; 8    1
 #&gt; attr(,"base")
 #&gt; [1] "Max"</div><div class='input'>
-<span class='fu'>Dummy</span>(<span class='no'>y</span>, <span class='kw'>base</span><span class='kw'>=</span><span class='st'>"Max"</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"full"</span>)</div><div class='output co'>#&gt;   Bill Max
+<span class='fu'>Dummy</span><span class='op'>(</span><span class='va'>y</span>, base<span class='op'>=</span><span class='st'>"Max"</span>, method<span class='op'>=</span><span class='st'>"full"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   Bill Max
 #&gt; 1    0   1
 #&gt; 2    0   1
 #&gt; 3    0   1
@@ -261,8 +270,9 @@ The number of rows correspond to the number of elements in <code>x</code> and th
 #&gt; [1] NA</div><div class='input'>
 
 <span class='co'># "Undummy" (revert the dummy coding)</span>
-<span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='fu'>Dummy</span>(<span class='no'>y</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"full"</span>)
-<span class='no'>m</span></div><div class='output co'>#&gt;   Bill Max
+<span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'>Dummy</span><span class='op'>(</span><span class='va'>y</span>, method<span class='op'>=</span><span class='st'>"full"</span><span class='op'>)</span>
+<span class='va'>m</span>
+</div><div class='output co'>#&gt;   Bill Max
 #&gt; 1    0   1
 #&gt; 2    0   1
 #&gt; 3    0   1
@@ -272,11 +282,14 @@ The number of rows correspond to the number of elements in <code>x</code> and th
 #&gt; 7    1   0
 #&gt; 8    1   0
 #&gt; attr(,"base")
-#&gt; [1] NA</div><div class='input'><span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span>(<span class='no'>m</span>, <span class='fl'>1</span>, <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>m</span>)[<span class='no'>x</span><span class='kw'>==</span><span class='fl'>1</span>])
-<span class='no'>z</span></div><div class='output co'>#&gt;      1      2      3      4      5      6      7      8 
-#&gt;  "Max"  "Max"  "Max"  "Max"  "Max" "Bill" "Bill" "Bill" </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='no'>y</span>, <span class='fu'><a href='https://rdrr.io/r/base/vector.html'>as.vector</a></span>(<span class='no'>z</span>))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='fu'>Dummy</span>(<span class='no'>y</span>)
-<span class='no'>m</span></div><div class='output co'>#&gt;   Max
+#&gt; [1] NA</div><div class='input'><span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>m</span>, <span class='fl'>1</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>m</span><span class='op'>)</span><span class='op'>[</span><span class='va'>x</span><span class='op'>==</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>z</span>
+</div><div class='output co'>#&gt;      1      2      3      4      5      6      7      8 
+#&gt;  "Max"  "Max"  "Max"  "Max"  "Max" "Bill" "Bill" "Bill" </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='va'>y</span>, <span class='fu'><a href='https://rdrr.io/r/base/vector.html'>as.vector</a></span><span class='op'>(</span><span class='va'>z</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'>Dummy</span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>
+<span class='va'>m</span>
+</div><div class='output co'>#&gt;   Max
 #&gt; 1   1
 #&gt; 2   1
 #&gt; 3   1
@@ -286,8 +299,9 @@ The number of rows correspond to the number of elements in <code>x</code> and th
 #&gt; 7   0
 #&gt; 8   0
 #&gt; attr(,"base")
-#&gt; [1] "Bill"</div><div class='input'><span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span>(<span class='no'>m</span>, <span class='fl'>1</span>, <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>x</span>)<span class='kw'>==</span><span class='fl'>0</span>, <span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span>(<span class='no'>m</span>,<span class='st'>"base"</span>), <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>m</span>)[<span class='no'>x</span><span class='kw'>==</span><span class='fl'>1</span>]))
-<span class='no'>z</span></div><div class='output co'>#&gt;      1      2      3      4      5      6      7      8 
+#&gt; [1] "Bill"</div><div class='input'><span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>m</span>, <span class='fl'>1</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>==</span><span class='fl'>0</span>, <span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span><span class='op'>(</span><span class='va'>m</span>,<span class='st'>"base"</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>m</span><span class='op'>)</span><span class='op'>[</span><span class='va'>x</span><span class='op'>==</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>z</span>
+</div><div class='output co'>#&gt;      1      2      3      4      5      6      7      8 
 #&gt;  "Max"  "Max"  "Max"  "Max"  "Max" "Bill" "Bill" "Bill" </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -304,7 +318,7 @@ The number of rows correspond to the number of elements in <code>x</code> and th
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

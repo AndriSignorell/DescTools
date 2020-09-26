@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Pseudo R2 Statistics
-  <!-- %%  ~~function to do ... ~~ --> — PseudoR2 • DescTools</title>
+   — PseudoR2 • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Pseudo R2 Statistics
-  <!-- %%  ~~function to do ... ~~ --> — PseudoR2" />
+   — PseudoR2" />
 <meta property="og:description" content="Although there's no commonly accepted agreement on how to assess the fit of a logistic regression, there are some approaches. The goodness of fit of the logistic regression model can be expressed by some variants of pseudo R squared statistics, most of which being based on the deviance of the model.
   " />
 
@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -143,7 +143,7 @@
   <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>PseudoR2</span>(<span class='no'>x</span>, <span class='kw'>which</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>PseudoR2</span><span class='op'>(</span><span class='va'>x</span>, which <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -209,16 +209,23 @@ University Press</em>, Beverly Hills.</p>
               Statistician</em>,
               63(4): 366-372</p>
 <p>Veall, M.R., &amp; Zimmermann, K.F. (1992) Evalutating Pseudo-R2's fpr binary probit models.  <em>Quality&amp;Quantity</em>, 28, pp. 151-164</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt; 
+with contributions of Ben Mainwaring &lt;benjamin.mainwaring@yougov.com&gt; and Daniel Wollschlaeger
+<!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/logLik.html'>logLik</a></code>, <code><a href='https://rdrr.io/r/stats/AIC.html'>AIC</a></code>, <code><a href='https://rdrr.io/r/stats/AIC.html'>BIC</a></code>
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>r.glm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>Survived</span> ~ <span class='no'>.</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='fu'><a href='Untable.html'>Untable</a></span>(<span class='no'>Titanic</span>), <span class='kw'>family</span><span class='kw'>=</span><span class='no'>binomial</span>)
-<span class='fu'>PseudoR2</span>(<span class='no'>r.glm</span>)</div><div class='output co'>#&gt;  McFadden 
+    <pre class="examples"><div class='input'><span class='va'>r.glm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span><span class='va'>Survived</span> <span class='op'>~</span> <span class='va'>.</span>, data<span class='op'>=</span><span class='fu'><a href='Untable.html'>Untable</a></span><span class='op'>(</span><span class='va'>Titanic</span><span class='op'>)</span>, family<span class='op'>=</span><span class='va'>binomial</span><span class='op'>)</span>
+<span class='fu'>PseudoR2</span><span class='op'>(</span><span class='va'>r.glm</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  McFadden 
 #&gt; 0.2019875 </div><div class='input'>
-<span class='fu'>PseudoR2</span>(<span class='no'>r.glm</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"McFadden"</span>, <span class='st'>"Nagel"</span>))</div><div class='output co'>#&gt;   McFadden Nagelkerke 
+<span class='fu'>PseudoR2</span><span class='op'>(</span><span class='va'>r.glm</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"McFadden"</span>, <span class='st'>"Nagel"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   McFadden Nagelkerke 
 #&gt;  0.2019875  0.3135111 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -235,7 +242,7 @@ University Press</em>, Beverly Hills.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

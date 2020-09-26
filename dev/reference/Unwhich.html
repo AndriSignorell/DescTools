@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Inverse Which
-<!-- %%  ~~function to do ... ~~ --> — Unwhich • DescTools</title>
+ — Unwhich • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Inverse Which
-<!-- %%  ~~function to do ... ~~ --> — Unwhich" />
+ — Unwhich" />
 <meta property="og:description" content="The inverse function to which creates a logical
 vector/matrix from indices.
 " />
@@ -78,7 +78,7 @@ vector/matrix from indices.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -145,7 +145,7 @@ vector/matrix from indices.
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>Unwhich</span>(<span class='no'>idx</span>, <span class='no'>n</span>, <span class='kw'>useNames</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>Unwhich</span><span class='op'>(</span><span class='va'>idx</span>, <span class='va'>n</span>, useNames <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -177,19 +177,24 @@ vector/matrix from indices.
 <!-- %% ... --></p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p><a href='http://stackoverflow.com/questions/7659833/inverse-of-which'>http://stackoverflow.com/questions/7659833/inverse-of-which</a>
+    <p><a href='https://stackoverflow.com/questions/7659833/inverse-of-which'>https://stackoverflow.com/questions/7659833/inverse-of-which</a>
 <!-- %% ~put references to the literature/web site here ~ --></p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Nick Sabbe
+<!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/which.html'>which</a></code>
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>ll</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>TRUE</span>, <span class='fl'>FALSE</span>, <span class='fl'>TRUE</span>, <span class='fl'>NA</span>, <span class='fl'>FALSE</span>, <span class='fl'>FALSE</span>, <span class='fl'>TRUE</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>ll</span>) <span class='kw'>&lt;-</span> <span class='no'>letters</span>[<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='no'>ll</span>)]
-<span class='no'>i</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span>(<span class='no'>ll</span>)
+    <pre class="examples"><div class='input'><span class='va'>ll</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>TRUE</span>, <span class='cn'>FALSE</span>, <span class='cn'>TRUE</span>, <span class='cn'>NA</span>, <span class='cn'>FALSE</span>, <span class='cn'>FALSE</span>, <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>ll</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>letters</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='va'>ll</span><span class='op'>)</span><span class='op'>]</span>
+<span class='va'>i</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='va'>ll</span><span class='op'>)</span>
 <span class='co'># back again (loosing the names of the FALSEs)</span>
-<span class='fu'>Unwhich</span>(<span class='no'>i</span>, <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>ll</span>))</div><div class='output co'>#&gt;     a  &lt;NA&gt;     c  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;     g 
+<span class='fu'>Unwhich</span><span class='op'>(</span><span class='va'>i</span>, <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>ll</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     a  &lt;NA&gt;     c  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;     g 
 #&gt;  TRUE FALSE  TRUE FALSE FALSE FALSE  TRUE </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -206,7 +211,7 @@ vector/matrix from indices.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

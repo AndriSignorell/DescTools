@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Plot a Venn Diagram
-<!-- %%  ~~function to do ... ~~ --> — PlotVenn • DescTools</title>
+ — PlotVenn • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Plot a Venn Diagram
-<!-- %%  ~~function to do ... ~~ --> — PlotVenn" />
+ — PlotVenn" />
 <meta property="og:description" content="This function produces Venn diagrams for up to 5 datasets. 
 " />
 
@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -143,7 +143,7 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>PlotVenn</span>(<span class='no'>x</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"transparent"</span>, <span class='kw'>plotit</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>PlotVenn</span><span class='op'>(</span><span class='va'>x</span>, col <span class='op'>=</span> <span class='st'>"transparent"</span>, plotit <span class='op'>=</span> <span class='cn'>TRUE</span>, labels <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -183,18 +183,23 @@ the frequency in that intersection area. The latter can be 0 as well.</p>
   <em>Dublin Philosophical Magazine and Journal of Science</em> 9 (59): 1-18.</p>  
 <p>Edwards, A.W.F. (2004): Cogwheels of the mind: the story of Venn diagrams. <em>JHU Press</em> ISBN 978-0-8018-7434-5.</p>
 <p><!-- %% ~put references to the literature/web site here ~ --></p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;
+<!-- %%  ~~who you are~~ --></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>element</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>() <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='no'>LETTERS</span>, <span class='fl'>5</span>, <span class='kw'>replace</span><span class='kw'>=</span><span class='fl'>TRUE</span>), <span class='kw'>collapse</span><span class='kw'>=</span><span class='st'>""</span>)
-<span class='no'>group</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>replicate</a></span>(<span class='fl'>1000</span>, <span class='fu'>element</span>())
+    <pre class="examples"><div class='input'><span class='va'>element</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='va'>LETTERS</span>, <span class='fl'>5</span>, replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>, collapse<span class='op'>=</span><span class='st'>""</span><span class='op'>)</span>
+<span class='va'>group</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>replicate</a></span><span class='op'>(</span><span class='fl'>1000</span>, <span class='fu'>element</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='no'>GroupA</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='no'>group</span>, <span class='fl'>400</span>, <span class='kw'>replace</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
-<span class='no'>GroupB</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='no'>group</span>, <span class='fl'>750</span>, <span class='kw'>replace</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
-<span class='no'>GroupC</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='no'>group</span>, <span class='fl'>250</span>, <span class='kw'>replace</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
-<span class='no'>GroupD</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='no'>group</span>, <span class='fl'>300</span>, <span class='kw'>replace</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
+<span class='va'>GroupA</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='va'>group</span>, <span class='fl'>400</span>, replace<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='va'>GroupB</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='va'>group</span>, <span class='fl'>750</span>, replace<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='va'>GroupC</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='va'>group</span>, <span class='fl'>250</span>, replace<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='va'>GroupD</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='va'>group</span>, <span class='fl'>300</span>, replace<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>GroupA</span>, <span class='no'>GroupB</span>, <span class='no'>GroupC</span>, <span class='no'>GroupD</span>)
-<span class='no'>x</span></div><div class='output co'>#&gt; [[1]]
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>GroupA</span>, <span class='va'>GroupB</span>, <span class='va'>GroupC</span>, <span class='va'>GroupD</span><span class='op'>)</span>
+<span class='va'>x</span>
+</div><div class='output co'>#&gt; [[1]]
 #&gt;   [1] "ELKTV" "ITZVT" "XYALF" "JONUQ" "VSMBB" "ACWEP" "XQTOY" "WRNVF" "OLEST"
 #&gt;  [10] "DGSCZ" "UJAAX" "HDBZT" "NXUBB" "LSURO" "ZNTRA" "HBHBP" "BEOKV" "SZSXV"
 #&gt;  [19] "VAUHU" "WRLNT" "VXMSS" "MOYRN" "GCUBJ" "OLXKF" "LAEKS" "MVLLP" "MGIRC"
@@ -393,7 +398,8 @@ the frequency in that intersection area. The latter can be 0 as well.</p>
 #&gt; [289] "KRBSF" "GCUBJ" "CACXU" "VTNHJ" "SPSHU" "EBMAY" "XOKVH" "ZGNXA" "RFURG"
 #&gt; [298] "FEPGE" "LVBWH" "ENAKQ"
 #&gt; </div><div class='input'>
-<span class='fu'>PlotVenn</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>GroupA</span>, <span class='no'>GroupB</span>))</div><div class='img'><img src='PlotVenn-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; [[1]]
+<span class='fu'>PlotVenn</span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>GroupA</span>, <span class='va'>GroupB</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='PlotVenn-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; [[1]]
 #&gt;   A  AB   B 
 #&gt;  89 311 439 
 #&gt; 
@@ -402,7 +408,8 @@ the frequency in that intersection area. The latter can be 0 as well.</p>
 #&gt; 1 -3 0   A  89    A
 #&gt; 2  3 0   B 439    B
 #&gt; 3  0 0  AB 311   AB
-#&gt; </div><div class='input'><span class='fu'>PlotVenn</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>Set_1</span><span class='kw'>=</span><span class='no'>GroupA</span>, <span class='kw'>Set_2</span><span class='kw'>=</span><span class='no'>GroupB</span>))</div><div class='img'><img src='PlotVenn-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; [[1]]
+#&gt; </div><div class='input'><span class='fu'>PlotVenn</span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>Set_1<span class='op'>=</span><span class='va'>GroupA</span>, Set_2<span class='op'>=</span><span class='va'>GroupB</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='PlotVenn-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; [[1]]
 #&gt;      Set_1 Set_1Set_2      Set_2 
 #&gt;         89        311        439 
 #&gt; 
@@ -411,7 +418,8 @@ the frequency in that intersection area. The latter can be 0 as well.</p>
 #&gt; 1 -3 0   A  89    A
 #&gt; 2  3 0   B 439    B
 #&gt; 3  0 0  AB 311   AB
-#&gt; </div><div class='input'><span class='fu'>PlotVenn</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>GroupA</span>, <span class='no'>GroupB</span>), <span class='kw'>labels</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"English"</span>,<span class='st'>"Spanish"</span>))</div><div class='img'><img src='PlotVenn-3.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; [[1]]
+#&gt; </div><div class='input'><span class='fu'>PlotVenn</span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>GroupA</span>, <span class='va'>GroupB</span><span class='op'>)</span>, labels<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"English"</span>,<span class='st'>"Spanish"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='PlotVenn-3.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; [[1]]
 #&gt;   A  AB   B 
 #&gt;  89 311 439 
 #&gt; 
@@ -421,7 +429,8 @@ the frequency in that intersection area. The latter can be 0 as well.</p>
 #&gt; 2  3 0   B 439    B
 #&gt; 3  0 0  AB 311   AB
 #&gt; </div><div class='input'>
-<span class='fu'>PlotVenn</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span>[<span class='fl'>1</span>:<span class='fl'>3</span>])</div><div class='img'><img src='PlotVenn-4.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; [[1]]
+<span class='fu'>PlotVenn</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>x</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span>
+</div><div class='img'><img src='PlotVenn-4.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; [[1]]
 #&gt;   A  AB ABC  AC   B  BC   C 
 #&gt;  64 233  78  25 338 101  46 
 #&gt; 
@@ -434,7 +443,8 @@ the frequency in that intersection area. The latter can be 0 as well.</p>
 #&gt; 5 -2.00  0.00  BC 101   BC
 #&gt; 6  1.00 -1.75  AC  25   AC
 #&gt; 7  0.00  0.00 ABC  78  ABC
-#&gt; </div><div class='input'><span class='fu'>PlotVenn</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span>[<span class='fl'>1</span>:<span class='fl'>4</span>], <span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"blue"</span>,<span class='st'>"red"</span>,<span class='st'>"yellow"</span>,<span class='st'>"green"</span>,<span class='st'>"lightblue"</span>), <span class='fl'>0.2</span>))</div><div class='img'><img src='PlotVenn-5.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; [[1]]
+#&gt; </div><div class='input'><span class='fu'>PlotVenn</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>x</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>, col<span class='op'>=</span><span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"blue"</span>,<span class='st'>"red"</span>,<span class='st'>"yellow"</span>,<span class='st'>"green"</span>,<span class='st'>"lightblue"</span><span class='op'>)</span>, <span class='fl'>0.2</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='PlotVenn-5.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; [[1]]
 #&gt;    A   AB  ABC ABCD  ABD   AC  ACD   AD    B   BC  BCD   BD    C   CD    D 
 #&gt;   46  169   55   23   64   17    8   18  230   68   33  108   33   13   33 
 #&gt; 
@@ -456,7 +466,9 @@ the frequency in that intersection area. The latter can be 0 as well.</p>
 #&gt; 14  2.7  0.8  BCD  33  BCD
 #&gt; 15  0.0  3.4   BC  68   BC
 #&gt; </div><div class='input'>
-<span class='no'>r.venn</span> <span class='kw'>&lt;-</span> <span class='fu'>PlotVenn</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span>[<span class='fl'>1</span>:<span class='fl'>5</span>], <span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"blue"</span>,<span class='st'>"red"</span>,<span class='st'>"yellow"</span>,<span class='st'>"green"</span>,<span class='st'>"lightblue"</span>), <span class='fl'>0.2</span>))</div><div class='img'><img src='PlotVenn-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>r.venn</span></div><div class='output co'>#&gt; [[1]]
+<span class='va'>r.venn</span> <span class='op'>&lt;-</span> <span class='fu'>PlotVenn</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>x</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>]</span>, col<span class='op'>=</span><span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"blue"</span>,<span class='st'>"red"</span>,<span class='st'>"yellow"</span>,<span class='st'>"green"</span>,<span class='st'>"lightblue"</span><span class='op'>)</span>, <span class='fl'>0.2</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='PlotVenn-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>r.venn</span>
+</div><div class='output co'>#&gt; [[1]]
 #&gt; ABCDE  ABCE  ABDE   ABE  ACDE   ACE   ADE    AE     B    BC   BCD    BD     C 
 #&gt;    23    55    64   169     8    17    18    46   230    68    33   108    33 
 #&gt;    CD     D 
@@ -511,7 +523,7 @@ the frequency in that intersection area. The latter can be 0 as well.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

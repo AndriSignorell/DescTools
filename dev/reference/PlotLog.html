@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Logarithmic Plot
-<!-- %%  ~~function to do ... ~~ --> — PlotLog • DescTools</title>
+ — PlotLog • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Logarithmic Plot
-<!-- %%  ~~function to do ... ~~ --> — PlotLog" />
+ — PlotLog" />
 <meta property="og:description" content="The base function grid() does not support logarithmic scales very well. Especially when more lines are required, grids have to be created manually. PlotLog creates a plot with at least one logarithmic axis and places a logarithmic grid in the background of the data.
 " />
 
@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -143,7 +143,7 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>PlotLog</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>args.grid</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='st'>"xy"</span>)</pre>
+    <pre class="usage"><span class='fu'>PlotLog</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, args.grid <span class='op'>=</span> <span class='cn'>NULL</span>, log <span class='op'>=</span> <span class='st'>"xy"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -155,7 +155,7 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>the dots are passed on to the function <code><a href='https://rdrr.io/r/base/plot.html'>plot()</a></code>.
+      <td><p>the dots are passed on to the function <code><a href='https://rdrr.io/r/graphics/plot.default.html'>plot()</a></code>.
 <!-- %%     ~~Describe \code{\dots} here~~ --></p></td>
     </tr>
     <tr>
@@ -180,15 +180,20 @@
 <!-- %%  \item{comp1 }{Description of 'comp1'} -->
 <!-- %%  \item{comp2 }{Description of 'comp2'} -->
 <!-- %% ... --></p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;
+<!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/graphics/axis.html'>axis</a></code>
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>PlotLog</span>(<span class='no'>brain</span> ~ <span class='no'>body</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='kw pkg'>MASS</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/MASS/man/Animals.html'>Animals</a></span>, <span class='kw'>log</span><span class='kw'>=</span><span class='st'>"xy"</span>,
-        <span class='kw'>xlim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.01</span>, <span class='fl'>1e5</span>), <span class='kw'>ylim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.1</span>, <span class='fl'>1e4</span>), <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Animal brain/body size"</span>,
-        <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>21</span>, <span class='kw'>bg</span><span class='kw'>=</span><span class='st'>"grey"</span>, <span class='kw'>cex</span><span class='kw'>=</span><span class='fl'>1.5</span>)</div><div class='img'><img src='PlotLog-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>PlotLog</span><span class='op'>(</span><span class='va'>brain</span> <span class='op'>~</span> <span class='va'>body</span>, data<span class='op'>=</span><span class='fu'>MASS</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/MASS/man/Animals.html'>Animals</a></span>, log<span class='op'>=</span><span class='st'>"xy"</span>,
+        xlim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.01</span>, <span class='fl'>1e5</span><span class='op'>)</span>, ylim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.1</span>, <span class='fl'>1e4</span><span class='op'>)</span>, main<span class='op'>=</span><span class='st'>"Animal brain/body size"</span>,
+        pch<span class='op'>=</span><span class='fl'>21</span>, bg<span class='op'>=</span><span class='st'>"grey"</span>, cex<span class='op'>=</span><span class='fl'>1.5</span><span class='op'>)</span>
+</div><div class='img'><img src='PlotLog-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -204,7 +209,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

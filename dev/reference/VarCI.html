@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -138,9 +138,9 @@
     <p>Calculates confidence intervals for the variance. Available approachs are the classical one using the ChiSquare distribution, a more robust version proposed by Bonett and the bootstrap options available in the package <code>boot</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>VarCI</span>(<span class='no'>x</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"classic"</span>, <span class='st'>"bonett"</span>, <span class='st'>"norm"</span>, <span class='st'>"basic"</span>, <span class='st'>"stud"</span>, <span class='st'>"perc"</span>, <span class='st'>"bca"</span>),
-      <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>sides</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"two.sided"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span>),
-      <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>R</span> <span class='kw'>=</span> <span class='fl'>999</span>)</pre>
+    <pre class="usage"><span class='fu'>VarCI</span><span class='op'>(</span><span class='va'>x</span>, method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"classic"</span>, <span class='st'>"bonett"</span>, <span class='st'>"norm"</span>, <span class='st'>"basic"</span>, <span class='st'>"stud"</span>, <span class='st'>"perc"</span>, <span class='st'>"bca"</span><span class='op'>)</span>,
+      conf.level <span class='op'>=</span> <span class='fl'>0.95</span>, sides <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"two.sided"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span><span class='op'>)</span>,
+      na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>, R <span class='op'>=</span> <span class='fl'>999</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -153,7 +153,7 @@
     <tr>
       <th>method</th>
       <td><p>vector of character strings representing the type of intervals required. The value should be any subset of the values <code>"classic"</code>, <code>"bonett"</code>, <code>"norm"</code>, <code>"basic"</code>,  <code>"stud"</code>,  <code>"perc"</code>,  <code>"bca"</code>.
-  See <code>boot.ci</code>.
+  See <code><a href='https://rdrr.io/pkg/boot/man/boot.ci.html'>boot.ci</a></code>.
 <!-- %%     ~~Describe \code{x} here~~ --></p></td>
     </tr>
     <tr>
@@ -173,7 +173,7 @@
     <tr>
       <th>R</th>
       <td><p>number of bootstrap replicates. Usually this will be a single positive integer. For importance resampling, some resamples may use one set of weights and others use a different set of weights. In this case R would be a vector of integers where each component gives the number of resamples from each of the rows of weights.
-  See <code>boot</code>.
+  See <code><a href='https://rdrr.io/pkg/boot/man/boot.html'>boot</a></code>.
 <!-- %%     ~~Describe \code{x} here~~ --></p></td>
     </tr>
     </table>
@@ -193,21 +193,29 @@ See the references for the details.</p>
 
     <p>Bonett (2006) Approximate Confidence Interval for Standard Deviation of Nonnormal Distributions, <em>Computational Statistics and Data Analysis</em>, Vol. 50, pp. 775 - 782.<br />
 https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/sdconfli.htm (might be outdated)</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;
+<!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='MeanCI.html'>MeanCI</a></code>, <code><a href='MedianCI.html'>MedianCI</a></code>, <code><a href='VarTest.html'>VarTest</a></code>, <code><a href='Var.html'>Var</a></code>
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>VarCI</span>(<span class='no'>d.pizza</span>$<span class='no'>price</span>, <span class='kw'>na.rm</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;    var lwr.ci upr.ci 
-#&gt;    468    433    508 </div><div class='input'><span class='fu'>VarCI</span>(<span class='no'>d.pizza</span>$<span class='no'>price</span>, <span class='kw'>conf.level</span><span class='kw'>=</span><span class='fl'>0.99</span>, <span class='kw'>na.rm</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;    var lwr.ci upr.ci 
+    <pre class="examples"><div class='input'><span class='fu'>VarCI</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>price</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    var lwr.ci upr.ci 
+#&gt;    468    433    508 </div><div class='input'><span class='fu'>VarCI</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>price</span>, conf.level<span class='op'>=</span><span class='fl'>0.99</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    var lwr.ci upr.ci 
 #&gt;    468    422    521 </div><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>14.816</span>, <span class='fl'>14.863</span>, <span class='fl'>14.814</span>, <span class='fl'>14.998</span>, <span class='fl'>14.965</span>, <span class='fl'>14.824</span>, <span class='fl'>14.884</span>, <span class='fl'>14.838</span>, <span class='fl'>14.916</span>,
-       <span class='fl'>15.021</span>, <span class='fl'>14.874</span>, <span class='fl'>14.856</span>, <span class='fl'>14.860</span>, <span class='fl'>14.772</span>, <span class='fl'>14.980</span>, <span class='fl'>14.919</span>)
-<span class='fu'>VarCI</span>(<span class='no'>x</span>, <span class='kw'>conf.level</span><span class='kw'>=</span><span class='fl'>0.9</span>)</div><div class='output co'>#&gt;     var  lwr.ci  upr.ci 
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>14.816</span>, <span class='fl'>14.863</span>, <span class='fl'>14.814</span>, <span class='fl'>14.998</span>, <span class='fl'>14.965</span>, <span class='fl'>14.824</span>, <span class='fl'>14.884</span>, <span class='fl'>14.838</span>, <span class='fl'>14.916</span>,
+       <span class='fl'>15.021</span>, <span class='fl'>14.874</span>, <span class='fl'>14.856</span>, <span class='fl'>14.860</span>, <span class='fl'>14.772</span>, <span class='fl'>14.980</span>, <span class='fl'>14.919</span><span class='op'>)</span>
+<span class='fu'>VarCI</span><span class='op'>(</span><span class='va'>x</span>, conf.level<span class='op'>=</span><span class='fl'>0.9</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     var  lwr.ci  upr.ci 
 #&gt; 0.00529 0.00317 0.01092 </div><div class='input'>
 <span class='co'># and for the standard deviation</span>
-<span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span>(<span class='fu'>VarCI</span>(<span class='no'>x</span>, <span class='kw'>conf.level</span><span class='kw'>=</span><span class='fl'>0.9</span>))</div><div class='output co'>#&gt;    var lwr.ci upr.ci 
+<span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='fu'>VarCI</span><span class='op'>(</span><span class='va'>x</span>, conf.level<span class='op'>=</span><span class='fl'>0.9</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    var lwr.ci upr.ci 
 #&gt; 0.0727 0.0563 0.1045 </div><div class='input'>
 
 <span class='co'># from Bonett's paper</span>
@@ -219,15 +227,21 @@ https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/sdconfli.htm 
 <span class='co'>#      95.0   0.5168   0.3263   1.0841</span>
 <span class='co'>#      99.0   0.5168   0.2607   1.5109</span>
 
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>15.83</span>, <span class='fl'>16.01</span>, <span class='fl'>16.24</span>, <span class='fl'>16.42</span>, <span class='fl'>15.33</span>, <span class='fl'>15.44</span>, <span class='fl'>16.88</span>, <span class='fl'>16.31</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span>(<span class='fu'>VarCI</span>(<span class='no'>p</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"bonett"</span>, <span class='kw'>conf.level</span><span class='kw'>=</span><span class='fl'>0.9</span>))</div><div class='output co'>#&gt;    var lwr.ci upr.ci 
-#&gt;  0.517  0.359  0.936 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span>(<span class='fu'>VarCI</span>(<span class='no'>p</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"bonett"</span>))</div><div class='output co'>#&gt;    var lwr.ci upr.ci 
-#&gt;  0.517  0.326  1.084 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span>(<span class='fu'>VarCI</span>(<span class='no'>p</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"bonett"</span>, <span class='kw'>conf.level</span><span class='kw'>=</span><span class='fl'>0.99</span>))</div><div class='output co'>#&gt;    var lwr.ci upr.ci 
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>15.83</span>, <span class='fl'>16.01</span>, <span class='fl'>16.24</span>, <span class='fl'>16.42</span>, <span class='fl'>15.33</span>, <span class='fl'>15.44</span>, <span class='fl'>16.88</span>, <span class='fl'>16.31</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='fu'>VarCI</span><span class='op'>(</span><span class='va'>p</span>, method<span class='op'>=</span><span class='st'>"bonett"</span>, conf.level<span class='op'>=</span><span class='fl'>0.9</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    var lwr.ci upr.ci 
+#&gt;  0.517  0.359  0.936 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='fu'>VarCI</span><span class='op'>(</span><span class='va'>p</span>, method<span class='op'>=</span><span class='st'>"bonett"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    var lwr.ci upr.ci 
+#&gt;  0.517  0.326  1.084 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='fu'>VarCI</span><span class='op'>(</span><span class='va'>p</span>, method<span class='op'>=</span><span class='st'>"bonett"</span>, conf.level<span class='op'>=</span><span class='fl'>0.99</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    var lwr.ci upr.ci 
 #&gt;  0.517  0.261  1.511 </div><div class='input'>
 <span class='co'># some bootstrap intervals</span>
-<span class='fu'>VarCI</span>(<span class='no'>x</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"norm"</span>)</div><div class='output co'>#&gt;     var  lwr.ci  upr.ci 
-#&gt; 0.00529 0.00307 0.00825 </div><div class='input'><span class='fu'>VarCI</span>(<span class='no'>x</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"perc"</span>)</div><div class='output co'>#&gt;     var  lwr.ci  upr.ci 
-#&gt; 0.00529 0.00226 0.00792 </div><div class='input'><span class='fu'>VarCI</span>(<span class='no'>x</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"bca"</span>)</div><div class='output co'>#&gt;     var  lwr.ci  upr.ci 
+<span class='fu'>VarCI</span><span class='op'>(</span><span class='va'>x</span>, method<span class='op'>=</span><span class='st'>"norm"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     var  lwr.ci  upr.ci 
+#&gt; 0.00529 0.00307 0.00825 </div><div class='input'><span class='fu'>VarCI</span><span class='op'>(</span><span class='va'>x</span>, method<span class='op'>=</span><span class='st'>"perc"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     var  lwr.ci  upr.ci 
+#&gt; 0.00529 0.00226 0.00792 </div><div class='input'><span class='fu'>VarCI</span><span class='op'>(</span><span class='va'>x</span>, method<span class='op'>=</span><span class='st'>"bca"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     var  lwr.ci  upr.ci 
 #&gt; 0.00529 0.00317 0.00886 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -244,7 +258,7 @@ https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/sdconfli.htm 
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

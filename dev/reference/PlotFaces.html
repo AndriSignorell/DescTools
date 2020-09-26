@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -138,8 +138,8 @@
     <p>Plot Chernoff faces. The rows of a data matrix represent cases and the columns the variables.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>PlotFaces</span>(<span class='no'>xy</span>, <span class='no'>which.row</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>nr</span>, <span class='no'>nc</span>,
-          <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>byrow</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>main</span>, <span class='no'>labels</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"white"</span>)</pre>
+    <pre class="usage"><span class='fu'>PlotFaces</span><span class='op'>(</span><span class='va'>xy</span>, <span class='va'>which.row</span>, fill <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>nr</span>, <span class='va'>nc</span>,
+          scale <span class='op'>=</span> <span class='cn'>TRUE</span>, byrow <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>main</span>, <span class='va'>labels</span>, col <span class='op'>=</span> <span class='st'>"white"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -220,31 +220,39 @@
 Ralston, A. and Rabinowitz, P. (1985)
 <em>A first course in numerical analysis</em>, McGraw-Hill, pp 76ff.<br />
 <a href='http://www.wiwi.uni-bielefeld.de/~wolf/'>http://www.wiwi.uni-bielefeld.de/~wolf/</a>: S/R - functions : faces</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>H. P. Wolf, some changes Andri Signorell &lt;andri@signorell.net&gt;</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>based on version 12/2009</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>PlotFaces</span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>,<span class='fl'>5</span>:<span class='fl'>3</span>,<span class='fl'>3</span>:<span class='fl'>5</span>,<span class='fl'>5</span>:<span class='fl'>7</span>))</div><div class='img'><img src='PlotFaces-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>longley</span>)
-<span class='fu'>PlotFaces</span>(<span class='no'>longley</span>[<span class='fl'>1</span>:<span class='fl'>9</span>,])</div><div class='img'><img src='PlotFaces-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>17</span>)
-<span class='fu'>PlotFaces</span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>1</span>:<span class='fl'>1000</span>,<span class='fl'>128</span>,), <span class='fl'>16</span>, <span class='fl'>8</span>), <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"random faces"</span>)</div><div class='img'><img src='PlotFaces-3.png' alt='' width='700' height='433' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>PlotFaces</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>,<span class='fl'>5</span><span class='op'>:</span><span class='fl'>3</span>,<span class='fl'>3</span><span class='op'>:</span><span class='fl'>5</span>,<span class='fl'>5</span><span class='op'>:</span><span class='fl'>7</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='PlotFaces-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>longley</span><span class='op'>)</span>
+<span class='fu'>PlotFaces</span><span class='op'>(</span><span class='va'>longley</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>9</span>,<span class='op'>]</span><span class='op'>)</span>
+</div><div class='img'><img src='PlotFaces-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>17</span><span class='op'>)</span>
+<span class='fu'>PlotFaces</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>1000</span>,<span class='fl'>128</span>,<span class='op'>)</span>, <span class='fl'>16</span>, <span class='fl'>8</span><span class='op'>)</span>, main<span class='op'>=</span><span class='st'>"random faces"</span><span class='op'>)</span>
+</div><div class='img'><img src='PlotFaces-3.png' alt='' width='700' height='433' /></div><div class='input'>
 
-<span class='no'>means</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>iris</span>[,-<span class='fl'>5</span>], <span class='no'>tapply</span>, <span class='no'>iris</span>$<span class='no'>Species</span>, <span class='no'>mean</span>)
-<span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span>(<span class='no'>rbind</span>, <span class='no'>means</span>))
-<span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='no'>m</span>, <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>, <span class='fl'>11</span>*<span class='fl'>3</span>), <span class='kw'>nrow</span><span class='kw'>=</span><span class='fl'>3</span>))
+<span class='va'>means</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>[</span>,<span class='op'>-</span><span class='fl'>5</span><span class='op'>]</span>, <span class='va'>tapply</span>, <span class='va'>iris</span><span class='op'>$</span><span class='va'>Species</span>, <span class='va'>mean</span><span class='op'>)</span>
+<span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span><span class='op'>(</span><span class='va'>rbind</span>, <span class='va'>means</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='va'>m</span>, <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>11</span><span class='op'>*</span><span class='fl'>3</span><span class='op'>)</span>, nrow<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># define the colors, first for all faces the same</span>
-<span class='no'>col</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>replicate</a></span>(<span class='fl'>3</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"orchid1"</span>, <span class='st'>"olivedrab"</span>, <span class='st'>"goldenrod4"</span>,
-                      <span class='st'>"peachpuff"</span>, <span class='st'>"darksalmon"</span>, <span class='st'>"peachpuff3"</span>))
-<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>col</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"nose"</span>,<span class='st'>"eyes"</span>,<span class='st'>"hair"</span>,<span class='st'>"face"</span>,<span class='st'>"lips"</span>,<span class='st'>"ears"</span>)
+<span class='va'>col</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>replicate</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"orchid1"</span>, <span class='st'>"olivedrab"</span>, <span class='st'>"goldenrod4"</span>,
+                      <span class='st'>"peachpuff"</span>, <span class='st'>"darksalmon"</span>, <span class='st'>"peachpuff3"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>col</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"nose"</span>,<span class='st'>"eyes"</span>,<span class='st'>"hair"</span>,<span class='st'>"face"</span>,<span class='st'>"lips"</span>,<span class='st'>"ears"</span><span class='op'>)</span>
 <span class='co'># change haircolor individually for each face</span>
-<span class='no'>col</span>[<span class='fl'>3</span>, ] <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"lightgoldenrod"</span>, <span class='st'>"coral3"</span>, <span class='st'>"sienna4"</span>)
+<span class='va'>col</span><span class='op'>[</span><span class='fl'>3</span>, <span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"lightgoldenrod"</span>, <span class='st'>"coral3"</span>, <span class='st'>"sienna4"</span><span class='op'>)</span>
 
-<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'>PlotFaces</span>(<span class='no'>m</span>, <span class='kw'>nr</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>nc</span><span class='kw'>=</span><span class='fl'>3</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='no'>col</span>)</div><div class='img'><img src='PlotFaces-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'>PlotFaces</span><span class='op'>(</span><span class='va'>m</span>, nr<span class='op'>=</span><span class='fl'>1</span>, nc<span class='op'>=</span><span class='fl'>3</span>, col<span class='op'>=</span><span class='va'>col</span><span class='op'>)</span>
+</div><div class='img'><img src='PlotFaces-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># print the used coding</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>z</span>$<span class='no'>info</span>, <span class='kw'>right</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;    modified.item     variable    
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>z</span><span class='op'>$</span><span class='va'>info</span>, right<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    modified.item     variable    
 #&gt; 1  height of face    Sepal.Length
 #&gt; 2  width of face     Sepal.Width 
 #&gt; 3  structure of face Petal.Length
@@ -275,7 +283,7 @@ Ralston, A. and Rabinowitz, P. (1985)
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

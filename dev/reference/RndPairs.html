@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Create Pairs of Correlated Random Numbers
-<!-- %%  ~~function to do ... ~~ --> — RndPairs • DescTools</title>
+ — RndPairs • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Create Pairs of Correlated Random Numbers
-<!-- %%  ~~function to do ... ~~ --> — RndPairs" />
+ — RndPairs" />
 <meta property="og:description" content="Create pairs of correlated random numbers.
 " />
 
@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -143,10 +143,10 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>RndPairs</span>(<span class='no'>n</span>, <span class='no'>r</span>, <span class='kw'>rdist1</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='no'>n</span>, <span class='kw'>mean</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>sd</span> <span class='kw'>=</span> <span class='fl'>1</span>),
-         <span class='kw'>rdist2</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='no'>n</span>, <span class='kw'>mean</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>sd</span> <span class='kw'>=</span> <span class='fl'>1</span>))
+    <pre class="usage"><span class='fu'>RndPairs</span><span class='op'>(</span><span class='va'>n</span>, <span class='va'>r</span>, rdist1 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='va'>n</span>, mean <span class='op'>=</span> <span class='fl'>0</span>, sd <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>,
+         rdist2 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='va'>n</span>, mean <span class='op'>=</span> <span class='fl'>0</span>, sd <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'>RndWord</span>(<span class='no'>size</span>, <span class='no'>length</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>LETTERS</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>prob</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+<span class='fu'>RndWord</span><span class='op'>(</span><span class='va'>size</span>, <span class='va'>length</span>, x <span class='op'>=</span> <span class='va'>LETTERS</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span>, prob <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -196,6 +196,10 @@
 <!-- %%  \item{comp1 }{Description of 'comp1'} -->
 <!-- %%  \item{comp2 }{Description of 'comp2'} -->
 <!-- %% ... --></p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;
+<!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></code>, <code><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></code>, <code><a href='https://rdrr.io/r/base/Random.html'>Random</a></code> and friends
@@ -203,20 +207,23 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># produce 100 pairs of a normal distributed random number with a correlation of 0.7</span>
-<span class='no'>d.frm</span>  <span class='kw'>&lt;-</span> <span class='fu'>RndPairs</span>(<span class='kw'>n</span><span class='kw'>=</span><span class='fl'>100</span>, <span class='kw'>r</span><span class='kw'>=</span><span class='fl'>0.7</span>)
+<span class='va'>d.frm</span>  <span class='op'>&lt;-</span> <span class='fu'>RndPairs</span><span class='op'>(</span>n<span class='op'>=</span><span class='fl'>100</span>, r<span class='op'>=</span><span class='fl'>0.7</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>d.frm</span>)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>X2</span> ~ <span class='no'>X1</span>,<span class='no'>d.frm</span>))</div><div class='img'><img src='RndPairs-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>d.frm</span><span class='op'>)</span>
+</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>X2</span> <span class='op'>~</span> <span class='va'>X1</span>,<span class='va'>d.frm</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='RndPairs-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># change the distribution</span>
-<span class='no'>d.frm</span>  <span class='kw'>&lt;-</span> <span class='fu'>RndPairs</span>(<span class='kw'>n</span><span class='kw'>=</span><span class='fl'>100</span>, <span class='kw'>r</span><span class='kw'>=</span><span class='fl'>0.7</span>, <span class='kw'>rdist2</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>meanlog</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>sdlog</span> <span class='kw'>=</span> <span class='fl'>.8</span>))
-<span class='no'>d.frm</span>  <span class='kw'>&lt;-</span> <span class='fu'>RndPairs</span>(<span class='kw'>n</span><span class='kw'>=</span><span class='fl'>100</span>, <span class='kw'>r</span><span class='kw'>=</span><span class='fl'>0.7</span>, <span class='kw'>rdist2</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, -<span class='fl'>1</span>, <span class='fl'>4</span>))
+<span class='va'>d.frm</span>  <span class='op'>&lt;-</span> <span class='fu'>RndPairs</span><span class='op'>(</span>n<span class='op'>=</span><span class='fl'>100</span>, r<span class='op'>=</span><span class='fl'>0.7</span>, rdist2 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>100</span>, meanlog <span class='op'>=</span> <span class='fl'>1</span>, sdlog <span class='op'>=</span> <span class='fl'>.8</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>d.frm</span>  <span class='op'>&lt;-</span> <span class='fu'>RndPairs</span><span class='op'>(</span>n<span class='op'>=</span><span class='fl'>100</span>, r<span class='op'>=</span><span class='fl'>0.7</span>, rdist2 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>100</span>, <span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='StrCap.html'>StrCap</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>3</span>:<span class='fl'>15</span>, <span class='fl'>10</span>), <span class='kw'>function</span>(<span class='no'>i</span>) <span class='fu'>RndWord</span>(<span class='fl'>1</span>, <span class='no'>i</span>, <span class='kw'>x</span><span class='kw'>=</span><span class='no'>letters</span>)))
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='StrCap.html'>StrCap</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>15</span>, <span class='fl'>10</span><span class='op'>)</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span> <span class='fu'>RndWord</span><span class='op'>(</span><span class='fl'>1</span>, <span class='va'>i</span>, x<span class='op'>=</span><span class='va'>letters</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
 
 <span class='co'># produce some artificial words with defined probabilities for the letters</span>
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>6.51</span>,<span class='fl'>1.89</span>,<span class='fl'>3.06</span>,<span class='fl'>5.08</span>,<span class='fl'>17.4</span>,<span class='fl'>1.66</span>,<span class='fl'>3.01</span>,<span class='fl'>4.76</span>,<span class='fl'>7.55</span>,<span class='fl'>0.27</span>,<span class='fl'>1.21</span>,<span class='fl'>3.44</span>,<span class='fl'>2.53</span>,
-       <span class='fl'>9.78</span>,<span class='fl'>2.51</span>,<span class='fl'>0.79</span>,<span class='fl'>0.02</span>,<span class='fl'>7</span>,<span class='fl'>7.27</span>,<span class='fl'>6.15</span>,<span class='fl'>4.35</span>,<span class='fl'>0.67</span>,<span class='fl'>1.89</span>,<span class='fl'>0.03</span>,<span class='fl'>0.04</span>,<span class='fl'>1.13</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>3</span>:<span class='fl'>15</span>, <span class='fl'>10</span>), <span class='kw'>function</span>(<span class='no'>i</span>) <span class='fu'>RndWord</span>(<span class='fl'>1</span>, <span class='no'>i</span>, <span class='kw'>x</span><span class='kw'>=</span><span class='no'>letters</span>, <span class='kw'>prob</span><span class='kw'>=</span><span class='no'>p</span>))</div><div class='output co'>#&gt;  [1] "eataine"         "lteea"           "ipeeeneekeigf"   "eriieeleecw"    
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>6.51</span>,<span class='fl'>1.89</span>,<span class='fl'>3.06</span>,<span class='fl'>5.08</span>,<span class='fl'>17.4</span>,<span class='fl'>1.66</span>,<span class='fl'>3.01</span>,<span class='fl'>4.76</span>,<span class='fl'>7.55</span>,<span class='fl'>0.27</span>,<span class='fl'>1.21</span>,<span class='fl'>3.44</span>,<span class='fl'>2.53</span>,
+       <span class='fl'>9.78</span>,<span class='fl'>2.51</span>,<span class='fl'>0.79</span>,<span class='fl'>0.02</span>,<span class='fl'>7</span>,<span class='fl'>7.27</span>,<span class='fl'>6.15</span>,<span class='fl'>4.35</span>,<span class='fl'>0.67</span>,<span class='fl'>1.89</span>,<span class='fl'>0.03</span>,<span class='fl'>0.04</span>,<span class='fl'>1.13</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>15</span>, <span class='fl'>10</span><span class='op'>)</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span> <span class='fu'>RndWord</span><span class='op'>(</span><span class='fl'>1</span>, <span class='va'>i</span>, x<span class='op'>=</span><span class='va'>letters</span>, prob<span class='op'>=</span><span class='va'>p</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1] "eataine"         "lteea"           "ipeeeneekeigf"   "eriieeleecw"    
 #&gt;  [5] "abdenefrra"      "leshgh"          "dmey"            "ealdreatefelar" 
 #&gt;  [9] "eiuoltee"        "iwpsgdicelttuia"</div></pre>
   </div>
@@ -234,7 +241,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

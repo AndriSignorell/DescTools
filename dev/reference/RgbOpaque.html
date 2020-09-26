@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Equivalent Opaque Color for Transparent Color 
-<!-- %%  ~~function to do ... ~~ --> — ColToOpaque • DescTools</title>
+ — ColToOpaque • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Equivalent Opaque Color for Transparent Color 
-<!-- %%  ~~function to do ... ~~ --> — ColToOpaque" />
+ — ColToOpaque" />
 <meta property="og:description" content="Determine the equivalent opaque RGB color for a given partially transparent RGB color against a background of any color. 
 " />
 
@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -143,7 +143,7 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>ColToOpaque</span>(<span class='no'>col</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bg</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>ColToOpaque</span><span class='op'>(</span><span class='va'>col</span>, alpha <span class='op'>=</span> <span class='cn'>NULL</span>, bg <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -177,13 +177,19 @@
 <!-- %%  \item{comp1 }{Description of 'comp1'} -->
 <!-- %%  \item{comp2 }{Description of 'comp2'} -->
 <!-- %% ... --></p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;
+<!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='ColToHex.html'>ColToHex</a></code>, <code><a href='BaseConversions.html'>DecToHex</a></code>, <code><a href='ColToHex.html'>RgbToHex</a></code>
+    <div class='dont-index'><p><code><a href='ColToHex.html'>ColToHex</a></code>, <code><a href='Base Conversions.html'>DecToHex</a></code>, <code><a href='ColToHex.html'>RgbToHex</a></code>
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>cols</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span>(<span class='st'>"limegreen"</span>, <span class='fl'>0.4</span>), <span class='fu'>ColToOpaque</span>(<span class='fu'><a href='ColToHex.html'>ColToHex</a></span>(<span class='st'>"limegreen"</span>), <span class='fl'>0.4</span>), <span class='st'>"limegreen"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_", as.numeric(x), as.numeric(rng[1L]), as.numeric(rng[2L]),     PACKAGE = "DescTools"): "between_num_" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1.2</span>, <span class='fl'>1.3</span>), <span class='kw'>col</span><span class='kw'>=</span><span class='no'>cols</span>, <span class='kw'>panel.first</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span>(<span class='kw'>h</span><span class='kw'>=</span><span class='fl'>0.4</span>, <span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>10</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"grey35"</span>))</div><div class='output co'>#&gt; <span class='error'>Error in barplot.default(c(1, 1.2, 1.3), col = cols, panel.first = abline(h = 0.4,     lwd = 10, col = "grey35")): object 'cols' not found</span></div></pre>
+    <pre class="examples"><div class='input'><span class='va'>cols</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span><span class='op'>(</span><span class='st'>"limegreen"</span>, <span class='fl'>0.4</span><span class='op'>)</span>, <span class='fu'>ColToOpaque</span><span class='op'>(</span><span class='fu'><a href='ColToHex.html'>ColToHex</a></span><span class='op'>(</span><span class='st'>"limegreen"</span><span class='op'>)</span>, <span class='fl'>0.4</span><span class='op'>)</span>, <span class='st'>"limegreen"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_", as.numeric(x), as.numeric(rng[1L]), as.numeric(rng[2L]),     PACKAGE = "DescTools"): "between_num_" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1.2</span>, <span class='fl'>1.3</span><span class='op'>)</span>, col<span class='op'>=</span><span class='va'>cols</span>, panel.first<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span><span class='op'>(</span>h<span class='op'>=</span><span class='fl'>0.4</span>, lwd<span class='op'>=</span><span class='fl'>10</span>, col<span class='op'>=</span><span class='st'>"grey35"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in barplot.default(c(1, 1.2, 1.3), col = cols, panel.first = abline(h = 0.4,     lwd = 10, col = "grey35")): object 'cols' not found</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -199,7 +205,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

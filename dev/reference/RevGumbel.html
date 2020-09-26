@@ -76,7 +76,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -142,12 +142,12 @@
   parameters <code>location</code> and <code>scale</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>dRevGumbel</span> (<span class='no'>x</span>, <span class='kw'>location</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>1</span>)
-<span class='fu'>pRevGumbel</span> (<span class='no'>q</span>, <span class='kw'>location</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>1</span>)
-<span class='fu'>qRevGumbel</span> (<span class='no'>p</span>, <span class='kw'>location</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>1</span>)
-<span class='fu'>rRevGumbel</span> (<span class='no'>n</span>, <span class='kw'>location</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+    <pre class="usage"><span class='fu'>dRevGumbel</span> <span class='op'>(</span><span class='va'>x</span>, location <span class='op'>=</span> <span class='fl'>0</span>, scale <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+<span class='fu'>pRevGumbel</span> <span class='op'>(</span><span class='va'>q</span>, location <span class='op'>=</span> <span class='fl'>0</span>, scale <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+<span class='fu'>qRevGumbel</span> <span class='op'>(</span><span class='va'>p</span>, location <span class='op'>=</span> <span class='fl'>0</span>, scale <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+<span class='fu'>rRevGumbel</span> <span class='op'>(</span><span class='va'>n</span>, location <span class='op'>=</span> <span class='fl'>0</span>, scale <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
 
-<span class='fu'>qRevGumbelExp</span>(<span class='no'>p</span>)</pre>
+<span class='fu'>qRevGumbelExp</span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -182,16 +182,25 @@
     <p>a numeric vector, of the same length as <code>x</code>, <code>q</code>, or
   <code>p</code> for the first three functions, and of length <code>n</code> for
   <code>rRevGumbel()</code>.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Werner Stahel; partly inspired by package <span class="pkg">VGAM</span>.
+  Martin Maechler for numeric cosmetic.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>the <code><a href='https://rdrr.io/r/stats/Weibull.html'>Weibull</a></code> distribution functions in <span style="R">R</span>'s <span class="pkg">stats</span> package.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/curve.html'>curve</a></span>(<span class='fu'>pRevGumbel</span>(<span class='no'>x</span>, <span class='kw'>scale</span><span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>2</span>), -<span class='fl'>3</span>,<span class='fl'>2</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>1001</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,
-      <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"RevGumbel(x, scale = 1/2)"</span>)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span>(<span class='kw'>h</span><span class='kw'>=</span><span class='fl'>0</span>:<span class='fl'>1</span>, <span class='kw'>v</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>lty</span><span class='kw'>=</span><span class='fl'>3</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"gray30"</span>)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/curve.html'>curve</a></span>(<span class='fu'>dRevGumbel</span>(<span class='no'>x</span>, <span class='kw'>scale</span><span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>2</span>),       <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>1001</span>, <span class='kw'>add</span><span class='kw'>=</span><span class='fl'>TRUE</span>,
-      <span class='kw'>col</span> <span class='kw'>=</span> (<span class='no'>col.d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/adjustcolor.html'>adjustcolor</a></span>(<span class='fl'>2</span>, <span class='fl'>0.5</span>)), <span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>3</span>)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/legend.html'>legend</a></span>(<span class='st'>"left"</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"cdf"</span>,<span class='st'>"pdf"</span>), <span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"black"</span>, <span class='no'>col.d</span>), <span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>:<span class='fl'>3</span>, <span class='kw'>bty</span><span class='kw'>=</span><span class='st'>"n"</span>)</div><div class='img'><img src='RevGumbel-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>med</span> <span class='kw'>&lt;-</span> <span class='fu'>qRevGumbel</span>(<span class='fl'>0.5</span>, <span class='kw'>scale</span><span class='kw'>=</span><span class='fl'>1</span>/<span class='fl'>2</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span>(<span class='st'>"The median is:"</span>,  <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='no'>med</span>),<span class='st'>"\n"</span>)</div><div class='output co'>#&gt; The median is: -0.1832565 </div></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/curve.html'>curve</a></span><span class='op'>(</span><span class='fu'>pRevGumbel</span><span class='op'>(</span><span class='va'>x</span>, scale<span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>2</span><span class='op'>)</span>, <span class='op'>-</span><span class='fl'>3</span>,<span class='fl'>2</span>, n<span class='op'>=</span><span class='fl'>1001</span>, col<span class='op'>=</span><span class='fl'>1</span>, lwd<span class='op'>=</span><span class='fl'>2</span>,
+      main <span class='op'>=</span> <span class='st'>"RevGumbel(x, scale = 1/2)"</span><span class='op'>)</span>
+</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span><span class='op'>(</span>h<span class='op'>=</span><span class='fl'>0</span><span class='op'>:</span><span class='fl'>1</span>, v <span class='op'>=</span> <span class='fl'>0</span>, lty<span class='op'>=</span><span class='fl'>3</span>, col <span class='op'>=</span> <span class='st'>"gray30"</span><span class='op'>)</span>
+</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/curve.html'>curve</a></span><span class='op'>(</span><span class='fu'>dRevGumbel</span><span class='op'>(</span><span class='va'>x</span>, scale<span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>2</span><span class='op'>)</span>,       n<span class='op'>=</span><span class='fl'>1001</span>, add<span class='op'>=</span><span class='cn'>TRUE</span>,
+      col <span class='op'>=</span> <span class='op'>(</span><span class='va'>col.d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/adjustcolor.html'>adjustcolor</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>0.5</span><span class='op'>)</span><span class='op'>)</span>, lwd<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>
+</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/legend.html'>legend</a></span><span class='op'>(</span><span class='st'>"left"</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cdf"</span>,<span class='st'>"pdf"</span><span class='op'>)</span>, col<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"black"</span>, <span class='va'>col.d</span><span class='op'>)</span>, lwd<span class='op'>=</span><span class='fl'>2</span><span class='op'>:</span><span class='fl'>3</span>, bty<span class='op'>=</span><span class='st'>"n"</span><span class='op'>)</span>
+</div><div class='img'><img src='RevGumbel-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>med</span> <span class='op'>&lt;-</span> <span class='fu'>qRevGumbel</span><span class='op'>(</span><span class='fl'>0.5</span>, scale<span class='op'>=</span><span class='fl'>1</span><span class='op'>/</span><span class='fl'>2</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='st'>"The median is:"</span>,  <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span><span class='op'>(</span><span class='va'>med</span><span class='op'>)</span>,<span class='st'>"\n"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; The median is: -0.1832565 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -207,7 +216,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

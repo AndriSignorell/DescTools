@@ -76,7 +76,7 @@ The present function transforms a given odds-ratio (OR) to the respective relati
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -142,12 +142,12 @@ terms of an outcome that is either present or absent. As the odds ratio is in ge
 <p>The present function transforms a given odds-ratio (OR) to the respective relative risk (RR) either for simple odds ratios but also for odds ratios resulting from a logistic model.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ORToRelRisk</span>(<span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>ORToRelRisk</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for OddsRatio</span>
-<span class='fu'>ORToRelRisk</span>(<span class='no'>x</span>, <span class='no'>...</span> )
+<span class='fu'>ORToRelRisk</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span> <span class='op'>)</span>
 <span class='co'># S3 method for default</span>
-<span class='fu'>ORToRelRisk</span>(<span class='no'>or</span>, <span class='no'>p0</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>ORToRelRisk</span><span class='op'>(</span><span class='va'>or</span>, <span class='va'>p0</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -190,35 +190,45 @@ $$rr = \frac{or}{1 - p_0 + p_0 \cdot or}$$</p>
   studies of common outcomes. <em>JAMA</em>, <b>280</b>(19):1690-1691.</p>
 <p>Grant, R. L. (2014) Converting an odds ratio to a range of plausible relative
 risks for better communication of research findings. BMJ 2014;348:f7450 doi: 10.1136/bmj.f7450</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Matthias Kohl &lt;matthias.kohl@stamats.de&gt;</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>(<span class='no'>heart</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>11</span>, <span class='fl'>2</span>, <span class='fl'>4</span>, <span class='fl'>6</span>), <span class='kw'>nrow</span><span class='kw'>=</span><span class='fl'>2</span>,
-                          <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>Exposure</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"High"</span>, <span class='st'>"Low"</span>),
-                                          <span class='kw'>Response</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Yes"</span>, <span class='st'>"No"</span>)))))</div><div class='output co'>#&gt;         Response
+    <pre class="examples"><div class='input'><span class='op'>(</span><span class='va'>heart</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>11</span>, <span class='fl'>2</span>, <span class='fl'>4</span>, <span class='fl'>6</span><span class='op'>)</span>, nrow<span class='op'>=</span><span class='fl'>2</span>,
+                          dimnames <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>Exposure <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"High"</span>, <span class='st'>"Low"</span><span class='op'>)</span>, 
+                                          Response <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Yes"</span>, <span class='st'>"No"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;         Response
 #&gt; Exposure Yes No
 #&gt;     High  11  4
-#&gt;     Low    2  6</div><div class='input'><span class='fu'><a href='RelRisk.html'>RelRisk</a></span>(<span class='no'>heart</span>)</div><div class='output co'>#&gt; [1] 2.933333</div><div class='input'><span class='co'># calculated as (11/15)/(2/8)</span>
+#&gt;     Low    2  6</div><div class='input'><span class='fu'><a href='RelRisk.html'>RelRisk</a></span><span class='op'>(</span><span class='va'>heart</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 2.933333</div><div class='input'><span class='co'># calculated as (11/15)/(2/8)</span>
 
-<span class='fu'><a href='OddsRatio.html'>OddsRatio</a></span>(<span class='no'>heart</span>)</div><div class='output co'>#&gt; [1] 8.25</div><div class='input'><span class='co'># calculated as (11/4)/(2/6)</span>
+<span class='fu'><a href='OddsRatio.html'>OddsRatio</a></span><span class='op'>(</span><span class='va'>heart</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 8.25</div><div class='input'><span class='co'># calculated as (11/4)/(2/6)</span>
 
-<span class='fu'>ORToRelRisk</span>(<span class='fu'><a href='OddsRatio.html'>OddsRatio</a></span>(<span class='no'>heart</span>), <span class='kw'>p0</span> <span class='kw'>=</span> <span class='fl'>2</span>/<span class='fl'>8</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='co'># Relative risk = odds ratio / (1 - p0 + (p0 * odds ratio))</span>
+<span class='fu'>ORToRelRisk</span><span class='op'>(</span><span class='fu'><a href='OddsRatio.html'>OddsRatio</a></span><span class='op'>(</span><span class='va'>heart</span><span class='op'>)</span>, p0 <span class='op'>=</span> <span class='fl'>2</span><span class='op'>/</span><span class='fl'>8</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='co'># Relative risk = odds ratio / (1 - p0 + (p0 * odds ratio))</span>
 <span class='co'># where p0 is the baseline risk</span>
 
 
 <span class='co'>## single OR to RR</span>
-<span class='fu'>ORToRelRisk</span>(<span class='fl'>14.1</span>, <span class='fl'>0.05</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div><div class='input'>
+<span class='fu'>ORToRelRisk</span><span class='op'>(</span><span class='fl'>14.1</span>, <span class='fl'>0.05</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div><div class='input'>
 <span class='co'>## OR and 95% confidence interval</span>
-<span class='fu'>ORToRelRisk</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>14.1</span>, <span class='fl'>7.8</span>, <span class='fl'>27.5</span>), <span class='fl'>0.05</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div><div class='input'>
+<span class='fu'>ORToRelRisk</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>14.1</span>, <span class='fl'>7.8</span>, <span class='fl'>27.5</span><span class='op'>)</span>, <span class='fl'>0.05</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div><div class='input'>
 <span class='co'>## Logistic OR and 95% confidence interval</span>
-<span class='no'>logisticOR</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>14.1</span>, <span class='fl'>7.8</span>, <span class='fl'>27.5</span>),
-                    <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>8.7</span>, <span class='fl'>5.5</span>, <span class='fl'>14.3</span>),
-                    <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>27.4</span>, <span class='fl'>17.2</span>, <span class='fl'>45.8</span>),
-                    <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4.5</span>, <span class='fl'>2.7</span>, <span class='fl'>7.8</span>),
-                    <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.25</span>, <span class='fl'>0.17</span>, <span class='fl'>0.37</span>),
-                    <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.09</span>, <span class='fl'>0.05</span>, <span class='fl'>0.14</span>))
-<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>logisticOR</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"OR"</span>, <span class='st'>"2.5%"</span>, <span class='st'>"97.5%"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>logisticOR</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"7.4"</span>, <span class='st'>"4.2"</span>, <span class='st'>"3.0"</span>, <span class='st'>"2.0"</span>, <span class='st'>"0.37"</span>, <span class='st'>"0.14"</span>)
-<span class='no'>logisticOR</span></div><div class='output co'>#&gt;         OR  2.5% 97.5%
+<span class='va'>logisticOR</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>14.1</span>, <span class='fl'>7.8</span>, <span class='fl'>27.5</span><span class='op'>)</span>,
+                    <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>8.7</span>, <span class='fl'>5.5</span>, <span class='fl'>14.3</span><span class='op'>)</span>,
+                    <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>27.4</span>, <span class='fl'>17.2</span>, <span class='fl'>45.8</span><span class='op'>)</span>,
+                    <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4.5</span>, <span class='fl'>2.7</span>, <span class='fl'>7.8</span><span class='op'>)</span>,
+                    <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.25</span>, <span class='fl'>0.17</span>, <span class='fl'>0.37</span><span class='op'>)</span>,
+                    <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.09</span>, <span class='fl'>0.05</span>, <span class='fl'>0.14</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>logisticOR</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"OR"</span>, <span class='st'>"2.5%"</span>, <span class='st'>"97.5%"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>logisticOR</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"7.4"</span>, <span class='st'>"4.2"</span>, <span class='st'>"3.0"</span>, <span class='st'>"2.0"</span>, <span class='st'>"0.37"</span>, <span class='st'>"0.14"</span><span class='op'>)</span>
+<span class='va'>logisticOR</span>
+</div><div class='output co'>#&gt;         OR  2.5% 97.5%
 #&gt; 7.4  14.10  7.80 27.50
 #&gt; 4.2   8.70  5.50 14.30
 #&gt; 3.0  27.40 17.20 45.80
@@ -226,21 +236,23 @@ risks for better communication of research findings. BMJ 2014;348:f7450 doi: 10.
 #&gt; 0.37  0.25  0.17  0.37
 #&gt; 0.14  0.09  0.05  0.14</div><div class='input'>
 <span class='co'>## p0</span>
-<span class='no'>p0</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.05</span>, <span class='fl'>0.12</span>, <span class='fl'>0.32</span>, <span class='fl'>0.27</span>, <span class='fl'>0.40</span>, <span class='fl'>0.40</span>)
+<span class='va'>p0</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.05</span>, <span class='fl'>0.12</span>, <span class='fl'>0.32</span>, <span class='fl'>0.27</span>, <span class='fl'>0.40</span>, <span class='fl'>0.40</span><span class='op'>)</span>
 
 <span class='co'>## Compute corrected RR</span>
 <span class='co'>## helper function</span>
-<span class='no'>ORToRelRisk.mat</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>or</span>, <span class='no'>p0</span>){
-  <span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>NA</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>or</span>), <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='no'>or</span>))
-  <span class='kw'>for</span>(<span class='no'>i</span> <span class='kw'>in</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>or</span>)))
-    <span class='no'>res</span>[<span class='no'>i</span>,] <span class='kw'>&lt;-</span> <span class='fu'>ORToRelRisk</span>(<span class='no'>or</span>[<span class='no'>i</span>,], <span class='no'>p0</span>[<span class='no'>i</span>])
-  <span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span>(<span class='no'>res</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span>(<span class='no'>or</span>)
-  <span class='no'>res</span>
-}
-<span class='no'>RR</span> <span class='kw'>&lt;-</span> <span class='fu'>ORToRelRisk.mat</span>(<span class='no'>logisticOR</span>, <span class='no'>p0</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='no'>RR</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'RR' not found</span></div><div class='input'>
-## Results are not completely identical to Zhang and Yu (1998)
-## what probably is caused by the fact that the logistic OR values
-## provided in the table are rounded and not true values.
+<span class='va'>ORToRelRisk.mat</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>or</span>, <span class='va'>p0</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='cn'>NA</span>, nrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>or</span><span class='op'>)</span>, ncol <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>or</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='kw'>for</span><span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>or</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+    <span class='va'>res</span><span class='op'>[</span><span class='va'>i</span>,<span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'>ORToRelRisk</span><span class='op'>(</span><span class='va'>or</span><span class='op'>[</span><span class='va'>i</span>,<span class='op'>]</span>, <span class='va'>p0</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span><span class='op'>(</span><span class='va'>res</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span><span class='op'>(</span><span class='va'>or</span><span class='op'>)</span>
+  <span class='va'>res</span>
+<span class='op'>}</span>
+<span class='va'>RR</span> <span class='op'>&lt;-</span> <span class='fu'>ORToRelRisk.mat</span><span class='op'>(</span><span class='va'>logisticOR</span>, <span class='va'>p0</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='va'>RR</span>, <span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'RR' not found</span></div><div class='input'>
+<span class='co'>## Results are not completely identical to Zhang and Yu (1998)</span>
+<span class='co'>## what probably is caused by the fact that the logistic OR values</span>
+<span class='co'>## provided in the table are rounded and not true values.</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -257,7 +269,7 @@ risks for better communication of research findings. BMJ 2014;348:f7450 doi: 10.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

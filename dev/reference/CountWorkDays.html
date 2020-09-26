@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Count Work Days Between Two Dates
-<!-- %%  ~~function to do ... ~~ --> — CountWorkDays • DescTools</title>
+ — CountWorkDays • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Count Work Days Between Two Dates
-<!-- %%  ~~function to do ... ~~ --> — CountWorkDays" />
+ — CountWorkDays" />
 <meta property="og:description" content="Returns the number of work days between two dates taking into account the provided holiday dates.
 " />
 
@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -143,7 +143,7 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>CountWorkDays</span>(<span class='no'>from</span>, <span class='no'>to</span>, <span class='kw'>holiday</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>nonworkdays</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Sat"</span>, <span class='st'>"Sun"</span>))</pre>
+    <pre class="usage"><span class='fu'>CountWorkDays</span><span class='op'>(</span><span class='va'>from</span>, <span class='va'>to</span>, holiday <span class='op'>=</span> <span class='cn'>NULL</span>, nonworkdays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Sat"</span>, <span class='st'>"Sun"</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -182,19 +182,25 @@
 <!-- %%  \item{comp1 }{Description of 'comp1'} -->
 <!-- %%  \item{comp2 }{Description of 'comp2'} -->
 <!-- %% ... --></p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;
+<!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>weekdays</a></code>, <code>Date Functions</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>from</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2019-01-01"</span>) + <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>0</span>, <span class='fl'>10</span>)
-<span class='no'>to</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2020-01-15"</span>) + <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>9</span>)
+    <pre class="examples"><div class='input'><span class='va'>from</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2019-01-01"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>10</span><span class='op'>)</span>
+<span class='va'>to</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2020-01-15"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>9</span><span class='op'>)</span>
 
-<span class='fu'>CountWorkDays</span>(<span class='no'>from</span>, <span class='no'>to</span>)</div><div class='output co'>#&gt;  [1] 272 273 274 274 274 275 276 277 278 279</div><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='no'>from</span>[<span class='fl'>1</span>], <span class='no'>from</span>[<span class='fl'>1</span>]+<span class='fl'>11</span>, <span class='st'>"days"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>date</span> <span class='kw'>=</span> <span class='no'>x</span>,
-  <span class='kw'>day</span>  <span class='kw'>=</span> <span class='fu'><a href='Format.html'>Format</a></span>(<span class='no'>x</span>, <span class='kw'>fmt</span><span class='kw'>=</span><span class='st'>"ddd"</span>))</div><div class='output co'>#&gt;          date day
+<span class='fu'>CountWorkDays</span><span class='op'>(</span><span class='va'>from</span>, <span class='va'>to</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1] 272 273 274 274 274 275 276 277 278 279</div><div class='input'>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='va'>from</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, <span class='va'>from</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>+</span><span class='fl'>11</span>, <span class='st'>"days"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  date <span class='op'>=</span> <span class='va'>x</span>, 
+  day  <span class='op'>=</span> <span class='fu'><a href='Format.html'>Format</a></span><span class='op'>(</span><span class='va'>x</span>, fmt<span class='op'>=</span><span class='st'>"ddd"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;          date day
 #&gt; 1  2019-01-01 Tue
 #&gt; 2  2019-01-02 Wed
 #&gt; 3  2019-01-03 Thu
@@ -207,7 +213,8 @@
 #&gt; 10 2019-01-10 Thu
 #&gt; 11 2019-01-11 Fri
 #&gt; 12 2019-01-12 Sat</div><div class='input'>
-<span class='fu'>CountWorkDays</span>(<span class='kw'>from</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='no'>x</span>), <span class='kw'>to</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='no'>x</span>), <span class='kw'>holiday</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2019-01-06"</span>, <span class='st'>"2019-01-07"</span>))</div><div class='output co'>#&gt; [1] 8</div></pre>
+<span class='fu'>CountWorkDays</span><span class='op'>(</span>from <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, to <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, holiday <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2019-01-06"</span>, <span class='st'>"2019-01-07"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 8</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -223,7 +230,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

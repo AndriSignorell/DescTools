@@ -76,7 +76,7 @@ and the Noether (1957) procedure. Koopman results are found iteratively for most
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -142,8 +142,8 @@ adjusted-log (Walter 1975, Pettigrew et al. 1986), Koopman asymptotic score (Koo
 and the Noether (1957) procedure. Koopman results are found iteratively for most intervals using root finding.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='BinomRatioCI.rd.html'>BinomRatioCI</a></span>(<span class='no'>x1</span>, <span class='no'>n1</span>, <span class='no'>x2</span>, <span class='no'>n2</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"katz.log"</span>,
-             <span class='kw'>bonf</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>tol</span> <span class='kw'>=</span> <span class='no'>.Machine</span>$<span class='no'>double.eps</span>^<span class='fl'>0.25</span>, <span class='kw'>R</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>r</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>x1</span>))</pre>
+    <pre class="usage"><span class='fu'>BinomRatioCI</span><span class='op'>(</span><span class='va'>x1</span>, <span class='va'>n1</span>, <span class='va'>x2</span>, <span class='va'>n2</span>, conf.level <span class='op'>=</span> <span class='fl'>0.95</span>, method <span class='op'>=</span> <span class='st'>"katz.log"</span>, 
+             bonf <span class='op'>=</span> <span class='cn'>FALSE</span>, tol <span class='op'>=</span> <span class='va'>.Machine</span><span class='op'>$</span><span class='va'>double.eps</span><span class='op'>^</span><span class='fl'>0.25</span>, R <span class='op'>=</span> <span class='fl'>1000</span>, r <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>x1</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -250,14 +250,19 @@ Noether</td><td>\(\hat{\theta}_i\pm z_1-\alpha/2\hat{\sigma}_N\),</td></tr>
 <p>Pettigrew H. M., Gart, J. J., Thomas, D. G. (1986)  The bias and higher cumulants of the logarithm of a
 binomial variate.  <em>Biometrika</em> 73(2): 425-435.</p>
 <p>Walter, S. D. (1975) The distribution of Levins measure of attributable risk. <em>Biometrika</em> 62(2): 371-374.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Ken Aho &lt;kenaho1@gmail.com&gt;</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='BinomCI.html'>BinomCI</a>, <a href='BinomDiffCI.html'>BinomDiffCI</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># From Koopman (1984)</span>
-<span class='fu'><a href='BinomRatioCI.rd.html'>BinomRatioCI</a></span>(<span class='kw'>x1</span> <span class='kw'>=</span> <span class='fl'>36</span>, <span class='kw'>n1</span> <span class='kw'>=</span> <span class='fl'>40</span>, <span class='kw'>x2</span> <span class='kw'>=</span> <span class='fl'>16</span>, <span class='kw'>n2</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"katz"</span>)</div><div class='output co'>#&gt;      est  lwr.ci   upr.ci
-#&gt; [1,] 4.5 2.86855 7.059315</div><div class='input'><span class='fu'><a href='BinomRatioCI.rd.html'>BinomRatioCI</a></span>(<span class='kw'>x1</span> <span class='kw'>=</span> <span class='fl'>36</span>, <span class='kw'>n1</span> <span class='kw'>=</span> <span class='fl'>40</span>, <span class='kw'>x2</span> <span class='kw'>=</span> <span class='fl'>16</span>, <span class='kw'>n2</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"koop"</span>)</div><div class='output co'>#&gt;      est   lwr.ci   upr.ci
+<span class='fu'>BinomRatioCI</span><span class='op'>(</span>x1 <span class='op'>=</span> <span class='fl'>36</span>, n1 <span class='op'>=</span> <span class='fl'>40</span>, x2 <span class='op'>=</span> <span class='fl'>16</span>, n2 <span class='op'>=</span> <span class='fl'>80</span>, method <span class='op'>=</span> <span class='st'>"katz"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      est  lwr.ci   upr.ci
+#&gt; [1,] 4.5 2.86855 7.059315</div><div class='input'><span class='fu'>BinomRatioCI</span><span class='op'>(</span>x1 <span class='op'>=</span> <span class='fl'>36</span>, n1 <span class='op'>=</span> <span class='fl'>40</span>, x2 <span class='op'>=</span> <span class='fl'>16</span>, n2 <span class='op'>=</span> <span class='fl'>80</span>, method <span class='op'>=</span> <span class='st'>"koop"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      est   lwr.ci   upr.ci
 #&gt; [1,] 4.5 2.939581 7.152209</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -274,7 +279,7 @@ binomial variate.  <em>Biometrika</em> 73(2): 425-435.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

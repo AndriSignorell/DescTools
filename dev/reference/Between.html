@@ -76,7 +76,7 @@ Ordered factors are supported.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -142,15 +142,15 @@ Ordered factors are supported.
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='no'>x</span> <span class='kw'>%()%</span> <span class='no'>rng</span>
-<span class='no'>x</span> <span class='kw'>%(]%</span> <span class='no'>rng</span>
-<span class='no'>x</span> <span class='kw'>%[)%</span> <span class='no'>rng</span>
-<span class='no'>x</span> <span class='kw'>%[]%</span> <span class='no'>rng</span>
+    <pre class="usage"><span class='va'>x</span> <span class='op'>%()%</span> <span class='va'>rng</span>
+<span class='va'>x</span> <span class='op'>%(]%</span> <span class='va'>rng</span>
+<span class='va'>x</span> <span class='op'>%[)%</span> <span class='va'>rng</span>
+<span class='va'>x</span> <span class='op'>%[]%</span> <span class='va'>rng</span>
 
-<span class='no'>x</span> <span class='kw'>%][%</span> <span class='no'>rng</span>
-<span class='no'>x</span> <span class='kw'>%](%</span> <span class='no'>rng</span>
-<span class='no'>x</span> <span class='kw'>%)[%</span> <span class='no'>rng</span>
-<span class='no'>x</span> <span class='kw'>%)(%</span> <span class='no'>rng</span></pre>
+<span class='va'>x</span> <span class='op'>%][%</span> <span class='va'>rng</span>
+<span class='va'>x</span> <span class='op'>%](%</span> <span class='va'>rng</span>
+<span class='va'>x</span> <span class='op'>%)[%</span> <span class='va'>rng</span>
+<span class='va'>x</span> <span class='op'>%)(%</span> <span class='va'>rng</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -171,50 +171,68 @@ Ordered factors are supported.
 
     <p>The between operators basically combine two conditional statements into one and simplify so the query process.<br />
 They are merely a wrapper for:   <code>x &gt;= rng[1] &amp; x &lt;= rng[2]</code>,
-where the round bracket  <code>(</code>  means "strictly greater than &gt;" and the square bracket  <code>[</code>  means "&gt;=".  Numerical values of x will be handled by C-code, which is significantly faster than two comparisons in R (especially when x is huge).
+where the round bracket  <code>(</code>  means "strictly greater than &gt;" and the square bracket  <code><a href='https://rdrr.io/r/base/Extract.html'>[</a></code>  means "&gt;=".  Numerical values of x will be handled by C-code, which is significantly faster than two comparisons in R (especially when x is huge).
 .<br />
 <code>%][%</code> is the negation of <code>%()%</code>, meaning all values lying outside the given range. Elements on the limits will return TRUE.
 <br />
 Both arguments will be recycled to the highest dimension, which is either the length of the vector or the number of rows of the matrix.<br />
-See also the routines used to check, whether two ranges overlap (<code><a href='overlaps.html'>Overlap</a></code>, <code><a href='overlaps.html'>Interval</a></code>).</p>
+See also the routines used to check, whether two ranges overlap (<code><a href='%overlaps%.html'>Overlap</a></code>, <code><a href='%overlaps%.html'>Interval</a></code>).</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A logical vector of the same length as x.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt; based on C-code by Kevin Ushey &lt;kevinushey@gmail.com&gt;
+<!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/Control.html'>if</a></code>, <code><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></code>, <code><a href='https://rdrr.io/r/base/Comparison.html'>Comparison</a></code>,
-<code><a href='overlaps.html'>Overlap</a></code>, <code><a href='overlaps.html'>Interval</a></code></p></div>
+<code><a href='%overlaps%.html'>Overlap</a></code>, <code><a href='%overlaps%.html'>Interval</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>9</span>
-<span class='no'>x</span> <span class='kw'>%[]%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>5</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>9</span>
+<span class='va'>x</span> <span class='op'>%[]%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div><div class='input'>
 <span class='co'># outside</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>9</span>
-<span class='no'>x</span> <span class='kw'>%][%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>5</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_", as.numeric(x), as.numeric(rng[1L]), as.numeric(rng[2L]),     PACKAGE = "DescTools"): "between_num_" not available for .Call() for package "DescTools"</span></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>x</span>,<span class='fl'>NA</span>) <span class='kw'>%[]%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>5</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div><div class='input'>
-<span class='no'>x</span> <span class='kw'>%(]%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>5</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_r", as.numeric(x), as.numeric(rng[1L]), as.numeric(rng[2L]),     PACKAGE = "DescTools"): "between_num_r" not available for .Call() for package "DescTools"</span></div><div class='input'>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>9</span>
+<span class='va'>x</span> <span class='op'>%][%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_", as.numeric(x), as.numeric(rng[1L]), as.numeric(rng[2L]),     PACKAGE = "DescTools"): "between_num_" not available for .Call() for package "DescTools"</span></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>x</span>,<span class='cn'>NA</span><span class='op'>)</span> <span class='op'>%[]%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div><div class='input'>
+<span class='va'>x</span> <span class='op'>%(]%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_r", as.numeric(x), as.numeric(rng[1L]), as.numeric(rng[2L]),     PACKAGE = "DescTools"): "between_num_r" not available for .Call() for package "DescTools"</span></div><div class='input'>
 <span class='co'># no result when from &gt; to:</span>
-<span class='no'>x</span> <span class='kw'>%[]%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>,<span class='fl'>3</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='no'>x</span> <span class='kw'>%(]%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>,<span class='fl'>5</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_r", as.numeric(x), as.numeric(rng[1L]), as.numeric(rng[2L]),     PACKAGE = "DescTools"): "between_num_r" not available for .Call() for package "DescTools"</span></div><div class='input'>
+<span class='va'>x</span> <span class='op'>%[]%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>,<span class='fl'>3</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='va'>x</span> <span class='op'>%(]%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>,<span class='fl'>5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_r", as.numeric(x), as.numeric(rng[1L]), as.numeric(rng[2L]),     PACKAGE = "DescTools"): "between_num_r" not available for .Call() for package "DescTools"</span></div><div class='input'>
 <span class='co'># no problem:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/factor.html'>ordered</a></span>(<span class='no'>x</span>) <span class='kw'>%[]%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>5</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(match(rng[1L],     levels(x))), as.numeric(match(rng[2L], levels(x))), PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/factor.html'>ordered</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>%[]%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(match(rng[1L],     levels(x))), as.numeric(match(rng[2L], levels(x))), PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div><div class='input'>
 <span class='co'># not meaningful:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>x</span>) <span class='kw'>%[]%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>5</span>)</div><div class='output co'>#&gt; [1] NA NA NA NA NA NA NA NA NA</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>%[]%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] NA NA NA NA NA NA NA NA NA</div><div class='input'>
 <span class='co'># characters</span>
-<span class='no'>letters</span>[<span class='no'>letters</span> <span class='kw'>%(]%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"d"</span>,<span class='st'>"h"</span>)]</div><div class='output co'>#&gt; [1] "e" "f" "g" "h"</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>d.pizza</span>)
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span>(<span class='no'>d.pizza</span>$<span class='no'>driver</span>)
-<span class='no'>x</span> <span class='kw'>%[]%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"C"</span>,<span class='st'>"G"</span>)</div><div class='output co'>#&gt; [1] FALSE  TRUE  TRUE  TRUE FALSE FALSE FALSE</div><div class='input'>
+<span class='va'>letters</span><span class='op'>[</span><span class='va'>letters</span> <span class='op'>%(]%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"d"</span>,<span class='st'>"h"</span><span class='op'>)</span><span class='op'>]</span>
+</div><div class='output co'>#&gt; [1] "e" "f" "g" "h"</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>)</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>driver</span><span class='op'>)</span>
+<span class='va'>x</span> <span class='op'>%[]%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"C"</span>,<span class='st'>"G"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] FALSE  TRUE  TRUE  TRUE FALSE FALSE FALSE</div><div class='input'>
 <span class='co'># select diamonds with a price between 2400 and 2510</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>d.diamonds</span>)
-<span class='no'>d.diamonds</span>[<span class='no'>d.diamonds</span>$<span class='no'>price</span> <span class='kw'>%[]%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2400</span>,<span class='fl'>2510</span>),]</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>d.diamonds</span><span class='op'>)</span>
+<span class='va'>d.diamonds</span><span class='op'>[</span><span class='va'>d.diamonds</span><span class='op'>$</span><span class='va'>price</span> <span class='op'>%[]%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2400</span>,<span class='fl'>2510</span><span class='op'>)</span>,<span class='op'>]</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div><div class='input'>
 <span class='co'># use it with an ordered factor and select all diamonds with</span>
 <span class='co'>#   symmetry between G (included) and X (excluded).</span>
-<span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>d.diamonds</span>[<span class='no'>d.diamonds</span>$<span class='no'>symmetry</span> <span class='kw'>%[)%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"G"</span>,<span class='st'>"X"</span>),<span class='st'>"price"</span>])</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_l", as.numeric(x), as.numeric(match(rng[1L],     levels(x))), as.numeric(match(rng[2L], levels(x))), PACKAGE = "DescTools"): "between_num_l" not available for .Call() for package "DescTools"</span></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>d.diamonds</span><span class='op'>[</span><span class='va'>d.diamonds</span><span class='op'>$</span><span class='va'>symmetry</span> <span class='op'>%[)%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"G"</span>,<span class='st'>"X"</span><span class='op'>)</span>,<span class='st'>"price"</span><span class='op'>]</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_l", as.numeric(x), as.numeric(match(rng[1L],     levels(x))), as.numeric(match(rng[2L], levels(x))), PACKAGE = "DescTools"): "between_num_l" not available for .Call() for package "DescTools"</span></div><div class='input'>
 
 <span class='co'># use multiple ranges</span>
-<span class='fl'>2</span> <span class='kw'>%[]%</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='fl'>1</span>:<span class='fl'>4</span>,<span class='fl'>2</span>:<span class='fl'>5</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lrm", as.numeric(x), as.numeric(rng[, 1L]),     as.numeric(rng[, 2L]), PACKAGE = "DescTools"): "between_num_lrm" not available for .Call() for package "DescTools"</span></div><div class='input'>
+<span class='fl'>2</span> <span class='op'>%[]%</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>,<span class='fl'>2</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lrm", as.numeric(x), as.numeric(rng[, 1L]),     as.numeric(rng[, 2L]), PACKAGE = "DescTools"): "between_num_lrm" not available for .Call() for package "DescTools"</span></div><div class='input'>
 <span class='co'># both arguments are recycled</span>
-<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>3</span>) <span class='kw'>%[]%</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='fl'>1</span>:<span class='fl'>4</span>,<span class='fl'>2</span>:<span class='fl'>5</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lrm", as.numeric(x), as.numeric(rng[, 1L]),     as.numeric(rng[, 2L]), PACKAGE = "DescTools"): "between_num_lrm" not available for .Call() for package "DescTools"</span></div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>3</span><span class='op'>)</span> <span class='op'>%[]%</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>,<span class='fl'>2</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lrm", as.numeric(x), as.numeric(rng[, 1L]),     as.numeric(rng[, 2L]), PACKAGE = "DescTools"): "between_num_lrm" not available for .Call() for package "DescTools"</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -230,7 +248,7 @@ See also the routines used to check, whether two ranges overlap (<code><a href='
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

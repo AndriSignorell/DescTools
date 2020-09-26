@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -138,7 +138,7 @@
     <p><code>StrDist</code> computes distances between strings following to Levenshtein or Hamming method.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>StrDist</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"levenshtein"</span>, <span class='kw'>mismatch</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>ignore.case</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>StrDist</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, method <span class='op'>=</span> <span class='st'>"levenshtein"</span>, mismatch <span class='op'>=</span> <span class='fl'>1</span>, gap <span class='op'>=</span> <span class='fl'>1</span>, ignore.case <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -194,6 +194,9 @@ $$lnd = 1 - \frac{ld}{max(length(x), length(y))}$$</p>
 
     <p>R. Merkl and S. Waack (2009) <em>Bioinformatik Interaktiv</em>. Wiley.</p>
 <p>Harold C. Doran (2010) <em>MiscPsycho. An R Package for Miscellaneous Psychometric Analyses</em></p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Matthias Kohl &lt;Matthias.Kohl@stamats.de&gt;</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>For distances between strings and for string alignments see also Bioconductor package
@@ -203,12 +206,14 @@ $$lnd = 1 - \frac{ld}{max(length(x), length(y))}$$</p>
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/utils/adist.html'>adist</a></code>, <code><a href='https://rdrr.io/r/stats/dist.html'>dist</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='st'>"GACGGATTATG"</span>
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='st'>"GATCGGAATAG"</span>
+    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='st'>"GACGGATTATG"</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='st'>"GATCGGAATAG"</span>
 <span class='co'>## Levenshtein distance</span>
-<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'>StrDist</span>(<span class='no'>x</span>, <span class='no'>y</span>)
-<span class='no'>d</span></div><div class='output co'>#&gt;             GACGGATTATG
-#&gt; GATCGGAATAG           3</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span>(<span class='no'>d</span>, <span class='st'>"ScoringMatrix"</span>)</div><div class='output co'>#&gt;     gap  G A T C G G A A T  A  G
+<span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'>StrDist</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
+<span class='va'>d</span>
+</div><div class='output co'>#&gt;             GACGGATTATG
+#&gt; GATCGGAATAG           3</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span><span class='op'>(</span><span class='va'>d</span>, <span class='st'>"ScoringMatrix"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     gap  G A T C G G A A T  A  G
 #&gt; gap   0  1 2 3 4 5 6 7 8 9 10 11
 #&gt; G     1  0 1 2 3 4 5 6 7 8  9 10
 #&gt; A     2  1 0 1 2 3 4 5 6 7  8  9
@@ -220,7 +225,8 @@ $$lnd = 1 - \frac{ld}{max(length(x), length(y))}$$</p>
 #&gt; T     8  7 6 5 5 5 4 3 3 2  3  4
 #&gt; A     9  8 7 6 6 6 5 4 3 3  2  3
 #&gt; T    10  9 8 7 7 7 6 5 4 3  3  3
-#&gt; G    11 10 9 8 8 7 7 6 5 4  4  3</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span>(<span class='no'>d</span>, <span class='st'>"TraceBackMatrix"</span>)</div><div class='output co'>#&gt;     gap     G     A     T      C        G      G     A     A      T   A     
+#&gt; G    11 10 9 8 8 7 7 6 5 4  4  3</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span><span class='op'>(</span><span class='va'>d</span>, <span class='st'>"TraceBackMatrix"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     gap     G     A     T      C        G      G     A     A      T   A     
 #&gt; gap "start" "i"   "i"   "i"    "i"      "i"    "i"   "i"   "i"    "i" "i"   
 #&gt; G   "d"     "m"   "i"   "i"    "i"      "m/i"  "m/i" "i"   "i"    "i" "i"   
 #&gt; A   "d"     "d"   "m"   "i"    "i"      "i"    "i"   "m/i" "m/i"  "i" "m/i" 
@@ -247,7 +253,8 @@ $$lnd = 1 - \frac{ld}{max(length(x), length(y))}$$</p>
 #&gt; T   "mm"  
 #&gt; G   "m"   </div><div class='input'>
 <span class='co'>## Hamming distance</span>
-<span class='fu'>StrDist</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"hamming"</span>)</div><div class='output co'>#&gt;             GACGGATTATG
+<span class='fu'>StrDist</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, method<span class='op'>=</span><span class='st'>"hamming"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;             GACGGATTATG
 #&gt; GATCGGAATAG           7</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -264,7 +271,7 @@ $$lnd = 1 - \frac{ld}{max(length(x), length(y))}$$</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

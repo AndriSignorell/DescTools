@@ -76,7 +76,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -142,8 +142,8 @@
   factor for asymptotically normal consistency.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>MAD</span>(<span class='no'>x</span>, <span class='kw'>weights</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>center</span> <span class='kw'>=</span> <span class='no'>Median</span>, <span class='kw'>constant</span> <span class='kw'>=</span> <span class='fl'>1.4826</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-    <span class='kw'>low</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>high</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>MAD</span><span class='op'>(</span><span class='va'>x</span>, weights <span class='op'>=</span> <span class='cn'>NULL</span>, center <span class='op'>=</span> <span class='va'>Median</span>, constant <span class='op'>=</span> <span class='fl'>1.4826</span>, na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+    low <span class='op'>=</span> <span class='cn'>FALSE</span>, high <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -204,11 +204,15 @@
   <code><a href='https://rdrr.io/r/stats/median.html'>median</a></code>, <code><a href='https://rdrr.io/r/stats/cor.html'>var</a></code>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>MAD</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>9</span>))</div><div class='output co'>#&gt; [1] 2.9652</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>MAD</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>9</span>),     <span class='kw'>constant</span> <span class='kw'>=</span> <span class='fl'>1</span>)) <span class='kw'>==</span>
-      <span class='fu'>MAD</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>8</span>, <span class='fl'>100</span>), <span class='kw'>constant</span> <span class='kw'>=</span> <span class='fl'>1</span>)       <span class='co'># = 2 ; TRUE</span></div><div class='output co'>#&gt; [1] 2</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>5</span>,<span class='fl'>7</span>,<span class='fl'>8</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span>(<span class='no'>x</span> - <span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span>(<span class='no'>x</span>)))</div><div class='output co'>#&gt; [1] 1 1 2 3 3 4</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'>MAD</span>(<span class='no'>x</span>, <span class='kw'>constant</span> <span class='kw'>=</span> <span class='fl'>1</span>),
-  <span class='fu'>MAD</span>(<span class='no'>x</span>, <span class='kw'>constant</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>low</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
-  <span class='fu'>MAD</span>(<span class='no'>x</span>, <span class='kw'>constant</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>high</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; [1] 2.5 2.0 3.0</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>MAD</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>9</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 2.9652</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'>MAD</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>9</span><span class='op'>)</span>,     constant <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>==</span>
+      <span class='fu'>MAD</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>8</span>, <span class='fl'>100</span><span class='op'>)</span>, constant <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>       <span class='co'># = 2 ; TRUE</span>
+</div><div class='output co'>#&gt; [1] 2</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>5</span>,<span class='fl'>7</span>,<span class='fl'>8</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>x</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1 1 2 3 3 4</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'>MAD</span><span class='op'>(</span><span class='va'>x</span>, constant <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>,
+  <span class='fu'>MAD</span><span class='op'>(</span><span class='va'>x</span>, constant <span class='op'>=</span> <span class='fl'>1</span>, low <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
+  <span class='fu'>MAD</span><span class='op'>(</span><span class='va'>x</span>, constant <span class='op'>=</span> <span class='fl'>1</span>, high <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 2.5 2.0 3.0</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -224,7 +228,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

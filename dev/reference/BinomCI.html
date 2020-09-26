@@ -75,7 +75,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -140,11 +140,11 @@
 (Wald, Wilson, Agresti-Coull, Jeffreys, Clopper-Pearson etc.)</p>
     </div>
 
-    <pre class="usage"><span class='fu'>BinomCI</span>(<span class='no'>x</span>, <span class='no'>n</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>sides</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"two.sided"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span>),
-        <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"wilson"</span>, <span class='st'>"wald"</span>, <span class='st'>"agresti-coull"</span>, <span class='st'>"jeffreys"</span>,
+    <pre class="usage"><span class='fu'>BinomCI</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>n</span>, conf.level <span class='op'>=</span> <span class='fl'>0.95</span>, sides <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"two.sided"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span><span class='op'>)</span>,
+        method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"wilson"</span>, <span class='st'>"wald"</span>, <span class='st'>"agresti-coull"</span>, <span class='st'>"jeffreys"</span>,
                    <span class='st'>"modified wilson"</span>, <span class='st'>"wilsoncc"</span>,<span class='st'>"modified jeffreys"</span>,
-                   <span class='st'>"clopper-pearson"</span>, <span class='st'>"arcsine"</span>, <span class='st'>"logit"</span>, <span class='st'>"witting"</span>, <span class='st'>"pratt"</span>),
-        <span class='kw'>rand</span> <span class='kw'>=</span> <span class='fl'>123</span>)</pre>
+                   <span class='st'>"clopper-pearson"</span>, <span class='st'>"arcsine"</span>, <span class='st'>"logit"</span>, <span class='st'>"witting"</span>, <span class='st'>"pratt"</span><span class='op'>)</span>,
+        rand <span class='op'>=</span> <span class='fl'>123</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -231,15 +231,21 @@
 common, related tail probabilities <em>Journal of the American Statistical Association</em>, 63, 1457-
 1483.</p>
 <p>Wilcox, R. R. (2005) <em>Introduction to robust estimation and hypothesis testing</em>. Elsevier Academic Press</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Matthias Kohl &lt;Matthias.Kohl@stamats.de&gt;,
+Rand R. Wilcox (Pratt's method),
+Andri Signorell &lt;andri@signorell.net&gt; (interface issues)</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/binom.test.html'>binom.test</a></code>, <code>binconf</code>, <code><a href='MultinomCI.html'>MultinomCI</a></code>, <code><a href='BinomDiffCI.html'>BinomDiffCI</a></code>, <code><a href='BinomRatioCI.rd.html'>BinomRatioCI</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/binom.test.html'>binom.test</a></code>, <code>binconf</code>, <code><a href='MultinomCI.html'>MultinomCI</a></code>, <code><a href='BinomDiffCI.html'>BinomDiffCI</a></code>, <code><a href='BinomRatioCI.html'>BinomRatioCI</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>BinomCI</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fl'>37</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>43</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"wald"</span>, <span class='st'>"wilson"</span>, <span class='st'>"agresti-coull"</span>, <span class='st'>"jeffreys"</span>,
+    <pre class="examples"><div class='input'><span class='fu'>BinomCI</span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>37</span>, n<span class='op'>=</span><span class='fl'>43</span>, method<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"wald"</span>, <span class='st'>"wilson"</span>, <span class='st'>"agresti-coull"</span>, <span class='st'>"jeffreys"</span>,
   <span class='st'>"modified wilson"</span>, <span class='st'>"modified jeffreys"</span>, <span class='st'>"clopper-pearson"</span>, <span class='st'>"arcsine"</span>, <span class='st'>"logit"</span>,
-  <span class='st'>"witting"</span>, <span class='st'>"pratt"</span>)
-)</div><div class='output co'>#&gt;                         est    lwr.ci    upr.ci
+  <span class='st'>"witting"</span>, <span class='st'>"pratt"</span><span class='op'>)</span>
+<span class='op'>)</span>
+</div><div class='output co'>#&gt;                         est    lwr.ci    upr.ci
 #&gt; wald              0.8604651 0.7568980 0.9640322
 #&gt; wilson            0.8604651 0.7273641 0.9344428
 #&gt; agresti-coull     0.8309034 0.7235600 0.9382469
@@ -254,17 +260,21 @@ common, related tail probabilities <em>Journal of the American Statistical Assoc
 
 <span class='co'># the confidence interval computed by binom.test</span>
 <span class='co'>#   corresponds to the Clopper-Pearson interval</span>
-<span class='fu'>BinomCI</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fl'>42</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>43</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"clopper-pearson"</span>)</div><div class='output co'>#&gt;            est    lwr.ci    upr.ci
-#&gt; [1,] 0.9767442 0.8771095 0.9994114</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/binom.test.html'>binom.test</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fl'>42</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>43</span>)$<span class='no'>conf.int</span></div><div class='output co'>#&gt; [1] 0.8771095 0.9994114
+<span class='fu'>BinomCI</span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>42</span>, n<span class='op'>=</span><span class='fl'>43</span>, method<span class='op'>=</span><span class='st'>"clopper-pearson"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;            est    lwr.ci    upr.ci
+#&gt; [1,] 0.9767442 0.8771095 0.9994114</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/binom.test.html'>binom.test</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>42</span>, n<span class='op'>=</span><span class='fl'>43</span><span class='op'>)</span><span class='op'>$</span><span class='va'>conf.int</span>
+</div><div class='output co'>#&gt; [1] 0.8771095 0.9994114
 #&gt; attr(,"conf.level")
 #&gt; [1] 0.95</div><div class='input'>
 
 <span class='co'># all arguments are being recycled:</span>
-<span class='fu'>BinomCI</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>42</span>, <span class='fl'>35</span>, <span class='fl'>23</span>, <span class='fl'>22</span>), <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>43</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"wilson"</span>)</div><div class='output co'>#&gt;           est    lwr.ci    upr.ci
+<span class='fu'>BinomCI</span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>42</span>, <span class='fl'>35</span>, <span class='fl'>23</span>, <span class='fl'>22</span><span class='op'>)</span>, n<span class='op'>=</span><span class='fl'>43</span>, method<span class='op'>=</span><span class='st'>"wilson"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;           est    lwr.ci    upr.ci
 #&gt; x.1 0.9767442 0.8794101 0.9958829
 #&gt; x.2 0.8139535 0.6738300 0.9025825
 #&gt; x.3 0.5348837 0.3891564 0.6748894
-#&gt; x.4 0.5116279 0.3675231 0.6538255</div><div class='input'><span class='fu'>BinomCI</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>42</span>, <span class='fl'>35</span>, <span class='fl'>23</span>, <span class='fl'>22</span>), <span class='kw'>n</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>50</span>, <span class='fl'>60</span>, <span class='fl'>70</span>, <span class='fl'>80</span>), <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"jeffreys"</span>)</div><div class='output co'>#&gt;               est    lwr.ci    upr.ci
+#&gt; x.4 0.5116279 0.3675231 0.6538255</div><div class='input'><span class='fu'>BinomCI</span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>42</span>, <span class='fl'>35</span>, <span class='fl'>23</span>, <span class='fl'>22</span><span class='op'>)</span>, n<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>50</span>, <span class='fl'>60</span>, <span class='fl'>70</span>, <span class='fl'>80</span><span class='op'>)</span>, method<span class='op'>=</span><span class='st'>"jeffreys"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;               est    lwr.ci    upr.ci
 #&gt; x.1:n.1 0.8400000 0.7206737 0.9213325
 #&gt; x.2:n.2 0.5833333 0.4571040 0.7017365
 #&gt; x.3:n.3 0.3285714 0.2272016 0.4437899
@@ -284,7 +294,7 @@ common, related tail probabilities <em>Journal of the American Statistical Assoc
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -138,8 +138,8 @@
     <p>Confidence intervals for multinomial proportions are often approximated by single binomial confidence intervals, which might in practice often yield satisfying results, but is properly speaking not correct. This function calculates simultaneous confidence intervals for multinomial proportions either according to the methods of Sison and Glaz, Goodman, Wald, Wald with continuity correction or Wilson.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>MultinomCI</span>(<span class='no'>x</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>sides</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"two.sided"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span>),
-           <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sisonglaz"</span>, <span class='st'>"cplus1"</span>, <span class='st'>"goodman"</span>, <span class='st'>"wald"</span>, <span class='st'>"waldcc"</span>, <span class='st'>"wilson"</span>))</pre>
+    <pre class="usage"><span class='fu'>MultinomCI</span><span class='op'>(</span><span class='va'>x</span>, conf.level <span class='op'>=</span> <span class='fl'>0.95</span>, sides <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"two.sided"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span><span class='op'>)</span>,
+           method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sisonglaz"</span>, <span class='st'>"cplus1"</span>, <span class='st'>"goodman"</span>, <span class='st'>"wald"</span>, <span class='st'>"waldcc"</span>, <span class='st'>"wilson"</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -166,6 +166,13 @@
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Pablo J. Villacorta Iglesias &lt;pjvi@decsai.ugr.es&gt;<br />
+Department of Computer Science and Artificial Intelligence, University of Granada (Spain)
+(Sison-Glaz)</p>
+<p>Andri Signorell &lt;andri@signorell.net&gt;
+(Goodman, Wald, Wilson)</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Given a vector of observations with the number of samples falling in each class of a multinomial distribution,
@@ -190,7 +197,7 @@ for multinomial proportions. <em>Journal of the American Statistical Association
 <em>Journal of Statistical Planning and Inference</em> 82:251-262.</p>
 <p>May, W.L., Johnson, W.D.(2000) Constructing two-sided simultaneous confidence intervals for
 multinomial proportions for small counts in a large number of cells. <em>Journal of Statistical Software</em> 5(6) .
-Paper and code available at <a href='http://www.jstatsoft.org/v05/i06'>http://www.jstatsoft.org/v05/i06</a>.</p>
+Paper and code available at <a href='https://www.jstatsoft.org/v05/i06'>https://www.jstatsoft.org/v05/i06</a>.</p>
 <p>Goodman, L. A. (1965) On Simultaneous Confidence Intervals for Multinomial
 Proportions <em>Technometrics</em>, 7, 247-254.</p>
 <p>Wald, A. Tests of statistical hypotheses concerning several parameters when the number of observations is large, <em>Trans. Am. Math. Soc.</em> 54 (1943) 426-482.</p>
@@ -204,40 +211,48 @@ Proportions <em>Technometrics</em>, 7, 247-254.</p>
 <span class='co'># and 44/79 but we want to build 95% simultaneous confidence intervals</span>
 <span class='co'># for the true probabilities</span>
 
-<span class='fu'>MultinomCI</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>23</span>, <span class='fl'>12</span>, <span class='fl'>44</span>), <span class='kw'>conf.level</span><span class='kw'>=</span><span class='fl'>0.95</span>)</div><div class='output co'>#&gt;            est     lwr.ci    upr.ci
+<span class='fu'>MultinomCI</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>23</span>, <span class='fl'>12</span>, <span class='fl'>44</span><span class='op'>)</span>, conf.level<span class='op'>=</span><span class='fl'>0.95</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;            est     lwr.ci    upr.ci
 #&gt; [1,] 0.2911392 0.18987342 0.4104183
 #&gt; [2,] 0.1518987 0.05063291 0.2711778
 #&gt; [3,] 0.5569620 0.45569620 0.6762410</div><div class='input'>
 
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>35</span>, <span class='fl'>74</span>, <span class='fl'>22</span>, <span class='fl'>69</span>)
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>35</span>, <span class='fl'>74</span>, <span class='fl'>22</span>, <span class='fl'>69</span><span class='op'>)</span>
 
-<span class='fu'>MultinomCI</span>(<span class='no'>x</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"goodman"</span>)</div><div class='output co'>#&gt;        est     lwr.ci    upr.ci
+<span class='fu'>MultinomCI</span><span class='op'>(</span><span class='va'>x</span>, method<span class='op'>=</span><span class='st'>"goodman"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;        est     lwr.ci    upr.ci
 #&gt; [1,] 0.175 0.11253215 0.2619106
 #&gt; [2,] 0.370 0.28113643 0.4686407
 #&gt; [3,] 0.110 0.06224338 0.1870880
-#&gt; [4,] 0.345 0.25846198 0.4431954</div><div class='input'><span class='fu'>MultinomCI</span>(<span class='no'>x</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"sisonglaz"</span>)</div><div class='output co'>#&gt;        est lwr.ci    upr.ci
+#&gt; [4,] 0.345 0.25846198 0.4431954</div><div class='input'><span class='fu'>MultinomCI</span><span class='op'>(</span><span class='va'>x</span>, method<span class='op'>=</span><span class='st'>"sisonglaz"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;        est lwr.ci    upr.ci
 #&gt; [1,] 0.175  0.105 0.2512563
 #&gt; [2,] 0.370  0.300 0.4462563
 #&gt; [3,] 0.110  0.040 0.1862563
-#&gt; [4,] 0.345  0.275 0.4212563</div><div class='input'><span class='fu'>MultinomCI</span>(<span class='no'>x</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"cplus1"</span>)</div><div class='output co'>#&gt;        est lwr.ci upr.ci
+#&gt; [4,] 0.345  0.275 0.4212563</div><div class='input'><span class='fu'>MultinomCI</span><span class='op'>(</span><span class='va'>x</span>, method<span class='op'>=</span><span class='st'>"cplus1"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;        est lwr.ci upr.ci
 #&gt; [1,] 0.175  0.100  0.250
 #&gt; [2,] 0.370  0.295  0.445
 #&gt; [3,] 0.110  0.035  0.185
-#&gt; [4,] 0.345  0.270  0.420</div><div class='input'><span class='fu'>MultinomCI</span>(<span class='no'>x</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"wald"</span>)</div><div class='output co'>#&gt;        est     lwr.ci    upr.ci
+#&gt; [4,] 0.345  0.270  0.420</div><div class='input'><span class='fu'>MultinomCI</span><span class='op'>(</span><span class='va'>x</span>, method<span class='op'>=</span><span class='st'>"wald"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;        est     lwr.ci    upr.ci
 #&gt; [1,] 0.175 0.12234021 0.2276598
 #&gt; [2,] 0.370 0.30308797 0.4369120
 #&gt; [3,] 0.110 0.06663649 0.1533635
-#&gt; [4,] 0.345 0.27911853 0.4108815</div><div class='input'><span class='fu'>MultinomCI</span>(<span class='no'>x</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"waldcc"</span>)</div><div class='output co'>#&gt;        est     lwr.ci    upr.ci
+#&gt; [4,] 0.345 0.27911853 0.4108815</div><div class='input'><span class='fu'>MultinomCI</span><span class='op'>(</span><span class='va'>x</span>, method<span class='op'>=</span><span class='st'>"waldcc"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;        est     lwr.ci    upr.ci
 #&gt; [1,] 0.175 0.11984021 0.2301598
 #&gt; [2,] 0.370 0.30058797 0.4394120
 #&gt; [3,] 0.110 0.06413649 0.1558635
-#&gt; [4,] 0.345 0.27661853 0.4133815</div><div class='input'><span class='fu'>MultinomCI</span>(<span class='no'>x</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"wilson"</span>)</div><div class='output co'>#&gt;        est     lwr.ci    upr.ci
+#&gt; [4,] 0.345 0.27661853 0.4133815</div><div class='input'><span class='fu'>MultinomCI</span><span class='op'>(</span><span class='va'>x</span>, method<span class='op'>=</span><span class='st'>"wilson"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;        est     lwr.ci    upr.ci
 #&gt; [1,] 0.175 0.12860515 0.2336443
 #&gt; [2,] 0.370 0.30612608 0.4387737
 #&gt; [3,] 0.110 0.07377244 0.1609269
 #&gt; [4,] 0.345 0.28259794 0.4132441</div><div class='input'>
 <span class='co'># compare to</span>
-<span class='fu'><a href='BinomCI.html'>BinomCI</a></span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>x</span>))</div><div class='output co'>#&gt;       est     lwr.ci    upr.ci
+<span class='fu'><a href='BinomCI.html'>BinomCI</a></span><span class='op'>(</span><span class='va'>x</span>, n<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;       est     lwr.ci    upr.ci
 #&gt; x.1 0.175 0.12860515 0.2336443
 #&gt; x.2 0.370 0.30612608 0.4387737
 #&gt; x.3 0.110 0.07377244 0.1609269
@@ -257,7 +272,7 @@ Proportions <em>Technometrics</em>, 7, 247-254.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

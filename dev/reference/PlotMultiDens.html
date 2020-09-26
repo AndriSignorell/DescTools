@@ -77,7 +77,7 @@ globally appropriate xlim- and ylim-values. A legend can directly be included.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -144,15 +144,15 @@ globally appropriate xlim- and ylim-values. A legend can directly be included.
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>PlotMultiDens</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>PlotMultiDens</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>PlotMultiDens</span>(<span class='no'>x</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'><a href='Pal.html'>Pal</a></span>(), <span class='kw'>lty</span> <span class='kw'>=</span> <span class='st'>"solid"</span>,
-              <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"x"</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"density"</span>, <span class='kw'>args.dens</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-              <span class='kw'>args.legend</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>flipxy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+<span class='fu'>PlotMultiDens</span><span class='op'>(</span><span class='va'>x</span>, xlim <span class='op'>=</span> <span class='cn'>NULL</span>, ylim <span class='op'>=</span> <span class='cn'>NULL</span>, col <span class='op'>=</span> <span class='fu'><a href='DescTools Palettes.html'>Pal</a></span><span class='op'>(</span><span class='op'>)</span>, lty <span class='op'>=</span> <span class='st'>"solid"</span>,
+              lwd <span class='op'>=</span> <span class='fl'>2</span>, fill <span class='op'>=</span> <span class='cn'>NA</span>, xlab <span class='op'>=</span> <span class='st'>"x"</span>, ylab <span class='op'>=</span> <span class='st'>"density"</span>, args.dens <span class='op'>=</span> <span class='cn'>NULL</span>,
+              args.legend <span class='op'>=</span> <span class='cn'>NULL</span>, na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>, flipxy <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for formula</span>
-<span class='fu'>PlotMultiDens</span>(<span class='no'>formula</span>, <span class='no'>data</span>, <span class='no'>subset</span>, <span class='no'>na.action</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>PlotMultiDens</span><span class='op'>(</span><span class='va'>formula</span>, <span class='va'>data</span>, <span class='va'>subset</span>, <span class='va'>na.action</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -170,7 +170,7 @@ globally appropriate xlim- and ylim-values. A legend can directly be included.
     </tr>
     <tr>
       <th>col</th>
-      <td><p>colors of the lines, defaults to <code><a href='Pal.html'>Pal()</a></code>, returning the default palette.
+      <td><p>colors of the lines, defaults to <code><a href='DescTools Palettes.html'>Pal()</a></code>, returning the default palette.
 <!-- %%     ~~Describe \code{col} here~~ --></p></td>
     </tr>
     <tr>
@@ -232,7 +232,7 @@ globally appropriate xlim- and ylim-values. A legend can directly be included.
     </tr>
     <tr>
       <th>...</th>
-      <td><p>the dots are passed to <code><a href='https://rdrr.io/r/base/plot.html'>plot(...)</a></code>.
+      <td><p>the dots are passed to <code><a href='https://rdrr.io/r/graphics/plot.default.html'>plot(...)</a></code>.
 <!-- %%     ~~Describe \code{\dots} here~~ --></p></td>
     </tr>
     </table>
@@ -246,11 +246,16 @@ The argument <code>flipxy</code> leads to exchanged x- and y-values. This option
 
     <p>data.frame with 3 columns, containing the <code>bw</code>, <code>n</code> and <code>kernel</code> parameters used for the list elements.
 The number of rows correspond to the length of the list x.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;
+<!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>Consider using: <br /></p><pre>
-  <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>lattice</span>)
-  <span class='fu'><a href='https://rdrr.io/pkg/lattice/man/histogram.html'>densityplot</a></span>( ~ <span class='no'>delivery_min</span> <span class='kw'>|</span> <span class='no'>driver</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>d.pizza</span>)</pre>
+  <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://lattice.r-forge.r-project.org/'>lattice</a></span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/lattice/man/histogram.html'>densityplot</a></span><span class='op'>(</span> <span class='op'>~</span> <span class='va'>delivery_min</span> <span class='op'>|</span> <span class='va'>driver</span>, data<span class='op'>=</span><span class='va'>d.pizza</span><span class='op'>)</span>
+</pre>
 
 <p>as alternative when not all curves should be plotted in the same plot.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -258,27 +263,33 @@ The number of rows correspond to the length of the list x.</p>
     <div class='dont-index'><p><code><a href='PlotViolin.html'>PlotViolin</a></code>, <code><a href='https://rdrr.io/r/stats/density.html'>density</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>1000</span>,<span class='fl'>0</span>,<span class='fl'>1</span>)
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>1000</span>,<span class='fl'>0</span>,<span class='fl'>2</span>)
-<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>1000</span>,<span class='fl'>2</span>,<span class='fl'>1.5</span>)
+    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>1000</span>,<span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>1000</span>,<span class='fl'>0</span>,<span class='fl'>2</span><span class='op'>)</span>
+<span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>1000</span>,<span class='fl'>2</span>,<span class='fl'>1.5</span><span class='op'>)</span>
 
 <span class='co'># the input of the following function MUST be a numeric list</span>
-<span class='fu'>PlotMultiDens</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span>,<span class='kw'>y</span><span class='kw'>=</span><span class='no'>y</span>,<span class='kw'>z</span><span class='kw'>=</span><span class='no'>z</span>))</div><div class='img'><img src='PlotMultiDens-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>PlotMultiDens</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>x</span>,y<span class='op'>=</span><span class='va'>y</span>,z<span class='op'>=</span><span class='va'>z</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='PlotMultiDens-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># use area fill</span>
-<span class='fu'>PlotMultiDens</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span>,<span class='kw'>y</span><span class='kw'>=</span><span class='no'>y</span>,<span class='kw'>z</span><span class='kw'>=</span><span class='no'>z</span>), <span class='kw'>fill</span><span class='kw'>=</span><span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"red"</span>,<span class='st'>"green"</span>,<span class='st'>"blue"</span>), <span class='fl'>0.4</span>))</div><div class='img'><img src='PlotMultiDens-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>PlotMultiDens</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>x</span>,y<span class='op'>=</span><span class='va'>y</span>,z<span class='op'>=</span><span class='va'>z</span><span class='op'>)</span>, fill<span class='op'>=</span><span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"red"</span>,<span class='st'>"green"</span>,<span class='st'>"blue"</span><span class='op'>)</span>, <span class='fl'>0.4</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='PlotMultiDens-2.png' alt='' width='700' height='433' /></div><div class='input'>
 
-<span class='fu'>PlotMultiDens</span>( <span class='kw'>x</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/split.html'>split</a></span>(<span class='no'>d.pizza</span>$<span class='no'>delivery_min</span>, <span class='no'>d.pizza</span>$<span class='no'>driver</span>), <span class='kw'>na.rm</span><span class='kw'>=</span><span class='fl'>TRUE</span>
-  , <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"delivery time ~ driver"</span>, <span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"delivery time [min]"</span>, <span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"density"</span>
-  , <span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>7</span>, <span class='kw'>lty</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>7</span>
-  , <span class='kw'>panel.first</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/graphics/grid.html'>grid</a></span>())</div><div class='img'><img src='PlotMultiDens-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># this example demonstrates the definition of different line types and -colors</span>
+<span class='fu'>PlotMultiDens</span><span class='op'>(</span> x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/split.html'>split</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>delivery_min</span>, <span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>driver</span><span class='op'>)</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span>
+  , main<span class='op'>=</span><span class='st'>"delivery time ~ driver"</span>, xlab<span class='op'>=</span><span class='st'>"delivery time [min]"</span>, ylab<span class='op'>=</span><span class='st'>"density"</span>
+  , lwd<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>7</span>, lty<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>7</span>
+  , panel.first<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/graphics/grid.html'>grid</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='PlotMultiDens-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># this example demonstrates the definition of different line types and -colors</span>
 <span class='co'># an is NOT thought as recommendation for good plotting practice... :-)</span>
 
 
 <span class='co'># the formula interface</span>
-<span class='fu'>PlotMultiDens</span>(<span class='no'>delivery_min</span> ~ <span class='no'>driver</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>d.pizza</span>)</div><div class='img'><img src='PlotMultiDens-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>PlotMultiDens</span><span class='op'>(</span><span class='va'>delivery_min</span> <span class='op'>~</span> <span class='va'>driver</span>, data<span class='op'>=</span><span class='va'>d.pizza</span><span class='op'>)</span>
+</div><div class='img'><img src='PlotMultiDens-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># recyling of the density parameters</span>
-<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'>PlotMultiDens</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/split.html'>split</a></span>(<span class='no'>d.pizza</span>$<span class='no'>temperature</span>, <span class='no'>d.pizza</span>$<span class='no'>driver</span>),
-              <span class='kw'>args.dens</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>bw</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>,<span class='fl'>2</span>), <span class='kw'>kernel</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"rect"</span>,<span class='st'>"epanechnikov"</span>)), <span class='kw'>na.rm</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='img'><img src='PlotMultiDens-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>res</span></div><div class='output co'>#&gt; $dens
+<span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>PlotMultiDens</span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/split.html'>split</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>temperature</span>, <span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>driver</span><span class='op'>)</span>,
+              args.dens <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>bw<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>,<span class='fl'>2</span><span class='op'>)</span>, kernel<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"rect"</span>,<span class='st'>"epanechnikov"</span><span class='op'>)</span><span class='op'>)</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='PlotMultiDens-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>res</span>
+</div><div class='output co'>#&gt; $dens
 #&gt;   bw   n       kernel
 #&gt; 1  5  96         rect
 #&gt; 2  2 253 epanechnikov
@@ -295,9 +306,11 @@ The number of rows correspond to the length of the list x.</p>
 #&gt; [1] 0.00 0.08
 #&gt; </div><div class='input'>
 <span class='co'># compare bandwidths</span>
-<span class='fu'>PlotMultiDens</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/split.html'>split</a></span>(<span class='no'>d.pizza</span>$<span class='no'>temperature</span>, <span class='no'>d.pizza</span>$<span class='no'>driver</span>)[<span class='fl'>1</span>],
-                     <span class='kw'>args.dens</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>bw</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>5</span>)), <span class='kw'>na.rm</span><span class='kw'>=</span><span class='fl'>TRUE</span>,
-                     <span class='kw'>args.legend</span><span class='kw'>=</span><span class='fl'>NA</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Compare bw"</span>)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/legend.html'>legend</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='st'>"topright"</span>, <span class='kw'>legend</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>gettextf</a></span>(<span class='st'>"bw = %s"</span>, <span class='fl'>1</span>:<span class='fl'>5</span>), <span class='kw'>fill</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>rainbow</a></span>(<span class='fl'>5</span>))</div><div class='img'><img src='PlotMultiDens-6.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>PlotMultiDens</span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/split.html'>split</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>temperature</span>, <span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>driver</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>,
+                     args.dens <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>bw<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span>,
+                     args.legend<span class='op'>=</span><span class='cn'>NA</span>, main<span class='op'>=</span><span class='st'>"Compare bw"</span><span class='op'>)</span>
+</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/legend.html'>legend</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='st'>"topright"</span>, legend<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>gettextf</a></span><span class='op'>(</span><span class='st'>"bw = %s"</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>, fill<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>rainbow</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='PlotMultiDens-6.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -313,7 +326,7 @@ The number of rows correspond to the length of the list x.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

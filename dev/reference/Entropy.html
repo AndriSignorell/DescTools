@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Shannon Entropy and Mutual Information
-<!-- %%  ~~function to do ... ~~ --> — Entropy • DescTools</title>
+ — Entropy • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Shannon Entropy and Mutual Information
-<!-- %%  ~~function to do ... ~~ --> — Entropy" />
+ — Entropy" />
 <meta property="og:description" content="Computes Shannon entropy and the mutual information of two variables. The entropy quantifies the expected value of the information contained in a vector. The mutual information is a quantity that measures the mutual dependence of the two random variables. 
 " />
 
@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -143,9 +143,9 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>Entropy</span>(<span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>base</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>Entropy</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, base <span class='op'>=</span> <span class='fl'>2</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>MutInf</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>base</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>MutInf</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, base <span class='op'>=</span> <span class='fl'>2</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -193,6 +193,10 @@ The entropy is ranging from 0 to Inf.
     <p>Shannon, Claude E. (July/October 1948). A Mathematical Theory of Communication, <em>Bell System Technical Journal</em> 27 (3): 379-423.</p>
 <p>Ihara, Shunsuke (1993) <em>Information theory for continuous systems</em>, World Scientific. p. 2. ISBN 978-981-02-0985-8.</p>
 <p><!-- %% ~put references to the literature/web site here ~ --></p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;
+<!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>package <span class="pkg">entropy</span> which implements various estimators of entropy
@@ -200,44 +204,57 @@ The entropy is ranging from 0 to Inf.
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'>Entropy</span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>/<span class='fl'>8</span>, <span class='fl'>8</span>)))</div><div class='output co'>#&gt; [1] 3</div><div class='input'>
+<span class='fu'>Entropy</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>/</span><span class='fl'>8</span>, <span class='fl'>8</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 3</div><div class='input'>
 <span class='co'># http://r.789695.n4.nabble.com/entropy-package-how-to-compute-mutual-information-td4385339.html</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>,<span class='st'>"b"</span>,<span class='st'>"a"</span>,<span class='st'>"c"</span>,<span class='st'>"b"</span>,<span class='st'>"c"</span>))
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"b"</span>,<span class='st'>"a"</span>,<span class='st'>"a"</span>,<span class='st'>"c"</span>,<span class='st'>"c"</span>,<span class='st'>"b"</span>))
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>,<span class='st'>"b"</span>,<span class='st'>"a"</span>,<span class='st'>"c"</span>,<span class='st'>"b"</span>,<span class='st'>"c"</span><span class='op'>)</span><span class='op'>)</span> 
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"b"</span>,<span class='st'>"a"</span>,<span class='st'>"a"</span>,<span class='st'>"c"</span>,<span class='st'>"c"</span>,<span class='st'>"b"</span><span class='op'>)</span><span class='op'>)</span> 
 
-<span class='fu'>Entropy</span>(<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='no'>x</span>), <span class='kw'>base</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(<span class='fl'>1</span>))</div><div class='output co'>#&gt; [1] 1.098612</div><div class='input'><span class='fu'>Entropy</span>(<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='no'>y</span>), <span class='kw'>base</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(<span class='fl'>1</span>))</div><div class='output co'>#&gt; [1] 1.098612</div><div class='input'><span class='fu'>Entropy</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>base</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(<span class='fl'>1</span>))</div><div class='output co'>#&gt; [1] 1.791759</div><div class='input'>
+<span class='fu'>Entropy</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, base<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1.098612</div><div class='input'><span class='fu'>Entropy</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>, base<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1.098612</div><div class='input'><span class='fu'>Entropy</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, base<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1.791759</div><div class='input'>
 <span class='co'># Mutual information is </span>
-<span class='fu'>Entropy</span>(<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='no'>x</span>), <span class='kw'>base</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(<span class='fl'>1</span>)) + <span class='fu'>Entropy</span>(<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='no'>y</span>), <span class='kw'>base</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(<span class='fl'>1</span>)) - <span class='fu'>Entropy</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>base</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(<span class='fl'>1</span>))</div><div class='output co'>#&gt; [1] 0.4054651</div><div class='input'><span class='fu'>MutInf</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>base</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(<span class='fl'>1</span>))</div><div class='output co'>#&gt; [1] 0.4054651</div><div class='input'>
-<span class='fu'>Entropy</span>(<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='no'>x</span>)) + <span class='fu'>Entropy</span>(<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='no'>y</span>)) - <span class='fu'>Entropy</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; [1] 0.5849625</div><div class='input'><span class='fu'>MutInf</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>base</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='output co'>#&gt; [1] 0.5849625</div><div class='input'>
+<span class='fu'>Entropy</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, base<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>Entropy</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>, base<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>-</span> <span class='fu'>Entropy</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, base<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 0.4054651</div><div class='input'><span class='fu'>MutInf</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, base<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 0.4054651</div><div class='input'>
+<span class='fu'>Entropy</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>Entropy</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>-</span> <span class='fu'>Entropy</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 0.5849625</div><div class='input'><span class='fu'>MutInf</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, base<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 0.5849625</div><div class='input'>
 <span class='co'># http://en.wikipedia.org/wiki/Cluster_labeling</span>
-<span class='no'>tab</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>60</span>,<span class='fl'>10000</span>,<span class='fl'>200</span>,<span class='fl'>500000</span>), <span class='kw'>nrow</span><span class='kw'>=</span><span class='fl'>2</span>, <span class='kw'>byrow</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
-<span class='fu'>MutInf</span>(<span class='no'>tab</span>, <span class='kw'>base</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='output co'>#&gt; [1] 0.0002806552</div><div class='input'>
-<span class='no'>d.frm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='Untable.html'>Untable</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span>(<span class='no'>tab</span>))
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>d.frm</span>)</div><div class='output co'>#&gt; 'data.frame':	510260 obs. of  2 variables:
+<span class='va'>tab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>60</span>,<span class='fl'>10000</span>,<span class='fl'>200</span>,<span class='fl'>500000</span><span class='op'>)</span>, nrow<span class='op'>=</span><span class='fl'>2</span>, byrow<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='fu'>MutInf</span><span class='op'>(</span><span class='va'>tab</span>, base<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span> 
+</div><div class='output co'>#&gt; [1] 0.0002806552</div><div class='input'>
+<span class='va'>d.frm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='Untable.html'>Untable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span><span class='op'>(</span><span class='va'>tab</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>d.frm</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 'data.frame':	510260 obs. of  2 variables:
 #&gt;  $ Var1: Factor w/ 2 levels "A","B": 1 1 1 1 1 1 1 1 1 1 ...
 #&gt;  $ Var2: Factor w/ 2 levels "A","B": 1 1 1 1 1 1 1 1 1 1 ...
 #&gt;  - attr(*, "out.attrs")=List of 2
 #&gt;   ..$ dim     : int [1:2] 2 2
 #&gt;   ..$ dimnames:List of 2
 #&gt;   .. ..$ Var1: chr [1:2] "Var1=A" "Var1=B"
-#&gt;   .. ..$ Var2: chr [1:2] "Var2=A" "Var2=B"</div><div class='input'><span class='fu'>MutInf</span>(<span class='no'>d.frm</span>[,<span class='fl'>1</span>], <span class='no'>d.frm</span>[,<span class='fl'>2</span>])</div><div class='output co'>#&gt; [1] 0.0002806552</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='no'>d.frm</span>[,<span class='fl'>1</span>], <span class='no'>d.frm</span>[,<span class='fl'>2</span>])</div><div class='output co'>#&gt;    
+#&gt;   .. ..$ Var2: chr [1:2] "Var2=A" "Var2=B"</div><div class='input'><span class='fu'>MutInf</span><span class='op'>(</span><span class='va'>d.frm</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span>, <span class='va'>d.frm</span><span class='op'>[</span>,<span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 0.0002806552</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>d.frm</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span>, <span class='va'>d.frm</span><span class='op'>[</span>,<span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    
 #&gt;          A      B
 #&gt;   A     60  10000
 #&gt;   B    200 500000</div><div class='input'>
-<span class='fu'>MutInf</span>(<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='no'>d.frm</span>[,<span class='fl'>1</span>], <span class='no'>d.frm</span>[,<span class='fl'>2</span>]))</div><div class='output co'>#&gt; [1] 0.0002806552</div><div class='input'>
+<span class='fu'>MutInf</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>d.frm</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span>, <span class='va'>d.frm</span><span class='op'>[</span>,<span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 0.0002806552</div><div class='input'>
 
-# Ranking mutual information can help to describe clusters
-#
-#   r.mi &lt;- MutInf(x, grp)
-#   attributes(r.mi)$dimnames &lt;- attributes(tab)$dimnames
-# 
-#   # calculating ranks of mutual information
-#   r.mi_r &lt;- apply( -r.mi, 2, rank, na.last=TRUE )
-#   # show only first 6 ranks
-#   r.mi_r6 &lt;- ifelse( r.mi_r &lt; 7, r.mi_r, NA) 
-#   attributes(r.mi_r6)$dimnames &lt;- attributes(tab)$dimnames
-#   r.mi_r6
+<span class='co'># Ranking mutual information can help to describe clusters</span>
+<span class='co'>#</span>
+<span class='co'>#   r.mi &lt;- MutInf(x, grp)</span>
+<span class='co'>#   attributes(r.mi)$dimnames &lt;- attributes(tab)$dimnames</span>
+<span class='co'># </span>
+<span class='co'>#   # calculating ranks of mutual information</span>
+<span class='co'>#   r.mi_r &lt;- apply( -r.mi, 2, rank, na.last=TRUE )</span>
+<span class='co'>#   # show only first 6 ranks</span>
+<span class='co'>#   r.mi_r6 &lt;- ifelse( r.mi_r &lt; 7, r.mi_r, NA) </span>
+<span class='co'>#   attributes(r.mi_r6)$dimnames &lt;- attributes(tab)$dimnames</span>
+<span class='co'>#   r.mi_r6</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -254,7 +271,7 @@ The entropy is ranging from 0 to Inf.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

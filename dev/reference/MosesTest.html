@@ -75,7 +75,7 @@ Scores from both groups are pooled and converted to ranks, and the test statisti
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -140,13 +140,13 @@ Scores from both groups are pooled and converted to ranks, and the test statisti
 Scores from both groups are pooled and converted to ranks, and the test statistic is the span of scores (the range plus 1) in one of the groups chosen arbitrarily. An exact probability is computed for the span and then recomputed after dropping a specified number of extreme scores from each end of its range. The exact one-tailed probability is calculated.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>MosesTest</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>MosesTest</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>MosesTest</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>extreme</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+<span class='fu'>MosesTest</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, extreme <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for formula</span>
-<span class='fu'>MosesTest</span>(<span class='no'>formula</span>, <span class='no'>data</span>, <span class='no'>subset</span>, <span class='no'>na.action</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>MosesTest</span><span class='op'>(</span><span class='va'>formula</span>, <span class='va'>data</span>, <span class='va'>subset</span>, <span class='va'>na.action</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -204,15 +204,19 @@ from which the sample with the larger range was drawn.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Moses, L.E. (1952) A Two-Sample Test, <em>Psychometrika</em>, 17, 239-247.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/wilcox.test.html'>wilcox.test</a></code>, <code><a href='https://rdrr.io/r/stats/ks.test.html'>ks.test</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.80</span>, <span class='fl'>0.83</span>, <span class='fl'>1.89</span>, <span class='fl'>1.04</span>, <span class='fl'>1.45</span>, <span class='fl'>1.38</span>, <span class='fl'>1.91</span>, <span class='fl'>1.64</span>, <span class='fl'>0.73</span>, <span class='fl'>1.46</span>)
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1.15</span>, <span class='fl'>0.88</span>, <span class='fl'>0.90</span>, <span class='fl'>0.74</span>, <span class='fl'>1.21</span>)
+    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.80</span>, <span class='fl'>0.83</span>, <span class='fl'>1.89</span>, <span class='fl'>1.04</span>, <span class='fl'>1.45</span>, <span class='fl'>1.38</span>, <span class='fl'>1.91</span>, <span class='fl'>1.64</span>, <span class='fl'>0.73</span>, <span class='fl'>1.46</span><span class='op'>)</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1.15</span>, <span class='fl'>0.88</span>, <span class='fl'>0.90</span>, <span class='fl'>0.74</span>, <span class='fl'>1.21</span><span class='op'>)</span>
 
-<span class='fu'>MosesTest</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>MosesTest</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; 	Moses Test of Extreme Reactions
 #&gt; 
 #&gt; data:  x and y
@@ -220,11 +224,12 @@ from which the sample with the larger range was drawn.</p>
 #&gt; alternative hypothesis: extreme values are more likely in x than in y
 #&gt; </div><div class='input'>
 
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1479</span>)
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>1</span>:<span class='fl'>20</span>, <span class='fl'>10</span>, <span class='kw'>replace</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>5</span>:<span class='fl'>25</span>, <span class='fl'>6</span>, <span class='kw'>replace</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>1479</span><span class='op'>)</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>20</span>, <span class='fl'>10</span>, replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>:</span><span class='fl'>25</span>, <span class='fl'>6</span>, replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='fu'>MosesTest</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>MosesTest</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; 	Moses Test of Extreme Reactions
 #&gt; 
 #&gt; data:  x and y
@@ -246,7 +251,7 @@ from which the sample with the larger range was drawn.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -138,13 +138,13 @@
     <p>Performs Dunnett's test for comparing several treatments with a control.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>DunnettTest</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>DunnettTest</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>DunnettTest</span>(<span class='no'>x</span>, <span class='no'>g</span>, <span class='kw'>control</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>...</span>)
+<span class='fu'>DunnettTest</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>g</span>, control <span class='op'>=</span> <span class='cn'>NULL</span>, conf.level <span class='op'>=</span> <span class='fl'>0.95</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for formula</span>
-<span class='fu'>DunnettTest</span>(<span class='no'>formula</span>, <span class='no'>data</span>, <span class='no'>subset</span>, <span class='no'>na.action</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>DunnettTest</span><span class='op'>(</span><span class='va'>formula</span>, <span class='va'>data</span>, <span class='va'>subset</span>, <span class='va'>na.action</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -213,6 +213,9 @@
 
     <p>A list of class <code><a href='https://rdrr.io/r/base/c.html'>c("PostHocTest")</a></code>, containing one matrix named after the control with columns <code>diff</code> giving the difference in the observed means, <code>lwr.ci</code> giving the lower end point of the interval, <code>upr.ci</code> giving the upper end point and <code>pval</code> giving the p-value after adjustment for the multiple comparisons.</p>
 <p>There are print and plot methods for class <code>"PostHocTest"</code>. The plot method does not accept <code>xlab</code>, <code>ylab</code> or <code>main</code> arguments and creates its own values for each plot.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;, the interface is based on R-Core code</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Dunnett C. W. (1955) A multiple comparison procedure for comparing several treatments with a control, <em>Journal of the American Statistical Association</em>, 50:1096-1121.</p>
@@ -225,11 +228,12 @@
 <span class='co'>## Mucociliary efficiency from the rate of removal of dust in normal</span>
 <span class='co'>##  subjects, subjects with obstructive airway disease, and subjects</span>
 <span class='co'>##  with asbestosis.</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2.9</span>, <span class='fl'>3.0</span>, <span class='fl'>2.5</span>, <span class='fl'>2.6</span>, <span class='fl'>3.2</span>) <span class='co'># normal subjects</span>
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3.8</span>, <span class='fl'>2.7</span>, <span class='fl'>4.0</span>, <span class='fl'>2.4</span>)      <span class='co'># with obstructive airway disease</span>
-<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2.8</span>, <span class='fl'>3.4</span>, <span class='fl'>3.7</span>, <span class='fl'>2.2</span>, <span class='fl'>2.0</span>) <span class='co'># with asbestosis</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.9</span>, <span class='fl'>3.0</span>, <span class='fl'>2.5</span>, <span class='fl'>2.6</span>, <span class='fl'>3.2</span><span class='op'>)</span> <span class='co'># normal subjects</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3.8</span>, <span class='fl'>2.7</span>, <span class='fl'>4.0</span>, <span class='fl'>2.4</span><span class='op'>)</span>      <span class='co'># with obstructive airway disease</span>
+<span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.8</span>, <span class='fl'>3.4</span>, <span class='fl'>3.7</span>, <span class='fl'>2.2</span>, <span class='fl'>2.0</span><span class='op'>)</span> <span class='co'># with asbestosis</span>
 
-<span class='fu'>DunnettTest</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>z</span>))</div><div class='output co'>#&gt; 
+<span class='fu'>DunnettTest</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>z</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt;   Dunnett's test for comparing several treatments with a control :  
 #&gt;     95% family-wise confidence level
 #&gt; 
@@ -242,13 +246,14 @@
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; </div><div class='input'>
 <span class='co'>## Equivalently,</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>z</span>)
-<span class='no'>g</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>4</span>, <span class='fl'>5</span>)),
-            <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Normal subjects"</span>,
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>z</span><span class='op'>)</span>
+<span class='va'>g</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>4</span>, <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>,
+            labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Normal subjects"</span>,
                        <span class='st'>"Subjects with obstructive airway disease"</span>,
-                       <span class='st'>"Subjects with asbestosis"</span>))
+                       <span class='st'>"Subjects with asbestosis"</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'>DunnettTest</span>(<span class='no'>x</span>, <span class='no'>g</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>DunnettTest</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>g</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt;   Dunnett's test for comparing several treatments with a control :  
 #&gt;     95% family-wise confidence level
 #&gt; 
@@ -264,7 +269,9 @@
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; </div><div class='input'>
 <span class='co'>## Formula interface</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/boxplot.html'>boxplot</a></span>(<span class='no'>Ozone</span> ~ <span class='no'>Month</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>airquality</span>)</div><div class='img'><img src='DunnettTest-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>DunnettTest</span>(<span class='no'>Ozone</span> ~ <span class='no'>Month</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>airquality</span>)</div><div class='output co'>#&gt; 
+<span class='fu'><a href='https://rdrr.io/r/graphics/boxplot.html'>boxplot</a></span><span class='op'>(</span><span class='va'>Ozone</span> <span class='op'>~</span> <span class='va'>Month</span>, data <span class='op'>=</span> <span class='va'>airquality</span><span class='op'>)</span>
+</div><div class='img'><img src='DunnettTest-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>DunnettTest</span><span class='op'>(</span><span class='va'>Ozone</span> <span class='op'>~</span> <span class='va'>Month</span>, data <span class='op'>=</span> <span class='va'>airquality</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt;   Dunnett's test for comparing several treatments with a control :  
 #&gt;     95% family-wise confidence level
 #&gt; 
@@ -278,7 +285,8 @@
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; </div><div class='input'>
-<span class='fu'>DunnettTest</span>(<span class='no'>Ozone</span> ~ <span class='no'>Month</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>airquality</span>, <span class='kw'>control</span><span class='kw'>=</span><span class='st'>"8"</span>, <span class='kw'>conf.level</span><span class='kw'>=</span><span class='fl'>0.9</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>DunnettTest</span><span class='op'>(</span><span class='va'>Ozone</span> <span class='op'>~</span> <span class='va'>Month</span>, data <span class='op'>=</span> <span class='va'>airquality</span>, control<span class='op'>=</span><span class='st'>"8"</span>, conf.level<span class='op'>=</span><span class='fl'>0.9</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt;   Dunnett's test for comparing several treatments with a control :  
 #&gt;     90% family-wise confidence level
 #&gt; 
@@ -307,7 +315,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

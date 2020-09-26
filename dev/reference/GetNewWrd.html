@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Create a New Word Instance
-<!-- %%  ~~function to do ... ~~ --> — GetNewWrd • DescTools</title>
+ — GetNewWrd • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Create a New Word Instance
-<!-- %%  ~~function to do ... ~~ --> — GetNewWrd" />
+ — GetNewWrd" />
 <meta property="og:description" content="Start a new instance of Word and return its handle.
 By means of this handle we can then control the word application. 
 WrdKill ends a running MS-Word task.
@@ -79,7 +79,7 @@ WrdKill ends a running MS-Word task.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -147,10 +147,10 @@ By means of this handle we can then control the word application. <br />
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>GetNewWrd</span>(<span class='kw'>visible</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>template</span> <span class='kw'>=</span> <span class='st'>"Normal"</span>, <span class='kw'>header</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-          <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Descriptive report"</span>)
+    <pre class="usage"><span class='fu'>GetNewWrd</span><span class='op'>(</span>visible <span class='op'>=</span> <span class='cn'>TRUE</span>, template <span class='op'>=</span> <span class='st'>"Normal"</span>, header <span class='op'>=</span> <span class='cn'>FALSE</span>,
+          main <span class='op'>=</span> <span class='st'>"Descriptive report"</span><span class='op'>)</span>
 
-<span class='fu'>WrdKill</span>()</pre>
+<span class='fu'>WrdKill</span><span class='op'>(</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -181,8 +181,9 @@ By means of this handle we can then control the word application. <br />
 
     <p>The package <b>RDCOMClient</b> reveals the whole VBA-world of MS-Word. So generally speaking any VBA code can be run fully controlled by R. In practise, it might be a good idea to record a macro and rewrite the VB-code in R.<br /></p>
 <p>Here's a list of some frequently used commands. Let's assume we have a handle to the application  and a handle to the current selection defined as:</p><pre>
-<span class='no'>wrd</span> <span class='kw'>&amp;</span><span class='no'>lt</span>;- <span class='fu'>GetNewWrd</span>()
-<span class='no'>sel</span> <span class='kw'>&amp;</span><span class='no'>lt</span>;- <span class='no'>wrd</span>$<span class='fu'>Selection</span>()</pre><p>Then we can access the most common properties as follows:</p><table class='table'>
+<span class='va'>wrd</span> <span class='op'>&lt;-</span> <span class='fu'>GetNewWrd</span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>sel</span> <span class='op'>&lt;-</span> <span class='va'>wrd</span><span class='op'>$</span><span class='fu'>Selection</span><span class='op'>(</span><span class='op'>)</span>
+</pre><p>Then we can access the most common properties as follows:</p><table class='table'>
 <tr><td>new document</td><td><code>wrd[["Documents"]]$Add(template, FALSE, 0)</code>, template is the templatename.</td></tr>
 <tr><td>open document</td><td><code>wrd[["Documents"]]$Open(Filename="C:/MyPath/MyDocument.docx")</code>.</td></tr>
 <tr><td>save document</td><td><code>wrd$ActiveDocument()$SaveAs2(FileName="P:/MyFile.docx")</code></td></tr>
@@ -229,21 +230,28 @@ By means of this handle we can then control the word application. <br />
 <!-- %%  \item{comp1 }{Description of 'comp1'} -->
 <!-- %%  \item{comp2 }{Description of 'comp2'} -->
 <!-- %% ... --></p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='GetNewXL.html'>GetNewXL</a></code>, <code><a href='PpPlot.html'>GetNewPP</a></code>
+    <div class='dont-index'><p><code><a href='GetNewXL.html'>GetNewXL</a></code>, <code><a href='PowerPoint Interface.html'>GetNewPP</a></code>
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>)  <span class='co'># Windows-specific example</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span>  <span class='co'># Windows-specific example</span>
 
-<span class='no'>wrd</span> <span class='kw'>&lt;-</span> <span class='fu'>GetNewWrd</span>()
-<span class='fu'><a href='Desc.html'>Desc</a></span>(<span class='no'>d.pizza</span>[,<span class='fl'>1</span>:<span class='fl'>4</span>], <span class='kw'>wrd</span><span class='kw'>=</span><span class='no'>wrd</span>)</div><div class='output co'>#&gt; <span class='error'>Error in Desc(d.pizza[, 1:4], wrd = wrd): object 'wrd' not found</span></div><div class='input'>
-<span class='no'>wrd</span> <span class='kw'>&lt;-</span> <span class='fu'>GetNewWrd</span>(<span class='kw'>header</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required namespace: RDCOMClient</span></div><div class='output co'>#&gt; <span class='warning'>Warning: RDCOMClient is unfortunately not available for Darwin systems (Windows-only).</span></div><div class='input'><span class='fu'><a href='Desc.html'>Desc</a></span>(<span class='no'>d.pizza</span>[,<span class='fl'>1</span>:<span class='fl'>4</span>], <span class='kw'>wrd</span><span class='kw'>=</span><span class='no'>wrd</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x): "_DescTools_n_pow_sum" not available for .Call() for package "DescTools"</span></div><div class='input'>
+<span class='va'>wrd</span> <span class='op'>&lt;-</span> <span class='fu'>GetNewWrd</span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'><a href='Desc.html'>Desc</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>, wrd<span class='op'>=</span><span class='va'>wrd</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in Desc(d.pizza[, 1:4], wrd = wrd): object 'wrd' not found</span></div><div class='input'>
+<span class='va'>wrd</span> <span class='op'>&lt;-</span> <span class='fu'>GetNewWrd</span><span class='op'>(</span>header<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Loading required namespace: RDCOMClient</span></div><div class='output co'>#&gt; <span class='warning'>Warning: RDCOMClient is unfortunately not available for Darwin systems (Windows-only).</span></div><div class='input'><span class='fu'><a href='Desc.html'>Desc</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>, wrd<span class='op'>=</span><span class='va'>wrd</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x): "_DescTools_n_pow_sum" not available for .Call() for package "DescTools"</span></div><div class='input'>
 <span class='co'># enumerate all bookmarks in active document</span>
-<span class='kw'>for</span>(<span class='no'>i</span> <span class='kw'>in</span> <span class='fl'>1</span>:<span class='no'>wrd</span><span class='kw'>[[</span><span class='st'>"ActiveDocument"</span>]]<span class='kw'>[[</span><span class='st'>"Bookmarks"</span>]]$<span class='fu'>count</span>()){
-  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>wrd</span><span class='kw'>[[</span><span class='st'>"ActiveDocument"</span>]]<span class='kw'>[[</span><span class='st'>"Bookmarks"</span>]]$<span class='fu'>Item</span>(<span class='no'>i</span>)$<span class='fu'>Name</span>())
-}</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): attempt to apply non-function</span></div><div class='input'>
+<span class='kw'>for</span><span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>wrd</span><span class='op'>[[</span><span class='st'>"ActiveDocument"</span><span class='op'>]</span><span class='op'>]</span><span class='op'>[[</span><span class='st'>"Bookmarks"</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='fu'>count</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>wrd</span><span class='op'>[[</span><span class='st'>"ActiveDocument"</span><span class='op'>]</span><span class='op'>]</span><span class='op'>[[</span><span class='st'>"Bookmarks"</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='fu'>Item</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>Name</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): attempt to apply non-function</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -260,7 +268,7 @@ By means of this handle we can then control the word application. <br />
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

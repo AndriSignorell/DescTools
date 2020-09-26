@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Classification of Scotch Single Malts
-<!-- %%   ~~ data name/kind ... ~~ --> — d.whisky • DescTools</title>
+ — d.whisky • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Classification of Scotch Single Malts
-<!-- %%   ~~ data name/kind ... ~~ --> — d.whisky" />
+ — d.whisky" />
 <meta property="og:description" content="86 malt whiskies are scored between 0-4 for 12 different taste categories including sweetness, smoky, nutty etc. Additionally, coordinates of distilleries allow us to obtain pairwise distance information. Using a combination of these variables it is possible to look for correlations between particular attributes of taste and physical location, for example does a shared local resource have a significant effect on nearby whiskies.
 By using correlation analysis it may be possible to provide whisky recommendations based upon an individual's particular preferences.
 By computing the Pearson correlation coefficient and specifying a threshold value between 0 and 1, we can establish an adjacency matrix where each node is a malt whisky and an edge represents a level of similarity above the threshold." />
@@ -78,7 +78,7 @@ By computing the Pearson correlation coefficient and specifying a threshold valu
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -145,12 +145,12 @@ By using correlation analysis it may be possible to provide whisky recommendatio
 By computing the Pearson correlation coefficient and specifying a threshold value between 0 and 1, we can establish an adjacency matrix where each node is a malt whisky and an edge represents a level of similarity above the threshold.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"d.whisky"</span>)</pre>
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"d.whisky"</span><span class='op'>)</span></pre>
 
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A data frame with 86 observations on the following 16 variables.</p><dl'>
+    <p>A data frame with 86 observations on the following 16 variables.</p><dl>
     <dt><code>distillery</code></dt><dd><p>a character <code>Aberfeldy</code>, <code>Aberlour</code>, <code>AnCnoc</code>, <code>Ardbeg</code>, ...</p></dd>
     <dt><code>brand</code></dt><dd><p>a grouping factor to separate the better known distilleries (<code>A</code>) from the lesser known ones (<code>B</code>).</p></dd>
     <dt><code>region</code></dt><dd><p>a factor with levels <code>campbeltown</code>, <code>highland</code>, <code>islands</code>, <code>islay</code>, <code>lowland</code>, <code>speyside</code>.</p></dd>
@@ -180,7 +180,8 @@ By computing the Pearson correlation coefficient and specifying a threshold valu
     <p>http://www.mathstat.strath.ac.uk/outreach/nessie/index.html</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>d.whisky</span>)</div><div class='output co'>#&gt;   distillery brand   region body sweetness smoky medicinal tobacco honey spicy
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>d.whisky</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   distillery brand   region body sweetness smoky medicinal tobacco honey spicy
 #&gt; 1  Aberfeldy     A highland    2         2     2         0       0     2     1
 #&gt; 2   Aberlour     A speyside    3         3     1         0       0     4     3
 #&gt; 3     AnCnoc     A highland    1         3     2         0       0     2     0
@@ -194,20 +195,24 @@ By computing the Pearson correlation coefficient and specifying a threshold valu
 #&gt; 4     0     1     2      1      0 PA42 7EB   141560    646220
 #&gt; 5     1     2     3      1      1 AB54 4NH   355350    829140
 #&gt; 6     1     0     1      1      2 KA27 8HJ   194050    649950</div><div class='input'>
-<span class='no'>opar</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>3</span>), <span class='kw'>cex.main</span><span class='kw'>=</span><span class='fl'>1.8</span>)
-<span class='kw'>for</span>(<span class='no'>i</span> <span class='kw'>in</span> <span class='fl'>1</span>:<span class='fl'>9</span>)
-  <span class='fu'><a href='PlotPolar.html'>PlotPolar</a></span>(<span class='no'>d.whisky</span>[<span class='no'>i</span>, <span class='fl'>4</span>:<span class='fl'>15</span>], <span class='kw'>rlim</span><span class='kw'>=</span><span class='fl'>4</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"l"</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='no'>hecru</span>, <span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>, <span class='kw'>fill</span><span class='kw'>=</span><span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span>(<span class='no'>hecru</span>, <span class='fl'>0.4</span>),
-            <span class='kw'>panel.first</span><span class='kw'>=</span><span class='fu'><a href='PolarGrid.html'>PolarGrid</a></span>(
-              <span class='kw'>ntheta</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='no'>d.whisky</span>[<span class='no'>i</span>, <span class='fl'>2</span>:<span class='fl'>13</span>]), <span class='kw'>nr</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"grey"</span>,
-              <span class='kw'>lty</span><span class='kw'>=</span><span class='st'>"dotted"</span>, <span class='kw'>las</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>cex</span><span class='kw'>=</span><span class='fl'>1.4</span>, <span class='kw'>alabels</span><span class='kw'>=</span><span class='fu'><a href='StrCap.html'>StrCap</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>d.whisky</span>[<span class='no'>i</span>, <span class='fl'>3</span>:<span class='fl'>14</span>])),
-              <span class='kw'>lblradians</span><span class='kw'>=</span><span class='fl'>TRUE</span>),
-            <span class='kw'>main</span><span class='kw'>=</span><span class='no'>d.whisky</span>[<span class='no'>i</span>, <span class='st'>"distillery"</span>])</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_r", as.numeric(x), as.numeric(rng[1L]), as.numeric(rng[2L]),     PACKAGE = "DescTools"): "between_num_r" not available for .Call() for package "DescTools"</span></div><div class='input'>
+<span class='va'>opar</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>3</span><span class='op'>)</span>, cex.main<span class='op'>=</span><span class='fl'>1.8</span><span class='op'>)</span>
+<span class='kw'>for</span><span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>9</span><span class='op'>)</span>
+  <span class='fu'><a href='PlotPolar.html'>PlotPolar</a></span><span class='op'>(</span><span class='va'>d.whisky</span><span class='op'>[</span><span class='va'>i</span>, <span class='fl'>4</span><span class='op'>:</span><span class='fl'>15</span><span class='op'>]</span>, rlim<span class='op'>=</span><span class='fl'>4</span>, type<span class='op'>=</span><span class='st'>"l"</span>, col<span class='op'>=</span><span class='va'>hecru</span>, lwd<span class='op'>=</span><span class='fl'>2</span>, fill<span class='op'>=</span><span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span><span class='op'>(</span><span class='va'>hecru</span>, <span class='fl'>0.4</span><span class='op'>)</span>,
+            panel.first<span class='op'>=</span><span class='fu'><a href='PolarGrid.html'>PolarGrid</a></span><span class='op'>(</span>
+              ntheta<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>d.whisky</span><span class='op'>[</span><span class='va'>i</span>, <span class='fl'>2</span><span class='op'>:</span><span class='fl'>13</span><span class='op'>]</span><span class='op'>)</span>, nr <span class='op'>=</span> <span class='cn'>NA</span>, col<span class='op'>=</span><span class='st'>"grey"</span>,
+              lty<span class='op'>=</span><span class='st'>"dotted"</span>, las<span class='op'>=</span><span class='fl'>1</span>, cex<span class='op'>=</span><span class='fl'>1.4</span>, alabels<span class='op'>=</span><span class='fu'><a href='StrCap.html'>StrCap</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>d.whisky</span><span class='op'>[</span><span class='va'>i</span>, <span class='fl'>3</span><span class='op'>:</span><span class='fl'>14</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>,
+              lblradians<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>,
+            main<span class='op'>=</span><span class='va'>d.whisky</span><span class='op'>[</span><span class='va'>i</span>, <span class='st'>"distillery"</span><span class='op'>]</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_r", as.numeric(x), as.numeric(rng[1L]), as.numeric(rng[2L]),     PACKAGE = "DescTools"): "between_num_r" not available for .Call() for package "DescTools"</span></div><div class='input'>
 
-<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>3</span>), <span class='kw'>cex.main</span><span class='kw'>=</span><span class='fl'>1.8</span>, <span class='kw'>xpd</span><span class='kw'>=</span><span class='fl'>NA</span>)</div><div class='img'><img src='d.whisky-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>id</span> <span class='kw'>&lt;-</span> <span class='no'>d.whisky</span>$<span class='no'>distillery</span> <span class='kw'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Ardbeg"</span>,<span class='st'>"Caol Ila"</span>,<span class='st'>"Cragganmore"</span>,<span class='st'>"Lagavulin"</span>,<span class='st'>"Laphroig"</span>,
-                                   <span class='st'>"Macallan"</span>,<span class='st'>"Mortlach"</span>,<span class='st'>"Talisker"</span>,<span class='st'>"Tobermory"</span>)
-<span class='fu'><a href='PlotFaces.html'>PlotFaces</a></span>(<span class='no'>d.whisky</span>[<span class='no'>id</span>, <span class='fl'>4</span>:<span class='fl'>15</span>], <span class='kw'>nr</span><span class='kw'>=</span><span class='fl'>3</span>, <span class='kw'>nc</span><span class='kw'>=</span><span class='fl'>3</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='no'>hecru</span>, <span class='kw'>scale</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>fill</span><span class='kw'>=</span><span class='fl'>TRUE</span>,
-          <span class='kw'>labels</span><span class='kw'>=</span><span class='no'>d.whisky</span>$<span class='no'>distillery</span>[<span class='no'>id</span>])</div><div class='img'><img src='d.whisky-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='no'>opar</span>)</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>3</span><span class='op'>)</span>, cex.main<span class='op'>=</span><span class='fl'>1.8</span>, xpd<span class='op'>=</span><span class='cn'>NA</span><span class='op'>)</span>
+</div><div class='img'><img src='d.whisky-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>id</span> <span class='op'>&lt;-</span> <span class='va'>d.whisky</span><span class='op'>$</span><span class='va'>distillery</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Ardbeg"</span>,<span class='st'>"Caol Ila"</span>,<span class='st'>"Cragganmore"</span>,<span class='st'>"Lagavulin"</span>,<span class='st'>"Laphroig"</span>,
+                                   <span class='st'>"Macallan"</span>,<span class='st'>"Mortlach"</span>,<span class='st'>"Talisker"</span>,<span class='st'>"Tobermory"</span><span class='op'>)</span>
+<span class='fu'><a href='PlotFaces.html'>PlotFaces</a></span><span class='op'>(</span><span class='va'>d.whisky</span><span class='op'>[</span><span class='va'>id</span>, <span class='fl'>4</span><span class='op'>:</span><span class='fl'>15</span><span class='op'>]</span>, nr<span class='op'>=</span><span class='fl'>3</span>, nc<span class='op'>=</span><span class='fl'>3</span>, col<span class='op'>=</span><span class='va'>hecru</span>, scale<span class='op'>=</span><span class='cn'>TRUE</span>, fill<span class='op'>=</span><span class='cn'>TRUE</span>,
+          labels<span class='op'>=</span><span class='va'>d.whisky</span><span class='op'>$</span><span class='va'>distillery</span><span class='op'>[</span><span class='va'>id</span><span class='op'>]</span><span class='op'>)</span>
+</div><div class='img'><img src='d.whisky-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span><span class='va'>opar</span><span class='op'>)</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -223,7 +228,7 @@ By computing the Pearson correlation coefficient and specifying a threshold valu
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

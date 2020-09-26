@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Extract All Numeric Values From a String
-<!-- %%  ~~function to do ... ~~ --> — StrVal • DescTools</title>
+ — StrVal • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Extract All Numeric Values From a String
-<!-- %%  ~~function to do ... ~~ --> — StrVal" />
+ — StrVal" />
 <meta property="og:description" content="Extract all numeric values from a string using a regular expression and return a list of all found values. If there are several, the values can be either pasted and/or casted from characters to numeric values.
 " />
 
@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -143,7 +143,7 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>StrVal</span>(<span class='no'>x</span>, <span class='kw'>paste</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>as.numeric</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>dec</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"OutDec"</span>))</pre>
+    <pre class="usage"><span class='fu'>StrVal</span><span class='op'>(</span><span class='va'>x</span>, paste <span class='op'>=</span> <span class='cn'>FALSE</span>, as.numeric <span class='op'>=</span> <span class='cn'>FALSE</span>, dec <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"OutDec"</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -173,16 +173,21 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>depending on the results the function will return either a character vector, in the case every element of x contained only one number, or a list of character vectors containing the found numbers.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;, Markus Naepflin &lt;markus@naepfl.in&gt; provided an optimized regex</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>other string functions in <code><a href='DescTools-package.html'>DescTools-package</a></code>, section <code>String functions</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># a simple vector with only one number per element</span>
-<span class='fu'>StrVal</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"week 1"</span>, <span class='st'>"week 3"</span>, <span class='st'>"week 4"</span>, <span class='st'>"week 5"</span>))</div><div class='output co'>#&gt; [1] "1" "3" "4" "5"</div><div class='input'>
+<span class='fu'>StrVal</span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"week 1"</span>, <span class='st'>"week 3"</span>, <span class='st'>"week 4"</span>, <span class='st'>"week 5"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "1" "3" "4" "5"</div><div class='input'>
 <span class='co'># several numbers per element, extract each part, do not paste and return characters</span>
-<span class='fu'>StrVal</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"This is 1. place: 45.2"</span>, <span class='st'>"none"</span>, <span class='st'>"12.1 but -2.7 follow, 10.2e23 "</span>),
-       <span class='kw'>paste</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>as.numeric</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [[1]]
+<span class='fu'>StrVal</span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"This is 1. place: 45.2"</span>, <span class='st'>"none"</span>, <span class='st'>"12.1 but -2.7 follow, 10.2e23 "</span><span class='op'>)</span>,
+       paste <span class='op'>=</span> <span class='cn'>FALSE</span>, as.numeric <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
 #&gt; [1] "1"    "45.2"
 #&gt; 
 #&gt; [[2]]
@@ -192,8 +197,9 @@
 #&gt; [1] "12.1"    "-2.7"    "10.2e23"
 #&gt; </div><div class='input'>
 <span class='co'># critical are numbers combined with signs, where we sequentially extract valid numbers</span>
-<span class='fu'>StrVal</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"78-23-99"</span>, <span class='st'>"1e-15-34*789+9"</span>, <span class='st'>"- 34values"</span>),
-       <span class='kw'>paste</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>as.numeric</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [[1]]
+<span class='fu'>StrVal</span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"78-23-99"</span>, <span class='st'>"1e-15-34*789+9"</span>, <span class='st'>"- 34values"</span><span class='op'>)</span>,
+       paste <span class='op'>=</span> <span class='cn'>FALSE</span>, as.numeric <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
 #&gt; [1] "78"  "-23" "-99"
 #&gt; 
 #&gt; [[2]]
@@ -205,11 +211,14 @@
 <span class='co'># a typical use case for this function is to reverse a previously</span>
 <span class='co'>#   applied number format</span>
 
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>100000</span>, <span class='fl'>4564654632</span>, -<span class='fl'>456463</span>)
-<span class='no'>xf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='Format.html'>Format</a></span>(<span class='no'>x</span>, <span class='kw'>big.mark</span><span class='kw'>=</span><span class='st'>"'"</span>)
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>100000</span>, <span class='fl'>4564654632</span>, <span class='op'>-</span><span class='fl'>456463</span><span class='op'>)</span>
+<span class='va'>xf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='Format.html'>Format</a></span><span class='op'>(</span><span class='va'>x</span>, big.mark<span class='op'>=</span><span class='st'>"'"</span><span class='op'>)</span>
 
-<span class='fu'>StrVal</span>(<span class='no'>xf</span>, <span class='kw'>paste</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>as.numeric</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1]     100000 4564700000    -456463</div><div class='input'>
-<span class='fu'>StrVal</span>(<span class='no'>xf</span>, <span class='kw'>paste</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>as.numeric</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] "100000.0000"  "4.5647e+09"   "-456463.0000"</div><div class='input'><span class='fu'>StrVal</span>(<span class='no'>xf</span>, <span class='kw'>paste</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>as.numeric</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [[1]]
+<span class='fu'>StrVal</span><span class='op'>(</span><span class='va'>xf</span>, paste <span class='op'>=</span> <span class='cn'>TRUE</span>, as.numeric <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1]     100000 4564700000    -456463</div><div class='input'>
+<span class='fu'>StrVal</span><span class='op'>(</span><span class='va'>xf</span>, paste <span class='op'>=</span> <span class='cn'>TRUE</span>, as.numeric <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "100000.0000"  "4.5647e+09"   "-456463.0000"</div><div class='input'><span class='fu'>StrVal</span><span class='op'>(</span><span class='va'>xf</span>, paste <span class='op'>=</span> <span class='cn'>FALSE</span>, as.numeric <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
 #&gt; [1] 100   0
 #&gt; 
 #&gt; [[2]]
@@ -217,7 +226,8 @@
 #&gt; 
 #&gt; [[3]]
 #&gt; [1] -456  463
-#&gt; </div><div class='input'><span class='fu'>StrVal</span>(<span class='no'>xf</span>, <span class='kw'>paste</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>as.numeric</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; </div><div class='input'><span class='fu'>StrVal</span><span class='op'>(</span><span class='va'>xf</span>, paste <span class='op'>=</span> <span class='cn'>FALSE</span>, as.numeric <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
 #&gt; [1] "100"      "000.0000"
 #&gt; 
 #&gt; [[2]]
@@ -227,7 +237,8 @@
 #&gt; [1] "-456"     "463.0000"
 #&gt; </div><div class='input'>
 <span class='co'># use an alternative decimal point</span>
-<span class='fu'>StrVal</span>(<span class='st'>"8 452,12"</span>, <span class='kw'>dec</span><span class='kw'>=</span><span class='st'>","</span>)</div><div class='output co'>#&gt;      [,1]    
+<span class='fu'>StrVal</span><span class='op'>(</span><span class='st'>"8 452,12"</span>, dec<span class='op'>=</span><span class='st'>","</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      [,1]    
 #&gt; [1,] "8"     
 #&gt; [2,] "452,12"</div></pre>
   </div>
@@ -245,7 +256,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

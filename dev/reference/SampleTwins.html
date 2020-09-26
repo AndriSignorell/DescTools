@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Sample Twins
-<!-- %%  ~~function to do ... ~~ --> — SampleTwins • DescTools</title>
+ — SampleTwins • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Sample Twins
-<!-- %%  ~~function to do ... ~~ --> — SampleTwins" />
+ — SampleTwins" />
 <meta property="og:description" content="Draw a twin sample out of a population for a given recordset, by matching some strata criteria.
 " />
 
@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -143,9 +143,9 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>SampleTwins</span>(<span class='no'>x</span>, <span class='kw'>stratanames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>twins</span>,
-            <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"srswor"</span>, <span class='st'>"srswr"</span>, <span class='st'>"poisson"</span>, <span class='st'>"systematic"</span>),
-            <span class='no'>pik</span>, <span class='kw'>description</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>SampleTwins</span><span class='op'>(</span><span class='va'>x</span>, stratanames <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>twins</span>, 
+            method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"srswor"</span>, <span class='st'>"srswr"</span>, <span class='st'>"poisson"</span>, <span class='st'>"systematic"</span><span class='op'>)</span>, 
+            <span class='va'>pik</span>, description <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -195,25 +195,31 @@ By default, the value is FALSE.</p></td>
 <dt>stratum</dt><dd><p>the unit stratum.</p></dd>
 <dt>prob</dt><dd><p>the final unit inclusion probability.</p></dd>
 
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;
+<!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='Strata.html'>Strata</a></code>, <code><a href='https://rdrr.io/r/base/sample.html'>sample</a></code>
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>"nc"</span>,<span class='fl'>165</span>), <span class='fl'>165</span>, <span class='fl'>1</span>, <span class='kw'>byrow</span><span class='kw'>=</span><span class='fl'>TRUE</span>),
-           <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>"sc"</span>, <span class='fl'>70</span>), <span class='fl'>70</span>, <span class='fl'>1</span>, <span class='kw'>byrow</span><span class='kw'>=</span><span class='fl'>TRUE</span>))
-<span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind.data.frame</a></span>(<span class='no'>m</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>, <span class='fl'>100</span>), <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>2</span>,<span class='fl'>50</span>), <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>3</span>,<span class='fl'>15</span>),
-                           <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>,<span class='fl'>30</span>), <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>2</span>,<span class='fl'>40</span>)), <span class='fl'>1000</span>*<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>235</span>))
-<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>m</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"state"</span>,<span class='st'>"region"</span>,<span class='st'>"income"</span>)
+    <pre class="examples"><div class='input'><span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"nc"</span>,<span class='fl'>165</span><span class='op'>)</span>, <span class='fl'>165</span>, <span class='fl'>1</span>, byrow<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>, 
+           <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"sc"</span>, <span class='fl'>70</span><span class='op'>)</span>, <span class='fl'>70</span>, <span class='fl'>1</span>, byrow<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind.data.frame</a></span><span class='op'>(</span><span class='va'>m</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>100</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>50</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>15</span><span class='op'>)</span>, 
+                           <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>30</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>40</span><span class='op'>)</span><span class='op'>)</span>, <span class='fl'>1000</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>235</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>m</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"state"</span>,<span class='st'>"region"</span>,<span class='st'>"income"</span><span class='op'>)</span>
 
 <span class='co'># this would be our sample to be reproduced by a twin sample</span>
-<span class='no'>d.smp</span> <span class='kw'>&lt;-</span> <span class='no'>m</span>[<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>m</span>), <span class='kw'>size</span><span class='kw'>=</span><span class='fl'>10</span>, <span class='kw'>replace</span><span class='kw'>=</span><span class='fl'>TRUE</span>),]
+<span class='va'>d.smp</span> <span class='op'>&lt;-</span> <span class='va'>m</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>m</span><span class='op'>)</span>, size<span class='op'>=</span><span class='fl'>10</span>, replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>,<span class='op'>]</span>
 
 <span class='co'># draw the sample</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>SampleTwins</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>m</span>, <span class='kw'>stratanames</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"state"</span>,<span class='st'>"region"</span>), <span class='kw'>twins</span> <span class='kw'>=</span> <span class='no'>d.smp</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"srswor"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Could not find a twin for all records. Enlighten the restrictions!</span></div><div class='input'>
-<span class='no'>d.twin</span> <span class='kw'>&lt;-</span> <span class='no'>m</span>[<span class='no'>s</span>$<span class='no'>id</span>,]
-<span class='no'>d.twin</span></div><div class='output co'>#&gt;     state region     income
+<span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'>SampleTwins</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>m</span>, stratanames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"state"</span>,<span class='st'>"region"</span><span class='op'>)</span>, twins <span class='op'>=</span> <span class='va'>d.smp</span>, method<span class='op'>=</span><span class='st'>"srswor"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Could not find a twin for all records. Enlighten the restrictions!</span></div><div class='input'>
+<span class='va'>d.twin</span> <span class='op'>&lt;-</span> <span class='va'>m</span><span class='op'>[</span><span class='va'>s</span><span class='op'>$</span><span class='va'>id</span>,<span class='op'>]</span>
+<span class='va'>d.twin</span>
+</div><div class='output co'>#&gt;     state region     income
 #&gt; 186    sc      1  71.904097
 #&gt; 173    sc      1 648.818124
 #&gt; 195    sc      1   9.429905
@@ -239,7 +245,7 @@ By default, the value is FALSE.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

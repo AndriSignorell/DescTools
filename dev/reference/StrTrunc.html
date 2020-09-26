@@ -76,7 +76,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -142,7 +142,7 @@
  Use <code><a href='https://rdrr.io/r/base/formatc.html'>formatC</a></code> to justify the strings if needed.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>StrTrunc</span>(<span class='no'>x</span>, <span class='kw'>maxlen</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>ellipsis</span> <span class='kw'>=</span> <span class='st'>"..."</span>, <span class='kw'>wbound</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>StrTrunc</span><span class='op'>(</span><span class='va'>x</span>, maxlen <span class='op'>=</span> <span class='fl'>20</span>, ellipsis <span class='op'>=</span> <span class='st'>"..."</span>, wbound <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -168,6 +168,9 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>The string(s) passed as <samp>x</samp> now with a maximum length of <samp>maxlen</samp> + 3 (for the ellipsis).</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell, <br /> once following an idea of Jim Lemon in <code>truncString()</code></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>String functions: 
@@ -175,17 +178,20 @@
 <code><a href='StrTrim.html'>StrTrim</a></code>, <code><a href='StrDist.html'>StrDist</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"this is short"</span>, <span class='st'>"and this is a longer text"</span>,
-       <span class='st'>"whereas this is a much longer story, which could not be told shorter"</span>)
+    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"this is short"</span>, <span class='st'>"and this is a longer text"</span>, 
+       <span class='st'>"whereas this is a much longer story, which could not be told shorter"</span><span class='op'>)</span>
 
 <span class='co'># simple truncation on 10 characters</span>
-<span class='fu'>StrTrunc</span>(<span class='no'>x</span>, <span class='kw'>maxlen</span><span class='kw'>=</span><span class='fl'>10</span>)</div><div class='output co'>#&gt; [1] "this is sh..." "and this i..." "whereas th..."</div><div class='input'>
+<span class='fu'>StrTrunc</span><span class='op'>(</span><span class='va'>x</span>, maxlen<span class='op'>=</span><span class='fl'>10</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "this is sh..." "and this i..." "whereas th..."</div><div class='input'>
 <span class='co'># NAs remain NA</span>
-<span class='fu'>StrTrunc</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>x</span>, <span class='fl'>NA_character_</span>), <span class='kw'>maxlen</span><span class='kw'>=</span><span class='fl'>15</span>, <span class='kw'>wbound</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "this is short"     "and this is a ..." "whereas this ..." 
+<span class='fu'>StrTrunc</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='cn'>NA_character_</span><span class='op'>)</span>, maxlen<span class='op'>=</span><span class='fl'>15</span>, wbound<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "this is short"     "and this is a ..." "whereas this ..." 
 #&gt; [4] NA                 </div><div class='input'>
 <span class='co'># using word boundaries</span>
-<span class='kw'>for</span>(<span class='no'>i</span> <span class='kw'>in</span> -<span class='fl'>5</span>:<span class='fl'>20</span>)
-  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>StrTrunc</span>(<span class='no'>x</span>, <span class='kw'>maxlen</span><span class='kw'>=</span><span class='no'>i</span>, <span class='kw'>wbound</span><span class='kw'>=</span><span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; [1] "..." "..." "..."
+<span class='kw'>for</span><span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='op'>-</span><span class='fl'>5</span><span class='op'>:</span><span class='fl'>20</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'>StrTrunc</span><span class='op'>(</span><span class='va'>x</span>, maxlen<span class='op'>=</span><span class='va'>i</span>, wbound<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "..." "..." "..."
 #&gt; [1] "..." "..." "..."
 #&gt; [1] "..." "..." "..."
 #&gt; [1] "..." "..." "..."
@@ -212,8 +218,9 @@
 #&gt; [1] "this is short"         "and this is a ..."     "whereas this is a ..."
 #&gt; [1] "this is short"         "and this is a ..."     "whereas this is a ..."</div><div class='input'>
 <span class='co'># compare</span>
-<span class='kw'>for</span>(<span class='no'>i</span> <span class='kw'>in</span> -<span class='fl'>5</span>:<span class='fl'>20</span>)
-  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>StrTrunc</span>(<span class='no'>x</span>, <span class='kw'>maxlen</span><span class='kw'>=</span><span class='no'>i</span>, <span class='kw'>wbound</span><span class='kw'>=</span><span class='fl'>FALSE</span>))</div><div class='output co'>#&gt; [1] "..." "..." "..."
+<span class='kw'>for</span><span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='op'>-</span><span class='fl'>5</span><span class='op'>:</span><span class='fl'>20</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'>StrTrunc</span><span class='op'>(</span><span class='va'>x</span>, maxlen<span class='op'>=</span><span class='va'>i</span>, wbound<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "..." "..." "..."
 #&gt; [1] "..." "..." "..."
 #&gt; [1] "..." "..." "..."
 #&gt; [1] "..." "..." "..."
@@ -241,7 +248,8 @@
 #&gt; [1] "this is short"           "and this is a longer..."
 #&gt; [3] "whereas this is a mu..."</div><div class='input'>
 <span class='co'># right justification</span>
-<span class='fu'><a href='https://rdrr.io/r/base/formatc.html'>formatC</a></span>(<span class='fu'>StrTrunc</span>(<span class='no'>x</span>, <span class='kw'>maxlen</span><span class='kw'>=</span><span class='fl'>10</span>), <span class='kw'>width</span><span class='kw'>=</span><span class='fl'>10</span>, <span class='kw'>flag</span><span class='kw'>=</span><span class='st'>" "</span>)</div><div class='output co'>#&gt; [1] "this is sh..." "and this i..." "whereas th..."</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/formatc.html'>formatC</a></span><span class='op'>(</span><span class='fu'>StrTrunc</span><span class='op'>(</span><span class='va'>x</span>, maxlen<span class='op'>=</span><span class='fl'>10</span><span class='op'>)</span>, width<span class='op'>=</span><span class='fl'>10</span>, flag<span class='op'>=</span><span class='st'>" "</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "this is sh..." "and this i..." "whereas th..."</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -257,7 +265,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

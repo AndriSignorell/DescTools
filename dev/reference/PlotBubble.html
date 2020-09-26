@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Draw a Bubble Plot
-<!-- %%  ~~function to do ... ~~ --> — PlotBubble • DescTools</title>
+ — PlotBubble • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Draw a Bubble Plot
-<!-- %%  ~~function to do ... ~~ --> — PlotBubble" />
+ — PlotBubble" />
 <meta property="og:description" content="Draw a bubble plot, defined by a pair of coordinates x, y to place the bubbles, an area
 definition configuring the dimension and a color vector setting the color of the bubbles.
 The legitimation to define a new function instead of just using plot(symbols(...)) is the automated calculation of the axis limits, ensuring that
@@ -80,7 +80,7 @@ all bubbles will be fully visible.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -144,19 +144,19 @@ all bubbles will be fully visible.
     <div class="ref-description">
     <p>Draw a bubble plot, defined by a pair of coordinates x, y to place the bubbles, an area
 definition configuring the dimension and a color vector setting the color of the bubbles.
-The legitimation to define a new function instead of just using <code><a href='https://rdrr.io/r/base/plot.html'>plot(symbols(...))</a></code> is the automated calculation of the axis limits, ensuring that
+The legitimation to define a new function instead of just using <code><a href='https://rdrr.io/r/graphics/plot.default.html'>plot(symbols(...))</a></code> is the automated calculation of the axis limits, ensuring that
 all bubbles will be fully visible.
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>PlotBubble</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>PlotBubble</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>PlotBubble</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>area</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"fg"</span>),
-           <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+<span class='fu'>PlotBubble</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>area</span>, col <span class='op'>=</span> <span class='cn'>NA</span>, cex <span class='op'>=</span> <span class='fl'>1</span>, border <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span><span class='st'>"fg"</span><span class='op'>)</span>,
+           xlim <span class='op'>=</span> <span class='cn'>NULL</span>, ylim <span class='op'>=</span> <span class='cn'>NULL</span>, na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for formula</span>
-<span class='fu'>PlotBubble</span>(<span class='no'>formula</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(), <span class='no'>...</span>, <span class='no'>subset</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='no'>varnames</span>[<span class='no'>response</span>])</pre>
+<span class='fu'>PlotBubble</span><span class='op'>(</span><span class='va'>formula</span>, data <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='va'>...</span>, <span class='va'>subset</span>, ylab <span class='op'>=</span> <span class='va'>varnames</span><span class='op'>[</span><span class='va'>response</span><span class='op'>]</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -216,7 +216,7 @@ all bubbles will be fully visible.
     </tr>
     <tr>
       <th>...</th>
-      <td><p>the dots are passed to the <code><a href='https://rdrr.io/r/base/plot.html'>plot</a></code> function.
+      <td><p>the dots are passed to the <code><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></code> function.
 <!-- %%     ~~Describe \code{\dots} here~~ --></p></td>
     </tr>
     </table>
@@ -229,14 +229,19 @@ This behaviour is the same as in <code><a href='https://rdrr.io/r/graphics/symbo
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>A legend can be added with <code><a href='BubbleLegend.html'>BubbleLegend</a></code>.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;
+<!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='BubbleLegend.html'>BubbleLegend</a></code>, <code><a href='https://rdrr.io/r/graphics/symbols.html'>symbols</a></code>, <code><a href='https://rdrr.io/r/graphics/sunflowerplot.html'>sunflowerplot</a></code>
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>PlotBubble</span>(<span class='no'>latitude</span> ~ <span class='no'>longitude</span>, <span class='kw'>area</span><span class='kw'>=</span>(<span class='no'>smoky</span>+<span class='fl'>1</span>)*<span class='fl'>2e8</span>,
-           <span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span>(<span class='fl'>1</span>, <span class='fl'>0.5</span>), <span class='kw'>data</span><span class='kw'>=</span><span class='no'>d.whisky</span>)</div><div class='img'><img src='PlotBubble-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; [[1]]
+    <pre class="examples"><div class='input'><span class='fu'>PlotBubble</span><span class='op'>(</span><span class='va'>latitude</span> <span class='op'>~</span> <span class='va'>longitude</span>, area<span class='op'>=</span><span class='op'>(</span><span class='va'>smoky</span><span class='op'>+</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>*</span><span class='fl'>2e8</span>,
+           col<span class='op'>=</span><span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>0.5</span><span class='op'>)</span>, data<span class='op'>=</span><span class='va'>d.whisky</span><span class='op'>)</span>
+</div><div class='img'><img src='PlotBubble-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; [[1]]
 #&gt;  [1] 286580 326340 352960 141560 355350 194050 247670 340754 340754 270820
 #&gt; [11] 307750 332680 212600 323450 325800 303330 242260 294860 131330 126680
 #&gt; [21] 142210 142920 318790 290250 316600 328920 323520 266610 263670 271570
@@ -271,14 +276,17 @@ This behaviour is the same as in <code><a href='https://rdrr.io/r/graphics/symbo
 #&gt; [1] "#00000080"
 #&gt; </div><div class='input'>
 
-<span class='no'>cols</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"olivedrab1"</span>,<span class='st'>"orange"</span>,<span class='st'>"green"</span>,<span class='st'>"mediumturquoise"</span>,<span class='st'>"mediumorchid2"</span>,<span class='st'>"firebrick1"</span>)
-<span class='fu'>PlotBubble</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>state.x77</span>[,<span class='st'>"Income"</span>], <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>state.x77</span>[,<span class='st'>"Life Exp"</span>], <span class='kw'>cex</span><span class='kw'>=</span><span class='fl'>.00004</span>,
-           <span class='kw'>area</span> <span class='kw'>=</span> <span class='no'>state.x77</span>[,<span class='st'>"Population"</span>], <span class='kw'>col</span> <span class='kw'>=</span> <span class='no'>cols</span>[<span class='no'>state.region</span>], <span class='kw'>border</span><span class='kw'>=</span><span class='st'>"grey50"</span>,
-           <span class='kw'>panel.first</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/graphics/grid.html'>grid</a></span>(), <span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Income"</span>, <span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"Life Exp."</span>, <span class='kw'>las</span><span class='kw'>=</span><span class='fl'>1</span>
-)</div><div class='input'>
-<span class='fu'><a href='BubbleLegend.html'>BubbleLegend</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"topright"</span>, <span class='kw'>area</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>20000</span>, <span class='fl'>10000</span>, <span class='fl'>1000</span>), <span class='kw'>cex</span><span class='kw'>=</span><span class='fl'>.00004</span>, <span class='kw'>frame</span><span class='kw'>=</span><span class='fl'>NA</span>,
-             <span class='kw'>cols</span><span class='kw'>=</span><span class='no'>cols</span>[<span class='fl'>1</span>:<span class='fl'>3</span>], <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>20000</span>, <span class='fl'>10000</span>, <span class='fl'>1000</span>), <span class='kw'>cex.names</span><span class='kw'>=</span><span class='fl'>0.7</span>)</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/graphics/legend.html'>legend</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='st'>"bottomright"</span>, <span class='kw'>fill</span><span class='kw'>=</span><span class='no'>cols</span>[<span class='fl'>1</span>:<span class='fl'>4</span>], <span class='kw'>legend</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span>(<span class='no'>state.region</span>))</div><div class='img'><img src='PlotBubble-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>cols</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"olivedrab1"</span>,<span class='st'>"orange"</span>,<span class='st'>"green"</span>,<span class='st'>"mediumturquoise"</span>,<span class='st'>"mediumorchid2"</span>,<span class='st'>"firebrick1"</span><span class='op'>)</span>
+<span class='fu'>PlotBubble</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>state.x77</span><span class='op'>[</span>,<span class='st'>"Income"</span><span class='op'>]</span>, y <span class='op'>=</span> <span class='va'>state.x77</span><span class='op'>[</span>,<span class='st'>"Life Exp"</span><span class='op'>]</span>, cex<span class='op'>=</span><span class='fl'>.00004</span>,
+           area <span class='op'>=</span> <span class='va'>state.x77</span><span class='op'>[</span>,<span class='st'>"Population"</span><span class='op'>]</span>, col <span class='op'>=</span> <span class='va'>cols</span><span class='op'>[</span><span class='va'>state.region</span><span class='op'>]</span>, border<span class='op'>=</span><span class='st'>"grey50"</span>,
+           panel.first<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/graphics/grid.html'>grid</a></span><span class='op'>(</span><span class='op'>)</span>, xlab<span class='op'>=</span><span class='st'>"Income"</span>, ylab<span class='op'>=</span><span class='st'>"Life Exp."</span>, las<span class='op'>=</span><span class='fl'>1</span>
+<span class='op'>)</span>
+</div><div class='input'>
+<span class='fu'><a href='BubbleLegend.html'>BubbleLegend</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"topright"</span>, area <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20000</span>, <span class='fl'>10000</span>, <span class='fl'>1000</span><span class='op'>)</span>, cex<span class='op'>=</span><span class='fl'>.00004</span>, frame<span class='op'>=</span><span class='cn'>NA</span>,
+             cols<span class='op'>=</span><span class='va'>cols</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span>, labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20000</span>, <span class='fl'>10000</span>, <span class='fl'>1000</span><span class='op'>)</span>, cex.names<span class='op'>=</span><span class='fl'>0.7</span><span class='op'>)</span>
+</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/graphics/legend.html'>legend</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='st'>"bottomright"</span>, fill<span class='op'>=</span><span class='va'>cols</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>, legend<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>state.region</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='PlotBubble-2.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -295,7 +303,7 @@ This behaviour is the same as in <code><a href='https://rdrr.io/r/graphics/symbo
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

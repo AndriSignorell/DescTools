@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -138,9 +138,9 @@
     <p>Standardize model coefficients by Standard Deviation or Partial Standard Deviation.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>StdCoef</span>(<span class='no'>x</span>, <span class='kw'>partial.sd</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>StdCoef</span><span class='op'>(</span><span class='va'>x</span>, partial.sd <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>PartialSD</span>(<span class='no'>x</span>)</pre>
+<span class='fu'>PartialSD</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -210,6 +210,9 @@ increase can only occur from 0 to 1, and therefore, the standardized coeffient i
     <p>A matrix with at least two columns for standardized coefficient estimate and
    its standard error. Optionally, third column holds degrees of freedom
    associated with the coefficients.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Kamil Bartoń</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     
@@ -229,13 +232,14 @@ Statistician</em> 48, 209-213.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># Fit model to original data:</span>
-<span class='no'>fm</span>  <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>Fertility</span> ~ <span class='no'>Agriculture</span> + <span class='no'>Examination</span> + <span class='no'>Education</span> + <span class='no'>Catholic</span>,
-          <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>swiss</span>)
+<span class='va'>fm</span>  <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>Fertility</span> <span class='op'>~</span> <span class='va'>Agriculture</span> <span class='op'>+</span> <span class='va'>Examination</span> <span class='op'>+</span> <span class='va'>Education</span> <span class='op'>+</span> <span class='va'>Catholic</span>,
+          data <span class='op'>=</span> <span class='va'>swiss</span><span class='op'>)</span>
 
 <span class='co'># Partial SD for the default formula:</span>
-<span class='no'>psd</span> <span class='kw'>&lt;-</span> <span class='fu'>PartialSD</span>(<span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>swiss</span>))[-<span class='fl'>1</span>] <span class='co'># remove first element for intercept</span></div><div class='output co'>#&gt; <span class='warning'>Warning: longer object length is not a multiple of shorter object length</span></div><div class='input'>
+<span class='va'>psd</span> <span class='op'>&lt;-</span> <span class='fu'>PartialSD</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>swiss</span><span class='op'>)</span><span class='op'>)</span><span class='op'>[</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span> <span class='co'># remove first element for intercept</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: longer object length is not a multiple of shorter object length</span></div><div class='input'>
 <span class='co'># Standardize data:</span>
-<span class='no'>zswiss</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/scale.html'>scale</a></span>(<span class='no'>swiss</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>NA</span>, <span class='no'>psd</span>), <span class='kw'>center</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='va'>zswiss</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/scale.html'>scale</a></span><span class='op'>(</span><span class='va'>swiss</span>, scale <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>NA</span>, <span class='va'>psd</span><span class='op'>)</span>, center <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 <span class='co'># Note: first element of 'scale' is set to NA to ignore the first column 'y'</span>
 
 <span class='co'># Coefficients of a model fitted to standardized data:</span>
@@ -245,18 +249,19 @@ Statistician</em> 48, 209-213.</p>
 
 
 <span class='co'># Standardizing nonlinear models:</span>
-<span class='no'>fam</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/family.html'>Gamma</a></span>(<span class='st'>"inverse"</span>)
-<span class='no'>fmg</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='no'>Fertility</span>) ~ <span class='no'>Agriculture</span> + <span class='no'>Examination</span> + <span class='no'>Education</span> + <span class='no'>Catholic</span>,
-           <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>swiss</span>, <span class='kw'>family</span> <span class='kw'>=</span> <span class='no'>fam</span>)
+<span class='va'>fam</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/family.html'>Gamma</a></span><span class='op'>(</span><span class='st'>"inverse"</span><span class='op'>)</span>
+<span class='va'>fmg</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>Fertility</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>Agriculture</span> <span class='op'>+</span> <span class='va'>Examination</span> <span class='op'>+</span> <span class='va'>Education</span> <span class='op'>+</span> <span class='va'>Catholic</span>,
+           data <span class='op'>=</span> <span class='va'>swiss</span>, family <span class='op'>=</span> <span class='va'>fam</span><span class='op'>)</span>
 
-<span class='no'>psdg</span> <span class='kw'>&lt;-</span> <span class='fu'>PartialSD</span>(<span class='no'>fmg</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: longer object length is not a multiple of shorter object length</span></div><div class='input'># zGPA &lt;- stdize(GPA, scale = c(NA, psdg[-1]), center = FALSE)
-# fmgz &lt;- glm(log(y) ~ z.x1 + z.x2 + z.x3 + z.x4, zGPA, family = fam)
+<span class='va'>psdg</span> <span class='op'>&lt;-</span> <span class='fu'>PartialSD</span><span class='op'>(</span><span class='va'>fmg</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: longer object length is not a multiple of shorter object length</span></div><div class='input'><span class='co'># zGPA &lt;- stdize(GPA, scale = c(NA, psdg[-1]), center = FALSE)</span>
+<span class='co'># fmgz &lt;- glm(log(y) ~ z.x1 + z.x2 + z.x3 + z.x4, zGPA, family = fam)</span>
 
-# Coefficients using standardized data:
-# coef(fmgz) # (intercept is unchanged because the variables haven't been
-           #  centred)
-# Standardized coefficients:
-# coef(fmg) * psdg
+<span class='co'># Coefficients using standardized data:</span>
+<span class='co'># coef(fmgz) # (intercept is unchanged because the variables haven't been</span>
+           <span class='co'>#  centred)</span>
+<span class='co'># Standardized coefficients:</span>
+<span class='co'># coef(fmg) * psdg</span>
 
 </div></pre>
   </div>
@@ -274,7 +279,7 @@ Statistician</em> 48, 209-213.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

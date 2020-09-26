@@ -75,7 +75,7 @@ a contingency table or ftable object by re-assigning levels of the table variabl
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -140,7 +140,7 @@ a contingency table or ftable object by re-assigning levels of the table variabl
 a contingency table or <code>ftable</code> object by re-assigning levels of the table variables.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>CollapseTable</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>CollapseTable</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -166,6 +166,9 @@ to the corresponding dimension of the table. Missing argument names are allowed 
 
     <p>A <code>table</code> object (even if the input was an ftable), representing the original table with
 one or more of its factors collapsed or rearranged into other levels.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Michael Friendly &lt;friendly@yorku.ca&gt;, Andri Signorell &lt;andri@signorell.net&gt;</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='Untable.html'>Untable</a></code></p>
@@ -174,15 +177,16 @@ summing over table dimensions.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># create some sample data in table form</span>
-<span class='no'>sex</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Male"</span>, <span class='st'>"Female"</span>)
-<span class='no'>age</span> <span class='kw'>&lt;-</span> <span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>6</span>]
-<span class='no'>education</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"low"</span>, <span class='st'>'med'</span>, <span class='st'>'high'</span>)
-<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span>(<span class='kw'>sex</span><span class='kw'>=</span><span class='no'>sex</span>, <span class='kw'>age</span><span class='kw'>=</span><span class='no'>age</span>, <span class='kw'>education</span><span class='kw'>=</span><span class='no'>education</span>)
-<span class='no'>counts</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span>(<span class='fl'>36</span>, <span class='fl'>100</span>)
-<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='no'>data</span>, <span class='no'>counts</span>)
-<span class='no'>t1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span>(<span class='no'>counts</span> ~ <span class='no'>sex</span> + <span class='no'>age</span> + <span class='no'>education</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>data</span>)
+<span class='va'>sex</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Male"</span>, <span class='st'>"Female"</span><span class='op'>)</span>
+<span class='va'>age</span> <span class='op'>&lt;-</span> <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>6</span><span class='op'>]</span>
+<span class='va'>education</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"low"</span>, <span class='st'>'med'</span>, <span class='st'>'high'</span><span class='op'>)</span>
+<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span><span class='op'>(</span>sex<span class='op'>=</span><span class='va'>sex</span>, age<span class='op'>=</span><span class='va'>age</span>, education<span class='op'>=</span><span class='va'>education</span><span class='op'>)</span>
+<span class='va'>counts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span><span class='fl'>36</span>, <span class='fl'>100</span><span class='op'>)</span>
+<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>counts</span><span class='op'>)</span>
+<span class='va'>t1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span><span class='op'>(</span><span class='va'>counts</span> <span class='op'>~</span> <span class='va'>sex</span> <span class='op'>+</span> <span class='va'>age</span> <span class='op'>+</span> <span class='va'>education</span>, data<span class='op'>=</span><span class='va'>data</span><span class='op'>)</span>
 
-<span class='fu'><a href='Desc.html'>Desc</a></span>(<span class='no'>t1</span>)</div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
+<span class='fu'><a href='Desc.html'>Desc</a></span><span class='op'>(</span><span class='va'>t1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
 #&gt; <span style='font-weight: bold;'>t1 (xtabs, table)</span><span>
 #&gt; 
 #&gt; Summary: 
@@ -223,8 +227,9 @@ summing over table dimensions.</p></div>
 
 
 <span class='co'># collapse age to 3 levels</span>
-<span class='no'>t2</span> <span class='kw'>&lt;-</span> <span class='fu'>CollapseTable</span>(<span class='no'>t1</span>, <span class='kw'>age</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"A"</span>, <span class='st'>"A"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"C"</span>, <span class='st'>"C"</span>))
-<span class='fu'><a href='Desc.html'>Desc</a></span>(<span class='no'>t2</span>)</div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
+<span class='va'>t2</span> <span class='op'>&lt;-</span> <span class='fu'>CollapseTable</span><span class='op'>(</span><span class='va'>t1</span>, age<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>, <span class='st'>"A"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"C"</span>, <span class='st'>"C"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='Desc.html'>Desc</a></span><span class='op'>(</span><span class='va'>t2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
 #&gt; </span><span style='font-weight: bold;'>t2 (table)</span><span>
 #&gt; 
 #&gt; Summary: 
@@ -256,9 +261,10 @@ summing over table dimensions.</p></div>
 
 
 <span class='co'># collapse age to 3 levels and pool education: "low" and "med" to "low"</span>
-<span class='no'>t3</span> <span class='kw'>&lt;-</span> <span class='fu'>CollapseTable</span>(<span class='no'>t1</span>, <span class='kw'>age</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"A"</span>, <span class='st'>"A"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"C"</span>, <span class='st'>"C"</span>),
-    <span class='kw'>education</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"low"</span>, <span class='st'>"low"</span>, <span class='st'>"high"</span>))
-<span class='fu'><a href='Desc.html'>Desc</a></span>(<span class='no'>t3</span>)</div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
+<span class='va'>t3</span> <span class='op'>&lt;-</span> <span class='fu'>CollapseTable</span><span class='op'>(</span><span class='va'>t1</span>, age<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>, <span class='st'>"A"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"C"</span>, <span class='st'>"C"</span><span class='op'>)</span>,
+    education<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"low"</span>, <span class='st'>"low"</span>, <span class='st'>"high"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='Desc.html'>Desc</a></span><span class='op'>(</span><span class='va'>t3</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
 #&gt; </span><span style='font-weight: bold;'>t3 (table)</span><span>
 #&gt; 
 #&gt; Summary: 
@@ -289,8 +295,9 @@ summing over table dimensions.</p></div>
 
 
 <span class='co'># change labels for levels of education to 1:3</span>
-<span class='no'>t4</span> <span class='kw'>&lt;-</span> <span class='fu'>CollapseTable</span>(<span class='no'>t1</span>,  <span class='kw'>education</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>3</span>)
-<span class='fu'><a href='Desc.html'>Desc</a></span>(<span class='no'>t4</span>)</div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
+<span class='va'>t4</span> <span class='op'>&lt;-</span> <span class='fu'>CollapseTable</span><span class='op'>(</span><span class='va'>t1</span>,  education<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span>
+<span class='fu'><a href='Desc.html'>Desc</a></span><span class='op'>(</span><span class='va'>t4</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
 #&gt; </span><span style='font-weight: bold;'>t4 (table)</span><span>
 #&gt; 
 #&gt; Summary: 
@@ -320,14 +327,14 @@ summing over table dimensions.</p></div>
 #&gt;        e             194 220 181 595
 #&gt;        f             187 207 184 578
 #&gt; </div><div class='img'><img src='CollapseTable-4.png' alt='' width='700' height='433' /></div><div class='input'>
-##                  age   a   b   c   d   e   f
-## sex    education
-## Male   1             119 101 109  85  99  93
-##        2              94  98 103 108  84  84
-##        3              81  88  96 110 100  92
-## Female 1             107 104  95  86 103  96
-##        2             104  98  94  95 110 106
-##        3              93  85  90 109  99  86
+<span class='co'>##                  age   a   b   c   d   e   f</span>
+<span class='co'>## sex    education</span>
+<span class='co'>## Male   1             119 101 109  85  99  93</span>
+<span class='co'>##        2              94  98 103 108  84  84</span>
+<span class='co'>##        3              81  88  96 110 100  92</span>
+<span class='co'>## Female 1             107 104  95  86 103  96</span>
+<span class='co'>##        2             104  98  94  95 110 106</span>
+<span class='co'>##        3              93  85  90 109  99  86</span>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -344,7 +351,7 @@ summing over table dimensions.</p></div>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

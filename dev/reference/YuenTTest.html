@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -138,14 +138,14 @@
     <p>Performs one and two sample Yuen t-tests for trimmed means on vectors of data.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>YuenTTest</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>YuenTTest</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>YuenTTest</span>(<span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>alternative</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"two.sided"</span>, <span class='st'>"less"</span>, <span class='st'>"greater"</span>),
-          <span class='kw'>mu</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>paired</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>trim</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='no'>...</span> )
+<span class='fu'>YuenTTest</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, alternative <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"two.sided"</span>, <span class='st'>"less"</span>, <span class='st'>"greater"</span><span class='op'>)</span>, 
+          mu <span class='op'>=</span> <span class='fl'>0</span>, paired <span class='op'>=</span> <span class='cn'>FALSE</span>, conf.level <span class='op'>=</span> <span class='fl'>0.95</span>, trim <span class='op'>=</span> <span class='fl'>0.2</span>, <span class='va'>...</span> <span class='op'>)</span>
 
 <span class='co'># S3 method for formula</span>
-<span class='fu'>YuenTTest</span>(<span class='no'>formula</span>, <span class='no'>data</span>, <span class='no'>subset</span>, <span class='no'>na.action</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>YuenTTest</span><span class='op'>(</span><span class='va'>formula</span>, <span class='va'>data</span>, <span class='va'>subset</span>, <span class='va'>na.action</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -224,13 +224,17 @@
 
     <p>Wilcox, R. R. (2005) Introduction to robust estimation and hypothesis testing. <em>Academic Press</em>.<br />
 Yuen, K. K. (1974) The two-sample trimmed t for unequal population variances. <em>Biometrika</em>, 61, 165-170.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;, based on R-Core code of <code><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></code></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></code>, <code><a href='https://rdrr.io/r/stats/print.power.htest.html'>print.htest</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>25</span>, <span class='fl'>100</span>, <span class='fl'>5</span>)
-<span class='fu'>YuenTTest</span>(<span class='no'>x</span>, <span class='kw'>mu</span><span class='kw'>=</span><span class='fl'>99</span>)</div><div class='output co'>#&gt; 
+    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>25</span>, <span class='fl'>100</span>, <span class='fl'>5</span><span class='op'>)</span>
+<span class='fu'>YuenTTest</span><span class='op'>(</span><span class='va'>x</span>, mu<span class='op'>=</span><span class='fl'>99</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; 	Yuen One Sample t-test
 #&gt; 
 #&gt; data:  x
@@ -243,7 +247,8 @@ Yuen, K. K. (1974) The two-sample trimmed t for unequal population variances. <e
 #&gt;              97.7 
 #&gt; </div><div class='input'>
 <span class='co'># the classic interface</span>
-<span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='no'>sleep</span>, <span class='fu'>YuenTTest</span>(<span class='no'>extra</span>[<span class='no'>group</span> <span class='kw'>==</span> <span class='fl'>1</span>], <span class='no'>extra</span>[<span class='no'>group</span> <span class='kw'>==</span> <span class='fl'>2</span>]))</div><div class='output co'>#&gt; 
+<span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span><span class='op'>(</span><span class='va'>sleep</span>, <span class='fu'>YuenTTest</span><span class='op'>(</span><span class='va'>extra</span><span class='op'>[</span><span class='va'>group</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>]</span>, <span class='va'>extra</span><span class='op'>[</span><span class='va'>group</span> <span class='op'>==</span> <span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; 	Yuen Two Sample t-test
 #&gt; 
 #&gt; data:  extra[group == 1] and extra[group == 2]
@@ -256,7 +261,8 @@ Yuen, K. K. (1974) The two-sample trimmed t for unequal population variances. <e
 #&gt;             0.533             2.200 
 #&gt; </div><div class='input'>
 <span class='co'># the formula interface</span>
-<span class='fu'>YuenTTest</span>(<span class='no'>extra</span> ~ <span class='no'>group</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>sleep</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>YuenTTest</span><span class='op'>(</span><span class='va'>extra</span> <span class='op'>~</span> <span class='va'>group</span>, data <span class='op'>=</span> <span class='va'>sleep</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; 	Yuen Two Sample t-test
 #&gt; 
 #&gt; data:  extra by group
@@ -270,9 +276,10 @@ Yuen, K. K. (1974) The two-sample trimmed t for unequal population variances. <e
 #&gt; </div><div class='input'>
 
 <span class='co'># Stahel (2002), pp. 186, 196  </span>
-<span class='no'>d.tyres</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>A</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>44.5</span>,<span class='fl'>55</span>,<span class='fl'>52.5</span>,<span class='fl'>50.2</span>,<span class='fl'>45.3</span>,<span class='fl'>46.1</span>,<span class='fl'>52.1</span>,<span class='fl'>50.5</span>,<span class='fl'>50.6</span>,<span class='fl'>49.2</span>),
-                      <span class='kw'>B</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>44.9</span>,<span class='fl'>54.8</span>,<span class='fl'>55.6</span>,<span class='fl'>55.2</span>,<span class='fl'>55.6</span>,<span class='fl'>47.7</span>,<span class='fl'>53</span>,<span class='fl'>49.1</span>,<span class='fl'>52.3</span>,<span class='fl'>50.7</span>))
-<span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='no'>d.tyres</span>, <span class='fu'>YuenTTest</span>(<span class='no'>A</span>, <span class='no'>B</span>, <span class='kw'>paired</span><span class='kw'>=</span><span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; 
+<span class='va'>d.tyres</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>A<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>44.5</span>,<span class='fl'>55</span>,<span class='fl'>52.5</span>,<span class='fl'>50.2</span>,<span class='fl'>45.3</span>,<span class='fl'>46.1</span>,<span class='fl'>52.1</span>,<span class='fl'>50.5</span>,<span class='fl'>50.6</span>,<span class='fl'>49.2</span><span class='op'>)</span>,
+                      B<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>44.9</span>,<span class='fl'>54.8</span>,<span class='fl'>55.6</span>,<span class='fl'>55.2</span>,<span class='fl'>55.6</span>,<span class='fl'>47.7</span>,<span class='fl'>53</span>,<span class='fl'>49.1</span>,<span class='fl'>52.3</span>,<span class='fl'>50.7</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span><span class='op'>(</span><span class='va'>d.tyres</span>, <span class='fu'>YuenTTest</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>B</span>, paired<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; 	Yuen Paired t-test
 #&gt; 
 #&gt; data:  A and B
@@ -285,9 +292,10 @@ Yuen, K. K. (1974) The two-sample trimmed t for unequal population variances. <e
 #&gt;                       -2.73 
 #&gt; </div><div class='input'>
 
-<span class='no'>d.oxen</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>ext</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2.7</span>,<span class='fl'>2.7</span>,<span class='fl'>1.1</span>,<span class='fl'>3.0</span>,<span class='fl'>1.9</span>,<span class='fl'>3.0</span>,<span class='fl'>3.8</span>,<span class='fl'>3.8</span>,<span class='fl'>0.3</span>,<span class='fl'>1.9</span>,<span class='fl'>1.9</span>),
-                     <span class='kw'>int</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>6.5</span>,<span class='fl'>5.4</span>,<span class='fl'>8.1</span>,<span class='fl'>3.5</span>,<span class='fl'>0.5</span>,<span class='fl'>3.8</span>,<span class='fl'>6.8</span>,<span class='fl'>4.9</span>,<span class='fl'>9.5</span>,<span class='fl'>6.2</span>,<span class='fl'>4.1</span>))
-<span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='no'>d.oxen</span>, <span class='fu'>YuenTTest</span>(<span class='no'>int</span>, <span class='no'>ext</span>, <span class='kw'>paired</span><span class='kw'>=</span><span class='fl'>FALSE</span>))</div><div class='output co'>#&gt; 
+<span class='va'>d.oxen</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>ext<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.7</span>,<span class='fl'>2.7</span>,<span class='fl'>1.1</span>,<span class='fl'>3.0</span>,<span class='fl'>1.9</span>,<span class='fl'>3.0</span>,<span class='fl'>3.8</span>,<span class='fl'>3.8</span>,<span class='fl'>0.3</span>,<span class='fl'>1.9</span>,<span class='fl'>1.9</span><span class='op'>)</span>,
+                     int<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>6.5</span>,<span class='fl'>5.4</span>,<span class='fl'>8.1</span>,<span class='fl'>3.5</span>,<span class='fl'>0.5</span>,<span class='fl'>3.8</span>,<span class='fl'>6.8</span>,<span class='fl'>4.9</span>,<span class='fl'>9.5</span>,<span class='fl'>6.2</span>,<span class='fl'>4.1</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span><span class='op'>(</span><span class='va'>d.oxen</span>, <span class='fu'>YuenTTest</span><span class='op'>(</span><span class='va'>int</span>, <span class='va'>ext</span>, paired<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; 	Yuen Two Sample t-test
 #&gt; 
 #&gt; data:  int and ext
@@ -314,7 +322,7 @@ Yuen, K. K. (1974) The two-sample trimmed t for unequal population variances. <e
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

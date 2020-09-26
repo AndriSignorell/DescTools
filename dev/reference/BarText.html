@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Add the Value Labels to a Barplot
-<!-- %%  ~~function to do ... ~~ --> — BarText • DescTools</title>
+ — BarText • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Add the Value Labels to a Barplot
-<!-- %%  ~~function to do ... ~~ --> — BarText" />
+ — BarText" />
 <meta property="og:description" content="Place text either in the middle of the stacked bars of a barplot or on top of a side by side barplot.
 " />
 
@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -143,8 +143,8 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>BarText</span>(<span class='no'>height</span>, <span class='no'>b</span>, <span class='kw'>labels</span> <span class='kw'>=</span> <span class='no'>height</span>, <span class='kw'>beside</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>horiz</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-        <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"cex"</span>), <span class='kw'>adj</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>top</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>BarText</span><span class='op'>(</span><span class='va'>height</span>, <span class='va'>b</span>, labels <span class='op'>=</span> <span class='va'>height</span>, beside <span class='op'>=</span> <span class='cn'>FALSE</span>, horiz <span class='op'>=</span> <span class='cn'>FALSE</span>,
+        cex <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span><span class='st'>"cex"</span><span class='op'>)</span>, adj <span class='op'>=</span> <span class='cn'>NULL</span>, top <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -197,6 +197,9 @@
 
     <p>It sometimes makes sense to place the data values directly on the bars. The x coordinates of the labels can be found by using <code><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a>()</code> result, if they are to be centered at the top of each bar. <code>BarText()</code> calculates the rest.
 Notice that when the labels are placed on top of the bars, they may be clipped. This can be avoided by setting <code>xpd=TRUE</code>.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/utils/help.html'>help</a></code>
@@ -204,14 +207,25 @@ Notice that when the labels are placed on top of the bars, they may be clipped. 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># simple vector</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>453</span>, <span class='fl'>44</span>, <span class='fl'>56</span>, <span class='fl'>34</span>)
-<span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span>(<span class='no'>x</span>)</div><div class='input'><span class='fu'>BarText</span>(<span class='no'>x</span>, <span class='no'>b</span>, <span class='no'>x</span>)</div><div class='img'><img src='BarText-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>453</span>, <span class='fl'>44</span>, <span class='fl'>56</span>, <span class='fl'>34</span><span class='op'>)</span>
+<span class='va'>b</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='input'><span class='fu'>BarText</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>b</span>, <span class='va'>x</span><span class='op'>)</span>
+</div><div class='img'><img src='BarText-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># more complicated</span>
-<span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span>(<span class='no'>VADeaths</span>, <span class='kw'>horiz</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='no'>hblue</span>, <span class='kw'>beside</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='input'><span class='fu'>BarText</span>(<span class='no'>VADeaths</span>, <span class='kw'>b</span><span class='kw'>=</span><span class='no'>b</span>, <span class='kw'>horiz</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>beside</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>cex</span><span class='kw'>=</span><span class='fl'>0.8</span>)</div><div class='input'><span class='fu'>BarText</span>(<span class='no'>VADeaths</span>, <span class='kw'>b</span><span class='kw'>=</span><span class='no'>b</span>, <span class='kw'>horiz</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>beside</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>cex</span><span class='kw'>=</span><span class='fl'>0.8</span>, <span class='kw'>top</span><span class='kw'>=</span><span class='fl'>FALSE</span>,
-        <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"white"</span>, <span class='kw'>font</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='img'><img src='BarText-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span>(<span class='no'>VADeaths</span>, <span class='kw'>horiz</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='no'>hblue</span>, <span class='kw'>beside</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='input'><span class='fu'>BarText</span>(<span class='no'>VADeaths</span>, <span class='kw'>b</span><span class='kw'>=</span><span class='no'>b</span>, <span class='kw'>horiz</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>beside</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>cex</span><span class='kw'>=</span><span class='fl'>0.8</span>)</div><div class='img'><img src='BarText-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span>(<span class='no'>VADeaths</span>)</div><div class='input'><span class='fu'>BarText</span>(<span class='no'>VADeaths</span>, <span class='kw'>b</span><span class='kw'>=</span><span class='no'>b</span>)</div><div class='img'><img src='BarText-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span>(<span class='no'>VADeaths</span>, <span class='kw'>horiz</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='input'><span class='fu'>BarText</span>(<span class='no'>VADeaths</span>, <span class='kw'>b</span><span class='kw'>=</span><span class='no'>b</span>, <span class='kw'>horiz</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"red"</span>, <span class='kw'>cex</span><span class='kw'>=</span><span class='fl'>1.5</span>)</div><div class='img'><img src='BarText-5.png' alt='' width='700' height='433' /></div></pre>
+<span class='va'>b</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span><span class='op'>(</span><span class='va'>VADeaths</span>, horiz <span class='op'>=</span> <span class='cn'>FALSE</span>, col<span class='op'>=</span><span class='va'>hblue</span>, beside <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='input'><span class='fu'>BarText</span><span class='op'>(</span><span class='va'>VADeaths</span>, b<span class='op'>=</span><span class='va'>b</span>, horiz <span class='op'>=</span> <span class='cn'>FALSE</span>, beside <span class='op'>=</span> <span class='cn'>TRUE</span>, cex<span class='op'>=</span><span class='fl'>0.8</span><span class='op'>)</span>
+</div><div class='input'><span class='fu'>BarText</span><span class='op'>(</span><span class='va'>VADeaths</span>, b<span class='op'>=</span><span class='va'>b</span>, horiz <span class='op'>=</span> <span class='cn'>FALSE</span>, beside <span class='op'>=</span> <span class='cn'>TRUE</span>, cex<span class='op'>=</span><span class='fl'>0.8</span>, top<span class='op'>=</span><span class='cn'>FALSE</span>,
+        col<span class='op'>=</span><span class='st'>"white"</span>, font<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
+</div><div class='img'><img src='BarText-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>b</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span><span class='op'>(</span><span class='va'>VADeaths</span>, horiz <span class='op'>=</span> <span class='cn'>TRUE</span>, col<span class='op'>=</span><span class='va'>hblue</span>, beside <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='input'><span class='fu'>BarText</span><span class='op'>(</span><span class='va'>VADeaths</span>, b<span class='op'>=</span><span class='va'>b</span>, horiz <span class='op'>=</span> <span class='cn'>TRUE</span>, beside <span class='op'>=</span> <span class='cn'>TRUE</span>, cex<span class='op'>=</span><span class='fl'>0.8</span><span class='op'>)</span>
+</div><div class='img'><img src='BarText-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>b</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span><span class='op'>(</span><span class='va'>VADeaths</span><span class='op'>)</span>
+</div><div class='input'><span class='fu'>BarText</span><span class='op'>(</span><span class='va'>VADeaths</span>, b<span class='op'>=</span><span class='va'>b</span><span class='op'>)</span>
+</div><div class='img'><img src='BarText-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>b</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span><span class='op'>(</span><span class='va'>VADeaths</span>, horiz <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='input'><span class='fu'>BarText</span><span class='op'>(</span><span class='va'>VADeaths</span>, b<span class='op'>=</span><span class='va'>b</span>, horiz <span class='op'>=</span> <span class='cn'>TRUE</span>, col<span class='op'>=</span><span class='st'>"red"</span>, cex<span class='op'>=</span><span class='fl'>1.5</span><span class='op'>)</span>
+</div><div class='img'><img src='BarText-5.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -227,7 +241,7 @@ Notice that when the labels are placed on top of the bars, they may be clipped. 
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Get All Pairs Out of One or Two Sets of Elements
-<!-- %%  ~~function to do ... ~~ --> — CombPairs • DescTools</title>
+ — CombPairs • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Get All Pairs Out of One or Two Sets of Elements
-<!-- %%  ~~function to do ... ~~ --> — CombPairs" />
+ — CombPairs" />
 <meta property="og:description" content="Returns all combinations of 2 out of the elements in x or x and y (if defined). Combinations of the same elements will be dropped (no replacing).
 " />
 
@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -143,7 +143,7 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>CombPairs</span>(<span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>CombPairs</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -169,19 +169,25 @@ If y is defined then all combinations of x and y are calculated.
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>CombPairs</code> returns a data.frame with 2 columns X1 and X2.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;
+<!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/utils/combn.html'>combn</a></code>, <code><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></code>, <code><a href='https://rdrr.io/r/base/outer.html'>outer</a></code>, <code><a href='https://rdrr.io/r/base/lower.tri.html'>lower.tri</a></code>
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>CombPairs</span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>4</span>])</div><div class='output co'>#&gt;   X1 X2
+    <pre class="examples"><div class='input'><span class='fu'>CombPairs</span><span class='op'>(</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   X1 X2
 #&gt; 1  a  b
 #&gt; 2  a  c
 #&gt; 3  a  d
 #&gt; 4  b  c
 #&gt; 5  b  d
-#&gt; 6  c  d</div><div class='input'><span class='fu'>CombPairs</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>4</span>], <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>LETTERS</span>[<span class='fl'>1</span>:<span class='fl'>2</span>])</div><div class='output co'>#&gt;   Var1 Var2
+#&gt; 6  c  d</div><div class='input'><span class='fu'>CombPairs</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>, y <span class='op'>=</span> <span class='va'>LETTERS</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   Var1 Var2
 #&gt; 1    a    A
 #&gt; 2    b    A
 #&gt; 3    c    A
@@ -191,7 +197,8 @@ If y is defined then all combinations of x and y are calculated.
 #&gt; 7    c    B
 #&gt; 8    d    B</div><div class='input'>
 <span class='co'># get all pairs of combinations between factors and numerics out of a data.frame</span>
-<span class='fu'>CombPairs</span>(<span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>(<span class='no'>d.pizza</span>, <span class='no'>IsNumeric</span>)), <span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>(<span class='no'>d.pizza</span>, <span class='no'>is.factor</span>)))</div><div class='output co'>#&gt;   Var1 Var2
+<span class='fu'>CombPairs</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span><span class='va'>d.pizza</span>, <span class='va'>IsNumeric</span><span class='op'>)</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span><span class='va'>d.pizza</span>, <span class='va'>is.factor</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   Var1 Var2
 #&gt; 1    1    5
 #&gt; 2   11    5
 #&gt; 3    1    9
@@ -215,7 +222,7 @@ If y is defined then all combinations of x and y are calculated.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

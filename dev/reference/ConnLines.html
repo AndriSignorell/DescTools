@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Add Connection Lines to a Barplot
-<!-- %%  ~~function to do ... ~~ --> — ConnLines • DescTools</title>
+ — ConnLines • DescTools</title>
 
 
 <!-- jquery -->
@@ -43,7 +43,7 @@
   
 
 <meta property="og:title" content="Add Connection Lines to a Barplot
-<!-- %%  ~~function to do ... ~~ --> — ConnLines" />
+ — ConnLines" />
 <meta property="og:description" content="Add connection lines to a stacked barplot (beside = TRUE is not supported). The function expects exactly the same arguments, that were
 used to create the barplot.
 " />
@@ -78,7 +78,7 @@ used to create the barplot.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -145,7 +145,7 @@ used to create the barplot.
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>ConnLines</span>(<span class='no'>...</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>lty</span> <span class='kw'>=</span> <span class='st'>"solid"</span>, <span class='kw'>xalign</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"mar"</span>,<span class='st'>"mid"</span>))</pre>
+    <pre class="usage"><span class='fu'>ConnLines</span><span class='op'>(</span><span class='va'>...</span>, col <span class='op'>=</span> <span class='fl'>1</span>, lwd <span class='op'>=</span> <span class='fl'>1</span>, lty <span class='op'>=</span> <span class='st'>"solid"</span>, xalign <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"mar"</span>,<span class='st'>"mid"</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -179,34 +179,48 @@ either to the margins of the bars ("mar" which is the default) or to "mid". The 
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;
+<!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>tab</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(
-  <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>d.pizza</span>, <span class='no'>driver</span> <span class='kw'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Carpenter"</span>,<span class='st'>"Miller"</span>,<span class='st'>"Farmer"</span>,<span class='st'>"Butcher"</span>)),
-  <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>driver</span>), <span class='fu'><a href='DateFunctions.html'>Weekday</a></span>(<span class='no'>date</span>, <span class='st'>"dd"</span>, <span class='kw'>stringsAsFactor</span><span class='kw'>=</span><span class='fl'>TRUE</span>))
-)
-<span class='no'>tab</span></div><div class='output co'>#&gt;            
+    <pre class="examples"><div class='input'><span class='va'>tab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span><span class='op'>(</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>d.pizza</span>, <span class='va'>driver</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Carpenter"</span>,<span class='st'>"Miller"</span>,<span class='st'>"Farmer"</span>,<span class='st'>"Butcher"</span><span class='op'>)</span><span class='op'>)</span>,
+  <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>driver</span><span class='op'>)</span>, <span class='fu'><a href='Date Functions.html'>Weekday</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='st'>"dd"</span>, stringsAsFactor<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>)</span>
+<span class='va'>tab</span>
+</div><div class='output co'>#&gt;            
 #&gt;             Mon Tue Wed Thu Fri Sat Sun
 #&gt;   Butcher     0   0   0   0   0  49  44
 #&gt;   Carpenter  45   0   0  57  60  46  57
 #&gt;   Farmer     11  14  27  26  12   9  13
 #&gt;   Miller      7   5   0  19  38  44  10</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span>(<span class='no'>tab</span>, <span class='kw'>beside</span><span class='kw'>=</span><span class='fl'>FALSE</span>, <span class='kw'>space</span><span class='kw'>=</span><span class='fl'>1.2</span>)</div><div class='input'><span class='fu'>ConnLines</span>(<span class='no'>tab</span>, <span class='kw'>beside</span><span class='kw'>=</span><span class='fl'>FALSE</span>, <span class='kw'>space</span><span class='kw'>=</span><span class='fl'>1.2</span>, <span class='kw'>lcol</span><span class='kw'>=</span><span class='st'>"grey50"</span>, <span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>lty</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='img'><img src='ConnLines-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span>(<span class='no'>tab</span>, <span class='kw'>beside</span><span class='kw'>=</span><span class='fl'>FALSE</span>, <span class='kw'>space</span><span class='kw'>=</span><span class='fl'>1.2</span>, <span class='kw'>horiz</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='input'><span class='fu'>ConnLines</span>(<span class='no'>tab</span>, <span class='kw'>beside</span><span class='kw'>=</span><span class='fl'>FALSE</span>, <span class='kw'>space</span><span class='kw'>=</span><span class='fl'>1.2</span>, <span class='kw'>horiz</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>lcol</span><span class='kw'>=</span><span class='st'>"grey50"</span>, <span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>lty</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='img'><img src='ConnLines-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span><span class='op'>(</span><span class='va'>tab</span>, beside<span class='op'>=</span><span class='cn'>FALSE</span>, space<span class='op'>=</span><span class='fl'>1.2</span><span class='op'>)</span>
+</div><div class='input'><span class='fu'>ConnLines</span><span class='op'>(</span><span class='va'>tab</span>, beside<span class='op'>=</span><span class='cn'>FALSE</span>, space<span class='op'>=</span><span class='fl'>1.2</span>, lcol<span class='op'>=</span><span class='st'>"grey50"</span>, lwd<span class='op'>=</span><span class='fl'>1</span>, lty<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
+</div><div class='img'><img src='ConnLines-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span><span class='op'>(</span><span class='va'>tab</span>, beside<span class='op'>=</span><span class='cn'>FALSE</span>, space<span class='op'>=</span><span class='fl'>1.2</span>, horiz<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='input'><span class='fu'>ConnLines</span><span class='op'>(</span><span class='va'>tab</span>, beside<span class='op'>=</span><span class='cn'>FALSE</span>, space<span class='op'>=</span><span class='fl'>1.2</span>, horiz<span class='op'>=</span><span class='cn'>TRUE</span>, lcol<span class='op'>=</span><span class='st'>"grey50"</span>, lwd<span class='op'>=</span><span class='fl'>1</span>, lty<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
+</div><div class='img'><img src='ConnLines-2.png' alt='' width='700' height='433' /></div><div class='input'>
 
-<span class='no'>cols</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='Pal.html'>Pal</a></span>(<span class='st'>"Helsana"</span>)[<span class='fl'>1</span>:<span class='fl'>4</span>]
-<span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span>(<span class='no'>tab</span>, <span class='kw'>beside</span><span class='kw'>=</span><span class='fl'>FALSE</span>, <span class='kw'>horiz</span><span class='kw'>=</span><span class='fl'>FALSE</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='no'>cols</span>)</div><div class='input'><span class='fu'>ConnLines</span>(<span class='no'>tab</span>, <span class='kw'>beside</span><span class='kw'>=</span><span class='fl'>FALSE</span>, <span class='kw'>horiz</span><span class='kw'>=</span><span class='fl'>FALSE</span>, <span class='kw'>lcol</span><span class='kw'>=</span><span class='st'>"grey50"</span>, <span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>lty</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='input'>
+<span class='va'>cols</span> <span class='op'>&lt;-</span> <span class='fu'><a href='DescTools Palettes.html'>Pal</a></span><span class='op'>(</span><span class='st'>"Helsana"</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>
+<span class='va'>b</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span><span class='op'>(</span><span class='va'>tab</span>, beside<span class='op'>=</span><span class='cn'>FALSE</span>, horiz<span class='op'>=</span><span class='cn'>FALSE</span>, col<span class='op'>=</span><span class='va'>cols</span><span class='op'>)</span>
+</div><div class='input'><span class='fu'>ConnLines</span><span class='op'>(</span><span class='va'>tab</span>, beside<span class='op'>=</span><span class='cn'>FALSE</span>, horiz<span class='op'>=</span><span class='cn'>FALSE</span>, lcol<span class='op'>=</span><span class='st'>"grey50"</span>, lwd<span class='op'>=</span><span class='fl'>1</span>, lty<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
+</div><div class='input'>
 <span class='co'># set some labels</span>
-<span class='no'>txt</span> <span class='kw'>&lt;-</span> <span class='no'>tab</span>
-<span class='no'>txt</span>[] <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>gsub</a></span>(<span class='kw'>pattern</span><span class='kw'>=</span><span class='st'>"^0"</span>, <span class='st'>""</span>, <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span>(<span class='no'>tab</span>))       <span class='co'># do not print 0s</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>b</span>, <span class='kw'>y</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='fl'>0</span>,<span class='no'>tab</span>), <span class='fl'>2</span>, <span class='no'>Midx</span>), <span class='fl'>2</span>, <span class='no'>cumsum</span>)), <span class='kw'>labels</span><span class='kw'>=</span><span class='no'>txt</span>,
-     <span class='kw'>col</span><span class='kw'>=</span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='TextContrastColor.html'>TextContrastColor</a></span>(<span class='no'>cols</span>), <span class='kw'>each</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='no'>tab</span>)),
-          <span class='kw'>nrow</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>tab</span>), <span class='kw'>byrow</span><span class='kw'>=</span><span class='fl'>FALSE</span> )))</div><div class='img'><img src='ConnLines-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>txt</span> <span class='op'>&lt;-</span> <span class='va'>tab</span>
+<span class='va'>txt</span><span class='op'>[</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>gsub</a></span><span class='op'>(</span>pattern<span class='op'>=</span><span class='st'>"^0"</span>, <span class='st'>""</span>, <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='va'>tab</span><span class='op'>)</span><span class='op'>)</span>       <span class='co'># do not print 0s</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>b</span>, y<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='va'>tab</span><span class='op'>)</span>, <span class='fl'>2</span>, <span class='va'>Midx</span><span class='op'>)</span>, <span class='fl'>2</span>, <span class='va'>cumsum</span><span class='op'>)</span><span class='op'>)</span>, labels<span class='op'>=</span><span class='va'>txt</span>,
+     col<span class='op'>=</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='TextContrastColor.html'>TextContrastColor</a></span><span class='op'>(</span><span class='va'>cols</span><span class='op'>)</span>, each<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>tab</span><span class='op'>)</span><span class='op'>)</span>,
+          nrow<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>tab</span><span class='op'>)</span>, byrow<span class='op'>=</span><span class='cn'>FALSE</span> <span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='ConnLines-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># align to the middle of the bars</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span>(<span class='no'>tab</span>, <span class='kw'>beside</span><span class='kw'>=</span><span class='fl'>FALSE</span>, <span class='kw'>space</span><span class='kw'>=</span><span class='fl'>1.2</span>)</div><div class='input'><span class='fu'>ConnLines</span>(<span class='no'>tab</span>, <span class='kw'>beside</span><span class='kw'>=</span><span class='fl'>FALSE</span>, <span class='kw'>space</span><span class='kw'>=</span><span class='fl'>1.2</span>, <span class='kw'>lcol</span><span class='kw'>=</span><span class='st'>"grey50"</span>, <span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>lty</span><span class='kw'>=</span><span class='fl'>2</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"mid"</span>)</div><div class='img'><img src='ConnLines-4.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span><span class='op'>(</span><span class='va'>tab</span>, beside<span class='op'>=</span><span class='cn'>FALSE</span>, space<span class='op'>=</span><span class='fl'>1.2</span><span class='op'>)</span>
+</div><div class='input'><span class='fu'>ConnLines</span><span class='op'>(</span><span class='va'>tab</span>, beside<span class='op'>=</span><span class='cn'>FALSE</span>, space<span class='op'>=</span><span class='fl'>1.2</span>, lcol<span class='op'>=</span><span class='st'>"grey50"</span>, lwd<span class='op'>=</span><span class='fl'>1</span>, lty<span class='op'>=</span><span class='fl'>2</span>, method<span class='op'>=</span><span class='st'>"mid"</span><span class='op'>)</span>
+</div><div class='img'><img src='ConnLines-4.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -222,7 +236,7 @@ either to the margins of the bars ("mar" which is the default) or to "mid". The 
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

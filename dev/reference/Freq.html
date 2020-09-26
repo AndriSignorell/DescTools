@@ -76,7 +76,7 @@ Categorical variables will be aggregated by table. The result will contain singl
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -142,12 +142,12 @@ will be cut using the same logic as used by the function <code><a href='https://
 Categorical variables will be aggregated by <code><a href='https://rdrr.io/r/base/table.html'>table</a></code>. The result will contain single and cumulative frequencies for both, absolute values and percentages.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>Freq</span>(<span class='no'>x</span>, <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span>(<span class='no'>x</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)$<span class='no'>breaks</span>, <span class='kw'>include.lowest</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-     <span class='kw'>ord</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"level"</span>, <span class='st'>"desc"</span>, <span class='st'>"asc"</span>, <span class='st'>"name"</span>),
-     <span class='kw'>useNA</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"no"</span>, <span class='st'>"ifany"</span>, <span class='st'>"always"</span>), <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>Freq</span><span class='op'>(</span><span class='va'>x</span>, breaks <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span><span class='op'>(</span><span class='va'>x</span>, plot <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>$</span><span class='va'>breaks</span>, include.lowest <span class='op'>=</span> <span class='cn'>TRUE</span>,
+     ord <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"level"</span>, <span class='st'>"desc"</span>, <span class='st'>"asc"</span>, <span class='st'>"name"</span><span class='op'>)</span>,
+     useNA <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"no"</span>, <span class='st'>"ifany"</span>, <span class='st'>"always"</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for Freq</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span>, digits <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -203,17 +203,21 @@ within the break intervals.
   <dt>cumperc</dt><dd><p>numeric. The cumulative sum of the relative frequencies.</p></dd>
 
 
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='PercTable.html'>PercTable</a></code>, <code><a href='https://rdrr.io/r/base/cut.html'>cut</a></code>, <code><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></code>, <code><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></code>, <code><a href='https://rdrr.io/r/base/table.html'>table</a></code>,
 <code><a href='https://rdrr.io/r/base/proportions.html'>prop.table</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>d.pizza</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>)</span>
 
 <span class='co'># result is a data.frame</span>
-<span class='no'>d.freq</span> <span class='kw'>&lt;-</span> <span class='fu'>Freq</span>(<span class='no'>d.pizza</span>$<span class='no'>price</span>)
-<span class='no'>d.freq</span></div><div class='output co'>#&gt;         level  freq   perc  cumfreq  cumperc
+<span class='va'>d.freq</span> <span class='op'>&lt;-</span> <span class='fu'>Freq</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>price</span><span class='op'>)</span>
+<span class='va'>d.freq</span>
+</div><div class='output co'>#&gt;         level  freq   perc  cumfreq  cumperc
 #&gt; 1      [0,10]     4   0.3%        4     0.3%
 #&gt; 2     (10,20]    96   8.0%      100     8.4%
 #&gt; 3     (20,30]   183  15.3%      283    23.6%
@@ -230,7 +234,8 @@ within the break intervals.
 #&gt; 14  (130,140]     1   0.1%    1'197   100.0%</div><div class='input'>
 <span class='co'># it is printed by default with 3 digits for the percent values,</span>
 <span class='co'># but the number of digits can be defined in the print function</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>d.freq</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>5</span>)</div><div class='output co'>#&gt;         level  freq       perc  cumfreq     cumperc
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>d.freq</span>, digits<span class='op'>=</span><span class='fl'>5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;         level  freq       perc  cumfreq     cumperc
 #&gt; 1      [0,10]     4   0.33417%        4    0.33417%
 #&gt; 2     (10,20]    96   8.02005%      100    8.35422%
 #&gt; 3     (20,30]   183  15.28822%      283   23.64244%
@@ -246,7 +251,8 @@ within the break intervals.
 #&gt; 13  (120,130]     3   0.25063%    1'196   99.91646%
 #&gt; 14  (130,140]     1   0.08354%    1'197  100.00000%</div><div class='input'>
 <span class='co'># sorted by frequency</span>
-<span class='fu'>Freq</span>(<span class='no'>d.pizza</span>$<span class='no'>driver</span>, <span class='kw'>ord</span><span class='kw'>=</span><span class='st'>"desc"</span>)</div><div class='output co'>#&gt;        level  freq   perc  cumfreq  cumperc
+<span class='fu'>Freq</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>driver</span>, ord<span class='op'>=</span><span class='st'>"desc"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;        level  freq   perc  cumfreq  cumperc
 #&gt; 1  Carpenter   272  22.6%      272    22.6%
 #&gt; 2     Carter   234  19.4%      506    42.0%
 #&gt; 3     Taylor   204  16.9%      710    59.0%
@@ -255,7 +261,8 @@ within the break intervals.
 #&gt; 6     Farmer   117   9.7%    1'108    92.0%
 #&gt; 7    Butcher    96   8.0%    1'204   100.0%</div><div class='input'>
 <span class='co'># sorted by name, including NAs</span>
-<span class='fu'>Freq</span>(<span class='no'>d.pizza</span>$<span class='no'>driver</span>, <span class='kw'>ord</span><span class='kw'>=</span><span class='st'>"name"</span>, <span class='kw'>useNA</span><span class='kw'>=</span><span class='st'>"ifany"</span>)</div><div class='output co'>#&gt;        level  freq   perc  cumfreq  cumperc
+<span class='fu'>Freq</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>driver</span>, ord<span class='op'>=</span><span class='st'>"name"</span>, useNA<span class='op'>=</span><span class='st'>"ifany"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;        level  freq   perc  cumfreq  cumperc
 #&gt; 1    Butcher    96   7.9%       96     7.9%
 #&gt; 2  Carpenter   272  22.5%      368    30.4%
 #&gt; 3     Carter   234  19.4%      602    49.8%
@@ -265,7 +272,8 @@ within the break intervals.
 #&gt; 7     Taylor   204  16.9%    1'204    99.6%
 #&gt; 8       &lt;NA&gt;     5   0.4%    1'209   100.0%</div><div class='input'>
 <span class='co'># percentages and cumulative frequencies for a vector of count data</span>
-<span class='fu'>Freq</span>(<span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>4</span>,<span class='fl'>12</span>,<span class='fl'>8</span>)))</div><div class='output co'>#&gt;    level  freq   perc  cumfreq  cumperc
+<span class='fu'>Freq</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>4</span>,<span class='fl'>12</span>,<span class='fl'>8</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    level  freq   perc  cumfreq  cumperc
 #&gt; 1      A     2   7.7%        2     7.7%
 #&gt; 2      B     4  15.4%        6    23.1%
 #&gt; 3      C    12  46.2%       18    69.2%
@@ -285,7 +293,7 @@ within the break intervals.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -78,7 +78,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -146,10 +146,10 @@
   estimator, the estimates of the thresholds and the covariance matrix of the estimates are also available.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>CorPolychor</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>ML</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='kw'>std.err</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>maxcor</span><span class='kw'>=</span><span class='fl'>.9999</span>)
+    <pre class="usage"><span class='fu'>CorPolychor</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, ML <span class='op'>=</span> <span class='cn'>FALSE</span>, control <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>, std.err <span class='op'>=</span> <span class='cn'>FALSE</span>, maxcor<span class='op'>=</span><span class='fl'>.9999</span><span class='op'>)</span>
 
 <span class='co'># S3 method for CorPolychor</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='fl'>3</span>, <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"digits"</span>) - <span class='fl'>3</span>), <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span>, digits <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"digits"</span><span class='op'>)</span> <span class='op'>-</span> <span class='fl'>3</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -219,20 +219,26 @@
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>This is a verbatim copy from polchor function in the package polycor.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>John Fox <a href='mailto:jfox@mcmaster.ca'>jfox@mcmaster.ca</a></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code>hetcor</code>, <code>polyserial</code>, <code>print.CorPolychor</code>, <code><a href='https://rdrr.io/r/stats/optim.html'>optim</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>12345</span>)
-<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='RndPairs.html'>RndPairs</a></span>(<span class='fl'>1000</span>, <span class='fl'>0.6</span>)
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>z</span>[,<span class='fl'>1</span>]
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='no'>z</span>[,<span class='fl'>2</span>]
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>12345</span><span class='op'>)</span>
+<span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='RndPairs.html'>RndPairs</a></span><span class='op'>(</span><span class='fl'>1000</span>, <span class='fl'>0.6</span><span class='op'>)</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='va'>z</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='va'>z</span><span class='op'>[</span>,<span class='fl'>2</span><span class='op'>]</span>
 
-<span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span>(<span class='no'>x</span>, <span class='no'>y</span>)                                  <span class='co'># sample correlation</span></div><div class='output co'>#&gt; [1] 0.6161179</div><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cut.html'>cut</a></span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>Inf</span>, <span class='fl'>.75</span>, <span class='fl'>Inf</span>))
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cut.html'>cut</a></span>(<span class='no'>y</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>Inf</span>, -<span class='fl'>1</span>, <span class='fl'>.5</span>, <span class='fl'>1.5</span>, <span class='fl'>Inf</span>))
+<span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>                                  <span class='co'># sample correlation</span>
+</div><div class='output co'>#&gt; [1] 0.6161179</div><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cut.html'>cut</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='cn'>Inf</span>, <span class='fl'>.75</span>, <span class='cn'>Inf</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cut.html'>cut</a></span><span class='op'>(</span><span class='va'>y</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='cn'>Inf</span>, <span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>.5</span>, <span class='fl'>1.5</span>, <span class='cn'>Inf</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'>CorPolychor</span>(<span class='no'>x</span>, <span class='no'>y</span>)                          <span class='co'># 2-step estimate</span></div><div class='output co'>#&gt; [1] 0.5911583</div><div class='input'><span class='fu'>CorPolychor</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>ML</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>std.err</span><span class='kw'>=</span><span class='fl'>TRUE</span>)   <span class='co'># ML estimate</span></div><div class='output co'>#&gt; $type
+<span class='fu'>CorPolychor</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>                          <span class='co'># 2-step estimate</span>
+</div><div class='output co'>#&gt; [1] 0.5911583</div><div class='input'><span class='fu'>CorPolychor</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, ML<span class='op'>=</span><span class='cn'>TRUE</span>, std.err<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>   <span class='co'># ML estimate</span>
+</div><div class='output co'>#&gt; $type
 #&gt; [1] "polychoric"
 #&gt; 
 #&gt; $rho
@@ -290,7 +296,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

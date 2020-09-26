@@ -76,7 +76,7 @@ in stock, foreign exchange, commodity, and option trading." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -142,9 +142,9 @@ security, derivative, or currency over time. Candlestick charts are a visual aid
 in stock, foreign exchange, commodity, and option trading.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>PlotCandlestick</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-                <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"springgreen4"</span>,<span class='st'>"firebrick"</span>),
-                <span class='kw'>border</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>args.grid</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>PlotCandlestick</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, xlim <span class='op'>=</span> <span class='cn'>NULL</span>, ylim <span class='op'>=</span> <span class='cn'>NULL</span>, 
+                col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"springgreen4"</span>,<span class='st'>"firebrick"</span><span class='op'>)</span>, 
+                border <span class='op'>=</span> <span class='cn'>NA</span>, args.grid <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -183,7 +183,7 @@ in stock, foreign exchange, commodity, and option trading.</p>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>the dots are passed to <code><a href='https://rdrr.io/r/base/plot.html'>plot()</a></code> command</p></td>
+      <td><p>the dots are passed to <code><a href='https://rdrr.io/r/graphics/plot.default.html'>plot()</a></code> command</p></td>
     </tr>
     </table>
 
@@ -197,35 +197,39 @@ If the security closed higher than it opened, the body is white or unfilled, wit
  price at the bottom of the body and the closing price at the top. If the security closed lower than it opened, 
  the body is black, with the opening price at the top and the closing price at the bottom. A candlestick need not
  have either a body or a wick.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='PlotBubble.html'>PlotBubble</a></code>, <code><a href='https://rdrr.io/r/graphics/stars.html'>stars</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>nov</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(
- <span class='st'>"2013-05-28"</span><span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>70.99</span>,<span class='fl'>71.82</span>,<span class='fl'>70.49</span>,<span class='fl'>71.49</span>),
- <span class='st'>"2013-05-29"</span><span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>71.13</span>,<span class='fl'>71.90</span>,<span class='fl'>70.81</span>,<span class='fl'>71.57</span>),
- <span class='st'>"2013-05-30"</span><span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>71.25</span>,<span class='fl'>71.53</span>,<span class='fl'>70.90</span>,<span class='fl'>71.01</span>),
- <span class='st'>"2013-05-31"</span><span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>70.86</span>,<span class='fl'>70.92</span>,<span class='fl'>70.30</span>,<span class='fl'>70.30</span>),
- <span class='st'>"2013-06-03"</span><span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>70.56</span>,<span class='fl'>70.89</span>,<span class='fl'>70.05</span>,<span class='fl'>70.74</span>),
- <span class='st'>"2013-06-04"</span><span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>70.37</span>,<span class='fl'>71.11</span>,<span class='fl'>69.67</span>,<span class='fl'>69.90</span>),
- <span class='st'>"2013-06-05"</span><span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>69.76</span>,<span class='fl'>69.76</span>,<span class='fl'>68.92</span>,<span class='fl'>68.99</span>),
- <span class='st'>"2013-06-06"</span><span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>69.13</span>,<span class='fl'>70.02</span>,<span class='fl'>68.56</span>,<span class='fl'>70.02</span>),
- <span class='st'>"2013-06-07"</span><span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>70.45</span>,<span class='fl'>70.52</span>,<span class='fl'>69.51</span>,<span class='fl'>70.20</span>),
- <span class='st'>"2013-06-10"</span><span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>70.53</span>,<span class='fl'>70.75</span>,<span class='fl'>70.05</span>,<span class='fl'>70.20</span>),
- <span class='st'>"2013-06-11"</span><span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>69.36</span>,<span class='fl'>69.66</span>,<span class='fl'>69.01</span>,<span class='fl'>69.17</span>),
- <span class='st'>"2013-06-12"</span><span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>69.65</span>,<span class='fl'>70.03</span>,<span class='fl'>68.85</span>,<span class='fl'>69.21</span>),
- <span class='st'>"2013-06-13"</span><span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>69.21</span>,<span class='fl'>70.18</span>,<span class='fl'>69.13</span>,<span class='fl'>70.10</span>),
- <span class='st'>"2013-06-14"</span><span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>70.17</span>,<span class='fl'>70.48</span>,<span class='fl'>69.30</span>,<span class='fl'>69.58</span>),
- <span class='st'>"2013-06-17"</span><span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>70.14</span>,<span class='fl'>70.96</span>,<span class='fl'>69.98</span>,<span class='fl'>70.44</span>),
- <span class='st'>"2013-06-18"</span><span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>70.55</span>,<span class='fl'>71.97</span>,<span class='fl'>70.55</span>,<span class='fl'>71.49</span>),
- <span class='st'>"2013-06-19"</span><span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>71.33</span>,<span class='fl'>72.00</span>,<span class='fl'>70.89</span>,<span class='fl'>70.97</span>),
- <span class='st'>"2013-06-20"</span><span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>70.04</span>,<span class='fl'>70.06</span>,<span class='fl'>68.40</span>,<span class='fl'>68.55</span>),
- <span class='st'>"2013-06-21"</span><span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>69.15</span>,<span class='fl'>69.27</span>,<span class='fl'>67.68</span>,<span class='fl'>68.21</span>)
-)
-<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>nov</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"open"</span>,<span class='st'>"high"</span>,<span class='st'>"low"</span>,<span class='st'>"close"</span>)
+    <pre class="examples"><div class='input'><span class='va'>nov</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span>
+ <span class='st'>"2013-05-28"</span><span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>70.99</span>,<span class='fl'>71.82</span>,<span class='fl'>70.49</span>,<span class='fl'>71.49</span><span class='op'>)</span>,
+ <span class='st'>"2013-05-29"</span><span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>71.13</span>,<span class='fl'>71.90</span>,<span class='fl'>70.81</span>,<span class='fl'>71.57</span><span class='op'>)</span>,
+ <span class='st'>"2013-05-30"</span><span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>71.25</span>,<span class='fl'>71.53</span>,<span class='fl'>70.90</span>,<span class='fl'>71.01</span><span class='op'>)</span>,
+ <span class='st'>"2013-05-31"</span><span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>70.86</span>,<span class='fl'>70.92</span>,<span class='fl'>70.30</span>,<span class='fl'>70.30</span><span class='op'>)</span>,
+ <span class='st'>"2013-06-03"</span><span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>70.56</span>,<span class='fl'>70.89</span>,<span class='fl'>70.05</span>,<span class='fl'>70.74</span><span class='op'>)</span>,
+ <span class='st'>"2013-06-04"</span><span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>70.37</span>,<span class='fl'>71.11</span>,<span class='fl'>69.67</span>,<span class='fl'>69.90</span><span class='op'>)</span>,
+ <span class='st'>"2013-06-05"</span><span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>69.76</span>,<span class='fl'>69.76</span>,<span class='fl'>68.92</span>,<span class='fl'>68.99</span><span class='op'>)</span>,
+ <span class='st'>"2013-06-06"</span><span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>69.13</span>,<span class='fl'>70.02</span>,<span class='fl'>68.56</span>,<span class='fl'>70.02</span><span class='op'>)</span>,
+ <span class='st'>"2013-06-07"</span><span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>70.45</span>,<span class='fl'>70.52</span>,<span class='fl'>69.51</span>,<span class='fl'>70.20</span><span class='op'>)</span>,
+ <span class='st'>"2013-06-10"</span><span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>70.53</span>,<span class='fl'>70.75</span>,<span class='fl'>70.05</span>,<span class='fl'>70.20</span><span class='op'>)</span>,
+ <span class='st'>"2013-06-11"</span><span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>69.36</span>,<span class='fl'>69.66</span>,<span class='fl'>69.01</span>,<span class='fl'>69.17</span><span class='op'>)</span>,
+ <span class='st'>"2013-06-12"</span><span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>69.65</span>,<span class='fl'>70.03</span>,<span class='fl'>68.85</span>,<span class='fl'>69.21</span><span class='op'>)</span>,
+ <span class='st'>"2013-06-13"</span><span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>69.21</span>,<span class='fl'>70.18</span>,<span class='fl'>69.13</span>,<span class='fl'>70.10</span><span class='op'>)</span>,
+ <span class='st'>"2013-06-14"</span><span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>70.17</span>,<span class='fl'>70.48</span>,<span class='fl'>69.30</span>,<span class='fl'>69.58</span><span class='op'>)</span>,
+ <span class='st'>"2013-06-17"</span><span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>70.14</span>,<span class='fl'>70.96</span>,<span class='fl'>69.98</span>,<span class='fl'>70.44</span><span class='op'>)</span>,
+ <span class='st'>"2013-06-18"</span><span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>70.55</span>,<span class='fl'>71.97</span>,<span class='fl'>70.55</span>,<span class='fl'>71.49</span><span class='op'>)</span>,
+ <span class='st'>"2013-06-19"</span><span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>71.33</span>,<span class='fl'>72.00</span>,<span class='fl'>70.89</span>,<span class='fl'>70.97</span><span class='op'>)</span>,
+ <span class='st'>"2013-06-20"</span><span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>70.04</span>,<span class='fl'>70.06</span>,<span class='fl'>68.40</span>,<span class='fl'>68.55</span><span class='op'>)</span>,
+ <span class='st'>"2013-06-21"</span><span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>69.15</span>,<span class='fl'>69.27</span>,<span class='fl'>67.68</span>,<span class='fl'>68.21</span><span class='op'>)</span>
+<span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>nov</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"open"</span>,<span class='st'>"high"</span>,<span class='st'>"low"</span>,<span class='st'>"close"</span><span class='op'>)</span>
 
-<span class='fu'>PlotCandlestick</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>nov</span>)), <span class='kw'>y</span><span class='kw'>=</span><span class='no'>nov</span>, <span class='kw'>border</span><span class='kw'>=</span><span class='fl'>NA</span>, <span class='kw'>las</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>""</span>)</div><div class='img'><img src='PlotCandlestick-1.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>PlotCandlestick</span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>nov</span><span class='op'>)</span><span class='op'>)</span>, y<span class='op'>=</span><span class='va'>nov</span>, border<span class='op'>=</span><span class='cn'>NA</span>, las<span class='op'>=</span><span class='fl'>1</span>, ylab<span class='op'>=</span><span class='st'>""</span><span class='op'>)</span>
+</div><div class='img'><img src='PlotCandlestick-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -241,7 +245,7 @@ If the security closed higher than it opened, the body is white or unfilled, wit
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

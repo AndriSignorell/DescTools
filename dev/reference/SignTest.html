@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.37.012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.2</span>
       </span>
     </div>
 
@@ -138,14 +138,14 @@
     <p>Performs one- and two-sample sign tests on vectors of data.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>SignTest</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>SignTest</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>SignTest</span>(<span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>alternative</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"two.sided"</span>, <span class='st'>"less"</span>, <span class='st'>"greater"</span>),
-         <span class='kw'>mu</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>...</span> )
+<span class='fu'>SignTest</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, alternative <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"two.sided"</span>, <span class='st'>"less"</span>, <span class='st'>"greater"</span><span class='op'>)</span>, 
+         mu <span class='op'>=</span> <span class='fl'>0</span>, conf.level <span class='op'>=</span> <span class='fl'>0.95</span>, <span class='va'>...</span> <span class='op'>)</span>
 
 <span class='co'># S3 method for formula</span>
-<span class='fu'>SignTest</span>(<span class='no'>formula</span>, <span class='no'>data</span>, <span class='no'>subset</span>, <span class='no'>na.action</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>SignTest</span><span class='op'>(</span><span class='va'>formula</span>, <span class='va'>data</span>, <span class='va'>subset</span>, <span class='va'>na.action</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -236,16 +236,20 @@ population median for <code>x</code> from <code>mu</code> (i.e., <code>"greater"
 <em>Nonparametric Statistical Inference</em>. Marcel Dekker Inc., New York.</p>
 <p>Kitchens, L. J. (2003): <em>Basic Statistics and Data Analysis</em>. Duxbury.</p>
 <p>Conover, W. J. (1980): <em>Practical Nonparametric Statistics, 2nd ed</em>. Wiley, New York.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andri Signorell &lt;andri@signorell.net&gt;</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></code>, <code><a href='https://rdrr.io/r/stats/wilcox.test.html'>wilcox.test</a></code>, <code><a href='ZTest.html'>ZTest</a></code>, <code><a href='https://rdrr.io/r/stats/binom.test.html'>binom.test</a></code>, 
 <code>SIGN.test</code> in the package <span class="pkg">BSDA</span> (reporting approximative confidence intervals).</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1.83</span>,  <span class='fl'>0.50</span>,  <span class='fl'>1.62</span>,  <span class='fl'>2.48</span>, <span class='fl'>1.68</span>, <span class='fl'>1.88</span>, <span class='fl'>1.55</span>, <span class='fl'>3.06</span>, <span class='fl'>1.30</span>)
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.878</span>, <span class='fl'>0.647</span>, <span class='fl'>0.598</span>, <span class='fl'>2.05</span>, <span class='fl'>1.06</span>, <span class='fl'>1.29</span>, <span class='fl'>1.06</span>, <span class='fl'>3.14</span>, <span class='fl'>1.29</span>)
+    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1.83</span>,  <span class='fl'>0.50</span>,  <span class='fl'>1.62</span>,  <span class='fl'>2.48</span>, <span class='fl'>1.68</span>, <span class='fl'>1.88</span>, <span class='fl'>1.55</span>, <span class='fl'>3.06</span>, <span class='fl'>1.30</span><span class='op'>)</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.878</span>, <span class='fl'>0.647</span>, <span class='fl'>0.598</span>, <span class='fl'>2.05</span>, <span class='fl'>1.06</span>, <span class='fl'>1.29</span>, <span class='fl'>1.06</span>, <span class='fl'>3.14</span>, <span class='fl'>1.29</span><span class='op'>)</span>
 
-<span class='fu'>SignTest</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>SignTest</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; 	Dependent-samples Sign-Test
 #&gt; 
 #&gt; data:  x and y
@@ -256,7 +260,8 @@ population median for <code>x</code> from <code>mu</code> (i.e., <code>"greater"
 #&gt; sample estimates:
 #&gt; median of the differences 
 #&gt;                      0.49 
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/wilcox.test.html'>wilcox.test</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>paired</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; 
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/wilcox.test.html'>wilcox.test</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, paired <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; 	Wilcoxon signed rank exact test
 #&gt; 
 #&gt; data:  x and y
@@ -264,15 +269,16 @@ population median for <code>x</code> from <code>mu</code> (i.e., <code>"greater"
 #&gt; alternative hypothesis: true location shift is not equal to 0
 #&gt; </div><div class='input'>
 
-<span class='no'>d.light</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>black</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>25.85</span>,<span class='fl'>28.84</span>,<span class='fl'>32.05</span>,<span class='fl'>25.74</span>,<span class='fl'>20.89</span>,<span class='fl'>41.05</span>,<span class='fl'>25.01</span>,<span class='fl'>24.96</span>,<span class='fl'>27.47</span>),
-  <span class='no'>white</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>18.23</span>,<span class='fl'>20.84</span>,<span class='fl'>22.96</span>,<span class='fl'>19.68</span>,<span class='fl'>19.5</span>,<span class='fl'>24.98</span>,<span class='fl'>16.61</span>,<span class='fl'>16.07</span>,<span class='fl'>24.59</span>),
-  <span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>7.62</span>,<span class='fl'>8</span>,<span class='fl'>9.09</span>,<span class='fl'>6.06</span>,<span class='fl'>1.39</span>,<span class='fl'>16.07</span>,<span class='fl'>8.4</span>,<span class='fl'>8.89</span>,<span class='fl'>2.88</span>)
-)
+<span class='va'>d.light</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span> 
+  black <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>25.85</span>,<span class='fl'>28.84</span>,<span class='fl'>32.05</span>,<span class='fl'>25.74</span>,<span class='fl'>20.89</span>,<span class='fl'>41.05</span>,<span class='fl'>25.01</span>,<span class='fl'>24.96</span>,<span class='fl'>27.47</span><span class='op'>)</span>,
+  <span class='va'>white</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>18.23</span>,<span class='fl'>20.84</span>,<span class='fl'>22.96</span>,<span class='fl'>19.68</span>,<span class='fl'>19.5</span>,<span class='fl'>24.98</span>,<span class='fl'>16.61</span>,<span class='fl'>16.07</span>,<span class='fl'>24.59</span><span class='op'>)</span>,
+  <span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>7.62</span>,<span class='fl'>8</span>,<span class='fl'>9.09</span>,<span class='fl'>6.06</span>,<span class='fl'>1.39</span>,<span class='fl'>16.07</span>,<span class='fl'>8.4</span>,<span class='fl'>8.89</span>,<span class='fl'>2.88</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='no'>d.light</span>$<span class='no'>d</span>
+<span class='va'>d</span> <span class='op'>&lt;-</span> <span class='va'>d.light</span><span class='op'>$</span><span class='va'>d</span>
 
-<span class='fu'>SignTest</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>d</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='fl'>4</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>SignTest</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>d</span>, mu <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; 	One-sample Sign-Test
 #&gt; 
 #&gt; data:  d
@@ -283,7 +289,8 @@ population median for <code>x</code> from <code>mu</code> (i.e., <code>"greater"
 #&gt; sample estimates:
 #&gt; median of the differences 
 #&gt;                         8 
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/wilcox.test.html'>wilcox.test</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>d</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>conf.int</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; 
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/wilcox.test.html'>wilcox.test</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>d</span>, mu <span class='op'>=</span> <span class='fl'>4</span>, conf.int <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; 	Wilcoxon signed rank exact test
 #&gt; 
 #&gt; data:  d
@@ -295,7 +302,8 @@ population median for <code>x</code> from <code>mu</code> (i.e., <code>"greater"
 #&gt; (pseudo)median 
 #&gt;           7.81 
 #&gt; </div><div class='input'>
-<span class='fu'>SignTest</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>d</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>alternative</span><span class='kw'>=</span><span class='st'>"less"</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>SignTest</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>d</span>, mu <span class='op'>=</span> <span class='fl'>4</span>, alternative<span class='op'>=</span><span class='st'>"less"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; 	One-sample Sign-Test
 #&gt; 
 #&gt; data:  d
@@ -306,7 +314,8 @@ population median for <code>x</code> from <code>mu</code> (i.e., <code>"greater"
 #&gt; sample estimates:
 #&gt; median of the differences 
 #&gt;                         8 
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/wilcox.test.html'>wilcox.test</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>d</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>conf.int</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>alternative</span><span class='kw'>=</span><span class='st'>"less"</span>)</div><div class='output co'>#&gt; 
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/wilcox.test.html'>wilcox.test</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>d</span>, mu <span class='op'>=</span> <span class='fl'>4</span>, conf.int <span class='op'>=</span> <span class='cn'>TRUE</span>, alternative<span class='op'>=</span><span class='st'>"less"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; 	Wilcoxon signed rank exact test
 #&gt; 
 #&gt; data:  d
@@ -318,7 +327,8 @@ population median for <code>x</code> from <code>mu</code> (i.e., <code>"greater"
 #&gt; (pseudo)median 
 #&gt;           7.81 
 #&gt; </div><div class='input'>
-<span class='fu'>SignTest</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>d</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>alternative</span><span class='kw'>=</span><span class='st'>"greater"</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>SignTest</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>d</span>, mu <span class='op'>=</span> <span class='fl'>4</span>, alternative<span class='op'>=</span><span class='st'>"greater"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; 	One-sample Sign-Test
 #&gt; 
 #&gt; data:  d
@@ -329,7 +339,8 @@ population median for <code>x</code> from <code>mu</code> (i.e., <code>"greater"
 #&gt; sample estimates:
 #&gt; median of the differences 
 #&gt;                         8 
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/wilcox.test.html'>wilcox.test</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>d</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>conf.int</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>alternative</span><span class='kw'>=</span><span class='st'>"greater"</span>)</div><div class='output co'>#&gt; 
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/wilcox.test.html'>wilcox.test</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>d</span>, mu <span class='op'>=</span> <span class='fl'>4</span>, conf.int <span class='op'>=</span> <span class='cn'>TRUE</span>, alternative<span class='op'>=</span><span class='st'>"greater"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; 	Wilcoxon signed rank exact test
 #&gt; 
 #&gt; data:  d
@@ -342,12 +353,13 @@ population median for <code>x</code> from <code>mu</code> (i.e., <code>"greater"
 #&gt;           7.81 
 #&gt; </div><div class='input'>
 <span class='co'># test die interfaces</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>10</span>)
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>10</span>)
-<span class='no'>g</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='kw'>each</span><span class='kw'>=</span><span class='fl'>10</span>)
-<span class='no'>xx</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>x</span>, <span class='no'>y</span>)
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>
+<span class='va'>g</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, each<span class='op'>=</span><span class='fl'>10</span><span class='op'>)</span> 
+<span class='va'>xx</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
 
-<span class='fu'>SignTest</span>(<span class='no'>x</span> ~ <span class='no'>group</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>xx</span>, <span class='kw'>group</span><span class='kw'>=</span><span class='no'>g</span> ))</div><div class='output co'>#&gt; 
+<span class='fu'>SignTest</span><span class='op'>(</span><span class='va'>x</span> <span class='op'>~</span> <span class='va'>group</span>, data<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>xx</span>, group<span class='op'>=</span><span class='va'>g</span> <span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; 	Dependent-samples Sign-Test
 #&gt; 
 #&gt; data:  x by group
@@ -358,7 +370,8 @@ population median for <code>x</code> from <code>mu</code> (i.e., <code>"greater"
 #&gt; sample estimates:
 #&gt; median of the differences 
 #&gt;             -0.0001440268 
-#&gt; </div><div class='input'><span class='fu'>SignTest</span>(<span class='no'>xx</span> ~ <span class='no'>g</span>)</div><div class='output co'>#&gt; 
+#&gt; </div><div class='input'><span class='fu'>SignTest</span><span class='op'>(</span><span class='va'>xx</span> <span class='op'>~</span> <span class='va'>g</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; 	Dependent-samples Sign-Test
 #&gt; 
 #&gt; data:  xx by g
@@ -369,7 +382,8 @@ population median for <code>x</code> from <code>mu</code> (i.e., <code>"greater"
 #&gt; sample estimates:
 #&gt; median of the differences 
 #&gt;             -0.0001440268 
-#&gt; </div><div class='input'><span class='fu'>SignTest</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; 
+#&gt; </div><div class='input'><span class='fu'>SignTest</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; 	Dependent-samples Sign-Test
 #&gt; 
 #&gt; data:  x and y
@@ -381,7 +395,8 @@ population median for <code>x</code> from <code>mu</code> (i.e., <code>"greater"
 #&gt; median of the differences 
 #&gt;             -0.0001440268 
 #&gt; </div><div class='input'>
-<span class='fu'>SignTest</span>(<span class='no'>x</span> - <span class='no'>y</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>SignTest</span><span class='op'>(</span><span class='va'>x</span> <span class='op'>-</span> <span class='va'>y</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; 	One-sample Sign-Test
 #&gt; 
 #&gt; data:  x - y
@@ -408,7 +423,7 @@ population median for <code>x</code> from <code>mu</code> (i.e., <code>"greater"
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
