@@ -4270,6 +4270,26 @@ LsObj <- function(package){
 }
 
 
+GetCalls <- function (fun, alphabetic = TRUE, package=NULL) {
+  
+  tmp <- utils::getParseData(parse(text = getAnywhere(fun), keep.source = TRUE))
+  nms <- tmp$text[which(tmp$token == "SYMBOL_FUNCTION_CALL")]
+  funs <- unique(if (alphabetic) {
+    sort(nms)
+  } else {
+    nms
+  })
+  
+  src <- paste(as.vector(sapply(funs, find)))
+  outlist <- tapply(funs, factor(src), c)
+  
+  if(!is.null(package))
+    outlist <- outlist[grep(package, names(outlist))]
+  return(outlist)
+}
+
+
+
 What <- function(x){
 
   list(mode=mode(x), typeof=typeof(x), storage.mode=storage.mode(x),

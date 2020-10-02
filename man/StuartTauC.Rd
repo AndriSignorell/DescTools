@@ -30,11 +30,11 @@ StuartTauC(x, y = NULL, conf.level = NA, ...)
 \details{Stuart's \eqn{\tau_{c}}{tau-c} makes an adjustment for table size in addition to a correction for ties. \eqn{\tau_{c}}{Tau-c} is
 appropriate only when both variables lie on an ordinal scale. \cr
 It is estimated by \cr
-\deqn{ \tau_{c} = \frac{m \cdot(P-Q)}{n^2 \cdot (m-1)}}{tau_c = m / n^2 * (P-Q) / (m-1)}
-where P equals twice the number of concordances and Q twice the number of discordances, n is the total amount of observations and m = min(R, C). The range of \eqn{\tau_{c}}{tau-c} is [-1, 1]. \cr
+\deqn{ \tau_{c} = \frac{2 m \cdot(P-Q)}{n^2 \cdot (m-1)}}{tau_c = 2m * (P-Q) / (n^2 (m-1))}
+where P equals the number of concordances and Q the number of discordances, n is the total amount of observations and m = min(R, C). The range of \eqn{\tau_{c}}{tau-c} is [-1, 1]. \cr
 See \url{http://support.sas.com/documentation/cdl/en/statugfreq/63124/PDF/default/statugfreq.pdf}, pp. 1739 for the estimation of the asymptotic variance.
 
-%%  ~~ If necessary, more details than the description above ~~
+The use of Stuart's Tau-c versus Kendall's Tau-b is recommended when the two ordinal variables under consideration have different numbers of values, e.g. good, medium, bad versus high, low.
 }
 \value{a single numeric value if no confidence intervals are requested,\cr
 and otherwise a numeric vector with 3 elements for the estimate, the lower and the upper confidence interval

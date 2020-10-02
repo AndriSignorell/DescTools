@@ -19,7 +19,8 @@ ConDisPairs(x)
 }
 \details{
 The code is so far implemented in R (O(n^2)) and therefore slow for large sample sizes (>5000).
-An O(n log(n)) implementation is on track.
+
+An O(n log(n)) implementation is available as (so far) undocumented function \code{DescTools:::.DoCount(x, y, wts)} returning only concorant and discordant pairs (not including standard errors to be used for calculating confidence intervals).
 }
 \value{a list with the number of concordant pairs, the number of discordant pairs and
 the matrix
