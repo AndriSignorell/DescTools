@@ -2335,9 +2335,9 @@ as.matrix.xtabs <- function(x, ...){
 }
 
 
-TextToTable <- function(x, dimnames = NULL, ...){
+TextToTable <- function(x, dimnames = NULL, check.names=FALSE, ...){
 
-  d.frm <- read.table(text=x, ...)
+  d.frm <- read.table(text=x, check.names=check.names, ...)
   tab <- as.table(as.matrix(d.frm))
   if(!is.null(dimnames)) names(dimnames(tab)) <- dimnames
 

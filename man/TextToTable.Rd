@@ -4,11 +4,11 @@
 \title{Converts String To a Table
 %%  ~~function to do ... ~~
 }
-\description{Try to convert a string to a table, by first creating a data.frame using read.table. This can then be coerced to a matrix first, and subsequently to a table. The names of the dimensions can be specified.
+\description{Try to convert a string to a table, by first creating a data frame using \code{\link{read.table}}. This can then be coerced to a matrix first, and subsequently to a table. The names of the dimensions can be specified.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-TextToTable(x, dimnames = NULL, ...)
+TextToTable(x, dimnames = NULL, check.names = FALSE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -18,6 +18,7 @@ TextToTable(x, dimnames = NULL, ...)
   \item{dimnames}{the names of the dimensions.
 %%     ~~Describe \code{dimnames} here~~
 }
+\item{check.names}{passed on to \code{\link{read.table}} and determines, if invalid column names should be adapted to valid ones. The default here is changed to \code{FALSE}.}
   \item{\dots}{the dots will be passed to the function \code{\link{read.table}} and can be used for example to specify \code{header}, \code{sep} and \code{row.names} arguments.
 %%     ~~Describe \code{\dots} here~~
 }
