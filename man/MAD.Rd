@@ -6,8 +6,8 @@
 \name{MAD}
 \title{Median Absolute Deviation}
 \usage{
-MAD(x, weights = NULL, center = Median, constant = 1.4826, na.rm = FALSE,
-    low = FALSE, high = FALSE)
+MAD(x, weights = NULL, center = Median, constant = 1.4826, 
+    na.rm = FALSE, low = FALSE, high = FALSE)
 }
 \alias{MAD}
 \arguments{
@@ -15,8 +15,8 @@ MAD(x, weights = NULL, center = Median, constant = 1.4826, na.rm = FALSE,
    \item{weights}{a numerical vector of weights the same length as \code{x} giving the weights to use for elements of \code{x}.
  }
 
-  \item{center}{Optionally, the centre: defaults to the median.}
-  \item{constant}{scale factor. (Default 1.4826)}
+  \item{center}{the centre given either as numeric value or as a function to be applied to \code{x} (defaults to the \code{DescTools::Median(x)}). Note in cases when weights are defined to provide a function that also support weights. If this is not possible fall back to a numeric value.}
+  \item{constant}{scale factor (default is \code{1.4826})}
   \item{na.rm}{if \code{TRUE} then \code{NA} values are stripped
     from \code{x} before computation takes place.}
   \item{low}{if \code{TRUE}, compute the \sQuote{lo-median}, i.e., for even
@@ -61,6 +61,15 @@ sort(abs(x - median(x)))
 c(MAD(x, constant = 1),
   MAD(x, constant = 1, low = TRUE),
   MAD(x, constant = 1, high = TRUE))
+
+# use weights
+x <- sample(20, 30, replace = TRUE)
+z <- as.numeric(names(w <- table(x)))
+
+(m1 <- MAD(z, weights=w))
+(m2 <- MAD(x))
+stopifnot(identical(m1, m2))
+
 }
 \keyword{univar}
 \keyword{robust}

@@ -102,6 +102,13 @@ Median(d.pizza$temperature)
 
 Median(Freq(as.table(c(20,42,31,12))), breaks=c(0,4000,6000,8000,10000))
 
+# use weights
+x <- sample(20, 30, replace = TRUE)
+z <- as.numeric(names(w <- table(x)))
+
+(m1 <- Median(z, weights=w))
+(m2 <- Median(x))
+stopifnot(identical(m1, m2))
 }
 \keyword{univar}
 \keyword{robust}

@@ -3391,8 +3391,12 @@ Zodiac <- function(x, lang = c("engl","deu"), stringsAsFactors = TRUE) {
     , deu =  {z <- c("Steinbock","Wassermann","Fische","Widder","Stier","Zwillinge","Krebs","Loewe","Jungfrau","Waage","Skorpion","Schuetze","Steinbock") }
   )
 
-  i <- cut(DescTools::Month(x)*100 + DescTools::Day(x),
-           breaks=c(0,120,218,320,420,520,621,722,822,923,1023,1122,1221,1231))
+  # i <- cut(DescTools::Month(x)*100 + DescTools::Day(x),
+  #          breaks=c(0,120,218,320,420,520,621,722,822,923,1023,1122,1221,1231))
+  i <- cut(DescTools::Month(x) * 100 + DescTools::Day(x), 
+           breaks = c(0,120,218,320,420,520,621,722,823,922,1023,1122,1222,1231), 
+           right=FALSE, include.lowest = TRUE)
+  
   if(stringsAsFactors){
     res <- i
     levels(res) <- z

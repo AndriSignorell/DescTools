@@ -43,6 +43,9 @@ NormWeights <- function(x, weights, na.rm=FALSE, zero.rm=FALSE, normwt=FALSE) {
   if (length(weights) != n) 
     stop("length of 'weights' must equal the number of rows in 'x'")
   
+  # x and weights have length=0
+  if(length(x)==0)
+    return(list(x = x, weights = x, wsum = NaN))
   
   if (any(weights< 0) || (s <- sum(weights)) == 0) 
     stop("weights must be non-negative and not all zero")
@@ -542,7 +545,9 @@ Quantile <- function(x, weights = NULL, probs = seq(0, 1, 0.25),
                 else x[select]
               })
   
-  return(unname(q))
+  # return(unname(q))
+  # why unname? change to named.. 14.10.2020
+  return(q)
   
 }
 
