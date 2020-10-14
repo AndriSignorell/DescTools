@@ -75,7 +75,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.4</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.5</span>
       </span>
     </div>
 
@@ -241,6 +241,13 @@ We'll wait for definitive results and enjoy the function's comfort so far...</p>
 
 <span class='fu'>Median</span><span class='op'>(</span><span class='fu'><a href='Freq.html'>Freq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>,<span class='fl'>42</span>,<span class='fl'>31</span>,<span class='fl'>12</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>, breaks<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>4000</span>,<span class='fl'>6000</span>,<span class='fl'>8000</span>,<span class='fl'>10000</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 5547.619</div><div class='input'>
+<span class='co'># use weights</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>30</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>w</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='op'>(</span><span class='va'>m1</span> <span class='op'>&lt;-</span> <span class='fu'>Median</span><span class='op'>(</span><span class='va'>z</span>, weights<span class='op'>=</span><span class='va'>w</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 9</div><div class='input'><span class='op'>(</span><span class='va'>m2</span> <span class='op'>&lt;-</span> <span class='fu'>Median</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 9</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/stopifnot.html'>stopifnot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='va'>m1</span>, <span class='va'>m2</span><span class='op'>)</span><span class='op'>)</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
