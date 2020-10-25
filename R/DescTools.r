@@ -13012,29 +13012,51 @@ TOne <- function(x, grp = NA, add.length=TRUE,
   } else {
     num_fun <- FUN
   }
+
   
-  # the default tests for quantitative and categorical data
-  TEST.def <- list(num=list(fun=function(x, g){kruskal.test(x, g)$p.val},
-                            lbl="Kruskal-Wallis test"),
-                   cat=list(fun=function(x, g){chisq.test(table(x, g))$p.val},
-                            lbl="Chi-Square test"),
-                   dich=list(fun=function(x, g){fisher.test(table(x, g))$p.val},
-                             lbl="Fisher exact test"))
+  if(identical(grp, NA)){
+    # no grouping factor, let's define something appropriate
+    grp <- rep(1, nrow(x))
+    TEST <- NA
+  }
   
-  if(is.null(TEST))  # the defaults
-    TEST <- TEST.def
-  
-  # define test for the singlest tests
-  if(is.null(TEST[["num"]]))
-    TEST[["num"]] <- TEST.def[["num"]]
-  if(is.null(TEST[["cat"]]))
-    TEST[["cat"]] <- TEST.def[["cat"]]
-  if(is.null(TEST[["dich"]]))
-    TEST[["dich"]] <- TEST.def[["dich"]]
+  if(identical(TEST, NA)){
+    
+    num_test <- function(x, g) 1
+    cat_test <- function(x, g) 1
+    dich_test <- function(x, g) 1
+    TEST[["num"]]$lbl <- "None"
+    TEST[["cat"]]$lbl <- "None"
+    TEST[["dich"]]$lbl <- "None"
+    
+  } else {
+
+    # the default tests for quantitative and categorical data
+    TEST.def <- list(num=list(fun=function(x, g){kruskal.test(x, g)$p.val},
+                              lbl="Kruskal-Wallis test"),
+                     cat=list(fun=function(x, g){chisq.test(table(x, g))$p.val},
+                              lbl="Chi-Square test"),
+                     dich=list(fun=function(x, g){fisher.test(table(x, g))$p.val},
+                               lbl="Fisher exact test"))
+    
+    if(is.null(TEST))  # the defaults
+      TEST <- TEST.def
+    
+    # define test for the single tests
+    if(is.null(TEST[["num"]]))
+      TEST[["num"]] <- TEST.def[["num"]]
+    if(is.null(TEST[["cat"]]))
+      TEST[["cat"]] <- TEST.def[["cat"]]
+    if(is.null(TEST[["dich"]]))
+      TEST[["dich"]] <- TEST.def[["dich"]]
+    
+  }
   
   num_test <- TEST[["num"]]$fun
   cat_test <- TEST[["cat"]]$fun
   dich_test <- TEST[["dich"]]$fun
+  
+  
   
   # replaced for flexible test in 0.99.19
   # num_row <- function(x, g, total=TRUE, test="kruskal.test", vname = deparse(substitute(x))){
@@ -13142,17 +13164,6 @@ TOne <- function(x, grp = NA, add.length=TRUE,
   
   ctype[sapply(ctype, function(x) any(x %in% c("numeric","integer")))] <- "num"
   ctype[sapply(ctype, function(x) any(x %in% c("factor","ordered","character")))] <- "cat"
-  
-  if(identical(grp, NA)){
-    # no grouping factor, let's define something appropriate
-    grp <- rep(1, nrow(x))
-    num_test <- function(x, g) 1
-    cat_test <- function(x, g) 1
-    dich_test <- function(x, g) 1
-    TEST[["num"]]$lbl <- "None"
-    TEST[["cat"]]$lbl <- "None"
-    TEST[["dich"]]$lbl <- "None"
-  }
   
   lst <- list()
   for(i in 1:ncol(x)){
@@ -15954,6 +15965,16 @@ CourseData <- function(name, url=NULL, header=TRUE, sep=";",  ...){
   url <- gettextf(paste(url, "%s", sep=""), name)
   read.table(file = url, header = header, sep = sep, ...)
 }
+
+
+
+as.statafactor <- function(x){
+  res <- factor(x, levels=attr(x, "labels"), labels=names(attr(x, "labels")))
+  attr(res, "label") <- attr(x, "label")
+  res
+}
+
+
 
 
 

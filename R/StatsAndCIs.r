@@ -1605,9 +1605,9 @@ Kurt <- function (x, weights=NULL, na.rm = FALSE, method = 3, conf.level = NA, c
 
 
 
-Outlier <- function(x, method=c("boxplot"), value=TRUE, na.rm=FALSE){
+Outlier <- function(x, method=c("boxplot", "hampel"), value=TRUE, na.rm=FALSE){
 
-  switch(match.arg(arg = method, choices = c("boxplot")),
+  switch(match.arg(arg = method, choices = c("boxplot", "hampel")),
          #         boxplot =  { x[x %)(% (quantile(x, c(0.25,0.75), na.rm=na.rm) + c(-1,1) * 1.5*IQR(x,na.rm=na.rm))] }
          boxplot =  {
            # old, replaced by v. 0.99.26
@@ -1617,19 +1617,25 @@ Outlier <- function(x, method=c("boxplot"), value=TRUE, na.rm=FALSE){
              iqr <- diff(qq)
              id <- x < (qq[1] - 1.5 * iqr) | x > (qq[2] + 1.5 * iqr)
 
-             if(value)
-               res <- x[id]
-             else
-               res <- which(id)
-
-             res <- res[!is.na(res)]
-
-           }
+           },
+         
+         hampel = {
+           # hampel considers values outside of median ± 3*(median absolute deviation) to be outliers
+           id <- x %][% (median(x, na.rm=na.rm) + 3 * c(-1, 1) * mad(x, na.rm=na.rm))
+         }
   )
 
+  if(value)
+    res <- x[id]
+  else
+    res <- which(id)
+  
+  res <- res[!is.na(res)]
+  
   return(res)
 
 }
+
 
 
 LOF <- function(data,k) {
