@@ -80,6 +80,9 @@ Fmt(num = as.fmt(digits = 1, big.mark = "'"))   # numeric
 TOne(x = d.pizza[, c("temperature", "delivery_min", "driver", "wine_ordered")],
   grp = d.pizza$quality)
 
+# the same but no groups now...
+TOne(x = d.pizza[, c("temperature", "delivery_min", "driver", "wine_ordered")])
+
 # define median/IQR as describing functions for the numeric variables
 TOne(iris[, -5], iris[, 5],
   FUN = function(x) {
@@ -106,6 +109,30 @@ TOne(x = iris[, -5], grp = iris[, 5],
        fmt = list(abs = Fmt("abs"), num  = Fmt("num"), per = Fmt("per"),
                 pval = as.fmt(fmt = "*", na.form = "   ")) 
 )
+
+t1 <- TOne(x     = d.pizza[,c("temperature", "driver", "rabate")], 
+           grp   = d.pizza$area, 
+           align = " ", 
+           total = FALSE,
+            
+           FUN = function(x) gettextf("\%s / \%s (\%s)",
+                                      Format(mean(x, na.rm = TRUE), digits = 1),
+                                      Format(sd(x, na.rm = TRUE), digits = 3),
+                                      Format(median(x, na.rm = TRUE), digits = 1)),
+           
+           TEST = NA,
+            
+           fmt = list(abs  = as.fmt(big.mark = " ", digits=0), 
+                      num  = as.fmt(big.mark = " ", digits=1), 
+                      per  = as.fmt(fmt=function(x) 
+                          StrPad(Format(x, fmt="\%", d=1), width=5, adj = "r")), 
+                      pval = as.fmt(fmt = "*", na.form = "   ")) 
+)
+# add a userdefined legend
+attr(t1, "legend") <- "numeric: mean / sd (median)), factor: n (n\%)"
+
+t1
+
 
 # dichotomous integer or logical values can be reported by the high or low value
 x <- sample(x = c(0, 1), size = 100, prob = c(0.3, 0.7), replace = TRUE)

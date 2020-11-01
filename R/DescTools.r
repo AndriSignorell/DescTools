@@ -5221,7 +5221,7 @@ Format.default <- function(x, digits = NULL, sci = NULL
   if(is.null(fmt)) fmt <- ""
   
   if (length(fmt) == 1) 
-    if(is.character(fmt) & (fmt %in% names(DescToolsOptions("fmt")))) {
+    if(is.character(fmt) && (fmt %in% names(DescToolsOptions("fmt")))) {
       fmt <- Fmt(fmt)
     }  
   
@@ -12992,8 +12992,9 @@ TOne <- function(x, grp = NA, add.length=TRUE,
   # and the standards come into effect if there are no user specifications
   fmt <- fmt[!duplicated(fmt)]
   # we could restrict the names here to c("abs","num","per","pval")
-  
-  
+
+
+  # set the variablenames per row
   if(is.null(vnames)){
     vnames <- if(is.null(colnames(x))) "Var1" else colnames(x)
     default_vnames <- TRUE
@@ -13020,15 +13021,14 @@ TOne <- function(x, grp = NA, add.length=TRUE,
     TEST <- NA
   }
   
+  
   if(identical(TEST, NA)){
     
-    num_test <- function(x, g) 1
-    cat_test <- function(x, g) 1
-    dich_test <- function(x, g) 1
-    TEST[["num"]]$lbl <- "None"
-    TEST[["cat"]]$lbl <- "None"
-    TEST[["dich"]]$lbl <- "None"
-    
+    TEST <- list(num=list(fun=function(x, g) 1, lbl="None"),
+                 cat=list(fun=function(x, g) 1, lbl="None"),
+                 dich=list(fun=function(x, g) 1, lbl="None"))
+    notest <- TRUE
+
   } else {
 
     # the default tests for quantitative and categorical data
@@ -13049,6 +13049,8 @@ TOne <- function(x, grp = NA, add.length=TRUE,
       TEST[["cat"]] <- TEST.def[["cat"]]
     if(is.null(TEST[["dich"]]))
       TEST[["dich"]] <- TEST.def[["dich"]]
+    
+    notest <- FALSE
     
   }
   
@@ -13216,9 +13218,6 @@ TOne <- function(x, grp = NA, add.length=TRUE,
                                 Format(prop.table(table(grp)), fmt=fmt$per), ")", sep=""), ""))
                  , res)
   
-  if(!is.null(colnames))
-    colnames(res) <- colnames
-  
   # align the table
   if(align != "\\l")
     res[,-c(1, ncol(res))] <- StrAlign(res[,-c(1, ncol(res))], sep = align)
@@ -13230,15 +13229,22 @@ TOne <- function(x, grp = NA, add.length=TRUE,
   
   if(!total)
     res <- res[, -2]
+
+  if(!is.null(colnames))
+    colnames(res) <- rep(colnames, length.out=ncol(res))
   
   
-  attr(res, "legend") <- gettextf("%s) %s, %s) %s, %s) %s\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1",
-                                  .FootNote(1), TEST[["num"]]$lbl, .FootNote(2), TEST[["dich"]]$lbl, .FootNote(3), TEST[["cat"]]$lbl)
+  if(!notest)
+    attr(res, "legend") <- gettextf("%s) %s, %s) %s, %s) %s\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1",
+                                    .FootNote(1), TEST[["num"]]$lbl, .FootNote(2), TEST[["dich"]]$lbl, .FootNote(3), TEST[["cat"]]$lbl)
+  else {
+    attr(res, "legend") <- ""
+    res <- res[, -ncol(res)]
+  }
   
   class(res) <- "TOne"
   return(res)
 }
-
 
 
 
@@ -13256,12 +13262,18 @@ TOne <- function(x, grp = NA, add.length=TRUE,
 
 
 print.TOne <- function(x, ...){
-
+  
+  cat("\n")
+  
   write.table(format(rbind(colnames(x), x), justify="left"),
               row.names=FALSE, col.names=FALSE, quote=FALSE)
 
-  cat("---\n")
-  cat(attr(x, "legend"), "\n\n")
+  if(!is.null(attr(x, "legend"))){
+    cat("---\n")
+    cat(attr(x, "legend"), "\n")
+  }
+  cat("\n")
+  
 }
 
 
