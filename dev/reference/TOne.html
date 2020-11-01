@@ -295,7 +295,8 @@
 #&gt; </div><div class='input'>
 <span class='fu'>TOne</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>d.pizza</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"temperature"</span>, <span class='st'>"delivery_min"</span>, <span class='st'>"driver"</span>, <span class='st'>"wine_ordered"</span><span class='op'>)</span><span class='op'>]</span>,
   grp <span class='op'>=</span> <span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>quality</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; var                total              low                medium             high                                 
+</div><div class='output co'>#&gt; 
+#&gt; var                total              low                medium             high                                 
 #&gt; n                  1'008              156 (15.5%)        356 (35.3%)        496 (49.2%)                          
 #&gt; temperature        47.9 (9.9)         32.9 (7.8)         45.6 (7.4)         53.6 (6.5)         *** '             
 #&gt; delivery_min       25.7 (10.8)        33.9 (11.7)        26.5 (10.1)        22.6 (9.5)         *** '             
@@ -312,6 +313,23 @@
 #&gt; ') Kruskal-Wallis test, ") Fisher exact test, "") Chi-Square test
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 #&gt; </div><div class='input'>
+<span class='co'># the same but no groups now...</span>
+<span class='fu'>TOne</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>d.pizza</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"temperature"</span>, <span class='st'>"delivery_min"</span>, <span class='st'>"driver"</span>, <span class='st'>"wine_ordered"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
+#&gt; var                total             
+#&gt; n                  1'209             
+#&gt; temperature        47.9 (9.9)        
+#&gt; delivery_min       25.7 (10.8)       
+#&gt; driver                               
+#&gt;   Butcher          96 (8.0%)         
+#&gt;   Carpenter        272 (22.6%)       
+#&gt;   Carter           234 (19.4%)       
+#&gt;   Farmer           117 (9.7%)        
+#&gt;   Hunter           156 (13.0%)       
+#&gt;   Miller           125 (10.4%)       
+#&gt;   Taylor           204 (16.9%)       
+#&gt; wine_ordered (= 1) 187 (15.6%)       
+#&gt; </div><div class='input'>
 <span class='co'># define median/IQR as describing functions for the numeric variables</span>
 <span class='fu'>TOne</span><span class='op'>(</span><span class='va'>iris</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>5</span><span class='op'>]</span>, <span class='va'>iris</span><span class='op'>[</span>, <span class='fl'>5</span><span class='op'>]</span>,
   FUN <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span>
@@ -320,7 +338,8 @@
       <span class='fu'><a href='Format.html'>Format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/IQR.html'>IQR</a></span><span class='op'>(</span><span class='va'>x</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, digits <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
   <span class='op'>}</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; var          total        setosa       versicolor   virginica                
+</div><div class='output co'>#&gt; 
+#&gt; var          total        setosa       versicolor   virginica                
 #&gt; n            150          50 (33.3%)   50 (33.3%)   50 (33.3%)               
 #&gt; Sepal.Length 5.8 / 1.300  5.0 / 0.400  5.9 / 0.700  6.5 / 0.675  *** '       
 #&gt; Sepal.Width  3.0 / 0.500  3.4 / 0.475  2.8 / 0.475  3.0 / 0.375  *** '       
@@ -347,7 +366,8 @@
        fmt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>abs <span class='op'>=</span> <span class='fu'><a href='Format.html'>Fmt</a></span><span class='op'>(</span><span class='st'>"abs"</span><span class='op'>)</span>, num  <span class='op'>=</span> <span class='fu'><a href='Format.html'>Fmt</a></span><span class='op'>(</span><span class='st'>"num"</span><span class='op'>)</span>, per <span class='op'>=</span> <span class='fu'><a href='Format.html'>Fmt</a></span><span class='op'>(</span><span class='st'>"per"</span><span class='op'>)</span>,
                 pval <span class='op'>=</span> <span class='fu'><a href='Format.html'>as.fmt</a></span><span class='op'>(</span>fmt <span class='op'>=</span> <span class='st'>"*"</span>, na.form <span class='op'>=</span> <span class='st'>"   "</span><span class='op'>)</span><span class='op'>)</span> 
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; var          total        setosa       versicolor   virginica                
+</div><div class='output co'>#&gt; 
+#&gt; var          total        setosa       versicolor   virginica                
 #&gt; n            150          50 (33.3%)   50 (33.3%)   50 (33.3%)               
 #&gt; Sepal.Length 5.8 / 0.828  5.0 / 0.352  5.9 / 0.516  6.6 / 0.636  *** '       
 #&gt; Sepal.Width  3.1 / 0.436  3.4 / 0.379  2.8 / 0.314  3.0 / 0.322  *** '       
@@ -357,6 +377,45 @@
 #&gt; ') ANOVA, ") Fisher exact test, "") Chi-Square test
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 #&gt; </div><div class='input'>
+<span class='va'>t1</span> <span class='op'>&lt;-</span> <span class='fu'>TOne</span><span class='op'>(</span>x     <span class='op'>=</span> <span class='va'>d.pizza</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"temperature"</span>, <span class='st'>"driver"</span>, <span class='st'>"rabate"</span><span class='op'>)</span><span class='op'>]</span>, 
+           grp   <span class='op'>=</span> <span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>area</span>, 
+           align <span class='op'>=</span> <span class='st'>" "</span>, 
+           total <span class='op'>=</span> <span class='cn'>FALSE</span>,
+            
+           FUN <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>gettextf</a></span><span class='op'>(</span><span class='st'>"%s / %s (%s)"</span>,
+                                      <span class='fu'><a href='Format.html'>Format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>x</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, digits <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>,
+                                      <span class='fu'><a href='Format.html'>Format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>(</span><span class='va'>x</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, digits <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>,
+                                      <span class='fu'><a href='Format.html'>Format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span><span class='op'>(</span><span class='va'>x</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, digits <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>,
+           
+           TEST <span class='op'>=</span> <span class='cn'>NA</span>,
+            
+           fmt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>abs  <span class='op'>=</span> <span class='fu'><a href='Format.html'>as.fmt</a></span><span class='op'>(</span>big.mark <span class='op'>=</span> <span class='st'>" "</span>, digits<span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span>, 
+                      num  <span class='op'>=</span> <span class='fu'><a href='Format.html'>as.fmt</a></span><span class='op'>(</span>big.mark <span class='op'>=</span> <span class='st'>" "</span>, digits<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>, 
+                      per  <span class='op'>=</span> <span class='fu'><a href='Format.html'>as.fmt</a></span><span class='op'>(</span>fmt<span class='op'>=</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> 
+                          <span class='fu'><a href='StrPad.html'>StrPad</a></span><span class='op'>(</span><span class='fu'><a href='Format.html'>Format</a></span><span class='op'>(</span><span class='va'>x</span>, fmt<span class='op'>=</span><span class='st'>"%"</span>, d<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>, width<span class='op'>=</span><span class='fl'>5</span>, adj <span class='op'>=</span> <span class='st'>"r"</span><span class='op'>)</span><span class='op'>)</span>, 
+                      pval <span class='op'>=</span> <span class='fu'><a href='Format.html'>as.fmt</a></span><span class='op'>(</span>fmt <span class='op'>=</span> <span class='st'>"*"</span>, na.form <span class='op'>=</span> <span class='st'>"   "</span><span class='op'>)</span><span class='op'>)</span> 
+<span class='op'>)</span>
+<span class='co'># add a userdefined legend</span>
+<span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span><span class='op'>(</span><span class='va'>t1</span>, <span class='st'>"legend"</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='st'>"numeric: mean / sd (median)), factor: n (n%)"</span>
+
+<span class='va'>t1</span>
+</div><div class='output co'>#&gt; 
+#&gt; var                  Brent                Camden               Westminster         
+#&gt; n                     474 (39.5%)          344 (28.7%)          381 (31.8%)        
+#&gt; temperature          51.1 / 8.734 (53.4)  47.4 / 10.111 (50.3) 44.3 / 9.836 (45.9) 
+#&gt; driver                                                                             
+#&gt;   Butcher              72 (15.2%)            1 ( 0.3%)           22 ( 5.8%)        
+#&gt;   Carpenter            29 ( 6.1%)           19 ( 5.6%)          221 (58.2%)        
+#&gt;   Carter              177 (37.4%)           47 (13.8%)            5 ( 1.3%)        
+#&gt;   Farmer               19 ( 4.0%)           87 (25.5%)           11 ( 2.9%)        
+#&gt;   Hunter              128 (27.1%)            4 ( 1.2%)           24 ( 6.3%)        
+#&gt;   Miller                6 ( 1.3%)           41 (12.0%)           77 (20.3%)        
+#&gt;   Taylor               42 ( 8.9%)          142 (41.6%)           20 ( 5.3%)        
+#&gt; rabate (= TRUE)       235 (50.3%)          172 (50.3%)          184 (48.7%)        
+#&gt; ---
+#&gt; numeric: mean / sd (median)), factor: n (n%) 
+#&gt; </div><div class='input'>
+
 <span class='co'># dichotomous integer or logical values can be reported by the high or low value</span>
 <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>, size <span class='op'>=</span> <span class='fl'>100</span>, prob <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.3</span>, <span class='fl'>0.7</span><span class='op'>)</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 <span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>, size <span class='op'>=</span> <span class='fl'>100</span>, prob <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.3</span>, <span class='fl'>0.7</span><span class='op'>)</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>==</span> <span class='fl'>1</span>
@@ -365,7 +424,8 @@
 <span class='va'>d.set</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>x</span>, y <span class='op'>=</span> <span class='va'>y</span>, z <span class='op'>=</span> <span class='va'>z</span>, g <span class='op'>=</span> <span class='va'>g</span><span class='op'>)</span>
 
 <span class='fu'>TOne</span><span class='op'>(</span><span class='va'>d.set</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span>, <span class='va'>d.set</span><span class='op'>$</span><span class='va'>g</span>, intref <span class='op'>=</span> <span class='st'>"low"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Chi-squared approximation may be incorrect</span></div><div class='output co'>#&gt; var         total       a           b           c           d                      
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Chi-squared approximation may be incorrect</span></div><div class='output co'>#&gt; 
+#&gt; var         total       a           b           c           d                      
 #&gt; n           100         29 (29.0%)  22 (22.0%)  28 (28.0%)  21 (21.0%)             
 #&gt; x (= 0)     25 (25.0%)  7 (24.1%)   2 (9.1%)    9 (32.1%)   7 (33.3%)       ""     
 #&gt; y (= FALSE) 21 (21.0%)  8 (27.6%)   3 (13.6%)   5 (17.9%)   5 (23.8%)       ""     
@@ -375,7 +435,8 @@
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 #&gt; </div><div class='input'>
 <span class='fu'>TOne</span><span class='op'>(</span><span class='va'>d.set</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span>, <span class='va'>d.set</span><span class='op'>$</span><span class='va'>g</span>, intref <span class='op'>=</span> <span class='st'>"high"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Chi-squared approximation may be incorrect</span></div><div class='output co'>#&gt; var        total      a          b          c          d                    
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Chi-squared approximation may be incorrect</span></div><div class='output co'>#&gt; 
+#&gt; var        total      a          b          c          d                    
 #&gt; n          100        29 (29.0%) 22 (22.0%) 28 (28.0%) 21 (21.0%)           
 #&gt; x (= 1)    75 (75.0%) 22 (75.9%) 20 (90.9%) 19 (67.9%) 14 (66.7%)     ""    
 #&gt; y (= TRUE) 79 (79.0%) 21 (72.4%) 19 (86.4%) 23 (82.1%) 16 (76.2%)     ""    
@@ -386,7 +447,8 @@
 #&gt; </div><div class='input'>
 <span class='co'># intref would not control factors, use relevel to change reported value</span>
 <span class='fu'>TOne</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>z <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/relevel.html'>relevel</a></span><span class='op'>(</span><span class='va'>z</span>, <span class='st'>"1"</span><span class='op'>)</span><span class='op'>)</span>, <span class='va'>g</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; var        total      a          b          c          d                    
+</div><div class='output co'>#&gt; 
+#&gt; var        total      a          b          c          d                    
 #&gt; n          100        29 (29.0%) 22 (22.0%) 28 (28.0%) 21 (21.0%)           
 #&gt; z (= 1)    75 (75.0%) 20 (69.0%) 19 (86.4%) 18 (64.3%) 18 (85.7%)     ""    
 #&gt; ---
@@ -394,7 +456,8 @@
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 #&gt; </div><div class='input'>
 <span class='fu'>TOne</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>z <span class='op'>=</span> <span class='va'>z</span><span class='op'>)</span>, <span class='va'>g</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; var        total      a          b          c          d                    
+</div><div class='output co'>#&gt; 
+#&gt; var        total      a          b          c          d                    
 #&gt; n          100        29 (29.0%) 22 (22.0%) 28 (28.0%) 21 (21.0%)           
 #&gt; z (= 0)    25 (25.0%) 9 (31.0%)  3 (13.6%)  10 (35.7%) 3 (14.3%)      ""    
 #&gt; ---
