@@ -4240,7 +4240,7 @@ Some.matrix <- function (x, n = 6L, addrownums = TRUE, ...) {
   n <- if (n < 0L)
     max(nrx + n, 0L)
   else min(n, nrx)
-  sel <- sort(sample(nrow(x)))
+  sel <- sort(sample(nrow(x), n))
   ans <- x[sel, , drop = FALSE]
   if (addrownums && is.null(rownames(x)))
     rownames(ans) <- format(sprintf("[%d,]", sel), justify = "right")
@@ -5610,8 +5610,8 @@ print.fmt <- function(x, ...){
     return(z)
   }
 
-  cat(gettextf("Format name:    %s%s\n", attr(x, "fmt_name"), # deparse(substitute(x)),
-               ifelse(identical(attr(x, "default"), TRUE), " (default)", "")),  # deparse(substitute(x))),
+  cat(gettextf("Format name:    %s%s\n", attr(x, "fmt_name"), 
+               ifelse(identical(attr(x, "default"), TRUE), " (default)", "")),  
       gettextf("Description:   %s\n", Label(x)),
       gettextf("Definition:    %s\n", CollapseList(x)),
       gettextf("Example:       %s\n", Format(pi * 1e5, fmt=x))

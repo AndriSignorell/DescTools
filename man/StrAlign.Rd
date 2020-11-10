@@ -19,8 +19,18 @@ StrAlign(x, sep = "\\\\r")
 %%     ~~Describe \code{sep} here~~
 }
 }
-\details{Alignment to the left, right or center leave no room for misinterpretation. The function will determine the maximum string size in the vector, resize all the strings to this size by padding empty spaces either at the beginning or at the end of the strings.
-When it comes to center strings, it's not clear where to place strings with an even length in case the maximum length is odd (or vice versa). We will put the shorter distance of an uneven string at the left.\cr
+\details{Alignment to the left or right leave no room for misinterpretation. The function will determine the maximum string size in the vector, resize all the strings to this size by padding empty spaces either at the beginning or at the end.
+\preformatted{cbind(StrAlign(c("here", "there", "everywhere"), sep = "\\r"))
+[1,] "      here"
+[2,] "     there"
+[3,] "everywhere"}
+
+When it comes to center strings, it's not clear where to place strings with an even length in case the maximum length is odd (or vice versa). We will put the shorter distance of an uneven string to the left (note the second term, that has 2 spaces on the left and 3 spaces on the right).
+\preformatted{cbind(StrAlign(c("here", "there", "everywhere"), sep = "\\c"))
+[1,] "   here   "
+[2,] "  there   "
+[3,] "everywhere"}
+
 Any specific length of the strings can be created by \code{\link{StrPad}} if required.
 
 In case of a given separator the strings will be aligned towards this separator. If a string does not contain the separator, the affected string will be aligned as if it had a separator as last character. This seems to be a good default, when integer numbers are to be aligned with numerical values. Note that the character length of the resulting strings can excceed the maximum length of the supplied strings.

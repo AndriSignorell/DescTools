@@ -15,7 +15,7 @@ StrTrunc(x, maxlen = 20, ellipsis = "...", wbound = FALSE)
 \description{
  Truncates one or more strings to a specified length, adding an ellipsis (...)
  to those strings that have been truncated. The truncation can also be performed using word boundaries.
- Use \code{\link{formatC}} to justify the strings if needed.
+ Use \code{\link{StrAlign}()} to justify the strings if needed.
 }
 \value{
  The string(s) passed as \samp{x} now with a maximum length of \samp{maxlen} + 3 (for the ellipsis).
@@ -44,9 +44,6 @@ for(i in -5:20)
 # compare
 for(i in -5:20)
   print(StrTrunc(x, maxlen=i, wbound=FALSE))
-
-# right justification
-formatC(StrTrunc(x, maxlen=10), width=10, flag=" ")
 }
 \keyword{character}
 \keyword{utilities}

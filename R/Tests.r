@@ -2839,11 +2839,31 @@ StuartMaxwellTest <- function (x, y = NULL) {
   names(STATISTIC) <- "chi-squared"
   names(PARAMETER) <- "df"
   RVAL <- list(statistic = STATISTIC, parameter = PARAMETER,
-               p.value = PVAL, method = METHOD, data.name = DNAME)
+               p.value = PVAL, method = METHOD, data.name = DNAME, N = sum(rowsums))
   class(RVAL) <- "htest"
   return(RVAL)
 
 }
+
+
+BhapkarTest <- function(x, y = NULL){
+  
+  # https://support.sas.com/resources/papers/proceedings/pdfs/sgf2008/382-2008.pdf
+  
+  res <- StuartMaxwellTest(x=x, y=y)
+  
+  STATISTIC <- res[["statistic"]]
+  PARAMETER <- res[["parameter"]]
+  
+  res[["statistic"]] <- STATISTIC/(1-STATISTIC/res[["N"]])
+  res[["p.value"]] <- pchisq(STATISTIC, PARAMETER, lower.tail = FALSE)
+  
+  res[["method"]] <- "Bhapkar’s test"
+  
+  return(res)
+  
+}
+
 
 
 

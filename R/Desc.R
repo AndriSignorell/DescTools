@@ -1449,7 +1449,7 @@ print.Desc.numfact  <- function(x, digits = NULL, ...){
     cat(gettextf("\nError in test(x) : %s\n\n", x$test$message))
   } else {
     cat(gettextf("\n%s:\n  %s", x$test["method"],
-                 .CaptOut(x$test)[5], "\n\n", sep=""))
+                 .CaptOut(x$test)[5]), "\n\n", sep="")
   }
 
   if((x$NAgs > 0) & (length(grep("NA", x$xname)) == 0))

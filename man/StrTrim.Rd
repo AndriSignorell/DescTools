@@ -6,8 +6,8 @@ Remove Leading/Trailing Whitespace From A String
 %%  ~~function to do ... ~~
 }
 \description{
-The function removes all spaces, tabs and newlines from the beginning and end of the supplied string.
-If these whitespace characters occur in the middle of the string, they are preserved.\cr
+The function removes whitespace characters as spaces, tabs and newlines from the beginning and end of the supplied string.
+Whitespace characters occurring in the middle of the string are retained.\cr
 Trimming with method \code{"left"} deletes only leading whitespaces, \code{"right"} only trailing.
 Designed for users who were socialized by SQL.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
