@@ -2869,7 +2869,7 @@ BhapkarTest <- function(x, y = NULL){
   res[["p.value"]][1,1] <- pchisq(STATISTIC, PARAMETER, lower.tail = FALSE)
   
   res[["data.name"]] <- DNAME
-  res[["method"]] <- "Bhapkar’s test"
+  res[["method"]] <- "Bhapkar test"
   
   return(res)
   
