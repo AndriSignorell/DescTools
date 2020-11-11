@@ -6,8 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Checks If An Integer Is Even Or Odd
- — IsOdd • DescTools</title>
+<title>Bhapkar Marginal Homogeneity Test 
+ — BhapkarTest • DescTools</title>
 
 
 <!-- jquery -->
@@ -42,9 +42,12 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Checks If An Integer Is Even Or Odd
- — IsOdd" />
-<meta property="og:description" content="Checks if the elements of an integer vector x are even or odd." />
+<meta property="og:title" content="Bhapkar Marginal Homogeneity Test 
+ — BhapkarTest" />
+<meta property="og:description" content="Bhapkar (1966) tested marginal homogeneity by exploiting the asymptotic normality of marginal proportion, and this test is also called Bhapkar's test. The idea of constructing test statistic is similar to the
+one of generalized McNemar's test statistic used in StuartMaxwellTest, and the major difference lies in the calculation of elements in
+variance-covariance matrix. 
+" />
 
 
 <meta name="robots" content="noindex">
@@ -131,48 +134,70 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Checks If An Integer Is Even Or Odd
-<!-- %%  ~~function to do ... ~~ --></h1>
+    <h1>Bhapkar Marginal Homogeneity Test 
+<!-- %%   ~~ data name/kind ... ~~ --></h1>
     
-    <div class="hidden name"><code>IsOdd.Rd</code></div>
+    <div class="hidden name"><code>BhapkarTest.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Checks if the elements of an integer vector <code>x</code> are even or odd.</p>
+    <p>Bhapkar (1966) tested marginal homogeneity by exploiting the asymptotic normality of marginal proportion, and this test is also called Bhapkar's test. The idea of constructing test statistic is similar to the
+one of generalized McNemar's test statistic used in <code><a href='StuartMaxwellTest.html'>StuartMaxwellTest</a></code>, and the major difference lies in the calculation of elements in
+variance-covariance matrix. 
+<!-- %%  ~~ A concise (1-5 lines) description of the dataset. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>IsOdd</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>BhapkarTest</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>vector of integers
+      <td><p>either a 2-way contingency table in matrix form, or a factor object.
 <!-- %%     ~~Describe \code{x} here~~ --></p></td>
+    </tr>
+    <tr>
+      <th>y</th>
+      <td><p>a factor object; ignored if x is a matrix.
+<!-- %%     ~~Describe \code{y} here~~ --></p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>a logic vector
-<!-- %%  ~Describe the value returned -->
-<!-- %%  If it is a LIST, use -->
-<!-- %%  \item{comp1 }{Description of 'comp1'} -->
-<!-- %%  \item{comp2 }{Description of 'comp2'} -->
-<!-- %% ... --></p>
+    <p>Although the Bhapkar and Stuart-Maxwell tests are asymptotically equivalent (Keefe, 1982). Generally,
+the Bhapkar (1966) test is a more powerful alternative to the Stuart-Maxwell test. With a large N, both
+will produce the same chi-squared value. As the Bhapkar test is more powerful, it is preferred.</p>
+<p><!-- %%  ~~ If necessary, more details than the __description__ above ~~ --></p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Bhapkar V.P. (1966). A note on the equivalence of two test criteria for hypotheses in categorical data.
+<em>Journal of the American Statistical Association</em>, 61: 228-235.</p>
+<p>Ireland C.T., Ku H.H., and Kullback S. (1969). Symmetry and marginal homogeneity of an r x r
+contingency table. <em>Journal of the American Statistical Association</em>, 64: 1323-1341.
+<!-- %%  ~~ possibly secondary sources and usages ~~ --></p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Andri Signorell &lt;andri@signorell.net&gt;
 <!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='Some numeric checks.html'>IsWhole</a></code>
+    <div class='dont-index'><p><code><a href='StuartMaxwellTest.html'>StuartMaxwellTest</a></code>, <code><a href='https://rdrr.io/r/stats/mcnemar.test.html'>mcnemar.test</a></code>, <code><a href='https://rdrr.io/r/stats/chisq.test.html'>chisq.test</a></code>, <code><a href='MHChisqTest.html'>MHChisqTest</a></code>,
+<code><a href='BreslowDayTest.html'>BreslowDayTest</a></code>
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>IsOdd</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1]  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE</div></pre>
+    <pre class="examples"><div class='input'><span class='co'># Source: http://www.john-uebersax.com/stat/mcnemar.htm#stuart</span>
+<span class='va'>mc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>,<span class='fl'>3</span>,<span class='fl'>0</span>,<span class='fl'>10</span>,<span class='fl'>30</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>15</span>,<span class='fl'>40</span><span class='op'>)</span>, nrow<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='fu'>BhapkarTest</span><span class='op'>(</span><span class='va'>mc</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
+#&gt; 	Bhapkar’s test
+#&gt; 
+#&gt; data:  mc
+#&gt; chi-squared = 15.423, df = 2, p-value = 0.0004476
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
