@@ -1,7 +1,7 @@
 \name{BhapkarTest}
 \alias{BhapkarTest}
 \docType{data}
-\title{
+\title{Bhapkar Marginal Homogeneity Test 
 %%   ~~ data name/kind ... ~~
 }
 \description{Bhapkar (1966) tested marginal homogeneity by exploiting the asymptotic normality of marginal proportion, and this test is also called Bhapkar's test. The idea of constructing test statistic is similar to the

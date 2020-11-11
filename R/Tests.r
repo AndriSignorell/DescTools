@@ -2850,14 +2850,25 @@ BhapkarTest <- function(x, y = NULL){
   
   # https://support.sas.com/resources/papers/proceedings/pdfs/sgf2008/382-2008.pdf
   
+  if (is.matrix(x)) {
+    DNAME <- deparse(substitute(x))
+  } else {
+    DNAME <- paste(deparse(substitute(x)), "and", deparse(substitute(y)))
+  }
+
+  
   res <- StuartMaxwellTest(x=x, y=y)
   
   STATISTIC <- res[["statistic"]]
   PARAMETER <- res[["parameter"]]
   
-  res[["statistic"]] <- STATISTIC/(1-STATISTIC/res[["N"]])
-  res[["p.value"]] <- pchisq(STATISTIC, PARAMETER, lower.tail = FALSE)
+  # new statistic by Bhapkar
+  STATISTIC <- STATISTIC/(1-STATISTIC/res[["N"]])
   
+  res[["statistic"]][1,1] <- STATISTIC
+  res[["p.value"]][1,1] <- pchisq(STATISTIC, PARAMETER, lower.tail = FALSE)
+  
+  res[["data.name"]] <- DNAME
   res[["method"]] <- "Bhapkar’s test"
   
   return(res)
