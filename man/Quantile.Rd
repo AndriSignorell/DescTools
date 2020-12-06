@@ -4,8 +4,8 @@
 \alias{Quantile}
 \title{Weighted Quantiles}
 \usage{
-  Quantile(x, weights = NULL, probs = seq(0, 1, 0.25), na.rm = FALSE,
-           names = TRUE, type = 7)
+Quantile(x, weights = NULL, probs = seq(0, 1, 0.25), na.rm = FALSE,
+         names = TRUE, type = 7)
 }
 \arguments{
   \item{x}{a numeric vector.}
@@ -19,7 +19,7 @@
 
   \item{names}{logical; if true, the result has a \code{\link{names}} attribute. Set to \code{FALSE} for speedup with many \code{probs}.}
 
-  \item{type}{an integer between 1 and 9 selecting one of the nine quantile algorithms detailed below to be used.}
+  \item{type}{an integer between 1 and 9 selecting one of the nine quantile algorithms detailed below to be used. Currently only \code{type=5} is implemented.}
 }
 
 %  \item{sorted}{a logical indicating whether the observations in \code{x} are

@@ -7,9 +7,10 @@ Compute confidence intervals for binomial proportions following the most popular
 }
 \usage{
 BinomCI(x, n, conf.level = 0.95, sides = c("two.sided", "left", "right"),
-        method = c("wilson", "wald", "agresti-coull", "jeffreys",
+        method = c("wilson", "wald", "waldcc", "agresti-coull", "jeffreys",
                    "modified wilson", "wilsoncc","modified jeffreys",
-                   "clopper-pearson", "arcsine", "logit", "witting", "pratt"),
+                   "clopper-pearson", "arcsine", "logit", "witting", "pratt", 
+                   "midp", "lik"),
         rand = 123)
 }
 \arguments{
@@ -23,7 +24,7 @@ BinomCI(x, n, conf.level = 0.95, sides = c("two.sided", "left", "right"),
   \item{method}{ character string specifing which method to use; this can be one out of:
   \code{"wald"}, \code{"wilson"}, \code{"wilsoncc"}, \code{"agresti-coull"}, \code{"jeffreys"},
   \code{"modified wilson"}, \code{"modified jeffreys"}, \code{"clopper-pearson"},
-  \code{"arcsine"}, \code{"logit"}, \code{"witting"} or \code{"pratt"}. Defaults to \code{"wilson"}.
+  \code{"arcsine"}, \code{"logit"}, \code{"witting"}, \code{"pratt"}, \code{"midp"} and \code{"lik"}. Defaults to \code{"wilson"}.
   Abbreviation of method are accepted. See details. }
   \item{rand}{ seed for random number generator; see details. }
 }
@@ -32,6 +33,8 @@ BinomCI(x, n, conf.level = 0.95, sides = c("two.sided", "left", "right"),
 
   The \bold{Wald } interval is obtained by inverting the acceptance region of the Wald
   large-sample normal test.
+
+  The \bold{Wald with continuity correction } interval is obtained by adding the term 1/(2*n) to the Wald interval.
 
   The \bold{Wilson} interval, which is the default, was introduced by Wilson (1927) and is
   the inversion of the CLT approximation to the family of equal tail tests of p = p0.
@@ -66,9 +69,26 @@ BinomCI(x, n, conf.level = 0.95, sides = c("two.sided", "left", "right"),
   obtain uniformly optimal lower and upper confidence bounds (cf. Satz 2.105 in
   Witting (1985)) for binomial proportions.
 
+  The \bold{Pratt} interval is obtained by extremely accurate normal approximation. (Pratt 1968)
+  
+  The \bold{Mid-p} approach is used to reduce the conservatism of the Clopper-Pearson, which is known to be very pronounced. The method midp accumulates the tail areas. 
+  The lower bound \eqn{p_l} is found as the solution to the equation
+  \deqn{\frac{1}{2} f(x;n,p_l) + (1-F(x;m,p_l)) = \frac{\alpha}{2}}
+  where \eqn{f(x;n,p)} denotes the probability mass function (pmf) and
+  \eqn{F(x;n,p)} the (cumulative) distribution function of the binomial
+  distribution with size \eqn{n} and proportion \eqn{p} evaluated at
+  \eqn{x}. 
+  The upper bound \eqn{p_u} is found as the solution to the equation
+  \deqn{\frac{1}{2} f(x;n,p_u) + F(x-1;m,p_u) = \frac{\alpha}{2}}
+   In case x=0 then the lower bound is
+  zero and in case x=n then the upper bound is 1.
+
+  The \bold{Likelihood-based} approach is said to be theoretically appealing. Confidence intervals are based on profiling the binomial deviance in the neighbourhood of the
+MLE.
+
   For more details we refer to Brown et al (2001) as well as Witting (1985).
 
-  The \bold{Pratt} interval is obtained by extremely accurate normal approximation. (Pratt 1968)
+
 
 Some approaches for the confidence intervals can potentially yield negative results or values beyond 1. These would be reset such as not to exceed the range of [0, 1].
 
@@ -99,9 +119,12 @@ common, related tail probabilities \emph{Journal of the American Statistical Ass
 
 Wilcox, R. R. (2005) \emph{Introduction to robust estimation and hypothesis testing}. Elsevier Academic Press
 
+Newcombe, R. G. (1998) Two-sided confidence intervals for the single proportion: comparison of seven methods, \emph{Statistics in Medicine}, 17:857-872
+https://pubmed.ncbi.nlm.nih.gov/16206245/
+
 }
 \author{ Matthias Kohl <Matthias.Kohl@stamats.de>,
-Rand R. Wilcox (Pratt's method),
+Rand R. Wilcox (Pratt's method), Michael Hoehle <hoehle@math.su.se> (Mid-p), 
 Andri Signorell <andri@signorell.net> (interface issues) }
 
 \seealso{\code{\link[stats]{binom.test}}, \code{\link[Hmisc]{binconf}}, \code{\link{MultinomCI}}, \code{\link{BinomDiffCI}}, \code{\link{BinomRatioCI}} }
@@ -121,5 +144,16 @@ binom.test(x=42, n=43)$conf.int
 # all arguments are being recycled:
 BinomCI(x=c(42, 35, 23, 22), n=43, method="wilson")
 BinomCI(x=c(42, 35, 23, 22), n=c(50, 60, 70, 80), method="jeffreys")
+
+# example Table I in Newcombe (1998)
+do.call(cbind, lapply(1:4, 
+  function(i){
+    Format(BinomCI(x      = c(81, 15, 0, 1)[i], 
+                   n      = c(263, 148, 20, 29)[i], 
+                   method = c("wald", "waldcc", "wilson","wilsoncc", 
+                              "clopper-pearson", "midp", "lik"))[, -1], 
+           digits=4)
+}))
+
 }
 \keyword{univar}

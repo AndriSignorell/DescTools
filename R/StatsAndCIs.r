@@ -1854,15 +1854,15 @@ BootCI <- function(x, y=NULL, FUN, ..., bci.method = c("norm", "basic", "stud", 
 
 # Confidence Intervals for Binomial Proportions
 BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right"),
-                    method = c("wilson", "wald", "agresti-coull", "jeffreys", "modified wilson", "wilsoncc",
-                                "modified jeffreys", "clopper-pearson", "arcsine", "logit", "witting", "pratt"), rand = 123) {
+                    method = c("wilson", "wald", "waldcc", "agresti-coull", "jeffreys", "modified wilson", "wilsoncc",
+                                "modified jeffreys", "clopper-pearson", "arcsine", "logit", "witting", "pratt", "midp", "lik"), rand = 123) {
 
   if(missing(method)) method <- "wilson"
   if(missing(sides)) sides <- "two.sided"
 
   iBinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right"),
-                       method = c("wilson", "wilsoncc", "wald", "agresti-coull", "jeffreys", "modified wilson",
-                       "modified jeffreys", "clopper-pearson", "arcsine", "logit", "witting", "pratt"), rand = 123) {
+                       method = c("wilson", "wilsoncc", "wald", "waldcc","agresti-coull", "jeffreys", "modified wilson",
+                       "modified jeffreys", "clopper-pearson", "arcsine", "logit", "witting", "pratt", "midp", "lik"), rand = 123) {
 
     if(length(x) != 1) stop("'x' has to be of length 1 (number of successes)")
     if(length(n) != 1) stop("'n' has to be of length 1 (number of trials)")
@@ -1878,11 +1878,19 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
     p.hat <- x/n
     q.hat <- 1 - p.hat
 
-    switch( match.arg(arg=method, choices=c("wilson", "wald", "wilsoncc","agresti-coull", "jeffreys", "modified wilson",
-                                            "modified jeffreys", "clopper-pearson", "arcsine", "logit", "witting","pratt"))
+    switch( match.arg(arg=method, choices=c("wilson", "wald", "waldcc", "wilsoncc","agresti-coull", "jeffreys", "modified wilson",
+                                            "modified jeffreys", "clopper-pearson", "arcsine", "logit", "witting","pratt", "midp", "lik"))
             , "wald" = {
               est <- p.hat
               term2 <- kappa*sqrt(p.hat*q.hat)/sqrt(n)
+              CI.lower <- max(0, p.hat - term2)
+              CI.upper <- min(1, p.hat + term2)
+            }
+            , "waldcc" = {
+              est <- p.hat
+              term2 <- kappa*sqrt(p.hat*q.hat)/sqrt(n)
+              # continuity correction
+              term2 <- term2 + 1/(2*n)
               CI.lower <- max(0, p.hat - term2)
               CI.upper <- min(1, p.hat + term2)
             }
@@ -1899,8 +1907,10 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
                             2- 1/n + 4*p.hat*(n*q.hat+1))) / (2*(n+kappa**2))
               uci <- ( 2*x+kappa**2 +1 + kappa*sqrt(kappa**2 +
                             2- 1/n + 4*p.hat*(n*q.hat-1))) / (2*(n+kappa**2))
-              CI.lower <- max(0, lci)
-              CI.upper <- min(1, uci)
+              
+              CI.lower <- max(0, ifelse(p.hat==0, 0, lci))
+              CI.upper <- min(1, ifelse(p.hat==1, 1, uci))
+              
             }
             , "agresti-coull" = {
               x.tilde <- x + kappa^2/2
@@ -2033,6 +2043,72 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
                 D <- 81*x^2-9*x*(2+z^2)+1
                 E <- 1+A*((B+C)/D)^3
                 CI.lower <- 1/E
+              }
+            }
+            , "midp" = {
+              
+                est <- p.hat
+              
+                #Functions to find root of for the lower and higher bounds of the CI
+                #These are helper functions.
+                f.low <- function(pi, x, n) {
+                  1/2*dbinom(x, size=n, prob=pi) + 
+                    pbinom(x, size=n, prob=pi, lower.tail=FALSE) - (1-conf.level)/2
+                }
+                f.up <- function(pi, x, n) {
+                  1/2*dbinom(x, size=n, prob=pi) + 
+                    pbinom(x-1, size=n, prob=pi) - (1-conf.level)/2
+                }
+                
+                #One takes pi_low = 0 when x=0 and pi_up=1 when x=n
+                CI.lower <- 0
+                CI.upper <- 1
+                
+                #Calculate CI by finding roots of the f funcs
+                if (x!=0) {
+                  CI.lower <- uniroot(f.low, interval=c(0, p.hat), x=x, n=n)$root
+                } 
+                if (x!=n) {
+                  CI.upper  <- uniroot(f.up, interval=c(p.hat, 1), x=x, n=n)$root
+                }
+                
+
+            }
+            , "lik" = {
+              
+              est <- p.hat
+              CI.lower <- 0
+              CI.upper <- 1
+              z <- qnorm(1 - alpha * 0.5)
+              # preset tolerance, should we offer function argument?
+              tol = .Machine$double.eps^0.5
+              
+              BinDev <- function(y, x, mu, wt, bound = 0, 
+                                 tol = .Machine$double.eps^0.5, ...) {
+                
+                # returns the binomial deviance for y, x, wt
+                ll.y <- ifelse(y %in% c(0, 1), 0, dbinom(x, wt, y, log=TRUE))
+                ll.mu <- ifelse(mu %in% c(0, 1), 0, dbinom(x, wt, mu, log=TRUE))
+                res <- ifelse(abs(y - mu) < tol, 0, 
+                              sign(y - mu) * sqrt(-2 * (ll.y - ll.mu)))
+                return(res - bound)
+              }
+
+              if(x!=0 && tol<p.hat) {
+                CI.lower <- if(BinDev(tol, x, p.hat, n, -z, tol) <= 0) {
+                  uniroot(f = BinDev, interval = c(tol, if(p.hat < tol || p.hat == 1) 1 - tol else p.hat), 
+                          bound = -z, x = x, mu = p.hat, wt = n)$root }
+              }
+
+              if(x!=n && p.hat<(1-tol)) {
+                CI.upper <- if(BinDev(y = 1 - tol, x = x, mu = ifelse(p.hat > 1 - tol, tol, p.hat), 
+                                      wt = n, bound = z, tol = tol) < 0) {
+                  CI.lower <- if(BinDev(tol, x, if(p.hat < tol || p.hat == 1) 1 - tol else p.hat, n, -z, tol) <= 0) {
+                    uniroot(f = BinDev, interval = c(tol, p.hat),
+                            bound = -z, x = x, mu = p.hat, wt = n)$root  }
+                } else {
+                  uniroot(f = BinDev, interval = c(if(p.hat > 1 - tol) tol else p.hat, 1 - tol),
+                          bound = z, x = x, mu = p.hat, wt = n)$root     }
               }
             }
     )

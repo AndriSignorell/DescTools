@@ -7,8 +7,6 @@ cat("  \033[1m\033[34mDescTools\033[22m is a package for descriptive and explora
   the base R functions' set.\033[39m
 ")
 
-library(DescTools)
-
 # Describing numeric, factor and binary variables
 Desc(d.pizza$temperatur, plotit=TRUE)
 Desc(d.pizza$driver, plotit=TRUE)

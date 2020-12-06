@@ -61,6 +61,8 @@ Some approaches for the confidence intervals can potentially yield negative resu
 
 Which of the methods to use is currently still the subject of lively discussion and has not yet been conclusively clarified. See e.g. Fagerland (2011).
 
+The general consensus is that the most widely taught method \code{method="wald"} is inappropriate in many situations and should not be used. Recommendations seem to converge around the Miettinen-Nurminen based methods (\code{method="mn"}). 
+
 
 %%  ~~ If necessary, more details than the description above ~~
 }
