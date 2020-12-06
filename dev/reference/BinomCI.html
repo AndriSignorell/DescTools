@@ -75,7 +75,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.10</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.38.12</span>
       </span>
     </div>
 
@@ -141,9 +141,10 @@
     </div>
 
     <pre class="usage"><span class='fu'>BinomCI</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>n</span>, conf.level <span class='op'>=</span> <span class='fl'>0.95</span>, sides <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"two.sided"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span><span class='op'>)</span>,
-        method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"wilson"</span>, <span class='st'>"wald"</span>, <span class='st'>"agresti-coull"</span>, <span class='st'>"jeffreys"</span>,
+        method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"wilson"</span>, <span class='st'>"wald"</span>, <span class='st'>"waldcc"</span>, <span class='st'>"agresti-coull"</span>, <span class='st'>"jeffreys"</span>,
                    <span class='st'>"modified wilson"</span>, <span class='st'>"wilsoncc"</span>,<span class='st'>"modified jeffreys"</span>,
-                   <span class='st'>"clopper-pearson"</span>, <span class='st'>"arcsine"</span>, <span class='st'>"logit"</span>, <span class='st'>"witting"</span>, <span class='st'>"pratt"</span><span class='op'>)</span>,
+                   <span class='st'>"clopper-pearson"</span>, <span class='st'>"arcsine"</span>, <span class='st'>"logit"</span>, <span class='st'>"witting"</span>, <span class='st'>"pratt"</span>, 
+                   <span class='st'>"midp"</span>, <span class='st'>"lik"</span><span class='op'>)</span>,
         rand <span class='op'>=</span> <span class='fl'>123</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -172,7 +173,7 @@
       <td><p>character string specifing which method to use; this can be one out of:
   <code>"wald"</code>, <code>"wilson"</code>, <code>"wilsoncc"</code>, <code>"agresti-coull"</code>, <code>"jeffreys"</code>,
   <code>"modified wilson"</code>, <code>"modified jeffreys"</code>, <code>"clopper-pearson"</code>,
-  <code>"arcsine"</code>, <code>"logit"</code>, <code>"witting"</code> or <code>"pratt"</code>. Defaults to <code>"wilson"</code>.
+  <code>"arcsine"</code>, <code>"logit"</code>, <code>"witting"</code>, <code>"pratt"</code>, <code>"midp"</code> and <code>"lik"</code>. Defaults to <code>"wilson"</code>.
   Abbreviation of method are accepted. See details.</p></td>
     </tr>
     <tr>
@@ -186,6 +187,7 @@
     <p>All arguments are being recycled.</p>
 <p>The <b>Wald </b> interval is obtained by inverting the acceptance region of the Wald
   large-sample normal test.</p>
+<p>The <b>Wald with continuity correction </b> interval is obtained by adding the term 1/(2*n) to the Wald interval.</p>
 <p>The <b>Wilson</b> interval, which is the default, was introduced by Wilson (1927) and is
   the inversion of the CLT approximation to the family of equal tail tests of p = p0.
   The Wilson interval is recommended by Agresti and Coull (1998) as well as by
@@ -209,8 +211,23 @@
 <p>The <b>Witting</b> interval (cf. Beispiel 2.106 in Witting (1985)) uses randomization to
   obtain uniformly optimal lower and upper confidence bounds (cf. Satz 2.105 in
   Witting (1985)) for binomial proportions.</p>
+<p>The <b>Pratt</b> interval is obtained by extremely accurate normal approximation. (Pratt 1968)</p>  
+<p>The <b>Mid-p</b> approach is used to reduce the conservatism of the Clopper-Pearson, which is known to be very pronounced. The method midp accumulates the tail areas. 
+  The lower bound \(p_l\) is found as the solution to the equation
+  $$\frac{1}{2} f(x;n,p_l) + (1-F(x;m,p_l)) = \frac{\alpha}{2}$$
+  where \(f(x;n,p)\) denotes the probability mass function (pmf) and
+  \(F(x;n,p)\) the (cumulative) distribution function of the binomial
+  distribution with size \(n\) and proportion \(p\) evaluated at
+  \(x\). 
+  The upper bound \(p_u\) is found as the solution to the equation
+  $$\frac{1}{2} f(x;n,p_u) + F(x-1;m,p_u) = \frac{\alpha}{2}$$
+   In case x=0 then the lower bound is
+  zero and in case x=n then the upper bound is 1.</p>
+<p>The <b>Likelihood-based</b> approach is said to be theoretically appealing. Confidence intervals are based on profiling the binomial deviance in the neighbourhood of the
+MLE.</p>
 <p>For more details we refer to Brown et al (2001) as well as Witting (1985).</p>
-<p>The <b>Pratt</b> interval is obtained by extremely accurate normal approximation. (Pratt 1968)</p>
+
+
 <p>Some approaches for the confidence intervals can potentially yield negative results or values beyond 1. These would be reset such as not to exceed the range of [0, 1].</p>
 <p>And now, which interval should we use? The Wald interval often has inadequate coverage, particularly for small n and values of p close to 0 or 1. Conversely, the Clopper-Pearson Exact method is very conservative and tends to produce wider intervals than necessary. Brown et al. recommends the Wilson or Jeffreys methods for small n and Agresti-Coull, Wilson, or Jeffreys, for larger n as providing more reliable coverage than the alternatives. Also note that the point estimate for the Agresti-Coull method is slightly larger than for other methods because of the way this interval is calculated.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -231,10 +248,12 @@
 common, related tail probabilities <em>Journal of the American Statistical Association</em>, 63, 1457-
 1483.</p>
 <p>Wilcox, R. R. (2005) <em>Introduction to robust estimation and hypothesis testing</em>. Elsevier Academic Press</p>
+<p>Newcombe, R. G. (1998) Two-sided confidence intervals for the single proportion: comparison of seven methods, <em>Statistics in Medicine</em>, 17:857-872
+https://pubmed.ncbi.nlm.nih.gov/16206245/</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Matthias Kohl &lt;Matthias.Kohl@stamats.de&gt;,
-Rand R. Wilcox (Pratt's method),
+Rand R. Wilcox (Pratt's method), Michael Hoehle &lt;hoehle@math.su.se&gt; (Mid-p), 
 Andri Signorell &lt;andri@signorell.net&gt; (interface issues)</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -278,7 +297,33 @@ Andri Signorell &lt;andri@signorell.net&gt; (interface issues)</p>
 #&gt; x.1:n.1 0.8400000 0.7206737 0.9213325
 #&gt; x.2:n.2 0.5833333 0.4571040 0.7017365
 #&gt; x.3:n.3 0.3285714 0.2272016 0.4437899
-#&gt; x.4:n.4 0.2750000 0.1863875 0.3795587</div></pre>
+#&gt; x.4:n.4 0.2750000 0.1863875 0.3795587</div><div class='input'>
+<span class='co'># example Table I in Newcombe (1998)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span><span class='op'>(</span><span class='va'>cbind</span>, <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>, 
+  <span class='kw'>function</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span><span class='op'>{</span>
+    <span class='fu'><a href='Format.html'>Format</a></span><span class='op'>(</span><span class='fu'>BinomCI</span><span class='op'>(</span>x      <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>81</span>, <span class='fl'>15</span>, <span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span>, 
+                   n      <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>263</span>, <span class='fl'>148</span>, <span class='fl'>20</span>, <span class='fl'>29</span><span class='op'>)</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span>, 
+                   method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"wald"</span>, <span class='st'>"waldcc"</span>, <span class='st'>"wilson"</span>,<span class='st'>"wilsoncc"</span>, 
+                              <span class='st'>"clopper-pearson"</span>, <span class='st'>"midp"</span>, <span class='st'>"lik"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span>, 
+           digits<span class='op'>=</span><span class='fl'>4</span><span class='op'>)</span>
+<span class='op'>}</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;                 lwr.ci   upr.ci   lwr.ci   upr.ci   lwr.ci   upr.ci   lwr.ci  
+#&gt; wald            "0.2522" "0.3638" "0.0527" "0.1500" "0.0000" "0.0000" "0.0000"
+#&gt; waldcc          "0.2503" "0.3657" "0.0494" "0.1534" "0.0000" "0.0250" "0.0000"
+#&gt; wilson          "0.2553" "0.3662" "0.0624" "0.1605" "0.0000" "0.1611" "0.0061"
+#&gt; wilsoncc        "0.2535" "0.3682" "0.0598" "0.1644" "0.0000" "0.2005" "0.0018"
+#&gt; clopper-pearson "0.2527" "0.3676" "0.0578" "0.1617" "0.0000" "0.1684" "0.0009"
+#&gt; midp            "0.2544" "0.3658" "0.0601" "0.1581" "0.0000" "0.1391" "0.0017"
+#&gt; lik             "0.2543" "0.3655" "0.0596" "0.1567" "0.0000" "0.0916" "0.0020"
+#&gt;                 upr.ci  
+#&gt; wald            "0.1009"
+#&gt; waldcc          "0.1181"
+#&gt; wilson          "0.1718"
+#&gt; wilsoncc        "0.1963"
+#&gt; clopper-pearson "0.1776"
+#&gt; midp            "0.1585"
+#&gt; lik             "0.1432"</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
