@@ -99,7 +99,7 @@ Some approaches for the confidence intervals can potentially yield negative resu
   A vector with 3 elements for estimate, lower confidence intervall and upper for the upper one.
  }
 
-\note{ The base of this function was \code{binomCI()} in the  \pkg{SLmisc} package. In the meantime the code has been updated on several occasions  and has undergone some additions and bugfixes.
+\note{ The base of this function was \code{binomCI()} in the  \pkg{SLmisc} package. In the meantime, the code has been updated several times  and has undergone many additions and bugfixes.
 }
 
 

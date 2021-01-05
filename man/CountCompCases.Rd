@@ -34,7 +34,7 @@ The third element \code{tab} contains the data for the single variables.
 }
 
 \seealso{
-\code{\link{PlotMiss}}
+\code{\link{PlotMiss}}, \code{\link{CompleteColumns}}, \code{\link{complete.cases}}, \code{\link{is.na}}, \code{\link{na.omit}}
 }
 \examples{
 CountCompCases(d.pizza)

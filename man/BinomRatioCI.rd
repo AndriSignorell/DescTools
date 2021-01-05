@@ -2,55 +2,48 @@
 \alias{BinomRatioCI}
 
 \title{
-Confidence Intervals for the Ratio of Binomial and Multinomial Proportions
+Confidence Intervals for the Ratio of Binomial Proportions
 }
 
 \description{
-A number of methods have been develeloped for obtaining confidence intervals for the ratio of two binomial proportions.  These include the Wald/Katz-log method (Katz et al. 1978), 
+A number of methods have been develeloped for obtaining confidence intervals for the ratio of two binomial proportions. These include the Wald/Katz-log method (Katz et al. 1978), 
 adjusted-log (Walter 1975, Pettigrew et al. 1986), Koopman asymptotic score (Koopman 1984), Inverse hyperbolic sine transformation (Newman 2001), the Bailey method (Bailey (1987), 
 and the Noether (1957) procedure. Koopman results are found iteratively for most intervals using root finding.   
 }
 
 \usage{
-BinomRatioCI(x1, n1, x2, n2, conf.level = 0.95, method = "katz.log", 
-             bonf = FALSE, tol = .Machine$double.eps^0.25, R = 1000, r = length(x1))
+BinomRatioCI(x1, n1, x2, n2, conf.level = 0.95, 
+             sides = c("two.sided", "left", "right"), 
+             method = c("katz.log", "adj.log", "bailey", "koopman", "noether", "sinh-1", "boot"),
+             tol = .Machine$double.eps^0.25, R = 1000)
 }
 
 \arguments{
 
-  \item{x1}{
-The ratio numerator number of successes.  A scalar or vector.
-}
-  \item{n1}{
-The ratio numerator number of trials.  A scalar or vector of \code{length(y1)}
-}
-  \item{x2}{
-The ratio denominator number of successes.  A scalar or vector of \code{length(y1)}
-}
-  \item{n2}{
-The ratio denominator number of trials. A scalar or vector of \code{length(y1)}
-}
-  \item{conf.level}{
-The level of confidence, i.e. 1 - \emph{P}(type I error). 
-}
+  \item{x1}{number of successes for the ratio numerator. }
+  \item{n1}{number of trials for the ratio numerator. }
+  \item{x2}{number of successes for the ratio denominator. }
+  \item{n2}{number of successes for the ratio denominator. }
+
+  \item{conf.level}{confidence level, defaults to 0.95. }
+  \item{sides}{a character string specifying the side of the confidence interval, must be one of \code{"two.sided"} (default),
+\code{"left"} or \code{"right"}. You can specify just the initial letter. \code{"left"} would be analogue to a hypothesis of
+\code{"greater"} in a \code{t.test}.}
+
   \item{method}{
-Confidence interval method.  One of \code{"adj.log"}, \code{"bailey"},  
-\code{"boot"}, \code{"katz.log"}, \code{"koopman"}, \code{"sinh-1"} or 
-\code{"noether"}.  Partial distinct names can be used.  
+confidence interval method, one of \code{"katz.log"} (default), \code{"adj.log"}, \code{"bailey"},  
+\code{"boot"}, \code{"koopman"}, \code{"noether"} or \code{"sinh-1"}. Can be abbreviated.
 }
-  \item{bonf}{
-Logical, indicating whether or not Bonferroni corrections should be applied for simultaneous inference if \code{y1, y2, n1} and \code{n2} are vectors.
-}  
-  \item{tol}{The desired accuracy (convergence tolerance) for the iterative root finding procedure when finding Koopman intevals. The default is taken to be the smallest positive floating-point number of the workstation implementing the function, raised to the 0.25 power, and will normally be approximately 0.0001.
+\item{tol}{The desired accuracy (convergence tolerance) for the iterative root finding procedure when finding Koopman intevals. The default is taken to be the smallest positive floating-point number of the workstation implementing the function, raised to the 0.25 power, and will normally be approximately 0.0001.
 }
 \item{R}{If method \code{"boot"} is chosen, the number of bootstrap iterations.
-}
-\item{r}{The number of ratios to which family-wise inferences are being made.  Assumed to be \code{length(y1)}. 
 }
 }
  
       
 \details{
+All arguments are being recycled.
+
 Let \eqn{Y_1} and \eqn{Y_2} be multinomial random variables with parameters \eqn{n_1, \pi_{1i}},  and  \eqn{n_2, \pi_{2i}}, respectively; where \eqn{i = \{1, 2, 3, \dots, r\}}.  This encompasses the binomial case in which \eqn{r = 1}. We define the true selection ratio for the \emph{i}th resource of \emph{r} total resources to be:
  \deqn{\theta_{i}=\frac{\pi _{1i}}{\pi _{2i}}}
 
@@ -99,14 +92,16 @@ Noether \tab \eqn{\hat{\theta}_i\pm z_1-\alpha/2\hat{\sigma}_N},   \cr
 \tab where \eqn{\hat{\sigma }_{N}^{2}=\hat{\theta }_{i}^{2}\left( \frac{1}{{{y}_{1i}}}-\frac{1}{{{n}_{1}}}+\frac{1}{{{y}_{2i}}}-\frac{1}{{{n}_{2}}} \right)}.  
 }
 
-Exception handling strategies are generally necessary in the cases \eqn{y_1} = 0, \eqn{n_1} = \eqn{y_1}, \eqn{y_2} = 0, and \eqn{n_2} = \eqn{y_2} (see Aho and Bowyer, in review).  
+Exception handling strategies are generally necessary in the cases \eqn{x_1} = 0, \eqn{n_1} = \eqn{x_1}, \eqn{x_2} = 0, and \eqn{n_2} = \eqn{x_2} (see Aho and Bowyer, in review).  
 
 The bootstrap method currently employs percentile confidence intervals.
 
 }
 
-\value{Returns a list of \code{class = "ci"}.  Default output is a matrix with the point and interval estimate. 
-}
+\value{
+  A matrix with 3 columns containing the estimate, the lower and the upper confidence intervall.
+ }
+
 \references{
 Agresti, A., Min, Y. (2001) On small-sample confidence intervals for parameters in discrete distributions.  \emph{Biometrics} 57: 963-97.
 
@@ -128,13 +123,14 @@ binomial variate.  \emph{Biometrika} 73(2): 425-435.
 Walter, S. D. (1975) The distribution of Levins measure of attributable risk. \emph{Biometrika} 62(2): 371-374.
 }
 \author{
-Ken Aho <kenaho1@gmail.com>
+Ken Aho <kenaho1@gmail.com>, some tweaks Andri Signorell <andri@signorell.net>
 }
 \seealso{
 \code{\link{BinomCI}, \link{BinomDiffCI}}
 }
 \examples{
 # From Koopman (1984)
+
 BinomRatioCI(x1 = 36, n1 = 40, x2 = 16, n2 = 80, method = "katz")
 BinomRatioCI(x1 = 36, n1 = 40, x2 = 16, n2 = 80, method = "koop")
 }

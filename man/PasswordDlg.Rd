@@ -8,10 +8,15 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-PasswordDlg()
+PasswordDlg(option_txt = NULL)
+}
+\arguments{
+  \item{option_txt}{an optional text, if it is defined, there will be a checkbox added to the dialog with the label being set with \code{option_txt}.}
 }
 %- maybe also 'usage' for other objects documented here.
-\value{the entered password
+\value{the entered password\cr
+the status of the optional checkbox will be returned as attribute: 
+\code{attr(pw, "option")}
 }
 \author{Markus Naepflin <markus@naepfl.in>
 }

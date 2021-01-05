@@ -1412,6 +1412,19 @@ StrExtract <- function(x, pattern, ...){
 }
 
 
+StrExtractBetween <- function(x, left, right) {
+  
+  res <- rep(NA_character_, length(x))
+  # check that left and right exist, take care for NAs
+  valid <- sapply(StrPos(x, left) < StrPos(x, right), isTRUE)
+  
+  res[valid] <- gsub(gettextf(".*%s(.*?)%s.*", left, right), "\\1", x[valid])
+  
+  return(res)
+  
+}
+
+
 
 # StrTrunc <- function(x, maxlen = 20) {
 # 
@@ -3850,8 +3863,30 @@ Overlap <- function(x, y){
 
 AllIdentical <- function(...){
   lst <- list(...)
-  all(sapply(lst[-1], identical, lst[[1]]))
   # identical ought to be transitive, so if A is identical to C and to D, then C should be identical to D
+  
+  # all(sapply(lst[-1], identical, lst[[1]]))
+  
+  # we might not need to compare all elements
+  for(i in seq_along(lst)[-1]){
+    
+    if(!identical(lst[[i]], lst[[1]])){
+      # we can stop after the first inequality
+      return(FALSE)
+    }
+  }
+  return(TRUE)
+  
+  # 3 times faster than original
+  
+  # library(microbenchmark)
+  # microbenchmark(
+  #   orig = AllIdentical(A, B, C, D, E),
+  #   A = AllIdenticalA(A, B, C, D, E), 
+  #   times  = 2000L
+  # )
+  
+  
 }
 
 

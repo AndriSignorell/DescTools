@@ -9,7 +9,7 @@
 }
 \usage{
 BinomDiffCI(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided","left","right"),
-            method = c("wald", "waldcc", "ac", "score", "scorecc", "mn",
+            method = c("ac", "wald", "waldcc", "score", "scorecc", "mn",
                        "mee", "blj", "ha", "hal", "jp"))
 }
 %- maybe also 'usage' for other objects documented here.
@@ -67,7 +67,7 @@ The general consensus is that the most widely taught method \code{method="wald"}
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-  A vector with 3 elements for estimate, lower confidence intervall and upper for the upper one.
+  A matrix with 3 columns containing the estimate, the lower and the upper confidence intervall.
  }
 \references{
 Agresti, A, Caffo, B (2000) Simple and effective confidence intervals for proportions and difference of proportions result from adding two successes and two failures. \emph{The American Statistician} 54 (4), 280-288.
