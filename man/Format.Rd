@@ -117,18 +117,18 @@ The function \code{as.CDateFmt()} converts ISO-8601 codes into the C-format code
 Even more variability is needed to display numeric values. For the most frequently used formats there are the following special codes available:
 \tabular{lll}{
 \bold{Code} \tab  \tab  \cr
-\code{e} \tab scientific \tab  forces scientific representation of x, e.g. 3.141e-05. The number of digits, alignment
-\cr \tab \tab and zero values are further respected.\cr
+\code{e} \tab scientific \tab  forces scientific representation of x, e.g. 3.141e-05. The number of digits,\cr 
+\tab \tab alignment and zero values are further respected.\cr
 \tab\cr
 
 \code{eng} \tab engineering \tab  forces scientific representation of \code{x}, but only with powers that are a multiple of 3. \cr
-\code{engabb} \tab engineering abbr. \tab  same as \code{eng}, but replaces the exponential representation by codes, e.g. \code{M} for mega (1e6). See \code{\link{d.prefix}}.\cr
+\code{engabb} \tab engineering abbr. \tab  same as \code{eng}, but replaces the exponential representation by codes, \cr \tab\tab e.g. \code{M} for mega (1e6). See \code{\link{d.prefix}}.\cr
 
 \code{\%} \tab percent \tab will divide the given number by 100 and append the \%-sign (without a separator).\cr
 \tab\cr
-\code{p} \tab p-value \tab will wrap the function \code{\link{format.pval}} and return a p-value format. Use \code{eps} to define the threshold to switch to a \code{ < 000 } representation.\cr
+\code{p} \tab p-value \tab will wrap the function \code{\link{format.pval}} and return a p-value format. \cr \tab \tab Use \code{eps} to define the threshold to switch to a \code{ < 000 } representation.\cr
 \tab\cr
-\code{frac} \tab fractions \tab will (try to) convert numbers to fractions. So 0.1 will be displayed as 1/10. See \code{\link[MASS]{fractions}()}.\cr
+\code{frac} \tab fractions \tab will (try to) convert numbers to fractions. So 0.1 will be displayed as 1/10. \cr \tab\tab See \code{\link[MASS]{fractions}()}.\cr
 \tab\cr
 
 \code{*} \tab significance \tab will produce a significance representation of a p-value consisting of *  and .,  \cr
@@ -152,7 +152,7 @@ New formats can be created by means of \code{as.fmt()}. This works quite straigh
 The following code will define a new format template named "\code{myNumFmt}" of the class \code{"fmt"}. Provided to \code{Format()} this will result in a number displayed with 2 fixed digits and a comma as big mark:
 \preformatted{myNumFmt <- as.fmt(digits=2, big.mark=",")
 Format(12222.89345, fmt=myNumFmt) = 12,222.89}
-The latter returns the same result as if the arguments would have been supplied directly: 
+The latter returns the same result as if the arguments would have been supplied directly: \cr
 \code{Format(12222.89345, digits=2, big.mark=",")}.
 
 Many report functions (e.g. \code{\link{TOne}()}) in \bold{DescTools} use three default formats for counts (named \code{"abs"}), numeric values (\code{"num"}) and percentages (\code{"per"}). These formats can be set by the user as options (see \code{\link{DescToolsOptions}()}. For other purposes any number of any named formats can be defined. 

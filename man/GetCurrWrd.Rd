@@ -19,7 +19,9 @@ GetCurrXL()
 \note{Closing an instance does not update the value of the pointer. So it may contain an invalid address. 
 Whether the pointer is still valid can be checked by \code{\link{IsValidHwnd}}. }
 
-\note{This does unfortunately not work with RDCOMClient (but it would with rcom)! Any better idea out there?}
+%% \note{This does unfortunately not work with RDCOMClient (but it would with rcom)! Any better idea out there?}
+%% it does work with RDCOMClient, what was it exactly?
+
 
 \author{
 Andri Signorell <andri@signorell.net>

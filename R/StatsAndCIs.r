@@ -1505,9 +1505,9 @@ Skew <- function (x, weights=NULL, na.rm = FALSE, method = 3, conf.level = NA, c
   } else {
 
     if(ci.type == "classic") {
-      res <- i.skew(x, weights=weights,method=method)
+      res <- i.skew(x, weights=weights, method=method)
       res <- c(skewness=res[1],
-               lwr.ci=qnorm(1-(1-conf.level)/2) * sqrt(res[2]),
+               lwr.ci=qnorm((1-conf.level)/2) * sqrt(res[2]),
                upr.ci=qnorm(1-(1-conf.level)/2) * sqrt(res[2]))
 
     } else {
@@ -1523,10 +1523,9 @@ Skew <- function (x, weights=NULL, na.rm = FALSE, method = 3, conf.level = NA, c
         lwr.ci <- ci[[4]][4]
         upr.ci <- ci[[4]][5]
       }
+      
+      res <- c(skew=boot.skew$t0[1], lwr.ci=lwr.ci, upr.ci=upr.ci)
     }
-
-    res <- c(skew=boot.skew$t0[1], lwr.ci=lwr.ci, upr.ci=upr.ci)
-    # res <- ci
   }
 
   return(res)
@@ -1536,7 +1535,8 @@ Skew <- function (x, weights=NULL, na.rm = FALSE, method = 3, conf.level = NA, c
 
 
 
-Kurt <- function (x, weights=NULL, na.rm = FALSE, method = 3, conf.level = NA, ci.type = "bca", R=1000, ...) {
+Kurt <- function (x, weights=NULL, na.rm = FALSE, method = 3, conf.level = NA, 
+                  ci.type = "bca", R=1000, ...) {
 
   i.kurt <- function(x, weights=NULL, na.rm = FALSE, method = 3) {
 
@@ -1576,7 +1576,7 @@ Kurt <- function (x, weights=NULL, na.rm = FALSE, method = 3, conf.level = NA, c
     if(ci.type == "classic") {
       res <- i.kurt(x, weights=weights, method=method)
       res <- c(kurtosis=res[1],
-               lwr.ci=qnorm(1-(1-conf.level)/2) * sqrt(res[2]),
+               lwr.ci=qnorm((1-conf.level)/2) * sqrt(res[2]),
                upr.ci=qnorm(1-(1-conf.level)/2) * sqrt(res[2]))
 
     } else {
