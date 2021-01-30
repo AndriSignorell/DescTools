@@ -75,7 +75,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.39.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.39.4</span>
       </span>
     </div>
 
@@ -144,8 +144,8 @@
         method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"wilson"</span>, <span class='st'>"wald"</span>, <span class='st'>"waldcc"</span>, <span class='st'>"agresti-coull"</span>, <span class='st'>"jeffreys"</span>,
                    <span class='st'>"modified wilson"</span>, <span class='st'>"wilsoncc"</span>,<span class='st'>"modified jeffreys"</span>,
                    <span class='st'>"clopper-pearson"</span>, <span class='st'>"arcsine"</span>, <span class='st'>"logit"</span>, <span class='st'>"witting"</span>, <span class='st'>"pratt"</span>, 
-                   <span class='st'>"midp"</span>, <span class='st'>"lik"</span><span class='op'>)</span>,
-        rand <span class='op'>=</span> <span class='fl'>123</span><span class='op'>)</span></pre>
+                   <span class='st'>"midp"</span>, <span class='st'>"lik"</span>, <span class='st'>"blaker"</span><span class='op'>)</span>,
+        rand <span class='op'>=</span> <span class='fl'>123</span>, tol <span class='op'>=</span> <span class='fl'>1e-05</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -173,12 +173,16 @@
       <td><p>character string specifing which method to use; this can be one out of:
   <code>"wald"</code>, <code>"wilson"</code>, <code>"wilsoncc"</code>, <code>"agresti-coull"</code>, <code>"jeffreys"</code>,
   <code>"modified wilson"</code>, <code>"modified jeffreys"</code>, <code>"clopper-pearson"</code>,
-  <code>"arcsine"</code>, <code>"logit"</code>, <code>"witting"</code>, <code>"pratt"</code>, <code>"midp"</code> and <code>"lik"</code>. Defaults to <code>"wilson"</code>.
+  <code>"arcsine"</code>, <code>"logit"</code>, <code>"witting"</code>, <code>"pratt"</code>, <code>"midp"</code>, <code>"lik"</code> and <code>"blaker"</code>. Defaults to <code>"wilson"</code>.
   Abbreviation of method are accepted. See details.</p></td>
     </tr>
     <tr>
       <th>rand</th>
       <td><p>seed for random number generator; see details.</p></td>
+    </tr>
+    <tr>
+      <th>tol</th>
+      <td><p>tolerance for method <code>"blaker"</code>.</p></td>
     </tr>
     </table>
 
@@ -225,6 +229,8 @@
   zero and in case x=n then the upper bound is 1.</p>
 <p>The <b>Likelihood-based</b> approach is said to be theoretically appealing. Confidence intervals are based on profiling the binomial deviance in the neighbourhood of the
 MLE.</p>
+<p>For the <b>Blaker</b> method refer to Blaker (2000).</p>
+
 <p>For more details we refer to Brown et al (2001) as well as Witting (1985).</p>
 
 
@@ -250,11 +256,13 @@ common, related tail probabilities <em>Journal of the American Statistical Assoc
 <p>Wilcox, R. R. (2005) <em>Introduction to robust estimation and hypothesis testing</em>. Elsevier Academic Press</p>
 <p>Newcombe, R. G. (1998) Two-sided confidence intervals for the single proportion: comparison of seven methods, <em>Statistics in Medicine</em>, 17:857-872
 https://pubmed.ncbi.nlm.nih.gov/16206245/</p>
+<p>Blaker, H. (2000) Confidence curves and improved exact confidence intervals for discrete distributions, <em>Canadian Journal of Statistics</em> 28 (4), 783–798</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Matthias Kohl &lt;Matthias.Kohl@stamats.de&gt;,
-Rand R. Wilcox (Pratt's method), Michael Hoehle &lt;hoehle@math.su.se&gt; (Mid-p), 
-Andri Signorell &lt;andri@signorell.net&gt; (interface issues)</p>
+Rand R. Wilcox (Pratt's method), Michael Hoehle &lt;hoehle@math.su.se&gt; (Mid-p),
+Ralph Scherer &lt;shearer.ra76@gmail.com&gt; (Blaker), 
+Andri Signorell &lt;andri@signorell.net&gt; (interface issues and all the rest)</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/binom.test.html'>binom.test</a></code>, <code>binconf</code>, <code><a href='MultinomCI.html'>MultinomCI</a></code>, <code><a href='BinomDiffCI.html'>BinomDiffCI</a></code>, <code><a href='BinomRatioCI.html'>BinomRatioCI</a></code></p></div>

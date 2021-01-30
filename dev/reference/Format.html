@@ -79,7 +79,7 @@ There's also an easygoing interface for format templates, defined as a list cons
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.39.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.39.4</span>
       </span>
     </div>
 
@@ -274,15 +274,18 @@ The argument <code>fmt</code> is very flexible and is used to generate a variety
 <code>as.CDateFmt("yyyy mm dd")</code> yields <code> "%Y %m %d"</code>.</p>
 <p>Even more variability is needed to display numeric values. For the most frequently used formats there are the following special codes available:</p><table class='table'>
 <tr><td><b>Code</b></td><td></td><td></td></tr>
-<tr><td><code>e</code></td><td>scientific</td><td>forces scientific representation of x, e.g. 3.141e-05. The number of digits, alignment</td></tr>
-<tr><td></td><td></td><td>and zero values are further respected.</td></tr>
+<tr><td><code>e</code></td><td>scientific</td><td>forces scientific representation of x, e.g. 3.141e-05. The number of digits,</td></tr>
+<tr><td></td><td></td><td>alignment and zero values are further respected.</td></tr>
 <tr><td></td><td></td><td><code>eng</code></td></tr>
 <tr><td>engineering</td><td>forces scientific representation of <code>x</code>, but only with powers that are a multiple of 3.</td><td><code>engabb</code></td></tr>
-<tr><td>engineering abbr.</td><td>same as <code>eng</code>, but replaces the exponential representation by codes, e.g. <code>M</code> for mega (1e6). See <code><a href='ConvUnit.html'>d.prefix</a></code>.</td><td><code>%</code></td></tr>
+<tr><td>engineering abbr.</td><td>same as <code>eng</code>, but replaces the exponential representation by codes,</td><td></td></tr>
+<tr><td></td><td>e.g. <code>M</code> for mega (1e6). See <code><a href='ConvUnit.html'>d.prefix</a></code>.</td><td><code>%</code></td></tr>
 <tr><td>percent</td><td>will divide the given number by 100 and append the %-sign (without a separator).</td><td></td></tr>
 <tr><td></td><td><code>p</code></td><td>p-value</td></tr>
-<tr><td>will wrap the function <code><a href='https://rdrr.io/r/base/format.pval.html'>format.pval</a></code> and return a p-value format. Use <code>eps</code> to define the threshold to switch to a <code> &lt; 000 </code> representation.</td><td></td><td></td></tr>
-<tr><td><code>frac</code></td><td>fractions</td><td>will (try to) convert numbers to fractions. So 0.1 will be displayed as 1/10. See <code><a href='https://rdrr.io/pkg/MASS/man/fractions.html'>fractions</a>()</code>.</td></tr>
+<tr><td>will wrap the function <code><a href='https://rdrr.io/r/base/format.pval.html'>format.pval</a></code> and return a p-value format.</td><td></td><td></td></tr>
+<tr><td>Use <code>eps</code> to define the threshold to switch to a <code> &lt; 000 </code> representation.</td><td></td><td></td></tr>
+<tr><td><code>frac</code></td><td>fractions</td><td>will (try to) convert numbers to fractions. So 0.1 will be displayed as 1/10.</td></tr>
+<tr><td></td><td></td><td>See <code><a href='https://rdrr.io/pkg/MASS/man/fractions.html'>fractions</a>()</code>.</td></tr>
 <tr><td></td><td></td><td><code><a href='https://rdrr.io/r/base/Arithmetic.html'>*</a></code></td></tr>
 <tr><td>significance</td><td>will produce a significance representation of a p-value consisting of *  and .,</td><td></td></tr>
 <tr><td></td><td>while the breaks are set according to the used defaults e.g. in <code>lm</code> as</td><td></td></tr>
@@ -299,7 +302,7 @@ This allows to store and manage the full format in variables or as options (in <
 <p>Finally <code>fmt</code> can also be a function in x, which makes formatting very flexible.</p>
 <p>New formats can be created by means of <code>as.fmt()</code>. This works quite straight on. We can use any of the arguments from <code>Format()</code> and combine them to a list. <br />
 The following code will define a new format template named "<code>myNumFmt</code>" of the class <code>"fmt"</code>. Provided to <code>Format()</code> this will result in a number displayed with 2 fixed digits and a comma as big mark:</p><pre>myNumFmt &lt;- as.fmt(digits=2, big.mark=",")
-Format(12222.89345, fmt=myNumFmt) = 12,222.89</pre><p>The latter returns the same result as if the arguments would have been supplied directly: 
+Format(12222.89345, fmt=myNumFmt) = 12,222.89</pre><p>The latter returns the same result as if the arguments would have been supplied directly: <br />
 <code>Format(12222.89345, digits=2, big.mark=",")</code>.</p>
 <p>Many report functions (e.g. <code><a href='TOne.html'>TOne</a>()</code>) in <b>DescTools</b> use three default formats for counts (named <code>"abs"</code>), numeric values (<code>"num"</code>) and percentages (<code>"per"</code>). These formats can be set by the user as options (see <code><a href='DescToolsOptions.html'>DescToolsOptions</a>()</code>. For other purposes any number of any named formats can be defined.</p>
 <p><code>Fmt()</code> is used to access and edit already defined Formats. It can directly adapt defined properties and returns the format template. <code>Fmt("num", digits=1, sci=10)</code> will use the current version of the numeric format and change the digits to 1 and the threshold to switch to scientifc presentation to numbers &gt;1e10 and &lt;1e-10.
