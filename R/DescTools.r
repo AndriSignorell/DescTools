@@ -550,9 +550,9 @@ Sample.default <- function (x, size, replace = FALSE, prob = NULL)
 
 
 
-CombN <- function(x, m, repl=FALSE, ord=FALSE){
+CombN <- function(n, m, repl=FALSE, ord=FALSE){
   # return the number for the 4 combinatoric cases
-  n <- length(x)
+  # n <- length(x)
   if(repl){
     res <- n^m
     if(!ord){

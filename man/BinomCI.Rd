@@ -10,8 +10,8 @@ BinomCI(x, n, conf.level = 0.95, sides = c("two.sided", "left", "right"),
         method = c("wilson", "wald", "waldcc", "agresti-coull", "jeffreys",
                    "modified wilson", "wilsoncc","modified jeffreys",
                    "clopper-pearson", "arcsine", "logit", "witting", "pratt", 
-                   "midp", "lik"),
-        rand = 123)
+                   "midp", "lik", "blaker"),
+        rand = 123, tol = 1e-05)
 }
 \arguments{
   \item{x}{ number of successes. }
@@ -24,9 +24,12 @@ BinomCI(x, n, conf.level = 0.95, sides = c("two.sided", "left", "right"),
   \item{method}{ character string specifing which method to use; this can be one out of:
   \code{"wald"}, \code{"wilson"}, \code{"wilsoncc"}, \code{"agresti-coull"}, \code{"jeffreys"},
   \code{"modified wilson"}, \code{"modified jeffreys"}, \code{"clopper-pearson"},
-  \code{"arcsine"}, \code{"logit"}, \code{"witting"}, \code{"pratt"}, \code{"midp"} and \code{"lik"}. Defaults to \code{"wilson"}.
+  \code{"arcsine"}, \code{"logit"}, \code{"witting"}, \code{"pratt"}, \code{"midp"}, \code{"lik"} and \code{"blaker"}. Defaults to \code{"wilson"}.
   Abbreviation of method are accepted. See details. }
+  
   \item{rand}{ seed for random number generator; see details. }
+  \item{tol}{tolerance for method \code{"blaker"}.}
+
 }
 \details{
   All arguments are being recycled.
@@ -86,7 +89,10 @@ BinomCI(x, n, conf.level = 0.95, sides = c("two.sided", "left", "right"),
   The \bold{Likelihood-based} approach is said to be theoretically appealing. Confidence intervals are based on profiling the binomial deviance in the neighbourhood of the
 MLE.
 
-  For more details we refer to Brown et al (2001) as well as Witting (1985).
+For the \bold{Blaker} method refer to Blaker (2000).
+
+
+For more details we refer to Brown et al (2001) as well as Witting (1985).
 
 
 
@@ -122,10 +128,12 @@ Wilcox, R. R. (2005) \emph{Introduction to robust estimation and hypothesis test
 Newcombe, R. G. (1998) Two-sided confidence intervals for the single proportion: comparison of seven methods, \emph{Statistics in Medicine}, 17:857-872
 https://pubmed.ncbi.nlm.nih.gov/16206245/
 
+Blaker, H. (2000) Confidence curves and improved exact confidence intervals for discrete distributions, \emph{Canadian Journal of Statistics} 28 (4), 783–798
 }
 \author{ Matthias Kohl <Matthias.Kohl@stamats.de>,
-Rand R. Wilcox (Pratt's method), Michael Hoehle <hoehle@math.su.se> (Mid-p), 
-Andri Signorell <andri@signorell.net> (interface issues) }
+Rand R. Wilcox (Pratt's method), Michael Hoehle <hoehle@math.su.se> (Mid-p),
+Ralph Scherer <shearer.ra76@gmail.com> (Blaker), 
+Andri Signorell <andri@signorell.net> (interface issues and all the rest) }
 
 \seealso{\code{\link[stats]{binom.test}}, \code{\link[Hmisc]{binconf}}, \code{\link{MultinomCI}}, \code{\link{BinomDiffCI}}, \code{\link{BinomRatioCI}} }
 \examples{

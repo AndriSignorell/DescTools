@@ -137,14 +137,17 @@ Conf.multinom <- function(x, ...){
 }
 
 
-Conf.glm <- function(x, cutoff = 0.5, ...){
+Conf.glm <- function(x, cutoff = 0.5, pos=NULL, ...){
   resp <- model.extract(x$model, "response")
   if(is.factor(resp)){
     pred <- levels(resp)[(predict(x, type="response") > cutoff)+1]
+    if(is.null(pos)) pos <- levels(resp)[2]
   } else {
-    pred <- levels(factor(resp))[(predict(x, type="response") > cutoff)+1]
+    lvl <- levels(factor(resp))
+    pred <- lvl[(predict(x, type="response") > cutoff)+1]
+    if(is.null(pos)) pos <- lvl[2]
   }
-  Conf(x=pred, ref=resp, ... )
+  Conf(x=pred, ref=resp, pos=pos, ... )
 }
 
 

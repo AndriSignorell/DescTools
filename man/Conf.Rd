@@ -31,7 +31,7 @@ Conf(x, ...)
 
 \method{Conf}{rpart}(x, ...)
 \method{Conf}{multinom}(x, ...)
-\method{Conf}{glm}(x, cutoff = 0.5, ...)
+\method{Conf}{glm}(x, cutoff = 0.5, pos = NULL, ...)
 \method{Conf}{randomForest}(x, ...)
 \method{Conf}{svm}(x, ...)
 \method{Conf}{regr}(x, ...)

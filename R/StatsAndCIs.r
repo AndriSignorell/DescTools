@@ -1855,14 +1855,16 @@ BootCI <- function(x, y=NULL, FUN, ..., bci.method = c("norm", "basic", "stud", 
 # Confidence Intervals for Binomial Proportions
 BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right"),
                     method = c("wilson", "wald", "waldcc", "agresti-coull", "jeffreys", "modified wilson", "wilsoncc",
-                                "modified jeffreys", "clopper-pearson", "arcsine", "logit", "witting", "pratt", "midp", "lik"), rand = 123) {
+                                "modified jeffreys", "clopper-pearson", "arcsine", "logit", "witting", "pratt", "midp", "lik", "blaker"), 
+                    rand = 123, tol=1e-05) {
 
   if(missing(method)) method <- "wilson"
   if(missing(sides)) sides <- "two.sided"
 
   iBinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right"),
                        method = c("wilson", "wilsoncc", "wald", "waldcc","agresti-coull", "jeffreys", "modified wilson",
-                       "modified jeffreys", "clopper-pearson", "arcsine", "logit", "witting", "pratt", "midp", "lik"), rand = 123) {
+                       "modified jeffreys", "clopper-pearson", "arcsine", "logit", "witting", "pratt", "midp", "lik", "blaker"), 
+                       rand = 123, tol=1e-05) {
 
     if(length(x) != 1) stop("'x' has to be of length 1 (number of successes)")
     if(length(n) != 1) stop("'n' has to be of length 1 (number of trials)")
@@ -1879,7 +1881,7 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
     q.hat <- 1 - p.hat
 
     switch( match.arg(arg=method, choices=c("wilson", "wald", "waldcc", "wilsoncc","agresti-coull", "jeffreys", "modified wilson",
-                                            "modified jeffreys", "clopper-pearson", "arcsine", "logit", "witting","pratt", "midp", "lik"))
+                                            "modified jeffreys", "clopper-pearson", "arcsine", "logit", "witting","pratt", "midp", "lik", "blaker"))
             , "wald" = {
               est <- p.hat
               term2 <- kappa*sqrt(p.hat*q.hat)/sqrt(n)
@@ -2111,6 +2113,35 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
                           bound = z, x = x, mu = p.hat, wt = n)$root     }
               }
             }
+            , "blaker" ={
+              
+              acceptbin <- function (x, n, p) {
+                
+                p1 <- 1 - pbinom(x - 1, n, p)
+                p2 <- pbinom(x, n, p)
+                
+                a1 <- p1 + pbinom(qbinom(p1, n, p) - 1, n, p)
+                a2 <- p2 + 1 - pbinom(qbinom(1 - p2, n, p), n, p)
+                
+                return(min(a1, a2))
+              }
+              
+              CI.lower <- 0
+              CI.upper <- 1
+              
+              if (x != 0) {
+                CI.lower <- qbeta((1 - conf.level)/2, x, n - x + 1)
+                while (acceptbin(x, n, CI.lower + tol) < (1 - conf.level)) 
+                  CI.lower = CI.lower + tol
+              }
+              
+              if (x != n) {
+                CI.upper <- qbeta(1 - (1 - conf.level)/2, x + 1, n - x)
+                while (acceptbin(x, n, CI.upper - tol) < (1 - conf.level)) 
+                  CI.upper <- CI.upper - tol
+              }
+              
+            }
     )
 
     # dot not return ci bounds outside [0,1]
@@ -2128,7 +2159,8 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
 
   # handle vectors
   # which parameter has the highest dimension
-  lst <- list(x=x, n=n, conf.level=conf.level, sides=sides, method=method, rand=rand)
+  lst <- list(x=x, n=n, conf.level=conf.level, sides=sides, 
+              method=method, rand=rand)
   maxdim <- max(unlist(lapply(lst, length)))
   # recycle all params to maxdim
   lgp <- lapply( lst, rep, length.out=maxdim )
@@ -3843,6 +3875,46 @@ MeanCI <- function (x, sd = NULL, trim = 0, method = c("classic", "boot"),
 
   return(res)
 }
+
+
+
+
+# MeanCIn <- function(xm, sd, pop_sd=NULL, width, interval=c(1, 1e5), conf.level=0.95, sides="two.sided") {
+# 
+#   sides <- match.arg(sides, choices = c("two.sided","left","right"), several.ok = FALSE)
+#   if(sides!="two.sided")
+#     conf.level <- 1 - 2*(1-conf.level)
+# 
+#   if(!is.null(sd))  
+#     mci <- function(n) qt(c((1-conf.level)/2, 1-, df = n-1) *sd / sqrt(n)
+#   
+#   else if(!is.null(pop_sd))
+#     mci <- function(n) qnorm((1-conf.level)/2) *sd / sqrt(n)
+#   
+#   else{
+#     warning("Provide either sd or pop_sd")
+#     return(NA)
+#   }
+#   
+#   uniroot(f = function(n) diff(mci(n)) - width, 
+#           interval = interval)$root
+#   
+#   if(sides=="left")
+#     res[3] <- Inf
+#   else if(sides=="right")
+#     res[2] <- -Inf
+#   
+#   
+# }
+
+
+
+# CIn <- function(p=0.5, width, interval=c(1, 1e5), conf.level=0.95, sides="two.sided", method="wilson") {
+#   uniroot(f = function(n) diff(BinomCI(x=p*n, n=n, conf.level=conf.level, 
+#                                        sides=sides, method=method)[, -1]) - width, 
+#           interval = interval)$root
+# }
+
 
 
 MeanDiffCI <- function(x, ...){
