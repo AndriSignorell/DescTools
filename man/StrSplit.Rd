@@ -62,3 +62,4 @@ noquote(StrSplit("A text I want to display with spaces"))
 noquote(strsplit("A text I want to display with spaces", NULL)[[1]])
 }
 \keyword{character}
+\concept{ string }

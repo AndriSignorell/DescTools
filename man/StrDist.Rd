@@ -70,3 +70,4 @@ StrDist(x, y, method="hamming")
 \keyword{character}
 \keyword{utilities}
 
+\concept{ string }

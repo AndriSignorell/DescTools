@@ -81,3 +81,5 @@ CombSet(x=x, m=c(1, 3, 5), as.list=TRUE)
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ math }
+\concept{ combinatorics }
+

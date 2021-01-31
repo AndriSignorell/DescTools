@@ -671,6 +671,14 @@ CombPairs <- function(x, y = NULL) {
 
 
 
+GenRandGroups <- function(x, grp_n){
+  (grp <- sample(rep(j <- seq_along(grp_n), grp_n)))
+  idx <- sapply(j, function(x) which(grp==x))
+  lapply(idx, function(ii) x[ii])
+}
+
+
+
 ###
 ### DOT.R  Scalar product
 ###

@@ -47,3 +47,4 @@ paste(StrSpell("Andri", type="Morse"), collapse="|")
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ character}% __ONLY ONE__ keyword per line
+\concept{ string }

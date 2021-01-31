@@ -61,3 +61,4 @@ StrExtractBetween(z, "\\\\(", "\\\\)")
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 \keyword{character}
 \keyword{utilities}
+\concept{ string }

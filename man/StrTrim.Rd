@@ -62,4 +62,5 @@ StrTrim(" ..Hello ... world! ", pattern=" \\\\.")
 % R documentation directory.
 \keyword{ manip }
 \keyword{ character }% __ONLY ONE__ keyword per line
+\concept{ string }
 
