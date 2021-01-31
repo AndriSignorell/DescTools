@@ -6,8 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Split Path In Drive, Path, Filename
- — SplitPath • DescTools</title>
+<title>Generate Random Groups — GenRandGroups • DescTools</title>
 
 
 <!-- jquery -->
@@ -42,10 +41,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Split Path In Drive, Path, Filename
- — SplitPath" />
-<meta property="og:description" content="Split a full path in its components. This is specifically an issue in Windows and not really interesting for other OSs.
-" />
+<meta property="og:title" content="Generate Random Groups — GenRandGroups" />
+<meta property="og:description" content="Generates a random grouping from a given data vector, where the group sizes correspond to the numeric vector grp_n." />
 
 
 <meta name="robots" content="noindex">
@@ -132,125 +129,56 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Split Path In Drive, Path, Filename
-<!-- %%  ~~function to do ... ~~ --></h1>
+    <h1>Generate Random Groups</h1>
     
-    <div class="hidden name"><code>SplitPath.Rd</code></div>
+    <div class="hidden name"><code>GenRandGroups.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Split a full path in its components. This is specifically an issue in Windows and not really interesting for other OSs.
-<!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
+    <p>Generates a random grouping from a given data vector, where the group sizes correspond to the numeric vector grp_n.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>SplitPath</span><span class='op'>(</span><span class='va'>path</span>, last.is.file <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>GenRandGroups</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>grp_n</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>path</th>
-      <td><p>a path
-<!-- %%     ~~Describe \code{path} here~~ --></p></td>
+      <th>x</th>
+      <td><p>a vector containing the objects which should be grouped</p></td>
     </tr>
     <tr>
-      <th>last.is.file</th>
-      <td><p>logical, determining if the basename should be interpreted as filename or as last directory. If set to <code>NULL</code> (default), the last entry will be interpreted if the last character is either \ or / and as filename else.</p></td>
+      <th>grp_n</th>
+      <td><p>an integer vector with the required group sizes</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>For group divisions in class, it is often useful to have a function available that randomizes these divisions.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list, containing the following components:</p>
-<dt>normpath</dt><dd><p>the normalized path as returned by <code><a href='https://rdrr.io/r/base/normalizePath.html'>normalizePath</a></code></p></dd>
-  <dt>drive</dt><dd><p>the drive if the OS is Windows, <code>NA</code> else</p></dd>                  
-  <dt>dirname</dt><dd><p>the path without directory and without filename</p></dd>
-  <dt>fullfilename</dt><dd><p>the filename including extension</p></dd>
-  <dt>filename</dt><dd><p>the filename without extension</p></dd>
-  <dt>extension</dt><dd><p>the file extension</p></dd>
-
+    <p>a list sized length of <code>grp_n</code> with the x elements assigned to their group.</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Andri Signorell &lt;andri@signorell.net&gt;
-<!-- %%  ~~who you are~~ --></p>
+    <p>Andri Signorell &lt;andri@signorell.net&gt;</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/basename.html'>dirname</a></code>, <code><a href='https://rdrr.io/r/base/basename.html'>basename</a></code>
-<!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
+    <div class='dont-index'><p><code><a href='Permn.html'>CombN</a></code>, <code><a href='Permn.html'>CombSet</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span>  <span class='co'># Windows-specific example</span>
-<span class='va'>path</span> <span class='op'>&lt;-</span> <span class='st'>"C:/Documents/Projects/Import/eyestudy.dta"</span>
-<span class='fu'>SplitPath</span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in grep(pattern = "[/\\]$", path): object 'path' not found</span></div><div class='input'>
-<span class='va'>path</span> <span class='op'>&lt;-</span> <span class='st'>"C:/Documents/Projects/Import/"</span>
-<span class='fu'>SplitPath</span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $normpath
-#&gt; [1] "C:/Documents/Projects/Import/"
+    <pre class="examples"><div class='input'><span class='co'># say we have 12 students and want 3 groups with sizes 4,3, and 5</span>
+
+<span class='fu'>GenRandGroups</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>LETTERS</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>12</span><span class='op'>]</span>, grp_n<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] "B" "H" "K" "L"
 #&gt; 
-#&gt; $drive
-#&gt; [1] NA
+#&gt; [[2]]
+#&gt; [1] "E" "G" "J"
 #&gt; 
-#&gt; $dirname
-#&gt; [1] "C:/Documents/Projects/Import/"
-#&gt; 
-#&gt; $fullfilename
-#&gt; [1] NA
-#&gt; 
-#&gt; $fullpath
-#&gt; [1] "C:/Documents/Projects/"
-#&gt; 
-#&gt; $filename
-#&gt; [1] NA
-#&gt; 
-#&gt; $extension
-#&gt; [1] NA
-#&gt; </div><div class='input'>
-<span class='va'>path</span> <span class='op'>&lt;-</span> <span class='st'>"C:/Documents/Projects/Import"</span>
-<span class='fu'>SplitPath</span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span>  <span class='co'># last entry will be taken as filename</span>
-</div><div class='output co'>#&gt; $normpath
-#&gt; [1] "C:/Documents/Projects/Import"
-#&gt; 
-#&gt; $drive
-#&gt; [1] NA
-#&gt; 
-#&gt; $dirname
-#&gt; [1] "C:/Documents/Projects/"
-#&gt; 
-#&gt; $fullfilename
-#&gt; [1] "Import"
-#&gt; 
-#&gt; $fullpath
-#&gt; [1] "C:/Documents/Projects/"
-#&gt; 
-#&gt; $filename
-#&gt; [1] "Import"
-#&gt; 
-#&gt; $extension
-#&gt; [1] NA
-#&gt; </div><div class='input'><span class='fu'>SplitPath</span><span class='op'>(</span><span class='va'>path</span>, last.is.file<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $normpath
-#&gt; [1] "C:/Documents/Projects/Import"
-#&gt; 
-#&gt; $drive
-#&gt; [1] NA
-#&gt; 
-#&gt; $dirname
-#&gt; [1] "C:/Documents/Projects/Import/"
-#&gt; 
-#&gt; $fullfilename
-#&gt; [1] NA
-#&gt; 
-#&gt; $fullpath
-#&gt; [1] "C:/Documents/Projects/"
-#&gt; 
-#&gt; $filename
-#&gt; [1] NA
-#&gt; 
-#&gt; $extension
-#&gt; [1] NA
-#&gt; </div><div class='input'>
-</div></pre>
+#&gt; [[3]]
+#&gt; [1] "A" "C" "D" "F" "I"
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
