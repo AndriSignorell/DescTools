@@ -57,3 +57,4 @@ fit <- glm(obs ~ x1+x2, family = binomial)
 HosmerLemeshowTest(fit = fitted(fit), obs = obs, X = cbind(x1, x2))
 }
 \keyword{univar}
+\concept{test}

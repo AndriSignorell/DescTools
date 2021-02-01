@@ -92,6 +92,6 @@ pairwise.table(function(i, j) {
 )
 }
 
-
+\keyword{htest}
 
 

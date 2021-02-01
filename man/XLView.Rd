@@ -130,4 +130,4 @@ ToXL(d.whisky[1:10, 1:10], xl$Cells(1,1))}
 % R documentation directory.
 \keyword{ manip }
 
-\keyword{MS-Office}
+\concept{MS-Office}
