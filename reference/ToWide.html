@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.38</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.40</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -115,7 +115,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/AndriSignorell/DescTools/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -143,8 +143,8 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>ToLong</span>(<span class='kw'>x</span>, varnames = <span class='kw'>NULL</span>)
-<span class='fu'>ToWide</span>(<span class='kw'>x</span>, <span class='kw'>g</span>, by = <span class='kw'>NULL</span>, varnames = <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>ToLong</span><span class='op'>(</span><span class='va'>x</span>, varnames <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
+<span class='fu'>ToWide</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>g</span>, by <span class='op'>=</span> <span class='cn'>NULL</span>, varnames <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -194,14 +194,14 @@
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>d.x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.table</a></span>(header=<span class='fl'>TRUE</span>, text=<span class='st'>"
+    <pre class="examples"><div class='input'><span class='va'>d.x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.table</a></span><span class='op'>(</span>header<span class='op'>=</span><span class='cn'>TRUE</span>, text<span class='op'>=</span><span class='st'>"
 AA BB CC DD EE FF GG
 7.9 18.1 13.3 6.2 9.3 8.3 10.6
 9.8 14.0 13.6 7.9 2.9 9.1 13.0
 6.4 17.4 16.0 10.9 8.6 11.7 17.5
-"</span>)
+"</span><span class='op'>)</span>
 
-<span class='fu'>ToLong</span>(<span class='kw'>d.x</span>)
+<span class='fu'>ToLong</span><span class='op'>(</span><span class='va'>d.x</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;      grp    x
 #&gt; 1.AA  AA  7.9
 #&gt; 2.AA  AA  9.8
@@ -225,7 +225,7 @@ AA BB CC DD EE FF GG
 #&gt; 2.GG  GG 13.0
 #&gt; 3.GG  GG 17.5</div><div class='input'>
 <span class='co'># ToWide by row numbers (by = NULL)</span>
-<span class='fu'>ToWide</span>(<span class='kw'>PlantGrowth</span><span class='op'>$</span><span class='kw'>weight</span>, <span class='kw'>PlantGrowth</span><span class='op'>$</span><span class='kw'>group</span>)
+<span class='fu'>ToWide</span><span class='op'>(</span><span class='va'>PlantGrowth</span><span class='op'>$</span><span class='va'>weight</span>, <span class='va'>PlantGrowth</span><span class='op'>$</span><span class='va'>group</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;    ctrl trt1 trt2
 #&gt; 1  4.17 4.81 6.31
 #&gt; 2  5.33 4.32 5.26
@@ -238,9 +238,9 @@ AA BB CC DD EE FF GG
 #&gt; 9  5.17 6.03 6.15
 #&gt; 10 4.53 4.89 5.80</div><div class='input'>
 <span class='co'># To wide aligned by key</span>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>41</span>)
-<span class='kw'>PlantGrowth</span><span class='op'>$</span><span class='kw'>nr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>12</span>, <span class='fl'>10</span>), <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>12</span>, <span class='fl'>10</span>), <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>12</span>, <span class='fl'>10</span>))
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='kw'>PlantGrowth</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>41</span><span class='op'>)</span>
+<span class='va'>PlantGrowth</span><span class='op'>$</span><span class='va'>nr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>12</span>, <span class='fl'>10</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>12</span>, <span class='fl'>10</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>12</span>, <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>PlantGrowth</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;   weight group nr
 #&gt; 1   4.17  ctrl  8
 #&gt; 2   5.58  ctrl  3
@@ -248,7 +248,7 @@ AA BB CC DD EE FF GG
 #&gt; 4   6.11  ctrl 12
 #&gt; 5   4.50  ctrl  2
 #&gt; 6   4.61  ctrl 10</div><div class='input'>
-<span class='fu'>ToWide</span>(<span class='kw'>PlantGrowth</span><span class='op'>$</span><span class='kw'>weight</span>, <span class='kw'>PlantGrowth</span><span class='op'>$</span><span class='kw'>group</span>, by=<span class='kw'>PlantGrowth</span><span class='op'>$</span><span class='kw'>nr</span>)
+<span class='fu'>ToWide</span><span class='op'>(</span><span class='va'>PlantGrowth</span><span class='op'>$</span><span class='va'>weight</span>, <span class='va'>PlantGrowth</span><span class='op'>$</span><span class='va'>group</span>, by<span class='op'>=</span><span class='va'>PlantGrowth</span><span class='op'>$</span><span class='va'>nr</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;    by ctrl trt1 trt2
 #&gt; 1   1   NA 4.89 5.80
 #&gt; 2   2 4.50 4.17 5.12
@@ -277,7 +277,7 @@ AA BB CC DD EE FF GG
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.38</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.40</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -115,7 +115,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/AndriSignorell/DescTools/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -143,7 +143,7 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>Rotate</span>(<span class='kw'>x</span>, y = <span class='kw'>NULL</span>, mx = <span class='kw'>NULL</span>, my = <span class='kw'>NULL</span>, theta = <span class='kw'>pi</span><span class='op'>/</span><span class='fl'>3</span>, asp = <span class='fl'>1</span>)</pre>
+    <pre class="usage"><span class='fu'>Rotate</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, mx <span class='op'>=</span> <span class='cn'>NULL</span>, my <span class='op'>=</span> <span class='cn'>NULL</span>, theta <span class='op'>=</span> <span class='va'>pi</span><span class='op'>/</span><span class='fl'>3</span>, asp <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -188,14 +188,14 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># let's have a triangle</span>
-<span class='fu'><a href='Canvas.html'>Canvas</a></span>(main=<span class='st'>"Rotation"</span>)
-</div><div class='input'><span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='DrawRegPolygon.html'>DrawRegPolygon</a></span>(nv=<span class='fl'>3</span>)[[<span class='fl'>1</span>]]
+<span class='fu'><a href='Canvas.html'>Canvas</a></span><span class='op'>(</span>main<span class='op'>=</span><span class='st'>"Rotation"</span><span class='op'>)</span>
+</div><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='DrawRegPolygon.html'>DrawRegPolygon</a></span><span class='op'>(</span>nv<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>
 </div><div class='input'>
 <span class='co'># and rotate</span>
-<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>( (<span class='fl'>0</span><span class='op'>:</span><span class='fl'>3</span>) <span class='op'>*</span> <span class='kw'>pi</span><span class='op'>/</span><span class='fl'>6</span>, <span class='fu'>function</span>(<span class='kw'>theta</span>) {
-  <span class='kw'>xy</span> <span class='op'>&lt;-</span> <span class='fu'>Rotate</span>( x=<span class='kw'>x</span>, theta=<span class='kw'>theta</span> )
-  <span class='fu'><a href='https://rdrr.io/r/graphics/polygon.html'>polygon</a></span>(<span class='kw'>xy</span>, col=<span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span>(<span class='st'>"blue"</span>, <span class='fl'>0.2</span>))
-} )
+<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span> <span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span> <span class='op'>*</span> <span class='va'>pi</span><span class='op'>/</span><span class='fl'>6</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>theta</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='va'>xy</span> <span class='op'>&lt;-</span> <span class='fu'>Rotate</span><span class='op'>(</span> x<span class='op'>=</span><span class='va'>x</span>, theta<span class='op'>=</span><span class='va'>theta</span> <span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/graphics/polygon.html'>polygon</a></span><span class='op'>(</span><span class='va'>xy</span>, col<span class='op'>=</span><span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span><span class='op'>(</span><span class='st'>"blue"</span>, <span class='fl'>0.2</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>}</span> <span class='op'>)</span>
 </div><div class='output co'>#&gt; [[1]]
 #&gt; NULL
 #&gt; 
@@ -208,7 +208,7 @@
 #&gt; [[4]]
 #&gt; NULL
 #&gt; </div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span>(v=<span class='fl'>0</span>, h=<span class='fl'>0</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span><span class='op'>(</span>v<span class='op'>=</span><span class='fl'>0</span>, h<span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span>
 </div><div class='img'><img src='Rotate-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -225,7 +225,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

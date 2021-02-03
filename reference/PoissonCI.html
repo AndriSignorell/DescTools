@@ -76,7 +76,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.38</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.40</span>
       </span>
     </div>
 
@@ -84,7 +84,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -114,7 +114,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/AndriSignorell/DescTools/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -141,8 +141,8 @@
     <p>Computes the confidence intervals of a poisson distributed variable's lambda. Several methods are implemented, see details.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>PoissonCI</span>(<span class='kw'>x</span>, n = <span class='fl'>1</span>, conf.level = <span class='fl'>0.95</span>, sides = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"two.sided"</span>,<span class='st'>"left"</span>,<span class='st'>"right"</span>),
-          method = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"exact"</span>, <span class='st'>"score"</span>, <span class='st'>"wald"</span>, <span class='st'>"byar"</span>))</pre>
+    <pre class="usage"><span class='fu'>PoissonCI</span><span class='op'>(</span><span class='va'>x</span>, n <span class='op'>=</span> <span class='fl'>1</span>, conf.level <span class='op'>=</span> <span class='fl'>0.95</span>, sides <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"two.sided"</span>,<span class='st'>"left"</span>,<span class='st'>"right"</span><span class='op'>)</span>,
+          method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"exact"</span>, <span class='st'>"score"</span>, <span class='st'>"wald"</span>, <span class='st'>"byar"</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -197,30 +197,30 @@ estimation of binomial proportions. <em>American Statistician</em>, <b>52</b>, p
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># the horse kick example</span>
-<span class='kw'>count</span> <span class='op'>&lt;-</span> <span class='fl'>0</span><span class='op'>:</span><span class='fl'>4</span>
-<span class='kw'>deaths</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>144</span>, <span class='fl'>91</span>, <span class='fl'>32</span>, <span class='fl'>11</span>, <span class='fl'>2</span>)
+<span class='va'>count</span> <span class='op'>&lt;-</span> <span class='fl'>0</span><span class='op'>:</span><span class='fl'>4</span>
+<span class='va'>deaths</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>144</span>, <span class='fl'>91</span>, <span class='fl'>32</span>, <span class='fl'>11</span>, <span class='fl'>2</span><span class='op'>)</span>
 
-<span class='kw'>n</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='kw'>deaths</span>)
-<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='kw'>count</span> <span class='op'>*</span> <span class='kw'>deaths</span>)
+<span class='va'>n</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>deaths</span><span class='op'>)</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>count</span> <span class='op'>*</span> <span class='va'>deaths</span><span class='op'>)</span>
 
-<span class='kw'>lambda</span> <span class='op'>&lt;-</span> <span class='kw'>x</span><span class='op'>/</span><span class='kw'>n</span>
+<span class='va'>lambda</span> <span class='op'>&lt;-</span> <span class='va'>x</span><span class='op'>/</span><span class='va'>n</span>
 
-<span class='fu'>PoissonCI</span>(x=<span class='kw'>x</span>, n=<span class='kw'>n</span>, method = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"exact"</span>,<span class='st'>"score"</span>, <span class='st'>"wald"</span>, <span class='st'>"byar"</span>))
+<span class='fu'>PoissonCI</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>x</span>, n<span class='op'>=</span><span class='va'>n</span>, method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"exact"</span>,<span class='st'>"score"</span>, <span class='st'>"wald"</span>, <span class='st'>"byar"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;       est    lwr.ci    upr.ci
 #&gt; exact 0.7 0.6054271 0.8051570
 #&gt; score 0.7 0.6086218 0.8050977
 #&gt; wald  0.7 0.6020018 0.7979982
 #&gt; byar  0.7 0.6070833 0.8032497</div><div class='input'>
-<span class='kw'>exp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>dpois</a></span>(<span class='fl'>0</span><span class='op'>:</span><span class='fl'>4</span>, <span class='kw'>lambda</span>) <span class='op'>*</span> <span class='kw'>n</span>
+<span class='va'>exp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>dpois</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='fl'>4</span>, <span class='va'>lambda</span><span class='op'>)</span> <span class='op'>*</span> <span class='va'>n</span>
 
-<span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='kw'>deaths</span>, <span class='kw'>exp</span> <span class='op'>*</span> <span class='kw'>n</span><span class='op'>/</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='kw'>exp</span>)), names=<span class='fl'>0</span><span class='op'>:</span><span class='fl'>4</span>, beside=<span class='fl'>TRUE</span>,
-  col=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>hred</span>, <span class='kw'>hblue</span>), main = <span class='st'>"Deaths from Horse Kicks"</span>, xlab = <span class='st'>"count"</span>)
-</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/legend.html'>legend</a></span>(<span class='st'>"topright"</span>, legend=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"observed"</span>,<span class='st'>"expected"</span>), fill=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>hred</span>, <span class='kw'>hblue</span>),
-  bg=<span class='st'>"white"</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>deaths</span>, <span class='va'>exp</span> <span class='op'>*</span> <span class='va'>n</span><span class='op'>/</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>exp</span><span class='op'>)</span><span class='op'>)</span>, names<span class='op'>=</span><span class='fl'>0</span><span class='op'>:</span><span class='fl'>4</span>, beside<span class='op'>=</span><span class='cn'>TRUE</span>,
+  col<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>hred</span>, <span class='va'>hblue</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"Deaths from Horse Kicks"</span>, xlab <span class='op'>=</span> <span class='st'>"count"</span><span class='op'>)</span>
+</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/legend.html'>legend</a></span><span class='op'>(</span><span class='st'>"topright"</span>, legend<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"observed"</span>,<span class='st'>"expected"</span><span class='op'>)</span>, fill<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>hred</span>, <span class='va'>hblue</span><span class='op'>)</span>,
+  bg<span class='op'>=</span><span class='st'>"white"</span><span class='op'>)</span>
 </div><div class='img'><img src='PoissonCI-1.png' alt='' width='700' height='433' /></div><div class='input'>
 
 <span class='co'>## SMR, Welsh Nickel workers</span>
-<span class='fu'>PoissonCI</span>(x=<span class='fl'>137</span>, n=<span class='fl'>24.19893</span>)
+<span class='fu'>PoissonCI</span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>137</span>, n<span class='op'>=</span><span class='fl'>24.19893</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;           est   lwr.ci   upr.ci
 #&gt; [1,] 5.661407 4.753125 6.692709</div></pre>
   </div>
@@ -238,7 +238,7 @@ estimation of binomial proportions. <em>American Statistician</em>, <b>52</b>, p
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.38</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.40</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -115,7 +115,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/AndriSignorell/DescTools/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -143,9 +143,9 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>IsWhole</span>(<span class='kw'>x</span>, all = <span class='fl'>FALSE</span>, tol = <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span>(<span class='kw'>.Machine</span><span class='op'>$</span><span class='kw'>double.eps</span>), na.rm = <span class='fl'>FALSE</span>)
-<span class='fu'>IsZero</span>(<span class='kw'>x</span>, tol = <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span>(<span class='kw'>.Machine</span><span class='op'>$</span><span class='kw'>double.eps</span>), na.rm = <span class='fl'>FALSE</span>)
-<span class='fu'>IsNumeric</span>(<span class='kw'>x</span>, length.arg = <span class='fl'>Inf</span>, integer.valued = <span class='fl'>FALSE</span>, positive = <span class='fl'>FALSE</span>, na.rm = <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>IsWhole</span><span class='op'>(</span><span class='va'>x</span>, all <span class='op'>=</span> <span class='cn'>FALSE</span>, tol <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>.Machine</span><span class='op'>$</span><span class='va'>double.eps</span><span class='op'>)</span>, na.rm <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'>IsZero</span><span class='op'>(</span><span class='va'>x</span>, tol <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>.Machine</span><span class='op'>$</span><span class='va'>double.eps</span><span class='op'>)</span>, na.rm <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'>IsNumeric</span><span class='op'>(</span><span class='va'>x</span>, length.arg <span class='op'>=</span> <span class='cn'>Inf</span>, integer.valued <span class='op'>=</span> <span class='cn'>FALSE</span>, positive <span class='op'>=</span> <span class='cn'>FALSE</span>, na.rm <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -204,16 +204,16 @@ return the result of <code><a href='https://rdrr.io/r/base/all.html'>all(IsWhole
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>(<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>1</span>,<span class='fl'>5</span>, by=<span class='fl'>0.5</span>))
-</div><div class='output co'>#&gt; [1] 1.0 1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0</div><div class='input'><span class='fu'>IsWhole</span>( <span class='kw'>x</span> ) <span class='co'>#--&gt;  \code{TRUE} \code{FALSE} \code{TRUE} ...</span>
+    <pre class="examples"><div class='input'><span class='op'>(</span><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>5</span>, by<span class='op'>=</span><span class='fl'>0.5</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1.0 1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0</div><div class='input'><span class='fu'>IsWhole</span><span class='op'>(</span> <span class='va'>x</span> <span class='op'>)</span> <span class='co'>#--&gt;  \code{TRUE} \code{FALSE} \code{TRUE} ...</span>
 </div><div class='output co'>#&gt; [1]  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE</div><div class='input'>
 
 <span class='co'># ... These are people who live in ignorance of the Floating Point Gods.</span>
 <span class='co'># These pagans expect ... (Burns, 2011)" the following to be TRUE:</span>
-(<span class='fl'>.1</span> <span class='op'>-</span> <span class='fl'>.3</span> <span class='op'>/</span> <span class='fl'>3</span>) <span class='op'>==</span> <span class='fl'>0</span>
+<span class='op'>(</span><span class='fl'>.1</span> <span class='op'>-</span> <span class='fl'>.3</span> <span class='op'>/</span> <span class='fl'>3</span><span class='op'>)</span> <span class='op'>==</span> <span class='fl'>0</span>
 </div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
 <span class='co'># they might be helped by</span>
-<span class='fu'>IsZero</span>(<span class='fl'>.1</span> <span class='op'>-</span> <span class='fl'>.3</span> <span class='op'>/</span> <span class='fl'>3</span>)
+<span class='fu'>IsZero</span><span class='op'>(</span><span class='fl'>.1</span> <span class='op'>-</span> <span class='fl'>.3</span> <span class='op'>/</span> <span class='fl'>3</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 
 </div></pre>
@@ -232,7 +232,7 @@ return the result of <code><a href='https://rdrr.io/r/base/all.html'>all(IsWhole
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

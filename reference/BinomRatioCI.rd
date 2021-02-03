@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Confidence Intervals for the Ratio of Binomial and Multinomial Proportions — BinomRatioCI • DescTools</title>
+<title>Confidence Intervals for the Ratio of Binomial Proportions — BinomRatioCI • DescTools</title>
 
 
 <!-- jquery -->
@@ -41,8 +41,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Confidence Intervals for the Ratio of Binomial and Multinomial Proportions — BinomRatioCI" />
-<meta property="og:description" content="A number of methods have been develeloped for obtaining confidence intervals for the ratio of two binomial proportions.  These include the Wald/Katz-log method (Katz et al. 1978), 
+<meta property="og:title" content="Confidence Intervals for the Ratio of Binomial Proportions — BinomRatioCI" />
+<meta property="og:description" content="A number of methods have been develeloped for obtaining confidence intervals for the ratio of two binomial proportions. These include the Wald/Katz-log method (Katz et al. 1978), 
 adjusted-log (Walter 1975, Pettigrew et al. 1986), Koopman asymptotic score (Koopman 1984), Inverse hyperbolic sine transformation (Newman 2001), the Bailey method (Bailey (1987), 
 and the Noether (1957) procedure. Koopman results are found iteratively for most intervals using root finding." />
 
@@ -76,7 +76,7 @@ and the Noether (1957) procedure. Koopman results are found iteratively for most
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.38</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.40</span>
       </span>
     </div>
 
@@ -84,7 +84,7 @@ and the Noether (1957) procedure. Koopman results are found iteratively for most
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -114,7 +114,7 @@ and the Noether (1957) procedure. Koopman results are found iteratively for most
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/AndriSignorell/DescTools/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -131,52 +131,56 @@ and the Noether (1957) procedure. Koopman results are found iteratively for most
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Confidence Intervals for the Ratio of Binomial and Multinomial Proportions</h1>
+    <h1>Confidence Intervals for the Ratio of Binomial Proportions</h1>
     
     <div class="hidden name"><code>BinomRatioCI.rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A number of methods have been develeloped for obtaining confidence intervals for the ratio of two binomial proportions.  These include the Wald/Katz-log method (Katz et al. 1978), 
+    <p>A number of methods have been develeloped for obtaining confidence intervals for the ratio of two binomial proportions. These include the Wald/Katz-log method (Katz et al. 1978), 
 adjusted-log (Walter 1975, Pettigrew et al. 1986), Koopman asymptotic score (Koopman 1984), Inverse hyperbolic sine transformation (Newman 2001), the Bailey method (Bailey (1987), 
 and the Noether (1957) procedure. Koopman results are found iteratively for most intervals using root finding.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>BinomRatioCI</span>(<span class='kw'>x1</span>, <span class='kw'>n1</span>, <span class='kw'>x2</span>, <span class='kw'>n2</span>, conf.level = <span class='fl'>0.95</span>, method = <span class='st'>"katz.log"</span>, 
-             bonf = <span class='fl'>FALSE</span>, tol = <span class='kw'>.Machine</span><span class='op'>$</span><span class='kw'>double.eps</span><span class='op'>^</span><span class='fl'>0.25</span>, R = <span class='fl'>1000</span>, r = <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='kw'>x1</span>))</pre>
+    <pre class="usage"><span class='fu'>BinomRatioCI</span><span class='op'>(</span><span class='va'>x1</span>, <span class='va'>n1</span>, <span class='va'>x2</span>, <span class='va'>n2</span>, conf.level <span class='op'>=</span> <span class='fl'>0.95</span>, 
+             sides <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"two.sided"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span><span class='op'>)</span>, 
+             method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"katz.log"</span>, <span class='st'>"adj.log"</span>, <span class='st'>"bailey"</span>, <span class='st'>"koopman"</span>, <span class='st'>"noether"</span>, 
+                        <span class='st'>"sinh-1"</span>, <span class='st'>"boot"</span><span class='op'>)</span>,
+             tol <span class='op'>=</span> <span class='va'>.Machine</span><span class='op'>$</span><span class='va'>double.eps</span><span class='op'>^</span><span class='fl'>0.25</span>, R <span class='op'>=</span> <span class='fl'>1000</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x1</th>
-      <td><p>The ratio numerator number of successes.  A scalar or vector.</p></td>
+      <td><p>number of successes for the ratio numerator.</p></td>
     </tr>
     <tr>
       <th>n1</th>
-      <td><p>The ratio numerator number of trials.  A scalar or vector of <code><a href='https://rdrr.io/r/base/length.html'>length(y1)</a></code></p></td>
+      <td><p>number of trials for the ratio numerator.</p></td>
     </tr>
     <tr>
       <th>x2</th>
-      <td><p>The ratio denominator number of successes.  A scalar or vector of <code><a href='https://rdrr.io/r/base/length.html'>length(y1)</a></code></p></td>
+      <td><p>number of successes for the ratio denominator.</p></td>
     </tr>
     <tr>
       <th>n2</th>
-      <td><p>The ratio denominator number of trials. A scalar or vector of <code><a href='https://rdrr.io/r/base/length.html'>length(y1)</a></code></p></td>
+      <td><p>number of successes for the ratio denominator.</p></td>
     </tr>
     <tr>
       <th>conf.level</th>
-      <td><p>The level of confidence, i.e. 1 - <em>P</em>(type I error).</p></td>
+      <td><p>confidence level, defaults to 0.95.</p></td>
+    </tr>
+    <tr>
+      <th>sides</th>
+      <td><p>a character string specifying the side of the confidence interval, must be one of <code>"two.sided"</code> (default),
+<code>"left"</code> or <code>"right"</code>. You can specify just the initial letter. <code>"left"</code> would be analogue to a hypothesis of
+<code>"greater"</code> in a <code>t.test</code>.</p></td>
     </tr>
     <tr>
       <th>method</th>
-      <td><p>Confidence interval method.  One of <code>"adj.log"</code>, <code>"bailey"</code>,  
-<code>"boot"</code>, <code>"katz.log"</code>, <code>"koopman"</code>, <code>"sinh-1"</code> or 
-<code>"noether"</code>.  Partial distinct names can be used.</p></td>
-    </tr>
-    <tr>
-      <th>bonf</th>
-      <td><p>Logical, indicating whether or not Bonferroni corrections should be applied for simultaneous inference if <code>y1, y2, n1</code> and <code>n2</code> are vectors.</p></td>
+      <td><p>confidence interval method, one of <code>"katz.log"</code> (default), <code>"adj.log"</code>, <code>"bailey"</code>,  
+<code>"boot"</code>, <code>"koopman"</code>, <code>"noether"</code> or <code>"sinh-1"</code>. Can be abbreviated.</p></td>
     </tr>
     <tr>
       <th>tol</th>
@@ -186,15 +190,12 @@ and the Noether (1957) procedure. Koopman results are found iteratively for most
       <th>R</th>
       <td><p>If method <code>"boot"</code> is chosen, the number of bootstrap iterations.</p></td>
     </tr>
-    <tr>
-      <th>r</th>
-      <td><p>The number of ratios to which family-wise inferences are being made.  Assumed to be <code><a href='https://rdrr.io/r/base/length.html'>length(y1)</a></code>.</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Let \(Y_1\) and \(Y_2\) be multinomial random variables with parameters \(n_1, \pi_{1i}\),  and  \(n_2, \pi_{2i}\), respectively; where \(i = \{1, 2, 3, \dots, r\}\).  This encompasses the binomial case in which \(r = 1\). We define the true selection ratio for the <em>i</em>th resource of <em>r</em> total resources to be:
+    <p>All arguments are being recycled.</p>
+<p>Let \(Y_1\) and \(Y_2\) be multinomial random variables with parameters \(n_1, \pi_{1i}\),  and  \(n_2, \pi_{2i}\), respectively; where \(i = \{1, 2, 3, \dots, r\}\).  This encompasses the binomial case in which \(r = 1\). We define the true selection ratio for the <em>i</em>th resource of <em>r</em> total resources to be:
  $$\theta_{i}=\frac{\pi _{1i}}{\pi _{2i}}$$</p>
 <p>where \(\pi_{1i}\) and \(\pi_{2i}\) represent the proportional use and availability of the <em>i</em>th resource, respectively. Note that if \(r = 1\) the selection ratio becomes relative risk.  The maximum likelihood estimators for \(\pi_{1i}\) and \(\pi_{2i}\) are the sample proportions:</p>
 <p>$${{\hat{\pi }}_{1i}}=\frac{{{y}_{1i}}}{{{n}_{1}}},$$ and
@@ -233,11 +234,11 @@ Noether</td><td>\(\hat{\theta}_i\pm z_1-\alpha/2\hat{\sigma}_N\),</td></tr>
 </table>
 
 
-<p>Exception handling strategies are generally necessary in the cases \(y_1\) = 0, \(n_1\) = \(y_1\), \(y_2\) = 0, and \(n_2\) = \(y_2\) (see Aho and Bowyer, in review).</p>
+<p>Exception handling strategies are generally necessary in the cases \(x_1\) = 0, \(n_1\) = \(x_1\), \(x_2\) = 0, and \(n_2\) = \(x_2\) (see Aho and Bowyer, in review).</p>
 <p>The bootstrap method currently employs percentile confidence intervals.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns a list of <code>class = "ci"</code>.  Default output is a matrix with the point and interval estimate.</p>
+    <p>A matrix with 3 columns containing the estimate, the lower and the upper confidence intervall.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Agresti, A., Min, Y. (2001) On small-sample confidence intervals for parameters in discrete distributions.  <em>Biometrics</em> 57: 963-97.</p>
@@ -252,18 +253,19 @@ binomial variate.  <em>Biometrika</em> 73(2): 425-435.</p>
 <p>Walter, S. D. (1975) The distribution of Levins measure of attributable risk. <em>Biometrika</em> 62(2): 371-374.</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Ken Aho &lt;kenaho1@gmail.com&gt;</p>
+    <p>Ken Aho &lt;kenaho1@gmail.com&gt;, some tweaks Andri Signorell &lt;andri@signorell.net&gt;</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='BinomCI.html'>BinomCI</a>, <a href='BinomDiffCI.html'>BinomDiffCI</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># From Koopman (1984)</span>
-<span class='fu'>BinomRatioCI</span>(x1 = <span class='fl'>36</span>, n1 = <span class='fl'>40</span>, x2 = <span class='fl'>16</span>, n2 = <span class='fl'>80</span>, method = <span class='st'>"katz"</span>)
+
+<span class='fu'>BinomRatioCI</span><span class='op'>(</span>x1 <span class='op'>=</span> <span class='fl'>36</span>, n1 <span class='op'>=</span> <span class='fl'>40</span>, x2 <span class='op'>=</span> <span class='fl'>16</span>, n2 <span class='op'>=</span> <span class='fl'>80</span>, method <span class='op'>=</span> <span class='st'>"katz"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;      est  lwr.ci   upr.ci
-#&gt; [1,] 4.5 2.86855 7.059315</div><div class='input'><span class='fu'>BinomRatioCI</span>(x1 = <span class='fl'>36</span>, n1 = <span class='fl'>40</span>, x2 = <span class='fl'>16</span>, n2 = <span class='fl'>80</span>, method = <span class='st'>"koop"</span>)
+#&gt; &lt;NA&gt; 4.5 2.86855 7.059315</div><div class='input'><span class='fu'>BinomRatioCI</span><span class='op'>(</span>x1 <span class='op'>=</span> <span class='fl'>36</span>, n1 <span class='op'>=</span> <span class='fl'>40</span>, x2 <span class='op'>=</span> <span class='fl'>16</span>, n2 <span class='op'>=</span> <span class='fl'>80</span>, method <span class='op'>=</span> <span class='st'>"koop"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;      est   lwr.ci   upr.ci
-#&gt; [1,] 4.5 2.939581 7.152209</div></pre>
+#&gt; &lt;NA&gt; 4.5 2.939581 7.152209</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -279,7 +281,7 @@ binomial variate.  <em>Biometrika</em> 73(2): 425-435.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

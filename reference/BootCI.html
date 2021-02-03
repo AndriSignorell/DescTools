@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.38</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.40</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -115,7 +115,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/AndriSignorell/DescTools/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -143,8 +143,8 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>BootCI</span>(<span class='kw'>x</span>, y = <span class='kw'>NULL</span>, <span class='kw'>FUN</span>, <span class='kw'>...</span>, bci.method = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"norm"</span>, <span class='st'>"basic"</span>, <span class='st'>"stud"</span>, <span class='st'>"perc"</span>, <span class='st'>"bca"</span>),
-       conf.level = <span class='fl'>0.95</span>, sides = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"two.sided"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span>), R = <span class='fl'>999</span>)</pre>
+    <pre class="usage"><span class='fu'>BootCI</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>FUN</span>, <span class='va'>...</span>, bci.method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"norm"</span>, <span class='st'>"basic"</span>, <span class='st'>"stud"</span>, <span class='st'>"perc"</span>, <span class='st'>"bca"</span><span class='op'>)</span>,
+       conf.level <span class='op'>=</span> <span class='fl'>0.95</span>, sides <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"two.sided"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span><span class='op'>)</span>, R <span class='op'>=</span> <span class='fl'>999</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -201,19 +201,19 @@
     <div class='dont-index'><p><code><a href='MeanCI.html'>MeanCI</a></code>, <code><a href='MedianCI.html'>MedianCI</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1984</span>)
-<span class='fu'>BootCI</span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>temperature</span>, FUN=<span class='kw'>mean</span>, na.rm=<span class='fl'>TRUE</span>, bci.method=<span class='st'>"basic"</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>1984</span><span class='op'>)</span>
+<span class='fu'>BootCI</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>temperature</span>, FUN<span class='op'>=</span><span class='va'>mean</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span>, bci.method<span class='op'>=</span><span class='st'>"basic"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;     mean   lwr.ci   upr.ci 
-#&gt; 47.93667 47.37436 48.49182 </div><div class='input'><span class='fu'>BootCI</span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>temperature</span>, FUN=<span class='kw'>mean</span>, trim=<span class='fl'>0.1</span>, na.rm=<span class='fl'>TRUE</span>, bci.method=<span class='st'>"basic"</span>)
+#&gt; 47.93667 47.37436 48.49182 </div><div class='input'><span class='fu'>BootCI</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>temperature</span>, FUN<span class='op'>=</span><span class='va'>mean</span>, trim<span class='op'>=</span><span class='fl'>0.1</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span>, bci.method<span class='op'>=</span><span class='st'>"basic"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;     mean   lwr.ci   upr.ci 
 #&gt; 48.98024 48.39139 49.58832 </div><div class='input'>
-<span class='fu'>BootCI</span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>temperature</span>, FUN=<span class='kw'>Skew</span>, na.rm=<span class='fl'>TRUE</span>, bci.method=<span class='st'>"basic"</span>)
+<span class='fu'>BootCI</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>temperature</span>, FUN<span class='op'>=</span><span class='va'>Skew</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span>, bci.method<span class='op'>=</span><span class='st'>"basic"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='error'>Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"): "rskew" not available for .Call() for package "DescTools"</span></div><div class='input'>
-<span class='fu'>BootCI</span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>operator</span>, <span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>area</span>, FUN=<span class='kw'>CramerV</span>)
+<span class='fu'>BootCI</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>operator</span>, <span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>area</span>, FUN<span class='op'>=</span><span class='va'>CramerV</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;    CramerV     lwr.ci     upr.ci 
 #&gt; 0.08670047 0.04138136 0.11738513 </div><div class='input'>
-<span class='kw'>spearman</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>x</span>,<span class='kw'>y</span>) <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>, method=<span class='st'>"spearman"</span>, use=<span class='st'>"p"</span>)
-<span class='fu'>BootCI</span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>temperature</span>, <span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>delivery_min</span>, FUN=<span class='kw'>spearman</span>)
+<span class='va'>spearman</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>,<span class='va'>y</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, method<span class='op'>=</span><span class='st'>"spearman"</span>, use<span class='op'>=</span><span class='st'>"p"</span><span class='op'>)</span>
+<span class='fu'>BootCI</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>temperature</span>, <span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>delivery_min</span>, FUN<span class='op'>=</span><span class='va'>spearman</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;   spearman     lwr.ci     upr.ci 
 #&gt; -0.5734425 -0.6181943 -0.5275981 </div></pre>
   </div>
@@ -231,7 +231,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

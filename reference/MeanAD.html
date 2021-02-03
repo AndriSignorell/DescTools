@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.38</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.40</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -115,7 +115,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/AndriSignorell/DescTools/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -143,7 +143,7 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>MeanAD</span>(<span class='kw'>x</span>, weights = <span class='kw'>NULL</span>, center = <span class='kw'>Mean</span>, na.rm = <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>MeanAD</span><span class='op'>(</span><span class='va'>x</span>, weights <span class='op'>=</span> <span class='cn'>NULL</span>, center <span class='op'>=</span> <span class='va'>Mean</span>, na.rm <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -190,25 +190,25 @@ The function supports the use of weights. The default function for the center va
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/mad.html'>mad</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>100</span>)
-<span class='fu'>MeanAD</span>(<span class='kw'>x</span>)
-</div><div class='output co'>#&gt; [1] 0.2439977</div><div class='input'>
-<span class='kw'>speed</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>58</span>, <span class='fl'>88</span>, <span class='fl'>40</span>, <span class='fl'>60</span>, <span class='fl'>72</span>, <span class='fl'>66</span>, <span class='fl'>80</span>, <span class='fl'>48</span>, <span class='fl'>NA</span>)
-<span class='fu'>MeanAD</span>(<span class='kw'>speed</span>)
-</div><div class='output co'>#&gt; [1] NA</div><div class='input'><span class='fu'>MeanAD</span>(<span class='kw'>speed</span>, na.rm=<span class='fl'>TRUE</span>)
+    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span>
+<span class='fu'>MeanAD</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 0.2307437</div><div class='input'>
+<span class='va'>speed</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>58</span>, <span class='fl'>88</span>, <span class='fl'>40</span>, <span class='fl'>60</span>, <span class='fl'>72</span>, <span class='fl'>66</span>, <span class='fl'>80</span>, <span class='fl'>48</span>, <span class='cn'>NA</span><span class='op'>)</span>
+<span class='fu'>MeanAD</span><span class='op'>(</span><span class='va'>speed</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] NA</div><div class='input'><span class='fu'>MeanAD</span><span class='op'>(</span><span class='va'>speed</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 12.5</div><div class='input'>
 
 <span class='co'># using the median as centerpoint</span>
-<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>5</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>15</span>,<span class='fl'>23</span>)
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>5</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>15</span>,<span class='fl'>23</span><span class='op'>)</span>
 
-<span class='fu'>MeanAD</span>(<span class='kw'>x</span>, center=<span class='kw'>mean</span>)
-</div><div class='output co'>#&gt; [1] 6.612245</div><div class='input'><span class='fu'>MeanAD</span>(<span class='kw'>x</span>, center=<span class='kw'>median</span>)
+<span class='fu'>MeanAD</span><span class='op'>(</span><span class='va'>x</span>, center<span class='op'>=</span><span class='va'>mean</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 6.612245</div><div class='input'><span class='fu'>MeanAD</span><span class='op'>(</span><span class='va'>x</span>, center<span class='op'>=</span><span class='va'>median</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 5.285714</div><div class='input'>
 <span class='co'># define a fixed center</span>
-<span class='fu'>MeanAD</span>(<span class='kw'>x</span>, center=<span class='fl'>4</span>)
+<span class='fu'>MeanAD</span><span class='op'>(</span><span class='va'>x</span>, center<span class='op'>=</span><span class='fl'>4</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 5.428571</div><div class='input'>
 <span class='co'># use of weights</span>
-<span class='fu'>MeanAD</span>(x=<span class='fl'>0</span><span class='op'>:</span><span class='fl'>6</span>, weights=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>21</span>,<span class='fl'>46</span>,<span class='fl'>54</span>,<span class='fl'>40</span>,<span class='fl'>24</span>,<span class='fl'>10</span>,<span class='fl'>5</span>))
+<span class='fu'>MeanAD</span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>0</span><span class='op'>:</span><span class='fl'>6</span>, weights<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>21</span>,<span class='fl'>46</span>,<span class='fl'>54</span>,<span class='fl'>40</span>,<span class='fl'>24</span>,<span class='fl'>10</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 1.1825</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -225,7 +225,7 @@ The function supports the use of weights. The default function for the center va
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

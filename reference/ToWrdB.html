@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.38</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.40</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -115,7 +115,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/AndriSignorell/DescTools/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -143,8 +143,8 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>ToWrdB</span>(<span class='kw'>x</span>, font = <span class='kw'>NULL</span>, <span class='kw'>...</span>, wrd = <span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span>(<span class='st'>"lastWord"</span>), 
-        bookmark = <span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>gettextf</a></span>(<span class='st'>"bmt%s"</span>, <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>1</span>, min = <span class='fl'>0.1</span>) <span class='op'>*</span> <span class='fl'>1e+09</span>)))</pre>
+    <pre class="usage"><span class='fu'>ToWrdB</span><span class='op'>(</span><span class='va'>x</span>, font <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span>, wrd <span class='op'>=</span> <span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span><span class='op'>(</span><span class='st'>"lastWord"</span><span class='op'>)</span>, 
+        bookmark <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>gettextf</a></span><span class='op'>(</span><span class='st'>"bmt%s"</span>, <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>1</span>, min <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>*</span> <span class='fl'>1e+09</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -201,18 +201,18 @@ The given name can be questioned with <code>bm$name()</code>.
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># we can't get this through the CRAN test - run it with copy/paste to console</span>
 
-<span class='kw'>wrd</span> <span class='op'>&lt;-</span> <span class='fu'><a href='GetNewWrd.html'>GetNewWrd</a></span>()
-<span class='kw'>bm</span> <span class='op'>&lt;-</span> <span class='fu'>ToWrdB</span>(<span class='st'>"This is text to be possibly replaced later."</span>)
+<span class='va'>wrd</span> <span class='op'>&lt;-</span> <span class='fu'><a href='GetNewWrd.html'>GetNewWrd</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>bm</span> <span class='op'>&lt;-</span> <span class='fu'>ToWrdB</span><span class='op'>(</span><span class='st'>"This is text to be possibly replaced later."</span><span class='op'>)</span>
 
 <span class='co'># get the automatically created name of the bookmark</span>
-<span class='kw'>bm</span><span class='op'>$</span><span class='fu'><a href='https://rdrr.io/r/base/name.html'>name</a></span>()
+<span class='va'>bm</span><span class='op'>$</span><span class='fu'>name</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'><a href='WrdBookmark.html'>WrdGoto</a></span>(<span class='kw'>bm</span><span class='op'>$</span><span class='fu'><a href='https://rdrr.io/r/base/name.html'>name</a></span>())
-<span class='fu'>UpdateBookmark</span>(<span class='kw'>...</span>)
-}
+<span class='fu'><a href='WrdBookmark.html'>WrdGoto</a></span><span class='op'>(</span><span class='va'>bm</span><span class='op'>$</span><span class='fu'>name</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>UpdateBookmark</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
+<span class='op'>}</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -229,7 +229,7 @@ The given name can be questioned with <code>bm$name()</code>.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

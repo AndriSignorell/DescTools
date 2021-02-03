@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.38</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.40</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -115,7 +115,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/AndriSignorell/DescTools/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -143,9 +143,9 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>WrdTableBorders</span>(<span class='kw'>wtab</span>, from = <span class='kw'>NULL</span>, to = <span class='kw'>NULL</span>, border = <span class='kw'>NULL</span>,
-                lty = <span class='kw'>wdConst</span><span class='op'>$</span><span class='kw'>wdLineStyleSingle</span>, col = <span class='kw'>wdConst</span><span class='op'>$</span><span class='kw'>wdColorBlack</span>,
-                lwd = <span class='kw'>wdConst</span><span class='op'>$</span><span class='kw'>wdLineWidth050pt</span>)</pre>
+    <pre class="usage"><span class='fu'>WrdTableBorders</span><span class='op'>(</span><span class='va'>wtab</span>, from <span class='op'>=</span> <span class='cn'>NULL</span>, to <span class='op'>=</span> <span class='cn'>NULL</span>, border <span class='op'>=</span> <span class='cn'>NULL</span>,
+                lty <span class='op'>=</span> <span class='va'>wdConst</span><span class='op'>$</span><span class='va'>wdLineStyleSingle</span>, col <span class='op'>=</span> <span class='va'>wdConst</span><span class='op'>$</span><span class='va'>wdColorBlack</span>,
+                lwd <span class='op'>=</span> <span class='va'>wdConst</span><span class='op'>$</span><span class='va'>wdLineWidth050pt</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -205,34 +205,34 @@
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 
 <span class='co'># create table</span>
-<span class='kw'>tab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(op=<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>operator</span>, area=<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>area</span>)
+<span class='va'>tab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span>op<span class='op'>=</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>operator</span>, area<span class='op'>=</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>area</span><span class='op'>)</span>
 
 <span class='co'># send it to Word</span>
-<span class='kw'>wrd</span> <span class='op'>&lt;-</span> <span class='fu'><a href='GetNewWrd.html'>GetNewWrd</a></span>()
-<span class='kw'>wtab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ToWrd.html'>ToWrd</a></span>(<span class='kw'>tab</span>, wrd=<span class='kw'>wrd</span>, tablestyle = <span class='fl'>NA</span>)
+<span class='va'>wrd</span> <span class='op'>&lt;-</span> <span class='fu'><a href='GetNewWrd.html'>GetNewWrd</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>wtab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ToWrd.html'>ToWrd</a></span><span class='op'>(</span><span class='va'>tab</span>, wrd<span class='op'>=</span><span class='va'>wrd</span>, tablestyle <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>
 
 <span class='co'># draw borders</span>
-<span class='fu'>WrdTableBorders</span>(<span class='kw'>wtab</span>, from=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>2</span>), to=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>3</span>), border=<span class='kw'>wdConst</span><span class='op'>$</span><span class='kw'>wdBorderBottom</span>, wrd=<span class='kw'>wrd</span>)
-<span class='fu'>WrdTableBorders</span>(<span class='kw'>wtab</span>, from=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>2</span>), to=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>3</span>), border=<span class='kw'>wdConst</span><span class='op'>$</span><span class='kw'>wdBorderDiagonalUp</span>, wrd=<span class='kw'>wrd</span>)
+<span class='fu'>WrdTableBorders</span><span class='op'>(</span><span class='va'>wtab</span>, from<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>)</span>, to<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>3</span><span class='op'>)</span>, border<span class='op'>=</span><span class='va'>wdConst</span><span class='op'>$</span><span class='va'>wdBorderBottom</span>, wrd<span class='op'>=</span><span class='va'>wrd</span><span class='op'>)</span>
+<span class='fu'>WrdTableBorders</span><span class='op'>(</span><span class='va'>wtab</span>, from<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>)</span>, to<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>3</span><span class='op'>)</span>, border<span class='op'>=</span><span class='va'>wdConst</span><span class='op'>$</span><span class='va'>wdBorderDiagonalUp</span>, wrd<span class='op'>=</span><span class='va'>wrd</span><span class='op'>)</span>
 
 <span class='co'># demonstrate linewidth and color</span>
-<span class='kw'>wtab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ToWrd.html'>ToWrd</a></span>(<span class='kw'>tab</span>, wrd=<span class='kw'>wrd</span>, tablestyle = <span class='fl'>NA</span>)
-<span class='fu'>WrdTableBorders</span>(<span class='kw'>wtab</span>, col=<span class='fu'><a href='RgbToCol.html'>RgbToLong</a></span>(<span class='fu'><a href='ColToRgb.html'>ColToRgb</a></span>(<span class='st'>"olivedrab"</span>)),
-                lwd=<span class='kw'>wdConst</span><span class='op'>$</span><span class='kw'>wdLineWidth150pt</span>, wrd=<span class='kw'>wrd</span>)
+<span class='va'>wtab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ToWrd.html'>ToWrd</a></span><span class='op'>(</span><span class='va'>tab</span>, wrd<span class='op'>=</span><span class='va'>wrd</span>, tablestyle <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>
+<span class='fu'>WrdTableBorders</span><span class='op'>(</span><span class='va'>wtab</span>, col<span class='op'>=</span><span class='fu'><a href='RgbToCol.html'>RgbToLong</a></span><span class='op'>(</span><span class='fu'><a href='ColToRgb.html'>ColToRgb</a></span><span class='op'>(</span><span class='st'>"olivedrab"</span><span class='op'>)</span><span class='op'>)</span>,
+                lwd<span class='op'>=</span><span class='va'>wdConst</span><span class='op'>$</span><span class='va'>wdLineWidth150pt</span>, wrd<span class='op'>=</span><span class='va'>wrd</span><span class='op'>)</span>
 
-<span class='fu'>WrdTableBorders</span>(<span class='kw'>wtab</span>, border=<span class='kw'>wdConst</span><span class='op'>$</span><span class='kw'>wdBorderBottom</span>,
-                col=<span class='fu'><a href='RgbToCol.html'>RgbToLong</a></span>(<span class='fu'><a href='ColToRgb.html'>ColToRgb</a></span>(<span class='st'>"dodgerblue"</span>)),
-                lwd=<span class='kw'>wdConst</span><span class='op'>$</span><span class='kw'>wdLineWidth300pt</span>, wrd=<span class='kw'>wrd</span>)
+<span class='fu'>WrdTableBorders</span><span class='op'>(</span><span class='va'>wtab</span>, border<span class='op'>=</span><span class='va'>wdConst</span><span class='op'>$</span><span class='va'>wdBorderBottom</span>,
+                col<span class='op'>=</span><span class='fu'><a href='RgbToCol.html'>RgbToLong</a></span><span class='op'>(</span><span class='fu'><a href='ColToRgb.html'>ColToRgb</a></span><span class='op'>(</span><span class='st'>"dodgerblue"</span><span class='op'>)</span><span class='op'>)</span>,
+                lwd<span class='op'>=</span><span class='va'>wdConst</span><span class='op'>$</span><span class='va'>wdLineWidth300pt</span>, wrd<span class='op'>=</span><span class='va'>wrd</span><span class='op'>)</span>
 
 <span class='co'># use an R color in Word</span>
-<span class='fu'><a href='RgbToCol.html'>RgbToLong</a></span>(<span class='fu'><a href='ColToRgb.html'>ColToRgb</a></span>(<span class='st'>"olivedrab"</span>))
+<span class='fu'><a href='RgbToCol.html'>RgbToLong</a></span><span class='op'>(</span><span class='fu'><a href='ColToRgb.html'>ColToRgb</a></span><span class='op'>(</span><span class='st'>"olivedrab"</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># find a similar R-color for a Word color</span>
-<span class='fu'><a href='ColToRgb.html'>ColToRgb</a></span>(<span class='fu'><a href='RgbToCol.html'>RgbToCol</a></span>(<span class='fu'><a href='RgbToCol.html'>LongToRgb</a></span>(<span class='kw'>wdConst</span><span class='op'>$</span><span class='kw'>wdColorAqua</span>)))
-}
+<span class='fu'><a href='ColToRgb.html'>ColToRgb</a></span><span class='op'>(</span><span class='fu'><a href='RgbToCol.html'>RgbToCol</a></span><span class='op'>(</span><span class='fu'><a href='RgbToCol.html'>LongToRgb</a></span><span class='op'>(</span><span class='va'>wdConst</span><span class='op'>$</span><span class='va'>wdColorAqua</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>}</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -249,7 +249,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

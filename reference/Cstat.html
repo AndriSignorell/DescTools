@@ -76,7 +76,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.38</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.40</span>
       </span>
     </div>
 
@@ -84,7 +84,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -114,7 +114,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/AndriSignorell/DescTools/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -141,13 +141,13 @@
     <p>Calculate the C statistic, a measure of goodness of fit for binary outcomes in a logistic regression or any other classification model. The C statistic is equivalent to the area under the ROC-curve (Receiver Operating Characteristic).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>Cstat</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+    <pre class="usage"><span class='fu'>Cstat</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for glm</span>
-<span class='fu'>Cstat</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+<span class='fu'>Cstat</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>Cstat</span>(<span class='kw'>x</span>, <span class='kw'>resp</span>, <span class='kw'>...</span>)</pre>
+<span class='fu'>Cstat</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>resp</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -187,12 +187,12 @@
     <div class='dont-index'><p><code><a href='BrierScore.html'>BrierScore</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>r.glm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='kw'>Survived</span> <span class='op'>~</span> <span class='kw'>.</span>, data=<span class='fu'><a href='Untable.html'>Untable</a></span>(<span class='kw'>Titanic</span>), family=<span class='kw'>binomial</span>)
-<span class='fu'>Cstat</span>(<span class='kw'>r.glm</span>)
+    <pre class="examples"><div class='input'><span class='va'>r.glm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span><span class='va'>Survived</span> <span class='op'>~</span> <span class='va'>.</span>, data<span class='op'>=</span><span class='fu'><a href='Untable.html'>Untable</a></span><span class='op'>(</span><span class='va'>Titanic</span><span class='op'>)</span>, family<span class='op'>=</span><span class='va'>binomial</span><span class='op'>)</span>
+<span class='fu'>Cstat</span><span class='op'>(</span><span class='va'>r.glm</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='error'>Error in .Call("conc", PACKAGE = "DescTools", y[ord, ], as.double(wts[ord]),     as.integer(idx), as.integer(n2)): "conc" not available for .Call() for package "DescTools"</span></div><div class='input'>
 <span class='co'># default interface</span>
-<span class='fu'>Cstat</span>(x = <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='kw'>r.glm</span>, method=<span class='st'>"response"</span>), 
-      resp = <span class='fu'><a href='https://rdrr.io/r/stats/model.extract.html'>model.response</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/model.frame.html'>model.frame</a></span>(<span class='kw'>r.glm</span>)))
+<span class='fu'>Cstat</span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>r.glm</span>, method<span class='op'>=</span><span class='st'>"response"</span><span class='op'>)</span>, 
+      resp <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/model.extract.html'>model.response</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/model.frame.html'>model.frame</a></span><span class='op'>(</span><span class='va'>r.glm</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='error'>Error in .Call("conc", PACKAGE = "DescTools", y[ord, ], as.double(wts[ord]),     as.integer(idx), as.integer(n2)): "conc" not available for .Call() for package "DescTools"</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -209,7 +209,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

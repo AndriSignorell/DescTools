@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.38</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.40</span>
       </span>
     </div>
 
@@ -82,7 +82,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -112,7 +112,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/AndriSignorell/DescTools/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -138,8 +138,8 @@
     <p>Performs the Bartels rank test of randomness, which tests if a sample is sampled randomly from an underlying population. Data must at least be measured on an ordinal scale.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>BartelsRankTest</span>(<span class='kw'>x</span>, alternative = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"two.sided"</span>, <span class='st'>"trend"</span>, <span class='st'>"oscillation"</span>),
-                method = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"normal"</span>, <span class='st'>"beta"</span>, <span class='st'>"auto"</span>))</pre>
+    <pre class="usage"><span class='fu'>BartelsRankTest</span><span class='op'>(</span><span class='va'>x</span>, alternative <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"two.sided"</span>, <span class='st'>"trend"</span>, <span class='st'>"oscillation"</span><span class='op'>)</span>,
+                method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"normal"</span>, <span class='st'>"beta"</span>, <span class='st'>"auto"</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -198,12 +198,12 @@ URL: <a href='http://books.google.pt/books?id=dPhtioXwI9cC&amp;lpg=PA97&amp;ots=
     <pre class="examples"><div class='input'><span class='co'>## Example 5.1 in Gibbons and Chakraborti (2003), p.98.</span>
 <span class='co'>## Annual data on total number of tourists to the United States for 1970-1982.</span>
 
-<span class='kw'>years</span> <span class='op'>&lt;-</span> <span class='fl'>1970</span><span class='op'>:</span><span class='fl'>1982</span>
-<span class='kw'>tourists</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>12362</span>, <span class='fl'>12739</span>, <span class='fl'>13057</span>, <span class='fl'>13955</span>, <span class='fl'>14123</span>,  <span class='fl'>15698</span>, <span class='fl'>17523</span>, <span class='fl'>18610</span>, <span class='fl'>19842</span>,
-      <span class='fl'>20310</span>, <span class='fl'>22500</span>, <span class='fl'>23080</span>, <span class='fl'>21916</span>)
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>years</span>, <span class='kw'>tourists</span>, pch=<span class='fl'>20</span>)
+<span class='va'>years</span> <span class='op'>&lt;-</span> <span class='fl'>1970</span><span class='op'>:</span><span class='fl'>1982</span>
+<span class='va'>tourists</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>12362</span>, <span class='fl'>12739</span>, <span class='fl'>13057</span>, <span class='fl'>13955</span>, <span class='fl'>14123</span>,  <span class='fl'>15698</span>, <span class='fl'>17523</span>, <span class='fl'>18610</span>, <span class='fl'>19842</span>,
+      <span class='fl'>20310</span>, <span class='fl'>22500</span>, <span class='fl'>23080</span>, <span class='fl'>21916</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>years</span>, <span class='va'>tourists</span>, pch<span class='op'>=</span><span class='fl'>20</span><span class='op'>)</span>
 </div><div class='img'><img src='BartelsRankTest-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'>BartelsRankTest</span>(<span class='kw'>tourists</span>, alternative=<span class='st'>"trend"</span>, method=<span class='st'>"beta"</span>)
+<span class='fu'>BartelsRankTest</span><span class='op'>(</span><span class='va'>tourists</span>, alternative<span class='op'>=</span><span class='st'>"trend"</span>, method<span class='op'>=</span><span class='st'>"beta"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; 
 #&gt; 	Bartels Ratio Test
 #&gt; 
@@ -221,9 +221,9 @@ URL: <a href='http://books.google.pt/books?id=dPhtioXwI9cC&amp;lpg=PA97&amp;ots=
 <span class='co'>## Example in Bartels (1982).</span>
 <span class='co'>## Changes in stock levels for 1968-1969 to 1977-1978 (in $A million), deflated by the</span>
 <span class='co'>## Australian gross domestic product (GDP) price index (base 1966-1967).</span>
-<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>528</span>, <span class='fl'>348</span>, <span class='fl'>264</span>, <span class='op'>-</span><span class='fl'>20</span>, <span class='op'>-</span> <span class='fl'>167</span>, <span class='fl'>575</span>, <span class='fl'>410</span>, <span class='op'>-</span><span class='fl'>4</span>, <span class='fl'>430</span>, <span class='op'>-</span> <span class='fl'>122</span>)
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>528</span>, <span class='fl'>348</span>, <span class='fl'>264</span>, <span class='op'>-</span><span class='fl'>20</span>, <span class='op'>-</span> <span class='fl'>167</span>, <span class='fl'>575</span>, <span class='fl'>410</span>, <span class='op'>-</span><span class='fl'>4</span>, <span class='fl'>430</span>, <span class='op'>-</span> <span class='fl'>122</span><span class='op'>)</span>
 
-<span class='fu'>BartelsRankTest</span>(<span class='kw'>x</span>, method=<span class='st'>"beta"</span>)
+<span class='fu'>BartelsRankTest</span><span class='op'>(</span><span class='va'>x</span>, method<span class='op'>=</span><span class='st'>"beta"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; 
 #&gt; 	Bartels Ratio Test
 #&gt; 
@@ -246,7 +246,7 @@ URL: <a href='http://books.google.pt/books?id=dPhtioXwI9cC&amp;lpg=PA97&amp;ots=
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

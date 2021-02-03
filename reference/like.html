@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.38</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.40</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -115,7 +115,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/AndriSignorell/DescTools/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -143,9 +143,9 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='kw'>x</span> <span class='op'>%like%</span> <span class='kw'>pattern</span>
+    <pre class="usage"><span class='va'>x</span> <span class='op'>%like%</span> <span class='va'>pattern</span>
 
-<span class='kw'>x</span> <span class='op'>%like any%</span> <span class='kw'>pattern</span></pre>
+<span class='va'>x</span> <span class='op'>%like any%</span> <span class='va'>pattern</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -185,23 +185,23 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># find names ending on "or"</span>
-<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='kw'>d.pizza</span>) <span class='op'>%like%</span> <span class='st'>"%or"</span>
+<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>)</span> <span class='op'>%like%</span> <span class='st'>"%or"</span>
 </div><div class='output co'>#&gt;  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE
 #&gt; [13] FALSE FALSE FALSE FALSE</div><div class='input'>
 <span class='co'># find names starting with "d"</span>
-<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='kw'>d.pizza</span>) <span class='op'>%like%</span> <span class='st'>"d%"</span>
+<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>)</span> <span class='op'>%like%</span> <span class='st'>"d%"</span>
 </div><div class='output co'>#&gt;  [1] FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE
 #&gt; [13] FALSE FALSE FALSE FALSE</div><div class='input'>
 <span class='co'># ... containing er?</span>
-<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='kw'>d.pizza</span>) <span class='op'>%like%</span> <span class='st'>"%er%"</span>
+<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>)</span> <span class='op'>%like%</span> <span class='st'>"%er%"</span>
 </div><div class='output co'>#&gt;  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE
 #&gt; [13]  TRUE  TRUE FALSE FALSE</div><div class='input'>
 <span class='co'># and combined, search for a name containing "un", ending on "or"</span>
 <span class='co'># or beginning with "F"</span>
-<span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>driver</span>) <span class='op'>%like any%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"%un%"</span>, <span class='st'>"%or"</span>, <span class='st'>"F%"</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>driver</span><span class='op'>)</span> <span class='op'>%like any%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"%un%"</span>, <span class='st'>"%or"</span>, <span class='st'>"F%"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] FALSE FALSE FALSE  TRUE  TRUE FALSE  TRUE</div><div class='input'>
 <span class='co'># the positions on the vector</span>
-<span class='fu'><a href='https://rdrr.io/r/base/match.html'>match</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='kw'>d.pizza</span>) <span class='op'>%like%</span> <span class='st'>"%er%"</span>, <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='kw'>d.pizza</span>))
+<span class='fu'><a href='https://rdrr.io/r/base/match.html'>match</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>)</span> <span class='op'>%like%</span> <span class='st'>"%er%"</span>, <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;  [1] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -218,7 +218,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

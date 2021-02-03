@@ -75,7 +75,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.38</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.40</span>
       </span>
     </div>
 
@@ -83,7 +83,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -113,7 +113,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/AndriSignorell/DescTools/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -140,8 +140,8 @@
  serial correlation.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>BreuschGodfreyTest</span>(<span class='kw'>formula</span>, order = <span class='fl'>1</span>, order.by = <span class='kw'>NULL</span>, type = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Chisq"</span>, <span class='st'>"F"</span>),
-                   data = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), fill = <span class='fl'>0</span>)</pre>
+    <pre class="usage"><span class='fu'>BreuschGodfreyTest</span><span class='op'>(</span><span class='va'>formula</span>, order <span class='op'>=</span> <span class='fl'>1</span>, order.by <span class='op'>=</span> <span class='cn'>NULL</span>, type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Chisq"</span>, <span class='st'>"F"</span><span class='op'>)</span>,
+                   data <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>, fill <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -231,12 +231,12 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Generate a stationary and an AR(1) series</span>
-<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='op'>-</span><span class='fl'>1</span>), <span class='fl'>50</span>)
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span>, <span class='fl'>50</span><span class='op'>)</span>
 
-<span class='kw'>y1</span> <span class='op'>&lt;-</span> <span class='fl'>1</span> <span class='op'>+</span> <span class='kw'>x</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>)
+<span class='va'>y1</span> <span class='op'>&lt;-</span> <span class='fl'>1</span> <span class='op'>+</span> <span class='va'>x</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span>
 
 <span class='co'>## Perform Breusch-Godfrey test for first-order serial correlation:</span>
-<span class='fu'>BreuschGodfreyTest</span>(<span class='kw'>y1</span> <span class='op'>~</span> <span class='kw'>x</span>)
+<span class='fu'>BreuschGodfreyTest</span><span class='op'>(</span><span class='va'>y1</span> <span class='op'>~</span> <span class='va'>x</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; 
 #&gt; 	Breusch-Godfrey test for serial correlation of order up to 1
 #&gt; 
@@ -244,7 +244,7 @@
 #&gt; LM test = 0.67455, df = 1, p-value = 0.4115
 #&gt; </div><div class='input'>
 <span class='co'>## or for fourth-order serial correlation</span>
-<span class='fu'>BreuschGodfreyTest</span>(<span class='kw'>y1</span> <span class='op'>~</span> <span class='kw'>x</span>, order = <span class='fl'>4</span>)
+<span class='fu'>BreuschGodfreyTest</span><span class='op'>(</span><span class='va'>y1</span> <span class='op'>~</span> <span class='va'>x</span>, order <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; 
 #&gt; 	Breusch-Godfrey test for serial correlation of order up to 4
 #&gt; 
@@ -252,7 +252,7 @@
 #&gt; LM test = 2.6692, df = 4, p-value = 0.6146
 #&gt; </div><div class='input'>
 <span class='co'>## Compare with Durbin-Watson test results:</span>
-<span class='fu'><a href='DurbinWatsonTest.html'>DurbinWatsonTest</a></span>(<span class='kw'>y1</span> <span class='op'>~</span> <span class='kw'>x</span>)
+<span class='fu'><a href='DurbinWatsonTest.html'>DurbinWatsonTest</a></span><span class='op'>(</span><span class='va'>y1</span> <span class='op'>~</span> <span class='va'>x</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; 
 #&gt; 	Durbin-Watson test
 #&gt; 
@@ -260,8 +260,8 @@
 #&gt; DW = 2.0564, p-value = 0.6502
 #&gt; alternative hypothesis: true autocorrelation is greater than 0
 #&gt; </div><div class='input'>
-<span class='kw'>y2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span>(<span class='kw'>y1</span>, <span class='fl'>0.5</span>, method = <span class='st'>"recursive"</span>)
-<span class='fu'>BreuschGodfreyTest</span>(<span class='kw'>y2</span> <span class='op'>~</span> <span class='kw'>x</span>)
+<span class='va'>y2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>y1</span>, <span class='fl'>0.5</span>, method <span class='op'>=</span> <span class='st'>"recursive"</span><span class='op'>)</span>
+<span class='fu'>BreuschGodfreyTest</span><span class='op'>(</span><span class='va'>y2</span> <span class='op'>~</span> <span class='va'>x</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; 
 #&gt; 	Breusch-Godfrey test for serial correlation of order up to 1
 #&gt; 
@@ -283,7 +283,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

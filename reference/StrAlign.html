@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.38</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.40</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -115,7 +115,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/AndriSignorell/DescTools/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -143,7 +143,7 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>StrAlign</span>(<span class='kw'>x</span>, sep = <span class='st'>"\\r"</span>)</pre>
+    <pre class="usage"><span class='fu'>StrAlign</span><span class='op'>(</span><span class='va'>x</span>, sep <span class='op'>=</span> <span class='st'>"\\r"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -162,9 +162,17 @@
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Alignment to the left, right or center leave no room for misinterpretation. The function will determine the maximum string size in the vector, resize all the strings to this size by padding empty spaces either at the beginning or at the end of the strings.
-When it comes to center strings, it's not clear where to place strings with an even length in case the maximum length is odd (or vice versa). We will put the shorter distance of an uneven string at the left.<br />
-Any specific length of the strings can be created by <code><a href='StrPad.html'>StrPad</a></code> if required.</p>
+    <p>Alignment to the left or right leave no room for misinterpretation. The function will determine the maximum string size in the vector, resize all the strings to this size by padding empty spaces either at the beginning or at the end.</p><pre>cbind(StrAlign(c("here", "there", "everywhere"), sep = "\r"))
+[1,] "      here"
+[2,] "     there"
+[3,] "everywhere"</pre>
+
+<p>When it comes to center strings, it's not clear where to place strings with an even length in case the maximum length is odd (or vice versa). We will put the shorter distance of an uneven string to the left (note the second term, that has 2 spaces on the left and 3 spaces on the right).</p><pre>cbind(StrAlign(c("here", "there", "everywhere"), sep = "\c"))
+[1,] "   here   "
+[2,] "  there   "
+[3,] "everywhere"</pre>
+
+<p>Any specific length of the strings can be created by <code><a href='StrPad.html'>StrPad</a></code> if required.</p>
 <p>In case of a given separator the strings will be aligned towards this separator. If a string does not contain the separator, the affected string will be aligned as if it had a separator as last character. This seems to be a good default, when integer numbers are to be aligned with numerical values. Note that the character length of the resulting strings can excceed the maximum length of the supplied strings.</p>
 <p>The character strings will not be pruned of whitespaces, if the requested alignment does not explicitly require it. <code><a href='StrTrim.html'>StrTrim</a></code> can be used for that.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -186,15 +194,15 @@ Any specific length of the strings can be created by <code><a href='StrPad.html'
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># align on (the first occuring) B</span>
-<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ABCDMNB"</span>, <span class='st'>"CDGHEBK"</span>, <span class='st'>"BCI"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='fu'>StrAlign</span>(<span class='kw'>x</span>, sep=<span class='st'>"B"</span>))
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ABCDMNB"</span>, <span class='st'>"CDGHEBK"</span>, <span class='st'>"BCI"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='fu'>StrAlign</span><span class='op'>(</span><span class='va'>x</span>, sep<span class='op'>=</span><span class='st'>"B"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;      [,1]         
 #&gt; [1,] "    ABCDMNB"
 #&gt; [2,] "CDGHEBK    "
 #&gt; [3,] "     BCI   "</div><div class='input'>
 <span class='co'># align to decimal point</span>
-<span class='kw'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"    6.0"</span>, <span class='st'>"6.00  "</span>, <span class='st'>" 45.12    "</span>, <span class='st'>"784"</span>, <span class='fl'>NA</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='fu'>StrAlign</span>(<span class='kw'>z</span>, sep=<span class='st'>"."</span>))
+<span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"    6.0"</span>, <span class='st'>"6.00  "</span>, <span class='st'>" 45.12    "</span>, <span class='st'>"784"</span>, <span class='cn'>NA</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='fu'>StrAlign</span><span class='op'>(</span><span class='va'>z</span>, sep<span class='op'>=</span><span class='st'>"."</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;      [,1]      
 #&gt; [1,] "    6.0 "
 #&gt; [2,] "    6.00"
@@ -202,17 +210,17 @@ Any specific length of the strings can be created by <code><a href='StrPad.html'
 #&gt; [4,] "  784   "
 #&gt; [5,] NA        </div><div class='input'>
 <span class='co'># right align, the width will be the max number of characters in x</span>
-<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='fu'>StrAlign</span>(<span class='kw'>x</span>, sep=<span class='st'>"\\r"</span>))
+<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='fu'>StrAlign</span><span class='op'>(</span><span class='va'>x</span>, sep<span class='op'>=</span><span class='st'>"\\r"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;      [,1]     
 #&gt; [1,] "ABCDMNB"
 #&gt; [2,] "CDGHEBK"
 #&gt; [3,] "    BCI"</div><div class='input'><span class='co'># left align</span>
-<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='fu'>StrAlign</span>(<span class='kw'>x</span>, sep=<span class='st'>"\\l"</span>))
+<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='fu'>StrAlign</span><span class='op'>(</span><span class='va'>x</span>, sep<span class='op'>=</span><span class='st'>"\\l"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;      [,1]     
 #&gt; [1,] "ABCDMNB"
 #&gt; [2,] "CDGHEBK"
 #&gt; [3,] "BCI    "</div><div class='input'><span class='co'># center</span>
-<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='fu'>StrAlign</span>(<span class='kw'>x</span>, sep=<span class='st'>"\\c"</span>))
+<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='fu'>StrAlign</span><span class='op'>(</span><span class='va'>x</span>, sep<span class='op'>=</span><span class='st'>"\\c"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;      [,1]     
 #&gt; [1,] "ABCDMNB"
 #&gt; [2,] "CDGHEBK"
@@ -232,7 +240,7 @@ Any specific length of the strings can be created by <code><a href='StrPad.html'
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

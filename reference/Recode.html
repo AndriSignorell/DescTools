@@ -78,7 +78,7 @@ accepting a direct definition of new levels by enumerating old levelnames as arg
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.38</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.40</span>
       </span>
     </div>
 
@@ -86,7 +86,7 @@ accepting a direct definition of new levels by enumerating old levelnames as arg
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -116,7 +116,7 @@ accepting a direct definition of new levels by enumerating old levelnames as arg
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/AndriSignorell/DescTools/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -145,7 +145,7 @@ accepting a direct definition of new levels by enumerating old levelnames as arg
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>Recode</span>(<span class='kw'>x</span>, <span class='kw'>...</span>, elselevel = <span class='fl'>NA</span>, use.empty = <span class='fl'>FALSE</span>, num = <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>Recode</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, elselevel <span class='op'>=</span> <span class='cn'>NA</span>, use.empty <span class='op'>=</span> <span class='cn'>FALSE</span>, num <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -192,16 +192,16 @@ There's another solution in the package <b>car</b>.
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1984</span>)
-<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>15</span>, <span class='fl'>20</span>, replace=<span class='fl'>TRUE</span>))
-<span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span>(<span class='kw'>x</span>) <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='st'>"old"</span>, <span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span>(<span class='kw'>x</span>), sep=<span class='st'>"_"</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>1984</span><span class='op'>)</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>15</span>, <span class='fl'>20</span>, replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"old"</span>, <span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, sep<span class='op'>=</span><span class='st'>"_"</span><span class='op'>)</span>
 
-<span class='kw'>y</span> <span class='op'>&lt;-</span> <span class='fu'>Recode</span>(<span class='kw'>x</span>,
-            <span class='st'>"new_1"</span>   = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"old_1"</span>,<span class='st'>"old_4"</span>,<span class='st'>"old_5"</span>),
-            <span class='st'>"new_2"</span>   = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"old_6"</span>,<span class='st'>"old_10"</span>,<span class='st'>"old_11"</span>),
-            <span class='st'>"new_3"</span>   = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"old_12"</span>,<span class='st'>"old_13"</span>),
-            elselevel = <span class='st'>"other"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(x=<span class='kw'>x</span>, y=<span class='kw'>y</span>)
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'>Recode</span><span class='op'>(</span><span class='va'>x</span>,
+            <span class='st'>"new_1"</span>   <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"old_1"</span>,<span class='st'>"old_4"</span>,<span class='st'>"old_5"</span><span class='op'>)</span>,
+            <span class='st'>"new_2"</span>   <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"old_6"</span>,<span class='st'>"old_10"</span>,<span class='st'>"old_11"</span><span class='op'>)</span>,
+            <span class='st'>"new_3"</span>   <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"old_12"</span>,<span class='st'>"old_13"</span><span class='op'>)</span>,
+            elselevel <span class='op'>=</span> <span class='st'>"other"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>x</span>, y<span class='op'>=</span><span class='va'>y</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;         x     y
 #&gt; 1   old_8 other
 #&gt; 2  old_14 other
@@ -224,15 +224,15 @@ There's another solution in the package <b>car</b>.
 #&gt; 19 old_13 new_3
 #&gt; 20 old_13 new_3</div><div class='input'>
 
-<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>letters</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>6</span>])
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>6</span><span class='op'>]</span><span class='op'>)</span>
 
-<span class='kw'>z1</span> <span class='op'>&lt;-</span> <span class='fu'>Recode</span>(<span class='kw'>x</span>, AB=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>,<span class='st'>"b"</span>), CD=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"c"</span>,<span class='st'>"d"</span>), elselevel=<span class='st'>"none of these"</span>)
-<span class='kw'>z2</span> <span class='op'>&lt;-</span> <span class='fu'>Recode</span>(<span class='kw'>x</span>, AB=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>,<span class='st'>"b"</span>), CD=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"c"</span>,<span class='st'>"d"</span>), elselevel=<span class='fl'>NA</span>)
-<span class='kw'>z3</span> <span class='op'>&lt;-</span> <span class='fu'>Recode</span>(<span class='kw'>x</span>, AB=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>,<span class='st'>"b"</span>), CD=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"c"</span>,<span class='st'>"d"</span>), elselevel=<span class='kw'>NULL</span>)
-<span class='kw'>z4</span> <span class='op'>&lt;-</span> <span class='fu'>Recode</span>(<span class='kw'>x</span>, AB=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>,<span class='st'>"b"</span>), GH=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"g"</span>,<span class='st'>"h"</span>), elselevel=<span class='fl'>NA</span>, use.empty=<span class='fl'>TRUE</span>)
-<span class='kw'>z5</span> <span class='op'>&lt;-</span> <span class='fu'>Recode</span>(<span class='kw'>x</span>, AB=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>,<span class='st'>"b"</span>), GH=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"g"</span>,<span class='st'>"h"</span>), elselevel=<span class='fl'>NA</span>, use.empty=<span class='fl'>FALSE</span>)
+<span class='va'>z1</span> <span class='op'>&lt;-</span> <span class='fu'>Recode</span><span class='op'>(</span><span class='va'>x</span>, AB<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>,<span class='st'>"b"</span><span class='op'>)</span>, CD<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"c"</span>,<span class='st'>"d"</span><span class='op'>)</span>, elselevel<span class='op'>=</span><span class='st'>"none of these"</span><span class='op'>)</span>
+<span class='va'>z2</span> <span class='op'>&lt;-</span> <span class='fu'>Recode</span><span class='op'>(</span><span class='va'>x</span>, AB<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>,<span class='st'>"b"</span><span class='op'>)</span>, CD<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"c"</span>,<span class='st'>"d"</span><span class='op'>)</span>, elselevel<span class='op'>=</span><span class='cn'>NA</span><span class='op'>)</span>
+<span class='va'>z3</span> <span class='op'>&lt;-</span> <span class='fu'>Recode</span><span class='op'>(</span><span class='va'>x</span>, AB<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>,<span class='st'>"b"</span><span class='op'>)</span>, CD<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"c"</span>,<span class='st'>"d"</span><span class='op'>)</span>, elselevel<span class='op'>=</span><span class='cn'>NULL</span><span class='op'>)</span>
+<span class='va'>z4</span> <span class='op'>&lt;-</span> <span class='fu'>Recode</span><span class='op'>(</span><span class='va'>x</span>, AB<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>,<span class='st'>"b"</span><span class='op'>)</span>, GH<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"g"</span>,<span class='st'>"h"</span><span class='op'>)</span>, elselevel<span class='op'>=</span><span class='cn'>NA</span>, use.empty<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='va'>z5</span> <span class='op'>&lt;-</span> <span class='fu'>Recode</span><span class='op'>(</span><span class='va'>x</span>, AB<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>,<span class='st'>"b"</span><span class='op'>)</span>, GH<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"g"</span>,<span class='st'>"h"</span><span class='op'>)</span>, elselevel<span class='op'>=</span><span class='cn'>NA</span>, use.empty<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>z1</span>, <span class='kw'>z2</span>, <span class='kw'>z3</span>, <span class='kw'>z4</span>, <span class='kw'>z5</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='va'>z1</span>, <span class='va'>z2</span>, <span class='va'>z3</span>, <span class='va'>z4</span>, <span class='va'>z5</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;              z1   z2 z3   z4   z5
 #&gt; 1            AB   AB AB   AB   AB
 #&gt; 2            AB   AB AB   AB   AB
@@ -240,7 +240,7 @@ There's another solution in the package <b>car</b>.
 #&gt; 4            CD   CD CD &lt;NA&gt; &lt;NA&gt;
 #&gt; 5 none of these &lt;NA&gt;  e &lt;NA&gt; &lt;NA&gt;
 #&gt; 6 none of these &lt;NA&gt;  f &lt;NA&gt; &lt;NA&gt;</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>z1</span>, <span class='kw'>z2</span>, <span class='kw'>z3</span>, <span class='kw'>z4</span>, <span class='kw'>z5</span>), <span class='kw'>levels</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='va'>z1</span>, <span class='va'>z2</span>, <span class='va'>z3</span>, <span class='va'>z4</span>, <span class='va'>z5</span><span class='op'>)</span>, <span class='va'>levels</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; $z1
 #&gt; [1] "AB"            "CD"            "none of these"
 #&gt; 
@@ -257,24 +257,24 @@ There's another solution in the package <b>car</b>.
 #&gt; [1] "AB"
 #&gt; </div><div class='input'>
 <span class='co'># empty level GH exists in z4...</span>
-<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='kw'>z4</span>, useNA=<span class='st'>"ifany"</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>z4</span>, useNA<span class='op'>=</span><span class='st'>"ifany"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; z4
 #&gt;   AB   GH &lt;NA&gt; 
 #&gt;    2    0    4 </div><div class='input'><span class='co'># and is dropped in z5</span>
-<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='kw'>z5</span>, useNA=<span class='st'>"ifany"</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>z5</span>, useNA<span class='op'>=</span><span class='st'>"ifany"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; z5
 #&gt;   AB &lt;NA&gt; 
 #&gt;    2    4 </div><div class='input'>
 <span class='co'># use integers to define the groups to collapse</span>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1972</span>)
-(<span class='kw'>likert</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, size=<span class='fl'>15</span>, replace=<span class='fl'>TRUE</span>),
-                  levels=<span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, labels=<span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>gettextf</a></span>(<span class='st'>"(%s)"</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>)))
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>1972</span><span class='op'>)</span>
+<span class='op'>(</span><span class='va'>likert</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, size<span class='op'>=</span><span class='fl'>15</span>, replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>,
+                  levels<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, labels<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>gettextf</a></span><span class='op'>(</span><span class='st'>"(%s)"</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;  [1] (4)  (10) (9)  (1)  (3)  (7)  (10) (7)  (8)  (10) (1)  (6)  (9)  (10) (5) 
-#&gt; Levels: (1) (2) (3) (4) (5) (6) (7) (8) (9) (10)</div><div class='input'><span class='fu'>Recode</span>(<span class='kw'>likert</span>, det=<span class='fl'>1</span><span class='op'>:</span><span class='fl'>6</span>, pas=<span class='fl'>7</span><span class='op'>:</span><span class='fl'>8</span>, pro=<span class='fl'>9</span><span class='op'>:</span><span class='fl'>10</span>)
+#&gt; Levels: (1) (2) (3) (4) (5) (6) (7) (8) (9) (10)</div><div class='input'><span class='fu'>Recode</span><span class='op'>(</span><span class='va'>likert</span>, det<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>6</span>, pas<span class='op'>=</span><span class='fl'>7</span><span class='op'>:</span><span class='fl'>8</span>, pro<span class='op'>=</span><span class='fl'>9</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;  [1] det pro pro det det pas pro pas pas pro det det pro pro det
 #&gt; Levels: det pas pro</div><div class='input'>
 <span class='co'># or directly turned to numeric</span>
-<span class='fu'>Recode</span>(<span class='kw'>likert</span>, <span class='st'>"1"</span>=<span class='fl'>1</span><span class='op'>:</span><span class='fl'>6</span>, <span class='st'>"2"</span>=<span class='fl'>7</span><span class='op'>:</span><span class='fl'>8</span>, <span class='st'>"5"</span>=<span class='fl'>9</span><span class='op'>:</span><span class='fl'>10</span>, num=<span class='fl'>TRUE</span>)
+<span class='fu'>Recode</span><span class='op'>(</span><span class='va'>likert</span>, <span class='st'>"1"</span><span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>6</span>, <span class='st'>"2"</span><span class='op'>=</span><span class='fl'>7</span><span class='op'>:</span><span class='fl'>8</span>, <span class='st'>"5"</span><span class='op'>=</span><span class='fl'>9</span><span class='op'>:</span><span class='fl'>10</span>, num<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;  [1] 1 5 5 1 1 2 5 2 2 5 1 1 5 5 1</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -291,7 +291,7 @@ There's another solution in the package <b>car</b>.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

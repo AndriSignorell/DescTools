@@ -78,7 +78,7 @@ The values can be numeric values, characters or factors. CombN computes the numb
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.38</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.40</span>
       </span>
     </div>
 
@@ -86,7 +86,7 @@ The values can be numeric values, characters or factors. CombN computes the numb
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -116,7 +116,7 @@ The values can be numeric values, characters or factors. CombN computes the numb
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/AndriSignorell/DescTools/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -145,10 +145,10 @@ The values can be numeric values, characters or factors. <code>CombN</code> comp
 <p><!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>Permn</span>(<span class='kw'>x</span>, sort = <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>Permn</span><span class='op'>(</span><span class='va'>x</span>, sort <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>CombN</span>(<span class='kw'>x</span>, <span class='kw'>m</span>, repl = <span class='fl'>FALSE</span>, ord = <span class='fl'>FALSE</span>)
-<span class='fu'>CombSet</span>(<span class='kw'>x</span>, <span class='kw'>m</span>, repl = <span class='fl'>FALSE</span>, ord = <span class='fl'>FALSE</span>, as.list = <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>CombN</span><span class='op'>(</span><span class='va'>n</span>, <span class='va'>m</span>, repl <span class='op'>=</span> <span class='cn'>FALSE</span>, ord <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'>CombSet</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>m</span>, repl <span class='op'>=</span> <span class='cn'>FALSE</span>, ord <span class='op'>=</span> <span class='cn'>FALSE</span>, as.list <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -157,6 +157,10 @@ The values can be numeric values, characters or factors. <code>CombN</code> comp
       <th>x</th>
       <td><p>a vector of numeric values or characters. Characters need not be unique.
 <!-- %%     ~~Describe \code{x} here~~ --></p></td>
+    </tr>
+    <tr>
+      <th>n</th>
+      <td><p>number of elements from which to choose.</p></td>
     </tr>
     <tr>
       <th>m</th>
@@ -202,7 +206,7 @@ an integer value for <code>CombN</code></p>
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>Permn</span>(<span class='kw'>letters</span>[<span class='fl'>2</span><span class='op'>:</span><span class='fl'>5</span>])
+    <pre class="examples"><div class='input'><span class='fu'>Permn</span><span class='op'>(</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>]</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;       [,1] [,2] [,3] [,4]
 #&gt;  [1,] "b"  "c"  "d"  "e" 
 #&gt;  [2,] "c"  "b"  "d"  "e" 
@@ -227,7 +231,7 @@ an integer value for <code>CombN</code></p>
 #&gt; [21,] "e"  "c"  "d"  "b" 
 #&gt; [22,] "e"  "b"  "d"  "c" 
 #&gt; [23,] "e"  "d"  "b"  "c" 
-#&gt; [24,] "e"  "d"  "c"  "b" </div><div class='input'><span class='fu'>Permn</span>(<span class='fl'>2</span><span class='op'>:</span><span class='fl'>5</span>)
+#&gt; [24,] "e"  "d"  "c"  "b" </div><div class='input'><span class='fu'>Permn</span><span class='op'>(</span><span class='fl'>2</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;       [,1] [,2] [,3] [,4]
 #&gt;  [1,]    2    3    4    5
 #&gt;  [2,]    3    2    4    5
@@ -254,7 +258,7 @@ an integer value for <code>CombN</code></p>
 #&gt; [23,]    5    4    2    3
 #&gt; [24,]    5    4    3    2</div><div class='input'>
 <span class='co'># containing the same element more than once</span>
-<span class='fu'>Permn</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span>, <span class='st'>"a"</span>))
+<span class='fu'>Permn</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span>, <span class='st'>"a"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;       [,1] [,2] [,3] [,4]
 #&gt;  [1,] "a"  "b"  "c"  "a" 
 #&gt;  [2,] "b"  "a"  "c"  "a" 
@@ -270,11 +274,12 @@ an integer value for <code>CombN</code></p>
 #&gt; [12,] "a"  "a"  "c"  "b" </div><div class='input'>
 
 <span class='co'># only combinations of 2, but in every possible order</span>
-<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='kw'>letters</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>]
-<span class='kw'>m</span> <span class='op'>&lt;-</span> <span class='fl'>2</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>
+<span class='va'>n</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+<span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fl'>2</span>
 
 <span class='co'># the samples</span>
-<span class='fu'>CombSet</span>(<span class='kw'>x</span>, <span class='kw'>m</span>, repl=<span class='fl'>TRUE</span>, ord=<span class='fl'>FALSE</span>)
+<span class='fu'>CombSet</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>m</span>, repl<span class='op'>=</span><span class='cn'>TRUE</span>, ord<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;       [,1] [,2]
 #&gt;  [1,] "a"  "a" 
 #&gt;  [2,] "a"  "b" 
@@ -285,7 +290,7 @@ an integer value for <code>CombN</code></p>
 #&gt;  [7,] "b"  "d" 
 #&gt;  [8,] "c"  "c" 
 #&gt;  [9,] "c"  "d" 
-#&gt; [10,] "d"  "d" </div><div class='input'><span class='fu'>CombSet</span>(<span class='kw'>x</span>, <span class='kw'>m</span>, repl=<span class='fl'>TRUE</span>, ord=<span class='fl'>TRUE</span>)
+#&gt; [10,] "d"  "d" </div><div class='input'><span class='fu'>CombSet</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>m</span>, repl<span class='op'>=</span><span class='cn'>TRUE</span>, ord<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;       [,1] [,2]
 #&gt;  [1,] "a"  "a" 
 #&gt;  [2,] "b"  "a" 
@@ -302,7 +307,7 @@ an integer value for <code>CombN</code></p>
 #&gt; [13,] "a"  "d" 
 #&gt; [14,] "b"  "d" 
 #&gt; [15,] "c"  "d" 
-#&gt; [16,] "d"  "d" </div><div class='input'><span class='fu'>CombSet</span>(<span class='kw'>x</span>, <span class='kw'>m</span>, repl=<span class='fl'>FALSE</span>, ord=<span class='fl'>TRUE</span>)
+#&gt; [16,] "d"  "d" </div><div class='input'><span class='fu'>CombSet</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>m</span>, repl<span class='op'>=</span><span class='cn'>FALSE</span>, ord<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;       [,1] [,2]
 #&gt;  [1,] "a"  "b" 
 #&gt;  [2,] "b"  "a" 
@@ -315,7 +320,7 @@ an integer value for <code>CombN</code></p>
 #&gt;  [9,] "b"  "d" 
 #&gt; [10,] "d"  "b" 
 #&gt; [11,] "c"  "d" 
-#&gt; [12,] "d"  "c" </div><div class='input'><span class='fu'>CombSet</span>(<span class='kw'>x</span>, <span class='kw'>m</span>, repl=<span class='fl'>FALSE</span>, ord=<span class='fl'>FALSE</span>)
+#&gt; [12,] "d"  "c" </div><div class='input'><span class='fu'>CombSet</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>m</span>, repl<span class='op'>=</span><span class='cn'>FALSE</span>, ord<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;      [,1] [,2]
 #&gt; [1,] "a"  "b" 
 #&gt; [2,] "a"  "c" 
@@ -324,14 +329,14 @@ an integer value for <code>CombN</code></p>
 #&gt; [5,] "b"  "d" 
 #&gt; [6,] "c"  "d" </div><div class='input'>
 <span class='co'># the number of the samples</span>
-<span class='fu'>CombN</span>(<span class='kw'>x</span>, <span class='kw'>m</span>, repl=<span class='fl'>TRUE</span>, ord=<span class='fl'>FALSE</span>)
-</div><div class='output co'>#&gt; [1] 10</div><div class='input'><span class='fu'>CombN</span>(<span class='kw'>x</span>, <span class='kw'>m</span>, repl=<span class='fl'>TRUE</span>, ord=<span class='fl'>TRUE</span>)
-</div><div class='output co'>#&gt; [1] 16</div><div class='input'><span class='fu'>CombN</span>(<span class='kw'>x</span>, <span class='kw'>m</span>, repl=<span class='fl'>FALSE</span>, ord=<span class='fl'>TRUE</span>)
-</div><div class='output co'>#&gt; [1] 12</div><div class='input'><span class='fu'>CombN</span>(<span class='kw'>x</span>, <span class='kw'>m</span>, repl=<span class='fl'>FALSE</span>, ord=<span class='fl'>FALSE</span>)
+<span class='fu'>CombN</span><span class='op'>(</span><span class='va'>n</span>, <span class='va'>m</span>, repl<span class='op'>=</span><span class='cn'>TRUE</span>, ord<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 10</div><div class='input'><span class='fu'>CombN</span><span class='op'>(</span><span class='va'>n</span>, <span class='va'>m</span>, repl<span class='op'>=</span><span class='cn'>TRUE</span>, ord<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 16</div><div class='input'><span class='fu'>CombN</span><span class='op'>(</span><span class='va'>n</span>, <span class='va'>m</span>, repl<span class='op'>=</span><span class='cn'>FALSE</span>, ord<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 12</div><div class='input'><span class='fu'>CombN</span><span class='op'>(</span><span class='va'>n</span>, <span class='va'>m</span>, repl<span class='op'>=</span><span class='cn'>FALSE</span>, ord<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 6</div><div class='input'>
 <span class='co'># build all subsets of length 1, 3 and 5 and return a flat list</span>
-<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='kw'>letters</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>]
-<span class='fu'>CombSet</span>(x=<span class='kw'>x</span>, m=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>5</span>), as.list=<span class='fl'>TRUE</span>)
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>]</span>
+<span class='fu'>CombSet</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>x</span>, m<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>5</span><span class='op'>)</span>, as.list<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [[1]]
 #&gt; [1] "a"
 #&gt; 
@@ -396,7 +401,7 @@ an integer value for <code>CombN</code></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

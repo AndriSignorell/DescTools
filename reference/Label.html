@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.38</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.40</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -115,7 +115,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/AndriSignorell/DescTools/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -143,11 +143,11 @@
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>Label</span>(<span class='kw'>x</span>)
-<span class='fu'>Label</span>(<span class='kw'>x</span>) <span class='op'>&lt;-</span> <span class='kw'>value</span>
+    <pre class="usage"><span class='fu'>Label</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+<span class='fu'>Label</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
 
-<span class='fu'>Unit</span>(<span class='kw'>x</span>)
-<span class='fu'>Unit</span>(<span class='kw'>x</span>) <span class='op'>&lt;-</span> <span class='kw'>value</span></pre>
+<span class='fu'>Unit</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+<span class='fu'>Unit</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -181,11 +181,11 @@ It can be deleted by setting the label to <code>NULL</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># add a descriptive label to a variable</span>
-<span class='fu'>Label</span>(<span class='kw'>d.diamonds</span><span class='op'>$</span><span class='kw'>colour</span>) <span class='op'>&lt;-</span> <span class='st'>"The rating scale applied to diamonds ranges from colorless
+<span class='fu'>Label</span><span class='op'>(</span><span class='va'>d.diamonds</span><span class='op'>$</span><span class='va'>colour</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='st'>"The rating scale applied to diamonds ranges from colorless
 to yellow, as any other color is extremely rare."</span>
 
 <span class='co'># technically just appending the text as attribute to the variable</span>
-<span class='fu'><a href='https://rdrr.io/r/base/attributes.html'>attributes</a></span>(<span class='kw'>d.diamonds</span><span class='op'>$</span><span class='kw'>colour</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/attributes.html'>attributes</a></span><span class='op'>(</span><span class='va'>d.diamonds</span><span class='op'>$</span><span class='va'>colour</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; $levels
 #&gt; [1] "D" "E" "F" "G" "H" "I" "J" "K" "L"
 #&gt; 
@@ -196,7 +196,7 @@ to yellow, as any other color is extremely rare."</span>
 #&gt; [1] "The rating scale applied to diamonds ranges from colorless\nto yellow, as any other color is extremely rare."
 #&gt; </div><div class='input'>
 <span class='co'># label is supported while describing data</span>
-<span class='fu'><a href='Desc.html'>Desc</a></span>(<span class='kw'>d.diamonds</span><span class='op'>$</span><span class='kw'>colour</span>)
+<span class='fu'><a href='Desc.html'>Desc</a></span><span class='op'>(</span><span class='va'>d.diamonds</span><span class='op'>$</span><span class='va'>colour</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
 #&gt; <span style='font-weight: bold;'>d.diamonds$colour (factor)</span><span> :
 #&gt;   The rating scale applied to diamonds ranges from colorless to yellow,
@@ -219,15 +219,15 @@ to yellow, as any other color is extremely rare."</span>
 #&gt; 9      L    12   2.7%      440   100.0%
 #&gt; </div><div class='img'><img src='Label-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># The label can be deleted by setting it to NULL</span>
-<span class='fu'>Label</span>(<span class='kw'>d.diamonds</span><span class='op'>$</span><span class='kw'>colour</span>) <span class='op'>&lt;-</span> <span class='kw'>NULL</span>
+<span class='fu'>Label</span><span class='op'>(</span><span class='va'>d.diamonds</span><span class='op'>$</span><span class='va'>colour</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='cn'>NULL</span>
 
 <span class='co'># Labelling the columns of a data.frame is best done with a loop</span>
 <span class='co'># (all so far seen *apply aproaches lead to more complicated code...)</span>
-<span class='kw'>lbl</span> <span class='op'>&lt;-</span>  <span class='fu'><a href='RndPairs.html'>RndWord</a></span>(<span class='fl'>16</span>, <span class='fl'>7</span>)
-<span class='co'>for</span>(<span class='kw'>i</span> <span class='co'>in</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_along</a></span>(<span class='kw'>lbl</span>))
-  <span class='fu'>Label</span>(<span class='kw'>d.pizza</span>[, <span class='kw'>i</span>]) <span class='op'>&lt;-</span> <span class='kw'>lbl</span>[<span class='kw'>i</span>]
+<span class='va'>lbl</span> <span class='op'>&lt;-</span>  <span class='fu'><a href='RndPairs.html'>RndWord</a></span><span class='op'>(</span><span class='fl'>16</span>, <span class='fl'>7</span><span class='op'>)</span>
+<span class='kw'>for</span><span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_along</a></span><span class='op'>(</span><span class='va'>lbl</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'>Label</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>[</span>, <span class='va'>i</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>lbl</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span>
 
-<span class='fu'><a href='Str.html'>Str</a></span>(<span class='kw'>d.pizza</span>)
+<span class='fu'><a href='Str.html'>Str</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; 'data.frame':	1209 obs. of  16 variables:
 #&gt;   1 $ index         : int  1 2 3 4 5 6 7 8 9 10 ...
 #&gt;   ..- attr(*, "label")= chr "YUBIWKE"
@@ -275,7 +275,7 @@ to yellow, as any other color is extremely rare."</span>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

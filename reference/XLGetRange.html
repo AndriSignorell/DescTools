@@ -79,7 +79,7 @@ XLGetWorkbook() does the same for all the sheets in an Excel workbook.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.38</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.40</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@ XLGetWorkbook() does the same for all the sheets in an Excel workbook.
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -117,7 +117,7 @@ XLGetWorkbook() does the same for all the sheets in an Excel workbook.
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/AndriSignorell/DescTools/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -147,14 +147,14 @@ in a specified sheet. This is helpful, whenever pathologically scattered data on
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>XLGetRange</span>(file = <span class='kw'>NULL</span>, sheet = <span class='kw'>NULL</span>, range = <span class='kw'>NULL</span>, as.data.frame = <span class='fl'>TRUE</span>,
-           header = <span class='fl'>FALSE</span>, stringsAsFactors = <span class='fl'>FALSE</span>, echo = <span class='fl'>FALSE</span>,
-           na.strings = <span class='kw'>NULL</span>, skip = <span class='fl'>0</span>)
+    <pre class="usage"><span class='fu'>XLGetRange</span><span class='op'>(</span>file <span class='op'>=</span> <span class='cn'>NULL</span>, sheet <span class='op'>=</span> <span class='cn'>NULL</span>, range <span class='op'>=</span> <span class='cn'>NULL</span>, as.data.frame <span class='op'>=</span> <span class='cn'>TRUE</span>,
+           header <span class='op'>=</span> <span class='cn'>FALSE</span>, stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span>, echo <span class='op'>=</span> <span class='cn'>FALSE</span>,
+           na.strings <span class='op'>=</span> <span class='cn'>NULL</span>, skip <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
 
-<span class='fu'>XLGetWorkbook</span>(<span class='kw'>file</span>, compactareas = <span class='fl'>TRUE</span>)
+<span class='fu'>XLGetWorkbook</span><span class='op'>(</span><span class='va'>file</span>, compactareas <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='fu'>XLCurrReg</span>(<span class='kw'>cell</span>)
-<span class='fu'>XLNamedReg</span>(<span class='kw'>x</span>)</pre>
+<span class='fu'>XLCurrReg</span><span class='op'>(</span><span class='va'>cell</span><span class='op'>)</span>
+<span class='fu'>XLNamedReg</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -224,14 +224,14 @@ Be then prepared to encounter <code>NULL</code> values. Those will prevent from 
 the square data structure to a data.frame.</p>
 <p>The following code will replace the <code>NULL</code> values by <code>NA</code> and coerce the data to a data.frame.</p><pre>
   <span class='co'># get the range D1:J69 from an excel file</span>
-  <span class='kw'>xlrng</span> <span class='op'>&lt;-</span> <span class='fu'>XLGetRange</span>(file=<span class='st'>"myfile.xlsx"</span>, sheet=<span class='st'>"Tabelle1"</span>,
-                      range=<span class='st'>"D1:J69"</span>, as.data.frame=<span class='fl'>FALSE</span>)
+  <span class='va'>xlrng</span> <span class='op'>&lt;-</span> <span class='fu'>XLGetRange</span><span class='op'>(</span>file<span class='op'>=</span><span class='st'>"myfile.xlsx"</span>, sheet<span class='op'>=</span><span class='st'>"Tabelle1"</span>,
+                      range<span class='op'>=</span><span class='st'>"D1:J69"</span>, as.data.frame<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
 
   <span class='co'># replace NULL values by NA</span>
-  <span class='kw'>xlrng</span>[<span class='fu'><a href='https://rdrr.io/r/base/unlist.html'>unlist</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='kw'>xlrng</span>, <span class='kw'>is.null</span>))] <span class='op'>&lt;-</span> <span class='fl'>NA</span>
+  <span class='va'>xlrng</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/unlist.html'>unlist</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>xlrng</span>, <span class='va'>is.null</span><span class='op'>)</span><span class='op'>)</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='cn'>NA</span>
 
   <span class='co'># coerce the square data structure to a data.frame</span>
-  <span class='kw'>d.lka</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>xlrng</span>), <span class='kw'>unlist</span>))
+  <span class='va'>d.lka</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='va'>xlrng</span><span class='op'>)</span>, <span class='va'>unlist</span><span class='op'>)</span><span class='op'>)</span>
 </pre><p>This of course can be avoided by setting <code>as.data.frame</code> = <code>TRUE</code>.</p>
 <p>The function will return dates as integers, because MS-Excel stores them internally as integers.
 Such a date can subsequently be converted with the (unusual) origin of
@@ -251,27 +251,27 @@ If set to <code>FALSE</code> a list of the cell values in the specified Excel ra
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>)  <span class='co'># Windows-specific example</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span>  <span class='co'># Windows-specific example</span>
 
-<span class='fu'>XLGetRange</span>(file=<span class='st'>"C:/My Documents/data.xls"</span>,
-           sheet=<span class='st'>"Sheet1"</span>,
-           range=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"A2:B5"</span>,<span class='st'>"M6:X23"</span>,<span class='st'>"C4:D40"</span>))
+<span class='fu'>XLGetRange</span><span class='op'>(</span>file<span class='op'>=</span><span class='st'>"C:/My Documents/data.xls"</span>,
+           sheet<span class='op'>=</span><span class='st'>"Sheet1"</span>,
+           range<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A2:B5"</span>,<span class='st'>"M6:X23"</span>,<span class='st'>"C4:D40"</span><span class='op'>)</span><span class='op'>)</span>
 
 
 <span class='co'># if the current region has to be read (incl. a header), place the cursor in the interesting region</span>
 <span class='co'># and run:</span>
-<span class='kw'>d.set</span> <span class='op'>&lt;-</span> <span class='fu'>XLGetRange</span>(header=<span class='fl'>TRUE</span>)
+<span class='va'>d.set</span> <span class='op'>&lt;-</span> <span class='fu'>XLGetRange</span><span class='op'>(</span>header<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>Loading required namespace: RDCOMClient</span></div><div class='output co'>#&gt; <span class='warning'>Warning: RDCOMClient is unfortunately not available for Darwin systems (Windows-only).</span></div><div class='output co'>#&gt; <span class='error'>Error in xl$ActiveSheet(): attempt to apply non-function</span></div><div class='input'>
 <span class='co'># Get XL nameslist</span>
-<span class='kw'>nm</span> <span class='op'>&lt;-</span> <span class='kw'>xl</span><span class='op'>$</span><span class='fu'>ActiveWorkbook</span>()<span class='op'>$</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>()
+<span class='va'>nm</span> <span class='op'>&lt;-</span> <span class='va'>xl</span><span class='op'>$</span><span class='fu'>ActiveWorkbook</span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>names</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'xl' not found</span></div><div class='input'>
-<span class='kw'>lst</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>()
-<span class='co'>for</span>(<span class='kw'>i</span> <span class='co'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='kw'>nm</span><span class='op'>$</span><span class='fu'>count</span>())
-  <span class='kw'>lst</span>[[<span class='kw'>i</span>]] <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(name=<span class='kw'>nm</span>[[<span class='kw'>i</span>]]<span class='op'>$</span><span class='fu'><a href='https://rdrr.io/r/base/name.html'>name</a></span>(), 
-                address=<span class='kw'>nm</span>[[<span class='kw'>i</span>]]<span class='op'>$</span><span class='fu'>refersToRange</span>()<span class='op'>$</span><span class='fu'>Address</span>())
+<span class='va'>lst</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='kw'>for</span><span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>nm</span><span class='op'>$</span><span class='fu'>count</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='va'>lst</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>name<span class='op'>=</span><span class='va'>nm</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='fu'>name</span><span class='op'>(</span><span class='op'>)</span>, 
+                address<span class='op'>=</span><span class='va'>nm</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='fu'>refersToRange</span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>Address</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'nm' not found</span></div><div class='input'>  
 <span class='co'># the defined names</span>
-<span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span>(<span class='kw'>rbind</span>, <span class='kw'>lst</span>), stringsAsFactors = <span class='fl'>FALSE</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span><span class='op'>(</span><span class='va'>rbind</span>, <span class='va'>lst</span><span class='op'>)</span>, stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; data frame with 0 columns and 0 rows</div><div class='input'>
 </div></pre>
   </div>
@@ -289,7 +289,7 @@ If set to <code>FALSE</code> a list of the cell values in the specified Excel ra
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

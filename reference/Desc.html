@@ -80,7 +80,7 @@ A 2-dimensional table will be described with it's relative frequencies, a short 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.38</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.40</span>
       </span>
     </div>
 
@@ -88,7 +88,7 @@ A 2-dimensional table will be described with it's relative frequencies, a short 
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -118,7 +118,7 @@ A 2-dimensional table will be described with it's relative frequencies, a short 
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/AndriSignorell/DescTools/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -149,63 +149,63 @@ A 2-dimensional table will be described with it's relative frequencies, a short 
   the dimensions of the table, chi-square tests and some association measures as phi-coefficient, contingency coefficient and Cramer's V. <br /> Tables with higher dimensions will simply be printed as flat table, with marginal sums for the first and for the last dimension.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>Desc</span>(<span class='kw'>x</span>, <span class='kw'>...</span>, main = <span class='kw'>NULL</span>, plotit = <span class='kw'>NULL</span>, wrd = <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>Desc</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, main <span class='op'>=</span> <span class='cn'>NULL</span>, plotit <span class='op'>=</span> <span class='cn'>NULL</span>, wrd <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>Desc</span>(<span class='kw'>x</span>, main = <span class='kw'>NULL</span>, maxrows = <span class='kw'>NULL</span>, ord = <span class='kw'>NULL</span>,
-     conf.level = <span class='fl'>0.95</span>, verbose = <span class='fl'>2</span>, rfrq = <span class='st'>"111"</span>, margins = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>),
-     dprobs = <span class='kw'>NULL</span>, mprobs = <span class='kw'>NULL</span>, plotit = <span class='kw'>NULL</span>, sep = <span class='kw'>NULL</span>, digits = <span class='kw'>NULL</span>, <span class='kw'>...</span>)
+<span class='fu'>Desc</span><span class='op'>(</span><span class='va'>x</span>, main <span class='op'>=</span> <span class='cn'>NULL</span>, maxrows <span class='op'>=</span> <span class='cn'>NULL</span>, ord <span class='op'>=</span> <span class='cn'>NULL</span>,
+     conf.level <span class='op'>=</span> <span class='fl'>0.95</span>, verbose <span class='op'>=</span> <span class='fl'>2</span>, rfrq <span class='op'>=</span> <span class='st'>"111"</span>, margins <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span><span class='op'>)</span>,
+     dprobs <span class='op'>=</span> <span class='cn'>NULL</span>, mprobs <span class='op'>=</span> <span class='cn'>NULL</span>, plotit <span class='op'>=</span> <span class='cn'>NULL</span>, sep <span class='op'>=</span> <span class='cn'>NULL</span>, digits <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for data.frame</span>
-<span class='fu'>Desc</span>(<span class='kw'>x</span>, main = <span class='kw'>NULL</span>, plotit = <span class='kw'>NULL</span>, enum = <span class='fl'>TRUE</span>, sep = <span class='kw'>NULL</span>, <span class='kw'>...</span>)
+<span class='fu'>Desc</span><span class='op'>(</span><span class='va'>x</span>, main <span class='op'>=</span> <span class='cn'>NULL</span>, plotit <span class='op'>=</span> <span class='cn'>NULL</span>, enum <span class='op'>=</span> <span class='cn'>TRUE</span>, sep <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for list</span>
-<span class='fu'>Desc</span>(<span class='kw'>x</span>, main = <span class='kw'>NULL</span>, plotit = <span class='kw'>NULL</span>, enum = <span class='fl'>TRUE</span>, sep = <span class='kw'>NULL</span>, <span class='kw'>...</span>)
+<span class='fu'>Desc</span><span class='op'>(</span><span class='va'>x</span>, main <span class='op'>=</span> <span class='cn'>NULL</span>, plotit <span class='op'>=</span> <span class='cn'>NULL</span>, enum <span class='op'>=</span> <span class='cn'>TRUE</span>, sep <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for numeric</span>
-<span class='fu'>Desc</span>(<span class='kw'>x</span>, main = <span class='kw'>NULL</span>, maxrows = <span class='kw'>NULL</span>, plotit = <span class='kw'>NULL</span>,
-     sep = <span class='kw'>NULL</span>, digits = <span class='kw'>NULL</span>, <span class='kw'>...</span>)
+<span class='fu'>Desc</span><span class='op'>(</span><span class='va'>x</span>, main <span class='op'>=</span> <span class='cn'>NULL</span>, maxrows <span class='op'>=</span> <span class='cn'>NULL</span>, plotit <span class='op'>=</span> <span class='cn'>NULL</span>,
+     sep <span class='op'>=</span> <span class='cn'>NULL</span>, digits <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for integer</span>
-<span class='fu'>Desc</span>(<span class='kw'>x</span>, main = <span class='kw'>NULL</span>, maxrows = <span class='kw'>NULL</span>, plotit = <span class='kw'>NULL</span>,
-     sep = <span class='kw'>NULL</span>, digits = <span class='kw'>NULL</span>, <span class='kw'>...</span>)
+<span class='fu'>Desc</span><span class='op'>(</span><span class='va'>x</span>, main <span class='op'>=</span> <span class='cn'>NULL</span>, maxrows <span class='op'>=</span> <span class='cn'>NULL</span>, plotit <span class='op'>=</span> <span class='cn'>NULL</span>,
+     sep <span class='op'>=</span> <span class='cn'>NULL</span>, digits <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for factor</span>
-<span class='fu'>Desc</span>(<span class='kw'>x</span>, main = <span class='kw'>NULL</span>, maxrows = <span class='kw'>NULL</span>, ord = <span class='kw'>NULL</span>, plotit = <span class='kw'>NULL</span>,
-     sep = <span class='kw'>NULL</span>, digits = <span class='kw'>NULL</span>, <span class='kw'>...</span>)
+<span class='fu'>Desc</span><span class='op'>(</span><span class='va'>x</span>, main <span class='op'>=</span> <span class='cn'>NULL</span>, maxrows <span class='op'>=</span> <span class='cn'>NULL</span>, ord <span class='op'>=</span> <span class='cn'>NULL</span>, plotit <span class='op'>=</span> <span class='cn'>NULL</span>,
+     sep <span class='op'>=</span> <span class='cn'>NULL</span>, digits <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for ordered</span>
-<span class='fu'>Desc</span>(<span class='kw'>x</span>, main = <span class='kw'>NULL</span>, maxrows = <span class='kw'>NULL</span>, ord = <span class='kw'>NULL</span>, plotit = <span class='kw'>NULL</span>,
-     sep = <span class='kw'>NULL</span>, digits = <span class='kw'>NULL</span>, <span class='kw'>...</span>)
+<span class='fu'>Desc</span><span class='op'>(</span><span class='va'>x</span>, main <span class='op'>=</span> <span class='cn'>NULL</span>, maxrows <span class='op'>=</span> <span class='cn'>NULL</span>, ord <span class='op'>=</span> <span class='cn'>NULL</span>, plotit <span class='op'>=</span> <span class='cn'>NULL</span>,
+     sep <span class='op'>=</span> <span class='cn'>NULL</span>, digits <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for character</span>
-<span class='fu'>Desc</span>(<span class='kw'>x</span>, main = <span class='kw'>NULL</span>, maxrows = <span class='kw'>NULL</span>, ord = <span class='kw'>NULL</span>, plotit = <span class='kw'>NULL</span>,
-     sep = <span class='kw'>NULL</span>, digits = <span class='kw'>NULL</span>, <span class='kw'>...</span>)
+<span class='fu'>Desc</span><span class='op'>(</span><span class='va'>x</span>, main <span class='op'>=</span> <span class='cn'>NULL</span>, maxrows <span class='op'>=</span> <span class='cn'>NULL</span>, ord <span class='op'>=</span> <span class='cn'>NULL</span>, plotit <span class='op'>=</span> <span class='cn'>NULL</span>,
+     sep <span class='op'>=</span> <span class='cn'>NULL</span>, digits <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for logical</span>
-<span class='fu'>Desc</span>(<span class='kw'>x</span>, main = <span class='kw'>NULL</span>, ord = <span class='kw'>NULL</span>, conf.level = <span class='fl'>0.95</span>, plotit = <span class='kw'>NULL</span>,
-     sep = <span class='kw'>NULL</span>, digits = <span class='kw'>NULL</span>, <span class='kw'>...</span>)
+<span class='fu'>Desc</span><span class='op'>(</span><span class='va'>x</span>, main <span class='op'>=</span> <span class='cn'>NULL</span>, ord <span class='op'>=</span> <span class='cn'>NULL</span>, conf.level <span class='op'>=</span> <span class='fl'>0.95</span>, plotit <span class='op'>=</span> <span class='cn'>NULL</span>,
+     sep <span class='op'>=</span> <span class='cn'>NULL</span>, digits <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for Date</span>
-<span class='fu'>Desc</span>(<span class='kw'>x</span>, main = <span class='kw'>NULL</span>, dprobs = <span class='kw'>NULL</span>, mprobs = <span class='kw'>NULL</span>, plotit = <span class='kw'>NULL</span>,
-     sep = <span class='kw'>NULL</span>, digits = <span class='kw'>NULL</span>, <span class='kw'>...</span>)
+<span class='fu'>Desc</span><span class='op'>(</span><span class='va'>x</span>, main <span class='op'>=</span> <span class='cn'>NULL</span>, dprobs <span class='op'>=</span> <span class='cn'>NULL</span>, mprobs <span class='op'>=</span> <span class='cn'>NULL</span>, plotit <span class='op'>=</span> <span class='cn'>NULL</span>,
+     sep <span class='op'>=</span> <span class='cn'>NULL</span>, digits <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for table</span>
-<span class='fu'>Desc</span>(<span class='kw'>x</span>, main = <span class='kw'>NULL</span>, conf.level = <span class='fl'>0.95</span>, verbose = <span class='fl'>2</span>,
-     rfrq = <span class='st'>"111"</span>, margins = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>), plotit = <span class='kw'>NULL</span>, sep = <span class='kw'>NULL</span>, digits = <span class='kw'>NULL</span>, <span class='kw'>...</span>)
+<span class='fu'>Desc</span><span class='op'>(</span><span class='va'>x</span>, main <span class='op'>=</span> <span class='cn'>NULL</span>, conf.level <span class='op'>=</span> <span class='fl'>0.95</span>, verbose <span class='op'>=</span> <span class='fl'>2</span>,
+     rfrq <span class='op'>=</span> <span class='st'>"111"</span>, margins <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span><span class='op'>)</span>, plotit <span class='op'>=</span> <span class='cn'>NULL</span>, sep <span class='op'>=</span> <span class='cn'>NULL</span>, digits <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
 
 
 <span class='co'># S3 method for formula</span>
-<span class='fu'>Desc</span>(<span class='kw'>formula</span>, data = <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(), <span class='kw'>subset</span>, main = <span class='kw'>NULL</span>,
-     plotit = <span class='kw'>NULL</span>, digits = <span class='kw'>NULL</span>, <span class='kw'>...</span>)
+<span class='fu'>Desc</span><span class='op'>(</span><span class='va'>formula</span>, data <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='va'>subset</span>, main <span class='op'>=</span> <span class='cn'>NULL</span>,
+     plotit <span class='op'>=</span> <span class='cn'>NULL</span>, digits <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
 
 
 <span class='co'># S3 method for Desc</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>x</span>, digits = <span class='kw'>NULL</span>, plotit = <span class='kw'>NULL</span>, nolabel = <span class='fl'>FALSE</span>,
-      sep = <span class='kw'>NULL</span>, nomain = <span class='fl'>FALSE</span>, <span class='kw'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span>, digits <span class='op'>=</span> <span class='cn'>NULL</span>, plotit <span class='op'>=</span> <span class='cn'>NULL</span>, nolabel <span class='op'>=</span> <span class='cn'>FALSE</span>,
+      sep <span class='op'>=</span> <span class='cn'>NULL</span>, nomain <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for Desc</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>x</span>, main = <span class='kw'>NULL</span>,  <span class='kw'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>x</span>, main <span class='op'>=</span> <span class='cn'>NULL</span>,  <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -392,10 +392,10 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
     <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>opt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span>() 
+    <pre class="examples"><div class='input'><span class='va'>opt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span><span class='op'>(</span><span class='op'>)</span> 
 
 <span class='co'># implemented classes:</span>
-<span class='fu'>Desc</span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>wrongpizza</span>)               <span class='co'># logical</span>
+<span class='fu'>Desc</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>wrongpizza</span><span class='op'>)</span>               <span class='co'># logical</span>
 </div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
 #&gt; <span style='font-weight: bold;'>d.pizza$wrongpizza (logical - dichotomous)</span><span>
 #&gt; 
@@ -408,7 +408,7 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 #&gt; TRUE      83   6.9%    5.6%    8.5%
 #&gt; 
 #&gt; </span><span style='color: #808080;'>' 95%-CI (Wilson)</span><span>
-#&gt; </div><div class='img'><img src='Desc-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>Desc</span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>driver</span>)                   <span class='co'># factor</span>
+#&gt; </div><div class='img'><img src='Desc-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>Desc</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>driver</span><span class='op'>)</span>                   <span class='co'># factor</span>
 </div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
 #&gt; </span><span style='font-weight: bold;'>d.pizza$driver (factor)</span><span>
 #&gt; 
@@ -424,7 +424,7 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 #&gt; 5     Miller   125  10.4%      991    82.3%
 #&gt; 6     Farmer   117   9.7%    1'108    92.0%
 #&gt; 7    Butcher    96   8.0%    1'204   100.0%
-#&gt; </div><div class='img'><img src='Desc-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>Desc</span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>quality</span>)                  <span class='co'># ordered factor</span>
+#&gt; </div><div class='img'><img src='Desc-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>Desc</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>quality</span><span class='op'>)</span>                  <span class='co'># ordered factor</span>
 </div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
 #&gt; </span><span style='font-weight: bold;'>d.pizza$quality (ordered, factor)</span><span>
 #&gt; 
@@ -436,7 +436,7 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 #&gt; 1     low   156  15.5%      156    15.5%
 #&gt; 2  medium   356  35.3%      512    50.8%
 #&gt; 3    high   496  49.2%    1'008   100.0%
-#&gt; </div><div class='img'><img src='Desc-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>Desc</span>(<span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>driver</span>))     <span class='co'># character</span>
+#&gt; </div><div class='img'><img src='Desc-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>Desc</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>driver</span><span class='op'>)</span><span class='op'>)</span>     <span class='co'># character</span>
 </div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
 #&gt; </span><span style='font-weight: bold;'>as.character(d.pizza$driver) (character)</span><span>
 #&gt; 
@@ -452,13 +452,13 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 #&gt; 5     Miller   125  10.4%      991    82.3%
 #&gt; 6     Farmer   117   9.7%    1'108    92.0%
 #&gt; 7    Butcher    96   8.0%    1'204   100.0%
-#&gt; </div><div class='img'><img src='Desc-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>Desc</span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>week</span>)                     <span class='co'># integer</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x): "_DescTools_n_pow_sum" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='fu'>Desc</span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>delivery_min</span>)             <span class='co'># numeric</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x): "_DescTools_n_pow_sum" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='fu'>Desc</span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>date</span>)                     <span class='co'># Date</span>
+#&gt; </div><div class='img'><img src='Desc-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>Desc</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>week</span><span class='op'>)</span>                     <span class='co'># integer</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x): "_DescTools_n_pow_sum" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='fu'>Desc</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>delivery_min</span><span class='op'>)</span>             <span class='co'># numeric</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x): "_DescTools_n_pow_sum" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='fu'>Desc</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>date</span><span class='op'>)</span>                     <span class='co'># Date</span>
 </div><div class='output co'>#&gt; <span class='error'>Error in .Call("_DescTools_bottom_n", PACKAGE = "DescTools", x, k): "_DescTools_bottom_n" not available for .Call() for package "DescTools"</span></div><div class='input'>
-<span class='fu'>Desc</span>(<span class='kw'>d.pizza</span>)
+<span class='fu'>Desc</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='error'>Error in .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x): "_DescTools_n_pow_sum" not available for .Call() for package "DescTools"</span></div><div class='input'>
-<span class='fu'>Desc</span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>wrongpizza</span>, main=<span class='st'>"The wrong pizza delivered"</span>, digits=<span class='fl'>5</span>)
+<span class='fu'>Desc</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>wrongpizza</span>, main<span class='op'>=</span><span class='st'>"The wrong pizza delivered"</span>, digits<span class='op'>=</span><span class='fl'>5</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
 #&gt; </span><span style='font-weight: bold;'>The wrong pizza delivered</span><span>
 #&gt; 
@@ -472,7 +472,7 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 #&gt; 
 #&gt; </span><span style='color: #808080;'>' 95%-CI (Wilson)</span><span>
 #&gt; </div><div class='img'><img src='Desc-5.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'>Desc</span>(<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>area</span>))                                    <span class='co'># 1-dim table</span>
+<span class='fu'>Desc</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>area</span><span class='op'>)</span><span class='op'>)</span>                                    <span class='co'># 1-dim table</span>
 </div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
 #&gt; </span><span style='font-weight: bold;'>table(d.pizza$area) (table)</span><span>
 #&gt; 
@@ -486,7 +486,7 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 #&gt; 1        Brent   474  39.5%      474    39.5%
 #&gt; 2       Camden   344  28.7%      818    68.2%
 #&gt; 3  Westminster   381  31.8%    1'199   100.0%
-#&gt; </div><div class='img'><img src='Desc-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>Desc</span>(<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>area</span>, <span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>operator</span>))                  <span class='co'># 2-dim table</span>
+#&gt; </div><div class='img'><img src='Desc-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>Desc</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>area</span>, <span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>operator</span><span class='op'>)</span><span class='op'>)</span>                  <span class='co'># 2-dim table</span>
 </div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
 #&gt; </span><span style='font-weight: bold;'>table(d.pizza$area, d.pizza$operator) (table)</span><span>
 #&gt; 
@@ -527,7 +527,7 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 #&gt;               p.row         .       .        .      .
 #&gt;               p.col         .       .        .      .
 #&gt;                                                      
-#&gt; </div><div class='img'><img src='Desc-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>Desc</span>(<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>area</span>, <span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>operator</span>, <span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>driver</span>))  <span class='co'># n-dim table</span>
+#&gt; </div><div class='img'><img src='Desc-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>Desc</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>area</span>, <span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>operator</span>, <span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>driver</span><span class='op'>)</span><span class='op'>)</span>  <span class='co'># n-dim table</span>
 </div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
 #&gt; </span><span style='font-weight: bold;'>table(d.pizza$area, d.pizza$operator, d.pizza$driver) (table)</span><span>
 #&gt; 
@@ -553,8 +553,8 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 #&gt;             Rhonda        57       124     61     50     45     47     58 442
 #&gt; </div><div class='img'><img src='Desc-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># expressions</span>
-<span class='fu'>Desc</span>(<span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>temperature</span>))
-</div><div class='output co'>#&gt; <span class='error'>Error in .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x): "_DescTools_n_pow_sum" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='fu'>Desc</span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>temperature</span> <span class='op'>&gt;</span> <span class='fl'>45</span>)
+<span class='fu'>Desc</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>temperature</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x): "_DescTools_n_pow_sum" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='fu'>Desc</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>temperature</span> <span class='op'>&gt;</span> <span class='fl'>45</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
 #&gt; </span><span style='font-weight: bold;'>d.pizza$temperature &gt; 45 (logical - dichotomous)</span><span>
 #&gt; 
@@ -569,23 +569,23 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 #&gt; </span><span style='color: #808080;'>' 95%-CI (Wilson)</span><span>
 #&gt; </div><div class='img'><img src='Desc-9.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># supported labels</span>
-<span class='fu'><a href='Label, Unit.html'>Label</a></span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>temperature</span>) <span class='op'>&lt;-</span> <span class='st'>"This is the temperature in degrees Celsius
+<span class='fu'><a href='Label, Unit.html'>Label</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>temperature</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='st'>"This is the temperature in degrees Celsius
 measured at the time when the pizza is delivered to the client."</span>
-<span class='fu'>Desc</span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>temperature</span>)
+<span class='fu'>Desc</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>temperature</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='error'>Error in .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x): "_DescTools_n_pow_sum" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='co'># try as well:      Desc(d.pizza$temperature, wrd=GetNewWrd())</span>
 
-<span class='kw'>z</span> <span class='op'>&lt;-</span> <span class='fu'>Desc</span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>temperature</span>)
-</div><div class='output co'>#&gt; <span class='error'>Error in .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x): "_DescTools_n_pow_sum" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>z</span>, digits=<span class='fl'>1</span>, plotit=<span class='fl'>FALSE</span>)
+<span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'>Desc</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>temperature</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x): "_DescTools_n_pow_sum" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>z</span>, digits<span class='op'>=</span><span class='fl'>1</span>, plotit<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='error'>Error in print(z, digits = 1, plotit = FALSE): object 'z' not found</span></div><div class='input'><span class='co'># plot (additional arguments are passed on to the underlying plot function)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>z</span>, main=<span class='st'>"The pizza's temperature in Celsius"</span>, args.hist=<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(breaks=<span class='fl'>50</span>))
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>z</span>, main<span class='op'>=</span><span class='st'>"The pizza's temperature in Celsius"</span>, args.hist<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>breaks<span class='op'>=</span><span class='fl'>50</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='error'>Error in plot(z, main = "The pizza's temperature in Celsius", args.hist = list(breaks = 50)): object 'z' not found</span></div><div class='input'>
 
 <span class='co'># formula interface for single variables</span>
-<span class='fu'>Desc</span>(<span class='op'>~</span> <span class='kw'>uptake</span> <span class='op'>+</span> <span class='kw'>Type</span>, data = <span class='kw'>CO2</span>, plotit = <span class='fl'>FALSE</span>)
+<span class='fu'>Desc</span><span class='op'>(</span><span class='op'>~</span> <span class='va'>uptake</span> <span class='op'>+</span> <span class='va'>Type</span>, data <span class='op'>=</span> <span class='va'>CO2</span>, plotit <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='error'>Error in .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x): "_DescTools_n_pow_sum" not available for .Call() for package "DescTools"</span></div><div class='input'>
 <span class='co'># bivariate</span>
-<span class='fu'>Desc</span>(<span class='kw'>price</span> <span class='op'>~</span> <span class='kw'>operator</span>, data=<span class='kw'>d.pizza</span>)                  <span class='co'># numeric ~ factor</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"): "rskew" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='fu'>Desc</span>(<span class='kw'>driver</span> <span class='op'>~</span> <span class='kw'>operator</span>, data=<span class='kw'>d.pizza</span>)                 <span class='co'># factor ~ factor</span>
+<span class='fu'>Desc</span><span class='op'>(</span><span class='va'>price</span> <span class='op'>~</span> <span class='va'>operator</span>, data<span class='op'>=</span><span class='va'>d.pizza</span><span class='op'>)</span>                  <span class='co'># numeric ~ factor</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"): "rskew" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='fu'>Desc</span><span class='op'>(</span><span class='va'>driver</span> <span class='op'>~</span> <span class='va'>operator</span>, data<span class='op'>=</span><span class='va'>d.pizza</span><span class='op'>)</span>                 <span class='co'># factor ~ factor</span>
 </div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
 #&gt; </span><span style='font-weight: bold;'>driver ~ operator (d.pizza)</span><span>
 #&gt; 
@@ -647,7 +647,7 @@ measured at the time when the pizza is delivered to the client."</span>
 #&gt;             p.row            .       .        .      .
 #&gt;             p.col            .       .        .      .
 #&gt;                                                       
-#&gt; </div><div class='img'><img src='Desc-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>Desc</span>(<span class='kw'>driver</span> <span class='op'>~</span> <span class='kw'>area</span> <span class='op'>+</span> <span class='kw'>operator</span>, data=<span class='kw'>d.pizza</span>)          <span class='co'># factor ~ several factors</span>
+#&gt; </div><div class='img'><img src='Desc-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>Desc</span><span class='op'>(</span><span class='va'>driver</span> <span class='op'>~</span> <span class='va'>area</span> <span class='op'>+</span> <span class='va'>operator</span>, data<span class='op'>=</span><span class='va'>d.pizza</span><span class='op'>)</span>          <span class='co'># factor ~ several factors</span>
 </div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
 #&gt; </span><span style='font-weight: bold;'>driver ~ area (d.pizza)</span><span>
 #&gt; 
@@ -770,7 +770,7 @@ measured at the time when the pizza is delivered to the client."</span>
 #&gt;             p.row            .       .        .      .
 #&gt;             p.col            .       .        .      .
 #&gt;                                                       
-#&gt; </div><div class='img'><img src='Desc-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>Desc</span>(<span class='kw'>driver</span> <span class='op'>+</span> <span class='kw'>area</span> <span class='op'>~</span> <span class='kw'>operator</span>, data=<span class='kw'>d.pizza</span>)          <span class='co'># several factors ~ factor</span>
+#&gt; </div><div class='img'><img src='Desc-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>Desc</span><span class='op'>(</span><span class='va'>driver</span> <span class='op'>+</span> <span class='va'>area</span> <span class='op'>~</span> <span class='va'>operator</span>, data<span class='op'>=</span><span class='va'>d.pizza</span><span class='op'>)</span>          <span class='co'># several factors ~ factor</span>
 </div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
 #&gt; </span><span style='font-weight: bold;'>driver ~ operator (d.pizza)</span><span>
 #&gt; 
@@ -873,9 +873,9 @@ measured at the time when the pizza is delivered to the client."</span>
 #&gt;               p.row            .       .        .      .
 #&gt;               p.col            .       .        .      .
 #&gt;                                                         
-#&gt; </div><div class='img'><img src='Desc-13.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>Desc</span>(<span class='kw'>driver</span> <span class='op'>~</span> <span class='kw'>week</span>, data=<span class='kw'>d.pizza</span>)                     <span class='co'># factor ~ integer</span>
+#&gt; </div><div class='img'><img src='Desc-13.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>Desc</span><span class='op'>(</span><span class='va'>driver</span> <span class='op'>~</span> <span class='va'>week</span>, data<span class='op'>=</span><span class='va'>d.pizza</span><span class='op'>)</span>                     <span class='co'># factor ~ integer</span>
 </div><div class='output co'>#&gt; <span class='error'>Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"): "rskew" not available for .Call() for package "DescTools"</span></div><div class='input'>
-<span class='fu'>Desc</span>(<span class='kw'>driver</span> <span class='op'>~</span> <span class='kw'>operator</span>, data=<span class='kw'>d.pizza</span>, rfrq=<span class='st'>"111"</span>)   <span class='co'># alle rel. frequencies</span>
+<span class='fu'>Desc</span><span class='op'>(</span><span class='va'>driver</span> <span class='op'>~</span> <span class='va'>operator</span>, data<span class='op'>=</span><span class='va'>d.pizza</span>, rfrq<span class='op'>=</span><span class='st'>"111"</span><span class='op'>)</span>   <span class='co'># alle rel. frequencies</span>
 </div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
 #&gt; </span><span style='font-weight: bold;'>driver ~ operator (d.pizza)</span><span>
 #&gt; 
@@ -937,8 +937,8 @@ measured at the time when the pizza is delivered to the client."</span>
 #&gt;             p.row            .       .        .      .
 #&gt;             p.col            .       .        .      .
 #&gt;                                                       
-#&gt; </div><div class='img'><img src='Desc-14.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>Desc</span>(<span class='kw'>driver</span> <span class='op'>~</span> <span class='kw'>operator</span>, data=<span class='kw'>d.pizza</span>, rfrq=<span class='st'>"000"</span>,
-     verbose=<span class='fl'>3</span>)                                  <span class='co'># no rel. frequencies</span>
+#&gt; </div><div class='img'><img src='Desc-14.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>Desc</span><span class='op'>(</span><span class='va'>driver</span> <span class='op'>~</span> <span class='va'>operator</span>, data<span class='op'>=</span><span class='va'>d.pizza</span>, rfrq<span class='op'>=</span><span class='st'>"000"</span>,
+     verbose<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>                                  <span class='co'># no rel. frequencies</span>
 </div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
 #&gt; </span><span style='font-weight: bold;'>driver ~ operator (d.pizza)</span><span>
 #&gt; 
@@ -988,7 +988,7 @@ measured at the time when the pizza is delivered to the client."</span>
 #&gt; ----------
 #&gt; ' 95% conf. level</span><span>
 #&gt; </div><div class='input'>
-<span class='fu'>Desc</span>(<span class='kw'>price</span> <span class='op'>~</span> <span class='kw'>delivery_min</span>, data=<span class='kw'>d.pizza</span>)              <span class='co'># numeric ~ numeric</span>
+<span class='fu'>Desc</span><span class='op'>(</span><span class='va'>price</span> <span class='op'>~</span> <span class='va'>delivery_min</span>, data<span class='op'>=</span><span class='va'>d.pizza</span><span class='op'>)</span>              <span class='co'># numeric ~ numeric</span>
 </div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
 #&gt; </span><span style='font-weight: bold;'>price ~ delivery_min (d.pizza)</span><span>
 #&gt; 
@@ -999,41 +999,41 @@ measured at the time when the pizza is delivered to the client."</span>
 #&gt; Pearson corr. : 0.095
 #&gt; Spearman corr.: 0.080
 #&gt; Kendall corr. : 0.054
-#&gt; </div><div class='img'><img src='Desc-15.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>Desc</span>(<span class='kw'>price</span> <span class='op'>+</span> <span class='kw'>delivery_min</span> <span class='op'>~</span> <span class='kw'>operator</span> <span class='op'>+</span> <span class='kw'>driver</span> <span class='op'>+</span> <span class='kw'>wrongpizza</span>,
-     data=<span class='kw'>d.pizza</span>, digits=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>0</span>,<span class='fl'>3</span>,<span class='fl'>0</span>,<span class='fl'>0</span>) )
+#&gt; </div><div class='img'><img src='Desc-15.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>Desc</span><span class='op'>(</span><span class='va'>price</span> <span class='op'>+</span> <span class='va'>delivery_min</span> <span class='op'>~</span> <span class='va'>operator</span> <span class='op'>+</span> <span class='va'>driver</span> <span class='op'>+</span> <span class='va'>wrongpizza</span>,
+     data<span class='op'>=</span><span class='va'>d.pizza</span>, digits<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>0</span>,<span class='fl'>3</span>,<span class='fl'>0</span>,<span class='fl'>0</span><span class='op'>)</span> <span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='error'>Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"): "rskew" not available for .Call() for package "DescTools"</span></div><div class='input'>
-<span class='fu'>Desc</span>(<span class='kw'>week</span> <span class='op'>~</span> <span class='kw'>driver</span>, data=<span class='kw'>d.pizza</span>, digits=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>0</span>,<span class='fl'>3</span>,<span class='fl'>0</span>,<span class='fl'>0</span>))   <span class='co'># define digits</span>
+<span class='fu'>Desc</span><span class='op'>(</span><span class='va'>week</span> <span class='op'>~</span> <span class='va'>driver</span>, data<span class='op'>=</span><span class='va'>d.pizza</span>, digits<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>0</span>,<span class='fl'>3</span>,<span class='fl'>0</span>,<span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>   <span class='co'># define digits</span>
 </div><div class='output co'>#&gt; <span class='error'>Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"): "rskew" not available for .Call() for package "DescTools"</span></div><div class='input'>
-<span class='fu'>Desc</span>(<span class='kw'>delivery_min</span> <span class='op'>+</span> <span class='kw'>weekday</span> <span class='op'>~</span> <span class='kw'>driver</span>, data=<span class='kw'>d.pizza</span>)
+<span class='fu'>Desc</span><span class='op'>(</span><span class='va'>delivery_min</span> <span class='op'>+</span> <span class='va'>weekday</span> <span class='op'>~</span> <span class='va'>driver</span>, data<span class='op'>=</span><span class='va'>d.pizza</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='error'>Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"): "rskew" not available for .Call() for package "DescTools"</span></div><div class='input'>
 
 <span class='co'># without defining data-parameter</span>
-<span class='fu'>Desc</span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>delivery_min</span> <span class='op'>~</span> <span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>driver</span>)
+<span class='fu'>Desc</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>delivery_min</span> <span class='op'>~</span> <span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>driver</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='error'>Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"): "rskew" not available for .Call() for package "DescTools"</span></div><div class='input'>
 
 <span class='co'># with functions and interactions</span>
-<span class='fu'>Desc</span>(<span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span>(<span class='kw'>price</span>) <span class='op'>~</span> <span class='kw'>operator</span> <span class='op'>:</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>wrongpizza</span>), data=<span class='kw'>d.pizza</span>)
-</div><div class='output co'>#&gt; <span class='error'>Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"): "rskew" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='fu'>Desc</span>(<span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='kw'>price</span><span class='op'>+</span><span class='fl'>1</span>) <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/cut.html'>cut</a></span>(<span class='kw'>delivery_min</span>, breaks=<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>10</span>,<span class='fl'>90</span>,<span class='fl'>10</span>)),
-     data=<span class='kw'>d.pizza</span>, digits=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>0</span>,<span class='fl'>3</span>,<span class='fl'>0</span>,<span class='fl'>0</span>))
+<span class='fu'>Desc</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>price</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>operator</span> <span class='op'>:</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>wrongpizza</span><span class='op'>)</span>, data<span class='op'>=</span><span class='va'>d.pizza</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"): "rskew" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='fu'>Desc</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>price</span><span class='op'>+</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/cut.html'>cut</a></span><span class='op'>(</span><span class='va'>delivery_min</span>, breaks<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>10</span>,<span class='fl'>90</span>,<span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>,
+     data<span class='op'>=</span><span class='va'>d.pizza</span>, digits<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>0</span>,<span class='fl'>3</span>,<span class='fl'>0</span>,<span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='error'>Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"): "rskew" not available for .Call() for package "DescTools"</span></div><div class='input'>
 <span class='co'># response versus all the rest</span>
-<span class='fu'>Desc</span>(<span class='kw'>driver</span> <span class='op'>~</span> <span class='kw'>.</span>, data=<span class='kw'>d.pizza</span>[, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"temperature"</span>,<span class='st'>"wine_delivered"</span>,<span class='st'>"area"</span>,<span class='st'>"driver"</span>)])
+<span class='fu'>Desc</span><span class='op'>(</span><span class='va'>driver</span> <span class='op'>~</span> <span class='va'>.</span>, data<span class='op'>=</span><span class='va'>d.pizza</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"temperature"</span>,<span class='st'>"wine_delivered"</span>,<span class='st'>"area"</span>,<span class='st'>"driver"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='error'>Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"): "rskew" not available for .Call() for package "DescTools"</span></div><div class='input'>
 <span class='co'># all the rest versus response</span>
-<span class='fu'>Desc</span>(<span class='kw'>.</span> <span class='op'>~</span> <span class='kw'>driver</span>, data=<span class='kw'>d.pizza</span>[, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"temperature"</span>,<span class='st'>"wine_delivered"</span>,<span class='st'>"area"</span>,<span class='st'>"driver"</span>)])
+<span class='fu'>Desc</span><span class='op'>(</span><span class='va'>.</span> <span class='op'>~</span> <span class='va'>driver</span>, data<span class='op'>=</span><span class='va'>d.pizza</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"temperature"</span>,<span class='st'>"wine_delivered"</span>,<span class='st'>"area"</span>,<span class='st'>"driver"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='error'>Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"): "rskew" not available for .Call() for package "DescTools"</span></div><div class='input'>
 <span class='co'># pairwise Descriptions</span>
-<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='CombPairs.html'>CombPairs</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"area"</span>,<span class='st'>"count"</span>,<span class='st'>"operator"</span>,<span class='st'>"driver"</span>,<span class='st'>"temperature"</span>,<span class='st'>"wrongpizza"</span>,<span class='st'>"quality"</span>), )
-<span class='co'>for</span>(<span class='kw'>i</span> <span class='co'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='kw'>p</span>))
-  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>Desc</span>(<span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>gettextf</a></span>(<span class='st'>"%s ~ %s"</span>, <span class='kw'>p</span><span class='op'>$</span><span class='kw'>X1</span>[<span class='kw'>i</span>], <span class='kw'>p</span><span class='op'>$</span><span class='kw'>X2</span>[<span class='kw'>i</span>])), data=<span class='kw'>d.pizza</span>))
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='CombPairs.html'>CombPairs</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"area"</span>,<span class='st'>"count"</span>,<span class='st'>"operator"</span>,<span class='st'>"driver"</span>,<span class='st'>"temperature"</span>,<span class='st'>"wrongpizza"</span>,<span class='st'>"quality"</span><span class='op'>)</span>, <span class='op'>)</span>
+<span class='kw'>for</span><span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'>Desc</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>gettextf</a></span><span class='op'>(</span><span class='st'>"%s ~ %s"</span>, <span class='va'>p</span><span class='op'>$</span><span class='va'>X1</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span>, <span class='va'>p</span><span class='op'>$</span><span class='va'>X2</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>, data<span class='op'>=</span><span class='va'>d.pizza</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='error'>Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"): "rskew" not available for .Call() for package "DescTools"</span></div><div class='input'>
 
 <span class='co'># get more flexibility, create the table first</span>
-<span class='kw'>tab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span>(<span class='kw'>HairEyeColor</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>), <span class='kw'>sum</span>))
-<span class='kw'>tab</span> <span class='op'>&lt;-</span> <span class='kw'>tab</span>[,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Brown"</span>,<span class='st'>"Hazel"</span>,<span class='st'>"Green"</span>,<span class='st'>"Blue"</span>)]
+<span class='va'>tab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>HairEyeColor</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span><span class='op'>)</span>, <span class='va'>sum</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>tab</span> <span class='op'>&lt;-</span> <span class='va'>tab</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Brown"</span>,<span class='st'>"Hazel"</span>,<span class='st'>"Green"</span>,<span class='st'>"Blue"</span><span class='op'>)</span><span class='op'>]</span>
 
 <span class='co'># display only absolute values, row and columnwise percentages</span>
-<span class='fu'>Desc</span>(<span class='kw'>tab</span>, row.vars=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>1</span>), rfrq=<span class='st'>"011"</span>, plotit=<span class='fl'>FALSE</span>)
+<span class='fu'>Desc</span><span class='op'>(</span><span class='va'>tab</span>, row.vars<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>1</span><span class='op'>)</span>, rfrq<span class='op'>=</span><span class='st'>"011"</span>, plotit<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
 #&gt; </span><span style='font-weight: bold;'>tab (table)</span><span>
 #&gt; 
@@ -1074,13 +1074,13 @@ measured at the time when the pizza is delivered to the client."</span>
 #&gt;                                                   
 #&gt; </div><div class='input'>
 <span class='co'># do the plot by hand, while setting the colours for the mosaics</span>
-<span class='kw'>cols1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sienna4"</span>, <span class='st'>"burlywood"</span>, <span class='st'>"chartreuse3"</span>, <span class='st'>"slategray1"</span>), <span class='fl'>0.6</span>)
-<span class='kw'>cols2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"moccasin"</span>, <span class='st'>"salmon1"</span>, <span class='st'>"wheat3"</span>, <span class='st'>"gray32"</span>), <span class='fl'>0.8</span>)
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='fu'>Desc</span>(<span class='kw'>tab</span>), col1=<span class='kw'>cols1</span>, col2=<span class='kw'>cols2</span>)
+<span class='va'>cols1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sienna4"</span>, <span class='st'>"burlywood"</span>, <span class='st'>"chartreuse3"</span>, <span class='st'>"slategray1"</span><span class='op'>)</span>, <span class='fl'>0.6</span><span class='op'>)</span>
+<span class='va'>cols2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"moccasin"</span>, <span class='st'>"salmon1"</span>, <span class='st'>"wheat3"</span>, <span class='st'>"gray32"</span><span class='op'>)</span>, <span class='fl'>0.8</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>Desc</span><span class='op'>(</span><span class='va'>tab</span><span class='op'>)</span>, col1<span class='op'>=</span><span class='va'>cols1</span>, col2<span class='op'>=</span><span class='va'>cols2</span><span class='op'>)</span>
 </div><div class='img'><img src='Desc-16.png' alt='' width='700' height='433' /></div><div class='input'>
 
 <span class='co'># use global format options for presentation</span>
-<span class='fu'><a href='Format.html'>Fmt</a></span>(abs=<span class='fu'><a href='Format.html'>as.fmt</a></span>(digits=<span class='fl'>0</span>, big.mark=<span class='st'>""</span>))
+<span class='fu'><a href='Format.html'>Fmt</a></span><span class='op'>(</span>abs<span class='op'>=</span><span class='fu'><a href='Format.html'>as.fmt</a></span><span class='op'>(</span>digits<span class='op'>=</span><span class='fl'>0</span>, big.mark<span class='op'>=</span><span class='st'>""</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; $abs
 #&gt;  Description:   Number format for counts
 #&gt;  Definition:    digits=0, big.mark="'"
@@ -1095,7 +1095,7 @@ measured at the time when the pizza is delivered to the client."</span>
 #&gt;  Description:   Number format for floats
 #&gt;  Definition:    digits=3, big.mark="'"
 #&gt;  Example:       314'159.265
-#&gt; </div><div class='input'><span class='fu'><a href='Format.html'>Fmt</a></span>(per=<span class='fu'><a href='Format.html'>as.fmt</a></span>(digits=<span class='fl'>2</span>, fmt=<span class='st'>"%"</span>))
+#&gt; </div><div class='input'><span class='fu'><a href='Format.html'>Fmt</a></span><span class='op'>(</span>per<span class='op'>=</span><span class='fu'><a href='Format.html'>as.fmt</a></span><span class='op'>(</span>digits<span class='op'>=</span><span class='fl'>2</span>, fmt<span class='op'>=</span><span class='st'>"%"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; $abs
 #&gt;  Description:   Number format
 #&gt;  Definition:    digits=0, big.mark=''
@@ -1110,7 +1110,7 @@ measured at the time when the pizza is delivered to the client."</span>
 #&gt;  Description:   Number format for floating points
 #&gt;  Definition:    digits=0, big.mark="'"
 #&gt;  Example:       314'159
-#&gt; </div><div class='input'><span class='fu'>Desc</span>(<span class='kw'>area</span> <span class='op'>~</span> <span class='kw'>driver</span>, <span class='kw'>d.pizza</span>, plotit=<span class='fl'>FALSE</span>)
+#&gt; </div><div class='input'><span class='fu'>Desc</span><span class='op'>(</span><span class='va'>area</span> <span class='op'>~</span> <span class='va'>driver</span>, <span class='va'>d.pizza</span>, plotit<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
 #&gt; </span><span style='font-weight: bold;'>area ~ driver (d.pizza)</span><span>
 #&gt; 
@@ -1177,7 +1177,7 @@ measured at the time when the pizza is delivered to the client."</span>
 #&gt;               p.col         .       .
 #&gt;                                      
 #&gt; </div><div class='input'>
-<span class='fu'><a href='Format.html'>Fmt</a></span>(abs=<span class='fu'><a href='Format.html'>as.fmt</a></span>(digits=<span class='fl'>0</span>, big.mark=<span class='st'>"'"</span>))
+<span class='fu'><a href='Format.html'>Fmt</a></span><span class='op'>(</span>abs<span class='op'>=</span><span class='fu'><a href='Format.html'>as.fmt</a></span><span class='op'>(</span>digits<span class='op'>=</span><span class='fl'>0</span>, big.mark<span class='op'>=</span><span class='st'>"'"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; $abs
 #&gt;  Description:   Number format
 #&gt;  Definition:    digits=0, big.mark=''
@@ -1192,7 +1192,7 @@ measured at the time when the pizza is delivered to the client."</span>
 #&gt;  Description:   Number format for floating points
 #&gt;  Definition:    digits=0, big.mark="'"
 #&gt;  Example:       314'159
-#&gt; </div><div class='input'><span class='fu'><a href='Format.html'>Fmt</a></span>(per=<span class='fu'><a href='Format.html'>as.fmt</a></span>(digits=<span class='fl'>3</span>, ldigits=<span class='fl'>0</span>))
+#&gt; </div><div class='input'><span class='fu'><a href='Format.html'>Fmt</a></span><span class='op'>(</span>per<span class='op'>=</span><span class='fu'><a href='Format.html'>as.fmt</a></span><span class='op'>(</span>digits<span class='op'>=</span><span class='fl'>3</span>, ldigits<span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; $abs
 #&gt;  Description:   Number format
 #&gt;  Definition:    digits=0, big.mark="'"
@@ -1207,7 +1207,7 @@ measured at the time when the pizza is delivered to the client."</span>
 #&gt;  Description:   Number format for floating points
 #&gt;  Definition:    digits=0, big.mark="'"
 #&gt;  Example:       314'159
-#&gt; </div><div class='input'><span class='fu'>Desc</span>(<span class='kw'>area</span> <span class='op'>~</span> <span class='kw'>driver</span>, <span class='kw'>d.pizza</span>, plotit=<span class='fl'>FALSE</span>)
+#&gt; </div><div class='input'><span class='fu'>Desc</span><span class='op'>(</span><span class='va'>area</span> <span class='op'>~</span> <span class='va'>driver</span>, <span class='va'>d.pizza</span>, plotit<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
 #&gt; </span><span style='font-weight: bold;'>area ~ driver (d.pizza)</span><span>
 #&gt; 
@@ -1275,34 +1275,34 @@ measured at the time when the pizza is delivered to the client."</span>
 #&gt;                                    
 #&gt; </div><div class='input'>
 <span class='co'># plot arguments can be fixed in detail</span>
-<span class='kw'>z</span> <span class='op'>&lt;-</span> <span class='fu'>Desc</span>(<span class='fu'><a href='BoxCox.html'>BoxCox</a></span>(<span class='kw'>d.pizza</span><span class='op'>$</span><span class='kw'>temperature</span>, lambda = <span class='fl'>1.5</span>))
-</div><div class='output co'>#&gt; <span class='error'>Error in .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x): "_DescTools_n_pow_sum" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>z</span>, mar=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>2.1</span>, <span class='fl'>4.1</span>, <span class='fl'>2.1</span>), args.rug=<span class='fl'>TRUE</span>, args.hist=<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(breaks=<span class='fl'>50</span>),
-     args.dens=<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(from=<span class='fl'>0</span>))
+<span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'>Desc</span><span class='op'>(</span><span class='fu'><a href='BoxCox.html'>BoxCox</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>temperature</span>, lambda <span class='op'>=</span> <span class='fl'>1.5</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x): "_DescTools_n_pow_sum" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>z</span>, mar<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>2.1</span>, <span class='fl'>4.1</span>, <span class='fl'>2.1</span><span class='op'>)</span>, args.rug<span class='op'>=</span><span class='cn'>TRUE</span>, args.hist<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>breaks<span class='op'>=</span><span class='fl'>50</span><span class='op'>)</span>,
+     args.dens<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>from<span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='error'>Error in plot(z, mar = c(0, 2.1, 4.1, 2.1), args.rug = TRUE, args.hist = list(breaks = 50),     args.dens = list(from = 0)): object 'z' not found</span></div><div class='input'>
 <span class='co'># The default description for count variables can be inappropriate,</span>
 <span class='co'># the density curve does not represent the variable well.</span>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1972</span>)
-<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span>(n = <span class='fl'>500</span>, lambda = <span class='fl'>5</span>)
-<span class='fu'>Desc</span>(<span class='kw'>x</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>1972</span><span class='op'>)</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>500</span>, lambda <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
+<span class='fu'>Desc</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='error'>Error in .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x): "_DescTools_n_pow_sum" not available for .Call() for package "DescTools"</span></div><div class='input'><span class='co'># but setting maxrows to Inf gives a better plot</span>
-<span class='fu'>Desc</span>(<span class='kw'>x</span>, maxrows = <span class='fl'>Inf</span>)
+<span class='fu'>Desc</span><span class='op'>(</span><span class='va'>x</span>, maxrows <span class='op'>=</span> <span class='cn'>Inf</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='error'>Error in .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x): "_DescTools_n_pow_sum" not available for .Call() for package "DescTools"</span></div><div class='input'>
 
 <span class='co'># Output into word document (Windows-specific example) -----------------------</span>
 <span class='co'># by simply setting wrd=GetNewWrd()</span>
-<span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 
   <span class='co'># create a new word instance and insert title and contents</span>
-  <span class='kw'>wrd</span> <span class='op'>&lt;-</span> <span class='fu'><a href='GetNewWrd.html'>GetNewWrd</a></span>(header=<span class='fl'>TRUE</span>)
+  <span class='va'>wrd</span> <span class='op'>&lt;-</span> <span class='fu'><a href='GetNewWrd.html'>GetNewWrd</a></span><span class='op'>(</span>header<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
 
   <span class='co'># let's have a subset</span>
-  <span class='kw'>d.sub</span> <span class='op'>&lt;-</span> <span class='kw'>d.pizza</span>[,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"driver"</span>, <span class='st'>"date"</span>, <span class='st'>"operator"</span>, <span class='st'>"price"</span>, <span class='st'>"wrongpizza"</span>)]
+  <span class='va'>d.sub</span> <span class='op'>&lt;-</span> <span class='va'>d.pizza</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"driver"</span>, <span class='st'>"date"</span>, <span class='st'>"operator"</span>, <span class='st'>"price"</span>, <span class='st'>"wrongpizza"</span><span class='op'>)</span><span class='op'>]</span>
 
   <span class='co'># do just the univariate analysis</span>
-  <span class='fu'>Desc</span>(<span class='kw'>d.sub</span>, wrd=<span class='kw'>wrd</span>)
-}
+  <span class='fu'>Desc</span><span class='op'>(</span><span class='va'>d.sub</span>, wrd<span class='op'>=</span><span class='va'>wrd</span><span class='op'>)</span>
+<span class='op'>}</span>
 
-<span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span>(<span class='kw'>opt</span>) 
+<span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span><span class='op'>(</span><span class='va'>opt</span><span class='op'>)</span> 
 
 </div></span></pre>
   </div>
@@ -1320,7 +1320,7 @@ measured at the time when the pizza is delivered to the client."</span>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
