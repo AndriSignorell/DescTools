@@ -9,6 +9,7 @@
 \alias{\%)[\%}
 \alias{\%](\%}
 \alias{\%)(\%}
+\alias{\%:\%}
 
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Operators To Check, If a Value Lies Within Or Outside a Given Range
@@ -29,6 +30,8 @@ x \%](\% rng
 x \%)[\% rng
 x \%)(\% rng
 
+x \%:\% rng
+
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -46,6 +49,8 @@ They are merely a wrapper for:   \code{x >= rng[1] & x <= rng[2]},
 where the round bracket  \code{(}  means "strictly greater than >" and the square bracket  \code{[}  means ">=".  Numerical values of x will be handled by C-code, which is significantly faster than two comparisons in R (especially when x is huge).
 .\cr
 \code{\%][\%} is the negation of \code{\%()\%}, meaning all values lying outside the given range. Elements on the limits will return TRUE.
+\cr
+\code{\%:\%} returns all the elements of a vector between the (first found) element \code{rng[1]} and \code{rng[2]}. If no match is found it returns \code{NA}. If \code{rng[2]} occurs first in the vector the elements will be returned in reverse order (which is the same behaviour as the \code{:} operator.
 \cr
 Both arguments will be recycled to the highest dimension, which is either the length of the vector or the number of rows of the matrix.\cr
 See also the routines used to check, whether two ranges overlap (\code{\link{Overlap}}, \code{\link{Interval}}).
@@ -107,9 +112,32 @@ mean(d.diamonds[d.diamonds$symmetry \%[)\% c("G","X"),"price"])
 
 # both arguments are recycled
 c(2,3) \%[]\% cbind(1:4,2:5)
+
+
+# between operator for vector positions
+set.seed(4)
+(x <- sample(LETTERS, size=10, replace=TRUE))
+# [1] "X" "K" "S" "C" "G" "L" "S" "V" "U" "Z"
+
+# return all elements between "S" and "L" 
+x \%:\% c("S","L")
+# [1] "S" "C" "G" "L"
+ 
+x \%:\% c("S","A")
+# [1] "S" "C" "G" "L" "S" "V" "U" "Z"
+ 
+x \%:\% c("A","S")
+# [1] "X" "K" "S"
+
+# reverted matches return the elements in reverse order
+x \%:\% c("G","X")
+# [1] "G" "C" "S" "K" "X"
+
+# no match results in NA
+x \%:\% c("Y","B")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{logic}
-
+\keyword{manip}
 

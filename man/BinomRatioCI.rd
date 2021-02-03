@@ -14,7 +14,8 @@ and the Noether (1957) procedure. Koopman results are found iteratively for most
 \usage{
 BinomRatioCI(x1, n1, x2, n2, conf.level = 0.95, 
              sides = c("two.sided", "left", "right"), 
-             method = c("katz.log", "adj.log", "bailey", "koopman", "noether", "sinh-1", "boot"),
+             method = c("katz.log", "adj.log", "bailey", "koopman", "noether", 
+                        "sinh-1", "boot"),
              tol = .Machine$double.eps^0.25, R = 1000)
 }
 
