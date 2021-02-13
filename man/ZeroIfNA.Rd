@@ -3,6 +3,7 @@
 \alias{NAIfZero}
 \alias{BlankIfNA}
 \alias{NAIfBlank}
+\alias{NAIf}
 \alias{Impute}
 
 %- Also NEED an '\alias' for EACH other topic documented here.
@@ -16,6 +17,7 @@
 \usage{
 ZeroIfNA(x)
 NAIfZero(x)
+NAIf(x, what)
 
 BlankIfNA(x, blank="")
 NAIfBlank(x)
@@ -30,6 +32,7 @@ Impute(x, FUN = function(x) median(x, na.rm = TRUE))
   \item{blank}{a character to be used for "blank". Default is an empty string ("").
 %%     ~~Describe \code{x} here~~
 }
+\item{what}{a vector of elements to be set to \code{NA} in \code{x}.}
   \item{FUN}{the name of a function to be used as imputation. Can as well be a self defined function or a constant value.
   Default is \code{\link{median}}.
 
@@ -58,6 +61,10 @@ z <- c(8, NA, 9, NA, 3)
 ZeroIfNA(z)
 # [1] 8 0 9 0 3
 
+# set 8 and 9 to NA
+NAIf(ZeroIfNA(z), what=c(8, 9))
+
+
 Impute(z)
 # [1] 8 8 9 8 3
 
@@ -66,6 +73,7 @@ z <- c("a", NA, "", NA, "k")
 
 BlankIfNA(z)
 # [1] "a" "" "" "" "k"
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

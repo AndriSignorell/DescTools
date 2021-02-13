@@ -2398,17 +2398,45 @@ Recode <- function(x, ..., elselevel=NA, use.empty=FALSE, num=FALSE){
 }
 
 
-RevCode <- function(x, lbound=min(x, na.rm=TRUE), ubound=max(x, na.rm=TRUE)) {
+# RevCode <- function(x, lbound=min(x, na.rm=TRUE), ubound=max(x, na.rm=TRUE)) {
+#   
+#   x <- as.numeric(x)
+#   
+#   x[x %)(% c(lbound, ubound)] <- NA
+#   
+#   return(lbound + ubound - x)
+#   
+# }
+
+
+
+RevCode <- function (x) {
   
-  x <- as.numeric(x)
+  if(is.factor(x)) {
+    levels(x) <- rev(levels(x))
+    res <- factor(x, levels=rev(levels(x)))
+    
+  } else if(is.numeric(x)){
+    res <- (min(x) + max(x) - x)
+    
+  } else if(is.logical(x)) {
+    res <- as.logical(1 - x)
+    
+  } else {
+    res <- NA
+  }
   
-  x[x %)(% c(lbound, ubound)] <- NA
-  
-  return(lbound + ubound - x)
+  return(res)  
   
 }
 
 
+
+
+NAIf <- function (x, what) {
+  x[!is.na(match(x, what))] <- NA
+  return(x)
+} 
 
 
 ZeroIfNA <- function(x) {
@@ -3753,10 +3781,14 @@ axTicks.Date <- function(side = 1, x, ...) {
   i <- match(x, rng, nomatch = 0)
   from <- ifelse(length(from <- which(i==1))==0, 1, from)[1]
   to <- ifelse(length(to <- which(i==2))==0, length(x), to)[1]
-  if(from==1 & to==length(x))
-    NA
-  else
-    x[from:to]
+
+  # why the NA here???  
+  # if(from==1 & to==length(x))
+  #   NA
+  # else
+  
+  x[from:to]
+  
 }
 
 

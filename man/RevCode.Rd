@@ -3,49 +3,47 @@
 
 \title{Reverse Codes}
 
-\description{In psychology variables often need to be recoded into the other direction (reverse coding). Let's say we have a Likert scale from 1 to 5 and we want to recode the variable so that a 5 becomes a 1, 4 a 2 and so on. 
+\description{In psychology variables often need to be recoded into reverse order in cases that items are negatively worded. So it can be ensured that a high value indicate the same type of response on every item.
+Let's say we have a Likert scale from 1 to 5 and we want to recode the variable so that a 5 becomes a 1, 4 a 2 and so on. 
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 
 \usage{
-RevCode(x, lbound = min(x, na.rm = TRUE), ubound = max(x, na.rm = TRUE))
+RevCode(x)
 }
 \arguments{
-  \item{x}{a numerical vector, will be converted to numeric if it's not.
+  \item{x}{a numerical or logical vector, or a factor.}
 }
-  \item{lbound}{the low bound of the variable, default is the minmal value of \code{x}.
-%%     ~~Describe \code{lbound} here~~
-}
-  \item{ubound}{the high bound of the variable, default is the maximal value of \code{x}.
-%%     ~~Describe \code{ubound} here~~
-}
-}
+
 \details{The function recodes based on:
 
-  lbound + ubound - x
+  \code{min(x, na.rm=TRUE) + max(x, na.rm=TRUE) - x}
 
-%%  ~~ If necessary, more details than the description above ~~
 }
-\value{the recoded vector
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
-}
-\author{Andri Signorell <andri@signorell.net>
-%%  ~~who you are~~
-}
-\seealso{\code{\link{Recode}}
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
+\value{the recoded vector}
+
+\author{Andri Signorell <andri@signorell.net>}
+
+\seealso{\code{\link{Recode}}}
 
 \examples{
+x <- 1:5
+data.frame(x, rev_num=RevCode(x), rev_fac=RevCode(factor(x)))
+
 s <- c(3,4,2,7,4,9,NA,10) 
-RevCode(s, lbound=1, ubound=10)
+RevCode(factor(s, levels=1:10))
 
 i <- c(1,0,0,0,1,1)
 cbind(i, RevCode(i))
+
+k <- as.logical(c(1,0,0,0,1,1))
+cbind(k, RevCode(k))
+
+x <- factor(sample(letters[1:5], 10, replace = TRUE))
+RevCode(x)
+
+# we want to set the level 5 to NA before reversing
+RevCode(factor(NAIf(x, "e")))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory (show via RShowDoc("KEYWORDS")):
