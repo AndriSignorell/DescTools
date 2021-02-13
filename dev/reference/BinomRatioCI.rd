@@ -76,7 +76,7 @@ and the Noether (1957) procedure. Koopman results are found iteratively for most
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.39.6</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.40.2</span>
       </span>
     </div>
 
@@ -144,7 +144,8 @@ and the Noether (1957) procedure. Koopman results are found iteratively for most
 
     <pre class="usage"><span class='fu'>BinomRatioCI</span><span class='op'>(</span><span class='va'>x1</span>, <span class='va'>n1</span>, <span class='va'>x2</span>, <span class='va'>n2</span>, conf.level <span class='op'>=</span> <span class='fl'>0.95</span>, 
              sides <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"two.sided"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span><span class='op'>)</span>, 
-             method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"katz.log"</span>, <span class='st'>"adj.log"</span>, <span class='st'>"bailey"</span>, <span class='st'>"koopman"</span>, <span class='st'>"noether"</span>, <span class='st'>"sinh-1"</span>, <span class='st'>"boot"</span><span class='op'>)</span>,
+             method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"katz.log"</span>, <span class='st'>"adj.log"</span>, <span class='st'>"bailey"</span>, <span class='st'>"koopman"</span>, <span class='st'>"noether"</span>, 
+                        <span class='st'>"sinh-1"</span>, <span class='st'>"boot"</span><span class='op'>)</span>,
              tol <span class='op'>=</span> <span class='va'>.Machine</span><span class='op'>$</span><span class='va'>double.eps</span><span class='op'>^</span><span class='fl'>0.25</span>, R <span class='op'>=</span> <span class='fl'>1000</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>

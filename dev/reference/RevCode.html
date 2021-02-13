@@ -42,7 +42,8 @@
   
 
 <meta property="og:title" content="Reverse Codes — RevCode" />
-<meta property="og:description" content="In psychology variables often need to be recoded into the other direction (reverse coding). Let's say we have a Likert scale from 1 to 5 and we want to recode the variable so that a 5 becomes a 1, 4 a 2 and so on. 
+<meta property="og:description" content="In psychology variables often need to be recoded into reverse order in cases that items are negatively worded. So it can be ensured that a high value indicate the same type of response on every item.
+Let's say we have a Likert scale from 1 to 5 and we want to recode the variable so that a 5 becomes a 1, 4 a 2 and so on. 
 " />
 
 
@@ -75,7 +76,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.39.6</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.40.2</span>
       </span>
     </div>
 
@@ -136,60 +137,75 @@
     </div>
 
     <div class="ref-description">
-    <p>In psychology variables often need to be recoded into the other direction (reverse coding). Let's say we have a Likert scale from 1 to 5 and we want to recode the variable so that a 5 becomes a 1, 4 a 2 and so on. 
+    <p>In psychology variables often need to be recoded into reverse order in cases that items are negatively worded. So it can be ensured that a high value indicate the same type of response on every item.
+Let's say we have a Likert scale from 1 to 5 and we want to recode the variable so that a 5 becomes a 1, 4 a 2 and so on. 
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>RevCode</span><span class='op'>(</span><span class='va'>x</span>, lbound <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='va'>x</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, ubound <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>x</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>RevCode</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a numerical vector, will be converted to numeric if it's not.</p></td>
-    </tr>
-    <tr>
-      <th>lbound</th>
-      <td><p>the low bound of the variable, default is the minmal value of <code>x</code>.
-<!-- %%     ~~Describe \code{lbound} here~~ --></p></td>
-    </tr>
-    <tr>
-      <th>ubound</th>
-      <td><p>the high bound of the variable, default is the maximal value of <code>x</code>.
-<!-- %%     ~~Describe \code{ubound} here~~ --></p></td>
+      <td><p>a numerical or logical vector, or a factor.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The function recodes based on:</p>
-<p>lbound + ubound - x</p>
-<p><!-- %%  ~~ If necessary, more details than the description above ~~ --></p>
+<p><code>min(x, na.rm=TRUE) + max(x, na.rm=TRUE) - x</code></p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>the recoded vector
-<!-- %%  ~Describe the value returned -->
-<!-- %%  If it is a LIST, use -->
-<!-- %%  \item{comp1 }{Description of 'comp1'} -->
-<!-- %%  \item{comp2 }{Description of 'comp2'} -->
-<!-- %% ... --></p>
+    <p>the recoded vector</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Andri Signorell &lt;andri@signorell.net&gt;
-<!-- %%  ~~who you are~~ --></p>
+    <p>Andri Signorell &lt;andri@signorell.net&gt;</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='Recode.html'>Recode</a></code>
-<!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
+    <div class='dont-index'><p><code><a href='Recode.html'>Recode</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>7</span>,<span class='fl'>4</span>,<span class='fl'>9</span>,<span class='cn'>NA</span>,<span class='fl'>10</span><span class='op'>)</span> 
-<span class='fu'>RevCode</span><span class='op'>(</span><span class='va'>s</span>, lbound<span class='op'>=</span><span class='fl'>1</span>, ubound<span class='op'>=</span><span class='fl'>10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>
+<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='va'>x</span>, rev_num<span class='op'>=</span><span class='fu'>RevCode</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, rev_fac<span class='op'>=</span><span class='fu'>RevCode</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   x rev_num rev_fac
+#&gt; 1 1       5       5
+#&gt; 2 2       4       4
+#&gt; 3 3       3       3
+#&gt; 4 4       2       2
+#&gt; 5 5       1       1</div><div class='input'>
+<span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>7</span>,<span class='fl'>4</span>,<span class='fl'>9</span>,<span class='cn'>NA</span>,<span class='fl'>10</span><span class='op'>)</span> 
+<span class='fu'>RevCode</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>s</span>, levels<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 8    7    9    4    7    2    &lt;NA&gt; 1   
+#&gt; Levels: 1 2 3 4 5 6 7 8 9 10</div><div class='input'>
 <span class='va'>i</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='va'>i</span>, <span class='fu'>RevCode</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div></pre>
+</div><div class='output co'>#&gt;      i  
+#&gt; [1,] 1 0
+#&gt; [2,] 0 1
+#&gt; [3,] 0 1
+#&gt; [4,] 0 1
+#&gt; [5,] 1 0
+#&gt; [6,] 1 0</div><div class='input'>
+<span class='va'>k</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/logical.html'>as.logical</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='va'>k</span>, <span class='fu'>RevCode</span><span class='op'>(</span><span class='va'>k</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;          k      
+#&gt; [1,]  TRUE FALSE
+#&gt; [2,] FALSE  TRUE
+#&gt; [3,] FALSE  TRUE
+#&gt; [4,] FALSE  TRUE
+#&gt; [5,]  TRUE FALSE
+#&gt; [6,]  TRUE FALSE</div><div class='input'>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>]</span>, <span class='fl'>10</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>RevCode</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1] b a b c d b c c a d
+#&gt; Levels: a b c d</div><div class='input'>
+<span class='co'># we want to set the level 5 to NA before reversing</span>
+<span class='fu'>RevCode</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='ZeroIfNA.html'>NAIf</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"e"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1] b a b c d b c c a d
+#&gt; Levels: a b c d</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

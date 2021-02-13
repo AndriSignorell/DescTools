@@ -76,7 +76,7 @@ Ordered factors are supported.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.39.6</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.40.2</span>
       </span>
     </div>
 
@@ -150,7 +150,9 @@ Ordered factors are supported.
 <span class='va'>x</span> <span class='op'>%][%</span> <span class='va'>rng</span>
 <span class='va'>x</span> <span class='op'>%](%</span> <span class='va'>rng</span>
 <span class='va'>x</span> <span class='op'>%)[%</span> <span class='va'>rng</span>
-<span class='va'>x</span> <span class='op'>%)(%</span> <span class='va'>rng</span></pre>
+<span class='va'>x</span> <span class='op'>%)(%</span> <span class='va'>rng</span>
+
+<span class='va'>x</span> <span class='op'>%:%</span> <span class='va'>rng</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -174,6 +176,8 @@ They are merely a wrapper for:   <code>x &gt;= rng[1] &amp; x &lt;= rng[2]</code
 where the round bracket  <code>(</code>  means "strictly greater than &gt;" and the square bracket  <code><a href='https://rdrr.io/r/base/Extract.html'>[</a></code>  means "&gt;=".  Numerical values of x will be handled by C-code, which is significantly faster than two comparisons in R (especially when x is huge).
 .<br />
 <code>%][%</code> is the negation of <code>%()%</code>, meaning all values lying outside the given range. Elements on the limits will return TRUE.
+<br />
+<code>%:%</code> returns all the elements of a vector between the (first found) element <code>rng[1]</code> and <code>rng[2]</code>. If no match is found it returns <code>NA</code>. If <code>rng[2]</code> occurs first in the vector the elements will be returned in reverse order (which is the same behaviour as the <code><a href='https://rdrr.io/r/base/Colon.html'>:</a></code> operator.
 <br />
 Both arguments will be recycled to the highest dimension, which is either the length of the vector or the number of rows of the matrix.<br />
 See also the routines used to check, whether two ranges overlap (<code><a href='%overlaps%.html'>Overlap</a></code>, <code><a href='%overlaps%.html'>Interval</a></code>).</p>
@@ -232,7 +236,30 @@ See also the routines used to check, whether two ranges overlap (<code><a href='
 </div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lrm", as.numeric(x), as.numeric(rng[, 1L]),     as.numeric(rng[, 2L]), PACKAGE = "DescTools"): "between_num_lrm" not available for .Call() for package "DescTools"</span></div><div class='input'>
 <span class='co'># both arguments are recycled</span>
 <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>3</span><span class='op'>)</span> <span class='op'>%[]%</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>,<span class='fl'>2</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lrm", as.numeric(x), as.numeric(rng[, 1L]),     as.numeric(rng[, 2L]), PACKAGE = "DescTools"): "between_num_lrm" not available for .Call() for package "DescTools"</span></div></pre>
+</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lrm", as.numeric(x), as.numeric(rng[, 1L]),     as.numeric(rng[, 2L]), PACKAGE = "DescTools"): "between_num_lrm" not available for .Call() for package "DescTools"</span></div><div class='input'>
+
+<span class='co'># between operator for vector positions</span>
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>4</span><span class='op'>)</span>
+<span class='op'>(</span><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='va'>LETTERS</span>, size<span class='op'>=</span><span class='fl'>10</span>, replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1] "X" "K" "S" "C" "G" "L" "S" "V" "U" "Z"</div><div class='input'><span class='co'># [1] "X" "K" "S" "C" "G" "L" "S" "V" "U" "Z"</span>
+
+<span class='co'># return all elements between "S" and "L" </span>
+<span class='va'>x</span> <span class='op'>%:%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"S"</span>,<span class='st'>"L"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "S" "C" "G" "L"</div><div class='input'><span class='co'># [1] "S" "C" "G" "L"</span>
+ 
+<span class='va'>x</span> <span class='op'>%:%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"S"</span>,<span class='st'>"A"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "S" "C" "G" "L" "S" "V" "U" "Z"</div><div class='input'><span class='co'># [1] "S" "C" "G" "L" "S" "V" "U" "Z"</span>
+ 
+<span class='va'>x</span> <span class='op'>%:%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>,<span class='st'>"S"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "X" "K" "S"</div><div class='input'><span class='co'># [1] "X" "K" "S"</span>
+
+<span class='co'># reverted matches return the elements in reverse order</span>
+<span class='va'>x</span> <span class='op'>%:%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"G"</span>,<span class='st'>"X"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "G" "C" "S" "K" "X"</div><div class='input'><span class='co'># [1] "G" "C" "S" "K" "X"</span>
+
+<span class='co'># no match results in NA</span>
+<span class='va'>x</span> <span class='op'>%:%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Y"</span>,<span class='st'>"B"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1] "X" "K" "S" "C" "G" "L" "S" "V" "U" "Z"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
