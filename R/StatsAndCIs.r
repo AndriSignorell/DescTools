@@ -3878,6 +3878,22 @@ MeanCI <- function (x, sd = NULL, trim = 0, method = c("classic", "boot"),
 
 
 
+MeanCIn <- function(ci, sd, interval=c(2, 1e5), conf.level=0.95, norm=FALSE, 
+                    sides="two.sided", method="classic", tol = .Machine$double.eps^0.5) {
+  
+  width <- diff(ci)/2
+  alpha <- (1-conf.level)/2
+  
+  if(norm)
+    uniroot(f = function(n) sd/sqrt(n) * qnorm(p = 1-alpha) - width, 
+            interval = interval, tol = tol)$root
+  else
+    uniroot(f = function(n) (qt(1-alpha, df=n-1) * sd / sqrt(n)) - width, 
+            interval = interval, tol = tol)$root
+}
+
+
+
 
 # MeanCIn <- function(xm, sd, pop_sd=NULL, width, interval=c(1, 1e5), conf.level=0.95, sides="two.sided") {
 # 
