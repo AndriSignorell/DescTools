@@ -9,8 +9,7 @@
 }
 \usage{
 MeanCIn(ci, sd, interval = c(2, 100000), conf.level = 0.95, 
-        norm = FALSE, sides = "two.sided", method = "classic", 
-        tol = .Machine$double.eps^0.5)
+        norm = FALSE, tol = .Machine$double.eps^0.5)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

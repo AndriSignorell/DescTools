@@ -3879,7 +3879,7 @@ MeanCI <- function (x, sd = NULL, trim = 0, method = c("classic", "boot"),
 
 
 MeanCIn <- function(ci, sd, interval=c(2, 1e5), conf.level=0.95, norm=FALSE, 
-                    sides="two.sided", method="classic", tol = .Machine$double.eps^0.5) {
+                    tol = .Machine$double.eps^0.5) {
   
   width <- diff(ci)/2
   alpha <- (1-conf.level)/2
