@@ -6,8 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Parse a SAS Dataline Command
- — ParseSASDatalines • DescTools</title>
+<title>Sample Size for a Given Width of a Confidence Interval for a Mean
+ — MeanCIn • DescTools</title>
 
 
 <!-- jquery -->
@@ -42,9 +42,9 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Parse a SAS Dataline Command
- — ParseSASDatalines" />
-<meta property="og:description" content="A parser for simple SAS dataline command texts. A data.frame is being built with the columnnames listed in the input section. The data object will be created in the given environment.
+<meta property="og:title" content="Sample Size for a Given Width of a Confidence Interval for a Mean
+ — MeanCIn" />
+<meta property="og:description" content="Returns the required sample size to obtain a given width of a confidence interval for the sample mean. The function uses uniroot() to find a numeric solution. The t distribution is used.
 " />
 
 
@@ -132,85 +132,79 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Parse a SAS Dataline Command
+    <h1>Sample Size for a Given Width of a Confidence Interval for a Mean
 <!-- %%  ~~function to do ... ~~ --></h1>
     
-    <div class="hidden name"><code>ParseSASDatalines.Rd</code></div>
+    <div class="hidden name"><code>MeanCIn.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A parser for simple SAS dataline command texts. A <code>data.frame</code> is being built with the columnnames listed in the input section. The data object will be created in the given environment.
+    <p>Returns the required sample size to obtain a given width of a confidence interval for the sample mean. The function uses <code><a href='https://rdrr.io/r/stats/uniroot.html'>uniroot</a>()</code> to find a numeric solution. The t distribution is used.
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
-    <pre class="usage"><span class='fu'>ParseSASDatalines</span><span class='op'>(</span><span class='va'>x</span>, env <span class='op'>=</span> <span class='va'>.GlobalEnv</span>, overwrite <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>MeanCIn</span><span class='op'>(</span><span class='va'>ci</span>, <span class='va'>sd</span>, interval <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>100000</span><span class='op'>)</span>, conf.level <span class='op'>=</span> <span class='fl'>0.95</span>, 
+        norm <span class='op'>=</span> <span class='cn'>FALSE</span>, sides <span class='op'>=</span> <span class='st'>"two.sided"</span>, method <span class='op'>=</span> <span class='st'>"classic"</span>, 
+        tol <span class='op'>=</span> <span class='va'>.Machine</span><span class='op'>$</span><span class='va'>double.eps</span><span class='op'>^</span><span class='fl'>0.5</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>the SAS text</p></td>
+      <th>ci</th>
+      <td><p>the left and right bound of the interval, which is presumed to be symmetric.
+<!-- %%     ~~Describe \code{ci} here~~ --></p></td>
     </tr>
     <tr>
-      <th>env</th>
-      <td><p>environment in which the dataset should be created.</p></td>
+      <th>sd</th>
+      <td><p>the standard deviation of the sample.
+<!-- %%     ~~Describe \code{sd} here~~ --></p></td>
     </tr>
     <tr>
-      <th>overwrite</th>
-      <td><p>logical. If set to TRUE, the function will silently overwrite a potentially existing object in <code>env</code> with the same name as declared in the SAS <code>DATA</code> section. If set to <code>FALSE</code> (default) an error will be raised if there already exists an object with the same name.</p></td>
+      <th>interval</th>
+      <td><p>the interval for the sample size to be searched into, (default is c(2, 100000)).
+<!-- %%     ~~Describe \code{interval} here~~ --></p></td>
+    </tr>
+    <tr>
+      <th>conf.level</th>
+      <td><p>confidence level, defaults to <code>0.95</code>.</p></td>
+    </tr>
+    <tr>
+      <th>norm</th>
+      <td><p>logical, determining if the t- or normaldistribution should be used.
+<!-- %%     ~~Describe \code{norm} here~~ --></p></td>
+    </tr>
+    <tr>
+      <th>tol</th>
+      <td><p>the desired accuracy (convergence tolerance).
+<!-- %%     ~~Describe \code{tol} here~~ --></p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The SAS function <code>DATA</code> is designed for quickly creating a dataset from scratch. The whole step  normally consists out of the <code>DATA</code> part defining the name of the dataset, an <code>INPUT</code> line declaring the variables and a <code>DATALINES</code> command followed by the values.<br />
-The default delimiter used to separate the different variables is a space (thus each variable should be one word). The $ after the variable name indicates that the variable preceding contain character values and not numeric values. Without specific instructions, SAS assumes that variables are numeric. The function will fail, if it encounters a character in the place of an expected numeric value.<br />
-Each new row in datalines will create a corresponding unique row in the dataset. Notice that a ; is not needed after every row, rather it is included at the end of the entire data step.</p>
-<p>More complex command structures, i.e. other delimiters (dlm), in the <code>INPUT</code>-section are not (yet) supported.
+    <p>The required sample sizes for a specific width of confidence interval for the mean depends recursively on the sample size, as the samplesize defines the degrees of freedom in the t-distribution. Although in most practical cases it will be sufficient to use the normal distribution, we might be interested in exact results.
 <!-- %%  ~~ If necessary, more details than the description above ~~ --></p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a data.frame</p>
+    <p>a numeric value 
+<!-- %%  ~Describe the value returned -->
+<!-- %%  If it is a LIST, use -->
+<!-- %%  \item{comp1 }{Description of 'comp1'} -->
+<!-- %%  \item{comp2 }{Description of 'comp2'} -->
+<!-- %% ... --></p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Andri Signorell &lt;andri@signorell.net&gt;</p>
+    <p>Andri Signorell &lt;andri@signorell.net&gt;
+<!-- %%  ~~who you are~~ --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/scan.html'>scan</a></code></p></div>
+    <div class='dont-index'><p><code><a href='BinomCIn.html'>BinomCIn</a>()</code>
+<!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>txt</span> <span class='op'>&lt;-</span> <span class='st'>"
-DATA asurvey;
-INPUT id sex $ age inc r1 r2 r3 ;
-DATALINES;
-1   F  35 17  7 2 2
-17  M  50 14  5 5 3
-33  F  45  6  7 2 7
-49  M  24 14  7 5 7
-65  F  52  9  4 7 7
-81  M  44 11  7 7 7
-2   F  34 17  6 5 3
-18  M  40 14  7 5 2
-34  F  47  6  6 5 6
-50  M  35 17  5 7 5
-;
-"</span>
-
-<span class='op'>(</span><span class='va'>d.frm</span> <span class='op'>&lt;-</span> <span class='fu'>ParseSASDatalines</span><span class='op'>(</span><span class='va'>txt</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #00BBBB;'>
-#&gt; The object asurvey has been added to .GlobalEnv.
-#&gt; </span><span></div><div class='output co'>#&gt;    id sex age inc r1 r2 r3
-#&gt; 1   1   F  35  17  7  2  2
-#&gt; 2  17   M  50  14  5  5  3
-#&gt; 3  33   F  45   6  7  2  7
-#&gt; 4  49   M  24  14  7  5  7
-#&gt; 5  65   F  52   9  4  7  7
-#&gt; 6  81   M  44  11  7  7  7
-#&gt; 7   2   F  34  17  6  5  3
-#&gt; 8  18   M  40  14  7  5  2
-#&gt; 9  34   F  47   6  6  5  6
-#&gt; 10 50   M  35  17  5  7  5</div></span></pre>
+    <pre class="examples"><div class='input'><span class='fu'>MeanCIn</span><span class='op'>(</span>ci<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>25</span>, <span class='fl'>27</span><span class='op'>)</span>, sd<span class='op'>=</span><span class='fl'>5</span><span class='op'>)</span> 
+</div><div class='output co'>#&gt; [1] 98.46626</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
