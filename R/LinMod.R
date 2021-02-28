@@ -1125,7 +1125,10 @@ ToWrd.TMod <- function (x, font = NULL, para = NULL, main = NULL, align = NULL,
            digits = 0, na.form = na.form)
   
   if(!is.null(split)) {
-    xx <- SplitToCol(x[[1]][, -1], split=split, fixed=fixed)
+    # xx <- SplitToCol(x[[1]][, -1], split=split, fixed=fixed)
+    xx <- SplitToCol(as.data.frame(lapply(x[[1]], StrTrim))[, -1], 
+                     split=split, fixed=fixed)
+    
     
     zz <- x[[2]][,-1]
     vn <- character()

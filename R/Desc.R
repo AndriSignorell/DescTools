@@ -208,7 +208,7 @@ desc <- function (x, main=NULL, xname=deparse(substitute(x)), digits=NULL, maxro
       }
 
       z$rfrq <- BinomCI(z$afrq, n, conf.level = conf.level)
-      z$conf.level=conf.level
+      z$conf.level <- conf.level
       z$class <- "logical"
 
 
