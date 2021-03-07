@@ -8903,28 +8903,30 @@ SpreadOut <- function(x, mindist = NULL, cex = 1.0) {
 
 
 BarText <- function(height, b, labels=height, beside = FALSE, horiz = FALSE,
-                    cex=par("cex"), adj=NULL, top=TRUE, ...) {
+                    cex=par("cex"), adj=NULL, top=TRUE, offset=0, ...) {
 
   if (is.vector(height) || (is.array(height) && (length(dim(height)) == 1))) {
     height <- cbind(height)
     beside <- TRUE
   }
 
+  offset <- rep_len(as.vector(offset), length(height))
+  
   if(beside){
     if(horiz){
       if(is.null(adj)) adj <- 0
       if(top)
-        x <- height + par("cxy")[1] * cex
+        x <- height + offset + par("cxy")[1] * cex
       else
-        x <- height/2
+        x <- offset + height / 2
       text(y=b, x=x, labels=labels, cex=cex, xpd=TRUE, adj=adj, ...)
 
     } else {
 
       if(top)
-        y <- height + par("cxy")[2] * cex
+        y <- height + offset + par("cxy")[2] * cex
       else
-        y <- height/2
+        y <- offset + height/2
 
       if(is.null(adj)) adj <- 0.5
       text(x=b, y=y, labels=labels, cex=cex, xpd=TRUE, adj=adj, ...)
