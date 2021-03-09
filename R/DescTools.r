@@ -1305,8 +1305,29 @@ Closest <- function(x, a, which = FALSE, na.rm = FALSE){
 }
 
 
-DenseRank <- function(x, na.last = TRUE) {
-  as.numeric(as.factor(rank(x, na.last)))
+# DenseRank <- function(x, na.last = TRUE) {
+#   as.numeric(as.factor(rank(x, na.last)))
+# }
+
+
+
+Rank <- function(..., decreasing = FALSE, na.last = TRUE, 
+                 ties.method = c("average", "first", "last", 
+                                 "random", "max", "min", "dense")){
+  
+  ord <- replace(z <- as.numeric(!decreasing), list = z==0, values = -1)
+  
+  x <- list(...)
+  
+  if(length(x)==1){
+    x <- x[[1]]
+  } 
+  
+  if(!is.vector(x))
+    ord <- rep_len(ord, length(x))
+  
+  data.table::frankv(x=x, order=ord, na.last=na.last, ties.method=ties.method)
+
 }
 
 

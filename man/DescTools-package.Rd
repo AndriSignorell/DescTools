@@ -56,7 +56,7 @@ A grouped list of the functions:
 \link{Rename}      \tab            Change name(s) of a named object \cr
 \link{Sort}      \tab            Sort extension for matrices and data.frames \cr
 \link{SortMixed}, \link{OrderMixed}    \tab Mixed sort order \cr
-\link{DenseRank}       \tab      Calculate ranks in consecutive order (no ties)  \cr
+\link{Rank}       \tab      Calculate ranks including dense type for ties  \cr
 \link{PercentRank}       \tab      Calculate the percent rank \cr
 \link{RoundTo}       \tab Round to a multiple \cr
 \link{Large}, \link{Small}  \tab    Returns the kth largest, resp. smallest values\cr
