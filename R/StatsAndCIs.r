@@ -1880,16 +1880,17 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
     p.hat <- x/n
     q.hat <- 1 - p.hat
 
+    # this is the default estimator used by the most (but not all) methods
+    est <- p.hat
+    
     switch( match.arg(arg=method, choices=c("wilson", "wald", "waldcc", "wilsoncc","agresti-coull", "jeffreys", "modified wilson",
                                             "modified jeffreys", "clopper-pearson", "arcsine", "logit", "witting","pratt", "midp", "lik", "blaker"))
             , "wald" = {
-              est <- p.hat
               term2 <- kappa*sqrt(p.hat*q.hat)/sqrt(n)
               CI.lower <- max(0, p.hat - term2)
               CI.upper <- min(1, p.hat + term2)
             }
             , "waldcc" = {
-              est <- p.hat
               term2 <- kappa*sqrt(p.hat*q.hat)/sqrt(n)
               # continuity correction
               term2 <- term2 + 1/(2*n)
@@ -1897,14 +1898,12 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
               CI.upper <- min(1, p.hat + term2)
             }
             , "wilson" = {
-              est <- p.hat
               term1 <- (x + kappa^2/2)/(n + kappa^2)
               term2 <- kappa*sqrt(n)/(n + kappa^2)*sqrt(p.hat*q.hat + kappa^2/(4*n))
               CI.lower <-  max(0, term1 - term2)
               CI.upper <- min(1, term1 + term2)
             }
             , "wilsoncc" = {
-              est <- p.hat
               lci <- ( 2*x+kappa**2 -1 - kappa*sqrt(kappa**2 -
                             2- 1/n + 4*p.hat*(n*q.hat+1))) / (2*(n+kappa**2))
               uci <- ( 2*x+kappa**2 +1 + kappa*sqrt(kappa**2 +
@@ -1919,13 +1918,13 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
               n.tilde <- n + kappa^2
               p.tilde <- x.tilde/n.tilde
               q.tilde <- 1 - p.tilde
+              # non standard estimator!!
               est <- p.tilde
               term2 <- kappa*sqrt(p.tilde*q.tilde)/sqrt(n.tilde)
               CI.lower <- max(0, p.tilde - term2)
               CI.upper <- min(1, p.tilde + term2)
             }
             , "jeffreys" = {
-              est <- p.hat
               if(x == 0)
                 CI.lower <- 0
               else
@@ -1936,7 +1935,6 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
                 CI.upper <- qbeta(1-alpha/2, x+0.5, n-x+0.5)
             }
             , "modified wilson" = {
-              est <- p.hat
               term1 <- (x + kappa^2/2)/(n + kappa^2)
               term2 <- kappa*sqrt(n)/(n + kappa^2)*sqrt(p.hat*q.hat + kappa^2/(4*n))
               ## comment by Andre Gillibert, 19.6.2017:
@@ -1955,7 +1953,6 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
                 CI.upper <- min(1, term1 + term2)
             }
             , "modified jeffreys" = {
-              est <- p.hat
               if(x == n)
                 CI.lower <- (alpha/2)^(1/n)
               else {
@@ -1974,18 +1971,17 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
               }
             }
             , "clopper-pearson" = {
-              est <- p.hat
               CI.lower <- qbeta(alpha/2, x, n-x+1)
               CI.upper <- qbeta(1-alpha/2, x+1, n-x)
             }
             , "arcsine" = {
               p.tilde <- (x + 0.375)/(n + 0.75)
+              # non standard estimator
               est <- p.tilde
               CI.lower <- sin(asin(sqrt(p.tilde)) - 0.5*kappa/sqrt(n))^2
               CI.upper <- sin(asin(sqrt(p.tilde)) + 0.5*kappa/sqrt(n))^2
             }
             , "logit" = {
-              est <- p.hat
               lambda.hat <- log(x/(n-x))
               V.hat <- n/(x*(n-x))
               lambda.lower <- lambda.hat - kappa*sqrt(V.hat)
@@ -2008,14 +2004,11 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
                 }
                 uniroot(fun, interval = c(0, 1), size = size, x = x, p = p)$root
               }
-              est <- p.hat
               CI.lower <- qbinom.abscont(1-alpha, size = n, x = x.tilde)
               CI.upper <- qbinom.abscont(alpha, size = n, x = x.tilde)
             }
 
             , "pratt" = {
-
-              est <- p.hat
 
               if(x==0) {
                 CI.lower <- 0
@@ -2049,8 +2042,6 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
             }
             , "midp" = {
               
-                est <- p.hat
-              
                 #Functions to find root of for the lower and higher bounds of the CI
                 #These are helper functions.
                 f.low <- function(pi, x, n) {
@@ -2078,7 +2069,6 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
             }
             , "lik" = {
               
-              est <- p.hat
               CI.lower <- 0
               CI.upper <- 1
               z <- qnorm(1 - alpha * 0.5)

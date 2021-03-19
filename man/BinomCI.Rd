@@ -137,10 +137,8 @@ Andri Signorell <andri@signorell.net> (interface issues and all the rest) }
 
 \seealso{\code{\link[stats]{binom.test}}, \code{\link[Hmisc]{binconf}}, \code{\link{MultinomCI}}, \code{\link{BinomDiffCI}}, \code{\link{BinomRatioCI}} }
 \examples{
-BinomCI(x=37, n=43, method=c("wald", "wilson", "agresti-coull", "jeffreys",
-  "modified wilson", "modified jeffreys", "clopper-pearson", "arcsine", "logit",
-  "witting", "pratt")
-)
+BinomCI(x=37, n=43, method=eval(formals(BinomCI)$method))
+
 
 
 # the confidence interval computed by binom.test

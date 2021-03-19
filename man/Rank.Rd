@@ -1,6 +1,6 @@
 \name{Rank}
 \alias{Rank}
-\title{Fast rank}
+\title{Fast Sample Ranks}
 \description{
 The function \code{base::rank} has various weaknesses. Apart from the fact that it is not very fast, the option to calculate dense ranks is not implemented. Then, an argument for specifying the ranking direction is missing (assuming that this can be done with the ranking of the negative variables) and finally, multiple columns cannot be used in the case of ties for further ranking.
 \cr The function \code{data.table::frankv} provides a more elaborated interface and convinces by very performant calculations and is \emph{much faster} than the original. 

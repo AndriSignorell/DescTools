@@ -3798,6 +3798,8 @@ axTicks.Date <- function(side = 1, x, ...) {
 
 
 
+
+# lazy: takes the first matches
 `%:%` <- function(x, rng){
   i <- match(x, rng, nomatch = 0)
   from <- ifelse(length(from <- which(i==1))==0, 1, from)[1]
@@ -3811,6 +3813,24 @@ axTicks.Date <- function(side = 1, x, ...) {
   x[from:to]
   
 }
+
+
+# greedy: takes the first and the last
+`%::%` <- function(x, rng){
+  i <- match(x, rng, nomatch = 0)
+  from <- ifelse(length(from <- which(i==1))==0, 1, from)[1]
+  to <- ifelse(length(to <- which(i==2))==0, length(x), tail(to, 1))[1]
+  
+  # why the NA here???  
+  # if(from==1 & to==length(x))
+  #   NA
+  # else
+  
+  x[from:to]
+  
+}
+
+
 
 
 

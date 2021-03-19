@@ -10,6 +10,7 @@
 \alias{\%](\%}
 \alias{\%)(\%}
 \alias{\%:\%}
+\alias{\%::\%}
 
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Operators To Check, If a Value Lies Within Or Outside a Given Range
@@ -31,7 +32,7 @@ x \%)[\% rng
 x \%)(\% rng
 
 x \%:\% rng
-
+x \%::\% rng
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -44,16 +45,21 @@ x \%:\% rng
 %%     ~~Describe \code{rng} here~~
 }
 }
-\details{The between operators basically combine two conditional statements into one and simplify so the query process.\cr
+\details{The "BETWEEN" operators basically combine two conditional statements into one and simplify the query process.\cr
 They are merely a wrapper for:   \code{x >= rng[1] & x <= rng[2]},
-where the round bracket  \code{(}  means "strictly greater than >" and the square bracket  \code{[}  means ">=".  Numerical values of x will be handled by C-code, which is significantly faster than two comparisons in R (especially when x is huge).
+where the round bracket  \code{(}  means \emph{strictly greater (>)} and the square bracket  \code{[}  means \emph{greater or equal (>=)}.  Numerical values of x will be handled by C-code, which is significantly faster than two comparisons in R (especially when x is huge).
 .\cr
-\code{\%][\%} is the negation of \code{\%()\%}, meaning all values lying outside the given range. Elements on the limits will return TRUE.
-\cr
-\code{\%:\%} returns all the elements of a vector between the (first found) element \code{rng[1]} and \code{rng[2]}. If no match is found it returns \code{NA}. If \code{rng[2]} occurs first in the vector the elements will be returned in reverse order (which is the same behaviour as the \code{:} operator.
-\cr
-Both arguments will be recycled to the highest dimension, which is either the length of the vector or the number of rows of the matrix.\cr
+\code{\%][\%} is the negation of \code{\%()\%}, meaning all values lying outside the given range. Elements on the limits will return \code{TRUE}.
+
+
+Both arguments, \code{x} and \code{rng}, will be recycled to the highest dimension, which is either the length of the vector (\code{x}) or the number of rows of the matrix (\code{rng}).\cr
 See also the routines used to check, whether two ranges overlap (\code{\link{Overlap}}, \code{\link{Interval}}).
+
+
+\code{\%:\%} returns all the elements of a vector between the (first found) element \code{rng[1]} and \code{rng[2]}. If no match is found it returns \code{NA}. If \code{rng[2]} occurs before \code{rng[1]} in the vector the elements will be returned in reverse order (which is the same behaviour as the \code{:} operator).
+\cr
+\code{\%::\%} does the same in greedy mood. It uses the first match for \code{from} and the last match for \code{to}.
+\cr
 }
 \value{
 A logical vector of the same length as x.
@@ -135,6 +141,12 @@ x \%:\% c("G","X")
 
 # no match results in NA
 x \%:\% c("Y","B")
+
+(x <- c("B", "A", "X", "K", "S", "K", "G", "L", "K", "V", "K", "Z"))
+# lazy
+x \%:\% c("A", "K")
+# greedy
+x \%::\% c("A", "K")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
