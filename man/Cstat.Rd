@@ -64,6 +64,17 @@ boot.res <- boot(d.titanic, FUN, R=999)
 
 # the percentile confidence intervals
 boot.ci(boot.res, type="perc")
+
+## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+## Based on 999 bootstrap replicates
+##
+## CALL : 
+## boot.ci(boot.out = res, type = "perc")
+## 
+## Intervals : 
+## Level     Percentile     
+## 95\%   ( 0.7308,  0.7808 )  
+## Calculations and Intervals on Original Scale
 }   }
 \keyword{mod}
 

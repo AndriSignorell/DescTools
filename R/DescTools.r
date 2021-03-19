@@ -8957,7 +8957,7 @@ BarText <- function(height, b, labels=height, beside = FALSE, horiz = FALSE,
     if(horiz){
       if(is.null(adj)) adj <- 0
       if(top)
-        x <- height + offset + par("cxy")[1] * cex
+        x <- height + offset + sign(height) * par("cxy")[1] * cex
       else
         x <- offset + height / 2
       text(y=b, x=x, labels=labels, cex=cex, xpd=TRUE, adj=adj, ...)
@@ -8965,7 +8965,7 @@ BarText <- function(height, b, labels=height, beside = FALSE, horiz = FALSE,
     } else {
 
       if(top)
-        y <- height + offset + par("cxy")[2] * cex
+        y <- height + offset + sign(height) * par("cxy")[2] * cex
       else
         y <- offset + height/2
 

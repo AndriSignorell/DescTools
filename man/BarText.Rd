@@ -31,7 +31,7 @@ BarText(height, b, labels = height, beside = FALSE, horiz = FALSE,
 \item{cex}{numeric character expansion factor; multiplied by \code{\link{par}}\code{("cex")} yields the final character size. \code{NULL} and \code{NA} are equivalent to \code{1.0}.}
 \item{adj}{one or two values in [0, 1] which specify the x (and optionally y) adjustment of the labels. On most devices values outside that interval will also work.}
 
-\item{top}{logical, defining if the labels should be placed on top of the bars (id beside is set to \code{TRUE}). Will be ignored if \code{beside} is \code{FALSE}.}
+\item{top}{logical, defining if the labels should be placed on top of the bars (or above the bottom, if height is negative). Will be ignored if \code{beside} is \code{FALSE}.}
 
 \item{offset}{a vector indicating how much the bars should be shifted relative to the x axis.}
 

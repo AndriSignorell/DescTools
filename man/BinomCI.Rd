@@ -25,7 +25,7 @@ BinomCI(x, n, conf.level = 0.95, sides = c("two.sided", "left", "right"),
   \code{"wald"}, \code{"wilson"}, \code{"wilsoncc"}, \code{"agresti-coull"}, \code{"jeffreys"},
   \code{"modified wilson"}, \code{"modified jeffreys"}, \code{"clopper-pearson"},
   \code{"arcsine"}, \code{"logit"}, \code{"witting"}, \code{"pratt"}, \code{"midp"}, \code{"lik"} and \code{"blaker"}. Defaults to \code{"wilson"}.
-  Abbreviation of method are accepted. See details. }
+  Abbreviation of method is accepted. See details. }
   
   \item{rand}{ seed for random number generator; see details. }
   \item{tol}{tolerance for method \code{"blaker"}.}
@@ -105,7 +105,7 @@ Some approaches for the confidence intervals can potentially yield negative resu
   A vector with 3 elements for estimate, lower confidence intervall and upper for the upper one.
  }
 
-\note{ The base of this function was \code{binomCI()} in the  \pkg{SLmisc} package. In the meantime, the code has been updated several times  and has undergone many additions and bugfixes.
+\note{ The base of this function once was \code{binomCI()} from the \pkg{SLmisc} package. In the meantime, the code has been updated several times  and has undergone many additions and bugfixes.
 }
 
 
@@ -128,18 +128,17 @@ Wilcox, R. R. (2005) \emph{Introduction to robust estimation and hypothesis test
 Newcombe, R. G. (1998) Two-sided confidence intervals for the single proportion: comparison of seven methods, \emph{Statistics in Medicine}, 17:857-872
 https://pubmed.ncbi.nlm.nih.gov/16206245/
 
-Blaker, H. (2000) Confidence curves and improved exact confidence intervals for discrete distributions, \emph{Canadian Journal of Statistics} 28 (4), 783–798
+Blaker, H. (2000) Confidence curves and improved exact confidence intervals for discrete distributions, \emph{Canadian Journal of Statistics} 28 (4), 783-798
 }
 \author{ Matthias Kohl <Matthias.Kohl@stamats.de>,
 Rand R. Wilcox (Pratt's method), Michael Hoehle <hoehle@math.su.se> (Mid-p),
 Ralph Scherer <shearer.ra76@gmail.com> (Blaker), 
 Andri Signorell <andri@signorell.net> (interface issues and all the rest) }
 
-\seealso{\code{\link[stats]{binom.test}}, \code{\link[Hmisc]{binconf}}, \code{\link{MultinomCI}}, \code{\link{BinomDiffCI}}, \code{\link{BinomRatioCI}} }
+\seealso{\code{\link[stats]{binom.test}}, \code{\link[Hmisc]{binconf}}, \code{\link{MultinomCI}},  \code{\link{BinomDiffCI}}, \code{\link{BinomRatioCI}} }
 \examples{
-BinomCI(x=37, n=43, method=eval(formals(BinomCI)$method))
-
-
+BinomCI(x=37, n=43, 
+        method=eval(formals(BinomCI)$method))   # return all methods
 
 # the confidence interval computed by binom.test
 #   corresponds to the Clopper-Pearson interval
@@ -160,6 +159,5 @@ do.call(cbind, lapply(1:4,
                               "clopper-pearson", "midp", "lik"))[, -1], 
            digits=4)
 }))
-
 }
 \keyword{univar}
