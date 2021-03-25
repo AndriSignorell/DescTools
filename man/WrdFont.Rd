@@ -46,12 +46,12 @@ Andri Signorell <andri@signorell.net>
 wrd <- GetNewWrd()
 
 for(i in seq(10, 24, 2))
-  ToWrd(gettextf("This is Arial size %s \n", i), font=list(name="Arial", size=i))
+  ToWrd(gettextf("This is Arial size \%s \n", i), font=list(name="Arial", size=i))
 
 for(i in seq(10, 24, 2))
-  ToWrd(gettextf("This is Times size %s \n", i), font=list(name="Times", size=i))
+  ToWrd(gettextf("This is Times size \%s \n", i), font=list(name="Times", size=i))
 }}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ print }
-\keyword{MS-Office}
+\concept{MS-Office}

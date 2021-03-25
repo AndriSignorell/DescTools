@@ -11,7 +11,7 @@ export(
 "ColToGray","ColToGrey","ColToHex","ColToHsv","ColToRgb","ColToOpaque","RgbToHex", 
 "CombN","CombPairs","CombSet","ConDisPairs","Conf","ConnLines","ContCoef","Contrasts","CorCI",
 "CorPolychor","CramerV","CramerVonMisesTest","CronbachAlpha","CutQ","Day","Day<-","dBenf",
-"DecToHex","DecToOct","DegToRad","DenseRank","PercentRank",
+"DecToHex","DecToOct","DegToRad","PercentRank",
 "Timezone", "SetNames",
 "DescToolsOptions","DiffDays360","DivCoef","DivCoefMax","DoCall","DrawArc","DrawBand","DrawBezier","DrawCircle","DrawEllipse","DrawRegPolygon","dRevGumbel","Dummy",
 "DunnettTest","DunnTest",
@@ -25,7 +25,7 @@ export(
 "LillieTest","lines.Lc","lines.lm","lines.loess","lines.smooth.spline","lines.SmoothSpline","LinScale",
 "LOCF","LOF","Logit","LogitInv","LogSt","LogStInv","LsFct","LsObj",
 "Mar", "Mgp", "Margins","MeanAD",
-"MeanCI","MeanDiffCI","MeanSE","MedianCI","MHChisqTest","Midx","Minute","MixColor","Mode","Month",
+"MeanCI","MeanCIn","MeanDiffCI","MeanSE","MedianCI","MHChisqTest","Midx","Minute","MixColor","Mode","Month",
 "MosesTest","MoveAvg","MultinomCI","MutInf","Ndec",
 "NemenyiTest","Now","OctToDec","OddsRatio","OPR","OrderMixed","Outlier","Overlap",
 "PageTest",
@@ -46,10 +46,11 @@ export(
 "Skew","Small","SomersDelta","Sort","SortMixed","SpearmanRho","Spec","SphToCart","split.formula","SplitPath","SpreadOut","Stamp","Str","StrAbbr","StrAlign","Strata","StrCap","StrChop","StrCountW","StrDist","StrIsNumeric","StrLeft","StrPad","StrPos","StrRev","StrRight","StrTrim","StrTrunc","StrVal","StuartMaxwellTest","StuartTauC","SysInfo","TextContrastColor","TextToTable","TheilU","Today","ToLong","ToWide","Trim","TschuprowT",
 "UncertCoef","ConvUnit",
 "Untable", "ToWrd",
-"VarCI","VecRot","VecShift","Vigenere","Week","Weekday","Winsorize","WoolfTest","WrdCaption","WrdGoto","WrdPageBreak","WrdInsertBookmark","WrdTable","WrdKill","WrdPlot","WrdSaveAs",
-"WrdUpdateBookmark",
+"VarCI","VecRot","VecShift","Vigenere","Week","Weekday","Winsorize","WoolfTest","WrdCaption","WrdGoto","WrdPageBreak",
+"WrdInsertBookmark","WrdTable","WrdKill","WrdPlot","WrdSaveAs",
+"WrdUpdateBookmark","WrdDeleteBookmark",
 "XLGetRange","XLGetWorkbook","XLKill","XLView","ToXL","Year","YearDay","YearMonth",
-"YuenTTest","YuleQ","YuleY","ZeroIfNA","NAIfZero","BlankIfNA","NAIfBlank","Zodiac",
+"YuenTTest","YuleQ","YuleY","ZeroIfNA","NAIfZero","BlankIfNA","NAIfBlank","NAIf","Zodiac",
 "ZTest",
 "BinTree", "PlotECDF","Abind","TOne","MaxDigits","XLDateToPOSIXct",
 "axTicks.POSIXct", "print.PercTable", "PlotMosaic", "PDFManual", "LongToRgb", "PlotMiss","BreuschGodfreyTest",
@@ -64,7 +65,7 @@ export(
 "%^%", "TitleRect","BarText","as.CDateFmt", "Phrase", "N", "BootCI", "VonNeumannTest",
 "Append","ConoverTest",
 
-"%()%","%(]%","%)(%","%)[%","%[)%","%[]%","%](%","%][%","TTestA",
+"%()%","%(]%","%)(%","%)[%","%[)%","%[]%","%](%","%][%","%:%","%::%","TTestA",
 "DecToBin", "RomanToInt", "TukeyBiweight","PtInPoly",
 "JonckheereTerpstraTest", "AndersonDarlingTest", "BarnardTest","HoeffD","Desc",
 "CountCompCases", "SplitAt",
@@ -76,8 +77,10 @@ export(
 "NPV","NPVFixBond","YTM","PMT","IPMT","PPMT","SLN","DB","SYD","RBAL","Sample","DoBy",
 "Dot","Cross","CrossN", "Divisors", "createCOMReference","StrSpell", "WithOptions", "SaveAs", "XLSaveAs","Quot", "CompleteColumns",
 "SendOutlookMail", "MultMerge", "ToWrdB", "ToWrdPlot", "WrdBookmark","WrdOpenFile",
-"CmToPts", "PtsToCm","PlotPairs", "IQRw", "ImputeKnn", "CentralValue","AllIdentical","CountWorkDays",
-"VanWaerdenTest", "RSessionAlive", "RTempdirAlive", "StripAttr"
+"CmToPts", "PtsToCm","PlotPairs", "IQRw", "ImputeKnn", "AllIdentical","CountWorkDays",
+"VanWaerdenTest", "RSessionAlive", "RTempdirAlive", "StripAttr", "PlotConDens", "StrSplit", "SplitToCol",
+"CmykToCmy", "CmyToCmyk", "RgbToCmy", "CmykToRgb", "RevCode", "MADCI","QuantileCI", "BinomCIn",
+"GetCalls", "BhapkarTest", "StrExtractBetween", "GenRandGroups", "Rank"
 )
 
 
@@ -87,22 +90,25 @@ importFrom("stats", ".nknots.smspl", "IQR", "acf", "addmargins", "anova", "aov",
            "coef", "coefficients", "cov2cor", "df.residual","nobs", "vcov","update","relevel","rbeta", "rexp", "qexp","reshape",
            "confint.default", "ecdf", "glm", "reformulate", "aggregate")
 
+importFrom("data.table", "frankv", "frank")
 
 importFrom("graphics", "abline", "arrows", "axTicks", "axis", "barplot", "box", "boxplot", "clip", "close.screen", "dotchart", "frame", "grid", "hist", "identify", "image", "layout", "legend", "lines", "locator", "matlines", "matplot", "mosaicplot", "mtext", "pairs", "par",
            "plot", "plot.design", "plot.new", "plot.window", "points", "polygon", "rect", "screen", "segments", "split.screen", "strheight", "strwidth", "symbols", "text", "title",
            "grconvertX", "grconvertY")
-importFrom("grDevices", "chull", "col2rgb", "colorRampPalette", "colors", "dev.new", "dev.copy", "dev.cur", "dev.flush", "dev.hold", "dev.list", "dev.off", "dev.set", "gray.colors", "heat.colors", "rainbow", "rgb", "rgb2hsv", "xy.coords", "bitmap", "jpeg", "pdf", "png", "postscript", "tiff")
-importFrom("methods", "is")
+importFrom("grDevices", "chull", "col2rgb", "colorRampPalette", "colors", "dev.new", "dev.copy", "dev.cur", "dev.flush", "dev.hold", "dev.list", "dev.off", "dev.set", "gray.colors", "heat.colors", "rainbow", "rgb", "rgb2hsv", "xy.coords", "bitmap", "jpeg", "pdf", "png", "postscript", "tiff","adjustcolor")
+importFrom("methods", "is", "slot", "slotNames")
 importFrom("utils", "capture.output", "combn", "head", "help.search", "ls.str", "lsf.str", "memory.limit", "object.size", "read.table", "select.list", "sessionInfo", "stack", "str", "tail",
-           "write.table", "browseURL")
+           "write.table", "browseURL","getParseData","find", "getAnywhere")
 importFrom("boot", "boot", "boot.ci", "corr")
 importFrom("mvtnorm", "qmvt", "pmvnorm")
 importFrom("rstudioapi", "hasFun")
-
-importFrom(Rcpp, evalCpp)
+importFrom("gld", "dgl","pgl","fit.fkml")
+importFrom("Rcpp", "evalCpp")
 
 importFrom("MASS", "boxcox", "fractions")
 importFrom("expm", "%^%")
+
+importFrom("Exact","exact.test")
 
 
 
@@ -175,10 +181,12 @@ S3method(PostHocTest, table)
 S3method(Rev, default)
 S3method(Rev, matrix)
 S3method(Rev, table)
+S3method(Rev, array)
 S3method(Rev, data.frame)
 S3method(RunsTest, default)
 S3method(RunsTest, formula)
 S3method(ScheffeTest, aov)
+S3method(ScheffeTest, formula)
 S3method(ScheffeTest, default)
 S3method(SiegelTukeyTest, default)
 S3method(SiegelTukeyTest, formula)
@@ -197,6 +205,7 @@ S3method(ZTest, formula)
 S3method(identify, formula)
 S3method(lines, Lc)
 S3method(lines, lm)
+S3method(lines, lmlog)
 S3method(lines, loess)
 S3method(lines, smooth.spline)
 
@@ -342,6 +351,8 @@ S3method(ToXL, default)
 S3method(print, OddsRatio)
 S3method(plot, OddsRatio)
 
+S3method(ORToRelRisk, default)
+S3method(ORToRelRisk, OddsRatio)
 
 S3method(print, CountCompCases)
 

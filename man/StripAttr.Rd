@@ -53,4 +53,5 @@ StripAttr(x, "other_attr")
 % \concept{ ~cpt2 }
 % Use only one concept per line.
 
+\concept{ string }
 

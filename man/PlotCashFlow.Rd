@@ -7,7 +7,9 @@
 %%  ~~ A concise1111 (1-5 lines) description of what the function does. ~~
 }
 \usage{
-PlotCashFlow(x, y, xlim = NULL, labels = y)
+PlotCashFlow(x, y, xlim = NULL, labels = y, mar = NULL, 
+             cex.per = par("cex"), cex.tck = par("cex") * 0.8, 
+             cex.cash = par("cex"))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -23,6 +25,11 @@ PlotCashFlow(x, y, xlim = NULL, labels = y)
   \item{labels}{the labels of the cashflows will be printed outside the arrows.
 %%     ~~Describe \code{labels} here~~
 }
+\item{mar}{a vector with 4 elements, defining the margins for the plot}
+\item{cex.per}{the character extension for the period labels}
+\item{cex.tck}{character extension for the ticklabels, tipically years}
+\item{cex.cash}{the character extension for the labels of the cashflows}
+
 }
 \author{Andri Signorell <andri@signorell.net>
 %%  ~~who you are~~

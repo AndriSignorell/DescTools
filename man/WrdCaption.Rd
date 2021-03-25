@@ -45,4 +45,4 @@ sapply(1:5, function(i)
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ print }
-\keyword{MS-Office}
+\concept{MS-Office}

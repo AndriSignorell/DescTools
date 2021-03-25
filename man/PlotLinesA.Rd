@@ -34,7 +34,8 @@ PlotLinesA(x, y, col = 1:5, lty = 1, lwd = 1, lend = par("lend"),
   \item{cex}{character expansion factor relative to current \code{par("cex")}.
 %%     ~~Describe \code{xlim} here~~
 }
-\item{args.legend}{list of additional arguments for the legend; names of the list are used as argument names. If set to NA, the legend will be suppressed.}
+\item{args.legend}{list of additional arguments for the legend; names of the list are used as argument names. If set to NA, the legend will be suppressed. See details.
+}
 
   \item{main}{an overall title for the plot.
 %%     ~~Describe \code{main} here~~
@@ -59,6 +60,15 @@ PlotLinesA(x, y, col = 1:5, lty = 1, lwd = 1, lend = par("lend"),
 \details{This function is rather a template, than a function. It wraps \code{\link{matplot}} to generate a lines plot and adds a rather sophisticated legend on the right side, while calculating appropriate margins. A grid option is included (as \code{panel.first} does not work in matplot).
 
 As in matplot, the first column of x is plotted against the first column of y, the second column of x against the second column of y, etc. If one matrix has fewer columns, plotting will cycle back through the columns again. (In particular, either x or y may be a vector, against which all columns of the other argument will be plotted.)
+
+The legend can be controlled by following arguments:
+
+\preformatted{list(line = c(1, 1), width = 1, y = SpreadOut(unlist(last), 
+     mindist = 1.2 * strheight("M") * par("cex")), 
+     labels = names(last), cex = par("cex"), col = col[ord], 
+     lwd = lwd[ord], lty = lty[ord])}
+     
+All arguments are recycled.
 }
 \author{Andri Signorell <andri@signorell.net>
 %%  ~~who you are~~

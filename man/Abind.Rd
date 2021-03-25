@@ -68,9 +68,7 @@ see the examples below.  }
 If \code{TRUE}, the last resort for dimnames for the along
 dimension will be the deparsed versions of anonymous
 arguments.  This can result in cumbersome names when
-arguments are expressions.
-
-    <p>The default is \code{FALSE}.
+arguments are expressions. The default is \code{FALSE}.
 }
 
   \item{use.first.dimnames}{

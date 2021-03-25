@@ -20,10 +20,13 @@
 }
     \item{\code{pop2012}}{the population in 2012}
     \item{\code{gcpi2012}}{the gross national income (per capita) in dollars per country in 2012.}
+    
+    \item{\code{latitude}}{geographic coordinate that specifies the north–south position of a point on the Earth's surface. Latitude is an angle (defined below) which ranges from 0° at the Equator to 90° (North or South) at the poles. }
+    \item{\code{longitude}}{geographic coordinate that specifies the east–west position of a point on the Earth's surface, or the surface of a celestial body}
   }
 }
-\references{\url{http://en.wikipedia.org/wiki/ISO_3166-1}\cr
-\url{http://data.worldbank.org/data-catalog/health-nutrition-and-population-statistics}
+\references{\url{https://en.wikipedia.org/wiki/ISO_3166-1}\cr
+\url{https://datacatalog.worldbank.org/dataset/health-nutrition-and-population-statistics}
 %%  ~~ possibly secondary sources and usages ~~
 }
 \examples{

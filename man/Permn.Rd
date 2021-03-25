@@ -14,7 +14,7 @@ The values can be numeric values, characters or factors. \code{CombN} computes t
 \usage{
 Permn(x, sort = FALSE)
 
-CombN(x, m, repl = FALSE, ord = FALSE)
+CombN(n, m, repl = FALSE, ord = FALSE)
 CombSet(x, m, repl = FALSE, ord = FALSE, as.list = FALSE)
 
 }
@@ -23,6 +23,7 @@ CombSet(x, m, repl = FALSE, ord = FALSE, as.list = FALSE)
   \item{x}{a vector of numeric values or characters. Characters need not be unique.
 %%     ~~Describe \code{x} here~~
 }
+  \item{n}{number of elements from which to choose.}
   \item{m}{number of elements to choose. For \code{CombSet} can \code{m} be a numeric vector too.}
   \item{repl}{logical. Should repetition of the same element be allowed? Defaults to FALSE}
   \item{ord}{logical. Does the order matter? Default is FALSE.}
@@ -57,6 +58,7 @@ Permn(c("a", "b", "c", "a"))
 
 # only combinations of 2, but in every possible order
 x <- letters[1:4]
+n <- length(x)
 m <- 2
 
 # the samples
@@ -66,10 +68,10 @@ CombSet(x, m, repl=FALSE, ord=TRUE)
 CombSet(x, m, repl=FALSE, ord=FALSE)
 
 # the number of the samples
-CombN(x, m, repl=TRUE, ord=FALSE)
-CombN(x, m, repl=TRUE, ord=TRUE)
-CombN(x, m, repl=FALSE, ord=TRUE)
-CombN(x, m, repl=FALSE, ord=FALSE)
+CombN(n, m, repl=TRUE, ord=FALSE)
+CombN(n, m, repl=TRUE, ord=TRUE)
+CombN(n, m, repl=FALSE, ord=TRUE)
+CombN(n, m, repl=FALSE, ord=FALSE)
 
 # build all subsets of length 1, 3 and 5 and return a flat list
 x <- letters[1:5]
@@ -79,3 +81,5 @@ CombSet(x=x, m=c(1, 3, 5), as.list=TRUE)
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ math }
+\concept{ combinatorics }
+

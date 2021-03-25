@@ -53,3 +53,4 @@ StrAbbr(x, minchar=2, method="fix")
 % R documentation directory.
 \keyword{character}
 \keyword{utilities}
+\concept{ string }

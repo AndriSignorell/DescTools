@@ -4,7 +4,8 @@
 \title{Spearman Rank Correlation
 %%  ~~function to do ... ~~
 }
-\description{Calculate Spearman correlation coefficient and it's confidence interval.
+\description{Calculate Spearman correlation coefficient and its confidence interval. In addition to the base R function \code{\link{cor}()}, frequency tables are also accepted as arguments (i.e. actually weights are used).
+
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
@@ -30,7 +31,7 @@ This must be (an abbreviation of) one of the strings \code{"everything"}, \code{
 %%     ~~Describe \code{conf.level} here~~
 }
 }
-\details{The function calculates  Spearman's rho statistic by means of \code{cor(..., method="spearman")}. 
+\details{The function calculates Spearman's rho statistic by means of \code{cor(..., method="spearman")} when two variables \code{x} and \code{y} are supplied. If a frequency table is provided an implementation based on SAS documentation is used.\cr
 The confidence intervals are calculated via z-Transformation.\cr
 
  
@@ -57,9 +58,19 @@ Conover W. J. (1999) \emph{Practical Nonparametric Statistics (3rd edition)}. Wi
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-SpearmanRho(d.diamonds$clarity, d.diamonds$cut)
+pain <- as.table(matrix(c(26,  6, 26, 7, 23, 
+                           9, 18, 14, 9, 23), 
+                           ncol=5, byrow=TRUE, 
+        dimnames=list(adverse=c("no", "yes"), dose=1:5)))
 
-SpearmanRho(d.diamonds$clarity, d.diamonds$cut, conf.level = 0.95)
+SpearmanRho(pain)
+
+SpearmanRho(pain, conf.level=0.95)
+  
+# must be the same as
+with(Untable(pain), 
+     SpearmanRho(adverse, dose, conf.level=0.95))
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

@@ -13,6 +13,7 @@ v2+](https://img.shields.io/badge/License-GPL%20v2+-blue.svg)](https://www.gnu.o
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![R build
 status](https://github.com/AndriSignorell/DescTools/workflows/R-CMD-check/badge.svg)](https://github.com/AndriSignorell/DescTools/actions)
+[![pkgdown](https://github.com/AndriSignorell/DescTools/workflows/pkgdown/badge.svg)](https://andrisignorell.github.io/DescTools/)
 <!-- badges: end -->
 
 # Tools for Descriptive Statistics and Exploratory Data Analysis
@@ -38,7 +39,7 @@ used as naming rules (in absence of convincing alternatives). The
 contributed R packages as well.
 
 Feedback, feature requests, bug reports and other suggestions are
-welcome\! Please report problems to to [GitHub issues
+welcome\! Please report problems to [GitHub issues
 tracker](https://github.com/AndriSignorell/DescTools/issues)
 (preferred), Stack Overflow mentioning **DescTools** or directly to the
 maintainer.
@@ -83,10 +84,12 @@ install.packages("RDCOMClient", repos="http://www.omegahat.net/R")
 
 The *omegahat* repository does not benefit from the same update service
 as CRAN. So you may be forced to install a package compiled with an
-earlier version, which usually is not a problem. Use, e.g., for R 3.6x:
+earlier version, which usually is not a problem. Use e.g. for R 3.6.x/R
+4.0.x:
 
 ``` r
 url <- "http://www.omegahat.net/R/bin/windows/contrib/3.5.1/RDCOMClient_0.93-0.zip"
+url <- "http://www.omegahat.net/R/bin/windows/contrib/4.0/RDCOMClient_0.94-0.zip"
 install.packages(url, repos = NULL, type = "binary")
 ```
 
@@ -101,8 +104,7 @@ HWZ University of Applied Sciences in Business Administration Zurich.
 R is a community project. This can be seen from the fact that this
 package includes R source code and/or documentation previously published
 by [various authors and
-contributors](https://github.com/AndriSignorell/DescTools).
-<!-- This link will work after pkgdown website for DescTools is deployed. -->
+contributors](https://andrisignorell.github.io/DescTools/authors.html).
 Special thanks go to Beat Bruengger, Mathias Frueh, Daniel Wollschlaeger
 for their valuable contributions and testing. The good things come from
 all these guys, any problems are likely due to my tweaking. Thank you

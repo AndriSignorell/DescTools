@@ -43,12 +43,38 @@ Confidence intervals for this measure can be calculated by bootstrap.
 \seealso{\code{\link{BrierScore}}
 }
 \examples{
-r.glm <- glm(Survived ~ ., data=Untable(Titanic), family=binomial)
+d.titanic = Untable(Titanic)
+r.glm <- glm(Survived ~ ., data=d.titanic, family=binomial)
 Cstat(r.glm)
 
 # default interface
 Cstat(x = predict(r.glm, method="response"), 
       resp = model.response(model.frame(r.glm)))
-}
+  
+      
+# calculating bootstrap confidence intervals
+FUN <- function(d.set, i) {
+   r.glm <- glm(Survived ~ ., data=d.set[i,], family=binomial)
+   Cstat(r.glm)
+   }
+   
+\dontrun{
+library(boot)
+boot.res <- boot(d.titanic, FUN, R=999) 
+
+# the percentile confidence intervals
+boot.ci(boot.res, type="perc")
+
+## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+## Based on 999 bootstrap replicates
+##
+## CALL : 
+## boot.ci(boot.out = res, type = "perc")
+## 
+## Intervals : 
+## Level     Percentile     
+## 95\%   ( 0.7308,  0.7808 )  
+## Calculations and Intervals on Original Scale
+}   }
 \keyword{mod}
 

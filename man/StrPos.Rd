@@ -48,3 +48,4 @@ StrPos(x = levels(d.pizza$driver), pattern = "t")
 % R documentation directory.
 \keyword{character}
 \keyword{utilities}
+\concept{ string }

@@ -14,7 +14,7 @@ CutQ(x, breaks = quantile(x, seq(0, 1, by = 0.25), na.rm = TRUE),
 %- maybe also `usage' for other objects documented here.
 \arguments{
   \item{x}{ continous variable. }
-  \item{breaks}{ the breaks for creating groups. By default the quartiles will be used, say \code{quantile} \code{seq(0, 1, by = 0.25)} quantiles. See \code{\link{quantile}} for details. }
+  \item{breaks}{ the breaks for creating groups. By default the quartiles will be used, say \code{quantile} \code{seq(0, 1, by = 0.25)} quantiles. See \code{\link{quantile}} for details. If breaks is given as a single integer it is interpreted as the intended number of groups, e.g. \code{breaks=10} will return x cut in deciles.}
   \item{labels}{labels for the levels of the resulting category. By default, labels are defined as \code{Q1}, \code{Q2} to the length of breaks - 1. The parameter ist passed to \code{\link{cut}}, so if \code{labels} are set to \code{FALSE}, simple integer codes are returned instead of a factor.
 %%     ~~Describe \code{labels} here~~
 }
@@ -52,13 +52,13 @@ quartiles <- CutQ(x)
 table(quartiles)
 
 # cut into deciles
-deciles <- CutQ(x, seq(0, 1, by=0.1), labels=NULL)
+deciles <- CutQ(x, breaks=10, labels=NULL)
 table(deciles)
 
 # show handling of 'tied' quantiles.
 x <- round(x)  # discretize to create ties
 stem(x)        # display the ties
-deciles <- CutQ( x, seq(0, 1, by=0.1) )
+deciles <- CutQ(x, breaks=10)
 
 table(deciles) # note that there are only 5 groups (not 10) 
                # due to duplicates

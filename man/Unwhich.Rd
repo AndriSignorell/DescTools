@@ -31,7 +31,7 @@ Unwhich(idx, n, useNames = TRUE)
 %% ...
 }
 \references{
-\url{http://stackoverflow.com/questions/7659833/inverse-of-which}
+\url{https://stackoverflow.com/questions/7659833/inverse-of-which}
 %% ~put references to the literature/web site here ~
 }
 \author{Nick Sabbe

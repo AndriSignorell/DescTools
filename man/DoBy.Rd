@@ -79,7 +79,7 @@ d.frm$count <- DoBy(d.frm$x, d.frm$g, length)
 
 # rank
 d.frm$rank <- DoBy(d.frm$v, d.frm$g, rank)
-d.frm$dense_rank <- DoBy(d.frm$v, d.frm$g, DenseRank)
+d.frm$dense_rank <- DoBy(d.frm$v, d.frm$g, Rank, ties.method="dense")
 d.frm$rank_desc <- DoBy(d.frm$x, d.frm$g, function(x) rank(-x))
 
 # row_number

@@ -76,7 +76,8 @@ Tjur, T. (2009) Coefficients of determination in logistic regression models -
 Veall, M.R., & Zimmermann, K.F. (1992) Evalutating Pseudo-R2's fpr binary probit models.  \emph{Quality&Quantity}, 28, pp. 151-164
 
 }
-\author{Andri Signorell <andri@signorell.net>
+\author{Andri Signorell <andri@signorell.net> 
+with contributions of Ben Mainwaring <benjamin.mainwaring@yougov.com> and Daniel Wollschlaeger
 %%  ~~who you are~~
 }
 

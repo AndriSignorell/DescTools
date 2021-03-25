@@ -5,6 +5,7 @@
 \alias{ToWrd.character}
 \alias{ToWrd.lm}
 \alias{ToWrd.TOne}
+\alias{ToWrd.TMod}
 \alias{ToWrd.Freq}
 \alias{ToWrd.default}
 \alias{ToWrd.data.frame}
@@ -33,6 +34,10 @@ ToWrd(x, font = NULL, ..., wrd = DescToolsOptions("lastWord"))
 
 \method{ToWrd}{TOne}(x, font = NULL, para = NULL, main = NULL, align = NULL,
       autofit = TRUE, ..., wrd = DescToolsOptions("lastWord"))
+
+\method{ToWrd}{TMod}(x, font = NULL, para = NULL, main = NULL, align = NULL, 
+      split = " ", fixed=TRUE, autofit = TRUE, digits = 3, na.form = "-", ..., 
+      wrd = DescToolsOptions("lastWord")) 
 
 \method{ToWrd}{lm}(x, font = NULL, ..., wrd = DescToolsOptions("lastWord"))
 
@@ -93,7 +98,16 @@ ToWrd(x, font = NULL, ..., wrd = DescToolsOptions("lastWord"))
 %%     ~~Describe \code{\dots} here~~
 }
 \item{bullet}{logical, defines if the text should be formatted as bullet points.}
-  \item{wrd}{the pointer to a word instance. Can be a new one, created by \code{GetNewWrd()}
+\item{split}{character vector (or object which can be coerced to such) containing regular expression(s) (unless \code{fixed = TRUE}) to use for splitting. If empty matches occur, in particular if \code{split} has length 0, x is split into single characters. If \code{split} has length greater than 1, it is re-cycled along x.}
+\item{fixed}{logical. If TRUE match split exactly, otherwise use regular expressions. Has priority over perl.}
+  \item{digits}{integer, the desired (fixed) number of digits after the decimal point. Unlike \code{\link{formatC}} you will always get this number of digits even if the last digit is 0.
+%%     ~~Describe \code{digits} here~~
+}
+  \item{na.form}{character, string specifying how \code{NA}s should be specially formatted.
+  If set to \code{NULL} (default) no special action will be taken.
+%%     ~~Describe \code{pad} here~~
+}
+\item{wrd}{the pointer to a word instance. Can be a new one, created by \code{GetNewWrd()}
   or an existing one, created by \code{GetCurrWrd()}.
   Default is the last created pointer stored in \code{DescToolsOptions("lastWord")}.
 %%     ~~Describe \code{wrd} here~~
@@ -163,6 +177,28 @@ ToWrd(Format(tab, big.mark = "'", digits=0), wrd=wrd)
 zz <- ToWrd(Format(tab, big.mark = "'", digits=0), wrd=wrd)
 zz$Rows(1)$Select()
 WrdFont(wrd = wrd) <- list(name="Algerian", size=14, bold=TRUE)
+
+
+# Send a TMod table to Word using a split to separate columns
+r.ols <- lm(Fertility ~ . , swiss)
+r.gam <- glm(Fertility ~ . , swiss, family=Gamma(link="identity"))
+
+# Build the model table for some two models, creating a user defined
+# reporting function (FUN) with | as column splitter
+tm <- TMod(OLS=r.ols, Gamma=r.gam, 
+           FUN=function(est, se, tval, pval, lci, uci){
+              gettextf("\%s|[\%s, \%s]|\%s",
+                       Format(est, fmt=Fmt("num"), digits=2),
+                       Format(lci, fmt=Fmt("num"), digits=2), 
+                       Format(uci, fmt=Fmt("num"), digits=2),
+                       Format(pval, fmt="*")
+              )})
+
+# send it to Word, where we get a table with 3 columns per model
+# coef | confint | p-val
+wrd <- GetNewWrd()
+ToWrd(tm, split="|", align=StrSplit("lrclrcl"))
+)
 }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

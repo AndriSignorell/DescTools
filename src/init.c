@@ -27,10 +27,7 @@ extern void ADprobApproxInf(void *, void *, void *);
 extern void ADprobExactInf(void *, void *, void *);
 extern void ADprobN(void *, void *, void *, void *);
 extern void ADtestR(void *, void *, void *, void *);
-extern void Barnard(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
 extern void roman2int(void *, void *, void *);
-extern void ScoreS(void *, void *, void *, void *, void *, void *, void *, void *);
-extern void WaldS(void *, void *, void *, void *, void *, void *, void *, void *);
 extern void wgt_himed(void *, void *, void *, void *);
 extern void wgt_himed_i(void *, void *, void *, void *);
 
@@ -79,10 +76,7 @@ static const R_CMethodDef CEntries[] = {
   {"ADprobExactInf",  (DL_FUNC) &ADprobExactInf,   3},
   {"ADprobN",         (DL_FUNC) &ADprobN,          4},
   {"ADtestR",         (DL_FUNC) &ADtestR,          4},
-  {"Barnard",         (DL_FUNC) &Barnard,         10},
   {"roman2int",       (DL_FUNC) &roman2int,        3},
-  {"ScoreS",          (DL_FUNC) &ScoreS,           8},
-  {"WaldS",           (DL_FUNC) &WaldS,            8},
   {"wgt_himed",       (DL_FUNC) &wgt_himed,        4},
   {"wgt_himed_i",     (DL_FUNC) &wgt_himed_i,      4},
   {NULL, NULL, 0}

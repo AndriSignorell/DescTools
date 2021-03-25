@@ -119,7 +119,7 @@ In case of zero entries, 0.5 will be added to the table.
 tab <- matrix(c(2, 29, 35, 64, 12, 6), 3, 2, byrow=TRUE)
 dimnames(tab) <- list("Tap water exposure" = c("Lowest", "Intermediate", "Highest"),
                       "Outcome" = c("Case", "Control"))
-tab <- Rev(tab, direction="column")
+tab <- Rev(tab, margin=2)
 
 OddsRatio(tab[1:2,])
 OddsRatio(tab[c(1,3),])

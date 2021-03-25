@@ -37,5 +37,5 @@
     \item{\code{discyear}}{year of discovery of the element}
   }
 }
-\references{\url{http://en.wikipedia.org/wiki/Periodic_table}}
+\references{\url{https://en.wikipedia.org/wiki/Periodic_table}}
 \keyword{datasets}

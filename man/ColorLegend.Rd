@@ -9,7 +9,8 @@
 ColorLegend(x, y = NULL, cols = rev(heat.colors(100)), labels = NULL,
             width = NULL, height = NULL, horiz = FALSE, xjust = 0, yjust = 1,
             inset = 0, border = NA, frame = NA, cntrlbl = FALSE,
-            adj = ifelse(horiz, c(0.5, 1), c(1, 0.5)), cex = 1, ...)
+            adj = ifelse(horiz, c(0.5, 1), c(1, 0.5)), cex = 1, 
+            title = NULL, title.adj = 0.5, ...)
 }
 
 \arguments{
@@ -45,7 +46,8 @@ ColorLegend(x, y = NULL, cols = rev(heat.colors(100)), labels = NULL,
   \item{adj}{text alignment, horizontal and vertical. }
 
   \item{cex}{character extension for the labels, default 1.0. }
-
+\item{title}{a character string or length-one expression giving a title to be placed at the top of the legend. }
+\item{title.adj}{horizontal adjustment for title: see the help for \code{\link{par}("adj")}.}
 
   \item{\dots}{further arguments are passed to the function \code{text}. }
 }
@@ -89,7 +91,8 @@ ColorLegend(x=1, y=14, width=6, height=0.5, col=colorRampPalette(
 
 # G
 ColorLegend(x=1, y=12, width=6, height=1, col=colorRampPalette(c("black","blue",
-            "green","yellow","red"), space = "rgb")(10), horiz=TRUE, border="black")
+            "green","yellow","red"), space = "rgb")(10), horiz=TRUE, 
+            border="black", title="From black to red", title.adj=0)
 
 text(x = c(8,0.5,2.5,4.5,0.5,0.5,0.5)+.2, y=c(14,9,9,9,2,14,12), LETTERS[1:7], cex=2)
 

@@ -1,16 +1,3 @@
-# require("DescTools")
-#
-# options(warn=2)
-#
-# x <- d.pizza$temperature
-# z <- Desc(x, plotit=FALSE)
-#
-# stopifnot(identical(z[1:6],
-#           list(length=length(x), n=sum(!is.na(x)), NAs=sum(is.na(x)),
-#                unique=length(unique(na.omit(x))), `0s`=sum(na.omit(x)==0),
-#                mean=mean(x, na.rm=TRUE))))
-#
-# stopifnot(IsZero(z[["MeanSE"]] - MeanSE(x, na.rm=TRUE)))
 
 
 library(DescTools)
@@ -28,7 +15,6 @@ library(DescTools)
 
 set.seed(45)
 (z <- as.numeric(names(w <- table(x <- sample(-10:20, size=50, r=T)))))
-w
 
 stopifnot(all(
   identical(Mode(5), structure(5, freq = 1L))
@@ -56,4 +42,61 @@ stopifnot(all(
   , all.equal(MeanAD(x, center = 7), MeanAD(z, w, center = 7))
   
 ))
+
+
+
+# test Desc base function
+
+x <- c(rnorm(n = 100, sd = 10), NA) 
+z <- Desc(x)[[1]]
+
+stopifnot(all(  
+  identical(z$length,    length(x))
+  , identical(z$NAs,     sum(is.na(x)))
+  , identical(z$unique,  length(unique(na.omit(x))))
+  , identical(z$`0s`,    sum(x==0, na.rm=TRUE))
+  , IsZero(z$mean - mean(x, na.rm=TRUE))
+  , identical(unname(z$quant), 
+              unname(quantile(x, na.rm=TRUE, probs=c(0,0.05,.1,.25,.5,.75,.9,.95,1))))
+  , identical(z$range,   diff(range(x, na.rm=TRUE)))
+  , IsZero(z$sd - sd(x, na.rm=TRUE))
+  , IsZero(z$vcoef - sd(x, na.rm=TRUE)/mean(x, na.rm = TRUE))
+  , identical(z$mad,     mad(x, na.rm=TRUE))
+  , identical(z$IQR,     IQR(x, na.rm=TRUE))
+))
+
+
+
+
+# test BinomDiffCI with https://www.lexjansen.com/wuss/2016/127_Final_Paper_PDF.pdf
+
+# 5. Mee is given as 0.0533 in the literature, which probably is a rounding error
+# it's corrected from 0.533 to 0.534 in ‘lit1’ and from 0.7225 to 0.7224 in ‘lit2’ for comparison reasons
+# Mee 4 from  0.0857 to 0.0858
+
+meth <- c("wald","waldcc","hal","jp","mee","mn","score","scorecc","ha","ac","blj")
+
+stopifnot(all(
+  identical(unname(round(BinomDiffCI(56, 70, 48, 80, method = meth), 4)[, -1]), 
+            cbind(c(0.0575, 0.0441, 0.0535, 0.0531, 0.0534, 
+                    0.0528, 0.0524, 0.0428, 0.0494, 0.0525, 0.054), 
+                  c(0.3425, 0.3559, 0.3351, 0.3355, 0.3377, 
+                    0.3382, 0.3339, 0.3422, 0.3506, 0.3358, 0.34))),
+  identical(unname(round(BinomDiffCI(9, 10, 3, 10, method = meth), 4)[, -1]), 
+            cbind(c(0.2605, 0.1605, 0.1777, 0.176, 0.1821, 
+                    0.17, 0.1705, 0.1013, 0.1922, 0.16, 0.1869), 
+                  c(0.9395, 1, 0.8289, 0.8306, 0.837, 0.8406, 
+                    0.809, 0.8387, 1, 0.84, 0.904))),
+  identical(unname(round(BinomDiffCI(10, 10, 0, 20, method = meth), 4)[, -1]), 
+            cbind(c(1, 0.925, 0.7482, 0.7431, 0.7224, 0.7156, 
+                    0.6791, 0.6014, 0.95, 0.6922, 0.7854), 
+                  c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1))), 
+  identical(unname(round(BinomDiffCI(84, 101, 89, 105, method = meth), 4)[, -1]), 
+            cbind(c(-0.1162, -0.1259, -0.1152, -0.116, -0.1188, 
+                    -0.1191, -0.1177, -0.1245, -0.1216, -0.1168, -0.117), 
+                  c(0.0843, 0.094, 0.0834, 0.0843, 0.0858, 0.086, 0.0851, 
+                    0.0918, 0.0898, 0.085, 0.0852)))
+))
+
+
 

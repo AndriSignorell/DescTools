@@ -28,3 +28,4 @@ Christian W. Hoffmann <c-w.hoffmann@sunrise.ch>\cr
 some extensions Andri Signorell <andri@signorell.net>
 }
 \keyword{character}
+\concept{ string }

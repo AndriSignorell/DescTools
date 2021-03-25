@@ -55,7 +55,7 @@ percentile and bias-corrected (Mills and Zandvakili, 1997; Dixon et al., 1987; E
 The bias-corrected intervals are most appropriate for most applications. This is set as default for the \code{type} argument (\code{"bca"}).
 Dixon (1987) describes a refinement of the bias-corrected method known as 'accelerated' -
 this produces values very closed to conventional bias corrected intervals.\cr
-(Iain Buchan (2002) \emph{Calculating the Gini coefficient of inequality}, see: \url{http://www.statsdirect.com/help/default.htm#nonparametric_methods/gini.htm})
+(Iain Buchan (2002) \emph{Calculating the Gini coefficient of inequality}, see: \url{https://www.statsdirect.com/help/default.htm#nonparametric_methods/gini.htm})
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{

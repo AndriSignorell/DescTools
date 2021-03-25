@@ -24,7 +24,7 @@ DigitSum(x)
 %% ...
 }
 \references{
-URL: \url{http://stackoverflow.com/questions/18675285/digit-sum-function-in-r}
+URL: \url{https://stackoverflow.com/questions/18675285/digit-sum-function-in-r}
 }
 \author{Andri Signorell <andri@signorell.net> based on code by Julius benchmarked by Uwe
 %%  ~~who you are~~

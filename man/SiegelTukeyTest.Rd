@@ -87,7 +87,7 @@ Sheskin, D. J. (2004): \emph{Handbook of parametric and nonparametric statistica
 %% ~put references to the literature/web site here ~
 }
 \author{Daniel Malter, Tal Galili <tal.galili@gmail.com>, Andri Signorell <andri@signorell.net>\cr
-published on: \url{http://www.r-statistics.com/2010/02/siegel-tukey-a-non-parametric-test-for-equality-in-variability-r-code/}
+published on: \url{https://www.r-statistics.com/2010/02/siegel-tukey-a-non-parametric-test-for-equality-in-variability-r-code/}
 }
 
 \seealso{ \code{\link{mood.test}}, \code{\link{ansari.test}}, \code{\link{wilcox.test}},  \code{\link{LeveneTest}}

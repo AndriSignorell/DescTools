@@ -26,7 +26,7 @@ AddMonths(x, n, ...)
 \value{a vector of class \code{Date} with the same dimension as \code{x}, containing the transformed dates.
 }
 \references{
-Thanks to Antonio: \url{http://stackoverflow.com/questions/14169620/add-a-month-to-a-date}
+Thanks to Antonio: \url{https://stackoverflow.com/questions/14169620/add-a-month-to-a-date}
 }
 \author{Andri Signorell <andri@signorell.net>, based on code by Roland Rapold and Antonio
 }

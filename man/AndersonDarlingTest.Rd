@@ -56,7 +56,7 @@ AndersonDarlingTest(x, null = "punif", ..., nullname)
   Evaluating the Anderson-Darling Distribution.
   \emph{Journal of Statistical Software} \bold{9} (2), 1--5.
   February 2004.
-  \url{http://www.jstatsoft.org/v09/i02}
+  \url{https://www.jstatsoft.org/v09/i02}
 }
 \author{
   Original C code by George Marsaglia and John Marsaglia.

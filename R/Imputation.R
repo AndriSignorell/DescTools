@@ -10,7 +10,7 @@
 # Luis Torgo, Jan 2009
 # =====================================================
 
-CentralValue <- function(x, weights=NULL) {
+.CentralValue <- function(x, weights=NULL) {
   if (is.numeric(x)) {
     if (is.null(weights)) median(x,na.rm=T)
     else if ((s <- sum(weights)) > 0) sum(x*(weights/s)) else NA
@@ -83,9 +83,9 @@ ImputeKnn <- function(data, k=10, scale=T, meth='weighAvg', distData=NULL) {
     ks <- order(dist)[seq(k)]
     for(j in tgtAs)
       if (meth == 'median')
-        data[i,j] <- CentralValue(data[setdiff(distInit:N,nas),j][ks])
+        data[i,j] <- .CentralValue(data[setdiff(distInit:N,nas),j][ks])
     else 
-      data[i,j] <- CentralValue(data[setdiff(distInit:N,nas),j][ks],exp(-dist[ks]))
+      data[i,j] <- .CentralValue(data[setdiff(distInit:N,nas),j][ks],exp(-dist[ks]))
   }
   
   data[1:n,]

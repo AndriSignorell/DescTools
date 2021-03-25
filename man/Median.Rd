@@ -71,7 +71,7 @@ Note that there are alternative approaches for calculating weighted median (e.g.
 \seealso{\code{\link{quantile}} for general quantiles.
 \url{https://stat.ethz.ch/pipermail/r-help/2003-November/042684.html}
 
-\url{http://stackoverflow.com/questions/7925102/idiomatic-method-of-finding-the-median-of-an-ordinal}
+\url{https://stackoverflow.com/questions/7925102/idiomatic-method-of-finding-the-median-of-an-ordinal}
 }
 \examples{
 Median(1:4)                # = 2.5 [even number]
@@ -102,6 +102,13 @@ Median(d.pizza$temperature)
 
 Median(Freq(as.table(c(20,42,31,12))), breaks=c(0,4000,6000,8000,10000))
 
+# use weights
+x <- sample(20, 30, replace = TRUE)
+z <- as.numeric(names(w <- table(x)))
+
+(m1 <- Median(z, weights=w))
+(m2 <- Median(x))
+stopifnot(identical(m1, m2))
 }
 \keyword{univar}
 \keyword{robust}

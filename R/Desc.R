@@ -18,7 +18,8 @@ Desc <- function (x, ..., main=NULL, plotit=NULL, wrd = NULL) {
 
       # only if header exists (it does not for single variables!!)
       if(!is.null(z[["_objheader"]]))
-        z[["_objheader"]]["main"] <- gettextf("Describe %s (%s):", deparse(substitute(x)), class(x))
+        z[["_objheader"]]["main"] <- gettextf("Describe %s (%s):", paste(deparse(substitute(x)), collapse=" "), 
+                                              paste(class(x), collapse=" ,"))
 
       printWrd(x=z, main=main, plotit=plotit, ..., wrd=wrd)
 
@@ -207,7 +208,7 @@ desc <- function (x, main=NULL, xname=deparse(substitute(x)), digits=NULL, maxro
       }
 
       z$rfrq <- BinomCI(z$afrq, n, conf.level = conf.level)
-      z$conf.level=conf.level
+      z$conf.level <- conf.level
       z$class <- "logical"
 
 
@@ -364,10 +365,14 @@ Desc.formula <- function(formula, data = parent.frame(), subset, main=NULL, plot
         lst[[paste(resp, pred, sep=" ~ ")]][["digits"]] <- digits     # would not accept vectors when ["digits"] used. Why??
         
         lst[[paste(resp, pred, sep=" ~ ")]]["main"] <- if(is.null(main))
-            gettextf("%s ~ %s (%s)",
+            gettextf("%s ~ %s%s",
                 lst[[paste(resp, pred, sep=" ~ ")]]["xname"], 
                 lst[[paste(resp, pred, sep=" ~ ")]]["gname"], 
-                deparse(substitute(data)))
+                # don't display parent.frame() for simple formulas in main titles
+                if((ctxt <- deparse(substitute(data))) == "parent.frame()") 
+                  "" 
+                else 
+                  paste0(" (", ctxt,")"))
       }
     }
   
@@ -816,7 +821,9 @@ calcDesc.bivar     <- function(x, g, xname = NULL, gname = NULL, margin=FALSE, b
   } else if(!is.numeric(x) && !is.numeric(g)) {
 
     res$class  <- "factfact"
-    res$tab <- table(x[ok], g[ok])
+#    res$tab <- table(x[ok], g[ok], useNA=InDots(..., arg="useNA", default = "no"))
+# do not use x[ok] here, as we could not use NAs in the output
+    res$tab <- table(x, g, useNA=InDots(..., arg="useNA", default = "no"))
     res$rfrq <- InDots(..., arg="rfrq", default = "111")
     res$conf.level <- conf.level
     res$verbose <- verbose
@@ -1075,7 +1082,7 @@ print.Desc.logical  <- function(x, digits = NULL, ...) {
     rownames(out) <- rownames(x$afrq)
     colnames(out) <- c("freq", "perc",
                        gettextf(c("lci%s", "uci%s"),
-                                Format(x$conf.level, digits=2, leading="drop")))
+                                Format(x$conf.level, digits=2, ldigits=0)))
 
     txt <- capture.output(print(StrTrim(out), quote=FALSE, right=TRUE, print.gap=2))
     cat(paste(txt[1], DescToolsOptions("footnote")[1],
@@ -1442,7 +1449,7 @@ print.Desc.numfact  <- function(x, digits = NULL, ...){
     cat(gettextf("\nError in test(x) : %s\n\n", x$test$message))
   } else {
     cat(gettextf("\n%s:\n  %s", x$test["method"],
-                 .CaptOut(x$test)[5], "\n\n", sep=""))
+                 .CaptOut(x$test)[5]), "\n\n", sep="")
   }
 
   if((x$NAgs > 0) & (length(grep("NA", x$xname)) == 0))
@@ -2034,7 +2041,7 @@ plot.Desc.numfact <- function(x, main=NULL, add_ni = TRUE
 
     layout(matrix(c(1,2), ncol=2, byrow=TRUE), widths=c(2,1), TRUE)
 
-    boxplot(z, border="white", xaxt="n", yaxt="n", ... )
+    boxplot(z, col=par("bg"), border=par("bg"), xaxt="n", yaxt="n", ... )
     # set defaults for the boxplot
     args.boxplot1 <- list(x=z,
                           frame.plot = FALSE, main = "",
@@ -2050,7 +2057,7 @@ plot.Desc.numfact <- function(x, main=NULL, add_ni = TRUE
 
     if(add_ni)
       mtext(paste("n=", bx$n, sep=""), side=3, line=1, at=1:length(bx$n), cex=0.8)
-    d.frm <- data.frame(x$x, x$g)
+    d.frm <- data.frame(x$x, factor(x$g))
     names(d.frm) <- c(x$xname, x$gname)
     plot.design(d.frm, cex=0.8, xlab="", ylab="", cex.axis=0.8, main="")
 
@@ -2077,16 +2084,20 @@ plot.Desc.numfact <- function(x, main=NULL, add_ni = TRUE
 
 plot.Desc.numnum    <- function(x, main = NULL, col=SetAlpha(1, 0.3),
                                 pch = NULL, cex = par("cex"), bg = par("bg"),
-                                xlab= NULL, ylab= NULL, smooth = NULL, smooth.front = TRUE, ...) {
+                                xlab= NULL, ylab= NULL, smooth = NULL, smooth.front = TRUE, 
+                                conf.level=0.95, ...) {
 
-  if(is.null(main))
-    main <- x$main
-
-  plot(x=x$g, y=x$x, type="n", main=main, xlab=x$gname, ylab=x$xname, ...)
+  if(is.null(main)) main <- x$main
+  if(is.null(xlab)) xlab <- x$gname
+  if(is.null(ylab)) ylab <- x$xname
+  
+  plot(x=x$g, y=x$x, type="n", main=main, xlab=xlab, ylab=ylab, ...)
   grid()
   if(smooth.front)   # smoother should be in front of the points, this is ok, if x is long
     points(x=x$g, y=x$x, col=col, pch=pch, cex=cex, bg=bg)
 
+  smoot <- match.arg(smooth, choices = c("none", "loess", "lm", "spline", "exp"))
+  
   if(is.null(smooth)) {
     if(x$nvalid < 500)
       smooth <- "loess"
@@ -2094,14 +2105,24 @@ plot.Desc.numnum    <- function(x, main = NULL, col=SetAlpha(1, 0.3),
       smooth <- "spline"
   }
 
-  if(smooth=="loess"){
+  if(identical(smooth, NA) || smooth=="none"){
+    # do nothing
+    
+  } else if(smooth=="loess"){
     # lines(loess(x=x$g, y=x$x, na.action = na.omit))
-    lines(loess(x$x ~ x$g, na.action = na.omit))
+    lines(loess(x$x ~ x$g, na.action = na.omit), conf.level=conf.level)
 
   } else if(smooth=="spline"){
     with(na.omit(data.frame(y=x$x, x=x$g)),
-       lines(smooth.spline(x=x, y=y)))
-  }
+       lines(smooth.spline(x=x, y=y)), conf.level=conf.level)
+    
+  } else if(smooth=="lm"){
+#    lines(lm(x$x ~ x$g, na.action = na.omit))  
+    lines(lm(y~x, data=data.frame(y=x$x, x=x$g)), conf.level=conf.level)
+    
+  } else if(smooth=="exp"){
+    lines.lmlog(lm(log(y)~x, data=data.frame(y=x$x, x=x$g)), conf.level=conf.level)  
+  } 
 
   if(!smooth.front)
     points(x=x$g, y=x$x, col=col, pch=pch, cex=cex, bg=bg)

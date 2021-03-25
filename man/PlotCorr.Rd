@@ -103,7 +103,7 @@ PlotCorr(m, col=Pal("RedWhiteBlue1", 100), border="grey",
 PlotCorr(m, mincor = 0.7)
 x <- matrix(rep(1:ncol(m),each=ncol(m)), ncol=ncol(m))
 y <- matrix(rep(ncol(m):1,ncol(m)), ncol=ncol(m))
-txt <- Format(m, d=3, leading = "drop")
+txt <- Format(m, digits=3, ldigits=0)
 idx <- upper.tri(matrix(x, ncol=ncol(m)), diag=FALSE)
 
 # place the text on the upper triagonal matrix

@@ -53,9 +53,7 @@ For details look at the literate program of \code{faces}
 
 The smooth curves are computed by an algorithm found in:\cr
 Ralston, A. and Rabinowitz, P. (1985)
-\emph{A first course in numerical analysis}, McGraw-Hill, pp 76ff.\cr
-\url{http://www.wiwi.uni-bielefeld.de/~wolf/}: S/R - functions : faces
-   }
+\emph{A first course in numerical analysis}, McGraw-Hill, pp 76ff.}
 \author{   H. P. Wolf, some changes Andri Signorell <andri@signorell.net>   }
 \note{ based on version 12/2009 }
 

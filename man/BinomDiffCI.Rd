@@ -4,13 +4,13 @@
 \title{Confidence Interval for a Difference of Binomials
 %%  ~~function to do ... ~~
 }
-\description{Several confidence intervals for the difference between proportions are available, but they can produce markedly different results. Traditional approaches, such as the Wald interval do not perform well unless the sample size is large. Better intervals are available. These include the Agresti/Caffo method (2000), Newcombe Score method (1998) and a more computing intensive ones as by Miettinen and Nurminen (1985) or Mee (1984).
+\description{Several confidence intervals for the difference between proportions are available, but they can produce markedly different results. Traditional approaches, such as the Wald interval do not perform well unless the sample size is large. Better intervals are available. These include the Agresti/Caffo method (2000), Newcombe Score method (1998) and more computing intensive ones as by Miettinen and Nurminen (1985) or Mee (1984). The latter ones are favoured by Newcombe (when forced to choose between a rock and a hard place).
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
 BinomDiffCI(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided","left","right"),
-            method = c("wald", "waldcc", "ac", "score", "scorecc", "mn",
-                       "mee", "blj", "ha", "beal"))
+            method = c("ac", "wald", "waldcc", "score", "scorecc", "mn",
+                       "mee", "blj", "ha", "hal", "jp"))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -24,7 +24,7 @@ BinomDiffCI(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided","left","rig
 \code{"greater"} in a \code{t.test}.}
 
 
-  \item{method}{ one of \code{"wald"}, \code{"waldcc"}, \code{"ac"}, \code{"score"}, \code{"scorecc"}, \code{"mn"}, \code{"mee"}, \code{"blj"}, \code{"ha"}, \code{"beal"}.
+  \item{method}{ one of \code{"wald"}, \code{"waldcc"}, \code{"ac"}, \code{"score"}, \code{"scorecc"}, \code{"mn"}, \code{"mee"}, \code{"blj"}, \code{"ha"}, \code{"hal"}, \code{"jp"}.
 %%     ~~Describe \code{method} here~~
 }
 }
@@ -54,18 +54,20 @@ The \bold{Brown, Li's Jeffreys} (code \code{"blj"}) interval was proposed by Bro
 
 The \bold{Hauck-Anderson} (code \code{"ha"}) interval was proposed by Hauck-Anderson (1986).
 
-The \bold{Beal} (code \code{"beal"}) interval is described in Beal (1987).
-
+The \bold{Haldane} (code \code{"hal"}) interval is described in Newcombe (1998) and so is
+the \bold{Jeffreys-Perks} (code \code{"jp"}).
 
 Some approaches for the confidence intervals can potentially yield negative results or values beyond [-1, 1]. These would be reset such as not to exceed the range of [-1, 1].
 
 Which of the methods to use is currently still the subject of lively discussion and has not yet been conclusively clarified. See e.g. Fagerland (2011).
 
+The general consensus is that the most widely taught method \code{method="wald"} is inappropriate in many situations and should not be used. Recommendations seem to converge around the Miettinen-Nurminen based methods (\code{method="mn"}). 
+
 
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-  A vector with 3 elements for estimate, lower confidence intervall and upper for the upper one.
+  A matrix with 3 columns containing the estimate, the lower and the upper confidence intervall.
  }
 \references{
 Agresti, A, Caffo, B (2000) Simple and effective confidence intervals for proportions and difference of proportions result from adding two successes and two failures. \emph{The American Statistician} 54 (4), 280-288.
@@ -107,6 +109,18 @@ x1 <- 9; n1 <- 10; x2 <- 3; n2 <- 10
 yci <- BinomDiffCI(x1, n1, x2, n2, method=c("wald", "waldcc", "ac", "score",
             "scorecc", "mn", "mee", "blj", "ha"))
 Format(yci[, -1], digits=4)
+
+# https://www.lexjansen.com/wuss/2016/127_Final_Paper_PDF.pdf, page 9
+SetNames(round(
+  BinomDiffCI(56, 70, 48, 80, 
+              method=c("wald", "waldcc", "hal", 
+                       "jp", "mee",
+                       "mn", "score", "scorecc", 
+                       "ha", "ac", "blj"))[,-1], 4),
+  rownames=c("1. Wald, no CC", "2. Wald, CC", "3. Haldane", "4. Jeffreys-Perks",
+             "5. Mee", "6. Miettinen-Nurminen", "10. Score, no CC", "11. Score, CC",
+             "12. Hauck-Andersen", "13. Agresti-Caffo", "16. Brown-Li"))
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

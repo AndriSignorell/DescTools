@@ -550,9 +550,9 @@ Sample.default <- function (x, size, replace = FALSE, prob = NULL)
 
 
 
-CombN <- function(x, m, repl=FALSE, ord=FALSE){
+CombN <- function(n, m, repl=FALSE, ord=FALSE){
   # return the number for the 4 combinatoric cases
-  n <- length(x)
+  # n <- length(x)
   if(repl){
     res <- n^m
     if(!ord){
@@ -667,6 +667,14 @@ CombPairs <- function(x, y = NULL) {
     # if y is defined, all.x to all.y will be returned  
     expand.grid(x, y, stringsAsFactors=FALSE )
   }
+}
+
+
+
+GenRandGroups <- function(x, grp_n){
+  (grp <- sample(rep(j <- seq_along(grp_n), grp_n)))
+  idx <- sapply(j, function(x) which(grp==x))
+  lapply(idx, function(ii) x[ii])
 }
 
 
@@ -1297,8 +1305,29 @@ Closest <- function(x, a, which = FALSE, na.rm = FALSE){
 }
 
 
-DenseRank <- function(x, na.last = TRUE) {
-  as.numeric(as.factor(rank(x, na.last)))
+# DenseRank <- function(x, na.last = TRUE) {
+#   as.numeric(as.factor(rank(x, na.last)))
+# }
+
+
+
+Rank <- function(..., decreasing = FALSE, na.last = TRUE, 
+                 ties.method = c("average", "first", "last", 
+                                 "random", "max", "min", "dense")){
+  
+  ord <- replace(z <- as.numeric(!decreasing), list = z==0, values = -1)
+  
+  x <- list(...)
+  
+  if(length(x)==1){
+    x <- x[[1]]
+  } 
+  
+  if(!is.vector(x))
+    ord <- rep_len(ord, length(x))
+  
+  data.table::frankv(x=x, order=ord, na.last=na.last, ties.method=ties.method)
+
 }
 
 
@@ -1406,30 +1435,84 @@ StrExtract <- function(x, pattern, ...){
   regmatches(x, m)
 
   res <- rep(NA_character_, length(m))
-  res[m>0] <- regmatches(x, m)
+  res[ZeroIfNA(m)>0] <- regmatches(x, m)
   res
 
 }
 
 
-
-StrTrunc <- function(x, maxlen = 20) {
-
-  # original truncString from prettyR
-  # author: Jim Lemon
-
-  #   toolong <- nchar(x) > maxlen
-  #   maxwidth <- ifelse(toolong, maxlen - 3, maxlen)
-  #   chopx <- substr(x, 1, maxwidth)
-  #
-  #   for(i in 1:length(x)) if(toolong[i]) chopx[i] <- paste(chopx[i], "...", sep="")
-  #
-  #   return(formatC(chopx, width = maxlen, flag = ifelse(justify == "left", "-", " ")) )
-
-  # ... but this is all a bit clumsy, let's have it shorter - and much faster!  ;-)
-
-  paste(substr(x, 0L, maxlen), ifelse(nchar(x) > maxlen, "...", ""), sep="")
+StrExtractBetween <- function(x, left, right) {
+  
+  res <- rep(NA_character_, length(x))
+  # check that left and right exist, take care for NAs
+  valid <- sapply(StrPos(x, left) < StrPos(x, right), isTRUE)
+  
+  res[valid] <- gsub(gettextf(".*%s(.*?)%s.*", left, right), "\\1", x[valid])
+  
+  return(res)
+  
 }
+
+
+
+# StrTrunc <- function(x, maxlen = 20) {
+# 
+#   # original truncString from prettyR
+#   # author: Jim Lemon
+# 
+#   #   toolong <- nchar(x) > maxlen
+#   #   maxwidth <- ifelse(toolong, maxlen - 3, maxlen)
+#   #   chopx <- substr(x, 1, maxwidth)
+#   #
+#   #   for(i in 1:length(x)) if(toolong[i]) chopx[i] <- paste(chopx[i], "...", sep="")
+#   #
+#   #   return(formatC(chopx, width = maxlen, flag = ifelse(justify == "left", "-", " ")) )
+# 
+#   # ... but this is all a bit clumsy, let's have it shorter - and much faster!  ;-)
+# 
+#   paste(substr(x, 0L, maxlen), ifelse(nchar(x) > maxlen, "...", ""), sep="")
+# }
+
+
+StrTrunc <- function (x, maxlen = 20, ellipsis="...", wbound=FALSE) {
+  
+  # replace NAs with blanks, and store the indices
+  x[!(valid <- !is.na(x))] <- ""
+  
+  # recycle max length
+  maxlen <- rep(maxlen, length.out = length(x))
+  
+  # correct for word boundaries
+  if (wbound) {
+    for(i in seq_along(x)){
+      
+      # only change maxlen for overlong strings
+      if(nchar(x[i]) > maxlen[i]){
+        # get all word boundaries
+        ll <- gregexpr("\\b\\W+\\b", x[i], perl = TRUE)[[1]]
+        j <- ll <= maxlen[i]
+        
+        # use minimum of original maxlen and closest smaller maxlen respecting word boundaries 
+        maxlen[i] <- 
+          if(all(!j)) {
+            # length of first word is > maxlen, so return maxlen 
+            maxlen[i]     
+          } else {
+            max(ll[ll <= maxlen[i]])
+          }
+      }
+    }
+  }
+  
+  res <- paste0(substr(x, 0L, maxlen), ifelse(nchar(x) > maxlen, ellipsis, ""))
+  
+  # restore NAs
+  res[!valid] <- NA_character_
+  return(res)
+ 
+}
+
+
 
 
 StrAbbr <- function(x, minchar=1, method=c("left","fix")){
@@ -1828,6 +1911,8 @@ SplitPath <- function(path, last.is.file=NULL) {
   lst$dirname <- paste(lst$dirname, "/", sep="")
   lst$fullfilename <- basename(path)
 
+  lst$fullpath <- paste0(BlankIfNA(lst$drive), lst$dirname)
+  
   # lst$filename <- strsplit(lst$fullfilename, "\\.")[[1]][1]
   # lst$extension <- strsplit(lst$fullfilename, "\\.")[[1]][2]
 
@@ -1880,6 +1965,50 @@ StrSpell <- function(x, upr="CAP", type = c("NATO", "Morse")){
 }
 
 
+
+StrSplit <- function (x, split="", fixed = FALSE, perl = FALSE, useBytes = FALSE) {
+  # same as strsplit, but nicer defaults
+  res <- strsplit(x=x, split=split, fixed=fixed, perl=perl, useBytes=useBytes)
+  if(length(res)==1)
+    res <-  res[[1]]
+  
+  return(res)
+}
+
+
+
+SplitToCol <- function(x, split=" ", fixed = TRUE, na.form="", colnames=NULL){
+  
+  lst <- lapply(x, function(z)
+    strsplit(z, split = split, fixed = fixed))
+  
+  # we don't want to have values recycled here, but need same number
+  # of elements to afterwards be able to use rbind()
+  for(i in seq_along(lst)){
+    # find the maximal length of the splits in the column
+    maxlen <- max(sapply(lst[[i]], length))
+    # set all character vectors to same length
+    for(j in seq_along(lst[[i]])){
+      length(lst[[i]][[j]]) <- maxlen
+      # set na.form for missings
+      lst[[i]][[j]][is.na(lst[[i]][[j]])] <- na.form
+    }
+  }
+
+  # rbind all the columns
+  lst <- lapply(lst, function(z) do.call(rbind, z))
+  
+  res <- do.call(data.frame, list(lst, stringsAsFactors=FALSE))
+  
+  if(!is.null(colnames))
+    colnames(res) <- rep(colnames, length.out=ncol(res))
+  
+  # communicate the number of columns found 
+  attr(res, "cols") <- sapply(lst, ncol)
+  
+  return(res)
+  
+}
 
 
 
@@ -2158,12 +2287,21 @@ DoCall <- function (what, args, quote = FALSE, envir = parent.frame())  {
 }
 
 
-MultMerge <- function(..., all.x=TRUE, all.y=TRUE) {
+MultMerge <- function(..., all.x=TRUE, all.y=TRUE, by=NULL) {
   
   lst <- list(...)
   
   # if just one object, there's nothing to merge
   if(length(lst)==1)  return(lst[[1]])
+  
+  if(!is.null(by)){
+    # merge column is given and must exist in all the data.frames
+    # we overwrite the row.names and remove the merge column
+    for(i in seq_along(lst)){
+      rownames(lst[[i]]) <- lst[[i]][[by]]
+      lst[[i]][by] <- NULL
+    }
+  }  
   
   # the columnnames must be unique within the resulting data.frame
   unames <- SplitAt(make.unique(unlist(lapply(lst, colnames)), sep = "."), 
@@ -2207,6 +2345,14 @@ MultMerge <- function(..., all.x=TRUE, all.y=TRUE) {
   
   res[ord, ]
   
+  if(!is.null(by)){
+    # restore key and remove rownames if there was one
+    res <- data.frame(row.names(res), res)
+    colnames(res)[1] <- by
+    rownames(res) <- c()
+  }
+  
+  return(res)
   
   
 }
@@ -2231,9 +2377,9 @@ as.matrix.xtabs <- function(x, ...){
 }
 
 
-TextToTable <- function(x, dimnames = NULL, ...){
+TextToTable <- function(x, dimnames = NULL, check.names=FALSE, ...){
 
-  d.frm <- read.table(text=x, ...)
+  d.frm <- read.table(text=x, check.names=check.names, ...)
   tab <- as.table(as.matrix(d.frm))
   if(!is.null(dimnames)) names(dimnames(tab)) <- dimnames
 
@@ -2272,6 +2418,46 @@ Recode <- function(x, ..., elselevel=NA, use.empty=FALSE, num=FALSE){
   return(x)
 }
 
+
+# RevCode <- function(x, lbound=min(x, na.rm=TRUE), ubound=max(x, na.rm=TRUE)) {
+#   
+#   x <- as.numeric(x)
+#   
+#   x[x %)(% c(lbound, ubound)] <- NA
+#   
+#   return(lbound + ubound - x)
+#   
+# }
+
+
+
+RevCode <- function (x) {
+  
+  if(is.factor(x)) {
+    levels(x) <- rev(levels(x))
+    res <- factor(x, levels=rev(levels(x)))
+    
+  } else if(is.numeric(x)){
+    res <- (min(x) + max(x) - x)
+    
+  } else if(is.logical(x)) {
+    res <- as.logical(1 - x)
+    
+  } else {
+    res <- NA
+  }
+  
+  return(res)  
+  
+}
+
+
+
+
+NAIf <- function (x, what) {
+  x[!is.na(match(x, what))] <- NA
+  return(x)
+} 
 
 
 ZeroIfNA <- function(x) {
@@ -3275,8 +3461,12 @@ Zodiac <- function(x, lang = c("engl","deu"), stringsAsFactors = TRUE) {
     , deu =  {z <- c("Steinbock","Wassermann","Fische","Widder","Stier","Zwillinge","Krebs","Loewe","Jungfrau","Waage","Skorpion","Schuetze","Steinbock") }
   )
 
-  i <- cut(DescTools::Month(x)*100 + DescTools::Day(x),
-           breaks=c(0,120,218,320,420,520,621,722,822,923,1023,1122,1221,1231))
+  # i <- cut(DescTools::Month(x)*100 + DescTools::Day(x),
+  #          breaks=c(0,120,218,320,420,520,621,722,822,923,1023,1122,1221,1231))
+  i <- cut(DescTools::Month(x) * 100 + DescTools::Day(x), 
+           breaks = c(0,120,218,320,420,520,621,722,823,922,1023,1122,1222,1231), 
+           right=FALSE, include.lowest = TRUE)
+  
   if(stringsAsFactors){
     res <- i
     levels(res) <- z
@@ -3608,6 +3798,42 @@ axTicks.Date <- function(side = 1, x, ...) {
 
 
 
+
+# lazy: takes the first matches
+`%:%` <- function(x, rng){
+  i <- match(x, rng, nomatch = 0)
+  from <- ifelse(length(from <- which(i==1))==0, 1, from)[1]
+  to <- ifelse(length(to <- which(i==2))==0, length(x), to)[1]
+
+  # why the NA here???  
+  # if(from==1 & to==length(x))
+  #   NA
+  # else
+  
+  x[from:to]
+  
+}
+
+
+# greedy: takes the first and the last
+`%::%` <- function(x, rng){
+  i <- match(x, rng, nomatch = 0)
+  from <- ifelse(length(from <- which(i==1))==0, 1, from)[1]
+  to <- ifelse(length(to <- which(i==2))==0, length(x), tail(to, 1))[1]
+  
+  # why the NA here???  
+  # if(from==1 & to==length(x))
+  #   NA
+  # else
+  
+  x[from:to]
+  
+}
+
+
+
+
+
 # Not %in% operator
 `%nin%` <- function(x, table) match(x, table, nomatch = 0) == 0
 
@@ -3730,8 +3956,30 @@ Overlap <- function(x, y){
 
 AllIdentical <- function(...){
   lst <- list(...)
-  all(sapply(lst[-1], identical, lst[[1]]))
   # identical ought to be transitive, so if A is identical to C and to D, then C should be identical to D
+  
+  # all(sapply(lst[-1], identical, lst[[1]]))
+  
+  # we might not need to compare all elements
+  for(i in seq_along(lst)[-1]){
+    
+    if(!identical(lst[[i]], lst[[1]])){
+      # we can stop after the first inequality
+      return(FALSE)
+    }
+  }
+  return(TRUE)
+  
+  # 3 times faster than original
+  
+  # library(microbenchmark)
+  # microbenchmark(
+  #   orig = AllIdentical(A, B, C, D, E),
+  #   A = AllIdenticalA(A, B, C, D, E), 
+  #   times  = 2000L
+  # )
+  
+  
 }
 
 
@@ -4120,7 +4368,7 @@ Some.matrix <- function (x, n = 6L, addrownums = TRUE, ...) {
   n <- if (n < 0L)
     max(nrx + n, 0L)
   else min(n, nrx)
-  sel <- sort(sample(nrow(x)))
+  sel <- sort(sample(nrow(x), n))
   ans <- x[sel, , drop = FALSE]
   if (addrownums && is.null(rownames(x)))
     rownames(ans) <- format(sprintf("[%d,]", sel), justify = "right")
@@ -4152,6 +4400,26 @@ LsObj <- function(package){
   # example  lsf("DescTools")
   ls(pos = gettextf("package:%s", package))
 }
+
+
+GetCalls <- function (fun, alphabetic = TRUE, package=NULL) {
+  
+  tmp <- utils::getParseData(parse(text = getAnywhere(fun), keep.source = TRUE))
+  nms <- tmp$text[which(tmp$token == "SYMBOL_FUNCTION_CALL")]
+  funs <- unique(if (alphabetic) {
+    sort(nms)
+  } else {
+    nms
+  })
+  
+  src <- paste(as.vector(sapply(funs, find)))
+  outlist <- tapply(funs, factor(src), c)
+  
+  if(!is.null(package))
+    outlist <- outlist[grep(package, names(outlist))]
+  return(outlist)
+}
+
 
 
 What <- function(x){
@@ -4752,10 +5020,10 @@ Prec <- function (x) {
 # http://www.originlab.com/doc/Origin-Help/Options-Dialog-NumFormat-Tab
 
 Format <- function(x, digits = NULL, sci = NULL
-                   , big.mark=NULL, leading = NULL
+                   , big.mark=NULL, ldigits = NULL
                    , zero.form = NULL, na.form = NULL
                    , fmt = NULL, align = NULL, width = NULL
-                   , lang = NULL,  eps = .Machine$double.eps, ...){
+                   , lang = NULL,  eps = NULL, ...){
   UseMethod("Format")
 }
 
@@ -4778,12 +5046,12 @@ Format <- function(x, digits = NULL, sci = NULL
 
 
 Format.data.frame <- function(x, digits = NULL, sci = NULL
-                              , big.mark=NULL, leading = NULL
+                              , big.mark=NULL, ldigits = NULL
                               , zero.form = NULL, na.form = NULL
-                              , fmt = NULL, align = NULL, width = NULL, lang = NULL, eps = .Machine$double.eps, ...){
+                              , fmt = NULL, align = NULL, width = NULL, lang = NULL, eps = NULL, ...){
 
   # organise arguments as list ...
-  lst <- list(digits=digits, sci=sci, big.mark=big.mark, leading=leading,
+  lst <- list(digits=digits, sci=sci, big.mark=big.mark, ldigits=ldigits,
               zero.form=zero.form, na.form=na.form, fmt=fmt, align=align,
               width=width, lang=lang, eps=eps)
   # ... in order to be able to filter NULLs
@@ -4793,7 +5061,7 @@ Format.data.frame <- function(x, digits = NULL, sci = NULL
 
   for(i in seq(attr(arg, "maxdim")))
     x[,i] <- Format(x[,i], digits = arg$digits[i],
-                    sci = arg$sci[i], big.mark = arg$big.mark[i], leading = arg$leading[i],
+                    sci = arg$sci[i], big.mark = arg$big.mark[i], ldigits = arg$ldigits[i],
                     zero.form = arg$zero.form[i],
                     na.form = arg$na.form[i], fmt = arg$fmt[i], align = arg$align[i],
                     width = arg$width[i], lang = arg$lang[i], eps= arg$eps[i])
@@ -4805,12 +5073,12 @@ Format.data.frame <- function(x, digits = NULL, sci = NULL
 
 
 Format.matrix <- function(x, digits = NULL, sci = NULL
-                           , big.mark=NULL, leading = NULL
+                           , big.mark=NULL, ldigits = NULL
                            , zero.form = NULL, na.form = NULL
-                           , fmt = NULL, align = NULL, width = NULL, lang = NULL,  eps = .Machine$double.eps, ...){
+                           , fmt = NULL, align = NULL, width = NULL, lang = NULL,  eps = NULL, ...){
 
   x[,] <- Format.default(x=x, digits=digits, sci=sci, big.mark=big.mark,
-                         leading=leading, zero.form=zero.form, na.form=na.form,
+                         ldigits=ldigits, zero.form=zero.form, na.form=na.form,
                          fmt=fmt, align=align, width=width, lang=lang, eps=eps,...)
 
   class(x) <- c("Format", class(x))
@@ -4819,11 +5087,11 @@ Format.matrix <- function(x, digits = NULL, sci = NULL
 
 
 Format.table <- function(x, digits = NULL, sci = NULL
-                          , big.mark = NULL, leading = NULL
+                          , big.mark = NULL, ldigits = NULL
                           , zero.form = NULL, na.form = NULL
-                          , fmt = NULL, align = NULL, width = NULL, lang = NULL,  eps = .Machine$double.eps, ...){
+                          , fmt = NULL, align = NULL, width = NULL, lang = NULL,  eps = NULL, ...){
   x[] <- Format.default(x=x, digits=digits, sci=sci, big.mark=big.mark,
-                         leading=leading, zero.form=zero.form, na.form=na.form,
+                        ldigits=ldigits, zero.form=zero.form, na.form=na.form,
                          fmt=fmt, align=align, width=width, lang=lang, eps=eps, ...)
 
   class(x) <- c("Format", class(x))
@@ -4925,9 +5193,11 @@ as.CDateFmt <- function(fmt) {
 
 
 Format.default <- function(x, digits = NULL, sci = NULL
-                           , big.mark = NULL, leading = NULL
+                           , big.mark = NULL, ldigits = NULL
                            , zero.form = NULL, na.form = NULL
-                           , fmt = NULL, align = NULL, width = NULL, lang = NULL,  eps = .Machine$double.eps, ...){
+                           , fmt = NULL, align = NULL, width = NULL
+                           , lang = NULL
+                           , eps = NULL, ...){
   
   
   .format.pval <- function(x, eps, digits=NULL){
@@ -4975,39 +5245,70 @@ Format.default <- function(x, digits = NULL, sci = NULL
   .format.pstars <- function(x, eps, digits)
     paste(.format.pval(x, eps, digits), .format.stars(x))
   
-  .leading.zero <- function(x, n){
+  # .leading.zero <- function(x, n, big.mark=NULL){
+  #   # just add a given number of leading zeros
+  #   # split at the decimal separator
+  #   outdec <- getOption("OutDec")
+  #   z <- strsplit(as.character(x), split=outdec, fixed = TRUE)
+  #   # left side
+  #   zl <- lapply(z, "[", 1)
+  #   zl <- sapply(zl, function(x) sprintf(paste0("%0", n + (x<0)*1, "i"), as.numeric(x)))
+  #   # right side
+  #   zr <- sapply(z, "[", 2)
+  #   zr <- ifelse(is.na(zr), "", paste(outdec, zr, sep=""))
+  #   
+  #   paste(zl, zr, sep="")
+  #   
+  # }
+  
+  .leading.zero <- function(x, n, big.mark=NULL){
     # just add a given number of leading zeros
-    # split at the .
-    z <- strsplit(as.character(x), split=".", fixed = TRUE)
+    # split at the decimal separator
+    outdec <- getOption("OutDec")
+    z <- strsplit(as.character(x), split=outdec, fixed = TRUE)
     # left side
     zl <- lapply(z, "[", 1)
-    zl <- sapply(zl, function(x) sprintf(paste0("%0", n + (x<0)*1, "i"), as.numeric(x)))
+    zl <- sapply(zl, 
+                 function(x) {
+                   # remove big.marks
+                   if(!is.null(big.mark))
+                     x <- gsub(big.mark, "", x)
+                   # append leading 0s
+                   res <- sprintf(paste0("%0", n + (x<0)*1, "i"), 
+                                  as.numeric(x))
+                   if(!is.null(big.mark))
+                     # restore big.marks
+                     res <- StrRev(paste(StrChop(StrRev(res), 
+                                                 len = rep(3, times=nchar(res) %/% 3 + ((nchar(res) %% 3)!=0)*1L)), collapse=big.mark))
+                   return(res)
+                 })
     # right side
     zr <- sapply(z, "[", 2)
-    zr <- ifelse(is.na(zr), "", paste(".", zr, sep=""))
+    zr <- ifelse(is.na(zr), "", paste(outdec, zr, sep=""))
     
     paste(zl, zr, sep="")
     
   }
   
-  .format.eng <- function(x, digits = NULL, leading = NULL
+  
+  .format.eng <- function(x, digits = NULL, ldigits = 1
                           , zero.form = NULL, na.form = NULL){
     
     s <- lapply(strsplit(format(x, scientific=TRUE), "e"), as.numeric)
     y <- unlist(lapply(s, "[[", 1))
     pwr <- unlist(lapply(s, "[", 2))
     
-    return(paste(Format(y * 10^(pwr %% 3), digits=digits, leading=leading,
+    return(paste(Format(y * 10^(pwr %% 3), digits=digits, ldigits=ldigits,
                         zero.form = zero.form, na.form=na.form)
                  , "e"
                  , c("-","+")[(pwr >= 0) + 1]
-                 , Format(abs((pwr - (pwr %% 3))), leading = "00", digits=0)
+                 , Format(abs((pwr - (pwr %% 3))), ldigits = 2, digits=0)
                  , sep="")
     )
     
   }
   
-  .format.engabb <- function(x, digits = NULL, leading = NULL
+  .format.engabb <- function(x, digits = NULL, ldigits = 1
                              , zero.form = NULL, na.form = NULL){
     
     s <- lapply(strsplit(format(x, scientific=TRUE), "e"), as.numeric)
@@ -5016,14 +5317,14 @@ Format.default <- function(x, digits = NULL, sci = NULL
     
     a <- paste("1e"
                , c("-","+")[(pwr >= 0) + 1]
-               , Format(abs((pwr - (pwr %% 3))), leading = "00", digits=0)
+               , Format(abs((pwr - (pwr %% 3))), ldigits=2, digits=0)
                , sep="")
     am <- d.prefix$abbr[match(as.numeric(a), d.prefix$mult)]
     
     a[!is.na(am)] <- am[!is.na(am)]
     a[a == "1e+00"] <- ""
     
-    return(paste(Format(y * 10^(pwr %% 3), digits=digits, leading=leading,
+    return(paste(Format(y * 10^(pwr %% 3), digits=digits, ldigits=ldigits,
                         zero.form = zero.form, na.form=na.form)
                  , " " , a
                  , sep="")
@@ -5042,9 +5343,16 @@ Format.default <- function(x, digits = NULL, sci = NULL
   #
   #   Format(7845, fmt=fmt.int)
   
-  
+  if(!is.null(InDots(..., arg = "leading", default=NULL)))
+    warning("Argument 'leading' is not supported anymore, use 'ldigits' (see help)!")
   
   if(is.null(fmt)) fmt <- ""
+  
+  if (length(fmt) == 1) 
+    if(is.character(fmt) && (fmt %in% names(DescToolsOptions("fmt")))) {
+      fmt <- Fmt(fmt)
+    }  
+  
   if(class(fmt) == "fmt") {
     
     # we want to offer the user the option to overrun format definitions
@@ -5054,13 +5362,13 @@ Format.default <- function(x, digits = NULL, sci = NULL
     if(!is.null(digits))    fmt$digits <- digits
     if(!is.null(sci))       fmt$sci <- sci
     if(!is.null(big.mark))  fmt$big.mark <- big.mark
-    if(!is.null(leading))   fmt$leading <- leading
+    if(!is.null(ldigits))   fmt$ldigits <- ldigits
     if(!is.null(zero.form)) fmt$zero.form <- zero.form
     if(!is.null(na.form))   fmt$na.form <- na.form
     if(!is.null(align))     fmt$align <- align
     if(!is.null(width))     fmt$sci <- width
     if(!is.null(lang))      fmt$lang <- lang
-    fmt$eps <- eps
+    if(!is.null(eps))       fmt$eps <- eps
     
     return(do.call(Format, c(fmt, x=list(x))))
   }
@@ -5085,6 +5393,9 @@ Format.default <- function(x, digits = NULL, sci = NULL
     sci <- Coalesce(NAIfZero(getOption("scipen")), 7) # default
   
   sci <- rep(sci, length.out=2)
+  
+  if(is.null(eps))
+    eps <- .Machine$double.eps
   
   if(is.null(big.mark)) big.mark <- ""
   
@@ -5127,10 +5438,10 @@ Format.default <- function(x, digits = NULL, sci = NULL
     r <- .format.pstars(x, eps, digits)
     
   } else if(fmt=="eng"){
-    r <- .format.eng(x, digits=digits, leading=leading, zero.form=zero.form, na.form=na.form)
+    r <- .format.eng(x, digits=digits, ldigits=ldigits, zero.form=zero.form, na.form=na.form)
     
   } else if(fmt=="engabb"){
-    r <- .format.engabb(x, digits=digits, leading=leading, zero.form=zero.form, na.form=na.form)
+    r <- .format.engabb(x, digits=digits, ldigits=ldigits, zero.form=zero.form, na.form=na.form)
     
   } else if(fmt=="e"){
     r <- formatC(x, digits = digits, width = width, format = "e",
@@ -5153,11 +5464,18 @@ Format.default <- function(x, digits = NULL, sci = NULL
     if(fmt != "")
       warning(gettextf("Non interpretable fmt code will be ignored.", fmt))
     
-    if(all(is.na(sci))) {
+    if(identical(sci, NA)) {
       # use is.na(sci) to inhibit scientific notation
       r <- formatC(x, digits = digits, width = width, format = "f",
                    big.mark=big.mark)
     } else {
+      
+      # so far a numeric value, interpret negative digits
+      if(!is.null(digits) && digits < 0){
+        x <- round(x, digits=digits)
+        digits <- 0
+      }
+      
       idx <- (((abs(x) > .Machine$double.eps) & (abs(x) <= 10^-sci[2])) | (abs(x) >= 10^sci[1]))
       r <- as.character(rep(NA, length(x)))
       
@@ -5175,9 +5493,9 @@ Format.default <- function(x, digits = NULL, sci = NULL
                                                  big.mark=big.mark, drop0trailing = FALSE))
     }
     
-    if(!is.null(leading)){
+    if(!is.null(ldigits)){
       # handle leading zeros ------------------------------
-      if(leading %in% c("","drop")) {
+      if(ldigits == 0) {
         # drop leading zeros
         r <- gsub("(?<![0-9])0+\\.", "\\.", r, perl = TRUE)
         
@@ -5187,14 +5505,8 @@ Format.default <- function(x, digits = NULL, sci = NULL
         # old: mind the minus
         # res <- gsub("[^[:digit:]]0+\\.","\\.", res)
         
-      } else if(grepl("^[0]*$", leading)){
-        # leading contains only zeros, so let's use them as leading zeros
-        #         old:
-        #         n <- nchar(leading) - unlist(lapply(lapply(strsplit(res, "\\."), "[", 1), nchar))
-        
-        # old: did not handle - correctly
-        # res <- StrPad(res, pad = "0", width=nchar(res) + pmax(n, 0), adj="right")
-        r <- .leading.zero(r, nchar(leading))
+      } else {
+        r <- .leading.zero(r, ldigits, big.mark = big.mark)
       }
     }
     
@@ -5224,10 +5536,11 @@ Format.default <- function(x, digits = NULL, sci = NULL
 
 
 
-print.Format <- function (x, ...) {
+print.Format <- function (x, quote=FALSE, ...) {
 
   class(x) <- class(x)[class(x)!="Format"]
-  NextMethod("print", quote = FALSE, right=TRUE, ...)
+  # print(x, quote=FALSE, right=TRUE, ...)
+  NextMethod("print", quote = quote, right=TRUE, ...)
 }
 
 
@@ -5350,6 +5663,14 @@ Fmt <- function(...){
 }
 
 
+# this does not work...
+
+# `Fmt<-` <- function (name, value){
+#   opt <- options("DescTools")
+#   opt$fmt[[name]] <- value
+#   DescToolsOptions(opt)
+# }
+
 
 
 
@@ -5417,8 +5738,8 @@ print.fmt <- function(x, ...){
     return(z)
   }
 
-  cat(gettextf("Format name:    %s%s\n", attr(x, "name"), # deparse(substitute(x)),
-               ifelse(identical(attr(x, "default"), TRUE), " (default)", "")),  # deparse(substitute(x))),
+  cat(gettextf("Format name:    %s%s\n", attr(x, "fmt_name"), 
+               ifelse(identical(attr(x, "default"), TRUE), " (default)", "")),  
       gettextf("Description:   %s\n", Label(x)),
       gettextf("Definition:    %s\n", CollapseList(x)),
       gettextf("Example:       %s\n", Format(pi * 1e5, fmt=x))
@@ -6376,14 +6697,19 @@ fmt <- function(...){
 
 as.fmt <- function(...){
 
-  # dots <- match.call(expand.dots=FALSE)$...
-  # new by 0.99.22
-
   dots <- list(...)
+  
+  # extract special argument "label" from dots arguments
+  if(!is.null(lbl <- dots[["label"]])){
+    dots[["label"]] <- NULL
+  } else {
+    # the default label
+    lbl <- "Number format"
+  }
 
   structure(dots,
             .Names = names(dots),
-            label = "Number format",
+            label = lbl,
             class = "fmt")
 
 }
@@ -6576,9 +6902,39 @@ Append.matrix <- function(x, values, after = NULL, rows=FALSE, names=NULL, ...){
 }
 
 
-Append.data.frame <- function(x, values, after = NULL, names=NULL, ...){
-  as.data.frame(append(x, SetNames(list(values), names=names), after = after))
+Append.data.frame <- function(x, values, after = NULL, rows=FALSE, names=NULL, ...){
+
+  # appending to a data.frame is by nature append columns, as it is 
+  # intrinsically a list. 
+  # Inserting rows is however clumsy by hand and so we offer an argument to
+  # do that as well
+  
+  .InsertRow <- function(x, val, after=nrow(x)) {
+    
+    # insert a row in a data.frame
+    # note: we should not use rbind here, as it is not general enough in cases,
+    # when not only numeric values are present in the data.frame
+    
+    x[seq(after+1, nrow(x)+1), ] <- x[seq(after, nrow(x)), ]
+    x[after, ] <- val
+    
+    x
+    
+  }
+  
+  if(rows)
+    .InsertRow(x, values, after=after)
+  
+  else 
+    as.data.frame(append(x, SetNames(list(values), names=names), after = after))
+  
 }
+
+
+
+
+
+
 
 
 # InsRow <- function(m, x, i, row.names=NULL){
@@ -6878,7 +7234,8 @@ Rev.default <- function(x, ...){
   rev(x)
 }
 
-Rev.table <- function(x, margin, ...) {
+
+Rev.array <- function(x, margin, ...) {
 
   if (!is.array(x))
     stop("'x' is not an array")
@@ -6891,17 +7248,21 @@ Rev.table <- function(x, margin, ...) {
 
 }
 
-Rev.matrix <- function(x, margin, ...) {
-  Rev.table(x, margin, ...)
-}
+Rev.matrix <- Rev.array
+Rev.table <- Rev.array
+
+# Rev.matrix <- function(x, margin, ...) {
+#   Rev.table(x, margin, ...)
+# }
 
 
 Rev.data.frame <- function(x, margin, ...) {
 
     if(1 %in% margin) x <- x[nrow(x):1L,]
     if(2 %in% margin) x <- x[, ncol(x):1L]
+    
     return(x)
-  }
+}
 
 
 
@@ -7337,82 +7698,178 @@ lines.smooth.spline <- function (x, col = Pal()[1], lwd = 2, lty = "solid",
 
 
 
+# lines.lm <- function (x, col = Pal()[1], lwd = 2, lty = "solid",
+#                       type = "l", n = 100, conf.level = 0.95, args.cband = NULL,
+#                       pred.level = NA, args.pband = NULL, ...) {
+# 
+#   # ** BUG ** BUG ** BUG ** BUG **BUG ** BUG **BUG ** BUG **BUG ** BUG **
+#   #  \__/  \__/  \__/  \__/  \__/  \__/  \__/  \__/  \__/  \__/  \__/  \__/
+#   #  (oo)  (oo)  (oo)  (oo)  (oo)  (oo)  (oo)  (oo)  (oo)  (oo)  (oo)  (oo)
+#   # //||\\//||\\//||\\//||\\//||\\//||\\//||\\//||\\//||\\//||\\//||\\//||\\
+#   # ** BUG ** BUG ** BUG ** BUG **BUG ** BUG **BUG ** BUG **BUG ** BUG **
+# 
+#   # # does not work with all transformations!!!!!!!!!!
+#   # plot(log(Fertility) ~ log(Examination), data=swiss)
+#   # r.lm <- lm(log(Fertility) ~ log(Examination), data=swiss)
+#   # lines(r.lm)
+#   #
+#   # swiss$lEx <- log(swiss$Examination)
+#   # r.lm <- lm(log(Fertility) ~ lEx, data=swiss)
+#   # lines(r.lm)
+# 
+# 
+#   mod <- x$model
+# 
+#   # we take simply the second column of the model data.frame to identify the x variable
+#   # this will crash, if there are several resps and yield nonsense if there is
+#   # more than one pred,
+#   # so check for a simple regression model y ~ x (just one resp, just one pred)
+# 
+#   # Note:
+#   # The following will not work, because predict does not correctly recognise the newdata data.frame:
+#   # lines(lm(d.pizza$temperature ~ d.pizza$delivery_min), col=hred, lwd=3)
+#   # see what happens to the data.frame colnames in: predict(x, newdata=data.frame("d.pizza$delivery_min"=1:20))
+#   # this predict won't work.
+#   # always provide data:    y ~ x, data
+# 
+#   # this is not a really new problem:
+#   # http://faustusnotes.wordpress.com/2012/02/16/problems-with-out-of-sample-prediction-using-r/
+# 
+#   # we would only plot lines if there's only one predictor
+# 
+#   pred <- all.vars(formula(x)[[3]])
+#   if(length(pred) > 1) {
+#     stop("Can't plot a linear model with more than 1 predictor.")
+#   }
+# 
+#   # the values of the predictor
+#   xpred <- eval(x$call$data)[, pred]
+# 
+#   newx <- data.frame(seq(from = min(xpred, na.rm = TRUE),
+#                          to = max(xpred, na.rm = TRUE), length = n))
+# 
+#   colnames(newx) <- pred
+#   fit <- predict(x, newdata = newx)
+# 
+#   if (!(is.na(pred.level) || identical(args.pband, NA)) ) {
+#     args.pband1 <- list(col = SetAlpha(col, 0.12), border = NA)
+#     if (!is.null(args.pband))
+#       args.pband1[names(args.pband)] <- args.pband
+# 
+#     ci <- predict(x, interval="prediction", newdata=newx, level=pred.level) # Vorhersageband
+#     do.call("DrawBand", c(args.pband1, list(x = c(unlist(newx), rev(unlist(newx)))),
+#                           list(y = c(ci[,2], rev(ci[,3])))))
+#   }
+# 
+#   if (!(is.na(conf.level) || identical(args.cband, NA)) ) {
+#     args.cband1 <- list(col = SetAlpha(col, 0.12), border = NA)
+#     if (!is.null(args.cband))
+#       args.cband1[names(args.cband)] <- args.cband
+# 
+#     ci <- predict(x, interval="confidence", newdata=newx, level=conf.level) # Vertrauensband
+#     do.call("DrawBand", c(args.cband1, list(x = c(unlist(newx), rev(unlist(newx)))),
+#                           list(y = c(ci[,2], rev(ci[,3])))))
+#   }
+# 
+#   lines(y = fit, x = unlist(newx), col = col, lwd = lwd, lty = lty,
+#         type = type)
+# }
+
+
+
+
+.CalcTrendline <- function (x, n = 100, conf.level = 0.95, pred.level = 0.95, ...) {
+ 
+  # this takes the model x and calculates a set of n points
+  # including the function, confidence band for E[X] and for the prediction
+   
+  mod <- x$model
+  # all.vars returns all used variables in the model, even when poly models are used
+  # the result will be the name of the predictor
+  pred <- all.vars(formula(x)[[3]])
+  if (length(pred) > 1) {
+    stop("Can't plot a linear model with more than 1 predictor.")
+  }
+  
+  # xpred <- model.frame(x)[, pred]
+  # we cannot simply take the model frame here as we would miss poly(..) models
+  # which could well be plotted as well   
+  xpred <- eval(x$call$data, parent.frame(n=2))[, pred]
+  
+  newx <- data.frame(seq(from = min(xpred, na.rm = TRUE), 
+                         to = max(xpred, na.rm = TRUE), length = n))
+  colnames(newx) <- pred
+  
+  fit <- predict(x, newdata = newx)
+  
+  if (!(is.na(conf.level))) {
+    ci <- predict(x, interval = "confidence", newdata = newx, 
+                   level = conf.level)[, -1]
+  } else ci <- NULL
+  
+  if (!(is.na(pred.level))) {
+    pci <- predict(x, interval = "prediction", newdata = newx, 
+                   level = pred.level)[, -1]
+  } else pci <- NULL
+  
+  return(list(x=newx, y=fit, ci=ci, pci=pci))
+  
+}
+
+
+.DrawTrendLine <- function(z, col = Pal()[1], lwd = 2, lty = "solid", type = "l", 
+                        args.cband = NULL,  args.pband = NULL) {
+  
+  # this draws a trendline in an existing plot
+  
+  args.pband1 <- list(col = SetAlpha(col, 0.12), border = NA)
+  if (!identical(args.pband, NA) && !is.null(z$pci)) {
+    if (!is.null(args.pband))
+      args.pband1[names(args.pband)] <- args.pband
+    do.call("DrawBand", c(args.pband1, list(x = c(unlist(z$x), rev(unlist(z$x)))), 
+                        list(y = c(z$pci[, 1], rev(z$pci[, 2])))))
+  }
+  
+  args.cband1 <- list(col = SetAlpha(col, 0.12), border = NA)
+  if (!identical(args.cband, NA) && !is.null(z$ci)) {
+    if (!is.null(args.cband))
+      args.cband1[names(args.cband)] <- args.cband
+    do.call("DrawBand", c(args.cband1, list(x = c(unlist(z$x), rev(unlist(z$x)))), 
+                        list(y = c(z$ci[, 1], rev(z$ci[, 2])))))
+  }
+  
+  lines(y = z$y, x = unlist(z$x), col = col, lwd = lwd, lty = lty,
+        type = type)
+  
+}
+
+
+
 lines.lm <- function (x, col = Pal()[1], lwd = 2, lty = "solid",
                       type = "l", n = 100, conf.level = 0.95, args.cband = NULL,
                       pred.level = NA, args.pband = NULL, ...) {
+  
+  z <- .CalcTrendline(x, n=n, conf.level=conf.level, pred.level=pred.level)  
+  .DrawTrendLine(z, col=col, lwd=lwd, lty=lty, args.cband=args.cband, args.pband=args.pband)
 
-  # ** BUG ** BUG ** BUG ** BUG **BUG ** BUG **BUG ** BUG **BUG ** BUG **
-  #  \__/  \__/  \__/  \__/  \__/  \__/  \__/  \__/  \__/  \__/  \__/  \__/
-  #  (oo)  (oo)  (oo)  (oo)  (oo)  (oo)  (oo)  (oo)  (oo)  (oo)  (oo)  (oo)
-  # //||\\//||\\//||\\//||\\//||\\//||\\//||\\//||\\//||\\//||\\//||\\//||\\
-  # ** BUG ** BUG ** BUG ** BUG **BUG ** BUG **BUG ** BUG **BUG ** BUG **
-
-  # # does not work with all transformations!!!!!!!!!!
-  # plot(log(Fertility) ~ log(Examination), data=swiss)
-  # r.lm <- lm(log(Fertility) ~ log(Examination), data=swiss)
-  # lines(r.lm)
-  #
-  # swiss$lEx <- log(swiss$Examination)
-  # r.lm <- lm(log(Fertility) ~ lEx, data=swiss)
-  # lines(r.lm)
-
-
-  mod <- x$model
-
-  # we take simply the second column of the model data.frame to identify the x variable
-  # this will crash, if there are several resps and yield nonsense if there is
-  # more than one pred,
-  # so check for a simple regression model y ~ x (just one resp, just one pred)
-
-  # Note:
-  # The following will not work, because predict does not correctly recognise the newdata data.frame:
-  # lines(lm(d.pizza$temperature ~ d.pizza$delivery_min), col=hred, lwd=3)
-  # see what happens to the data.frame colnames in: predict(x, newdata=data.frame("d.pizza$delivery_min"=1:20))
-  # this predict won't work.
-  # always provide data:    y ~ x, data
-
-  # this is not a really new problem:
-  # http://faustusnotes.wordpress.com/2012/02/16/problems-with-out-of-sample-prediction-using-r/
-
-  # we would only plot lines if there's only one predictor
-
-  pred <- all.vars(formula(x)[[3]])
-  if(length(pred) > 1) {
-    stop("Can't plot a linear model with more than 1 predictor.")
-  }
-
-  # the values of the predictor
-  xpred <- eval(x$call$data)[, pred]
-
-  newx <- data.frame(seq(from = min(xpred, na.rm = TRUE),
-                         to = max(xpred, na.rm = TRUE), length = n))
-
-  colnames(newx) <- pred
-  fit <- predict(x, newdata = newx)
-
-  if (!(is.na(pred.level) || identical(args.pband, NA)) ) {
-    args.pband1 <- list(col = SetAlpha(col, 0.12), border = NA)
-    if (!is.null(args.pband))
-      args.pband1[names(args.pband)] <- args.pband
-
-    ci <- predict(x, interval="prediction", newdata=newx, level=pred.level) # Vorhersageband
-    do.call("DrawBand", c(args.pband1, list(x = c(unlist(newx), rev(unlist(newx)))),
-                          list(y = c(ci[,2], rev(ci[,3])))))
-  }
-
-  if (!(is.na(conf.level) || identical(args.cband, NA)) ) {
-    args.cband1 <- list(col = SetAlpha(col, 0.12), border = NA)
-    if (!is.null(args.cband))
-      args.cband1[names(args.cband)] <- args.cband
-
-    ci <- predict(x, interval="confidence", newdata=newx, level=conf.level) # Vertrauensband
-    do.call("DrawBand", c(args.cband1, list(x = c(unlist(newx), rev(unlist(newx)))),
-                          list(y = c(ci[,2], rev(ci[,3])))))
-  }
-
-  lines(y = fit, x = unlist(newx), col = col, lwd = lwd, lty = lty,
-        type = type)
 }
+
+
+lines.lmlog <- function (x, col = Pal()[1], lwd = 2, lty = "solid",
+                      type = "l", n = 100, conf.level = 0.95, args.cband = NULL,
+                      pred.level = NA, args.pband = NULL, ...) {
+  
+  # expects a model of the form log(y) ~ x
+  
+  z <- .CalcTrendline(x, n=n, conf.level=conf.level, pred.level=pred.level)
+  # exponentiate y and all ci results, but not x (,1)
+  i <- which(!sapply(z[2:4], is.null)) + 1
+  z[i] <- lapply(z[i], exp)
+
+  .DrawTrendLine(z, col=col, lwd=lwd, lty=lty, args.cband=args.cband, args.pband=args.pband)
+  
+}
+
 
 
 
@@ -7492,74 +7949,147 @@ ErrBars <- function(from, to = NULL, pos = NULL, mid = NULL, horiz = FALSE, col 
 
 
 ColorLegend <- function( x, y=NULL, cols=rev(heat.colors(100)), labels=NULL
-  , width=NULL, height=NULL, horiz=FALSE
-  , xjust=0, yjust=1, inset=0, border=NA, frame=NA
-  , cntrlbl = FALSE
-  , adj=ifelse(horiz,c(0.5,1), c(1,0.5)), cex=1.0, ...){
-
+                          , width=NULL, height=NULL, horiz=FALSE
+                          , xjust=0, yjust=1, inset=0, border=NA, frame=NA
+                          , cntrlbl = FALSE
+                          , adj=ifelse(horiz,c(0.5,1), c(1,0.5)), cex=1.0
+                          , title = NULL, title.adj=0.5, ...) {
+  
   # positionierungscode aus legend
   auto <- if (is.character(x))
     match.arg(x, c("bottomright", "bottom", "bottomleft",
-        "left", "topleft", "top", "topright", "right", "center"))
+                   "left", "topleft", "top", "topright", "right", "center"))
   else NA
-
+  
   usr <- par("usr")
   if( is.null(width) ) width <- strwidth("mn") # (usr[2L] - usr[1L]) * ifelse(horiz, 0.92, 0.08)
   if( is.null(height) ) height <- (usr[4L] - usr[3L]) * ifelse(horiz, 0.08, 0.92)
-
+  
   if (is.na(auto)) {
     left <- x - xjust * width
     top <- y + (1 - yjust) * height
-
+    
   } else {
     inset <- rep(inset, length.out = 2)
     insetx <- inset[1L] * (usr[2L] - usr[1L])
     left <- switch(auto, bottomright = , topright = ,
-        right = usr[2L] - width - insetx, bottomleft = ,
-        left = , topleft = usr[1L] + insetx, bottom = ,
-        top = , center = (usr[1L] + usr[2L] - width)/2)
+                   right = usr[2L] - width - insetx, bottomleft = ,
+                   left = , topleft = usr[1L] + insetx, bottom = ,
+                   top = , center = (usr[1L] + usr[2L] - width)/2)
     insety <- inset[2L] * (usr[4L] - usr[3L])
     top <- switch(auto, bottomright = , bottom = , bottomleft = usr[3L] +
-        height + insety, topleft = , top = , topright = usr[4L] -
-        insety, left = , right = , center = (usr[3L] +
-        usr[4L] + height)/2)
+                    height + insety, topleft = , top = , topright = usr[4L] -
+                    insety, left = , right = , center = (usr[3L] +
+                                                           usr[4L] + height)/2)
   }
-
+  
   xpd <- par(xpd=TRUE); on.exit(par(xpd))
-
+  
   ncols <- length(cols)
   nlbls <- length(labels)
   if(horiz) {
     rect( xleft=left, xright=left+width/ncols*seq(ncols,0,-1), ytop=top, ybottom=top-height,
-      col=rev(cols), border=border)
+          col=rev(cols), border=border)
     if(!is.null(labels)){
       if(cntrlbl) xlbl <- left + width/(2*ncols)+(width-width/ncols)/(nlbls-1) * seq(0,nlbls-1,1)
-        else xlbl <- left + width/(nlbls-1) * seq(0,nlbls-1,1)
-      text(y=top - (height + max(strheight(labels, cex=cex)) * 1.2)
-        # Gleiche Korrektur wie im vertikalen Fall
-        # , x=x+width/(2*ncols)+(width-width/ncols)/(nlbls-1) * seq(0,nlbls-1,1)
-        , x=xlbl, labels=labels, adj=adj, cex=cex, ...)
-     }
+      else xlbl <- left + width/(nlbls-1) * seq(0,nlbls-1,1)
+      ylbl <- top - (height + max(strheight(labels, cex=cex)) * 1.2) 
+      text(y=ylbl
+           # Gleiche Korrektur wie im vertikalen Fall
+           # , x=x+width/(2*ncols)+(width-width/ncols)/(nlbls-1) * seq(0,nlbls-1,1)
+           , x=xlbl, labels=labels, adj=adj, cex=cex, ...)
+    }
   } else {
     rect( xleft=left, ybottom=top-height, xright=left+width, ytop=top-height/ncols*seq(0,ncols,1),
-      col=rev(cols), border=border)
+          col=rev(cols), border=border)
     if(!is.null(labels)){
-        # Korrektur am 13.6:
-        # die groesste und kleinste Beschriftung sollen nicht in der Mitte der Randfarbkaestchen liegen,
-        # sondern wirklich am Rand des strips
-        # alt: , y=y-height/(2*ncols)- (height- height/ncols)/(nlbls-1)  * seq(0,nlbls-1,1)
-        #, y=y-height/(2*ncols)- (height- height/ncols)/(nlbls-1)  * seq(0,nlbls-1,1)
-
+      # Korrektur am 13.6:
+      # die groesste und kleinste Beschriftung sollen nicht in der Mitte der Randfarbkaestchen liegen,
+      # sondern wirklich am Rand des strips
+      # alt: , y=y-height/(2*ncols)- (height- height/ncols)/(nlbls-1)  * seq(0,nlbls-1,1)
+      #, y=y-height/(2*ncols)- (height- height/ncols)/(nlbls-1)  * seq(0,nlbls-1,1)
+      
       # 18.4.2015: reverse labels, as the logic below would misplace...
       labels <- rev(labels)
-
+      
       if(cntrlbl) ylbl <- top - height/(2*ncols) - (height- height/ncols)/(nlbls-1)  * seq(0, nlbls-1,1)
-        else ylbl <- top - height/(nlbls-1) * seq(0, nlbls-1, 1)
-      text(x=left + width + strwidth("0", cex=cex) + max(strwidth(labels, cex=cex)) * adj[1]
-        , y=ylbl, labels=labels, adj=adj, cex=cex, ... )
+      else ylbl <- top - height/(nlbls-1) * seq(0, nlbls-1, 1)
+      xlbl <- left + width + strwidth("0", cex=cex) + max(strwidth(labels, cex=cex)) * adj[1]
+      text(x=xlbl
+           , y=ylbl, labels=labels, adj=adj, cex=cex, ... )
     }
   }
   if(!is.na(frame)) rect( xleft=left, xright=left+width, ytop=top, ybottom=top-height, border=frame)
+  
+  if (!is.null(title)) 
+    text(left + width * title.adj, top + strheight("M")*1.4, labels = title, 
+         adj = c(title.adj, 0), cex=cex)
+  
+  invisible(list(rect=list(w=width, h=height, left=left, top=top), 
+                 text=list(x=if(is.null(labels)) NULL else xlbl, 
+                           y=if(is.null(labels)) NULL else ylbl)))
+  
+}
+
+
+
+
+
+BoxLegend <- function( x, y=NULL, cols=NULL, labels=NULL
+                         , width=NULL, height=NULL, horiz=FALSE
+                         , xjust=0, yjust=1, inset=0, border=NA, frame=NA
+                         , cntrlbl = FALSE
+                         , adj=ifelse(horiz,c(0.5,1), c(1,0.5)), cex=1.0, ...){
+  
+  # ********************************
+  # in development  *************
+  # ********************************
+  
+  
+  # positionierungscode aus legend
+  auto <- if (is.character(x))
+    match.arg(x, c("bottomright", "bottom", "bottomleft",
+                   "left", "topleft", "top", "topright", "right", "center"))
+  else NA
+  
+  usr <- par("usr")
+  if( is.null(width) ) width <- strwidth("mn") # (usr[2L] - usr[1L]) * ifelse(horiz, 0.92, 0.08)
+  if( is.null(height) ) height <- (usr[4L] - usr[3L]) * ifelse(horiz, 0.08, 0.92)
+  
+  if (is.na(auto)) {
+    left <- x - xjust * width
+    top <- y + (1 - yjust) * height
+    
+  } else {
+    inset <- rep(inset, length.out = 2)
+    insetx <- inset[1L] * (usr[2L] - usr[1L])
+    left <- switch(auto, bottomright = , topright = ,
+                   right = usr[2L] - width - insetx, bottomleft = ,
+                   left = , topleft = usr[1L] + insetx, bottom = ,
+                   top = , center = (usr[1L] + usr[2L] - width)/2)
+    insety <- inset[2L] * (usr[4L] - usr[3L])
+    top <- switch(auto, bottomright = , bottom = , bottomleft = usr[3L] +
+                    height + insety, topleft = , top = , topright = usr[4L] -
+                    insety, left = , right = , center = (usr[3L] + usr[4L] + height)/2)
+  }
+  
+  xpd <- par(xpd=TRUE); on.exit(par(xpd))
+  
+  # xleft=left, ybottom=top-height, xright=left+width, ytop=top-height
+  
+  # Mar(right=15)
+  # boxplot(temperature ~ area, d.pizza)
+  # BoxLegend()
+  
+  arrows(x0 = 4.25, y0 = 25, y1=55, angle = 90, code = 3)
+  rect(xleft = 4, ybottom = 30, xright = 4.5, ytop = 45, col="grey")
+  segments(x0 = 4, y0 = 35, x1 = 4.5, lwd=3)
+  points(x = 4.25, y = 38, pch=3, cex=3)
+  
+  segments(x0 = 4.6, x1 = 4.8, y0 = c(25,30,35,38,45,55), col="darkgrey")
+  text(x = 4.9, y = c(25,30,35,38,45,55), adj=0,
+       labels = c("10%", "25%", "median", "mean", "75%", "90%"))
+  
 }
 
 
@@ -7703,7 +8233,8 @@ Pal <- function(pal, n=100, alpha=1) {
                   "RedWhiteBlue0","RedWhiteBlue1","RedWhiteBlue2","RedWhiteBlue3","Helsana","Helsana1","Tibco","RedGreen1",
                   "Spring","Soap","Maiden","Dark","Accent","Pastel","Fragile","Big","Long","Night","Dawn","Noon","Light",
                   "GrandBudapest","Moonrise1","Royal1","Moonrise2","Cavalcanti","Royal2","GrandBudapest2","Moonrise3",
-                  "Chevalier","Zissou","FantasticFox","Darjeeling","Rushmore","BottleRocket","Darjeeling2","Helsana2")
+                  "Chevalier","Zissou","FantasticFox","Darjeeling","Rushmore","BottleRocket","Darjeeling2","Helsana2",
+                  "Tequila")
 
 
     if(is.numeric(pal)){
@@ -7783,6 +8314,8 @@ Pal <- function(pal, n=100, alpha=1) {
            , Rushmore = res <- c("#E1BD6D", "#EABE94", "#0B775E", "#35274A", "#F2300F")
            , BottleRocket = res <- c("#A42820", "#5F5647", "#9B110E", "#3F5151", "#4E2A1E", "#550307", "#0C1707")
            , Darjeeling2 = res <- c("#ECCBAE", "#046C9A", "#D69C4E", "#ABDDDE",  "#000000")
+           , Tequila = res <- c("#642580", "#853b88","#ab4189","#c52966","#d34376","#d55586","#d55586","#ba3723","#cc6101","#c6904a","#eebd00","#f7d501","#060c18","#00323b","#00484f")
+
     )
 
     attr(res, "name") <- pal
@@ -8411,28 +8944,30 @@ SpreadOut <- function(x, mindist = NULL, cex = 1.0) {
 
 
 BarText <- function(height, b, labels=height, beside = FALSE, horiz = FALSE,
-                    cex=par("cex"), adj=NULL, top=TRUE, ...) {
+                    cex=par("cex"), adj=NULL, top=TRUE, offset=0, ...) {
 
   if (is.vector(height) || (is.array(height) && (length(dim(height)) == 1))) {
     height <- cbind(height)
     beside <- TRUE
   }
 
+  offset <- rep_len(as.vector(offset), length(height))
+  
   if(beside){
     if(horiz){
       if(is.null(adj)) adj <- 0
       if(top)
-        x <- height + par("cxy")[1] * cex
+        x <- height + offset + sign(height) * par("cxy")[1] * cex
       else
-        x <- height/2
+        x <- offset + height / 2
       text(y=b, x=x, labels=labels, cex=cex, xpd=TRUE, adj=adj, ...)
 
     } else {
 
       if(top)
-        y <- height + par("cxy")[2] * cex
+        y <- height + offset + sign(height) * par("cxy")[2] * cex
       else
-        y <- height/2
+        y <- offset + height/2
 
       if(is.null(adj)) adj <- 0.5
       text(x=b, y=y, labels=labels, cex=cex, xpd=TRUE, adj=adj, ...)
@@ -8746,6 +9281,90 @@ RgbToHex <- function(col){
 }
 
 
+
+CmykToRgb <- function(cyan, magenta, yellow, black, maxColorValue=1){
+  
+  if (missing(black)) {
+    res <- rgb(red= maxColorValue- cyan,
+               green= maxColorValue - magenta,
+               blue = maxColorValue - yellow, 
+               maxColorValue = maxColorValue)
+    
+  } else {
+    
+    res <-  rgb(
+      red= ((maxColorValue-cyan) * (maxColorValue-black)) / maxColorValue,
+      green= ((maxColorValue-magenta) * (maxColorValue-black)) / maxColorValue,
+      blue = ((maxColorValue-yellow) * (maxColorValue-black)) / maxColorValue,
+      maxColorValue = maxColorValue)
+    
+  }
+  
+  return(res)
+  
+}
+
+
+RgbToCmy <- function(col, maxColorValue=1) {
+  
+  if(!is.matrix(col)) {
+    col <- lapply(col, function(x) c(strtoi(substr(x,2,3), 16L), strtoi(substr(x,4,5), 16L), strtoi(substr(x,6,7), 16L)))
+    col <- do.call("cbind", col)
+  }
+  
+  cbind(
+    C = 1 - ( col[,1] / maxColorValue ),
+    M = 1 - ( col[,2] / maxColorValue ),
+    Y = 1 - ( col[,3] / maxColorValue )
+  )   
+  
+}
+
+
+CmyToCmyk <- function(col){
+  # CMY values <- From 0 to 1
+  
+  if (is.null(dim(col))) 
+    if (length(col) > 2) 
+      col <- matrix(col, ncol=3, byrow=TRUE)
+    
+    var.K <- rep(1, dim(col)[1])
+    
+    CC <- which(col[,1] < var.K)
+    if (length(CC)>0) var.K[CC] <- col[CC,1]
+    
+    CM <- which(col[,2] < var.K)
+    if (length(CM)>0) var.K[CM] <- col[CM,2]
+    
+    CY <- which(col[,3] < var.K)
+    if (length(CY)>0) var.K[CY] <- col[CY,3]
+    
+    cbind(
+      C = ( col[,1] - var.K ) / ( 1 - var.K ),
+      M = ( col[,2] - var.K ) / ( 1 - var.K ), 
+      Y = ( col[,3] - var.K ) / ( 1 - var.K ), 
+      K = var.K )
+}
+
+
+CmykToCmy <- function(col){
+  
+  #CMYK values <- From 0 to 1
+  
+  if (is.null(dim(col))) 
+    if (length(col)>2) 
+      col <- matrix(col, ncol=4,byrow=TRUE)
+    cbind(
+      C = ( col[,1] * ( 1 - col[,4] ) + col[,4] ),
+      M = ( col[,2] * ( 1 - col[,4] ) + col[,4] ),
+      Y = ( col[,3] * ( 1 - col[,4] ) + col[,4] )
+    )
+    
+}
+
+
+
+
 ColToOpaque <- function(col, alpha=NULL, bg=NULL){
   
   # col is Hex color, alpha is numeric from 0..1
@@ -8956,15 +9575,24 @@ FindColor <- function(x, cols=rev(heat.colors(100)), min.x=NULL, max.x=NULL,
 
 SetAlpha <- function(col, alpha=0.5) {
 
-  if (length(alpha) < length(col)) alpha <- rep(alpha, length.out = length(col))
-  alpha[na <- alpha %)(% c(0, 1)] <- NA
-  if (length(col) < length(alpha)) col <- rep(col, length.out = length(alpha))
-  col[na] <- NA
+  # by 0.99.37.001
+  # this is redundant (since when actually??), as adjustcolor() does the same job
+  # ???
+  # should we deprecate?
   
-  acol <- substr(ColToHex(col), 1, 7)
-  acol[!is.na(alpha)] <- paste(acol[!is.na(alpha)], DecToHex(round(alpha[!is.na(alpha)]*255,0)), sep="")
-  acol[is.na(col)] <- NA
-  return(acol)
+  # if (length(alpha) < length(col)) alpha <- rep(alpha, length.out = length(col))
+  # alpha[na <- alpha %)(% c(0, 1)] <- NA
+  # if (length(col) < length(alpha)) col <- rep(col, length.out = length(alpha))
+  # col[na] <- NA
+  # 
+  # acol <- substr(ColToHex(col), 1, 7)
+  # acol[!is.na(alpha)] <- paste(acol[!is.na(alpha)], DecToHex(round(alpha[!is.na(alpha)]*255,0)), sep="")
+  # acol[is.na(col)] <- NA
+  # return(acol)
+  
+  
+  Vectorize(adjustcolor)(col= col, alpha.f = alpha)
+  
 }
 
 
@@ -9601,7 +10229,7 @@ PlotECDF <- function(x, breaks=NULL, col=Pal()[1],
 
   # the defaults
   axargs1 <- list(side = 2, at = seq(0, 1, 0.25),
-                  labels = Format(seq(0, 1, 0.25), leading = "", digits=2),
+                  labels = Format(seq(0, 1, 0.25), ldigits = 0, digits=2),
                   las = 1, xaxs = "e", lwd.axis=1) 
   
   axargs1 <- ClearArgs(provided = c(as.list(environment()), list(...)),  # all provided arguments and their values 
@@ -9862,6 +10490,108 @@ PlotMarDens <- function( x, y, grp=1, xlim = NULL, ylim = NULL
 }
 
 
+PlotConDens <- function(formula, data, col=NULL, lwd=2, lty=1, xlim=NULL, rev=TRUE, args.dens=NULL, ...) { 
+  
+  deparen <- function(expr) {
+    while (is.language(expr) && !is.name(expr) && deparse(expr[[1L]])[1L] == 
+           "(") expr <- expr[[2L]]
+    expr
+  }
+  bad.formula <- function() stop("invalid conditioning formula")
+  bad.lengths <- function() stop("incompatible variable lengths")
+  getOp <- function(call) deparse(call[[1L]], backtick = FALSE)[[1L]]
+  formula <- deparen(formula)
+  if (!inherits(formula, "formula")) 
+    bad.formula()
+  y <- deparen(formula[[2L]])
+  rhs <- deparen(formula[[3L]])
+  if (getOp(rhs) != "|") 
+    bad.formula()
+  x <- deparen(rhs[[2L]])
+  rhs <- deparen(rhs[[3L]])
+  if (is.language(rhs) && !is.name(rhs) && getOp(rhs) %in% 
+      c("*", "+")) {
+    have.b <- TRUE
+    a <- deparen(rhs[[2L]])
+    b <- deparen(rhs[[3L]])
+  }
+  else {
+    have.b <- FALSE
+    a <- rhs
+  }
+  if (missing(data)) 
+    data <- parent.frame()
+  x.name <- deparse(x)
+  x <- eval(x, data, parent.frame())
+  nobs <- length(x)
+  y.name <- deparse(y)
+  y <- eval(y, data, parent.frame())
+  if (length(y) != nobs) 
+    bad.lengths()
+  a.name <- deparse(a)
+  a <- eval(a, data, parent.frame())
+  if (length(a) != nobs) 
+    bad.lengths()
+  if (is.character(a)) 
+    a <- as.factor(a)
+  a.is.fac <- is.factor(a)
+  if (have.b) {
+    b.name <- deparse(b)
+    b <- eval(b, data, parent.frame())
+    if (length(b) != nobs) 
+      bad.lengths()
+    if (is.character(b)) 
+      b <- as.factor(b)
+    b.is.fac <- is.factor(b)
+    missingrows <- which(is.na(x) | is.na(y) | is.na(a) | 
+                           is.na(b))
+  }
+  else {
+    missingrows <- which(is.na(x) | is.na(y) | is.na(a))
+    b <- NULL
+    b.name <- ""
+  }
+  
+  args.dens <- c(args.dens, bw = "nrd0")
+  args.dens <- args.dens[!duplicated(names(args.dens))]
+  
+  if(is.null(xlim))
+    ptx <- pretty(range(x), n = 1000)
+  else
+    ptx <- pretty(xlim, n = 1000)
+  
+  args.plot <- c(list(y=c(0,1), x=range(pretty(ptx)), type="n"), ..., las=1, xlab=x.name, ylab="density")
+  args.plot <- args.plot[!duplicated(names(args.plot))]
+  do.call(plot, args.plot)
+  
+  if(is.null(col))
+    col <- Pal("Helsana")
+  
+  a <- factor(a)
+  largs <- Recycle(col=col, lty=lty, lwd=lwd, lvl=levels(a))
+  
+  for(i in seq_along(levels(a))) {
+    
+    ll <- with(data.frame(x,y)[a==levels(a)[i],], 
+               do.call(cdplot, c(formula=as.formula(y~x), plot=FALSE, args.dens)))
+    
+    if(rev)
+      lines(x=ptx, 1-ll[[1]](ptx), col=largs$col[i], lwd=largs$lwd[i], lty=largs$lty[i])
+    else
+      lines(x=ptx, ll[[1]](ptx), col=largs$col[i], lwd=largs$lwd[i], lty=largs$lty[i])
+    
+    
+  }
+  
+  invisible(list(x=x, y=y, a=a))   
+  
+}
+
+
+
+
+
+
 ###
 
 ## plots: PlotArea ====
@@ -9985,7 +10715,8 @@ PlotArea.formula <- function (formula, data, subset, na.action, ...) {
 PlotDot <- function (x, labels = NULL, groups = NULL, gdata = NULL, cex = par("cex"),
                      pch = 21, gpch = 21, bg = par("bg"), color = par("fg"), gcolor = par("fg"),
                      lcolor = "gray", lblcolor = par("fg"), xlim = NULL, main = NULL, xlab = NULL, ylab = NULL, xaxt=NULL, yaxt=NULL,
-                     add = FALSE, args.errbars = NULL, cex.axis=par("cex.axis"), cex.pch=1.2, ...) {
+                     add = FALSE, args.errbars = NULL, cex.axis=par("cex.axis"), cex.pch=1.2, 
+                     cex.gpch=1.2, ...) {
 
   ErrBarArgs <- function(from, to = NULL, pos = NULL, mid = NULL,
                          horiz = FALSE, col = par("fg"), lty = par("lty"), lwd = par("lwd"),
@@ -10061,6 +10792,8 @@ PlotDot <- function (x, labels = NULL, groups = NULL, gdata = NULL, cex = par("c
   opar <- par("mai", "mar", "cex", "cex.axis", "yaxs")
   on.exit(par(opar))
   par(cex = cex, cex.axis=cex.axis[1], yaxs = "i")
+
+  lheight <- strheight("M", units="inches", cex=max(cex.axis[c(2, 3)])*cex)
   
   if (!is.numeric(x))
     stop("'x' must be a numeric vector or matrix")
@@ -10088,20 +10821,23 @@ PlotDot <- function (x, labels = NULL, groups = NULL, gdata = NULL, cex = par("c
   
   if (!add)
     plot.new()
+  # we must use cex*cex.axis here
   linch <- if (!is.null(labels))
-             max(strwidth(labels, "inch", cex=max(cex.axis[2:3])), na.rm = TRUE)
+             max(strwidth(labels, "inch", cex=max(cex.axis[2])* cex), na.rm = TRUE)
            else 0
   
   if (is.null(glabels)) {
     goffset <- ginch <- 0
     
   } else {
-    ginch <- max(strwidth(glabels, "inch"), na.rm = TRUE)
-    goffset <- 0.4
+    ginch <- max(strwidth(glabels, "inch", cex=max(cex.axis[3]) * cex), na.rm = TRUE)
+    goffset <- lheight  
   }
   if (!(is.null(labels) && is.null(glabels) || identical(yaxt, "n"))) {
     nmai <- par("mai")
-    nmai[2L] <- nmai[4L] + max(linch + goffset, ginch) + 0.1
+    # nmai[2L] <- nmai[4L] + max(linch + goffset, ginch) + lheight
+    # warum sollte der linke Rand so sein wie der rechte??
+    nmai[2L] <- lheight + max(linch + goffset, ginch) + 5*lheight
     par(mai = nmai)
   }
   if (is.null(groups)) {
@@ -10123,14 +10859,15 @@ PlotDot <- function (x, labels = NULL, groups = NULL, gdata = NULL, cex = par("c
   if (!add)
     plot.window(xlim = xlim, ylim = ylim, log = "")
   
-  lheight <- par("csi")
+  # lheight <- par("csi")
+  # much more precise:
   if (!is.null(labels)) {
-    linch <- max(strwidth(labels, "inch", cex = cex.axis[2]), na.rm = TRUE)
+    linch <- max(strwidth(labels, "inch", cex = cex.axis[2])*cex, na.rm = TRUE)
     loffset <- (linch + 0.1)/lheight
     labs <- labels[o]
     if (!identical(yaxt, "n"))
       mtext(labs, side = 2, line = loffset, at = y, adj = 0,
-          col = lblcolor, las = 2, cex = cex.axis[2], ...)
+          col = lblcolor, las = 2, cex = cex.axis[2]*cex, ...)
   }
   
   if (!add)
@@ -10149,14 +10886,18 @@ PlotDot <- function (x, labels = NULL, groups = NULL, gdata = NULL, cex = par("c
   if (!is.null(groups)) {
     gpos <- rev(cumsum(rev(tapply(groups, groups, length)) +
                          2) - 1)
-    ginch <- max(strwidth(glabels, "inch", cex=cex.axis[3]), na.rm = TRUE)
-    goffset <- (max(linch + 0.2, ginch, na.rm = TRUE) + 0.1)/lheight
+    
+    # ginch <- max(strwidth(glabels, "inch", cex=cex.axis[3]*cex), na.rm = TRUE)
+    # goffset <- (max(linch + 0.2, ginch, na.rm = TRUE) + 0.1)/lheight
+    
+    lgoffset <- (max(linch + goffset, ginch) + lheight)/lheight
+    
     if (!identical(yaxt, "n"))
-      mtext(glabels, side = 2, line = goffset, at = gpos, adj = 0,
-            col = gcolor, las = 2, cex = cex.axis[3], ...)
+      mtext(glabels, side = 2, line = lgoffset, at = gpos, adj = 0,
+            col = gcolor, las = 2, cex = cex.axis[3]*cex, ...)
     if (!is.null(gdata)) {
       abline(h = gpos, lty = "dotted")
-      points(gdata, gpos, pch = gpch, col = gcolor, bg = bg, ...)
+      points(gdata, gpos, pch = gpch, cex=cex*cex.gpch, col = gcolor, bg = bg, ...)
     }
   }
   if (!(add || identical(xaxt, "n") ))
@@ -10277,9 +11018,9 @@ PlotLinesA <- function(x, y, col=1:5, lty=1, lwd=1, lend = par("lend"), xlab = N
   }
 
   if(missing(y))
-    z <- x
+    z <- as.matrix(x)
   else
-    z <- y
+    z <- as.matrix(y)
 
 
   add.legend <- !identical(args.legend, NA)
@@ -10298,18 +11039,19 @@ PlotLinesA <- function(x, y, col=1:5, lty=1, lwd=1, lend = par("lend"), xlab = N
     do.call(Mar, as.list(mar))
   }
 
-  matplot(x, y, type="n", las=1, xlim=xlim, ylim=ylim, xaxt="n", yaxt=yaxt, main=main, xlab=xlab, ylab=ylab, cex = cex, ...)
-
-  # not clear what for, replaced by 0.99.27
-  # matplot(x, y, type="n", las=1, xlim=xlim, ylim=ylim, xaxt="n", yaxt=yaxt, main=main, xlab=xlab, ylab=ylab, cex = cex, ...)
-  if(!identical(xaxt, "n"))
-    # use rownames for x-axis if available, but only if either x or y is missing
-    if(!is.null(rownames(z)) && (missing(x) || missing(y)))
-      axis(side = 1, at=c(1:nrow(z)), rownames(z))
-    else
-      axis(side=1)
-
-  if(grid) grid()
+  if(!InDots(..., arg = "add", default=FALSE)){
+    # do not draw axes, labels and grid when only lines have to be added
+    matplot(x, y, type="n", las=1, xlim=xlim, ylim=ylim, xaxt="n", yaxt=yaxt, main=main, xlab=xlab, ylab=ylab, cex = cex, ...)
+    if(!identical(xaxt, "n"))
+      # use rownames for x-axis if available, but only if either x or y is missing
+      if(!is.null(rownames(z)) && (missing(x) || missing(y)))
+        axis(side = 1, at=c(1:nrow(z)), rownames(z))
+      else
+        axis(side=1)
+  
+    if(grid) grid()
+  }
+  
   matplot(x, y, type="l", lty=lty, col=col, lwd=lwd, lend=lend, xaxt="n", yaxt="n", add=TRUE)
 
   if(!is.na(pch))
@@ -10351,6 +11093,9 @@ PlotLinesA <- function(x, y, col=1:5, lty=1, lwd=1, lend = par("lend"), xlab = N
   if(!is.null(DescToolsOptions("stamp")))
     Stamp()
 
+  invisible(list(x=x, y= if (!missing(y)) y else NULL, 
+                 args.legend = if(add.legend) args.legend1 else NULL))
+  
 }
 
 
@@ -10538,70 +11283,6 @@ PlotFun <- function(FUN, args=NULL, from=NULL, to=NULL, by=NULL, xlim=NULL,
 }
 
 
-
-# Shade <- function(FUN, col=par("fg"), xlim, density=10, step=0.01, ...) {
-#
-#
-#   # but works as well with function(x), but it doesn't
-#   # Shade(FUN=function(x) dt(x, df=5), xlim=c(qt(0.975, df=5), 6), col="red")
-#
-#   if(is.function(FUN)) {
-#     #  if FUN is a function, then save it under new name and
-#     # overwrite function name in FUN, which has to be character
-#     fct <- FUN
-#     FUN <- "fct"
-#     # FUN <- gettextf("%s(x)", FUN)
-#     FUN <- gettextf("function(x) %s", FUN)
-#   }
-#
-#   from <- xlim[1]
-#   to <- xlim[2] # qt(0.025, df=degf)
-#
-#   x <- seq(from, to, by = step)
-#   xval <- c(from, x, to)
-#
-#   # Calculates the function for given xval
-#   yval <- c(0, eval(parse(text = FUN)), 0)
-#
-#   polygon(xval, yval, col=col, density=density, ...)
-#
-# }
-
-
-
-
-# Shade <- function(FUN, col=par("fg"), breaks, density=10, step=0.01, ...) {
-#
-#   # but works as well with function(x), but it doesn't
-#   # Shade(FUN=function(x) dt(x, df=5), xlim=c(qt(0.975, df=5), 6), col="red")
-#
-#   if(is.function(FUN)) {
-#     #  if FUN is a function, then save it under new name and
-#     # overwrite function name in FUN, which has to be character
-#     fct <- FUN
-#     FUN <- "fct"
-#     # FUN <- gettextf("%s(x)", FUN)
-#     FUN <- gettextf("function(x) %s", FUN)
-#   }
-#
-#   .Shade <- function(FUN, col, from, to, density, step, ...) {
-#
-#     x <- seq(from, to, by = step)
-#     xval <- c(from, x, to)
-#
-#     # Calculates the function for given xval
-#     yval <- c(0, eval(parse(text = FUN)), 0)
-#
-#     polygon(xval, yval, col=col, density=density, ...)
-#   }
-#
-#   pars <- Recycle(from=head(breaks, -1), to=tail(breaks, -1), col=col, density=density)
-#
-#   for(i in 1:attr(pars, "maxdim"))
-#     .Shade(FUN, pars$col[i], pars$from[i], pars$to[i], density=pars$density[i], step=step, ...)
-#
-# }
-#
 
 # New version DescTools 0.99.24
 # using the same logic for the function as curve()
@@ -11280,48 +11961,6 @@ PlotVenn <- function (x, col = "transparent", plotit = TRUE, labels = NULL) {
 
 ###
 
-## plots: PlotHorizBar (GanttChart)  ----------
-
-
-
-# info2 <- list(labels=c("Jim","Joe","Jim","John","John","Jake","Joe","Jed","Jake"),
-  # starts=c(8.1,8.7,13.0,9.1,11.6,9.0,13.6,9.3,14.2),
-  # ends=c(12.5,12.7,16.5,10.3,15.6,11.7,18.1,18.2,19.0))
-
-#
-# PlotHorizBar <- function (from, to, grp = 1, col = "lightgrey", border = "black",
-#                           height = 0.6, add = FALSE, xlim = NULL, ylim = NULL, ...)  {
-#
-#   # needed?? 6.5.2014
-#   # if (is.null(dev.list()))  plot.new()
-#
-#   grp <- factor(grp)
-#
-#   if(!add){
-#
-#     par(mai = c(par("mai")[1], max(par("mai")[2], strwidth(levels(grp), "inch")) +
-#                   0.5, par("mai")[3], par("mai")[4]))
-#
-#     if(is.null(xlim)) xlim <- range(pretty((c(from, to))))
-#     if(is.null(ylim)) ylim <- c(0, nlevels(grp) + 1)
-#     plot(1, xlim = xlim, ylim = ylim,
-#          type = "n", ylab = "", yaxt = "n", ...)
-#
-#     mtext(levels(grp), side=2, line = 1, at=1:nlevels(grp), las=1)
-#
-#   }
-#   xleft <- from
-#   xright <- to
-#   ytop <- as.numeric(grp) + height/2
-#   ybottom <- as.numeric(grp) - height/2
-#   rect(xleft, ybottom, xright, ytop, density = NULL, angle = 45,
-#        col = col, border = border, lty = par("lty"), lwd = par("lwd"))
-#
-#   if(!is.null(DescToolsOptions("stamp")))
-#     Stamp()
-#
-#   }
-#
 
 
 CompleteColumns <- function(x, which=TRUE){
@@ -11334,14 +11973,8 @@ CompleteColumns <- function(x, which=TRUE){
 
 
 CountCompCases <- function(x){
+
   # x is a data.frame
-
-
-  # library(microbenchmark)
-  # microbenchmark(
-  #   comp = sum(complete.cases(d.nps[,img])),
-  #   na.omit = nrow(na.omit(d.nps[,img]))
-  # )
 
   n <- nrow(x)
   cc <- sum(complete.cases(x))
@@ -11727,7 +12360,7 @@ PlotWeb <- function(m, col=c(hred, hblue), lty=NULL, lwd = NULL, args.legend=NUL
   i <- c(which.min(d.m$d), which.max(ifelse(d.m$d<=0, d.m$d, NA)), which.min(ifelse(d.m$d>0, d.m$d, NA)), which.max(d.m$d))
 
   args.legend1 <- list( x="bottomright",
-                        legend=Format(d.m$d[i], digits=3, leading="drop"), lwd = d.m$d.sc[i],
+                        legend=Format(d.m$d[i], digits=3, ldigits=0), lwd = d.m$d.sc[i],
                         col=rep(col, each=2), bg="white", cex=0.8)
   if ( !is.null(args.legend) ) { args.legend1[names(args.legend)] <- args.legend }
   add.legend <- TRUE
@@ -11800,7 +12433,8 @@ PlotCandlestick <-  function(x, y, xlim = NULL, ylim = NULL, col = c("springgree
 
 
 
-PlotCashFlow <- function(x, y, xlim=NULL, labels=y){
+PlotCashFlow <- function(x, y, xlim=NULL, labels=y, mar=NULL, cex.per=par("cex"), 
+                         cex.tck=par("cex") * 0.8, cex.cash=par("cex")){
 
   if(is.null(xlim))
     xlim <- if (is.null(xlim))
@@ -11810,7 +12444,9 @@ PlotCashFlow <- function(x, y, xlim=NULL, labels=y){
 
   yf <- max(abs(range(c(0, y[is.finite(y)]))))
 
-  Canvas(xlim=xlim, ylim=c(-1,1), xpd=TRUE, asp=NULL)
+  if(is.null(mar))  mar <- c(5.1,5.1,5.1,5.1)
+  
+  Canvas(xlim=xlim, ylim=c(-1,1), xpd=TRUE, asp=NULL, mar=mar)
   arrows(xlim[1], 0, xlim[2]+1, code=0)
   DrawRegPolygon(x=xlim[2]+1, y=0, rot=2*pi/3, radius.x = .09, col=1)
 
@@ -11820,12 +12456,16 @@ PlotCashFlow <- function(x, y, xlim=NULL, labels=y){
   #  points(x=x, y=y/30, pch=17, cex=1.2)
   DrawRegPolygon(x=x, y=y/yf, rot=pi/6 + (y>0) * pi, radius.x = .1, col=1)
 
-  BoxedText(x0, -.3, Format(x0, leading="00", digits=0), border = NA)
-  BoxedText(x0 + 0.5, .2, Format(seq_along(x0), leading="00", digits=0), border = NA, cex=.8)
-
-  BoxedText(x=x, y=sign(y) *(abs(y/yf)+.3), labels = labels, border = NA)
+  # periods
+  BoxedText(x0, -.3, Format(x0, ldigits=2, digits=0), border = NA, cex=cex.per)
+  # ticks
+  BoxedText(x0 + 0.5, .2, Format(seq_along(x0), ldigits=2, digits=0), 
+            border = NA, cex=cex.tck)
+  # cashflows
+  BoxedText(x=x, y=sign(y) *(abs(y/yf)+.3), labels = labels, border = NA, cex=cex.cash)
 
 }
+
 
 
 SaveAs <- function(x, objectname, file, ...){
@@ -12473,57 +13113,94 @@ PlotPairs <- function(x, g=NULL, col=1, pch=19, col.smooth=1, main="",
 
 
 
+
+
 TOne <- function(x, grp = NA, add.length=TRUE,
                  colnames=NULL, vnames=NULL, total=TRUE,
                  align="\\l", FUN = NULL, TEST = NULL, intref="high",
-                 fmt.pval= as.fmt(fmt="*", na.form="   ")){
+                 fmt=list(abs  = Fmt("abs"),
+                          num  = Fmt("num"), per=Fmt("per"),
+                          pval = as.fmt(fmt = "*", na.form = "   ")) ) {
+  
+  
+  # set the formats, take the provided fmt and combine with defaults
+  fmt <- c(fmt,
+           list(abs  = Fmt("abs"),
+                num  = Fmt("num"), 
+                per=Fmt("per"),
+                pval = as.fmt(fmt = "*", na.form = "   ")))
+  # use the first instance, so user defined formats are preferred 
+  # and the standards come into effect if there are no user specifications
+  fmt <- fmt[!duplicated(fmt)]
+  # we could restrict the names here to c("abs","num","per","pval")
 
 
-  afmt <- Fmt("abs")
-  pfmt <- Fmt("per")
-  nfmt <- Fmt("num")
-
+  # set the variablenames per row
   if(is.null(vnames)){
     vnames <- if(is.null(colnames(x))) "Var1" else colnames(x)
     default_vnames <- TRUE
   } else {
     default_vnames <- TRUE
   }
-
+  
   # creates the table one in a study
   if(is.null(FUN)){
     num_fun <- function(x){
-      # wie soll die einzelne Zelle fuer numerische Daten aussehen
+      # the cell for numeric data
       gettextf("%s (%s)",
-               Format(mean(x, na.rm=TRUE), fmt=nfmt),
-               Format(sd(x, na.rm=TRUE), fmt=nfmt))
+               Format(mean(x, na.rm=TRUE), fmt=fmt$num),
+               Format(sd(x, na.rm=TRUE), fmt=fmt$num))
     }
   } else {
     num_fun <- FUN
   }
 
-  TEST.def <- list(num=list(fun=function(x, g){kruskal.test(x, g)$p.val},
-                     lbl="Kruskal-Wallis test"),
-            cat=list(fun=function(x, g){chisq.test(table(x, g))$p.val},
-                     lbl="Chi-Square test"),
-            dich=list(fun=function(x, g){fisher.test(table(x, g))$p.val},
-                      lbl="Fisher exact test"))
+  
+  if(identical(grp, NA)){
+    # no grouping factor, let's define something appropriate
+    grp <- rep(1, nrow(x))
+    TEST <- NA
+  }
+  
+  
+  if(identical(TEST, NA)){
+    
+    TEST <- list(num=list(fun=function(x, g) 1, lbl="None"),
+                 cat=list(fun=function(x, g) 1, lbl="None"),
+                 dich=list(fun=function(x, g) 1, lbl="None"))
+    notest <- TRUE
 
-  if(is.null(TEST))  # the defaults
-     TEST <- TEST.def
+  } else {
 
-  # define test for the singlest tests
-  if(is.null(TEST[["num"]]))
-    TEST[["num"]] <- TEST.def[["num"]]
-  if(is.null(TEST[["cat"]]))
-    TEST[["cat"]] <- TEST.def[["cat"]]
-  if(is.null(TEST[["dich"]]))
-    TEST[["dich"]] <- TEST.def[["dich"]]
-
+    # the default tests for quantitative and categorical data
+    TEST.def <- list(num=list(fun=function(x, g){kruskal.test(x, g)$p.val},
+                              lbl="Kruskal-Wallis test"),
+                     cat=list(fun=function(x, g){chisq.test(table(x, g))$p.val},
+                              lbl="Chi-Square test"),
+                     dich=list(fun=function(x, g){fisher.test(table(x, g))$p.val},
+                               lbl="Fisher exact test"))
+    
+    if(is.null(TEST))  # the defaults
+      TEST <- TEST.def
+    
+    # define test for the single tests
+    if(is.null(TEST[["num"]]))
+      TEST[["num"]] <- TEST.def[["num"]]
+    if(is.null(TEST[["cat"]]))
+      TEST[["cat"]] <- TEST.def[["cat"]]
+    if(is.null(TEST[["dich"]]))
+      TEST[["dich"]] <- TEST.def[["dich"]]
+    
+    notest <- FALSE
+    
+  }
+  
   num_test <- TEST[["num"]]$fun
   cat_test <- TEST[["cat"]]$fun
   dich_test <- TEST[["dich"]]$fun
-
+  
+  
+  
   # replaced for flexible test in 0.99.19
   # num_row <- function(x, g, total=TRUE, test="kruskal.test", vname = deparse(substitute(x))){
   #   # wie soll die zeile aussehen fuer numerische Daten
@@ -12532,11 +13209,11 @@ TOne <- function(x, grp = NA, add.length=TRUE,
   #   #      paste(Format(p$p.value, fmt="*", na.form = "   "), ifelse(is.na(p), "", .FootNote(1))))
   #         paste(Format(p$p.value, fmt="*", na.form = "   "), ifelse(is.na(p$p.value), "", .FootNote(1))))
   # }
-
-
+  
+  
   num_row <- function(x, g, total=TRUE, vname = deparse(substitute(x))){
     if(!identical(g, NA)) {
-      res <- Format(num_test(x, g), fmt=fmt.pval)
+      res <- Format(num_test(x, g), fmt=fmt$pval)
       num_test_label <- names(res)
     } else {
       res <- ""
@@ -12544,27 +13221,27 @@ TOne <- function(x, grp = NA, add.length=TRUE,
     cbind(var=vname, total = num_fun(x), rbind(tapply(x, g, num_fun)),
           paste(res, .FootNote(1)))
   }
-
-
+  
+  
   cat_mat <- function(x, g, vname=deparse(substitute(x))){
-
+    
     if(inherits(x, "character"))
       x <- factor(x)
-
+    
     tab <- table(x, g)
     ptab <- prop.table(tab, margin = 2)
     tab <- addmargins(tab, 2)
     ptab <- cbind(ptab, Sum=prop.table(table(x)))
-
-
+    
+    
     # crunch tab and ptab
     m <- matrix(NA, nrow=nrow(tab), ncol=ncol(tab))
     m[,] <- gettextf("%s (%s)",
-                     Format(tab, fmt=afmt),
-                     Format(ptab, fmt=pfmt))
+                     Format(tab, fmt=fmt$abs),
+                     Format(ptab, fmt=fmt$per))
     # totals to the left
     m <- m[, c(ncol(m), 1:(ncol(m)-1))]
-
+    
     # set rownames
     m <- cbind( c(vname, paste(" ", levels(x))),
                 rbind("", m))
@@ -12574,101 +13251,90 @@ TOne <- function(x, grp = NA, add.length=TRUE,
       p <- cat_test(x, g)
     else
       p <- NA
-    m <- cbind(m, c(paste(Format(p, fmt=fmt.pval), ifelse(is.na(p), "", .FootNote(3))), rep("", nlevels(x))))
-
+    m <- cbind(m, c(paste(Format(p, fmt=fmt$pval), ifelse(is.na(p), "", .FootNote(3))), rep("", nlevels(x))))
+    
     if(nrow(m) <=3) {
       m[2,1] <- gettextf("%s (= %s)", m[1, 1], row.names(tab)[1])
       m <- m[2, , drop=FALSE]
     }
-
+    
     colnames(m) <- c("var","total", head(colnames(tab), -1), "")
     m
   }
-
+  
   dich_mat <- function(x, g, vname=deparse(substitute(x))){
-
+    
     tab <- table(x, g)
-
+    
     if(identical(dim(tab), c(2L,2L))){
-#      p <- fisher.test(tab)$p.value
+      #      p <- fisher.test(tab)$p.value
       p <- dich_test(x, g)
       foot <- .FootNote(2)
     } else {
-#      p <- chisq.test(tab)$p.value
+      #      p <- chisq.test(tab)$p.value
       p <- cat_test(x, g)
       foot <- .FootNote(3)
     }
-
+    
     ptab <- prop.table(tab, 2)
     tab <- addmargins(tab, 2)
     ptab <- cbind(ptab, Sum = prop.table(tab[,"Sum"]))
-
+    
     m <- matrix(NA, nrow=nrow(tab), ncol=ncol(tab))
     m[,] <- gettextf("%s (%s)",
-                     Format(tab, fmt=afmt),
-                     Format(ptab, fmt=pfmt))
-
+                     Format(tab, fmt=fmt$abs),
+                     Format(ptab, fmt=fmt$per))
+    
     # totals to the left
     m <- m[, c(ncol(m), 1:(ncol(m)-1)), drop=FALSE]
-
-    m <- rbind(c(vname, m[1,], paste(Format(p, fmt=fmt.pval), foot)))
+    
+    m <- rbind(c(vname, m[1,], paste(Format(p, fmt=fmt$pval), foot)))
     colnames(m) <- c("var","total", head(colnames(tab), -1), "")
-
+    
     m
   }
-
-
+  
+  
   intref <- match.arg(intref, choices = c("high", "low"))
-
+  
   if(mode(x) %in% c("logical","numeric","complex","character"))
     x <- data.frame(x)
-
+  
   # find description types
   ctype <- sapply(x, class)
   # should we add "identical type": only one value??
   ctype[sapply(x, IsDichotomous, strict=TRUE, na.rm=TRUE)] <- "dich"
-
+  
   ctype[sapply(ctype, function(x) any(x %in% c("numeric","integer")))] <- "num"
   ctype[sapply(ctype, function(x) any(x %in% c("factor","ordered","character")))] <- "cat"
-
-  if(identical(grp, NA)){
-    # no grouping factor, let's define something appropriate
-    grp <- rep(1, nrow(x))
-    num_test <- function(x, g) 1
-    cat_test <- function(x, g) 1
-    dich_test <- function(x, g) 1
-    TEST[["num"]]$lbl <- "None"
-    TEST[["cat"]]$lbl <- "None"
-    TEST[["dich"]]$lbl <- "None"
-  }
-
+  
   lst <- list()
   for(i in 1:ncol(x)){
     if(ctype[i] == "num"){
       lst[[i]] <- num_row(x[,i], grp, vname=vnames[i])
-
+      
     } else if(ctype[i] == "cat") {
       lst[[i]] <- cat_mat(x[,i], grp, vname=vnames[i])
-
+      
     } else if(ctype[i] == "dich") {
-
+      
       # refactor all types, numeric, logic but not factors and let user choose
       # the level to be reported.
       if(!is.factor(x[, i])) {   # should only apply to boolean, integer or numerics
         xi <- factor(x[, i])
         if(match.arg(intref, choices = c("high", "low")) == "high")
           xi <- relevel(xi, tail(levels(xi), 1))
-
+        
       } else {
         xi <- x[, i]
       }
-
+      
       if (default_vnames) {
         lst[[i]] <- dich_mat(xi, grp, vname = gettextf("%s (= %s)", vnames[i], head(levels(xi), 1)))
       } else {
         lst[[i]] <- dich_mat(xi, grp, vname = gettextf("%s", vnames[i]))
       }
-
+      
       #
       # if(default_vnames){
       #   # only declare the ref level on default_vnames
@@ -12678,40 +13344,45 @@ TOne <- function(x, grp = NA, add.length=TRUE,
       #   # the user is expected to define ref level, if he wants one
       #   lst[[i]] <- dich_mat(x[,i], grp, vname=gettextf("%s", vnames[i]))
       # }
-
+      
     } else {
       lst[[i]] <- rbind(c(colnames(x)[i], rep(NA, nlevels(grp) + 2)))
     }
-
+    
   }
-
+  
   res <- do.call(rbind, lst)
-
+  
   if(add.length)
-    res <- rbind(c("n", c(Format(sum(!is.na(grp)), fmt=afmt),
-                          paste(Format(table(grp), fmt=afmt), " (",
-                                Format(prop.table(table(grp)), fmt=pfmt), ")", sep=""), ""))
+    res <- rbind(c("n", c(Format(sum(!is.na(grp)), fmt=fmt$abs),
+                          paste(Format(table(grp), fmt=fmt$abs), " (",
+                                Format(prop.table(table(grp)), fmt=fmt$per), ")", sep=""), ""))
                  , res)
-
-  if(!is.null(colnames))
-    colnames(res) <- colnames
-
+  
   # align the table
   if(align != "\\l")
     res[,-c(1, ncol(res))] <- StrAlign(res[,-c(1, ncol(res))], sep = align)
-
+  
   if(all(grp==1)){
     res <- res[, -3]
     total <- TRUE
   }
-
+  
   if(!total)
     res <- res[, -2]
 
-
-  attr(res, "legend") <- gettextf("%s) %s, %s) %s, %s) %s\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1",
-                                  .FootNote(1), TEST[["num"]]$lbl, .FootNote(2), TEST[["dich"]]$lbl, .FootNote(3), TEST[["cat"]]$lbl)
-
+  if(!is.null(colnames))
+    colnames(res) <- rep(colnames, length.out=ncol(res))
+  
+  
+  if(!notest)
+    attr(res, "legend") <- gettextf("%s) %s, %s) %s, %s) %s\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1",
+                                    .FootNote(1), TEST[["num"]]$lbl, .FootNote(2), TEST[["dich"]]$lbl, .FootNote(3), TEST[["cat"]]$lbl)
+  else {
+    attr(res, "legend") <- ""
+    res <- res[, -ncol(res)]
+  }
+  
   class(res) <- "TOne"
   return(res)
 }
@@ -12732,12 +13403,18 @@ TOne <- function(x, grp = NA, add.length=TRUE,
 
 
 print.TOne <- function(x, ...){
-
+  
+  cat("\n")
+  
   write.table(format(rbind(colnames(x), x), justify="left"),
               row.names=FALSE, col.names=FALSE, quote=FALSE)
 
-  cat("---\n")
-  cat(attr(x, "legend"), "\n\n")
+  if(!is.null(attr(x, "legend"))){
+    cat("---\n")
+    cat(attr(x, "legend"), "\n")
+  }
+  cat("\n")
+  
 }
 
 
@@ -13634,18 +14311,17 @@ ToWrd.table <- function (x, font = NULL, main = NULL, align=NULL, tablestyle=NUL
     wrdTable$Columns()$AutoFit()
 
 
-  # Cursor aus der Tabelle auf die letzte Postition im Dokument setzten
-  # This code will get you out of the table and put the text cursor directly behind it:
+  # this will get us out of the table and put the text cursor directly behind it
   wrdTable$Select()
   wrd[["Selection"]]$Collapse(wdConst$wdCollapseEnd)
 
-  # instead of goint to the end of the document ...
+  # instead of coarsely moving to the end of the document ...
   # Selection.GoTo What:=wdGoToPercent, Which:=wdGoToLast
   # wrd[["Selection"]]$GoTo(What = wdConst$wdGoToPercent, Which= wdConst$wdGoToLast)
 
   if(!is.null(main)){
     # insert caption
-    sel <- wrd$Selection()  # "Abbildung"
+    sel <- wrd$Selection()  
     sel$InsertCaption(Label=wdConst$wdCaptionTable, Title=paste(" - ", main, sep=""))
     sel$TypeParagraph()
 
@@ -13829,6 +14505,7 @@ WrdFont <- function(wrd = DescToolsOptions("lastWord") ) {
 }
 
 
+
 # Get and set ParagraphFormat
 
 WrdParagraphFormat <- function(wrd = DescToolsOptions("lastWord") ) {
@@ -13926,9 +14603,27 @@ WrdStyle <- function (wrd = DescToolsOptions("lastWord")) {
 
 WrdGoto <- function (name, what = wdConst$wdGoToBookmark, wrd = DescToolsOptions("lastWord")) {
   wrdSel <- wrd[["Selection"]]
-  wrdSel$GoTo(what=what, Name=name)
+  
+  if(what == wdConst$wdGoToBookmark){
+    wrdBookmarks <- wrd[["ActiveDocument"]][["Bookmarks"]]
+    if(wrdBookmarks$exists(name)){
+      wrdSel$GoTo(what=what, Name=name)
+      res <- TRUE
+    } else {
+      warning(gettextf("Bookmark %s does not exist, so there's nothing to select", name))
+      res <- FALSE
+    }
+  } else {
+    wrdSel$GoTo(what=what, Name=name)
+    
+  }
+  
   invisible()
 }
+
+
+
+
 
 
 WrdPageBreak <- function(wrd = DescToolsOptions("lastWord")) {
@@ -13938,7 +14633,7 @@ WrdPageBreak <- function(wrd = DescToolsOptions("lastWord")) {
 
 
 
-WrdBookmark <- function(bookmark, wrd = DescToolsOptions("lastWord")){
+WrdBookmark <- function(name, wrd = DescToolsOptions("lastWord")){
   
   wbms <- wrd[["ActiveDocument"]][["Bookmarks"]]
   
@@ -13946,7 +14641,7 @@ WrdBookmark <- function(bookmark, wrd = DescToolsOptions("lastWord")){
     # get bookmark names
     bmnames <- sapply(seq(wbms$count()), function(i) wbms[[i]]$name())
     
-    id <- which(bookmark == bmnames)
+    id <- which(name == bmnames)
     
     if(length(id)==0)   # name found?
       res <- NULL 
@@ -13964,6 +14659,27 @@ WrdBookmark <- function(bookmark, wrd = DescToolsOptions("lastWord")){
   return(res)  
   
 }
+
+
+# WrdGetBookmarkID <- function(name, wrd = DescToolsOptions("lastWord")){
+#   
+#   wrdBookmarks <- wrd[["ActiveDocument"]][["Bookmarks"]]
+#   
+#   if(wrdBookmarks$exists(name)){
+#     if((n <- wrdBookmarks$count()) > 0) {
+#       for(i in 1:n){
+#         if(name == wrdBookmarks[[i]]$name())
+#           return(i)
+#       }
+#     }
+#   } else {
+#     warning(gettextf("Bookmark %s does not exist.", name))
+#     return(NA_integer_)
+#   }
+#   
+# }
+
+
 
 
 WrdInsertBookmark <- function (name, wrd = DescToolsOptions("lastWord")) {
@@ -13996,6 +14712,26 @@ WrdUpdateBookmark <- function (name, text, what = wdConst$wdGoToBookmark, wrd = 
   wrdBookmarks$Add(name)
   invisible()
 }
+
+
+
+
+WrdDeleteBookmark <- function(name, wrd = DescToolsOptions("lastWord")){
+  
+  wrdBookmarks <- wrd[["ActiveDocument"]][["Bookmarks"]]
+  if(wrdBookmarks$exists(name)){
+    WrdBookmark(name)$Delete()
+    res <- TRUE
+  } else {
+    warning(gettextf("Bookmark %s does not exist, so there's nothing to delete", name))
+    res <- FALSE
+  }
+  
+  return(res)
+  # TRUE for success / FALSE for fail
+}  
+
+
 
 
 
@@ -14253,7 +14989,7 @@ Phrase <- function(x, g, glabels=NULL, xname=NULL, unit=NULL, lang="engl", na.rm
   names(lst) <- c("x","y")
 
   n <- sapply(lst, length)
-  meanage <- format(sapply(lst, mean), digits=3)
+  mx <- format(sapply(lst, mean), digits=3)
 
   txt <- gettextf(txt1
                   , Format(sum(n), digits=0, big.mark="'")
@@ -14261,22 +14997,21 @@ Phrase <- function(x, g, glabels=NULL, xname=NULL, unit=NULL, lang="engl", na.rm
                   , glabels[1]
                   , Format(n[1]/sum(n), digits=1, fmt="%")
                   , xname
-                  , meanage[1]
+                  , mx[1]
                   , unit
                   , Format(n[2], digits=0, big.mark="'")
                   , glabels[2]
                   , Format(n[2]/sum(n), digits=1, fmt="%")
                   , xname
-                  , meanage[2]
+                  , mx[2]
                   , unit
   )
-
 
   r.t <- t.test(lst$x, lst$y)
 
   if(r.t$p.value < 0.05){
     md <- format(MeanDiffCI(lst$x, lst$y), digits=3)
-    txt <- paste(txt, gettextf(txt2, format.pval(r.t$p.value), md[1], unit, md[2], md[3], "%"), sep="" )
+    txt <- paste(txt, gettextf(txt2, Format(r.t$p.value, fmt="p"), md[1], unit, md[2], md[3], "%"), sep="" )
   } else {
     txt <- paste(txt, txt3, sep="")
   }
@@ -14492,7 +15227,7 @@ Phrase <- function(x, g, glabels=NULL, xname=NULL, unit=NULL, lang="engl", na.rm
 
 
 
-XLView <- function (x, col.names = TRUE, row.names = FALSE, na = "", preserveStrings=FALSE) {
+XLView <- function (x, col.names = TRUE, row.names = FALSE, na = "", preserveStrings=FALSE, sep=";") {
 
   # # define some XL constants
   # xlToRight <- -4161
@@ -14516,7 +15251,7 @@ XLView <- function (x, col.names = TRUE, row.names = FALSE, na = "", preserveStr
       }
     }
 
-    write.table(x, file = fn, sep = ";", col.names = col.names,
+    write.table(x, file = fn, sep = sep, col.names = col.names,
                 qmethod = "double", row.names = row.names, na=na)
     ob <- owb$Open(fn)
     # if row.names are saved there's the first cell in the first line missing
@@ -14590,49 +15325,6 @@ ToXL.data.frame <- function(x, at, ..., xl=DescToolsOptions("lastXL"))
   invisible(ws$Range(ws$Cells(r1, c1), ws$Cells(r1 + nrow(x), c2)))
 }
 
-
-# 
-# ToXL.matrix <- function(x, at, ..., xl=DescToolsOptions("lastXL"))
-#   ## output the occupying range. Exactly the same as ToXL.data.frame
-#   ## TODO: row.names, more error checking
-#   ##
-# {
-#   if(is.character(at)){
-#     # address of the left upper cell
-#     at <- do.call(xl$Cells, as.list(A1ToZ1S1(at)[[1]]))
-# 
-#   } else if(is.vector(at)) {
-#     # get a handle of the cell range
-#     at <- do.call(xl$Cells, as.list(at))
-#   }
-# 
-# 
-#   nc <- dim(x)[2]
-#   if(nc < 1) stop("matrix must have at least one column")
-#   r1 <- at$Row()                   ## 1st row in range
-#   c1 <- at$Column()                ## 1st col in range
-#   c2 <- c1 + nc - 1                ## last col (*not* num of col)
-#   ws <- at[["Worksheet"]]
-# 
-#   ## headers
-#   if(!is.null(names(x))) {
-#     hdrRng <- ws$Range(ws$Cells(r1, c1), ws$Cells(r1, c2))
-#     hdrRng[["Value"]] <- names(x)
-#     rng <- ws$Cells(r1 + 1, c1)
-#   } else {
-#     rng <- ws$Cells(r1, c1)
-#   }
-# 
-#   ## data
-#   for(j in seq(from = 1, to = nc)){
-#     # debug only:
-#     # cat("Column", j, "\n")
-#     ToXL(x[, j], at = rng)       ## no byrow for matrices!
-#     rng <- rng$Next()            ## next cell to the right
-#   }
-#   invisible(ws$Range(ws$Cells(r1, c1), ws$Cells(r1 + nrow(x), c2)))
-# }
-# 
 
 
 ToXL.matrix <- function (x, at, ..., xl = DescToolsOptions("lastXL")) {
@@ -14806,6 +15498,7 @@ XLColNames <- function() {
 }
 
 
+
 A1ToZ1S1 <- function(x){
   
   # was so slooow, we don't have to sort, if we do it a little more cleverly...
@@ -14826,152 +15519,6 @@ A1ToZ1S1 <- function(x){
 }
 
 
-
-
-# XLGetRange <- function (file = NULL, sheet = NULL, range = NULL, as.data.frame = TRUE,
-#                         header = FALSE, stringsAsFactors = FALSE, echo = FALSE, datecols = NA,
-#                         na.strings = NULL, skip = 0) {
-# 
-# 
-#   # https://stackoverflow.com/questions/38950005/how-to-manipulate-null-elements-in-a-nested-list/
-#   
-#   simple_rapply <- function(x, fn) {
-#     if(is.list(x)) {
-#       lapply(x, simple_rapply, fn)
-#     } else {
-#       fn(x)
-#     }
-#   }
-#   
-# 
-#   # main function  *******************************
-# 
-#   # to do: 30.8.2015
-#   # we could / should check for a running XL instance here...
-#   # ans <- RDCOMClient::getCOMInstance("Excel.Application", force = FALSE, silent = TRUE)
-#   # if (is.null(ans) || is.character(ans)) print("not there")
-# 
-# 
-#   if(is.null(file)){
-#     xl <- GetCurrXL()
-#     ws <- xl$ActiveSheet()
-#     if(is.null(range)) {
-#       # if there is a selection in XL then use it, if only one cell selected use currentregion
-#       sel <- xl$Selection()
-#       if(sel$Cells()$Count() == 1 ){
-#         range <- xl$ActiveCell()$CurrentRegion()$Address(FALSE, FALSE)
-#       } else {
-#         range <- sapply(1:sel$Areas()$Count(), function(i) sel$Areas()[[i]]$Address(FALSE, FALSE) )
-# 
-#         # old: this did not work on some XL versions with more than 28 selected areas
-#         # range <- xl$Selection()$Address(FALSE, FALSE)
-#         # range <- unlist(strsplit(range, ";"))
-#         # there might be more than 1 single region, split by ;
-#         # (this might be a problem for other locales)
-#       }
-#     } 
-#     
-#   } else {
-#     xl <- GetNewXL()
-#     wb <- xl[["Workbooks"]]$Open(file)
-# 
-#     # set defaults for sheet and range here
-#     if(is.null(sheet))
-#       sheet <- 1
-# 
-#     if(is.null(range))
-#       range <- xl$Cells(1,1)$CurrentRegion()$Address(FALSE, FALSE)
-# 
-#     ws <- wb$Sheets(sheet)$select()
-#   }
-#   
-#   if(class(range) == "XLCurrReg"){
-#     # take only the first cell of a given range
-#     zs <- A1ToZ1S1(range)[[1]]
-#     range <- xl$Cells(zs[1], zs[2])$CurrentRegion()$Address(FALSE, FALSE)
-#   } else if(class(range) == "XLNamedReg"){
-#     # get the address of the named region
-#     sel <- xl$ActiveWorkbook()$Names(as.character(range))$RefersToRange()
-#     range <- sapply(1:sel$Areas()$Count(), function(i) sel$Areas()[[i]]$Address(FALSE, FALSE) )
-#     
-#   }
-#   
-#   # recycle skip
-#   skip <- rep(skip, length.out=length(range))
-# 
-#   lst <- list()
-#   #  for(i in 1:length(range)){  # John Chambers prefers seq_along: (why actually?)
-#   for(i in seq_along(range)){
-#     zs <- A1ToZ1S1(range[i])
-#     rr <- xl$Range(xl$Cells(zs[[1]][1], zs[[1]][2]), xl$Cells(zs[[2]][1], zs[[2]][2]) )
-#     # resize and offset range, if skip != 0
-#     if(skip[i] != 0)
-#       rr <- rr$Resize(rr$Rows()$Count() - skip[i])$Offset(skip[i], 0)
-# 
-#     lst[[i]] <- rr[["Value2"]]
-#     # implement na.strings:
-#     if(!is.null(na.strings))
-#       lst[[i]] <- rapply(lst[[i]], function(x) ifelse(x %in% na.strings, NA, x), how = "replace")
-#     names(lst)[i] <- range[i]
-#   }
-# 
-#   # replace NULL values by NAs, as NULLs are evil while coercing to data.frame!
-#   if(as.data.frame){
-#     for(i in seq_along(lst)){
-#       for(j in seq_along(lst[[i]])){
-#         lst[[i]][[j]][unlist(lapply(lst[[i]][[j]], is.null))] <- NA
-#       }
-#       xnames <- unlist(lapply(lst[[i]], "[", 1))        # define the names in case header = TRUE
-#       if(header) lst[[i]] <- lapply(lst[[i]], "[", -1)  # delete the first row
-#       lst[[i]] <- do.call(data.frame, c(lapply(lst[[i]][], unlist), stringsAsFactors = stringsAsFactors))
-#       if(header){
-#         names(lst[[i]]) <- xnames
-#       } else {
-#         names(lst[[i]]) <- paste("X", 1:ncol(lst[[i]]), sep="")
-#       }
-#     }
-# 
-#     # convert date columns to date
-#     if(!identical(datecols, NA)){
-#       # apply to all selections
-#       for(i in seq_along(lst)){
-# 
-#         # switch to colindex if given as text
-#         if(!is.numeric(datecols) && header)
-#           datecols <- which(names(lst[[i]]) %in% datecols)
-# 
-#         for(j in datecols)
-#           lst[[i]][,j] <- as.Date(XLDateToPOSIXct(lst[[i]][,j]))
-#       }
-#     }
-#   }
-# 
-#   # just return a single object (for instance data.frame) if only one range was supplied
-#   if(length(lst)==1) lst <- lst[[1]]
-# 
-#  # opt <- options(useFancyQuotes=FALSE); on.exit(options(opt))
-#   attr(lst,"call") <- gettextf("XLGetRange(file = %s, sheet = %s,
-#      range = c(%s),
-#      as.data.frame = %s, header = %s, stringsAsFactors = %s)",
-#      gsub("\\\\", "\\\\\\\\",
-#         shQuote(paste(xl$ActiveWorkbook()$Path(),
-#                      xl$ActiveWorkbook()$Name(), sep="\\"))),
-#      shQuote(xl$ActiveSheet()$Name()),
-# #     gettextf(paste(dQuote(names(lst)), collapse=",")),
-#      gettextf(paste(shQuote(range), collapse=",")),
-#      as.data.frame, header, stringsAsFactors)
-# 
-#   if(!is.null(file)) {
-#     xl$ActiveWorkbook()$Close(savechanges=FALSE)
-#     xl$Quit()  # only quit, if a new XL-instance was created before
-#   }
-# 
-#   if(echo)
-#     cat(attr(lst,"call"))
-# 
-#   return(lst)
-# 
-# }
 
 
 XLGetRange <- function (file = NULL, sheet = NULL, range = NULL, as.data.frame = TRUE,
@@ -15382,18 +15929,10 @@ SendOutlookMail <- function(to, cc=NULL, bcc=NULL, subject, body, attachment=NUL
 
 
 
-
 createCOMReference <- function(ref, className) {
   RDCOMClient::createCOMReference(ref, className)
 }
 
-# createCOMReference <- RDCOMClient::createCOMReference
-
-
-
-# isValidCOMObject <- function(obj) {
-#   RDCOMClient::isValidCOMObject(obj)
-# }
 
 
 IsValidPtr <- function(pointer) {
@@ -15429,7 +15968,7 @@ GetCOMAppHandle <- function(app, option=NULL, existing=FALSE, visible=NULL){
       hwnd <- RDCOMClient::COMCreate(app, existing=existing)
     else
       hwnd <- RDCOMClient::getCOMInstance(app)
-    
+
     if(is.null(hwnd)) 
       warning(gettext("No running %s application found!", app))
     else
@@ -15458,92 +15997,8 @@ GetCOMAppHandle <- function(app, option=NULL, existing=FALSE, visible=NULL){
 
 
 GetCurrWrd <- function() {
-  
-  #   if (requireNamespace("RDCOMClient", quietly = FALSE)) {
-  # 
-  #     # there's no "get"-function in RDCOMClient, so just create a new here..
-  #     hwnd <- RDCOMClient::COMCreate("Word.Application", existing=TRUE)
-  #     if(is.null(hwnd)) warning("No running Word application found!")
-  # 
-  # #    options(lastWord = hwnd)
-  #     DescToolsOptions(lastWord = hwnd)
-  # 
-  # 
-  #   } else {
-  # 
-  #     if(Sys.info()["sysname"] == "Windows")
-  #       warning("RDCOMClient is not available. To install it use: install.packages('RDCOMClient', repos = 'http://www.omegahat.net/R/')")
-  #     else
-  #       warning(gettextf("RDCOMClient is unfortunately not available for %s systems (Windows-only).", Sys.info()["sysname"]))
-  # 
-  #     wrd <- NULL
-  # 
-  #   }
-  # 
-  #   invisible(hwnd)
-  
   hwnd <- GetCOMAppHandle("Word.Application", option="lastWord", existing=TRUE)
-  
-  
 }
-
-
-# GetNewWrd <- function(visible = TRUE, template = "Normal", header=FALSE
-#                       , main="Descriptive report") {
-#   
-#   # if (requireNamespace("RDCOMClient", quietly = FALSE)) {
-#   # 
-#   #   # Starts the Word application with wrd as handle
-#   #   hwnd <- RDCOMClient::COMCreate("Word.Application", existing=FALSE)
-#   #   DescToolsOptions(lastWord = hwnd)
-#   # 
-#   #   if( visible == TRUE ) hwnd[["Visible"]] <- TRUE
-#   # 
-#   #   # Create a new document based on template
-#   #   # VBA code:
-#   #   # Documents.Add Template:= _
-#   #   #        "O:\G\GI\_Admin\Administration\09_Templates\newlogo_GI_doc_bericht.dot", _
-#   #   #        NewTemplate:=False, DocumentType:=0
-#   #   #
-#   #   newdoc <- hwnd[["Documents"]]$Add(template, FALSE, 0)
-#   # 
-#   #   # prepare word document, with front page, table of contents, footer ...
-#   #   if(header) .WrdPrepRep( wrd=hwnd, main=main )
-#   # 
-#   # } else {
-#   # 
-#   #   if(Sys.info()["sysname"] == "Windows")
-#   #     warning("RDCOMClient is not available. To install it use: install.packages('RDCOMClient', repos = 'http://www.omegahat.net/R/')")
-#   #   else
-#   #     warning(gettextf("RDCOMClient is unfortunately not available for %s systems (Windows-only).", Sys.info()["sysname"]))
-#   # 
-#   #   hwnd <- NULL
-#   # }
-#   
-#   
-#   hwnd <- GetCOMAppHandle("Word.Application", option="lastWord", 
-#                           existing=FALSE, visible=TRUE)
-#   
-#   if(!is.null(hwnd)){
-#     
-#     # Create a new document based on template
-#     # VBA code:
-#     # Documents.Add Template:= _
-#     #        "O:\G\GI\_Admin\Administration\09_Templates\newlogo_GI_doc_bericht.dot", _
-#     #        NewTemplate:=False, DocumentType:=0
-#     #
-#     newdoc <- hwnd[["Documents"]]$Add(template, FALSE, 0)
-#     
-#     # prepare word document, with front page, table of contents, footer ...
-#     if(header) .WrdPrepRep( wrd=hwnd, main=main )
-#     
-#   }
-#   
-#   invisible( hwnd )
-#   
-# }
-# 
-
 
 
 
@@ -15560,7 +16015,7 @@ GetNewWrd <- function (visible = TRUE, template = "Normal", header = FALSE,
       .WrdPrepRep(wrd = hwnd, main = main)
     
     # Check for existance of bookmark Main and update if found
-    if(!is.null(WrdBookmark(bookmark = "Main", wrd = hwnd))){
+    if(!is.null(WrdBookmark(name = "Main", wrd = hwnd))){
       WrdUpdateBookmark(name="Main", text = main, wrd=hwnd)
       WrdUpdateFields(wrd=hwnd, where = c(1,7))
     }
@@ -15594,32 +16049,6 @@ GetNewWrd <- function (visible = TRUE, template = "Normal", header = FALSE,
 
 GetNewXL <- function(visible = TRUE, newdoc = TRUE) {
   
-  # if (requireNamespace("RDCOMClient", quietly = FALSE)) {
-  # 
-  #     # Starts the Excel with xl as handle
-  #   hwnd <- RDCOMClient::COMCreate("Excel.Application")
-  #   DescToolsOptions(lastXL = hwnd)
-  # 
-  #   if(visible == TRUE) hwnd[["Visible"]] <- TRUE
-  # 
-  #   # Create a new workbook
-  #   # react the same as GetNewWrd(), Word is also starting with a new document
-  #   # XL would not
-  #   if(newdoc)
-  #     hwnd[["Workbooks"]]$Add()
-  # 
-  # } else {
-  # 
-  #   if(Sys.info()["sysname"] == "Windows")
-  #     warning("RDCOMClient is not available. To install it use: install.packages('RDCOMClient', repos = 'http://www.omegahat.net/R/')")
-  #   else
-  #     warning(gettextf("RDCOMClient is unfortunately not available for %s systems (Windows-only).", Sys.info()["sysname"]))
-  # 
-  #   hwnd <- NULL
-  # }
-  # 
-  # invisible(hwnd)
-  
   hwnd <- GetCOMAppHandle("Excel.Application", option="lastXL", existing=FALSE, visible=TRUE)
   
   if(!is.null(hwnd)){
@@ -15636,90 +16065,16 @@ GetNewXL <- function(visible = TRUE, newdoc = TRUE) {
 }
 
 
-# GetCurrXLA <- function() {
-#   
-#   #  stopifnot(require(RDCOMClient))
-#     if (requireNamespace("RDCOMClient", quietly = FALSE)) {
-# 
-#       # try to get a handle to a running XL instance
-#       # there's no "get"-function in RDCOMClient, so just create a new here..
-#       hwnd <- RDCOMClient::COMCreate("Excel.Application", existing=TRUE)
-#       if(is.null(hwnd)) warning("No running Excel application found!")
-# 
-#       DescToolsOptions(lastXL = hwnd)
-# 
-#     } else {
-# 
-#       if(Sys.info()["sysname"] == "Windows")
-#         warning("RDCOMClient is not available. To install it use: install.packages('RDCOMClient', repos = 'http://www.omegahat.net/R/')")
-#       else
-#         warning(gettextf("RDCOMClient is unfortunately not available for %s systems (Windows-only).", Sys.info()["sysname"]))
-# 
-#       hwnd <- NULL
-#     }
-# 
-#     invisible(hwnd)
-# }
-
-
 GetCurrXL <- function() {
 
-  # #  stopifnot(require(RDCOMClient))
-  #   if (requireNamespace("RDCOMClient", quietly = FALSE)) {
-  # 
-  #     # try to get a handle to a running XL instance
-  #     # there's no "get"-function in RDCOMClient, so just create a new here..
-  #     hwnd <- RDCOMClient::COMCreate("Excel.Application", existing=TRUE)
-  #     if(is.null(hwnd)) warning("No running Excel application found!")
-  #   
-  #     DescToolsOptions(lastXL = hwnd)
-  # 
-  #   } else {
-  # 
-  #     if(Sys.info()["sysname"] == "Windows")
-  #       warning("RDCOMClient is not available. To install it use: install.packages('RDCOMClient', repos = 'http://www.omegahat.net/R/')")
-  #     else
-  #       warning(gettextf("RDCOMClient is unfortunately not available for %s systems (Windows-only).", Sys.info()["sysname"]))
-  # 
-  #     hwnd <- NULL
-  #   }
-  # 
-  #   invisible(hwnd)
-  
   hwnd <- GetCOMAppHandle("Excel.Application", option="lastXL", existing=TRUE)
   invisible(hwnd)
-  
-  
 }
 
 
 
 GetNewPP <- function (visible = TRUE, template = "Normal") {
-  
-  # if (requireNamespace("RDCOMClient", quietly = FALSE)) {
-  # 
-  #   hwnd <- RDCOMClient::COMCreate("PowerPoint.Application")
-  #   if (visible == TRUE) { hwnd[["Visible"]] <- TRUE }
-  # 
-  #   newpres <- hwnd[["Presentations"]]$Add(TRUE)
-  #   ppLayoutBlank <- 12
-  #   newpres[["Slides"]]$Add(1, ppLayoutBlank)
-  #   # options("lastPP" = hwnd)
-  #   DescToolsOptions(lastPP = hwnd)
-  # 
-  # 
-  # } else {
-  # 
-  #   if(Sys.info()["sysname"] == "Windows")
-  #     warning("RDCOMClient is not available. To install it use: install.packages('RDCOMClient', repos = 'http://www.stats.ox.ac.uk/pub/RWin/')")
-  #   else
-  #     warning(gettextf("RDCOMClient is unfortunately not available for %s systems (Windows-only).", Sys.info()["sysname"]))
-  # 
-  #   hwnd <- NULL
-  # 
-  # }
-  # 
-  
+
   hwnd <- GetCOMAppHandle("PowerPoint.Application", option="lastPP", existing=FALSE, visible=TRUE)
   
   if(!is.null(hwnd)){
@@ -15737,32 +16092,8 @@ GetNewPP <- function (visible = TRUE, template = "Normal") {
 
 GetCurrPP <- function() {
   
-  # if (requireNamespace("RDCOMClient", quietly = FALSE)) {
-  # 
-  #   # there's no "get"-function in RDCOMClient, so just create a new here..
-  #   hwnd <- RDCOMClient::COMCreate("PowerPoint.Application", existing=TRUE)
-  #   if(is.null(hwnd)) warning("No running PowerPoint application found!")
-  # 
-  #   # options("lastPP" = hwnd)
-  #   DescToolsOptions(lastPP = hwnd)
-  # 
-  # 
-  # } else {
-  # 
-  #   if(Sys.info()["sysname"] == "Windows")
-  #     warning("RDCOMClient is not available. To install it use: install.packages('RDCOMClient', repos = 'http://www.stats.ox.ac.uk/pub/RWin/')")
-  #   else
-  #     warning(gettextf("RDCOMClient is unfortunately not available for %s systems (Windows-only).", Sys.info()["sysname"]))
-  # 
-  #   hwnd <- NULL
-  # }
-  # 
-  # 
-  # invisible(hwnd)
-  
   hwnd <- GetCOMAppHandle("PowerPoint.Application", option="lastPP", existing=TRUE)
   invisible(hwnd)
-  
 }
 
 
@@ -15787,6 +16118,16 @@ CourseData <- function(name, url=NULL, header=TRUE, sep=";",  ...){
   url <- gettextf(paste(url, "%s", sep=""), name)
   read.table(file = url, header = header, sep = sep, ...)
 }
+
+
+
+as.statafactor <- function(x){
+  res <- factor(x, levels=attr(x, "labels"), labels=names(attr(x, "labels")))
+  attr(res, "label") <- attr(x, "label")
+  res
+}
+
+
 
 
 

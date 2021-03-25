@@ -43,6 +43,9 @@ NormWeights <- function(x, weights, na.rm=FALSE, zero.rm=FALSE, normwt=FALSE) {
   if (length(weights) != n) 
     stop("length of 'weights' must equal the number of rows in 'x'")
   
+  # x and weights have length=0
+  if(length(x)==0)
+    return(list(x = x, weights = x, wsum = NaN))
   
   if (any(weights< 0) || (s <- sum(weights)) == 0) 
     stop("weights must be non-negative and not all zero")
@@ -171,6 +174,75 @@ MAD <- function(x, weights = NULL, center = Median, constant = 1.4826, na.rm = F
 
 
 
+MADCI <- function(x, y = NULL, two.samp.diff = TRUE, gld.est = "TM", 
+                  conf.level = 0.95, sides = c("two.sided","left","right"), 
+                  na.rm = FALSE, ...) {
+
+  if (na.rm) x <- na.omit(x)
+  
+  sides <- match.arg(sides, choices = c("two.sided","left","right"), 
+                     several.ok = FALSE)
+  
+  if(sides!="two.sided")
+    conf.level <- 1 - 2*(1-conf.level)
+
+  asv.mad <- function(x, method = "TM"){
+    lambda <- fit.fkml(x, method = method)$lambda
+    m  <- median(x)
+    mad.x <- mad(x)
+    fFinv <- dgl(c(m - mad.x, m + mad.x, m), lambda1 = lambda)
+    FFinv <- pgl(c(m - mad.x, m + mad.x), lambda1 = lambda)
+    A <- fFinv[1] + fFinv[2]
+    C <- fFinv[1] - fFinv[2]
+    B <- C^2 + 4*C*fFinv[3]*(1 - FFinv[2] - FFinv[1])
+    
+    (1/(4 * A^2))*(1 + B/fFinv[3]^2)
+    
+  } 
+  
+  alpha <- 1 - conf.level
+  z <- qnorm(1 - alpha/2)
+  
+  est <- mad.x <- mad(x)
+  
+  n.x <- length(x)
+  asv.x <- asv.mad(x, method = gld.est)
+  
+  if(is.null(y)){
+    ci <- mad.x + c(-z, z) * sqrt(asv.x / n.x)
+    
+  } else{
+    y <- y[!is.na(y)]
+    mad.y <- mad(y)
+    n.y <- length(y)
+    
+    asv.y <- asv.mad(y, method = gld.est)
+    
+    if(two.samp.diff){
+      est <- mad.x - mad.y
+      ci <- est + c(-z, z)*sqrt(asv.x/n.x + asv.y/n.y)
+    } else{
+      est <- (mad.x/mad.y)^2
+      log.est <- log(est)
+      var.est <- 4 * est * ((1/mad.y^2)*asv.x/n.x + (est/mad.y^2)*asv.y/n.y)
+      Var.log.est <- (1 / est^2) * var.est
+      
+      ci <- exp(log.est + c(-z, z) * sqrt(Var.log.est))
+    }
+  }
+  
+  res <- c(est, ci)
+  
+  names(res) <- c("mad","lwr.ci","upr.ci")
+  
+  if(sides=="left")
+    res[3] <- Inf
+  else if(sides=="right")
+    res[2] <- -Inf
+  
+  return( res )
+  
+}
 
 
 
@@ -473,9 +545,14 @@ Quantile <- function(x, weights = NULL, probs = seq(0, 1, 0.25),
                 else x[select]
               })
   
-  return(unname(q))
+  # return(unname(q))
+  # why unname? change to named.. 14.10.2020
+  return(q)
   
 }
+
+
+
 
 
 IQRw <- function (x, weights = NULL, na.rm = FALSE, type = 7) {
@@ -548,16 +625,24 @@ CorCI <- function(rho, n, conf.level = 0.95, alternative = c("two.sided","less",
 
   alternative <- match.arg(alternative)
 
-  z <- FisherZ(rho)
-  sigma <- 1/sqrt(n - 3)
-
-  ci <- switch(alternative,
-               less = c(-Inf, z + sigma * qnorm(conf.level)),
-               greater = c(z - sigma * qnorm(conf.level), Inf),
-               two.sided = z + c(-1, 1) * sigma * qnorm((1 + conf.level)/2))
-  ci <- FisherZInv(ci)
+  # correct rho == 1 with rho == almost 1 in order to return ci = c(1, 1)
+  # which is a sensible value for the confidence interval
+  if(identical(rho, 1)) 
+    ci <- c(1, 1)
+  
+  else {
+    z <- FisherZ(rho)
+    sigma <- 1/sqrt(n - 3)
+  
+    ci <- switch(alternative,
+                 less = c(-Inf, z + sigma * qnorm(conf.level)),
+                 greater = c(z - sigma * qnorm(conf.level), Inf),
+                 two.sided = z + c(-1, 1) * sigma * qnorm((1 + conf.level)/2))
+    ci <- FisherZInv(ci)
+  }
 
   return(c(cor = rho, lwr.ci = ci[1], upr.ci = ci[2]))
+  
 }
 
 
@@ -1420,9 +1505,9 @@ Skew <- function (x, weights=NULL, na.rm = FALSE, method = 3, conf.level = NA, c
   } else {
 
     if(ci.type == "classic") {
-      res <- i.skew(x, weights=weights,method=method)
+      res <- i.skew(x, weights=weights, method=method)
       res <- c(skewness=res[1],
-               lwr.ci=qnorm(1-(1-conf.level)/2) * sqrt(res[2]),
+               lwr.ci=qnorm((1-conf.level)/2) * sqrt(res[2]),
                upr.ci=qnorm(1-(1-conf.level)/2) * sqrt(res[2]))
 
     } else {
@@ -1438,10 +1523,9 @@ Skew <- function (x, weights=NULL, na.rm = FALSE, method = 3, conf.level = NA, c
         lwr.ci <- ci[[4]][4]
         upr.ci <- ci[[4]][5]
       }
+      
+      res <- c(skew=boot.skew$t0[1], lwr.ci=lwr.ci, upr.ci=upr.ci)
     }
-
-    res <- c(skew=boot.skew$t0[1], lwr.ci=lwr.ci, upr.ci=upr.ci)
-    # res <- ci
   }
 
   return(res)
@@ -1451,7 +1535,8 @@ Skew <- function (x, weights=NULL, na.rm = FALSE, method = 3, conf.level = NA, c
 
 
 
-Kurt <- function (x, weights=NULL, na.rm = FALSE, method = 3, conf.level = NA, ci.type = "bca", R=1000, ...) {
+Kurt <- function (x, weights=NULL, na.rm = FALSE, method = 3, conf.level = NA, 
+                  ci.type = "bca", R=1000, ...) {
 
   i.kurt <- function(x, weights=NULL, na.rm = FALSE, method = 3) {
 
@@ -1491,7 +1576,7 @@ Kurt <- function (x, weights=NULL, na.rm = FALSE, method = 3, conf.level = NA, c
     if(ci.type == "classic") {
       res <- i.kurt(x, weights=weights, method=method)
       res <- c(kurtosis=res[1],
-               lwr.ci=qnorm(1-(1-conf.level)/2) * sqrt(res[2]),
+               lwr.ci=qnorm((1-conf.level)/2) * sqrt(res[2]),
                upr.ci=qnorm(1-(1-conf.level)/2) * sqrt(res[2]))
 
     } else {
@@ -1520,9 +1605,9 @@ Kurt <- function (x, weights=NULL, na.rm = FALSE, method = 3, conf.level = NA, c
 
 
 
-Outlier <- function(x, method=c("boxplot"), value=TRUE, na.rm=FALSE){
+Outlier <- function(x, method=c("boxplot", "hampel"), value=TRUE, na.rm=FALSE){
 
-  switch(match.arg(arg = method, choices = c("boxplot")),
+  switch(match.arg(arg = method, choices = c("boxplot", "hampel")),
          #         boxplot =  { x[x %)(% (quantile(x, c(0.25,0.75), na.rm=na.rm) + c(-1,1) * 1.5*IQR(x,na.rm=na.rm))] }
          boxplot =  {
            # old, replaced by v. 0.99.26
@@ -1532,19 +1617,25 @@ Outlier <- function(x, method=c("boxplot"), value=TRUE, na.rm=FALSE){
              iqr <- diff(qq)
              id <- x < (qq[1] - 1.5 * iqr) | x > (qq[2] + 1.5 * iqr)
 
-             if(value)
-               res <- x[id]
-             else
-               res <- which(id)
-
-             res <- res[!is.na(res)]
-
-           }
+           },
+         
+         hampel = {
+           # hampel considers values outside of median ± 3*(median absolute deviation) to be outliers
+           id <- x %][% (median(x, na.rm=na.rm) + 3 * c(-1, 1) * mad(x, na.rm=na.rm))
+         }
   )
 
+  if(value)
+    res <- x[id]
+  else
+    res <- which(id)
+  
+  res <- res[!is.na(res)]
+  
   return(res)
 
 }
+
 
 
 LOF <- function(data,k) {
@@ -1763,15 +1854,17 @@ BootCI <- function(x, y=NULL, FUN, ..., bci.method = c("norm", "basic", "stud", 
 
 # Confidence Intervals for Binomial Proportions
 BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right"),
-                    method = c("wilson", "wald", "agresti-coull", "jeffreys", "modified wilson", "wilsoncc",
-                                "modified jeffreys", "clopper-pearson", "arcsine", "logit", "witting", "pratt"), rand = 123) {
+                    method = c("wilson", "wald", "waldcc", "agresti-coull", "jeffreys", "modified wilson", "wilsoncc",
+                                "modified jeffreys", "clopper-pearson", "arcsine", "logit", "witting", "pratt", "midp", "lik", "blaker"), 
+                    rand = 123, tol=1e-05) {
 
   if(missing(method)) method <- "wilson"
   if(missing(sides)) sides <- "two.sided"
 
   iBinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right"),
-                       method = c("wilson", "wilsoncc", "wald", "agresti-coull", "jeffreys", "modified wilson",
-                       "modified jeffreys", "clopper-pearson", "arcsine", "logit", "witting", "pratt"), rand = 123) {
+                       method = c("wilson", "wilsoncc", "wald", "waldcc","agresti-coull", "jeffreys", "modified wilson",
+                       "modified jeffreys", "clopper-pearson", "arcsine", "logit", "witting", "pratt", "midp", "lik", "blaker"), 
+                       rand = 123, tol=1e-05) {
 
     if(length(x) != 1) stop("'x' has to be of length 1 (number of successes)")
     if(length(n) != 1) stop("'n' has to be of length 1 (number of trials)")
@@ -1787,42 +1880,51 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
     p.hat <- x/n
     q.hat <- 1 - p.hat
 
-    switch( match.arg(arg=method, choices=c("wilson", "wald", "wilsoncc","agresti-coull", "jeffreys", "modified wilson",
-                                            "modified jeffreys", "clopper-pearson", "arcsine", "logit", "witting","pratt"))
+    # this is the default estimator used by the most (but not all) methods
+    est <- p.hat
+    
+    switch( match.arg(arg=method, choices=c("wilson", "wald", "waldcc", "wilsoncc","agresti-coull", "jeffreys", "modified wilson",
+                                            "modified jeffreys", "clopper-pearson", "arcsine", "logit", "witting","pratt", "midp", "lik", "blaker"))
             , "wald" = {
-              est <- p.hat
               term2 <- kappa*sqrt(p.hat*q.hat)/sqrt(n)
               CI.lower <- max(0, p.hat - term2)
               CI.upper <- min(1, p.hat + term2)
             }
+            , "waldcc" = {
+              term2 <- kappa*sqrt(p.hat*q.hat)/sqrt(n)
+              # continuity correction
+              term2 <- term2 + 1/(2*n)
+              CI.lower <- max(0, p.hat - term2)
+              CI.upper <- min(1, p.hat + term2)
+            }
             , "wilson" = {
-              est <- p.hat
               term1 <- (x + kappa^2/2)/(n + kappa^2)
               term2 <- kappa*sqrt(n)/(n + kappa^2)*sqrt(p.hat*q.hat + kappa^2/(4*n))
               CI.lower <-  max(0, term1 - term2)
               CI.upper <- min(1, term1 + term2)
             }
             , "wilsoncc" = {
-              est <- p.hat
               lci <- ( 2*x+kappa**2 -1 - kappa*sqrt(kappa**2 -
                             2- 1/n + 4*p.hat*(n*q.hat+1))) / (2*(n+kappa**2))
               uci <- ( 2*x+kappa**2 +1 + kappa*sqrt(kappa**2 +
                             2- 1/n + 4*p.hat*(n*q.hat-1))) / (2*(n+kappa**2))
-              CI.lower <- max(0, lci)
-              CI.upper <- min(1, uci)
+              
+              CI.lower <- max(0, ifelse(p.hat==0, 0, lci))
+              CI.upper <- min(1, ifelse(p.hat==1, 1, uci))
+              
             }
             , "agresti-coull" = {
               x.tilde <- x + kappa^2/2
               n.tilde <- n + kappa^2
               p.tilde <- x.tilde/n.tilde
               q.tilde <- 1 - p.tilde
+              # non standard estimator!!
               est <- p.tilde
               term2 <- kappa*sqrt(p.tilde*q.tilde)/sqrt(n.tilde)
               CI.lower <- max(0, p.tilde - term2)
               CI.upper <- min(1, p.tilde + term2)
             }
             , "jeffreys" = {
-              est <- p.hat
               if(x == 0)
                 CI.lower <- 0
               else
@@ -1833,7 +1935,6 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
                 CI.upper <- qbeta(1-alpha/2, x+0.5, n-x+0.5)
             }
             , "modified wilson" = {
-              est <- p.hat
               term1 <- (x + kappa^2/2)/(n + kappa^2)
               term2 <- kappa*sqrt(n)/(n + kappa^2)*sqrt(p.hat*q.hat + kappa^2/(4*n))
               ## comment by Andre Gillibert, 19.6.2017:
@@ -1852,7 +1953,6 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
                 CI.upper <- min(1, term1 + term2)
             }
             , "modified jeffreys" = {
-              est <- p.hat
               if(x == n)
                 CI.lower <- (alpha/2)^(1/n)
               else {
@@ -1871,18 +1971,17 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
               }
             }
             , "clopper-pearson" = {
-              est <- p.hat
               CI.lower <- qbeta(alpha/2, x, n-x+1)
               CI.upper <- qbeta(1-alpha/2, x+1, n-x)
             }
             , "arcsine" = {
               p.tilde <- (x + 0.375)/(n + 0.75)
+              # non standard estimator
               est <- p.tilde
               CI.lower <- sin(asin(sqrt(p.tilde)) - 0.5*kappa/sqrt(n))^2
               CI.upper <- sin(asin(sqrt(p.tilde)) + 0.5*kappa/sqrt(n))^2
             }
             , "logit" = {
-              est <- p.hat
               lambda.hat <- log(x/(n-x))
               V.hat <- n/(x*(n-x))
               lambda.lower <- lambda.hat - kappa*sqrt(V.hat)
@@ -1905,14 +2004,11 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
                 }
                 uniroot(fun, interval = c(0, 1), size = size, x = x, p = p)$root
               }
-              est <- p.hat
               CI.lower <- qbinom.abscont(1-alpha, size = n, x = x.tilde)
               CI.upper <- qbinom.abscont(alpha, size = n, x = x.tilde)
             }
 
             , "pratt" = {
-
-              est <- p.hat
 
               if(x==0) {
                 CI.lower <- 0
@@ -1944,6 +2040,98 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
                 CI.lower <- 1/E
               }
             }
+            , "midp" = {
+              
+                #Functions to find root of for the lower and higher bounds of the CI
+                #These are helper functions.
+                f.low <- function(pi, x, n) {
+                  1/2*dbinom(x, size=n, prob=pi) + 
+                    pbinom(x, size=n, prob=pi, lower.tail=FALSE) - (1-conf.level)/2
+                }
+                f.up <- function(pi, x, n) {
+                  1/2*dbinom(x, size=n, prob=pi) + 
+                    pbinom(x-1, size=n, prob=pi) - (1-conf.level)/2
+                }
+                
+                #One takes pi_low = 0 when x=0 and pi_up=1 when x=n
+                CI.lower <- 0
+                CI.upper <- 1
+                
+                #Calculate CI by finding roots of the f funcs
+                if (x!=0) {
+                  CI.lower <- uniroot(f.low, interval=c(0, p.hat), x=x, n=n)$root
+                } 
+                if (x!=n) {
+                  CI.upper  <- uniroot(f.up, interval=c(p.hat, 1), x=x, n=n)$root
+                }
+                
+
+            }
+            , "lik" = {
+              
+              CI.lower <- 0
+              CI.upper <- 1
+              z <- qnorm(1 - alpha * 0.5)
+              # preset tolerance, should we offer function argument?
+              tol = .Machine$double.eps^0.5
+              
+              BinDev <- function(y, x, mu, wt, bound = 0, 
+                                 tol = .Machine$double.eps^0.5, ...) {
+                
+                # returns the binomial deviance for y, x, wt
+                ll.y <- ifelse(y %in% c(0, 1), 0, dbinom(x, wt, y, log=TRUE))
+                ll.mu <- ifelse(mu %in% c(0, 1), 0, dbinom(x, wt, mu, log=TRUE))
+                res <- ifelse(abs(y - mu) < tol, 0, 
+                              sign(y - mu) * sqrt(-2 * (ll.y - ll.mu)))
+                return(res - bound)
+              }
+
+              if(x!=0 && tol<p.hat) {
+                CI.lower <- if(BinDev(tol, x, p.hat, n, -z, tol) <= 0) {
+                  uniroot(f = BinDev, interval = c(tol, if(p.hat < tol || p.hat == 1) 1 - tol else p.hat), 
+                          bound = -z, x = x, mu = p.hat, wt = n)$root }
+              }
+
+              if(x!=n && p.hat<(1-tol)) {
+                CI.upper <- if(BinDev(y = 1 - tol, x = x, mu = ifelse(p.hat > 1 - tol, tol, p.hat), 
+                                      wt = n, bound = z, tol = tol) < 0) {
+                  CI.lower <- if(BinDev(tol, x, if(p.hat < tol || p.hat == 1) 1 - tol else p.hat, n, -z, tol) <= 0) {
+                    uniroot(f = BinDev, interval = c(tol, p.hat),
+                            bound = -z, x = x, mu = p.hat, wt = n)$root  }
+                } else {
+                  uniroot(f = BinDev, interval = c(if(p.hat > 1 - tol) tol else p.hat, 1 - tol),
+                          bound = z, x = x, mu = p.hat, wt = n)$root     }
+              }
+            }
+            , "blaker" ={
+              
+              acceptbin <- function (x, n, p) {
+                
+                p1 <- 1 - pbinom(x - 1, n, p)
+                p2 <- pbinom(x, n, p)
+                
+                a1 <- p1 + pbinom(qbinom(p1, n, p) - 1, n, p)
+                a2 <- p2 + 1 - pbinom(qbinom(1 - p2, n, p), n, p)
+                
+                return(min(a1, a2))
+              }
+              
+              CI.lower <- 0
+              CI.upper <- 1
+              
+              if (x != 0) {
+                CI.lower <- qbeta((1 - conf.level)/2, x, n - x + 1)
+                while (acceptbin(x, n, CI.lower + tol) < (1 - conf.level)) 
+                  CI.lower = CI.lower + tol
+              }
+              
+              if (x != n) {
+                CI.upper <- qbeta(1 - (1 - conf.level)/2, x + 1, n - x)
+                while (acceptbin(x, n, CI.upper - tol) < (1 - conf.level)) 
+                  CI.upper <- CI.upper - tol
+              }
+              
+            }
     )
 
     # dot not return ci bounds outside [0,1]
@@ -1961,7 +2149,8 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
 
   # handle vectors
   # which parameter has the highest dimension
-  lst <- list(x=x, n=n, conf.level=conf.level, sides=sides, method=method, rand=rand)
+  lst <- list(x=x, n=n, conf.level=conf.level, sides=sides, 
+              method=method, rand=rand)
   maxdim <- max(unlist(lapply(lst, length)))
   # recycle all params to maxdim
   lgp <- lapply( lst, rep, length.out=maxdim )
@@ -1983,9 +2172,7 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
                                                  sides=lgp$sides[i],
                                                  method=lgp$method[i], rand=lgp$rand[i])))
   colnames(res)[1] <- c("est")
-
   rownames(res) <- xn
-  # colnames(res) <- unlist(lapply(lgp, paste, collapse=" "))
 
   return(res)
 
@@ -1994,19 +2181,27 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
 
 
 
+BinomCIn <- function(p=0.5, width, interval=c(1, 1e5), conf.level=0.95, sides="two.sided", method="wilson") {
+  uniroot(f = function(n) diff(BinomCI(x=p*n, n=n, conf.level=conf.level, 
+                                       sides=sides, method=method)[, -1]) - width, 
+          interval = interval)$root
+}
+
+
+
+
+
 BinomDiffCI <- function(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided","left","right"),
-                        method=c("wald", "waldcc", "ac", "score", "scorecc", "mn",
-                                 "mee", "blj", "ha","beal")) {
+                        method=c("ac", "wald", "waldcc", "score", "scorecc", "mn",
+                                 "mee", "blj", "ha", "hal", "jp")) {
 
 
-  if(missing(method)) method <- "ac"
-  if(missing(sides)) sides <- "two.sided"
+  if(missing(sides))    sides <- match.arg(sides)
+  if(missing(method))   method <- match.arg(method)
+  
 
-
-
-  iBinomDiffCI <- function(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided","left","right"),
-                        method=c("wald", "waldcc", "ac", "score", "scorecc", "mn",
-                                 "mee", "blj", "ha", "beal")) {
+  iBinomDiffCI <- function(x1, n1, x2, n2, conf.level, sides, method) {
+    
     #   .Wald #1
     #   .Wald (Corrected) #2
     #   .Exact
@@ -2018,11 +2213,21 @@ BinomDiffCI <- function(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided"
     # http://www.jiangtanghu.com/blog/2012/09/23/statistical-notes-5-confidence-intervals-for-difference-between-independent-binomial-proportions-using-sas/
     #  Interval estimation for the difference between independent proportions: comparison of eleven methods.
 
-    method <- match.arg(arg = method,
-                        choices = c("wald", "waldcc", "ac", "score", "scorecc", "mn",
-                                    "mee", "blj", "ha"))
-
-    sides <- match.arg(sides, choices = c("two.sided","left","right"), several.ok = FALSE)
+    # https://www.lexjansen.com/wuss/2016/127_Final_Paper_PDF.pdf
+    # http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.633.9380&rep=rep1&type=pdf
+    
+    # Newcombe (1998) (free):
+    # http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.408.7354&rep=rep1&type=pdf
+    
+    
+    # no need to check args here, they're already ok...
+    # method <- match.arg(arg = method,
+    #                     choices = c("wald", "waldcc", "ac", "score", "scorecc", "mn",
+    #                                 "mee", "blj", "ha", "hal", "jp"))
+    # 
+    # sides <- match.arg(sides, choices = c("two.sided","left","right"), several.ok = FALSE)
+    
+    
     if(sides!="two.sided")
       conf.level <- 1 - 2*(1-conf.level)
 
@@ -2083,8 +2288,8 @@ BinomDiffCI <- function(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided"
              l2 <- w2[2]
              u2 <- w2[3]
 
-             CI.lower <- max(-1, est + kappa * sqrt(l1*(1-l1)/n1 + u2*(1-u2)/n2))
-             CI.upper <- min( 1, est - kappa * sqrt(u1*(1-u1)/n1 + l2*(1-l2)/n2))
+             CI.lower <- est - kappa * sqrt(l1*(1-l1)/n1 + u2*(1-u2)/n2)
+             CI.upper <- est + kappa * sqrt(u1*(1-u1)/n1 + l2*(1-l2)/n2)
            },
            "scorecc" = {   # Newcombe
 
@@ -2095,25 +2300,33 @@ BinomDiffCI <- function(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided"
              l2 <- w2[2]
              u2 <- w2[3]
 
-             CI.lower <- max(-1, est + sqrt((p1.hat - l1)^2 + (u2-p2.hat)^2) )
-             CI.upper <- min( 1, est - sqrt((u1-p1.hat)^2 + (p2.hat-l2)^2) )
+             CI.lower <- max(-1, est - sqrt((p1.hat - l1)^2 + (u2-p2.hat)^2) )
+             CI.upper <- min( 1, est + sqrt((u1-p1.hat)^2 + (p2.hat-l2)^2) )
 
            },
            "mee" = {   # Mee, also called Farrington-Mannig
 
              .score <- function (p1, n1, p2, n2, dif) {
 
+               if(dif > 1) dif <- 1
+               if(dif < -1) dif <- -1
+               
                diff <- p1 - p2 - dif
+               
                if (abs(diff) == 0) {
                  res <- 0
-               }
-               else {
+                 
+               } else {
                  t <- n2/n1
                  a <- 1 + t
                  b <- -(1 + t + p1 + t * p2 + dif * (t + 2))
                  c <- dif * dif + dif * (2 * p1 + t + 1) + p1 + t * p2
                  d <- -p1 * dif * (1 + dif)
                  v <- (b/a/3)^3 - b * c/(6 * a * a) + d/a/2
+                 # v might be very small, resulting in a value v/u^3 > |1| 
+                 # causing a numeric error for acos(v/u^3)
+                 # see:  x1=10, n1=10, x2=0, n1=10
+                 if(abs(v) < .Machine$double.eps) v <- 0
                  s <- sqrt((b/a/3)^2 - c/a/3)
                  u <- ifelse(v>0, 1,-1) * s
                  w <- (3.141592654 + acos(v/u^3))/3
@@ -2121,7 +2334,10 @@ BinomDiffCI <- function(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided"
                  p2d <- p1d - dif
                  n <- n1 + n2
                  res <- (p1d * (1 - p1d)/n1 + p2d * (1 - p2d)/n2)
+                 # res <- max(0, res)   # might result in a value slightly negative
+                    
                }
+               
                return(sqrt(res))
              }
 
@@ -2130,13 +2346,15 @@ BinomDiffCI <- function(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided"
                2 * min(pnorm(z), 1-pnorm(z))
              }
 
-             CI.lower <- uniroot(
-               function(delta) pval(delta) - alpha, interval = c(-1+1e-6, est-1e-6)
-             )$root
+             CI.lower <- max(-1, uniroot(
+               function(delta) pval(delta) - alpha, 
+               interval = c(-1+1e-6, est-1e-6)
+             )$root)
 
-             CI.upper <- uniroot(
-               function(delta) pval(delta) - alpha, interval = c(est+1e-6, 1-1e-6)
-             )$root
+             CI.upper <- min(1, uniroot(
+               function(delta) pval(delta) - alpha, 
+               interval = c(est + 1e-6, 1-1e-6)
+             )$root)
 
            },
 
@@ -2216,6 +2434,8 @@ BinomDiffCI <- function(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided"
 
            },
            "beal" = {
+             
+             # experimental code only...
              # http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.633.9380&rep=rep1&type=pdf
 
              a <- p1.hat + p2.hat
@@ -2230,8 +2450,44 @@ BinomDiffCI <- function(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided"
              CI.lower <- max(-1, B - A / (1 + z*u))
              CI.upper <- min(1, B + A / (1 + z*u))
 
-           }
-
+           },
+           "hal" = {  # haldane 
+             
+             psi <- (p1.hat + p2.hat) / 2
+             u <- (1/n1 + 1/n2) / 4
+             v <- (1/n1 - 1/n2) / 4
+             
+             z <- kappa
+             
+             theta <- ((p1.hat - p2.hat) + z^2 * v* (1-2*psi)) / (1+z^2*u)
+             w <- z / (1+z^2*u) * sqrt(u * (4*psi*(1-psi) - (p1.hat - p2.hat)^2) + 
+                                         2*v*(1-2*psi) *(p1.hat - p2.hat) + 
+                                         4*z^2*u^2*(1-psi)*psi + z^2*v^2*(1-2*psi)^2)
+             c(theta + w, theta - w)
+             CI.lower <- max(-1, theta - w)
+             CI.upper <- min(1, theta + w)
+             
+           },
+           "jp" = {   # jeffery perks
+             
+             # same as haldane but with other psi
+             psi <- 0.5 * ((x1 + 0.5) / (n1 + 1) + (x2 + 0.5) / (n2 + 1) )
+             
+             u <- (1/n1 + 1/n2) / 4
+             v <- (1/n1 - 1/n2) / 4
+             
+             z <- kappa
+             
+             theta <- ((p1.hat - p2.hat) + z^2 * v* (1-2*psi)) / (1+z^2*u)
+             w <- z / (1+z^2*u) * sqrt(u * (4*psi*(1-psi) - (p1.hat - p2.hat)^2) + 
+                                         2*v*(1-2*psi) *(p1.hat - p2.hat) + 
+                                         4*z^2*u^2*(1-psi)*psi + z^2*v^2*(1-2*psi)^2)
+             c(theta + w, theta - w)
+             CI.lower <- max(-1, theta - w)
+             CI.upper <- min(1, theta + w)
+             
+           },
+           
     )
 
     ci <- c(est = est, lwr.ci = min(CI.lower, CI.upper), upr.ci = max(CI.lower, CI.upper))
@@ -2245,9 +2501,11 @@ BinomDiffCI <- function(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided"
 
   }
 
-
-
-  # Recylce arguments
+  
+  method <- match.arg(arg=method, several.ok = TRUE)
+  sides <- match.arg(arg=sides, several.ok = TRUE)
+  
+  # Recycle arguments
   lst <- Recycle(x1=x1, n1=n1, x2=x2, n2=n2, conf.level=conf.level, sides=sides, method=method)
 
   res <- t(sapply(1:attr(lst, "maxdim"),
@@ -2270,33 +2528,32 @@ BinomDiffCI <- function(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided"
 }
 
 
-
-BinomRatioCI <- function(x1, n1, x2, n2, conf.level = 0.95, method = "katz.log", bonf = FALSE,
+BinomRatioCI_old <- function(x1, n1, x2, n2, conf.level = 0.95, method = "katz.log", bonf = FALSE,
                          tol = .Machine$double.eps^0.25, R = 1000, r = length(x1)) {
-
+  
   # source: asbio::ci.prat by Ken Aho <kenaho1 at gmail.com>
-
+  
   conf <- conf.level
-
+  
   x <- x1; m <- n1; y <- x2; n <- n2
-
+  
   indices <- c("adj.log","bailey","boot","katz.log","koopman","noether","sinh-1")
   method <- match.arg(method, indices)
-
-
+  
+  
   if(any(c(length(m),length(y),length(n))!= length(x))) stop("x1, n1, x2, and n2 vectors must have equal length")
-
+  
   alpha <- 1 - conf
   oconf <- conf
   conf <- ifelse(bonf == FALSE, conf, 1 - alpha/r)
   z.star <- qnorm(1 - (1 - conf)/2)
   x2 <- qchisq(conf, 1)
-
+  
   ci.prat1 <- function(x, m, y, n, conf = 0.95, method = "katz.log", bonf = FALSE){
     if((x > m)|(y > n)) stop("Use correct parameterization for x1, x2, n1, and n2")
-
+    
     #-------------------------- Adj-log ------------------------------#
-
+    
     if(method == "adj.log"){
       if((x == m & y == n)){
         rat <- (x/m)/(y/n); x <- m - 0.5; y <- n - 0.5; nrat <- ((x+0.5)/(m+0.5))/((y+0.5)/(n+0.5)); varhat <- (1/(x+0.5)) - (1/(m+0.5)) + (1/(y+0.5)) - (1/(n+0.5))
@@ -2309,16 +2566,16 @@ BinomRatioCI <- function(x1, n1, x2, n2, conf.level = 0.95, method = "katz.log",
         CIU <- nrat * exp(z.star * sqrt(varhat))}
       CI <- c(rat, CIL, CIU)
     }
-
+    
     #-------------------------------Bailey-----------------------------#
-
+    
     if(method == "bailey"){
       rat <- (x/m)/(y/n)
       varhat <- ifelse((x == m) & (y == n),(1/(m-0.5)) - (1/(m)) + (1/(n-0.5)) - (1/(n)),(1/(x)) - (1/(m)) + (1/(y)) - (1/(n)))
-
+      
       p.hat1 <- x/m; p.hat2 <- y/n;
       q.hat1 <- 1 - p.hat1; q.hat2 <- 1 - p.hat2
-
+      
       if(x == 0 | y == 0){
         xn <- ifelse(x == 0, 0.5, x)
         yn <- ifelse(y == 0, 0.5, y)
@@ -2333,7 +2590,7 @@ BinomRatioCI <- function(x1, n1, x2, n2, conf.level = 0.95, method = "katz.log",
           q.hat1 <- 1 - p.hat1; q.hat2 <- 1 - p.hat2
         }
       }
-
+      
       if(x == 0 | y == 0){
         if(x == 0 & y == 0){
           rat <- Inf
@@ -2362,9 +2619,9 @@ BinomRatioCI <- function(x1, n1, x2, n2, conf.level = 0.95, method = "katz.log",
       }
       CI <- c(rat, CIL, CIU)
     }
-
+    
     #-------------------------- Boot ------------------------------#
-
+    
     if(method == "boot"){
       rat <- (x/m)/(y/n)
       if((x == 0 & y == 0)|(x == 0 & y != 0)|(x != 0 & y == 0)){
@@ -2393,9 +2650,9 @@ BinomRatioCI <- function(x1, n1, x2, n2, conf.level = 0.95, method = "katz.log",
       }
       CI <- c(rat, CIL, CIU)
     }
-
+    
     #-------------------------- Katz-log ------------------------------#
-
+    
     if(method == "katz.log"){
       if((x == 0 & y == 0)|(x == 0 & y != 0)|(x != 0 & y == 0)|(x == m & y == n)){
         if(x == 0 & y == 0) {CIL <- 0;  CIU <- Inf; rat = 0; varhat = NA}
@@ -2415,14 +2672,14 @@ BinomRatioCI <- function(x1, n1, x2, n2, conf.level = 0.95, method = "katz.log",
       CIU <- rat * exp(z.star * sqrt(varhat))}
       CI <- c(rat, CIL, CIU)
     }
-
+    
     #-------------------------- Koopman ------------------------------#
-
+    
     if(method == "koopman"){
-
+      
       if(x == 0 & y == 0) {CIL <- 0;  CIU <- Inf; rat = 0; varhat = NA
       } else {
-
+        
         a1 = n * (n * (n + m) * x + m * (n + x) * (z.star^2))
         a2 = -n * (n * m * (y + x) + 2 * (n + m) * y *
                      x + m * (n + y + 2 * x) * (z.star^2))
@@ -2437,8 +2694,8 @@ BinomRatioCI <- function(x1, n1, x2, n2, conf.level = 0.95, method = "katz.log",
         t3 <- suppressWarnings(2 * sqrt(-c1/3) * cos(ceta/3))
         p01 = t1 - b1/3; p02 = t2 - b1/3; p03 = t3 - b1/3
         p0sum = p01 + p02 + p03; p0up = min(p01, p02, p03); p0low = p0sum - p0up - max(p01, p02, p03)
-
-
+        
+        
         U <- function(a){
           p.hatf <- function(a){
             (a * (m + y) + x + n - ((a * (m + y) + x + n)^2 - 4 * a * (m + n) * (x + y))^0.5)/(2 * (m + n))
@@ -2446,19 +2703,19 @@ BinomRatioCI <- function(x1, n1, x2, n2, conf.level = 0.95, method = "katz.log",
           p.hat <- p.hatf(a)
           (((x - m * p.hat)^2)/(m * p.hat * (1 - p.hat)))*(1 + (m * (a - p.hat))/(n * (1 - p.hat))) - x2
         }
-
+        
         rat <- (x/m)/(y/n); nrat <- (x/m)/(y/n); varhat <- (1/x) - (1/m) + (1/y) - (1/n)
         if((x == 0) & (y != 0)) {nrat <- ((x + 0.5)/m)/(y/n); varhat <- (1/(x + 0.5)) - (1/m) + (1/y) - (1/n)}
         if((y == 0) & (x != 0)) {nrat <- (x/m)/((y + 0.5)/n); varhat <- (1/x) - (1/m) + (1/(y + 0.5)) - (1/n)}
         if((y == n) & (x == m)) {nrat <- 1; varhat <- (1/(m - 0.5)) - (1/m) + 1/(n - 0.5) - (1/n)}
-
+        
         La <- nrat * exp(-1 * z.star * sqrt(varhat)) * 1/4
         Lb <- nrat
         Ha <- nrat
         Hb <- nrat * exp(z.star * sqrt(varhat)) * 4
-
+        
         #----------------------------------------------------------------------------#
-
+        
         if((x != 0) & (y == 0)) {
           if(x == m){
             CIL = (1 - (m - x) * (1 - p0low)/(y + m - (n + m) * p0low))/p0low
@@ -2469,19 +2726,19 @@ BinomRatioCI <- function(x1, n1, x2, n2, conf.level = 0.95, method = "katz.log",
             CIU <- Inf
           }
         }
-
+        
         #------------------------------------------------------------#
-
+        
         if((x == 0) & (y != n)) {
           CIU <- uniroot(U, c(Ha, Hb), tol=tol)$root
           CIL <- 0
         }
-
+        
         #------------------------------------------------------------#
-
+        
         if(((x == m)|(y == n)) & (y != 0)){
-
-
+          
+          
           if((x == m)&(y == n)){
             U.0 <- function(a){if(a <= 1) {m * (1 - a)/a - x2}
               else{(n * (a - 1)) - x2}
@@ -2489,11 +2746,11 @@ BinomRatioCI <- function(x1, n1, x2, n2, conf.level = 0.95, method = "katz.log",
             CIL <- uniroot(U.0, c(La, rat), tol = tol)$root
             CIU <- uniroot(U.0, c(rat, Hb), tol = tol)$root
           }
-
+          
           #------------------------------------------------------------#
-
+          
           if((x == m) & (y != n)){
-
+            
             phat1 = x/m; phat2 = y/n
             phihat = phat2/phat1
             phiu = 1.1 * phihat
@@ -2514,9 +2771,9 @@ BinomRatioCI <- function(x1, n1, x2, n2, conf.level = 0.95, method = "katz.log",
             CIU = (1 - (m - x) * (1 - p0up)/(y + m - (n + m) * p0up))/p0up
             CIL = 1/phiu1
           }
-
+          
           #------------------------------------------------------------#
-
+          
           if((y == n) & (x != m)){
             p.hat2 = y/n; p.hat1 = x/m; phihat = p.hat1/p.hat2
             phil = 0.95 * phihat; r = 0
@@ -2535,11 +2792,11 @@ BinomRatioCI <- function(x1, n1, x2, n2, conf.level = 0.95, method = "katz.log",
                 phil = CIL/1.0001
               }
             }
-
+            
             phiu = 1.1 * phihat
-
+            
             if(x == 0){CIL = 0; phiu <- ifelse(n < 100, 0.01, 0.001)}
-
+            
             r = 0
             while(r >= -z.star) {
               a = (n + m) * phiu
@@ -2563,9 +2820,9 @@ BinomRatioCI <- function(x1, n1, x2, n2, conf.level = 0.95, method = "katz.log",
       }
       CI <- c(rat, CIL, CIU)
     }
-
+    
     #-------------------------- Noether ------------------------------#
-
+    
     if(method == "noether"){
       if((x == 0 & y == 0)|(x == 0 & y != 0)|(x != 0 & y == 0)|(x == m & y == n)){
         if(x == 0 & y == 0) {CIL <- 0;  CIU <- Inf; rat = 0; se.hat <- NA; varhat = NA}
@@ -2590,11 +2847,11 @@ BinomRatioCI <- function(x1, n1, x2, n2, conf.level = 0.95, method = "katz.log",
       varhat <- ifelse(is.na(se.hat), NA, se.hat^2)
       CI <- c(rat, max(0,CIL), CIU)
     }
-
+    
     #------------------------- sinh-1 -----------------------------#
-
+    
     if(method == "sinh-1"){
-
+      
       if((x == 0 & y == 0)|(x == 0 & y != 0)|(x != 0 & y == 0)|(x == m & y == n)){
         if(x == 0 & y == 0) {CIL <- 0;  CIU <- Inf; rat = 0; varhat = NA}
         if(x == 0 & y != 0) {rat <- (x/m)/(y/n); CIL <- 0;  x <- z.star
@@ -2615,22 +2872,22 @@ BinomRatioCI <- function(x1, n1, x2, n2, conf.level = 0.95, method = "katz.log",
       }
       CI <- c(rat, CIL, CIU)
     }
-
+    
     #------------------------Results ------------------------------#
-
+    
     res <- list(CI = CI, varhat = varhat)
     res
   }
-
+  
   CI <- matrix(ncol = 3, nrow = length(x1))
   vh <- rep(NA, length(x1))
-
+  
   for(i in 1L : length(x1)){
     temp <- ci.prat1(x = x[i], m = m[i], y = y[i], n = n[i], conf = conf, method = method, bonf = bonf)
     CI[i,] <- temp$CI
     vh[i] <- temp$varhat
   }
-
+  
   CI <- data.frame(CI)
   if(length(x1) == 1) row.names(CI) <- ""
   head <- paste(paste(as.character(oconf * 100),"%",sep=""), c("Confidence interval for ratio of binomial proportions"))
@@ -2641,18 +2898,421 @@ BinomRatioCI <- function(x1, n1, x2, n2, conf.level = 0.95, method = "katz.log",
   if(method == "koopman")head <- paste(head,"(method=Koopman)")
   if(method == "noether")head <- paste(head,"(method=Noether)")
   if(method == "sinh")head <- paste(head,"(method=sinh^-1)")
-
+  
   if(bonf == TRUE)head <- paste(head, "\n Bonferroni simultaneous intervals, r = ", bquote(.(r)),
                                 "\n Marginal confidence = ", bquote(.(conf)), "\n", sep = "")
-
+  
   ends <- c("Estimate", paste(as.character(c((1-oconf)/2, 1-((1-oconf)/2))*100), "%", sep=""))
   # res <- list(varhat = vh, ci = CI, ends = ends, head = head)
   # class(res) <- "ci"
   res <- data.matrix(CI)
   dimnames(res) <- list(NULL, c("est","lwr.ci","upr.ci"))
-
+  
   res
 }
+
+
+
+
+BinomRatioCI <- function(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided","left","right"),
+                          method =c("katz.log","adj.log","bailey","koopman","noether","sinh-1","boot"),
+                          tol = .Machine$double.eps^0.25, R = 1000) {
+  
+  # source: asbio::ci.prat by Ken Aho <kenaho1 at gmail.com>
+  
+
+  iBinomRatioCI <- function(x, m, y, n, conf, sides, method) {
+    
+    if((x > m)|(y > n)) stop("Use correct parameterization for x1, x2, n1, and n2")
+
+    method <- match.arg(method, c("katz.log","adj.log","bailey","koopman","noether","sinh-1","boot"))
+    
+    if(sides!="two.sided")
+      conf <- 1 - 2*(1-conf)
+    
+    alpha <- 1 - conf
+
+    z.star <- qnorm(1 - (1 - conf)/2)
+    x2 <- qchisq(conf, 1)
+    
+    #-------------------------- Adj-log ------------------------------#
+    
+    if(method == "adj.log"){
+      if((x == m & y == n)){
+        rat <- (x/m)/(y/n) 
+        x <- m - 0.5
+        y <- n - 0.5
+        nrat <- ((x+0.5)/(m+0.5))/((y+0.5)/(n+0.5))
+        varhat <- (1/(x+0.5)) - (1/(m+0.5)) + (1/(y+0.5)) - (1/(n+0.5))
+        
+        CIL <- nrat * exp(-1 * z.star * sqrt(varhat))
+        CIU <- nrat * exp(z.star * sqrt(varhat))
+        
+      } else if(x == 0 & y == 0){
+        
+        CIL = 0 
+        CIU = Inf 
+        rat = 0 
+        varhat <- (1/(x+0.5)) - (1/(m+0.5)) + (1/(y+0.5)) - (1/(n+0.5))
+        
+      } else {
+        
+        rat <- (x/m)/(y/n) 
+        nrat <- ((x+0.5)/(m+0.5))/((y+0.5)/(n+0.5))
+        varhat <- (1/(x+0.5)) - (1/(m+0.5)) + (1/(y+0.5)) - (1/(n+0.5))
+        CIL <- nrat * exp(-1 * z.star * sqrt(varhat))
+        CIU <- nrat * exp(z.star * sqrt(varhat))
+      }
+      
+      CI <- c(rat, CIL, CIU)
+      
+    }
+    
+    #-------------------------------Bailey-----------------------------#
+    
+    if(method == "bailey"){
+      rat <- (x/m)/(y/n)
+      varhat <- ifelse((x == m) & (y == n),(1/(m-0.5)) - (1/(m)) + (1/(n-0.5)) - (1/(n)),(1/(x)) - (1/(m)) + (1/(y)) - (1/(n)))
+      
+      p.hat1 <- x/m; p.hat2 <- y/n;
+      q.hat1 <- 1 - p.hat1; q.hat2 <- 1 - p.hat2
+      
+      if(x == 0 | y == 0){
+        xn <- ifelse(x == 0, 0.5, x)
+        yn <- ifelse(y == 0, 0.5, y)
+        nrat <- (xn/m)/(yn/n)
+        p.hat1 <- xn/m; p.hat2 <- yn/n;
+        q.hat1 <- 1 - p.hat1; q.hat2 <- 1 - p.hat2
+        if(xn == m | yn == n){
+          xn <- ifelse(xn == m, m - 0.5, xn)
+          yn <- ifelse(yn == n, n - 0.5, yn)
+          nrat <- (xn/m)/(yn/n)
+          p.hat1 <- xn/m; p.hat2 <- yn/n;
+          q.hat1 <- 1 - p.hat1; q.hat2 <- 1 - p.hat2
+        }
+      }
+      
+      if(x == 0 | y == 0){
+        if(x == 0 & y == 0){
+          rat <- Inf
+          CIL <- 0
+          CIU <- Inf
+        }
+        if(x == 0 & y != 0){
+          CIL <- 0
+          CIU <- nrat * ((1+ z.star * sqrt((q.hat1/xn) + (q.hat2/yn) - (z.star^2 * q.hat1 * q.hat2)/(9 * xn * yn))/3)/((1 - (z.star^2 * q.hat2)/(9 * yn))))^3
+        }
+        if(y == 0 & x != 0){
+          CIU = Inf
+          CIL <- nrat * ((1- z.star * sqrt((q.hat1/xn) + (q.hat2/yn) - (z.star^2 * q.hat1 * q.hat2)/(9 * xn * yn))/3)/((1 - (z.star^2 * q.hat2)/(9 * yn))))^3
+        }
+      }else if(x == m | y == n){
+        xn <- ifelse(x == m, m - 0.5, x)
+        yn <- ifelse(y == n, n - 0.5, y)
+        nrat <- (xn/m)/(yn/n)
+        p.hat1 <- xn/m; p.hat2 <- yn/n;
+        q.hat1 <- 1 - p.hat1; q.hat2 <- 1 - p.hat2
+        CIL <- nrat * ((1- z.star * sqrt((q.hat1/xn) + (q.hat2/yn) - (z.star^2 * q.hat1 * q.hat2)/(9 * xn * yn))/3)/((1 - (z.star^2 * q.hat2)/(9 * yn))))^3
+        CIU <- nrat * ((1+ z.star * sqrt((q.hat1/xn) + (q.hat2/yn) - (z.star^2 * q.hat1 * q.hat2)/(9 * xn * yn))/3)/((1 - (z.star^2 * q.hat2)/(9 * yn))))^3
+      }else{
+        CIL <- rat * ((1- z.star * sqrt((q.hat1/x) + (q.hat2/y) - (z.star^2 * q.hat1 * q.hat2)/(9 * x * y))/3)/((1 - (z.star^2 * q.hat2)/(9 * y))))^3
+        CIU <- rat * ((1+ z.star * sqrt((q.hat1/x) + (q.hat2/y) - (z.star^2 * q.hat1 * q.hat2)/(9 * x * y))/3)/((1 - (z.star^2 * q.hat2)/(9 * y))))^3
+      }
+      CI <- c(rat, CIL, CIU)
+    }
+    
+    #-------------------------- Boot ------------------------------#
+    
+    if(method == "boot"){
+      rat <- (x/m)/(y/n)
+      if((x == 0 & y == 0)|(x == 0 & y != 0)|(x != 0 & y == 0)){
+        if(x == 0 & y == 0) {CIL <- 0;  CIU <- Inf; rat = 0; varhat = NA}
+        if(x == 0 & y != 0) {CIL <- 0;  rat <- (x/m)/(y/n); x <- 0.5; nrat <- (x/m)/(y/n)
+        varhat <- (1/x) - (1/m) + (1/y) - (1/n)
+        CIU <- nrat * exp(z.star * sqrt(varhat))}
+        if(x != 0 & y == 0) {CIU <- Inf;  rat <- (x/m)/(y/n); y <- 0.5; nrat <- (x/m)/(y/n)
+        varhat <- (1/x) - (1/m) + (1/y) - (1/n)
+        CIL <- nrat * exp(-1 * z.star * sqrt(varhat))}
+      } else{
+        num.data <- c(rep(1, x), rep(0, m - x))
+        den.data <- c(rep(1, y), rep(0, n - y))
+        nd <- matrix(ncol = R, nrow = m)
+        dd <- matrix(ncol = R, nrow = n)
+        brat <- 1:R
+        for(i in 1L:R){
+          nd[,i] <- sample(num.data, m, replace = TRUE)
+          dd[,i] <- sample(den.data, n, replace = TRUE)
+          brat[i] <- (sum(nd[,i])/m)/(sum(dd[,i])/n)
+        }
+        alpha <- 1 - conf
+        CIU <- quantile(brat, 1 - alpha/2, na.rm = TRUE)
+        CIL <- quantile(brat, alpha/2, na.rm = TRUE)
+        varhat <- var(brat)
+      }
+      CI <- c(rat, CIL, CIU)
+    }
+    
+    #-------------------------- Katz-log ------------------------------#
+    
+    if(method == "katz.log"){
+      if((x == 0 & y == 0)|(x == 0 & y != 0)|(x != 0 & y == 0)|(x == m & y == n)){
+        if(x == 0 & y == 0) {CIL <- 0;  CIU <- Inf; rat = 0; varhat = NA}
+        if(x == 0 & y != 0) {CIL <- 0;  rat <- (x/m)/(y/n); x <- 0.5; nrat <- (x/m)/(y/n)
+        varhat <- (1/x) - (1/m) + (1/y) - (1/n)
+        CIU <- nrat * exp(z.star * sqrt(varhat))}
+        if(x != 0 & y == 0) {CIU <- Inf;  rat <- (x/m)/(y/n); y <- 0.5; nrat <- (x/m)/(y/n)
+        varhat <- (1/x) - (1/m) + (1/y) - (1/n)
+        CIL <- nrat * exp(-1 * z.star * sqrt(varhat))}
+        if(x == m & y == n) {
+          rat <- (x/m)/(y/n); x <- m - 0.5; y <- n - 0.5; nrat <- (x/m)/(y/n); varhat <- (1/x) - (1/m) + (1/y) - (1/n); CIL <- nrat * exp(-1 * z.star * sqrt(varhat))
+          x <- m - 0.5; y <- n - 0.5; nrat <- (x/m)/(y/n); varhat <- (1/x) - (1/m) + (1/y) - (1/n); CIU <- nrat * exp(z.star * sqrt(varhat))
+        }
+      } else
+      {rat <- (x/m)/(y/n); varhat <- (1/x) - (1/m) + (1/y) - (1/n)
+      CIL <- rat * exp(-1 * z.star * sqrt(varhat))
+      CIU <- rat * exp(z.star * sqrt(varhat))}
+      CI <- c(rat, CIL, CIU)
+    }
+    
+    #-------------------------- Koopman ------------------------------#
+    
+    if(method == "koopman"){
+      
+      if(x == 0 & y == 0) {CIL <- 0;  CIU <- Inf; rat = 0; varhat = NA
+      } else {
+        
+        a1 = n * (n * (n + m) * x + m * (n + x) * (z.star^2))
+        a2 = -n * (n * m * (y + x) + 2 * (n + m) * y *
+                     x + m * (n + y + 2 * x) * (z.star^2))
+        a3 = 2 * n * m * y * (y + x) + (n + m) * (y^2) *
+          x + n * m * (y + x) * (z.star^2)
+        a4 = -m * (y^2) * (y + x)
+        b1 = a2/a1; b2 = a3/a1; b3 = a4/a1
+        c1 = b2 - (b1^2)/3;  c2 = b3 - b1 * b2/3 + 2 * (b1^3)/27
+        ceta = suppressWarnings(acos(sqrt(27) * c2/(2 * c1 * sqrt(-c1))))
+        t1 <- suppressWarnings(-2 * sqrt(-c1/3) * cos(pi/3 - ceta/3))
+        t2 <- suppressWarnings(-2 * sqrt(-c1/3) * cos(pi/3 + ceta/3))
+        t3 <- suppressWarnings(2 * sqrt(-c1/3) * cos(ceta/3))
+        p01 = t1 - b1/3; p02 = t2 - b1/3; p03 = t3 - b1/3
+        p0sum = p01 + p02 + p03; p0up = min(p01, p02, p03); p0low = p0sum - p0up - max(p01, p02, p03)
+        
+        
+        U <- function(a){
+          p.hatf <- function(a){
+            (a * (m + y) + x + n - ((a * (m + y) + x + n)^2 - 4 * a * (m + n) * (x + y))^0.5)/(2 * (m + n))
+          }
+          p.hat <- p.hatf(a)
+          (((x - m * p.hat)^2)/(m * p.hat * (1 - p.hat)))*(1 + (m * (a - p.hat))/(n * (1 - p.hat))) - x2
+        }
+        
+        rat <- (x/m)/(y/n); nrat <- (x/m)/(y/n); varhat <- (1/x) - (1/m) + (1/y) - (1/n)
+        if((x == 0) & (y != 0)) {nrat <- ((x + 0.5)/m)/(y/n); varhat <- (1/(x + 0.5)) - (1/m) + (1/y) - (1/n)}
+        if((y == 0) & (x != 0)) {nrat <- (x/m)/((y + 0.5)/n); varhat <- (1/x) - (1/m) + (1/(y + 0.5)) - (1/n)}
+        if((y == n) & (x == m)) {nrat <- 1; varhat <- (1/(m - 0.5)) - (1/m) + 1/(n - 0.5) - (1/n)}
+        
+        La <- nrat * exp(-1 * z.star * sqrt(varhat)) * 1/4
+        Lb <- nrat
+        Ha <- nrat
+        Hb <- nrat * exp(z.star * sqrt(varhat)) * 4
+        
+        #----------------------------------------------------------------------------#
+        
+        if((x != 0) & (y == 0)) {
+          if(x == m){
+            CIL = (1 - (m - x) * (1 - p0low)/(y + m - (n + m) * p0low))/p0low
+            CIU <- Inf
+          }
+          else{
+            CIL <- uniroot(U, c(La, Lb), tol=tol)$root
+            CIU <- Inf
+          }
+        }
+        
+        #------------------------------------------------------------#
+        
+        if((x == 0) & (y != n)) {
+          CIU <- uniroot(U, c(Ha, Hb), tol=tol)$root
+          CIL <- 0
+        }
+        
+        #------------------------------------------------------------#
+        
+        if(((x == m)|(y == n)) & (y != 0)){
+          
+          
+          if((x == m)&(y == n)){
+            U.0 <- function(a){if(a <= 1) {m * (1 - a)/a - x2}
+              else{(n * (a - 1)) - x2}
+            }
+            CIL <- uniroot(U.0, c(La, rat), tol = tol)$root
+            CIU <- uniroot(U.0, c(rat, Hb), tol = tol)$root
+          }
+          
+          #------------------------------------------------------------#
+          
+          if((x == m) & (y != n)){
+            
+            phat1 = x/m; phat2 = y/n
+            phihat = phat2/phat1
+            phiu = 1.1 * phihat
+            r = 0
+            while (r >= -z.star) {
+              a = (m + n) * phiu
+              b = -((x + n) * phiu + y + m)
+              c = x + y
+              p1hat = (-b - sqrt(b^2 - 4 * a * c))/(2 * a)
+              p2hat = p1hat * phiu
+              q2hat = 1 - p2hat
+              var = (m * n * p2hat)/(n * (phiu - p2hat) +
+                                       m * q2hat)
+              r = ((y - n * p2hat)/q2hat)/sqrt(var)
+              phiu1 = phiu
+              phiu = 1.0001 * phiu1
+            }
+            CIU = (1 - (m - x) * (1 - p0up)/(y + m - (n + m) * p0up))/p0up
+            CIL = 1/phiu1
+          }
+          
+          #------------------------------------------------------------#
+          
+          if((y == n) & (x != m)){
+            p.hat2 = y/n; p.hat1 = x/m; phihat = p.hat1/p.hat2
+            phil = 0.95 * phihat; r = 0
+            if(x != 0){
+              while(r <= z.star) {
+                a = (n + m) * phil
+                b = -((y + m) * phil + x + n)
+                c = y + x
+                p1hat = (-b - sqrt(b^2 - 4 * a * c))/(2 * a)
+                p2hat = p1hat * phil
+                q2hat = 1 - p2hat
+                var = (n * m * p2hat)/(m * (phil - p2hat) +
+                                         n * q2hat)
+                r = ((x - m * p2hat)/q2hat)/sqrt(var)
+                CIL = phil
+                phil = CIL/1.0001
+              }
+            }
+            
+            phiu = 1.1 * phihat
+            
+            if(x == 0){CIL = 0; phiu <- ifelse(n < 100, 0.01, 0.001)}
+            
+            r = 0
+            while(r >= -z.star) {
+              a = (n + m) * phiu
+              b = -((y + m) * phiu + x  + n)
+              c = y + x
+              p1hat = (-b - sqrt(b^2 - 4 * a * c))/(2 * a)
+              p2hat = p1hat * phiu
+              q2hat = 1 - p2hat
+              var = (n * m * p2hat)/(m * (phiu - p2hat) +
+                                       n * q2hat)
+              r = ((x  - m * p2hat)/q2hat)/sqrt(var)
+              phiu1 = phiu
+              phiu = 1.0001 * phiu1
+            }
+            CIU <- phiu1
+          }
+        } else if((y != n) & (x != m) & (x != 0) & (y != 0)){
+          CIL <- uniroot(U, c(La, Lb), tol=tol)$root
+          CIU <- uniroot(U, c(Ha, Hb), tol=tol)$root
+        }
+      }
+      CI <- c(rat, CIL, CIU)
+    }
+    
+    #-------------------------- Noether ------------------------------#
+    
+    if(method == "noether"){
+      if((x == 0 & y == 0)|(x == 0 & y != 0)|(x != 0 & y == 0)|(x == m & y == n)){
+        if(x == 0 & y == 0) {CIL <- 0;  CIU <- Inf; rat = 0; se.hat <- NA; varhat = NA}
+        if(x == 0 & y != 0) {rat <- (x/m)/(y/n); CIL <- 0;  x <- 0.5
+        nrat <- (x/m)/(y/n); se.hat <- nrat * sqrt((1/x) - (1/m) + (1/y) - (1/n))
+        CIU <- nrat + z.star * se.hat}
+        if(x != 0 & y == 0) {rat <- Inf; CIU <- Inf;  y <- 0.5
+        nrat <- (x/m)/(y/n); se.hat <- nrat * sqrt((1/x) - (1/m) + (1/y) - (1/n))
+        CIL <- nrat - z.star * se.hat}
+        if(x == m & y == n) {
+          rat <- (x/m)/(y/n); x <- m - 0.5; y <- n - 0.5; nrat <- (x/m)/(y/n); se.hat <- nrat * sqrt((1/x) - (1/m) + (1/y) - (1/n))
+          CIU <- nrat + z.star * se.hat
+          CIL <- nrat - z.star * se.hat
+        }
+      } else
+      {
+        rat <- (x/m)/(y/n)
+        se.hat <- rat * sqrt((1/x) - (1/m) + (1/y) - (1/n))
+        CIL <- rat - z.star * se.hat
+        CIU <- rat + z.star * se.hat
+      }
+      varhat <- ifelse(is.na(se.hat), NA, se.hat^2)
+      CI <- c(rat, max(0,CIL), CIU)
+    }
+    
+    #------------------------- sinh-1 -----------------------------#
+    
+    if(method == "sinh-1"){
+      
+      if((x == 0 & y == 0)|(x == 0 & y != 0)|(x != 0 & y == 0)|(x == m & y == n)){
+        if(x == 0 & y == 0) {CIL <- 0;  CIU <- Inf; rat = 0; varhat = NA}
+        if(x == 0 & y != 0) {rat <- (x/m)/(y/n); CIL <- 0;  x <- z.star
+        nrat <- (x/m)/(y/n); varhat <- 2 * asinh((z.star/2)*sqrt(1/x + 1/y - 1/m - 1/n))
+        CIU <- exp(log(nrat) + varhat)}
+        if(x != 0 & y == 0) {rat = Inf; CIU <- Inf;  y <- z.star
+        nrat <- (x/m)/(y/n); varhat <- 2 * asinh((z.star/2)*sqrt(1/x + 1/y - 1/m - 1/n))
+        CIL <- exp(log(nrat) - varhat)}
+        if(x == m & y == n) {
+          rat <- (x/m)/(y/n); x <- m - 0.5; y <- n - 0.5; nrat <- (x/m)/(y/n); varhat <- 2 * asinh((z.star/2)*sqrt(1/x + 1/y - 1/m - 1/n))
+          CIL <- exp(log(nrat) - varhat)
+          CIU <- exp(log(nrat) + varhat)
+        }
+      } else
+      {rat <- (x/m)/(y/n); varhat <- 2 * asinh((z.star/2)*sqrt(1/x + 1/y - 1/m - 1/n))
+      CIL <- exp(log(rat) - varhat)
+      CIU <- exp(log(rat) + varhat)
+      }
+      CI <- c(rat, CIL, CIU)
+    }
+    
+    #------------------------Results ------------------------------#
+    
+    # res <- list(CI = CI, varhat = varhat)
+    CI
+    
+  }
+  
+  
+  
+  if(missing(sides))    sides <- match.arg(sides)
+  if(missing(method))   method <- match.arg(method)
+
+  # Recycle arguments
+  lst <- Recycle(x1=x1, n1=n1, x2=x2, n2=n2, conf.level=conf.level, sides=sides, method=method)
+  
+  # iBinomRatioCI <- function(x, m, y, n, conf, method){
+    
+  res <- t(sapply(1:attr(lst, "maxdim"),
+                  function(i) iBinomRatioCI(x=lst$x1[i], m=lst$n1[i], y=lst$x2[i], n=lst$n2[i],
+                                            conf=lst$conf.level[i],
+                                            sides=lst$sides[i],
+                                            method=lst$method[i])))
+  
+  # get rownames
+  lgn <- Recycle(x1=if(is.null(names(x1))) paste("x1", seq_along(x1), sep=".") else names(x1),
+                 n1=if(is.null(names(n1))) paste("n1", seq_along(n1), sep=".") else names(n1),
+                 x2=if(is.null(names(x2))) paste("x2", seq_along(x2), sep=".") else names(x2),
+                 n2=if(is.null(names(n2))) paste("n2", seq_along(n2), sep=".") else names(n2),
+                 conf.level=conf.level, sides=sides, method=method)
+  
+  xn <- apply(as.data.frame(lgn[sapply(lgn, function(x) length(unique(x)) != 1)]), 1, paste, collapse=":")
+  
+  return(SetNames(res, 
+                  rownames=xn, 
+                  colnames=c("est", "lwr.ci", "upr.ci")))
+  
+}
+
+
 
 
 
@@ -2999,6 +3659,103 @@ MedianCI <- function(x, conf.level=0.95, sides = c("two.sided","left","right"), 
 
 
 
+
+
+QuantileCI <- function(x, probs=seq(0, 1, .25), conf.level = 0.95, sides = c("two.sided", "left", "right"),
+           na.rm = FALSE, method = c("exact", "boot"), R = 999) {
+  
+  .QuantileCI <- function(x, probs, conf.level = 0.95, sides = c("two.sided", "left", "right")) {
+    # Near-symmetric distribution-free confidence interval for a quantile `q`.
+  
+    # https://stats.stackexchange.com/questions/99829/how-to-obtain-a-confidence-interval-for-a-percentile
+    #
+    # Search over a small range of upper and lower order statistics for the 
+    # closest coverage to 1-alpha (but not less than it, if possible).
+    
+    alpha <- 1- conf.level
+    
+    n <- length(x)
+    
+    u <- qbinom(1-alpha/2, n, probs) + (-2:2) + 1
+    l <- qbinom(alpha/2, n, probs) + (-2:2)
+    u[u > n] <- Inf
+    l[l < 0] <- -Inf
+    coverage <- outer(l, u, function(a, b) pbinom(b-1, n, probs) - pbinom(a-1, n, probs))
+    if (max(coverage) < 1-alpha) i <- which(coverage==max(coverage)) else
+      i <- which(coverage == min(coverage[coverage >= 1-alpha]))
+    # minimal difference
+    i <- i[1]
+    
+    # order statistics and the actual coverage
+    u <- rep(u, each=5)[i]
+    l <- rep(l, 5)[i]
+    
+    # get the values  
+    if(probs %nin% c(0,1))
+      s <- sort(x, partial=c(u, l))
+    else
+      s <- sort(x)
+    
+    res <- c(lwr.ci=s[l], upr.ci=s[u])
+    attr(res, "conf.level") <- coverage[i]
+    
+    if(sides=="left")
+      res[3] <- Inf
+    else if(sides=="right")
+      res[2] <- -Inf
+    
+    return(res)
+    
+  }
+  
+  
+  if (na.rm) x <- na.omit(x)
+  if(anyNA(x))
+    stop("missing values and NaN's not allowed if 'na.rm' is FALSE")
+  
+  sides <- match.arg(sides, choices = c("two.sided","left","right"), several.ok = FALSE)
+  if(sides!="two.sided")
+    conf.level <- 1 - 2*(1-conf.level)
+
+  method <- match.arg(arg=method, choices=c("exact","boot"))
+  
+  switch( method
+          , "exact" = { # this is the SAS-way to do it
+            r <- lapply(probs, function(p) .QuantileCI(x, probs=p, conf.level = conf.level, sides=sides))
+            coverage <- sapply(r, function(z) attr(z, "conf.level"))
+            r <- do.call(rbind, r)
+            attr(r, "conf.level") <- coverage
+          }
+          , "boot" = {
+            boot.med <- boot(x, function(x, d) quantile(x[d], probs=probs, na.rm=na.rm), R=R)
+            r <- boot.ci(boot.med, conf=conf.level, type="basic")[[4]][4:5]
+          } )
+  
+  qq <- quantile(x, probs=probs, na.rm=na.rm)
+  
+  if(length(probs)==1){
+    res <- c(qq, r)
+    names(res) <- c("est","lwr.ci","upr.ci")
+    # report the conf.level which can deviate from the required one
+    if(method=="exact")  attr(res, "conf.level") <-  attr(r, "conf.level")
+    
+  } else {
+    res <- cbind(qq, r)
+    colnames(res) <- c("est","lwr.ci","upr.ci")
+    # report the conf.level which can deviate from the required one
+    if(method=="exact")  
+      # report coverages for all probs
+      attr(res, "conf.level") <-  attr(r, "conf.level")
+    
+  }
+  
+  return( res )
+  
+}
+
+
+
+
 # standard error of mean
 MeanSE <- function(x, sd = NULL, na.rm = FALSE) {
   if(na.rm) x <- na.omit(x)
@@ -3110,6 +3867,62 @@ MeanCI <- function (x, sd = NULL, trim = 0, method = c("classic", "boot"),
 }
 
 
+
+MeanCIn <- function(ci, sd, interval=c(2, 1e5), conf.level=0.95, norm=FALSE, 
+                    tol = .Machine$double.eps^0.5) {
+  
+  width <- diff(ci)/2
+  alpha <- (1-conf.level)/2
+  
+  if(norm)
+    uniroot(f = function(n) sd/sqrt(n) * qnorm(p = 1-alpha) - width, 
+            interval = interval, tol = tol)$root
+  else
+    uniroot(f = function(n) (qt(1-alpha, df=n-1) * sd / sqrt(n)) - width, 
+            interval = interval, tol = tol)$root
+}
+
+
+
+
+# MeanCIn <- function(xm, sd, pop_sd=NULL, width, interval=c(1, 1e5), conf.level=0.95, sides="two.sided") {
+# 
+#   sides <- match.arg(sides, choices = c("two.sided","left","right"), several.ok = FALSE)
+#   if(sides!="two.sided")
+#     conf.level <- 1 - 2*(1-conf.level)
+# 
+#   if(!is.null(sd))  
+#     mci <- function(n) qt(c((1-conf.level)/2, 1-, df = n-1) *sd / sqrt(n)
+#   
+#   else if(!is.null(pop_sd))
+#     mci <- function(n) qnorm((1-conf.level)/2) *sd / sqrt(n)
+#   
+#   else{
+#     warning("Provide either sd or pop_sd")
+#     return(NA)
+#   }
+#   
+#   uniroot(f = function(n) diff(mci(n)) - width, 
+#           interval = interval)$root
+#   
+#   if(sides=="left")
+#     res[3] <- Inf
+#   else if(sides=="right")
+#     res[2] <- -Inf
+#   
+#   
+# }
+
+
+
+# CIn <- function(p=0.5, width, interval=c(1, 1e5), conf.level=0.95, sides="two.sided", method="wilson") {
+#   uniroot(f = function(n) diff(BinomCI(x=p*n, n=n, conf.level=conf.level, 
+#                                        sides=sides, method=method)[, -1]) - width, 
+#           interval = interval)$root
+# }
+
+
+
 MeanDiffCI <- function(x, ...){
   UseMethod("MeanDiffCI")
 }
@@ -3164,9 +3977,9 @@ MeanDiffCI.default <- function (x, y, method = c("classic", "norm","basic","stud
   if(method == "classic"){
     a <- t.test(x, y, conf.level = conf.level, paired = paired)
     if(paired)
-      res <- c(meandiff = mean(x) - mean(y), lwr.ci = a$conf.int[1], upr.ci = a$conf.int[2])
-    else
       res <- c(meandiff = mean(x - y), lwr.ci = a$conf.int[1], upr.ci = a$conf.int[2])
+    else
+      res <- c(meandiff = mean(x) - mean(y), lwr.ci = a$conf.int[1], upr.ci = a$conf.int[2])
 
   } else {
 
@@ -3859,7 +4672,8 @@ Rosenbluth <- function(x, n = rep(1, length(x)), na.rm = FALSE) {
 ## stats: assocs etc. ====
 
 
-CutQ <- function(x, breaks=quantile(x, seq(0, 1, by=0.25), na.rm=TRUE), labels=NULL, na.rm = FALSE, ...){
+CutQ <- function(x, breaks=quantile(x, seq(0, 1, by=0.25), na.rm=TRUE), 
+                 labels=NULL, na.rm = FALSE, ...){
 
   # old version:
   #  cut(x, breaks=probsile(x, breaks=probs, na.rm = na.rm), include.lowest=TRUE, labels=labels)
@@ -3869,6 +4683,9 @@ CutQ <- function(x, breaks=quantile(x, seq(0, 1, by=0.25), na.rm=TRUE), labels=N
 
   if(na.rm) x <- na.omit(x)
 
+  if(length(breaks)==1 && IsWhole(breaks))
+    breaks <- quantile(x, seq(0, 1, by = 1/breaks), na.rm = TRUE)
+  
   if(is.null(labels)) labels <- gettextf("Q%s", 1:(length(breaks)-1))
 
   # probs <- quantile(x, probs)
@@ -3891,7 +4708,7 @@ CutQ <- function(x, breaks=quantile(x, seq(0, 1, by=0.25), na.rm=TRUE), labels=N
     newprobs <- sapply(uniqs, reposition)
     retval[!flag] <- as.character(cut(x[!flag], breaks=newprobs, include.lowest=TRUE,...))
 
-    levs <- unique(retval[order(x)]) # ensure factor levels are
+    levs <- unique(retval[order(x)])        # ensure factor levels are
     # properly ordered
     retval <- factor(retval, levels=levs)
 
@@ -3904,15 +4721,15 @@ CutQ <- function(x, breaks=quantile(x, seq(0, 1, by=0.25), na.rm=TRUE), labels=N
     rownames(pairs) <- c("lower.bound","upper.bound")
     colnames(pairs) <- levs
 
-    closed.lower <- rep(F,ncol(pairs)) # default lower is open
-    closed.upper <- rep(T,ncol(pairs)) # default upper is closed
-    closed.lower[1] <- TRUE             # lowest interval is always closed
+    closed.lower <- rep(FALSE, ncol(pairs)) # default lower is open
+    closed.upper <- rep(TRUE, ncol(pairs))  # default upper is closed
+    closed.lower[1] <- TRUE                 # lowest interval is always closed
 
-    for(i in 2:ncol(pairs))            # open lower interval if above singlet
+    for(i in 2:ncol(pairs))                 # open lower interval if above singlet
       if(pairs[1,i]==pairs[1,i-1] && pairs[1,i]==pairs[2,i-1])
         closed.lower[i] <- FALSE
 
-    for(i in 1:(ncol(pairs)-1))        # open upper interval if below singlet
+    for(i in 1:(ncol(pairs)-1))             # open upper interval if below singlet
       if(pairs[2,i]==pairs[1,i+1] && pairs[2,i]==pairs[2,i+1])
         closed.upper[i] <- FALSE
 
@@ -3982,6 +4799,11 @@ CramerV <- function(x, y = NULL, conf.level = NA,
 
 
   lochi <- function(chival, df, conf) {
+    
+    # we don't have lochi for chival==0 
+    # optimize would report minval = maxval
+    if(chival==0) return(NA)
+    
     ulim <- 1 - (1-conf)/2
     #  This first part finds a lower value from which to start.
     lc <- c(.001, chival/2, chival)
@@ -4003,6 +4825,10 @@ CramerV <- function(x, y = NULL, conf.level = NA,
   }
 
   hichi <- function(chival,df,conf) {
+    
+    # we don't have hichi for chival==0 
+    if(chival==0) return(NA)
+    
     #	This first part finds upper and lower startinig values.
     uc <- c(chival, 2*chival, 3*chival)
     llim <- (1-conf)/2
@@ -4215,8 +5041,8 @@ CohenKappa <- function (x, y = NULL, weights = c("Unweighted", "Equal-Spacing", 
   po <- sum(d)/n
   pc <- crossprod(colFreqs, rowFreqs)
 
-  k <- kappa(po, pc)
-  s <- std(po, pc)
+  k <- as.vector(kappa(po, pc))
+  s <- as.vector(std(po, pc))
 
   W <- if (is.matrix(weights))
     weights
@@ -4228,17 +5054,17 @@ CohenKappa <- function (x, y = NULL, weights = c("Unweighted", "Equal-Spacing", 
   pow <- sum(W * x)/n
   pcw <- sum(W * colFreqs %o% rowFreqs)
 
-  kw <- kappa(pow, pcw)
-  sw <- std(x/n, 1 - pcw, W)
+  kw <- as.vector(kappa(pow, pcw))
+  sw <- as.vector(std(x/n, 1 - pcw, W))
 
   #   structure(list(Unweighted = c(value = k, ASE = s), Weighted = c(value = kw,
   #       ASE = sw), Weights = W), class = "Kappa")
 
   if (is.na(conf.level)) {
     if(identical(weights, "Unweighted"))
-      res <- as.vector(k)
+      res <- k
     else
-      res <- as.vector(kw)
+      res <- kw
   } else {
     if(identical(weights, "Unweighted")) {
       ci <- k + c(1,-1) * qnorm((1-conf.level)/2) * s
@@ -5239,7 +6065,7 @@ OddsRatio.glm <- function(x, conf.level = NULL, digits=3, use.profile=TRUE, ...)
   
   res <- list(or=d.print, call=x$call,
               BrierScore=BrierScore(x), PseudoR2=PseudoR2(x, which="all"), res=d.res,
-              nobs=nobs(x), terms=mterms)
+              nobs=nobs(x), terms=mterms, model=x$model)
 
   class(res) <- "OddsRatio"
 
@@ -5458,22 +6284,74 @@ OddsRatio.default <- function(x, conf.level = NULL, y = NULL, method=c("wald", "
 
 
 ## odds ratio (OR) to relative risk (RR)
-ORToRelRisk <- function(or, p0){
 
+
+ORToRelRisk <- function(...) {
+  UseMethod("ORToRelRisk")
+}
+  
+
+ORToRelRisk.default <- function(or, p0, ...) {
+  
   if(any(or <= 0))
     stop("'or' has to be positive")
-
-  if(p0 <= 0 | p0 >= 1)
+  
+  if(!all(ZeroIfNA(p0) %[]% c(0,1)))
     stop("'p0' has to be in (0,1)")
-
-  if(length(p0) != 1)
-    stop("'p0' has to be of length 1")
-
-  names(or) <- NULL
-
+  
   or / (1 - p0 + p0*or)
-
+  
 }
+
+
+
+ORToRelRisk.OddsRatio <- function(x, ...){
+  
+  .PredPrevalence <- function(model) {
+    
+    isNumericPredictor <- function(model, term){
+      unname(attr(attr(model, "terms"), "dataClasses")[term] == "numeric")
+    }
+    
+    # mean of response ist used for all numeric predictors
+    meanresp <- mean(as.numeric(model.response(model)) - 1)
+    # this is ok, as the second level is the one we predict in glm
+    # https://stackoverflow.com/questions/23282048/logistic-regression-defining-reference-level-in-r
+    
+    preds <- attr(terms(model), "term.labels")
+
+    # first the intercept
+    res <- NA_real_
+    
+    for(i in seq_along(preds))
+      if(isNumericPredictor(model=model, term=preds[i]))
+        res <- c(res, meanresp)
+      else {
+        # get the proportions of the levels of the factor with the response ...
+        fprev <- prop.table(table(model.frame(model)[, preds[i]], 
+                                  model.response(model)), 1)
+        # .. and use the proportion of positive response of the reference level
+        res <- c(res, rep(fprev[1, 2], times=nrow(fprev)-1))
+    }
+ 
+    return(res)
+  }
+ 
+  
+  or <- x$res[, c("or", "or.lci", "or.uci")]
+  pprev <-  .PredPrevalence(x$model)
+  
+  res <- sapply(or, function(x) ORToRelRisk(x, pprev))
+  rownames(res) <- rownames(or)
+  colnames(res) <- c("rr", "rr.lci", "rr.uci")
+  
+  return(res)  
+  
+} 
+
+
+
+
 
 
 # Cohen, Jacob. 1988. Statistical power analysis for the behavioral
@@ -5513,7 +6391,7 @@ ORToRelRisk <- function(or, p0){
 
 # N.B. One should use the values for the significance of the
 # Goodman-Kruskal lambda and Theil's UC with reservation, as these
-# have been modeled to mimic the the behavior of the same statistics
+# have been modeled to mimic the behavior of the same statistics
 # in SPSS.
 
 
@@ -6146,6 +7024,10 @@ KendallTauB <- function(x, y = NULL, conf.level = NA, ...){
   # Compute asymptotic standard errors taub
   tauphi <- (2 * pdiff + Pdiff * colmat) * delta2 * delta1 + (Pdiff * rowmat * delta2)/delta1
   sigma2 <- ((sum(pi * tauphi^2) - sum(pi * tauphi)^2)/(delta1 * delta2)^4) / n
+  
+  # for very small pi/tauph it's possible that sigma2 gets negative so we cut small negative values here
+  # example:  KendallTauB(table(iris$Species, iris$Species))
+  if(sigma2 < .Machine$double.eps * 10) sigma2 <- 0
 
   if (is.na(conf.level)) {
     result <- taub
@@ -6242,69 +7124,151 @@ StuartTauC <- function(x, y = NULL, conf.level = NA, ...) {
 
 
 
+# SpearmanRho <- function(x, y = NULL, use = c("everything", "all.obs", "complete.obs",
+#                                              "na.or.complete","pairwise.complete.obs"), conf.level = NA ) {
+# 
+#   if(is.null(y)) {
+#     x <- Untable(x)
+#     y <- x[,2]
+#     x <- x[,1]
+#   }
+#   # Reference:
+#   #   https://stat.ethz.ch/pipermail/r-help/2006-October/114319.html
+#   # fisher z transformation for calc SpearmanRho ci :
+#   # Conover WJ, Practical Nonparametric Statistics (3rd edition). Wiley 1999.
+# 
+#   # http://support.sas.com/documentation/cdl/en/statugfreq/63124/PDF/default/statugfreq.pdf
+#   # pp 1738
+# 
+# 
+#   # n <- sum(tab)
+#   # ni. <- apply(tab, 1, sum)
+#   # n.j <- apply(tab, 2, sum)
+#   # F <- n^3 - sum(ni.^3)
+#   # G <- n^3 - sum(n.j^3)
+#   # w <- 1/12*sqrt(F * G)
+# 
+#   # ### Asymptotic standard error: sqrt(sigma2)
+#   # sigma2 <- 1
+#   # ### debug: print(sqrt(sigma2))
+# 
+#   # ### Tau-c = (C - D)*[2m/(n2(m-1))]
+#   # est <- 1
+# 
+#   # if(is.na(conf.level)){
+#   # result <- tauc
+#   # } else {
+#   # pr2 <- 1 - (1 - conf.level)/2
+#   # CI <- qnorm(pr2) * sqrt(sigma2) * c(-1, 1) + est
+#   # result <- c(SpearmanRho = est,  lwr.ci=max(CI[1], -1), ups.ci=min(CI[2], 1))
+#   # }
+# 
+#   # return(result)
+# 
+# 
+#   # Ref:
+#   # http://www-01.ibm.com/support/docview.wss?uid=swg21478368
+# 
+#   use <- match.arg(use, choices=c("everything", "all.obs", "complete.obs",
+#                                   "na.or.complete","pairwise.complete.obs"))
+# 
+#   rho <- cor(as.numeric(x), as.numeric(y), method="spearman", use = use)
+# 
+#   e_fx <- exp( 2 * ((.5 * log((1+rho) / (1-rho))) - c(1, -1) *
+#                       (abs(qnorm((1 - conf.level)/2))) * (1 / sqrt(sum(complete.cases(x,y)) - 3)) ))
+#   ci <- (e_fx - 1) / (e_fx + 1)
+# 
+#   if (is.na(conf.level)) {
+#     result <- rho
+#   } else {
+#     pr2 <- 1 - (1 - conf.level) / 2
+#     result <- c(rho = rho, lwr.ci = max(ci[1], -1), upr.ci = min(ci[2], 1))
+#   }
+#   return(result)
+# 
+# }
+
+
+# replaced by DescTools v 0.99.36
+# as Untable() is a nogo for tables with high frequencies...
+
 SpearmanRho <- function(x, y = NULL, use = c("everything", "all.obs", "complete.obs",
                                              "na.or.complete","pairwise.complete.obs"), conf.level = NA ) {
 
   if(is.null(y)) {
-    x <- Untable(x)
-    y <- x[,2]
-    x <- x[,1]
+    # implemented following
+    # https://support.sas.com/documentation/onlinedoc/stat/151/freq.pdf
+    # S. 3103
+    
+    # http://support.sas.com/documentation/cdl/en/statugfreq/63124/PDF/default/statugfreq.pdf
+    # pp 1738
+    
+    # Old References:
+    # https://stat.ethz.ch/pipermail/r-help/2006-October/114319.html
+    # fisher z transformation for calc SpearmanRho ci :
+    # Conover WJ, Practical Nonparametric Statistics (3rd edition). Wiley 1999.
+    
+    
+    n <- sum(x)
+    ni. <- apply(x, 1, sum)
+    n.j <- apply(x, 2, sum)
+    
+    ri <- rank(rownames(x))
+    ci <- rank(colnames(x))
+    ri <- 1:nrow(x)
+    ci <- 1:ncol(x)
+    
+    R1i <- c(sapply(seq_along(ri), 
+                    function(i) ifelse(i==1, 0, cumsum(ni.)[i-1]) + ni.[i]/2))
+    C1i <- c(sapply(seq_along(ci), 
+                    function(i) ifelse(i==1, 0, cumsum(n.j)[i-1]) + n.j[i]/2))
+    
+    Ri <- R1i - n/2
+    Ci <- C1i - n/2
+    
+    v <- sum(x * outer(Ri, Ci))
+    F <- n^3 - sum(ni.^3)
+    G <- n^3 - sum(n.j^3)
+    
+    w <- 1/12*sqrt(F * G)
+    
+    rho <- v/w
+    
+  } else {
+    
+    # http://www-01.ibm.com/support/docview.wss?uid=swg21478368
+    
+    use <- match.arg(use, choices=c("everything", "all.obs", "complete.obs",
+                                    "na.or.complete","pairwise.complete.obs"))
+    
+    rho <- cor(as.numeric(x), as.numeric(y), method="spearman", use = use)
+    
+    n <- complete.cases(x,y)
+    
   }
-  # Reference:
-  #   https://stat.ethz.ch/pipermail/r-help/2006-October/114319.html
-  # fisher z transformation for calc SpearmanRho ci :
-  # Conover WJ, Practical Nonparametric Statistics (3rd edition). Wiley 1999.
-
-  # http://support.sas.com/documentation/cdl/en/statugfreq/63124/PDF/default/statugfreq.pdf
-  # pp 1738
-
-
-  # n <- sum(tab)
-  # ni. <- apply(tab, 1, sum)
-  # n.j <- apply(tab, 2, sum)
-  # F <- n^3 - sum(ni.^3)
-  # G <- n^3 - sum(n.j^3)
-  # w <- 1/12*sqrt(F * G)
-
-  # ### Asymptotic standard error: sqrt(sigma2)
-  # sigma2 <- 1
-  # ### debug: print(sqrt(sigma2))
-
-  # ### Tau-c = (C - D)*[2m/(n2(m-1))]
-  # est <- 1
-
-  # if(is.na(conf.level)){
-  # result <- tauc
-  # } else {
-  # pr2 <- 1 - (1 - conf.level)/2
-  # CI <- qnorm(pr2) * sqrt(sigma2) * c(-1, 1) + est
-  # result <- c(SpearmanRho = est,  lwr.ci=max(CI[1], -1), ups.ci=min(CI[2], 1))
-  # }
-
-  # return(result)
-
-
-  # Ref:
-  # http://www-01.ibm.com/support/docview.wss?uid=swg21478368
-
-  use <- match.arg(use, choices=c("everything", "all.obs", "complete.obs",
-                                  "na.or.complete","pairwise.complete.obs"))
-
-  rho <- cor(as.numeric(x), as.numeric(y), method="spearman", use = use)
-
+  
+  
   e_fx <- exp( 2 * ((.5 * log((1+rho) / (1-rho))) - c(1, -1) *
-                      (abs(qnorm((1 - conf.level)/2))) * (1 / sqrt(sum(complete.cases(x,y)) - 3)) ))
+                      (abs(qnorm((1 - conf.level)/2))) * (1 / sqrt(sum(n) - 3)) ))
   ci <- (e_fx - 1) / (e_fx + 1)
-
+  
   if (is.na(conf.level)) {
     result <- rho
   } else {
-    pr2 <- 1 - (1 - conf.level) / 2
-    result <- c(rho = rho, lwr.ci = max(ci[1], -1), upr.ci = min(ci[2], 1))
+    
+    if(identical(rho, 1)){     # will blast the fisher z transformation
+      result <- c(rho=1, lwr.ci=1, upr.ci=1)
+      
+    } else {
+      pr2 <- 1 - (1 - conf.level) / 2
+      result <- c(rho = rho, lwr.ci = max(ci[1], -1), upr.ci = min(ci[2], 1))
+    }
   }
+  
   return(result)
 
 }
+
 
 
 
@@ -6554,7 +7518,7 @@ Assocs <- function(x, conf.level = 0.95, verbose=NULL){
   if(verbose=="3") {
 
     # this is from boot::corr combined with ci logic from cor.test
-    r <- corr(d=CombPairs(1:nrow(x), 1:ncol(x)), as.vector(x))
+    r <- boot::corr(d=CombPairs(1:nrow(x), 1:ncol(x)), as.vector(x))
     r.ci <- CorCI(rho = r, n = sum(x), conf.level = conf.level)
 
     res <- rbind(res

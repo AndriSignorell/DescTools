@@ -40,3 +40,4 @@ StrCap(z, method="title")
 % R documentation directory.
 \keyword{character}
 \keyword{utilities}
+\concept{ string }

@@ -37,13 +37,14 @@
 
 
 
-PasswordDlg <- function() {
+PasswordDlg <- function(option_txt=NULL) {
 
   requireNamespace("tcltk", quietly = FALSE)
 
   e1 <- environment()
   pw <- character()
 
+  tfopt <- tcltk::tclVar(FALSE)
   tfpw <- tcltk::tclVar("")
 
   OnOK <- function() {
@@ -53,13 +54,19 @@ PasswordDlg <- function() {
 
   # do not update screen
   tcltk::tclServiceMode(on = FALSE)
+  
+  # add option checkbox
+  opt_fg <- !is.null(option_txt)
+  dlg_height <- ifelse(opt_fg, 140, 110)
+  
   # create window
-  root <- .InitDlg(205, 110, resizex=FALSE, resizey=FALSE, main="Login", ico="key")
+  root <- .InitDlg(205, dlg_height, resizex=FALSE, resizey=FALSE, main="Login", ico="key")
 
   # define widgets
   content <- tcltk::tkframe(root, padx=10, pady=10)
   tfEntrPW <- tcltk::tkentry(content, width="30", textvariable=tfpw, show="*" )
-  tfButOK <- tcltk::tkbutton(content,text="OK",command=OnOK, width=6)
+  tfChk <- tcltk::tkcheckbutton(content, text = ifelse(opt_fg, option_txt, ""), variable=tfopt)
+  tfButOK <- tcltk::tkbutton(content,text="OK", command=OnOK, width=6)
   tfButCanc <- tcltk::tkbutton(content, text="Cancel", width=7,
                                command=function() tcltk::tkdestroy(root))
 
@@ -67,9 +74,11 @@ PasswordDlg <- function() {
   tcltk::tkgrid(content, column=0, row=0)
   tcltk::tkgrid(tcltk::tklabel(content, text="Enter Password"), column=0, row=0,
                 columnspan=3, sticky="w")
-  tcltk::tkgrid(tfEntrPW, column=0, row=1, columnspan=3, pady=10)
-  tcltk::tkgrid(tfButOK, column=0, row=2, ipadx=15, sticky="w")
-  tcltk::tkgrid(tfButCanc, column=2, row=2, ipadx=5, sticky="e")
+  tcltk::tkgrid(tfEntrPW, column=0, row=1, columnspan=3, pady=10-5*opt_fg)
+  if(opt_fg)
+    tcltk::tkgrid(tfChk, column = 0, row = 2, columnspan = 3, pady = 5, sticky="w")
+  tcltk::tkgrid(tfButOK, column=0, row=2+opt_fg, ipadx=15, sticky="w")
+  tcltk::tkgrid(tfButCanc, column=2, row=2+opt_fg, ipadx=5, sticky="e")
 
   # binding event-handler
   tcltk::tkbind(tfEntrPW, "<Return>", OnOK)
@@ -81,11 +90,14 @@ PasswordDlg <- function() {
 
   tcltk::tkwait.window(root)
 
+  if(opt_fg) attr(pw, "option") <- tcltk::tclvalue(tfopt)
   return(pw)
 
 }
 
 
+# PasswordDlg()
+# PasswordDlg(option_txt="Store for session")
 
 
 

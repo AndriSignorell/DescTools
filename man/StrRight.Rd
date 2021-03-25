@@ -54,3 +54,4 @@ StrRight(c("Lorem", "ipsum", "dolor","sit","amet"), n=c(2,3))
 % R documentation directory.
 \keyword{ manip }
 \keyword{ character }% __ONLY ONE__ keyword per line
+\concept{ string }

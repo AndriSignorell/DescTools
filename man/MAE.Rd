@@ -98,7 +98,7 @@ RMSE calculates the root mean squared error:
 }
 \references{
 Armstrong, J. S. (1985) \emph{Long-range Forecasting: From Crystal Ball to Computer}, 2nd. ed. Wiley. ISBN 978-0-471-82260-8\cr
-\url{http://en.wikipedia.org/wiki/Symmetric_mean_absolute_percentage_error}
+\url{https://en.wikipedia.org/wiki/Symmetric_mean_absolute_percentage_error}
 
 Torgo, L. (2010) \emph{Data Mining with R: Learning with Case Studies}, Chapman and Hall/CRC Press
 }

@@ -6,14 +6,14 @@
 }
 \description{
 DescTools is an extensive collection of miscellaneous basic statistics functions and comfort wrappers not available in the R basic system for efficient description of data.
-The author's intention was to create a toolbox, which facilitates the (notoriously time consuming) first descriptive tasks in data analysis, consisting of calculating descriptive statistics, drawing graphical summaries and reporting the results. The package contains furthermore functions to produce documents using MS Word (or PowerPoint) and functions to import data from Excel. \cr
+The author's intention was to create a toolbox, which facilitates the (notoriously time consuming) first descriptive tasks in data analysis, consisting of calculating descriptive statistics, drawing graphical summaries and reporting the results. Special attention was paid to the integration of various approaches to the calculation of confidence intervals. For most basic statistics functions, variants are included that allow the use of weights. The package contains furthermore functions to produce documents using MS Word (or PowerPoint) and functions to import data from Excel. \cr
 A considerable part of the included functions can be found scattered in other packages and other sources written partly by Titans of R. The reason for collecting them here, was primarily to have them consolidated in ONE instead of dozens of packages (which themselves might depend on other packages which are not needed at all), and to provide a common and consistent interface as far as function and arguments naming, \code{NA} handling, recycling rules etc. are concerned. Google style guides were used as naming rules (in absence of convincing alternatives). The 'CamelStyle' was consequently applied to functions borrowed from contributed R packages as well.
 \cr
 
 Feedback, feature requests, bugreports and other suggestions are welcome! Please report problems to Stack Overflow using tag [desctools] or directly to the maintainer.
 }
 
-\section{Warning}{This package is still under development. Although the code seems meanwhile quite stable, until release of version 1.0 (which is expected in hmm: new future?) you should be aware that everything in the package might be subject to change. Backward compatibility is not yet guaranteed. Functions may be deleted or renamed and new syntax may be inconsistent with earlier versions. By release of version 1.0 the "deprecated-defunct process" will be installed.
+\section{Warning}{This package is still under development. Although the code seems meanwhile quite stable, until release of version 1.0 (which is expected in hmm: near future?) you should be aware that everything in the package might be subject to change. Backward compatibility is not yet guaranteed. Functions may be deleted or renamed and new syntax may be inconsistent with earlier versions. By release of version 1.0 the "deprecated-defunct process" will be installed.
 }
 
 \details{
@@ -56,7 +56,7 @@ A grouped list of the functions:
 \link{Rename}      \tab            Change name(s) of a named object \cr
 \link{Sort}      \tab            Sort extension for matrices and data.frames \cr
 \link{SortMixed}, \link{OrderMixed}    \tab Mixed sort order \cr
-\link{DenseRank}       \tab      Calculate ranks in consecutive order (no ties)  \cr
+\link{Rank}       \tab      Calculate ranks including dense type for ties  \cr
 \link{PercentRank}       \tab      Calculate the percent rank \cr
 \link{RoundTo}       \tab Round to a multiple \cr
 \link{Large}, \link{Small}  \tab    Returns the kth largest, resp. smallest values\cr
@@ -105,6 +105,7 @@ A grouped list of the functions:
 \link{SetNames}       \tab      Set the names, rownames or columnnames in an object and return it\cr
 \link{Some}       \tab      Return some randomly chosen elements of an object \cr
 \link{SplitAt}       \tab      Split a vector into several pieces at given positions \cr
+\link{SplitToCol}       \tab      Splits the columns of a data frame using a split character\cr
 \link{SplitPath}       \tab      Split a path string in drive, path, filename \cr
 \link{Str}       \tab      Compactly display the structure of any R object \cr
 \link{TextToTable}       \tab      Converts a string to a table \cr
@@ -405,6 +406,7 @@ _RevWeibull   \tab      Reverse Weibull distribution (\link{dRevWeibull})\cr
 \link{ToWrd}, \link{ToXL}    \tab  Mord flexible wrapper to send diverse objects to Word, resp. Excel \cr
 \link{WrdPlot}    \tab   Insert the active plot to Word \cr
 \link{WrdInsertBookmark}    \tab Insert a new bookmark in a Word document \cr
+\link{WrdDeleteBookmark}    \tab Delete an existing bookmark in a Word document \cr
 \link{WrdGoto}    \tab Place cursor to a specific bookmark, or another text position. \cr
 \link{WrdUpdateBookmark}    \tab Update the text of a bookmark's range\cr
 \link{WrdSaveAs}     \tab      Saves documents in Word \cr
@@ -462,11 +464,11 @@ Andri Signorell\cr
 Helsana Versicherungen AG, Health Sciences, Zurich\cr
 HWZ University of Applied Sciences in Business Administration Zurich.\cr
 
-R is a community project. This can be seen from the fact that this package includes R source code and/or documentation previously published by (in alphabetical order): \cr
+R is a community project. This can also be seen in this package, which contains R source code and/or documentation previously published elsewhere by (in alphabetical order): \cr
 
 Ken Aho, Andreas Alfons, Nanina Anderegg, Tomas Aragon, Antti Arppe, Adrian Baddeley, Kamil Barton, Ben Bolker, Hans W. Borchers, Frederico Caeiro, Stephane Champely, Daniel Chessel, Leanne Chhay, Clint Cummins, Michael Dewey, Harold C. Doran, Stephane Dray, Charles Dupont, Dirk Eddelbuettel, Jeff Enos, Claus Ekstrom, Martin Elff, Kamil Erguler, Richard W. Farebrother, John Fox, Romain Francois, Michael Friendly, Tal Galili, Matthias Gamer, Joseph L. Gastwirth, Yulia R. Gel, Juergen Gross, Gabor Grothendieck, Frank E. Harrell Jr, Richard Heiberger, Michael Hoehle, Christian W. Hoffmann, Soeren Hojsgaard, Torsten Hothorn, Markus Huerzeler, Wallace W. Hui, Pete Hurd, Rob J. Hyndman, Pablo J. Villacorta Iglesias, Christopher Jackson, Matthias Kohl, Mikko Korpela, Max Kuhn, Detlew Labes, Duncan Temple Lang, Friederich Leisch, Jim Lemon, Dong Li, Martin Maechler, Arni Magnusson, Daniel Malter, George Marsaglia, John Marsaglia, Alina Matei, David Meyer, Weiwen Miao, Giovanni Millo, Yongyi Min, David Mitchell, Franziska Mueller, Markus Naepflin, Daniel Navarro, Henric Nilsson, Klaus Nordhausen, Derek Ogle, Hong Ooi, Nick Parsons, Sandrine Pavoine, Tony Plate, Roland Rapold, William Revelle, Tyler Rinker, Brian D. Ripley, Caroline Rodriguez, Nathan Russell, Nick Sabbe, Venkatraman E. Seshan, Greg Snow, Michael Smithson, Karline Soetaert, Werner A. Stahel, Alec Stephenson, Mark Stevenson, Matthias Templ, Terry Therneau, Yves Tille, Adrian Trapletti, Joshua Ulrich, Kevin Ushey, Jeremy VanDerWal, Bill Venables, John Verzani, Gregory R. Warnes, Stefan Wellek, Hadley Wickham, Rand R. Wilcox, Peter Wolf, Daniel Wollschlaeger, Thomas Yee, Achim Zeileis
 
-Special thanks go to Beat Bruengger, Mathias Frueh, Daniel Wollschlaeger for their valuable contributions and testing.
+Special thanks go to Beat Bruengger, Mathias Frueh, Daniel Wollschlaeger, Vilmantas Gegzna for their valuable contributions and testing.
 
 The good things come from all these guys, any problems are likely due to my tweaking.
 Thank you all! \cr

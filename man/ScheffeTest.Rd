@@ -2,6 +2,7 @@
 \alias{ScheffeTest}
 \alias{ScheffeTest.default}
 \alias{ScheffeTest.aov}
+\alias{ScheffeTest.formula}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Scheffe Test for Pairwise and Otherwise Comparisons
 %%  ~~function to do ... ~~
@@ -13,6 +14,7 @@ Scheffe's method applies to the set of estimates of all possible contrasts among
 \usage{
 ScheffeTest(x, ...) 
 
+\method{ScheffeTest}{formula}(formula, data, subset, na.action, \dots)
 \method{ScheffeTest}{aov}(x, which = NULL, contrasts = NULL, 
             conf.level = 0.95, ...)
 \method{ScheffeTest}{default}(x, g = NULL, which = NULL, 
@@ -38,6 +40,18 @@ ScheffeTest(x, ...)
   If this is set to NA, just a matrix with the p-values will be returned.
 %%     ~~Describe \code{conf.level} here~~
 }
+  \item{formula}{a formula of the form \code{lhs ~ rhs} where \code{lhs}
+    gives the data values and \code{rhs} the corresponding groups.}
+  \item{data}{an optional matrix or data frame (or similar: see
+    \code{\link{model.frame}}) containing the variables in the
+    formula \code{formula}.  By default the variables are taken from
+    \code{environment(formula)}.}
+  \item{subset}{an optional vector specifying a subset of observations
+    to be used.}
+  \item{na.action}{a function which indicates what should happen when
+    the data contain \code{NA}s.  Defaults to
+    \code{getOption("na.action")}.}
+
   \item{\dots}{further arguments, currently not used.
 %%     ~~Describe \code{\dots} here~~
 }

@@ -51,3 +51,4 @@ StrCountW(c("This is a", "text in more", "than one line."))
 % R documentation directory.
 \keyword{character}
 \keyword{utilities}
+\concept{ string }

@@ -15,7 +15,7 @@ Fibonacci(n)
 \details{
   Generates the \code{n}-th Fibonacci number, whereas Fibonacci(0) = 0.
 }
-\references{\url{http://en.wikipedia.org/wiki/Fibonacci_number}}
+\references{\url{https://en.wikipedia.org/wiki/Fibonacci_number}}
 \value{
   A single integer, or a vector of integers.
 }

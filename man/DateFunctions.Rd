@@ -156,3 +156,5 @@ LastDayOfMonth(as.Date(c("2014-10-12","2013-01-31","2011-12-05")))
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{chron}
+\concept{ dates }
+

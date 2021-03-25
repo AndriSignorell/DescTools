@@ -59,3 +59,4 @@ StrVal("8 452,12", dec=",")
 % R documentation directory.
 \keyword{character}
 \keyword{utilities}
+\concept{ string }

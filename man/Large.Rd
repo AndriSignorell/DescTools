@@ -38,11 +38,11 @@ HighLow(x, nlow = 5, nhigh = nlow, na.last = NA)
 }
 
 }
-\details{This does not seem to be a difficult problem at first sight. We could simply tabulate and sort the vector and finally take the first or last k values. However sorting and tabulating the whole vector when we're just interested in the few smallest values is a considerable waste of resources. This approach becomes already impracticable for medium vector lengths. There are several points and solutions of this problem discussed out there.
+\details{This does not seem to be a difficult problem at first sight. We could simply tabulate and sort the vector and finally take the first or last k values. However sorting and tabulating the whole vector when we're just interested in the few smallest values is a considerable waste of resources. This approach becomes already impracticable for medium vector lengths (~\ifelse{html}{\out{10<sup>5</sup>}}{\eqn{10^5}}). There are several points and solutions of this problem discussed out there.
 The present implementation is based on highly efficient C++ code and proved to be very fast.
 
-HighLow enumerates the k extreme values (both sides) and their frequencies (in brackets). It is used for describing univariate variables and is interesting for checking the ends of the vector, where in real data often wrong values accumulate.
-This is merely a printing routine for the highest and the lowest values of x.
+HighLow combines the two upper functions and reports the k extreme values on both sides together with their frequencies in parentheses. It is used for describing univariate variables and is interesting for checking the ends of the vector, where in real data often wrong values accumulate.
+This is in essence a printing routine for the highest and the lowest values of x.
 }
 \value{if \code{unique} is set to \code{FALSE}: a vector with the k most extreme values,
 \cr
@@ -52,9 +52,9 @@ else: a list, containing the k most extreme values and their frequencies.
 C++ parts by Nathan Russell and Romain Francois
 }
 
-\references{\url{http://stackoverflow.com/questions/36993935/find-the-largest-n-unique-values-and-their-frequencies-in-r-and-rcpp/}
+\references{\url{https://stackoverflow.com/questions/36993935/find-the-largest-n-unique-values-and-their-frequencies-in-r-and-rcpp/}
 
-\url{http://gallery.rcpp.org/articles/top-elements-from-vectors-using-priority-queue/}
+\url{https://gallery.rcpp.org/articles/top-elements-from-vectors-using-priority-queue/}
 }
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 

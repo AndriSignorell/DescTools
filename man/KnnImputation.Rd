@@ -14,8 +14,7 @@ If meth='median' it uses the median/most frequent value,
 instead.
 }
 \usage{
-ImputeKnn(data, k = 10, scale = T, meth = "weighAvg",
-              distData = NULL)
+ImputeKnn(data, k = 10, scale = T, meth = "weighAvg", distData = NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -62,12 +61,12 @@ NAs (x) and the neighbour k.
 Torgo, L. (2010) \emph{Data Mining using R: learning with case studies},
   CRC Press (ISBN: 9781439810187).
 
-  \url{http://www.dcc.fc.up.pt/~ltorgo/DataMiningWithR}  
+  \url{https://www.dcc.fc.up.pt/~ltorgo/DataMiningWithR/}  
 
 }
 \author{ Luis Torgo \email{ltorgo@dcc.fc.up.pt} }
 \seealso{
-\code{\link{CentralValue}}, \code{\link{complete.cases}}, \code{\link{na.omit}}
+\code{\link{complete.cases}}, \code{\link{na.omit}}
 }
 \examples{
 cleanPizza <- ImputeKnn(d.pizza[, -2])   # no dates allowed

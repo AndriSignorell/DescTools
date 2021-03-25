@@ -57,7 +57,7 @@ Glaz, J., Sison, C.P. (1999) Simultaneous confidence intervals for multinomial p
 
 May, W.L., Johnson, W.D.(2000) Constructing two-sided simultaneous confidence intervals for
 multinomial proportions for small counts in a large number of cells. \emph{Journal of Statistical Software} 5(6) .
-Paper and code available at \url{http://www.jstatsoft.org/v05/i06}.
+Paper and code available at \url{https://www.jstatsoft.org/v05/i06}.
 
 Goodman, L. A. (1965) On Simultaneous Confidence Intervals for Multinomial
 Proportions \emph{Technometrics}, 7, 247-254.

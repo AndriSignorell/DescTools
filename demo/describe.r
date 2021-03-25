@@ -1,5 +1,5 @@
 ## -----------------------------------------------------------------------------------
-## Demo file for DescTools; start with 'demo(DescTools)'
+## Demo file for the description functions of DescTools; start with 'demo(describe)'
 ## -----------------------------------------------------------------------------------
 
 

@@ -16,7 +16,8 @@ Use MS-Excel as Viewer for a Data.Frame
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-XLView(x, col.names = TRUE, row.names = FALSE, na = "", preserveStrings = FALSE)
+XLView(x, col.names = TRUE, row.names = FALSE, na = "", 
+       preserveStrings = FALSE, sep = ";")
 
 ToXL(x, at, ..., xl=DescToolsOptions("lastXL"))
 \method{ToXL}{data.frame}(x, at, ..., xl=DescToolsOptions("lastXL"))
@@ -38,6 +39,7 @@ XLKill()
 
 \item{na}{the string to use for missing values in the data.}
 \item{preserveStrings}{logical, will preserve strings from being converted to numerics when imported in MS-Excel. See details. Default is \code{FALSE}.}
+\item{sep}{the field separator string used for export of the object. Values within each row of x are separated by this string.}
 
 \item{at}{can be a range adress as character (e.g. \code{"A1"}), a vector of 2 integers (e.g \code{c(1,1)}) or a cell object as it is returned by \code{xl$Cells(1,1)}, denominating the left upper cell, where the data.frame will be placed in the MS-Excel sheet.}
 \item{byrow}{logical, defines if the vector should be inserted by row or by column (default).}
@@ -128,4 +130,4 @@ ToXL(d.whisky[1:10, 1:10], xl$Cells(1,1))}
 % R documentation directory.
 \keyword{ manip }
 
-\keyword{MS-Office}
+\concept{MS-Office}
