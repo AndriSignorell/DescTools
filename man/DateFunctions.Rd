@@ -18,6 +18,8 @@
 \alias{DiffDays360}
 \alias{LastDayOfMonth}
 \alias{Timezone}
+\alias{YearDays}
+\alias{MonthDays}
 
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Basic Date Functions
@@ -53,8 +55,8 @@ Today()
 
 DiffDays360(start_d, end_d, method = c("eu", "us"))
 LastDayOfMonth(x)
-
-
+YearDays(x)
+MonthDays(x)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -102,6 +104,8 @@ The day can not only be extracted, but as well be defined. See examples.
 
 \code{DiffDays360} calculates the difference between 2 dates using the 360-days convention.\cr
 \code{LastDayOfMonth} returns the last day of the month of the given date(s).
+\code{YearDays} returns the total number of days of the given date(s).
+\code{MonthDays} returns the numer of days of the month of the given date(s).
 %%  ~~ If necessary, more details than the description above ~~
 
 The language in Weekday and Moth can be set with an option as well. The functions will check for an existing option named "lang" and take this value if it exists. So simply set option(lang="engl") if the results should always be reported in English.

@@ -3387,6 +3387,22 @@ LastDayOfMonth <- function(x){
 
 
 
+YearDays <- function (x) {
+  x <- as.POSIXlt(x)
+  x$mon[] <- x$mday[] <- x$sec[] <- x$min <- x$hour <- 0
+  x$year <- x$year + 1
+  return(as.POSIXlt(as.POSIXct(x))$yday + 1)
+}
+
+
+MonthDays <- function (x) {
+  x <- as.POSIXlt(x)
+  x$mday[] <- x$sec[] <- x$min <- x$hour <- 0
+  x$mon <- x$mon + 1
+  return(as.POSIXlt(as.POSIXct(x))$mday)
+}
+
+
 AddMonths <- function (x, n, ...) {
 
   .addMonths <- function (x, n) {
