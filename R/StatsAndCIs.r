@@ -1078,10 +1078,14 @@ Gsd <- function (x, na.rm = FALSE) {
 }
 
 
+
 Hmean <- function(x, method = c("classic", "boot"),
                   conf.level = NA, sides = c("two.sided","left","right"),
                   na.rm = FALSE, ...) {
 
+  # see also for alternative ci
+  # https://www.unistat.com/guide/confidence-intervals/
+  
   is.na(x) <- x <= 0
 
   if(is.na(conf.level))
@@ -1103,9 +1107,13 @@ Hmean <- function(x, method = c("classic", "boot"),
     if (sides != "two.sided")
       conf.level <- 1 - 2 * (1 - conf.level)
 
-    res <- (1/MeanCI(x = 1/x, method = method, conf.level = conf.level,
-                     sides = "two.sided", na.rm = na.rm, ...))[c(1, 3, 2)]
-
+    res <- (1/(mci <- MeanCI(x = 1/x, method = method, conf.level = conf.level,
+                     sides = "two.sided", na.rm = na.rm, ...)))[c(1, 3, 2)]
+    
+    # check if lower ci < 0, if so return NA, as CI not defined see Stata definition
+    if( mci[2] <= 0) 
+      res[2:3] <- NA
+    
     names(res) <- names(res)[c(1,3,2)]
 
     if (sides == "left")
