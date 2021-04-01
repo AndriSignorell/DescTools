@@ -34,7 +34,7 @@ Median(x, \dots)
 
 }
 \description{
-  Compute the sample median. The function basically wraps the base R function \code{\link{median}()} and adds the option to define weights.\cr
+  Compute the sample median. The function basically wraps the function \code{\link{Quantile}()}, which offers the option to define weights.\cr
   For grouped data the median can be estimated by linear interpolation within the class containing the median, which is implemented in the interface for \code{Freq}-objects.
 }
 \details{

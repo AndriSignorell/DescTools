@@ -100,3 +100,17 @@ stopifnot(all(
 
 
 
+# test for median, calculated by Quantile
+x <- sample(19, 30, replace = TRUE)
+z <- as.numeric(names(w <- table(x)))
+stopifnot(AllIdentical(Median(z, weights=w), Median(x), median(x), Median(c(x, NA, NA), na.rm=TRUE)))
+
+x <- sample(40, 30, replace = TRUE)
+z <- as.numeric(names(w <- table(x)))
+stopifnot(AllIdentical(Median(z, weights=w), Median(x), median(x), Median(c(x, NA, NA), na.rm=TRUE)))
+
+x <- runif(40)
+z <- as.numeric(names(w <- table(x)))
+stopifnot(AllIdentical(Median(z, weights=w), Median(x), median(x), Median(c(x, NA, NA), na.rm=TRUE)))
+
+
