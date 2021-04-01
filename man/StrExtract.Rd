@@ -11,7 +11,7 @@
 \usage{
 StrExtract(x, pattern, ...)
 
-StrExtractBetween(x, left, right)
+StrExtractBetween(x, left, right, greedy = FALSE)
 
 }
 %- maybe also 'usage' for other objects documented here.
@@ -24,7 +24,7 @@ StrExtractBetween(x, left, right)
 }
 \item{left}{left character(s) limiting the string to be extracted}
 \item{right}{right character(s) limiting the string to be extracted}
-
+\item{greedy}{logical, determines whether the first found match for \code{right} should be used (\code{FALSE}, default) or the last (\code{TRUE}).}
 \item{\dots}{the dots are passed to the the internally used function \code{\link{regexpr}()}, which allows to use e.g. Perl-like regular expressions.}
 }
 \details{The function wraps \code{\link{regexpr}} and \code{\link{regmatches}}.
@@ -51,7 +51,7 @@ txt <- c("G1:E001", "No points here", "G2:E002", "G3:E003", NA)
 StrExtract(x=txt, pattern=":.*")
 
 # extract everything between "left" and "right"
-z <- c("yBS (23A) 890", "lkh 89Z) 890.?/", "WfS (55X) 8(90)")
+z <- c("yBS (23A) 890", "l 89Z) 890.?/", "WS (55X) 8(90)", "123 abc", "none", NA)
 # everything enclosed by spaces
 StrExtractBetween(z, " ", " ")
 

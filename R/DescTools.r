@@ -357,6 +357,7 @@ gold_sec_c <- (1+sqrt(5)) / 2
 N <- as.numeric
 
 
+
 ## This is not exported as it would mask base function and
 # but it would be very, very handy if the base function was changed accoringly
 as.Date.numeric <- function (x, origin, ...) {
@@ -1441,13 +1442,17 @@ StrExtract <- function(x, pattern, ...){
 }
 
 
-StrExtractBetween <- function(x, left, right) {
+StrExtractBetween <- function(x, left, right, greedy=FALSE) {
   
   res <- rep(NA_character_, length(x))
   # check that left and right exist, take care for NAs
-  valid <- sapply(StrPos(x, left) < StrPos(x, right), isTRUE)
+  # valid <- sapply(StrPos(x, left) <= StrPos(x, right), isTRUE)
+  valid <- !sapply(StrPos(StrRight(x, -ZeroIfNA(StrPos(x, left))), right), is.na)
   
-  res[valid] <- gsub(gettextf(".*%s(.*?)%s.*", left, right), "\\1", x[valid])
+  if(greedy)
+    res[valid] <- gsub(gettextf(".*%s(.*)%s.*", left, right), "\\1", x[valid])
+  else
+    res[valid] <- gsub(gettextf(".*%s(.*?)%s.*", left, right), "\\1", x[valid])
   
   return(res)
   
@@ -8960,7 +8965,10 @@ SpreadOut <- function(x, mindist = NULL, cex = 1.0) {
 
 
 BarText <- function(height, b, labels=height, beside = FALSE, horiz = FALSE,
-                    cex=par("cex"), adj=NULL, top=TRUE, offset=0, ...) {
+                    cex=par("cex"), 
+                    adj=NULL, 
+                    pos=c("topout", "topin", "mid", "bottomin", "bottomout"), 
+                    offset=0, ...) {
 
   if (is.vector(height) || (is.array(height) && (length(dim(height)) == 1))) {
     height <- cbind(height)
@@ -8969,45 +8977,89 @@ BarText <- function(height, b, labels=height, beside = FALSE, horiz = FALSE,
 
   offset <- rep_len(as.vector(offset), length(height))
   
+  pos <- match.arg(pos)
+  
+  
   if(beside){
     if(horiz){
       if(is.null(adj)) adj <- 0
-      if(top)
-        x <- height + offset + sign(height) * par("cxy")[1] * cex
-      else
+      adjy <- 0.5
+      
+      if(pos=="topout"){
+        x <- height + offset + 1.2 * sign(height) * par("cxy")[1] * cex
+        adjx <- Recode(x = factor(sign(x+offset)), "0"=1, "1"=-1, num = TRUE)
+      }
+      else if(pos=="topin") {
+        x <- height + offset - 1.2 * sign(height) * par("cxy")[1] * cex
+        adjx <- Recode(x = factor(sign(x+offset)), "1"=1, "0"=-1, num = TRUE)
+      }
+      else if(pos=="mid"){
         x <- offset + height / 2
-      text(y=b, x=x, labels=labels, cex=cex, xpd=TRUE, adj=adj, ...)
+        adjx <- 0.5
+      }
+      else if(pos=="bottomout") {
+        x <- offset - 1.2 * sign(height) * par("cxy")[1] * cex
+        adjx <- Recode(x = factor(sign(x+offset)), "1"=1, "0"=-1, num = TRUE)
+      }
+      else if(pos=="bottomin") {
+        x <- offset + 1.2 * sign(height) * par("cxy")[1] * cex
+        adjx <- Recode(x = factor(sign(x+offset)), "0"=1, "1"=-1, num = TRUE)
+      }
+
+      pp <- Recycle(b=b, x=x, labels=labels, adjx=adjx, adjy=adjy)
+      
+      for(i in seq(attr(pp, "maxdim"))){
+        with(pp, text(y=b[i], x=x[i], labels=labels[i], 
+                      adj=c(adjx[i], adjy[i]), 
+                      cex=cex, xpd=TRUE, ...))    
+      } 
+      
+      res <- pp$x
+      
 
     } else {
-
-      if(top)
+      
+      if(is.null(adj)) adjx <- 0.5
+      
+      if(pos=="topout")
         y <- height + offset + sign(height) * par("cxy")[2] * cex
-      else
+      else if(pos=="topin")
+        y <- height + offset - sign(height) * par("cxy")[2] * cex
+      else if(pos=="mid")
         y <- offset + height/2
+      if(pos=="bottomin")
+        y <- offset + sign(height) * par("cxy")[2] * cex
+      if(pos=="bottomout")
+        y <- offset - sign(height) * par("cxy")[2] * cex
 
-      if(is.null(adj)) adj <- 0.5
-      text(x=b, y=y, labels=labels, cex=cex, xpd=TRUE, adj=adj, ...)
+      text(x=b, y=y, labels=labels, xpd=TRUE, cex=cex, adj=adj, ...) # 
+      
+      res <- y
+      
     }
 
     # The xpd=TRUE means to not plot the text even if it is outside
     # of the plot area and par("cxy") gives the size of a typical
     # character in the current user coordinate system.
 
+    
+    
 
   } else {
     if(horiz){
       if(is.null(adj)) adj <- 0.5
-      x <- t(apply(height, 2, Midx, incl.zero=TRUE, cumulate=TRUE))
-      text(labels=t(labels), x=x, y=b, cex = cex, adj=adj, ...)
+      x <- t(apply(offset + height, 2, Midx, incl.zero=TRUE, cumulate=TRUE))
+      text(labels=t(labels), x=x, y=b, cex=cex, adj=adj, ...) 
     } else {
       if(is.null(adj)) adj <- 0.5
-      x <- t(apply(height, 2, Midx, incl.zero=TRUE, cumulate=TRUE))
-      text(labels=t(labels), x=b, y=x, cex=cex, adj=adj, ...)
+      x <- t(apply(offset + height, 2, Midx, incl.zero=TRUE, cumulate=TRUE))
+      text(labels=t(labels), x=b, y=x, cex=cex, adj=adj, ...) 
     }
-
+    res <- x
+    
   }
 
-  invisible()
+  invisible(res)
 
 }
 

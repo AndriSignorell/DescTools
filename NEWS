@@ -10,14 +10,24 @@ NEW FUNCTIONS ADDED:
     of a given width.
   * Rank() is added at the expense of DenseRank() using a fast implementation in 
     data.table, that allows ranking based on multiple columns. 
-  * %::% does the same as %:% but in greedy mode.  
+  * %::% does the same as %:% but in greedy mode, say using the last match instead
+    of the first one.
+  * For given dates, YearDays() and MonthDays() return the number of days in the 
+    year, or in the month respectively.
 
 UPDATED FUNCTIONS:
   * RevCode() has been extended to process factors and logicals too. 
-  * BarText() will support offset by now.
+  * BarText() will support offset by now. It also gets a new argument pos, 
+    which replaces the old one.
+  * AUC() has been gently revised.  
   
 BUGFIXES:
   * TMod() will not insert empty columns, when results are output to Word.
+  * Hmean() will return NA for the confidence intervals in case we encounter
+    negative values. This was promised so in the help file, but never delivered.
+    (Credits to David R. Weise)
+  * StrExtractBetween() would have rejected to extract parts between two identical
+    characters.
 
 
 
