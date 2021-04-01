@@ -522,6 +522,7 @@ Quantile <- function(x, weights = NULL, probs = seq(0, 1, 0.25),
   if(isTRUE(na.rm)){
     indices <- !is.na(x)
     x <- x[indices]
+    n <- length(x)
     if(!is.null(weights)) weights <- weights[indices]
   }
   # sort values and weights (if requested)
