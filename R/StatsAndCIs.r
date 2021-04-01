@@ -494,7 +494,9 @@ Quantile <- function(x, weights = NULL, probs = seq(0, 1, 0.25),
 
   # initializations
   if (!is.numeric(x)) stop("'x' must be a numeric vector")
+  
   n <- length(x)
+  
   if (n == 0 || (!isTRUE(na.rm) && any(is.na(x)))) {
     # zero length or missing values
     return(rep.int(NA, length(probs)))
