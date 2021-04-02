@@ -61,6 +61,10 @@ QuantileCI(d.pizza$price, probs=0.25, na.rm=TRUE)
 
 QuantileCI(d.pizza$price, na.rm=TRUE)
 QuantileCI(d.pizza$price, conf.level=0.99, na.rm=TRUE)
+
+# multiple probs
+QuantileCI(1:100, method="exact" , probs = c(0.25, 0.75, .80, 0.95))
+QuantileCI(1:100, method="boot" , probs = c(0.25, 0.75, .80, 0.95))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory (show via RShowDoc("KEYWORDS")):

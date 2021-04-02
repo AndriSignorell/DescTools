@@ -3784,9 +3784,17 @@ QuantileCI <- function(x, probs=seq(0, 1, .25), conf.level = 0.95, sides = c("tw
     l <- qbinom(alpha/2, n, probs) + (-2:2)
     u[u > n] <- Inf
     l[l < 0] <- -Inf
-    coverage <- outer(l, u, function(a, b) pbinom(b-1, n, probs) - pbinom(a-1, n, probs))
+    
+    if(sides=="two.sided")
+      coverage <- outer(l, u, function(a, b) pbinom(b-1, n, probs) - pbinom(a-1, n, probs))
+    else if(sides=="left")
+      coverage <- outer(l, u, function(a, b) pbinom(b-1, n, probs))
+    else if(sides=="right")
+      coverage <- outer(l, u, function(a, b) 1 - pbinom(a-1, n, probs))
+    
     if (max(coverage) < 1-alpha) i <- which(coverage==max(coverage)) else
       i <- which(coverage == min(coverage[coverage >= 1-alpha]))
+    
     # minimal difference
     i <- i[1]
     
@@ -3804,9 +3812,9 @@ QuantileCI <- function(x, probs=seq(0, 1, .25), conf.level = 0.95, sides = c("tw
     attr(res, "conf.level") <- coverage[i]
     
     if(sides=="left")
-      res[3] <- Inf
+      res[2] <- Inf
     else if(sides=="right")
-      res[2] <- -Inf
+      res[1] <- -Inf
     
     return(res)
     
@@ -3833,7 +3841,7 @@ QuantileCI <- function(x, probs=seq(0, 1, .25), conf.level = 0.95, sides = c("tw
           , "boot" = {
             r <- t(sapply(probs, 
                      function(p) {
-                       boot.med <- boot(x, function(x, d) quantile(x[d], probs=p, na.rm=na.rm), R=T)
+                       boot.med <- boot(x, function(x, d) quantile(x[d], probs=p, na.rm=na.rm), R=R)
                        boot.ci(boot.med, conf=conf.level, type="basic")[[4]][4:5]
                      }))
           } )
