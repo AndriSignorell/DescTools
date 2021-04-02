@@ -3831,8 +3831,11 @@ QuantileCI <- function(x, probs=seq(0, 1, .25), conf.level = 0.95, sides = c("tw
             attr(r, "conf.level") <- coverage
           }
           , "boot" = {
-            boot.med <- boot(x, function(x, d) quantile(x[d], probs=probs, na.rm=na.rm), R=R)
-            r <- boot.ci(boot.med, conf=conf.level, type="basic")[[4]][4:5]
+            r <- t(sapply(probs, 
+                     function(p) {
+                       boot.med <- boot(x, function(x, d) quantile(x[d], probs=p, na.rm=na.rm), R=T)
+                       boot.ci(boot.med, conf=conf.level, type="basic")[[4]][4:5]
+                     }))
           } )
   
   qq <- quantile(x, probs=probs, na.rm=na.rm)
