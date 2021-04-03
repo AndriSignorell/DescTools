@@ -3824,7 +3824,7 @@ QuantileCI <- function(x, probs=seq(0, 1, .25), conf.level = 0.95, sides = c("tw
     } 
 
     # get the values  
-    if(probs %nin% c(0,1))
+    if(prob %nin% c(0,1))
       s <- sort(x, partial= c(u, l)[is.finite(c(u, l))])
     else
       s <- sort(x)
