@@ -76,13 +76,30 @@ Ordered factors are supported.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.40</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.41</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li>
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-book"></span>
+     
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Documentation for version of package:</li>
+    <li>
+      <a href="https://andrisignorell.github.io/DescTools/">Released</a>
+    </li>
+    <li>
+      <a href="https://andrisignorell.github.io/DescTools/dev/">In-development</a>
+    </li>
+  </ul>
+</li>
+<li>
   <a href="../index.html">
     <span class="fas fa-home fa-lg"></span>
      
@@ -100,13 +117,13 @@ Ordered factors are supported.
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">PDF:</li>
     <li>
-      <a href="../articles/DescToolsCompanion.pdf">Desc Tools Companion</a>
+      <a href="https://github.com/AndriSignorell/DescTools/raw/master/vignettes/DescToolsCompanion.pdf">Desc Tools Companion</a>
     </li>
     <li>
-      <a href="../articles/TablesInR.pdf">Tables in R</a>
+      <a href="https://github.com/AndriSignorell/DescTools/raw/master/vignettes/TablesInR.pdf">Tables in R</a>
     </li>
     <li>
-      <a href="../articles/Combinatorics.pdf">Combinatorics</a>
+      <a href="https://github.com/AndriSignorell/DescTools/raw/master/vignettes/Combinatorics.pdf">Combinatorics</a>
     </li>
   </ul>
 </li>
@@ -152,7 +169,8 @@ Ordered factors are supported.
 <span class='va'>x</span> <span class='op'>%)[%</span> <span class='va'>rng</span>
 <span class='va'>x</span> <span class='op'>%)(%</span> <span class='va'>rng</span>
 
-<span class='va'>x</span> <span class='op'>%:%</span> <span class='va'>rng</span></pre>
+<span class='va'>x</span> <span class='op'>%:%</span> <span class='va'>rng</span>
+<span class='va'>x</span> <span class='op'>%::%</span> <span class='va'>rng</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -171,16 +189,19 @@ Ordered factors are supported.
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The between operators basically combine two conditional statements into one and simplify so the query process.<br />
+    <p>The "BETWEEN" operators basically combine two conditional statements into one and simplify the query process.<br />
 They are merely a wrapper for:   <code>x &gt;= rng[1] &amp; x &lt;= rng[2]</code>,
-where the round bracket  <code>(</code>  means "strictly greater than &gt;" and the square bracket  <code><a href='https://rdrr.io/r/base/Extract.html'>[</a></code>  means "&gt;=".  Numerical values of x will be handled by C-code, which is significantly faster than two comparisons in R (especially when x is huge).
+where the round bracket  <code>(</code>  means <em>strictly greater (&gt;)</em> and the square bracket  <code><a href='https://rdrr.io/r/base/Extract.html'>[</a></code>  means <em>greater or equal (&gt;=)</em>.  Numerical values of x will be handled by C-code, which is significantly faster than two comparisons in R (especially when x is huge).
 .<br />
-<code>%][%</code> is the negation of <code>%()%</code>, meaning all values lying outside the given range. Elements on the limits will return TRUE.
-<br />
-<code>%:%</code> returns all the elements of a vector between the (first found) element <code>rng[1]</code> and <code>rng[2]</code>. If no match is found it returns <code>NA</code>. If <code>rng[2]</code> occurs first in the vector the elements will be returned in reverse order (which is the same behaviour as the <code><a href='https://rdrr.io/r/base/Colon.html'>:</a></code> operator.
-<br />
-Both arguments will be recycled to the highest dimension, which is either the length of the vector or the number of rows of the matrix.<br />
+<code>%][%</code> is the negation of <code>%()%</code>, meaning all values lying outside the given range. Elements on the limits will return <code>TRUE</code>.</p>
+
+<p>Both arguments, <code>x</code> and <code>rng</code>, will be recycled to the highest dimension, which is either the length of the vector (<code>x</code>) or the number of rows of the matrix (<code>rng</code>).<br />
 See also the routines used to check, whether two ranges overlap (<code><a href='%overlaps%.html'>Overlap</a></code>, <code><a href='%overlaps%.html'>Interval</a></code>).</p>
+
+<p><code>%:%</code> returns all the elements of a vector between the (first found) element <code>rng[1]</code> and <code>rng[2]</code>. If no match is found it returns <code>NA</code>. If <code>rng[2]</code> occurs before <code>rng[1]</code> in the vector the elements will be returned in reverse order (which is the same behaviour as the <code><a href='https://rdrr.io/r/base/Colon.html'>:</a></code> operator).
+<br />
+<code>%::%</code> does the same in greedy mood. It uses the first match for <code>from</code> and the last match for <code>to</code>.
+<br /></p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A logical vector of the same length as x.</p>
@@ -259,7 +280,13 @@ See also the routines used to check, whether two ranges overlap (<code><a href='
 
 <span class='co'># no match results in NA</span>
 <span class='va'>x</span> <span class='op'>%:%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Y"</span>,<span class='st'>"B"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] NA</div></pre>
+</div><div class='output co'>#&gt;  [1] "X" "K" "S" "C" "G" "L" "S" "V" "U" "Z"</div><div class='input'>
+<span class='op'>(</span><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"B"</span>, <span class='st'>"A"</span>, <span class='st'>"X"</span>, <span class='st'>"K"</span>, <span class='st'>"S"</span>, <span class='st'>"K"</span>, <span class='st'>"G"</span>, <span class='st'>"L"</span>, <span class='st'>"K"</span>, <span class='st'>"V"</span>, <span class='st'>"K"</span>, <span class='st'>"Z"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1] "B" "A" "X" "K" "S" "K" "G" "L" "K" "V" "K" "Z"</div><div class='input'><span class='co'># lazy</span>
+<span class='va'>x</span> <span class='op'>%:%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>, <span class='st'>"K"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "A" "X" "K"</div><div class='input'><span class='co'># greedy</span>
+<span class='va'>x</span> <span class='op'>%::%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>, <span class='st'>"K"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1] "A" "X" "K" "S" "K" "G" "L" "K" "V" "K"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
