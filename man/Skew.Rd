@@ -13,7 +13,7 @@ Skewness and Kurtosis
 %%  ~~function to do ... ~~
 }
 \description{
-\code{Skew} computes the skewness, \code{Kurt} the kurtosis of the values in x. 
+\code{Skew} computes the skewness, \code{Kurt} the excess kurtosis of the values in x. 
 
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
@@ -58,7 +58,9 @@ Kurt(x, weights = NULL, na.rm = FALSE, method = 3, conf.level = NA,
 
 }
 
-\details{If \code{na.rm} is \code{TRUE} then missing values are removed before computation proceeds. \cr
+\details{\code{Kurt()} returns the excess kurtosis, therefore the kurtosis calculates as \code{Kurt(x) + 3} if required.
+
+If \code{na.rm} is \code{TRUE} then missing values are removed before computation proceeds. \cr
 
 The methods for calculating the skewness can either be:\cr
   \code{method = 1:   g_1 = m_3 / m_2^(3/2) } \cr

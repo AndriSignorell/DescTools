@@ -1,6 +1,5 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
 <!-- badges: start -->
 
 [![CRAN
@@ -10,7 +9,7 @@ status](https://www.r-pkg.org/badges/version-last-release/DescTools)](https://CR
 [![License: GPL
 v2+](https://img.shields.io/badge/License-GPL%20v2+-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 [![Lifecycle:
-maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![R build
 status](https://github.com/AndriSignorell/DescTools/workflows/R-CMD-check/badge.svg)](https://github.com/AndriSignorell/DescTools/actions)
 [![pkgdown](https://github.com/AndriSignorell/DescTools/workflows/pkgdown/badge.svg)](https://andrisignorell.github.io/DescTools/)
@@ -39,7 +38,7 @@ used as naming rules (in absence of convincing alternatives). The
 contributed R packages as well.
 
 Feedback, feature requests, bug reports and other suggestions are
-welcome\! Please report problems to [GitHub issues
+welcome! Please report problems to [GitHub issues
 tracker](https://github.com/AndriSignorell/DescTools/issues)
 (preferred), Stack Overflow mentioning **DescTools** or directly to the
 maintainer.
@@ -108,7 +107,7 @@ contributors](https://andrisignorell.github.io/DescTools/authors.html).
 Special thanks go to Beat Bruengger, Mathias Frueh, Daniel Wollschlaeger
 for their valuable contributions and testing. The good things come from
 all these guys, any problems are likely due to my tweaking. Thank you
-all\!
+all!
 
 **Maintainer:** Andri Signorell
 
