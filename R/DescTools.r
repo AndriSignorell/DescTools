@@ -10784,7 +10784,7 @@ PlotDot <- function (x, labels = NULL, groups = NULL, gdata = NULL, cex = par("c
                      pch = 21, gpch = 21, bg = par("bg"), color = par("fg"), gcolor = par("fg"),
                      lcolor = "gray", lblcolor = par("fg"), xlim = NULL, main = NULL, xlab = NULL, ylab = NULL, xaxt=NULL, yaxt=NULL,
                      add = FALSE, args.errbars = NULL, cex.axis=par("cex.axis"), cex.pch=1.2, 
-                     cex.gpch=1.2, ...) {
+                     cex.gpch=1.2, gshift=2, automar=TRUE, ...) {
 
   ErrBarArgs <- function(from, to = NULL, pos = NULL, mid = NULL,
                          horiz = FALSE, col = par("fg"), lty = par("lty"), lwd = par("lwd"),
@@ -10901,11 +10901,11 @@ PlotDot <- function (x, labels = NULL, groups = NULL, gdata = NULL, cex = par("c
     ginch <- max(strwidth(glabels, "inch", cex=max(cex.axis[3]) * cex), na.rm = TRUE)
     goffset <- lheight  
   }
-  if (!(is.null(labels) && is.null(glabels) || identical(yaxt, "n"))) {
+  if (!(is.null(labels) && is.null(glabels) || identical(yaxt, "n") || !automar)) {
     nmai <- par("mai")
     # nmai[2L] <- nmai[4L] + max(linch + goffset, ginch) + lheight
     # warum sollte der linke Rand so sein wie der rechte??
-    nmai[2L] <- lheight + max(linch + goffset, ginch) + 5*lheight
+    nmai[2L] <- lheight + max(linch + goffset, ginch) + gshift * lheight
     par(mai = nmai)
   }
   if (is.null(groups)) {
@@ -10931,9 +10931,10 @@ PlotDot <- function (x, labels = NULL, groups = NULL, gdata = NULL, cex = par("c
   # much more precise:
   if (!is.null(labels)) {
     linch <- max(strwidth(labels, "inch", cex = cex.axis[2])*cex, na.rm = TRUE)
-    loffset <- (linch + 0.1)/lheight
+#    loffset <- (linch + 0.1)/lheight
+    loffset <- grconvertX(linch + 0.1, from="inch", to="lines")
     labs <- labels[o]
-    if (!identical(yaxt, "n"))
+    if (!identical(yaxt, "n") && !add)
       mtext(labs, side = 2, line = loffset, at = y, adj = 0,
           col = lblcolor, las = 2, cex = cex.axis[2]*cex, ...)
   }
@@ -10958,9 +10959,11 @@ PlotDot <- function (x, labels = NULL, groups = NULL, gdata = NULL, cex = par("c
     # ginch <- max(strwidth(glabels, "inch", cex=cex.axis[3]*cex), na.rm = TRUE)
     # goffset <- (max(linch + 0.2, ginch, na.rm = TRUE) + 0.1)/lheight
     
-    lgoffset <- (max(linch + goffset, ginch) + lheight)/lheight
+#    lgoffset <- (max(linch + goffset, ginch) + lheight)/lheight
+    lgoffset <- grconvertX(max(linch + goffset, ginch) + gshift * lheight, 
+                           from="inch", to="lines")
     
-    if (!identical(yaxt, "n"))
+    if (!identical(yaxt, "n") && !add)
       mtext(glabels, side = 2, line = lgoffset, at = gpos, adj = 0,
             col = gcolor, las = 2, cex = cex.axis[3]*cex, ...)
     if (!is.null(gdata)) {
@@ -10978,7 +10981,7 @@ PlotDot <- function (x, labels = NULL, groups = NULL, gdata = NULL, cex = par("c
     title(main = main, xlab = xlab, ylab = ylab, ...)
 
 
-  if (!is.null(DescToolsOptions("stamp")))
+  if (!is.null(DescToolsOptions("stamp")) && !add)
     Stamp()
 
   # invisible(y[order(o, decreasing = TRUE)])
@@ -10986,6 +10989,7 @@ PlotDot <- function (x, labels = NULL, groups = NULL, gdata = NULL, cex = par("c
   invisible(y[order(y, decreasing = TRUE)])
 
 }
+
 
 
 TitleRect <- function(label, bg = "grey", border=1, col="black", xjust=0.5, line=2, ...){
