@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.40.16</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.41.1</span>
       </span>
     </div>
 
@@ -160,7 +160,8 @@
         color <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span><span class='st'>"fg"</span><span class='op'>)</span>, gcolor <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span><span class='st'>"fg"</span><span class='op'>)</span>, lcolor <span class='op'>=</span> <span class='st'>"gray"</span>, lblcolor <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span><span class='st'>"fg"</span><span class='op'>)</span>,
         xlim <span class='op'>=</span> <span class='cn'>NULL</span>, main <span class='op'>=</span> <span class='cn'>NULL</span>, xlab <span class='op'>=</span> <span class='cn'>NULL</span>, ylab <span class='op'>=</span> <span class='cn'>NULL</span>,
         xaxt<span class='op'>=</span><span class='cn'>NULL</span>, yaxt<span class='op'>=</span><span class='cn'>NULL</span>, add <span class='op'>=</span> <span class='cn'>FALSE</span>, args.errbars <span class='op'>=</span> <span class='cn'>NULL</span>, 
-        cex.axis <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span><span class='st'>"cex.axis"</span><span class='op'>)</span>, cex.pch <span class='op'>=</span> <span class='fl'>1.2</span>, cex.gpch<span class='op'>=</span><span class='fl'>1.2</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+        cex.axis <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span><span class='st'>"cex.axis"</span><span class='op'>)</span>, cex.pch <span class='op'>=</span> <span class='fl'>1.2</span>, cex.gpch <span class='op'>=</span> <span class='fl'>1.2</span>, 
+        gshift <span class='op'>=</span> <span class='fl'>2</span>, automar <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -274,6 +275,14 @@
       <td><p>The magnification to be used for group symbols relative to the current setting of cex.</p></td>
     </tr>
     <tr>
+      <th>gshift</th>
+      <td><p>the number of characters, for which the grouplabels should be shift to the left compared to the sublabels.</p></td>
+    </tr>
+    <tr>
+      <th>automar</th>
+      <td><p>logical (default <code>TRUE</code>), defining if the left margin should be set according to the width of the given labels, resp. grouplabels. If set to <code>FALSE</code> the margins are taken from <code><a href='https://rdrr.io/r/graphics/par.html'>par("mar")</a></code>.</p></td>
+    </tr>
+    <tr>
       <th>...</th>
       <td><p><a href='https://rdrr.io/r/graphics/par.html'>graphical parameters</a> can also be specified as arguments.</p></td>
     </tr>
@@ -313,7 +322,7 @@
                             cex<span class='op'>=</span><span class='fl'>1.4</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='input'>
 <span class='co'># add some other values</span>
-<span class='fu'>PlotDot</span><span class='op'>(</span><span class='va'>VADeaths</span><span class='op'>+</span><span class='fl'>3</span>, pch<span class='op'>=</span><span class='fl'>15</span>, col<span class='op'>=</span><span class='st'>"blue"</span>, add<span class='op'>=</span><span class='cn'>TRUE</span>, labels<span class='op'>=</span><span class='cn'>NA</span><span class='op'>)</span>
+<span class='fu'>PlotDot</span><span class='op'>(</span><span class='va'>VADeaths</span><span class='op'>+</span><span class='fl'>3</span>, pch<span class='op'>=</span><span class='fl'>15</span>, col<span class='op'>=</span><span class='st'>"blue"</span>, add<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='img'><img src='PlotDot-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># same as PlotDotCI</span>
 <span class='va'>xci</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span><span class='op'>(</span><span class='va'>rbind</span>, <span class='fu'><a href='https://rdrr.io/r/base/tapply.html'>tapply</a></span><span class='op'>(</span> <span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>delivery_min</span>, <span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>driver</span>,
