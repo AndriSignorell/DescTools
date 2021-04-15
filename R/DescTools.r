@@ -1450,9 +1450,9 @@ StrExtractBetween <- function(x, left, right, greedy=FALSE) {
   valid <- !sapply(StrPos(StrRight(x, -ZeroIfNA(StrPos(x, left))), right), is.na)
   
   if(greedy)
-    res[valid] <- gsub(gettextf(".*%s(.*)%s.*", left, right), "\\1", x[valid])
+    res[valid] <- gsub(gettextf("[^%s]*%s(.*)%s.*", left, left, right), "\\1", x[valid])
   else
-    res[valid] <- gsub(gettextf(".*%s(.*?)%s.*", left, right), "\\1", x[valid])
+    res[valid] <- gsub(gettextf("[^%s]*%s(.*?)%s.*", left, left, right), "\\1", x[valid])
   
   return(res)
   
@@ -10988,6 +10988,35 @@ PlotDot <- function (x, labels = NULL, groups = NULL, gdata = NULL, cex = par("c
   # replaced by 0.99.18:
   invisible(y[order(y, decreasing = TRUE)])
 
+}
+
+
+
+
+PlotDotCI <- function(..., grp=1, cex = par("cex"),
+                      pch = 21, gpch = 21, bg = par("bg"), color = par("fg"), gcolor = par("fg"),
+                      lcolor = "gray", lblcolor = par("fg"), xlim = NULL, main = NULL, xlab = NULL, ylab = NULL, xaxt=NULL, yaxt=NULL,
+                      cex.axis=par("cex.axis"), cex.pch=1.2,
+                      cex.gpch=1.2, gshift=2, automar=TRUE){
+  
+  lst <- list(...)
+  
+  if(grp==1)
+    z <- aperm(do.call(Abind, list(lst, along = 3)), c(1,3,2))
+  else
+    z <- aperm(do.call(Abind, list(lst, along = 3)), c(3,1,2))
+  
+  # ... are matrices with n rows and 3 columns, est, lci, uci
+  PlotDot(z[,,1],
+          args.errbars = list(from=z[,,2], to=z[,,3]),
+          cex = cex,
+          pch = pch, gpch = gpch, bg = bg, color = color, gcolor = gcolor,
+          lcolor = lcolor, lblcolor = lblcolor, xlim = xlim, main = main,
+          xlab = xlab, ylab = ylab, xaxt=xaxt, yaxt=yaxt,
+          cex.axis=cex.axis, cex.pch=cex.pch,
+          cex.gpch=cex.gpch, gshift=gshift, automar=automar)
+  
+  
 }
 
 

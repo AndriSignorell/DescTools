@@ -782,12 +782,16 @@ ModSummary.lmrob <- function (x, conf.level = 0.95, ...) {
 }
 
 
-ModSummary.glm <- function(x, conf.level=0.95, ...){
+ModSummary.glm <- function(x, conf.level=0.95, use.profile = TRUE, ...){
   
   sumry <- summary(x)
   
   # coefx <- cbind(summod$coefficients, confint(x, level=conf.level), stbeta=c(NA, StdCoeff(x)))
-  ci <- confint(x, level=conf.level)
+  if(use.profile)
+    ci <- confint(x, level=conf.level)
+  else 
+    ci <- confint.default(x, level=conf.level)
+  
   if(nrow(sumry$coefficients)==1)
     ci <- t(ci)
   coefx <- data.frame(row.names(sumry$coefficients), sumry$coefficients, ci,

@@ -19,7 +19,7 @@ TMod(..., FUN = NULL)
 ModSummary(x, ...)
 
 \method{ModSummary}{lm}(x, conf.level = 0.95, ...)
-\method{ModSummary}{glm}(x, conf.level = 0.95, ...)
+\method{ModSummary}{glm}(x, conf.level = 0.95, use.profile = TRUE, ...)
 
 \method{plot}{TMod}(x, terms = NULL, intercept = FALSE, ...)
 \method{print}{TMod}(x, digits = 3, na.form = "-", ...)
@@ -31,6 +31,8 @@ ModSummary(x, ...)
 \item{conf.level}{the level for the confidence intervals.}
 \item{FUN}{function with arguments \code{est}, \code{se}, \code{tval}, \code{pval}, \code{lci}, \code{uci} to display the coefficients. The default function will display the coefficient and significance stars for the p-values.}
 \item{terms}{a vector with the terms of the model formula to be plotted. By default this will be all of them.}
+\item{use.profile}{logical. Defines if profile approach should be used, which normally is a good choice for small datasets. Calculating profile can however take ages for large datasets and not be necessary there. So we can fallback to normal confidence intervals. }
+
 \item{intercept}{logical, defining whether the intercept should be plotted (default is \code{FALSE}).}
   \item{digits}{integer, the desired (fixed) number of digits after the decimal point. Unlike \code{\link{formatC}} you will always get this number of digits even if the last digit is 0.
 %%     ~~Describe \code{digits} here~~
