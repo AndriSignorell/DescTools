@@ -7799,12 +7799,13 @@ lines.smooth.spline <- function (x, col = Pal()[1], lwd = 2, lty = "solid",
 
 
 
-.CalcTrendline <- function (x, n = 100, conf.level = 0.95, pred.level = 0.95, ...) {
+.CalcTrendline <- function (x, n = 100, conf.level = 0.95, pred.level = 0.95, xpred=NULL, ...) {
  
   # this takes the model x and calculates a set of n points
   # including the function, confidence band for E[X] and for the prediction
    
   mod <- x$model
+  
   # all.vars returns all used variables in the model, even when poly models are used
   # the result will be the name of the predictor
   pred <- all.vars(formula(x)[[3]])
@@ -7815,21 +7816,44 @@ lines.smooth.spline <- function (x, col = Pal()[1], lwd = 2, lty = "solid",
   # xpred <- model.frame(x)[, pred]
   # we cannot simply take the model frame here as we would miss poly(..) models
   # which could well be plotted as well   
-  xpred <- eval(x$call$data, parent.frame(n=2))[, pred]
   
-  newx <- data.frame(seq(from = min(xpred, na.rm = TRUE), 
+  # we can't access the raw data for the plot from the model frame, so
+  # we try to reevaluate in parent.frame
+  # this will fail if we are called from a function, where the parent.frame
+  # does not contain the data
+  if(is.null(xpred))
+    xpred <- eval(x$call$data, parent.frame(n=2))[, pred]
+  
+  if(!is.numeric(xpred)){
+    # predictor might be a factor
+    xpred <- as.numeric(xpred)
+    warning("Nonnumerc predictor has been casted as numeric.")
+  }
+    
+  
+  if(is.null(xpred))
+    stop("Data can't be accessed in parent.frame. Provide x-range for prediction (xpred=c(from, to)).")
+
+  rawx <- data.frame(seq(from = min(xpred, na.rm = TRUE), 
                          to = max(xpred, na.rm = TRUE), length = n))
-  colnames(newx) <- pred
+  colnames(rawx) <- pred
   
-  fit <- predict(x, newdata = newx)
+  fit <- predict(x, newdata = rawx)
+  
+  # check if polynomial model, for then we need the rawx to calculate xy.coord
+  isPolyMod <- grepl("poly,", toString(formula(x)[[3]]))
+  if(isPolyMod)
+    newx <- rawx
+  else 
+    newx <- eval(formula(x)[[3]], rawx)
   
   if (!(is.na(conf.level))) {
-    ci <- predict(x, interval = "confidence", newdata = newx, 
+    ci <- predict(x, interval = "confidence", newdata = rawx, 
                    level = conf.level)[, -1]
   } else ci <- NULL
   
   if (!(is.na(pred.level))) {
-    pci <- predict(x, interval = "prediction", newdata = newx, 
+    pci <- predict(x, interval = "prediction", newdata = rawx, 
                    level = pred.level)[, -1]
   } else pci <- NULL
   
@@ -7868,9 +7892,9 @@ lines.smooth.spline <- function (x, col = Pal()[1], lwd = 2, lty = "solid",
 
 lines.lm <- function (x, col = Pal()[1], lwd = 2, lty = "solid",
                       type = "l", n = 100, conf.level = 0.95, args.cband = NULL,
-                      pred.level = NA, args.pband = NULL, ...) {
+                      pred.level = NA, args.pband = NULL, xpred=NULL, ...) {
   
-  z <- .CalcTrendline(x, n=n, conf.level=conf.level, pred.level=pred.level)  
+  z <- .CalcTrendline(x, n=n, conf.level=conf.level, pred.level=pred.level, xpred=xpred)  
   .DrawTrendLine(z, col=col, lwd=lwd, lty=lty, args.cband=args.cband, args.pband=args.pband)
 
 }
