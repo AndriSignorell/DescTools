@@ -9280,6 +9280,125 @@ AxisBreak <- function (axis = 1, breakpos = NULL, pos = NA, bgcol = "white",
 
 
 
+
+
+ABCCoords <- function(x="topleft", region="figure", 
+                      cex=NULL, linset=0, ...) {
+  
+  region <- match.arg(region, c("figure", "plot", "device"))
+  
+  auto <- match.arg(x, c("bottomright", "bottom", "bottomleft",
+                         "left", "topleft", "top", "topright", "right", "center"))
+  
+  
+  # positioning code from legend()
+  
+  if(region %in% c("figure", "device")) {
+    
+    ds <- dev.size("in")
+    # xy coordinates of device corners in user coordinates
+    x <- grconvertX(c(0, ds[1]), from="in", to="user")
+    y <- grconvertY(c(0, ds[2]), from="in", to="user")
+    # fragment of the device we use to plot
+    
+    if(region == "figure") {
+      fig <- par("fig")
+      dx <- (x[2] - x[1])
+      dy <- (y[2] - y[1])
+      x <- x[1] + dx * fig[1:2]
+      y <- y[1] + dy * fig[3:4]
+    } 
+  } else if(region == "plot"){
+    
+    usr <- par("usr")
+    x <- usr[1:2]
+    y <- usr[3:4]
+    
+  }
+  
+  
+  linset <- rep(linset, length.out = 2)
+  linsetx <- linset[1L] * strwidth("M", cex=1, units = "user", ...)
+  x1 <- switch(auto, 
+               bottomright = x[2] - linsetx, 
+               topright = x[2] - linsetx,
+               right = x[2] - linsetx, 
+               bottomleft = x[1] + linsetx,
+               left = x[1] + linsetx, 
+               topleft = x[1] + linsetx, 
+               bottom = (x[1] + x[2])/2,
+               top = (x[1] + x[2])/2, 
+               center = (x[1] + x[2])/2)
+  
+  linsety <- linset[2L] * strheight("M", cex=1, units = "user", ...)
+  y1 <- switch(auto, 
+               bottomright = y[1] + linsety, 
+               bottom = y[1] + linsety, 
+               bottomleft = y[1] + linsety, 
+               topleft = y[2] - linsety, 
+               top = y[2] - linsety, 
+               topright = y[2] - linsety, 
+               left = (y[1] + y[2])/2, 
+               right = (y[1] + y[2])/2, 
+               center = (y[1] + y[2])/2)
+  
+  adj <- switch(auto,
+                topleft     =c(0,1),
+                top         =c(0.5, 1),
+                topright    =c(1,1),
+                left        =c(0, 0.5),
+                center      =c(0.5,0.5),
+                right       =c(1, 0.5),
+                bottomleft  =c(0,0),
+                bottom      =c(0.5,0),
+                bottomright =c(1,0))
+  
+  
+  return(list(xy=xy.coords(x1, y1), adj=adj))
+  
+}
+
+
+
+Bg <- function(col="grey", region=c("plot", "figure"), border=NA) {
+  
+  .Bg <- function(col="grey", region="plot", border=NA) {
+    
+    if(region=="plot")
+      rect(par("usr")[1], par("usr")[3], par("usr")[2], par("usr")[4], 
+           col = col, border=border)
+    
+    else if(region == "figure"){
+      ds <- dev.size("in")
+      # xy coordinates of device corners in user coordinates
+      x <- grconvertX(c(0, ds[1]), from="in", to="user")
+      y <- grconvertY(c(0, ds[2]), from="in", to="user")
+      
+      rect(x[1], y[2], x[2], y[1], 
+           col = col, border=border, xpd=NA)
+    }
+  }
+  
+  if(length(col)==1){
+    region <- match.arg(region)
+    .Bg(col=col, region=region)
+    
+  } else {
+    arg <- Recycle(col=col, region=region)
+    for(i in attr(arg, "maxdim"):1){
+      .Bg(col=arg$col[i], region=arg$region[i])
+    }
+    
+  }
+  
+  
+}
+
+
+
+
+
+
 ###
 
 ## graphics: conversions ====

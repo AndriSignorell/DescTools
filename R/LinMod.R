@@ -1327,6 +1327,11 @@ PseudoR2 <- function(x, which = NULL) {
   # fuer logit Korrektur https://langer.soziologie.uni-halle.de/pdf/papers/rc33langer.pdf
   
   # check with pscl::pR2(x); rcompanion::nagelkerke(x)
+  #       or with  library(blorr)
+  #                c(blr_rsq_mcfadden(r.glm), 
+  #                  blr_rsq_cox_snell(r.glm), 
+  #                  blr_rsq_nagelkerke(r.glm))
+  
   
   
   if(inherits(x, what="multinom")) modeltype <- "multinom"

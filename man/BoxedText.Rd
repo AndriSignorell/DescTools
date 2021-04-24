@@ -9,9 +9,9 @@
 }
 \usage{
 BoxedText(x, y = NULL, labels = seq_along(x), adj = NULL, pos = NULL, offset = 0.5, 
-              vfont = NULL, cex = 1, txt.col = NULL, font = NULL, srt = 0, 
-              xpad = 0.2, ypad = 0.2, density = NULL, angle = 45, col = "white", 
-              border = par("fg"), lty = par("lty"), lwd = par("lwd"), ...)
+          vfont = NULL, cex = 1, txt.col = NULL, font = NULL, srt = 0, 
+          xpad = 0.2, ypad = 0.2, density = NULL, angle = 45, col = "white", 
+          border = par("fg"), lty = par("lty"), lwd = par("lwd"), ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

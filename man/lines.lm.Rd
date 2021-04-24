@@ -72,7 +72,7 @@ Andri Signorell <andri@signorell.net>
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-par(mfrow=c(1,2))
+opar <- par(mfrow=c(1,2))
 
 plot(hp ~ wt, mtcars)
 lines(lm(hp ~ wt, mtcars), col="steelblue")
@@ -83,8 +83,17 @@ r.lm <- lm(hp ~ wt, mtcars)
 lines(r.lm, col="red", pred.level=0.95, args.pband=list(col=SetAlpha("grey",0.3)) )
 
 # works with transformations too
+plot(dist ~ sqrt(speed), cars)
+lines(lm(dist ~ sqrt(speed), cars), col=hred)
+
+plot(dist ~ log(speed), cars)
+lines(lm(dist ~ log(speed), cars), col=hred)
+
+# and with more specific variables based on only one predictor
 plot(dist ~ speed, cars)
 lines(lm(dist ~ poly(speed, degree=2), cars), col=hred)
+
+par(opar)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
