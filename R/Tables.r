@@ -39,6 +39,9 @@ Freq <- function(x, breaks = hist(x, plot = FALSE)$breaks, include.lowest = TRUE
                   freq = as.vector(tab[]), perc = as.vector(ptab[]),
                   cumfreq = cumsum(tab[]), cumperc = cumsum(ptab[]))
 
+  # the first class beyond 50% cumulative percentages is the median class
+  attr(z, which = "medianclass") <- z[which(z[, 5]>=0.5)[1], 1]
+  
   rownames(z) <- NULL # enumerate from 1:nrow(z)
   class(z) <- c("Freq", "data.frame")
   return(z)

@@ -25,7 +25,8 @@ Rank(..., decreasing = FALSE, na.last = TRUE,
 
   \code{Rank} is not limited to vectors. It accepts \code{data.table}s (and \code{list}s and \code{data.frame}s) as well. It accepts unquoted column names (with names preceded with a \code{-} sign for descending order, even on character vectors), for e.g., \code{Rank(DT, a, -b, c, ties.method="first")} where \code{a,b,c} are columns in \code{DT}. 
 
-  In addition to the \code{ties.method} values possible using base's \code{\link[base]{rank}}, it also provides another additional argument \code{"dense"} which returns the ranks without any gaps in the ranking. See examples.
+  In addition to the \code{ties.method} values possible using base's \code{\link[base]{rank}}, it also provides another additional argument \code{"dense"}.
+Dense ranks are consecutive integers beginning with 1. No ranks are skipped if there are ranks with multiple items. So the largest rank value is the number of unique values of x. See examples.
 
   Like \code{\link{forder}}, sorting is done in "C-locale"; in particular, this may affect how capital/lowercase letters are ranked. See Details on \code{forder} for more.
 

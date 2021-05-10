@@ -1,12 +1,10 @@
 \name{PercentRank}
 \alias{PercentRank}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Dense Ranks and Percent Ranks
+\title{Percent Ranks
 %%  ~~function to do ... ~~
 }
 \description{
-\code{DenseRank()} computes the rank of a vector \code{x} and returns the rank as a number. The ranks are consecutive integers beginning with 1. No ranks are skipped if there are ranks with multiple items. So the largest rank value is the number of unique values of x. Unlike \code{\link{rank}} gives the ranking within the vector x too, but ties are assigned the same rank, with the next ranking(s) skipped.
-
 \code{PercentRank()} takes a vector \code{x} and returns the percentile that elements of \code{x} correspond to.
 }
 \usage{
