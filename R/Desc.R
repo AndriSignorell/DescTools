@@ -416,7 +416,7 @@ calcDesc.default   <- function(x, n, ...) {
 }
 
 
-calcDesc.numeric   <- function(x, n, maxrows = NULL, conf.level=0.95, ...) {
+calcDesc.numeric   <- function(x, n, maxrows = NULL, conf.level=0.95, include_x=TRUE, ...) {
 
     probs <- c(0, 0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95, 1)
 
@@ -502,7 +502,7 @@ calcDesc.numeric   <- function(x, n, maxrows = NULL, conf.level=0.95, ...) {
                 modefreq_crit= modefreq_crit,
                 freq    = freq,
                 maxrows = maxrows,
-                x       = x
+                x       = if(include_x) x else NULL
     )
 
     return(res)
@@ -555,7 +555,7 @@ calcDesc.character <- function(x, n, maxrows = NULL, ord, ...) {
   calcDesc.factor(x=factor(x, ordered=TRUE), n=n, ord=ord, maxrows=maxrows, ...)
 }
 
-calcDesc.Date      <- function(x, n, dprobs = NULL, mprobs=NULL, ...) {
+calcDesc.Date      <- function(x, n, dprobs = NULL, mprobs=NULL, include_x=TRUE, ...) {
 
   # time aggregation already in the definition of the variable:
   # example:     cut( x, breaks="quarter" )
@@ -598,7 +598,7 @@ calcDesc.Date      <- function(x, n, dprobs = NULL, mprobs=NULL, ...) {
     , m.chisq.test = mtab$chisq.test
     , hbreaks      = hbreaks
     , freq         = Freq(x=x, breaks=(brk <- if(hbreaks %in% c("5-years", "10-years")) {ybreaks(x, hbreaks)} else {hbreaks}))
-    , x            = x
+    , x            = if(include_x) x else NULL
   )
 
   if(hbreaks %in% c("5-years", "10-years")){

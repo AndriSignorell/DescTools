@@ -62,7 +62,8 @@ text(x=(xy <- ABCCoords("topleft", region = "figure"))$xy,
      labels = "My Maybe Long Text", adj = xy$adj, xpd=NA)
 
 plot(x = rnorm(10), type="n", xlab="", ylab="")
-sapply(c("topleft", "top", "topright", "left", "center", "right", "bottomleft", "bottom", "bottomright"), 
+sapply(c("topleft", "top", "topright", "left", "center", 
+         "right", "bottomleft", "bottom", "bottomright"), 
        function(x) 
          text(x=(xy <- ABCCoords(x, region = "plot", linset=1))$xy, 
               labels = "MyMarginText", adj = xy$adj, xpd=NA)
