@@ -42,7 +42,7 @@
   
 
 <meta property="og:title" content="Cleveland's Dot Plots — PlotDot" />
-<meta property="og:description" content="Draw a Cleveland dot plot. This is an extended version of dotchart with an added option for error bars and an add argument." />
+<meta property="og:description" content="Draw a Cleveland dot plot. This is an extended version of dotchart with an added option for error bars, an add argument and several more options. PlotCI() is a small helpfunction to facilitate ci-plots of several models." />
 
 
 
@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.41</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.42</span>
       </span>
     </div>
 
@@ -152,15 +152,24 @@
     </div>
 
     <div class="ref-description">
-    <p>Draw a Cleveland dot plot. This is an extended version of <code><a href='https://rdrr.io/r/graphics/dotchart.html'>dotchart</a></code> with an added option for error bars and an <code>add</code> argument.</p>
+    <p>Draw a Cleveland dot plot. This is an extended version of <code><a href='https://rdrr.io/r/graphics/dotchart.html'>dotchart</a></code> with an added option for error bars, an <code>add</code> argument and several more options. <code>PlotCI()</code> is a small helpfunction to facilitate ci-plots of several models.</p>
     </div>
 
     <pre class="usage"><span class='fu'>PlotDot</span><span class='op'>(</span><span class='va'>x</span>, labels <span class='op'>=</span> <span class='cn'>NULL</span>, groups <span class='op'>=</span> <span class='cn'>NULL</span>, gdata <span class='op'>=</span> <span class='cn'>NULL</span>,
         cex <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span><span class='st'>"cex"</span><span class='op'>)</span>, pch <span class='op'>=</span> <span class='fl'>21</span>, gpch <span class='op'>=</span> <span class='fl'>21</span>, bg <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span><span class='st'>"bg"</span><span class='op'>)</span>,
         color <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span><span class='st'>"fg"</span><span class='op'>)</span>, gcolor <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span><span class='st'>"fg"</span><span class='op'>)</span>, lcolor <span class='op'>=</span> <span class='st'>"gray"</span>, lblcolor <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span><span class='st'>"fg"</span><span class='op'>)</span>,
         xlim <span class='op'>=</span> <span class='cn'>NULL</span>, main <span class='op'>=</span> <span class='cn'>NULL</span>, xlab <span class='op'>=</span> <span class='cn'>NULL</span>, ylab <span class='op'>=</span> <span class='cn'>NULL</span>,
-        xaxt<span class='op'>=</span><span class='cn'>NULL</span>, yaxt<span class='op'>=</span><span class='cn'>NULL</span>, add <span class='op'>=</span> <span class='cn'>FALSE</span>, args.errbars <span class='op'>=</span> <span class='cn'>NULL</span>, 
-        cex.axis <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span><span class='st'>"cex.axis"</span><span class='op'>)</span>, cex.pch <span class='op'>=</span> <span class='fl'>1.2</span>, cex.gpch<span class='op'>=</span><span class='fl'>1.2</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+        xaxt <span class='op'>=</span> <span class='cn'>NULL</span>, yaxt <span class='op'>=</span> <span class='cn'>NULL</span>, add <span class='op'>=</span> <span class='cn'>FALSE</span>, args.errbars <span class='op'>=</span> <span class='cn'>NULL</span>, 
+        cex.axis <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span><span class='st'>"cex.axis"</span><span class='op'>)</span>, cex.pch <span class='op'>=</span> <span class='fl'>1.2</span>, cex.gpch <span class='op'>=</span> <span class='fl'>1.2</span>, 
+        gshift <span class='op'>=</span> <span class='fl'>2</span>, automar <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span>
+        
+        
+<span class='fu'>PlotDotCI</span><span class='op'>(</span><span class='va'>...</span>, grp <span class='op'>=</span> <span class='fl'>1</span>, cex <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span><span class='st'>"cex"</span><span class='op'>)</span>,
+         pch <span class='op'>=</span> <span class='fl'>21</span>, gpch <span class='op'>=</span> <span class='fl'>21</span>, bg <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span><span class='st'>"bg"</span><span class='op'>)</span>, color <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span><span class='st'>"fg"</span><span class='op'>)</span>, gcolor <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span><span class='st'>"fg"</span><span class='op'>)</span>,
+         lcolor <span class='op'>=</span> <span class='st'>"gray"</span>, lblcolor <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span><span class='st'>"fg"</span><span class='op'>)</span>, xlim <span class='op'>=</span> <span class='cn'>NULL</span>, main <span class='op'>=</span> <span class='cn'>NULL</span>, 
+         xlab <span class='op'>=</span> <span class='cn'>NULL</span>, ylab <span class='op'>=</span> <span class='cn'>NULL</span>, xaxt <span class='op'>=</span> <span class='cn'>NULL</span>, yaxt <span class='op'>=</span> <span class='cn'>NULL</span>,
+         cex.axis <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span><span class='st'>"cex.axis"</span><span class='op'>)</span>, cex.pch <span class='op'>=</span> <span class='fl'>1.2</span>, cex.gpch <span class='op'>=</span> <span class='fl'>1.2</span>, 
+         gshift <span class='op'>=</span> <span class='fl'>2</span>, automar <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -274,19 +283,34 @@
       <td><p>The magnification to be used for group symbols relative to the current setting of cex.</p></td>
     </tr>
     <tr>
+      <th>gshift</th>
+      <td><p>the number of characters, for which the grouplabels should be shift to the left compared to the sublabels.</p></td>
+    </tr>
+    <tr>
+      <th>automar</th>
+      <td><p>logical (default <code>TRUE</code>), defining if the left margin should be set according to the width of the given labels, resp. grouplabels. If set to <code>FALSE</code> the margins are taken from <code><a href='https://rdrr.io/r/graphics/par.html'>par("mar")</a></code>.</p></td>
+    </tr>
+    <tr>
       <th>...</th>
       <td><p><a href='https://rdrr.io/r/graphics/par.html'>graphical parameters</a> can also be specified as arguments.</p></td>
+    </tr>
+    <tr>
+      <th>grp</th>
+      <td><p>an integer, defining if the the coefficients should be grouped along the first
+   or the second dimension (default is 1).</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function is invoked for its side effect, which is to produce two
-  variants of dotplots as described in Cleveland (1985).</p>
-<p>Dot plots are a reasonable substitute for bar plots.</p>
+    <p>Dot plots are a reasonable substitute for bar plots. This function is invoked to produce dotplots as described in Cleveland (1985).</p>
+<p>For <code>PlotDotCI()</code> the dots are a list of matrices with 3 columns, whereas the first is the coefficent, the second the lower and the third the upper end of the confidence interval.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Return the y-values used for plotting.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='https://rdrr.io/r/graphics/dotchart.html'>dotchart</a></code>, <code>PlotDotCI</code></p></div>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Becker, R. A., Chambers, J. M. and Wilks, A. R. (1988)
@@ -313,7 +337,7 @@
                             cex<span class='op'>=</span><span class='fl'>1.4</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='input'>
 <span class='co'># add some other values</span>
-<span class='fu'>PlotDot</span><span class='op'>(</span><span class='va'>VADeaths</span><span class='op'>+</span><span class='fl'>3</span>, pch<span class='op'>=</span><span class='fl'>15</span>, col<span class='op'>=</span><span class='st'>"blue"</span>, add<span class='op'>=</span><span class='cn'>TRUE</span>, labels<span class='op'>=</span><span class='cn'>NA</span><span class='op'>)</span>
+<span class='fu'>PlotDot</span><span class='op'>(</span><span class='va'>VADeaths</span><span class='op'>+</span><span class='fl'>3</span>, pch<span class='op'>=</span><span class='fl'>15</span>, col<span class='op'>=</span><span class='st'>"blue"</span>, add<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='img'><img src='PlotDot-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># same as PlotDotCI</span>
 <span class='va'>xci</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span><span class='op'>(</span><span class='va'>rbind</span>, <span class='fu'><a href='https://rdrr.io/r/base/tapply.html'>tapply</a></span><span class='op'>(</span> <span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>delivery_min</span>, <span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>driver</span>,

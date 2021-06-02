@@ -76,7 +76,7 @@ It further accepts vectors, lists, data.frames or data.tables as input. In addit
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.41</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.42</span>
       </span>
     </div>
 
@@ -188,7 +188,8 @@ It further accepts vectors, lists, <code>data.frame</code>s or <code>data.table<
 
     <p>To be consistent with other <code>data.table</code> operations, <code>NA</code>s are considered identical to other <code>NA</code>s (and <code>NaN</code>s to other <code>NaN</code>s), unlike <code><a href='https://rdrr.io/r/base/rank.html'>base::rank</a></code>. Therefore, for <code>na.last=TRUE</code> and <code>na.last=FALSE</code>, <code>NA</code>s (and <code>NaN</code>s) are given identical ranks, unlike <code><a href='https://rdrr.io/r/base/rank.html'>rank</a></code>.</p>
 <p><code>Rank</code> is not limited to vectors. It accepts <code>data.table</code>s (and <code>list</code>s and <code>data.frame</code>s) as well. It accepts unquoted column names (with names preceded with a <code><a href='https://rdrr.io/r/base/Arithmetic.html'>-</a></code> sign for descending order, even on character vectors), for e.g., <code>Rank(DT, a, -b, c, ties.method="first")</code> where <code>a,b,c</code> are columns in <code>DT</code>.</p>
-<p>In addition to the <code>ties.method</code> values possible using base's <code><a href='https://rdrr.io/r/base/rank.html'>rank</a></code>, it also provides another additional argument <code>"dense"</code> which returns the ranks without any gaps in the ranking. See examples.</p>
+<p>In addition to the <code>ties.method</code> values possible using base's <code><a href='https://rdrr.io/r/base/rank.html'>rank</a></code>, it also provides another additional argument <code>"dense"</code>.
+Dense ranks are consecutive integers beginning with 1. No ranks are skipped if there are ranks with multiple items. So the largest rank value is the number of unique values of x. See examples.</p>
 <p>Like <code>forder</code>, sorting is done in "C-locale"; in particular, this may affect how capital/lowercase letters are ranked. See Details on <code>forder</code> for more.</p>
 <p><code>bit64::integer64</code> type is also supported.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>

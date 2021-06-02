@@ -77,7 +77,7 @@ In addition to abline the function will also display polynomial models." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.41</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.42</span>
       </span>
     </div>
 
@@ -163,7 +163,7 @@ In addition to <code><a href='https://rdrr.io/r/graphics/abline.html'>abline</a>
     <pre class="usage"><span class='co'># S3 method for lm</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='va'>x</span>, col <span class='op'>=</span> <span class='fu'><a href='DescTools Palettes.html'>Pal</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, lwd <span class='op'>=</span> <span class='fl'>2</span>, lty <span class='op'>=</span> <span class='st'>"solid"</span>,
       type <span class='op'>=</span> <span class='st'>"l"</span>, n <span class='op'>=</span> <span class='fl'>100</span>, conf.level <span class='op'>=</span> <span class='fl'>0.95</span>, args.cband <span class='op'>=</span> <span class='cn'>NULL</span>,
-      pred.level <span class='op'>=</span> <span class='cn'>NA</span>, args.pband <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+      pred.level <span class='op'>=</span> <span class='cn'>NA</span>, args.pband <span class='op'>=</span> <span class='cn'>NULL</span>, xpred <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -220,6 +220,10 @@ In addition to <code><a href='https://rdrr.io/r/graphics/abline.html'>abline</a>
 <!-- %%     ~~Describe \code{type} here~~ --></p></td>
     </tr>
     <tr>
+      <th>xpred</th>
+      <td><p>a numeric vector <code><a href='https://rdrr.io/r/base/c.html'>c(from, to)</a></code>,  if the x limits can't be defined based on available data, xpred can be used to provide the range where the line and especially the confidence intervals should be plotted.</p></td>
+    </tr>
+    <tr>
       <th>...</th>
       <td><p>further arguments are not used specifically.
 <!-- %%     ~~Describe \code{\dots} here~~ --></p></td>
@@ -248,7 +252,7 @@ In addition to <code><a href='https://rdrr.io/r/graphics/abline.html'>abline</a>
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='va'>opar</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>hp</span> <span class='op'>~</span> <span class='va'>wt</span>, <span class='va'>mtcars</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>hp</span> <span class='op'>~</span> <span class='va'>wt</span>, <span class='va'>mtcars</span><span class='op'>)</span>, col<span class='op'>=</span><span class='st'>"steelblue"</span><span class='op'>)</span>
@@ -259,9 +263,18 @@ In addition to <code><a href='https://rdrr.io/r/graphics/abline.html'>abline</a>
 <span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='va'>r.lm</span>, col<span class='op'>=</span><span class='st'>"red"</span>, pred.level<span class='op'>=</span><span class='fl'>0.95</span>, args.pband<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>col<span class='op'>=</span><span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span><span class='op'>(</span><span class='st'>"grey"</span>,<span class='fl'>0.3</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>)</span>
 </div><div class='img'><img src='lines.lm-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># works with transformations too</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>dist</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>speed</span><span class='op'>)</span>, <span class='va'>cars</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>dist</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>speed</span><span class='op'>)</span>, <span class='va'>cars</span><span class='op'>)</span>, col<span class='op'>=</span><span class='va'>hred</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>dist</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>speed</span><span class='op'>)</span>, <span class='va'>cars</span><span class='op'>)</span>
+</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>dist</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>speed</span><span class='op'>)</span>, <span class='va'>cars</span><span class='op'>)</span>, col<span class='op'>=</span><span class='va'>hred</span><span class='op'>)</span>
+</div><div class='img'><img src='lines.lm-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># and with more specific variables based on only one predictor</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>dist</span> <span class='op'>~</span> <span class='va'>speed</span>, <span class='va'>cars</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>dist</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/stats/poly.html'>poly</a></span><span class='op'>(</span><span class='va'>speed</span>, degree<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>, <span class='va'>cars</span><span class='op'>)</span>, col<span class='op'>=</span><span class='va'>hred</span><span class='op'>)</span>
-</div><div class='img'><img src='lines.lm-2.png' alt='' width='700' height='433' /></div></pre>
+
+<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span><span class='va'>opar</span><span class='op'>)</span>
+</div><div class='img'><img src='lines.lm-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
