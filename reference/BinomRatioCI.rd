@@ -84,7 +84,7 @@ and the Noether (1957) procedure. Koopman results are found iteratively for most
       <ul class="nav navbar-nav">
         <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa-book"></span>
+    <span class="fa fa-book"></span>
      
      
     <span class="caret"></span>
