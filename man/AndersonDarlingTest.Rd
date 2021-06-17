@@ -37,6 +37,11 @@ AndersonDarlingTest(x, null = "punif", ..., nullname)
   The null hypothesis is that \eqn{F} is the function
   specified by the argument \code{null}, while the alternative
   hypothesis is that \eqn{F} is some other function.
+  
+  The procedures currently implemented are for the case of a SIMPLE null hypothesis, that is, where all the parameters of the distribution are known. Note that other packages such as 'normtest' support the test of a COMPOSITE null hypothesis where some or all of the parameters are unknown leading to different results concerning the test statistic and the p-value. Thus in 'normtest' you can test whether the data come from a normal distribution with some mean and variance (which will be estimated from the same data).
+
+The discrepancies can be large if you don't have a lot of data (say less than 1000 observations).
+
 }
 \value{
   An object of class \code{"htest"} representing the result of

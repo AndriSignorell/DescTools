@@ -50,7 +50,7 @@ where \eqn{x_{i}}{x_i} belongs to one category and  \eqn{x_{i+1}}{x_(i+1)}  belo
 For a numeric variable x containing more than two values, a run is a set of sequential values that are either all above or below a specified cutpoint, typically the median. This is not necessarily the best choice. If another threshold should be used use a code like: \code{RunsTest(x > mean(x))}.
 
 The exact distribution of runs and the p-value based on it are described in the manual of SPSS "Exact tests"
-\url{http://www.sussex.ac.uk/its/pdfs/SPSS_Exact_Tests_21.pdf}.
+\url{https://www.sussex.ac.uk/its/pdfs/SPSS_Exact_Tests_21.pdf}.
 
 The normal approximation of the runs test is calculated with the expected number of runs under the null
 \deqn{\mu_r=\frac{2 n_0 n_1}{n_0 + n_1} + 1}

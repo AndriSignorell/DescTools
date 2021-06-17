@@ -9381,12 +9381,12 @@ Bg <- function(col="grey", region=c("plot", "figure"), border=NA) {
   
   if(length(col)==1){
     region <- match.arg(region)
-    .Bg(col=col, region=region)
+    .Bg(col=col, region=region, border=border)
     
   } else {
-    arg <- Recycle(col=col, region=region)
+    arg <- Recycle(col=col, region=region, border=border)
     for(i in attr(arg, "maxdim"):1){
-      .Bg(col=arg$col[i], region=arg$region[i])
+      .Bg(col=arg$col[i], region=arg$region[i], border=arg$border[i])
     }
     
   }
