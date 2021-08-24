@@ -2807,7 +2807,8 @@ StuartMaxwellTest <- function (x, y = NULL) {
   # get the marginals
   rowsums <- rowSums(x)
   colsums <- colSums(x)
-  equalsums <- rowsums == colsums
+  # Ensuring perfect agreement is selected only - excluding elements with perfect disagreement by looking at covariance diag entry=0
+  equalsums <- rowsums+colsums-2*diag(x)==0
 
   if(any(equalsums)) {
     # dump any categories with perfect agreement
