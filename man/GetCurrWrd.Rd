@@ -2,10 +2,10 @@
 \alias{GetCurrWrd}
 \alias{GetCurrXL}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Get a Handle to a Running Word Instance
+\title{Get a Handle to a Running Word/Excel Instance
 %%  ~~function to do ... ~~
 }
-\description{Look for a running Word instance and return its handle. \code{NULL} is returned if nothing's found.
+\description{Look for a running Word, resp. Excel instance and return its handle. If no running instance is found a new instance will be created (which will be communicated with a warning).
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
@@ -16,8 +16,8 @@ GetCurrXL()
 
 \value{a handle (pointer) to the running Word, resp. Excel instance. 
 }
-\note{Closing an instance does not update the value of the pointer. So it may contain an invalid address. 
-Whether the pointer is still valid can be checked by \code{\link{IsValidHwnd}}. }
+\note{When closing an application instance, the value of the pointer in R is not somehow automatically invalidated. In such cases the corresponding variable contains an invalid address. 
+Whether the pointer still refers to a valid running application instance can be checked by \code{\link{IsValidHwnd}}. }
 
 %% \note{This does unfortunately not work with RDCOMClient (but it would with rcom)! Any better idea out there?}
 %% it does work with RDCOMClient, what was it exactly?
@@ -34,13 +34,22 @@ Andri Signorell <andri@signorell.net>
 \examples{
 \dontrun{# Windows-specific example
 
-x <- rnorm(100)
+# Start a new instance
+GetNewWrd()
 
+# grab the handle to this instance
 wrd <- GetCurrWrd()
 
+# this should be valid
+IsValidHwnd(wrd)
+
+# close the instance
+wrd$quit()
+
+# now it should be gone and the pointer invalid
 if(IsValidHwnd(wrd)){ 
-  Desc(x, wrd=wrd)
-} else {
+  print("Ouups! Still there?")
+} else {  
   print("GetCurrWrd: no running word instance found...")
 }
 }

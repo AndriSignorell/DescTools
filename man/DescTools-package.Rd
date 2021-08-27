@@ -446,11 +446,12 @@ _RevWeibull   \tab      Reverse Weibull distribution (\link{dRevWeibull})\cr
 
 
 
-\section{MS-Office}{To make use of MS-Office features you must have Office in one of its variants installed.
-All \code{Wrd*}, \code{XL*} and \code{Pp*} functions require as well the package \bold{RDCOMClient} to be installed. Hence the use of these functions is restricted to Windows systems.
+\section{MS-Office}{To make use of MS-Office features you must have Office in one of its variants installed, as well as the package \bold{RDCOMClient}. This package uses the COM interface to control the Office applications. There is no direct equivalent to COM interface for Mac or Linux, hence the use of these functions is restricted to Windows systems. All \code{Wrd*}, \code{XL*} and \code{Pp*} functions require this basis to run.
+
+
 \bold{RDCOMClient} can be installed with: \cr
 \preformatted{install.packages("RDCOMClient", repos="http://www.omegahat.net/R")}
-The omegahat repository does not benefit from the same update service as CRAN. So you may be forced to install a package compiled with an earlier version, which usually is not a problem. Use e.g. for R 3.6x/R 4.0\cr
+The omegahat repository does not benefit from the same update service as CRAN. So you may be forced to install a package compiled with an earlier version, which usually is no problem. Use e.g. for R 3.6x/R 4.0\cr
 \preformatted{
 url <- "http://www.omegahat.net/R/bin/windows/contrib/3.5.1/RDCOMClient_0.93-0.zip"
 url <- "http://www.omegahat.net/R/bin/windows/contrib/4.0/RDCOMClient_0.94-0.zip"

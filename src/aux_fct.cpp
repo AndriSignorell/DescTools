@@ -27,6 +27,7 @@ using namespace Rcpp;
 //   http://adv-r.had.co.nz/Rcpp.html
 //   http://gallery.rcpp.org/
 //
+//
 
 
 // [[Rcpp::export]]

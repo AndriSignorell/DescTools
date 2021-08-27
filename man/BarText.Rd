@@ -4,7 +4,7 @@
 \title{Place Value Labels on a Barplot
 %%  ~~function to do ... ~~
 }
-\description{Place text either in the middle of the stacked bars of a barplot or on top of a side by side barplot.
+\description{It can sometimes make sense to display data values directly on the bars. There are a handful of obvious alternatives for labeling bar charts with their specific values, either on top of the bars, right below the upper end, in the middle or at the bottom. Determining the required geometry, while not difficult, is cumbersome and the code is distractingly long within the analysis code. The present function offers a short way to solve the task. It can place text either in the middle of the stacked bars, on top or on the bottom of a side by side barplot. 
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
@@ -43,7 +43,10 @@ defining if the labels should be placed on top of the bars (inside or outside) o
 }
 }
 \details{
-It sometimes makes sense to place the data values directly on the bars. The x coordinates of the labels can be found by using \code{\link{barplot}()} result, if they are to be centered at the top of each bar. \code{BarText()} calculates the rest.
+The x coordinates of the labels can be found by using \code{\link{barplot}()} result, if they are to be centered at the top of each bar. \code{BarText()} calculates the rest.
+
+\figure{bartext.png}{Positions for the text}
+
 Notice that when the labels are placed on top of the bars, they may be clipped. This can be avoided by setting \code{xpd=TRUE}.
 }
 \author{Andri Signorell <andri@signorell.net>

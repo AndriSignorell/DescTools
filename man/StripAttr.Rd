@@ -1,5 +1,6 @@
 \name{StripAttr}
 \alias{StripAttr}
+\alias{SetAttr}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Remove Attributes from an Object
 %%  ~~function to do ... ~~
@@ -8,13 +9,18 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
+SetAttr(x, attr, attr_val)
 StripAttr(x, attr_names = NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{the object whose attributes should be removed.
+  \item{x}{the object whose attributes should be removed or to which an attribute should be added.
 %%     ~~Describe \code{x} here~~
 }
+\item{attr}{name of a new attribute}
+
+\item{attr_val}{value for the new attribute \code{attr}}
+
   \item{attr_names}{a vector with attribute names, which will be removed. Leaving the default to \code{NULL} will cause all the attributes to be deleted.
 %%     ~~Describe \code{attr_names} here~~
 }
@@ -34,14 +40,15 @@ StripAttr(x, attr_names = NULL)
 }
 \examples{
 x <- runif(10)
-attr(x, "some_attr") <- "First attribute"
-attr(x, "other_attr") <- "Second attribute"
+x <- SetAttr(x, 
+             attr=c("some_attr", "other_attr"),
+             attr_val=c("First attribute", "Second attribute"))
+
+# strip only single
+StripAttr(x, "other_attr")
 
 # strip all attributes
 StripAttr(x)
-
-# only some
-StripAttr(x, "other_attr")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory (show via RShowDoc("KEYWORDS")):

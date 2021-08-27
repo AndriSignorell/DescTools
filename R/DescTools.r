@@ -6845,6 +6845,13 @@ SetNames <- function (x, ...) {
 }
 
 
+SetAttr <- function(x, attr, attr_val){
+  for(i in seq_along(attr))
+    attr(x, which = attr[i]) <- attr_val[i]
+  return(x)
+}
+
+
 
 StripAttr <- function(x, attr_names=NULL) {
   
@@ -13182,7 +13189,7 @@ PlotQQ <- function(x, qdist=qnorm, main=NULL, xlab=NULL, ylab=NULL, datax=FALSE,
     rm(xy)
   }
 
-  if(is.null(main)) main <- gettextf("Q-Q-Plot", qdist)
+  if(is.null(main)) main <- gettextf("Q-Q-Plot (%s)", deparse(substitute(qdist)))
   if(is.null(xlab)) xlab <- "Theoretical Quantiles"
   if(is.null(ylab)) ylab <- "Sample Quantiles"
 

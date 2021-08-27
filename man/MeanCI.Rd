@@ -42,10 +42,6 @@ MeanCI(x, sd = NULL, trim = 0, method = c("classic", "boot"),
 }
 }
 \details{The confidence intervals for the trimmed means use winsorized variances as described in the references.
-
-Use \code{\link{do.call}}, \code{\link{rbind}} and \code{\link{lapply}} for getting a
-matrix with estimates and confidence intervals for more than 1 column. (See examples!)
-%%  ~~ If necessary, more details than the description above ~~
 }
 \value{a numeric vector with 3 elements:
   \item{mean}{mean}
@@ -60,7 +56,7 @@ Wilcox, R. R., Keselman  H. J. (2003) Modern robust data analysis methods: measu
 Wilcox, R. R. (2005) \emph{Introduction to robust estimation and hypothesis testing} Elsevier Academic Press
 }
 
-\seealso{\code{\link{t.test}}, \code{\link{MeanDiffCI}}, \code{\link{MedianCI}}, \code{\link{VarCI}}
+\seealso{\code{\link{t.test}}, \code{\link{MeanDiffCI}}, \code{\link{MedianCI}}, \code{\link{VarCI}}, \code{\link{MeanCIn}}
  }
 
 \examples{
@@ -86,6 +82,6 @@ MeanCI(x, trim=0.1, method="boot", type="bca", na.rm=TRUE)
 MeanCI(x, trim=0.1, method="boot", type="bca", R=1999, na.rm=TRUE)
 
 # Getting the MeanCI for more than 1 column
-round( do.call("rbind", lapply(d.pizza[, 1:4],  MeanCI, na.rm=TRUE)), 3)
+round(t(sapply(d.pizza[, 1:4], MeanCI, na.rm=TRUE)), 3)
 }
 \keyword{univar }

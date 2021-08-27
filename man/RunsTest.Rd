@@ -41,8 +41,8 @@ RunsTest(x, ...)
 % What does that mean?????
 
 \details{
-The runs test for randomness is used to test the hypothesis
-that a series of numbers is random. The 2-sample test is known as the Wald-Wolfowitz test. \cr
+\bold{The runs test for randomness} \verb{     }  is used to test the hypothesis
+that a series of numbers is random. \cr
 
 For a categorical variable, the number of runs correspond to the number of times the category changes, that is,
 where \eqn{x_{i}}{x_i} belongs to one category and  \eqn{x_{i+1}}{x_(i+1)}  belongs to the other. The number of runs is the number of sign changes plus one.\cr
@@ -64,7 +64,7 @@ Setting the continuity correction \code{correct = TRUE} will yield the normal ap
 The c is set to \eqn{c = 0.5} if \eqn{r < \frac{2 n_0 n_1}{n_0 + n_1} + 1}
 and to \eqn{c = -0.5} if \eqn{r > \frac{2 n_0 n_1}{n_0 + n_1} + 1}.
 
-\bold{Wald-Wolfowitz with Ties.}      Ideally there should be no ties in the data used for the Wald-Wolfowitz test. In practice there is no problem with ties within a group, but if ties occur between members of the different groups then there is no unique sequence of observations. For example the data sets A: 10,14,17,19,34 and B: 12,13,17,19,22 can give four possible sequences, with two possible values for r (7 or 9). The "solution" to this is to list every possible combination, and calculate the test statistic for each one. If all test statistics are significant at the chosen level, then one can reject the null hypothesis. If only some are significant, then Siegel (1956) suggests that the average of the P-values is taken.
+\bold{The Wald-Wolfowitz test} \verb{     }  is a  2-sample nonparametric test to  evaluate if two continuous cumulative distributions are significantly different or not. Ideally there should be no ties in the data. In practice there is no problem with ties within a group, but if ties occur between members of the different groups then there is no unique sequence of observations. For example the data sets A: 10,14,17,19,34 and B: 12,13,17,19,22 can give four possible sequences, with two possible values for r (7 or 9). The "solution" to this is to list every possible combination, and calculate the test statistic for each one. If all test statistics are significant at the chosen level, then one can reject the null hypothesis. If only some are significant, then Siegel (1956) suggests that the average of the P-values is taken.
 Help for finding all permutations of ties can be found at:  \url{https://stackoverflow.com/questions/47565066/all-possible-permutations-in-factor-variable-when-ties-exist-in-r}
 
 However this solutions seems quite coarse and in general, the test should not be used if there are more than one or two ties. We have better tests to distinguish between two samples!

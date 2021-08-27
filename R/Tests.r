@@ -2807,7 +2807,10 @@ StuartMaxwellTest <- function (x, y = NULL) {
   # get the marginals
   rowsums <- rowSums(x)
   colsums <- colSums(x)
-  equalsums <- rowsums == colsums
+  # equalsums <- rowsums == colsums
+  # Yusef Al-Naher commented correctly 20-08-2021:
+  # If you have perfect agreement then you want something along the lines of:
+  equalsums <- diag(x)==rowsums & diag(x)==colsums
 
   if(any(equalsums)) {
     # dump any categories with perfect agreement

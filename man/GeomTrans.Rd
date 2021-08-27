@@ -4,7 +4,7 @@
 \title{Geometric Transformations
 %%   ~~ data name/kind ... ~~
 }
-\description{This function transforms geometric structures by translating, scaling and/or rotatin them.
+\description{This function transforms geometric structures by translating, scaling and/or rotating them.
 %%  ~~ A concise (1-5 lines) description of the dataset. ~~
 }
 \usage{

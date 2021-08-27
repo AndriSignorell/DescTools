@@ -33,7 +33,15 @@ When it comes to center strings, it's not clear where to place strings with an e
 
 Any specific length of the strings can be created by \code{\link{StrPad}} if required.
 
-In case of a given separator the strings will be aligned towards this separator. If a string does not contain the separator, the affected string will be aligned as if it had a separator as last character. This seems to be a good default, when integer numbers are to be aligned with numerical values. Note that the character length of the resulting strings can excceed the maximum length of the supplied strings.
+In case of a given character as separator the strings will be aligned towards this separator. Frequently this might be the decimal separator. If a string does not contain the separator, the affected string will be aligned as if it had a separator as last character. This seems to be a good default, when integer numbers are to be aligned with numerical values. Note that the character length of the resulting strings can excceed the maximum length of the supplied strings.
+\preformatted{z <- c(" 6.0", "6.00 ", " 45.12 ", "784", NA)
+cbind(StrAlign(z, sep="."))
+     [,1]    
+[1,] "  6.0 "
+[2,] "  6.00"
+[3,] " 45.12"
+[4,] "784   "
+[5,] NA     }
 
 The character strings will not be pruned of whitespaces, if the requested alignment does not explicitly require it. \code{\link{StrTrim}} can be used for that.
 }
@@ -55,7 +63,7 @@ The character strings will not be pruned of whitespaces, if the requested alignm
 x <- c("ABCDMNB", "CDGHEBK", "BCI")
 cbind(StrAlign(x, sep="B"))
 
-# align to decimal point
+# align to decimal separator (here point)
 z <- c("    6.0", "6.00  ", " 45.12    ", "784", NA)
 cbind(StrAlign(z, sep="."))
 

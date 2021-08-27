@@ -45,7 +45,6 @@ The geometric mean is defined as
 \deqn{\sqrt[n]{x_{1}\cdot x_{2}\cdot x_{3} \ldots \cdot x_{n}}}{(x_1 * x_2 * ... * x_n)^(1/n)}
 
 and its confidence interval is given as \code{exp(MeanCI(log(x)))}.
-Use \code{\link{sapply}} to calculate the measures from data frame, resp. from a matrix. \cr
 }
 \value{a numeric value.
 }

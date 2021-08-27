@@ -6,7 +6,7 @@
 }
 \description{Calculate Goodman Kruskal's Gamma statistic, a measure of
 association for ordinal factors in a two-way table.\cr
-The function has interfaces for a table (matrix) and for single vectors.}
+The function has interfaces for a contingency table (matrix) and for single vectors (which will then be tabulated).}
 \usage{
 GoodmanKruskalGamma(x, y = NULL, conf.level = NA, ...)
 }
@@ -21,7 +21,7 @@ GoodmanKruskalGamma(x, y = NULL, conf.level = NA, ...)
   \item{conf.level}{confidence level of the interval. If set to \code{NA} (which is the default) no confidence intervals will be calculated.
 %%     ~~Describe \code{conf.level} here~~
 }
-  \item{\dots}{further arguments are passed to the function \code{\link{table}}, allowing i.e. to set useNA. This refers only to the vector interface.
+  \item{\dots}{further arguments are passed to the function \code{\link{table}}, allowing i.e. to control the handling of \code{NAs} by setting the \code{useNA} argument. This refers only to the vector interface, the dots are ignored if \code{x} is a contingency table.
 %%     ~~Describe \code{\dots} here~~
 }
 }
@@ -74,7 +74,7 @@ Other association measures: \cr
 
 # example in:
 # http://support.sas.com/documentation/cdl/en/statugfreq/63124/PDF/default/statugfreq.pdf
-# pp. S. 1821
+# pp. S. 1821 (149)
 
 tab <- as.table(rbind(
   c(26,26,23,18, 9),
