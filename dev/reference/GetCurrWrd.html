@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get a Handle to a Running Word Instance
+<title>Get a Handle to a Running Word/Excel Instance
  — GetCurrWrd • DescTools</title>
 
 
@@ -42,9 +42,9 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Get a Handle to a Running Word Instance
+<meta property="og:title" content="Get a Handle to a Running Word/Excel Instance
  — GetCurrWrd" />
-<meta property="og:description" content="Look for a running Word instance and return its handle. NULL is returned if nothing's found.
+<meta property="og:description" content="Look for a running Word, resp. Excel instance and return its handle. If no running instance is found a new instance will be created (which will be communicated with a warning).
 " />
 
 
@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.41.7</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.42.1</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@
       <ul class="nav navbar-nav">
         <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa-book"></span>
+    <span class="fa fa-book"></span>
      
      
     <span class="caret"></span>
@@ -149,14 +149,14 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get a Handle to a Running Word Instance
+    <h1>Get a Handle to a Running Word/Excel Instance
 <!-- %%  ~~function to do ... ~~ --></h1>
     
     <div class="hidden name"><code>GetCurrWrd.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Look for a running Word instance and return its handle. <code>NULL</code> is returned if nothing's found.
+    <p>Look for a running Word, resp. Excel instance and return its handle. If no running instance is found a new instance will be created (which will be communicated with a warning).
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
@@ -169,8 +169,8 @@
     <p>a handle (pointer) to the running Word, resp. Excel instance.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>Closing an instance does not update the value of the pointer. So it may contain an invalid address. 
-Whether the pointer is still valid can be checked by <code><a href='IsValidHwnd.html'>IsValidHwnd</a></code>.</p>
+    <p>When closing an application instance, the value of the pointer in R is not somehow automatically invalidated. In such cases the corresponding variable contains an invalid address. 
+Whether the pointer still refers to a valid running application instance can be checked by <code><a href='IsValidHwnd.html'>IsValidHwnd</a></code>.</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Andri Signorell &lt;andri@signorell.net&gt;
@@ -183,13 +183,22 @@ Whether the pointer is still valid can be checked by <code><a href='IsValidHwnd.
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='co'># Windows-specific example</span>
 
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span>
+<span class='co'># Start a new instance</span>
+<span class='fu'><a href='GetNewWrd.html'>GetNewWrd</a></span><span class='op'>(</span><span class='op'>)</span>
 
+<span class='co'># grab the handle to this instance</span>
 <span class='va'>wrd</span> <span class='op'>&lt;-</span> <span class='fu'>GetCurrWrd</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>Loading required namespace: RDCOMClient</span></div><div class='output co'>#&gt; <span class='warning'>Warning: RDCOMClient is unfortunately not available for Darwin systems (Windows-only).</span></div><div class='input'>
+<span class='co'># this should be valid</span>
+<span class='fu'><a href='IsValidHwnd.html'>IsValidHwnd</a></span><span class='op'>(</span><span class='va'>wrd</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
+<span class='co'># close the instance</span>
+<span class='va'>wrd</span><span class='op'>$</span><span class='fu'>quit</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): attempt to apply non-function</span></div><div class='input'>
+<span class='co'># now it should be gone and the pointer invalid</span>
 <span class='kw'>if</span><span class='op'>(</span><span class='fu'><a href='IsValidHwnd.html'>IsValidHwnd</a></span><span class='op'>(</span><span class='va'>wrd</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span> 
-  <span class='fu'><a href='Desc.html'>Desc</a></span><span class='op'>(</span><span class='va'>x</span>, wrd<span class='op'>=</span><span class='va'>wrd</span><span class='op'>)</span>
-<span class='op'>}</span> <span class='kw'>else</span> <span class='op'>{</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='st'>"Ouups! Still there?"</span><span class='op'>)</span>
+<span class='op'>}</span> <span class='kw'>else</span> <span class='op'>{</span>  
   <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='st'>"GetCurrWrd: no running word instance found..."</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div><div class='output co'>#&gt; [1] "GetCurrWrd: no running word instance found..."</div><div class='input'>

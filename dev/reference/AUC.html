@@ -44,7 +44,7 @@
 
 <meta property="og:title" content="Area Under the Curve
  — AUC" />
-<meta property="og:description" content="Calculate the area under the curve with a simple &quot;trapezoid&quot; algorithm and with a more elaborated spline approach. The curve must be given by vectors of xy-coordinates.
+<meta property="og:description" content="Calculate the area under the curve with a naive algorithm and with a more elaborated spline approach. The curve must be given by vectors of xy-coordinates.
 " />
 
 
@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.41.7</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.42.1</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@
       <ul class="nav navbar-nav">
         <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa-book"></span>
+    <span class="fa fa-book"></span>
      
      
     <span class="caret"></span>
@@ -156,12 +156,12 @@
     </div>
 
     <div class="ref-description">
-    <p>Calculate the area under the curve with a simple "trapezoid" algorithm and with a more elaborated spline approach. The curve must be given by vectors of xy-coordinates.
+    <p>Calculate the area under the curve with a naive algorithm and with a more elaborated spline approach. The curve must be given by vectors of xy-coordinates.
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
     <pre class="usage"><span class='fu'>AUC</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, from <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='va'>x</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, to <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>x</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, 
-    method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"trapezoid"</span>, <span class='st'>"step"</span>, <span class='st'>"spline"</span><span class='op'>)</span>, 
+    method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"trapezoid"</span>, <span class='st'>"step"</span>, <span class='st'>"spline"</span>, <span class='st'>"linear"</span><span class='op'>)</span>, 
     absolutearea <span class='op'>=</span> <span class='cn'>FALSE</span>, subdivisions <span class='op'>=</span> <span class='fl'>100</span>, na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -174,25 +174,26 @@
     </tr>
     <tr>
       <th>method</th>
-      <td><p>The type of interpolation. Can be <code>"trapezoid"</code> (default), <code>"step"</code> or <code>"spline"</code>.
-  The value <code>"spline"</code> results in the area under the natural cubic spline interpolation.
+      <td><p>The type of interpolation. Can be <code>"trapezoid"</code> (default), <code>"step"</code>, <code>"linear"</code> or <code>"spline"</code>.
+  The value "spline" results in the area under the natural cubic spline interpolation.
 <!-- %%     ~~Describe \code{type} here~~ --></p></td>
     </tr>
     <tr>
       <th>from</th>
       <td><p>The value from where to start calculating the area under the
-    curve. Defaults to the smallest x value. Must not be smaller that that.</p></td>
+    curve. Defaults to the smallest x value.</p></td>
     </tr>
     <tr>
       <th>to</th>
       <td><p>The value from where to end the calculation of the area under the
-    curve. Defaults to the greatest x value. Must not be larger than that.</p></td>
+    curve. Defaults to the greatest x value.</p></td>
     </tr>
     <tr>
       <th>absolutearea</th>
-      <td><p>logical, determines whether negative
+      <td><p>A logical value that determines if negative
     areas should be added to the total area under the curve.  By
-    default the <code>AUC</code> function subtracts areas that have negative y values. Set <code>absolutearea=TRUE</code> to <b>add</b> the absolute value of the negative areas to the total area.</p></td>
+    default the auc function subtracts areas that have negative y
+    values. Set <code>absolutearea=TRUE</code> to _add_ the absolute value of the negative areas to the total area. Ignored if <code>method</code> is not <code>spline</code>.</p></td>
     </tr>
     <tr>
       <th>subdivisions</th>
@@ -200,7 +201,7 @@
     </tr>
     <tr>
       <th>na.rm</th>
-      <td><p>logical, indicating whether <code>NA</code> values should be stripped before the computation proceeds. In this case only the complete.cases of <code>x</code> and <code>y</code> will be used. <code>na.rm</code> defaults to <code>FALSE</code>.</p></td>
+      <td><p>logical, indicating whether <code>NA</code> values should be stripped before the computation proceeds. In this case only the complete.cases of x and y will be used. <code>na.rm</code> defaults to <code>FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -210,18 +211,19 @@
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>If method is set to <code>"trapezoid"</code> then the curve is formed by connecting all points by a direct line (composite trapezoid rule). If <code>"step"</code> is chosen then a stepwise connection of two points is used in the sense that the y-value of the lower x-value is used for the range up to the next x-point.</p>
+    <p>If method is set to <code>"trapezoid"</code> then the curve is formed by connecting all points by a direct line (composite trapezoid rule). If <code>"step"</code> is chosen then a stepwise connection of two points is used.</p>
 
-<p>For area under a spline interpolation,
-  <code>AUC()</code> uses the <code><a href='https://rdrr.io/r/stats/splinefun.html'>splinefun</a>()</code> function in combination with <code><a href='https://rdrr.io/r/stats/integrate.html'>integrate</a>()</code> to
+<p>For linear interpolation the <code>AUC()</code> function computes the area under the curve
+  using the composite trapezoid rule.  For area under a spline interpolation,
+  <code>AUC()</code> uses the splinefun function in combination with the integrate to
   calculate a numerical integral.</p>  
 <p>The <code>AUC()</code> function can handle unsorted time
-  values (by sorting <code>x</code>), missing observations, ties for the <code>x</code> values (by ignoring duplicates), and integrating over
+  values (by sorting x), missing observations, ties for the x values (by ignoring duplicates), and integrating over
   part of the area or even outside the area.
 <!-- %%  ~~ If necessary, more details than the description above ~~ --></p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>numeric value of the area under the curve.
+    <p>Numeric value of the area under the curve.
 <!-- %%  ~Describe the value returned -->
 <!-- %%  If it is a LIST, use -->
 <!-- %%  \item{comp1 }{Description of 'comp1'} -->
@@ -247,30 +249,8 @@
 </div><div class='img'><img src='AUC-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='va'>pi</span>, length.out<span class='op'>=</span><span class='fl'>200</span><span class='op'>)</span>
 <span class='fu'>AUC</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>x</span>, y<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>sin</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span> 
-</div><div class='output co'>#&gt; [1] 1.999958</div><div class='input'><span class='fu'>AUC</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>x</span>, y<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>sin</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, method<span class='op'>=</span><span class='st'>"spline"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 2</div><div class='input'>
-
-<span class='co'># absolute areas also for "trapezoid"</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>4</span>, <span class='fl'>5</span><span class='op'>)</span>
-<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='op'>-</span><span class='fl'>1</span>,<span class='op'>-</span><span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span>
-
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, type<span class='op'>=</span><span class='st'>"l"</span><span class='op'>)</span>
-</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span><span class='op'>(</span>h<span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span>
-</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/polygon.html'>polygon</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1.5</span>, <span class='fl'>1</span><span class='op'>)</span>, y<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>, col<span class='op'>=</span><span class='st'>"blue"</span>, density <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span>
-</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/polygon.html'>polygon</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1.5</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>1.5</span><span class='op'>)</span>, y<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span>, col<span class='op'>=</span><span class='st'>"red"</span>, density <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span>
-</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/polygon.html'>polygon</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>3</span><span class='op'>)</span>, y<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='op'>-</span><span class='fl'>1</span>, <span class='op'>-</span><span class='fl'>2</span>, <span class='fl'>0</span><span class='op'>)</span>, col<span class='op'>=</span><span class='st'>"red"</span>, density <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span>
-</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/polygon.html'>polygon</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>3.5</span>, <span class='fl'>3.5</span><span class='op'>)</span>, y<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='op'>-</span><span class='fl'>2</span>, <span class='fl'>0</span>,<span class='fl'>0</span><span class='op'>)</span>, col<span class='op'>=</span><span class='st'>"red"</span>, density <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span>
-</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/polygon.html'>polygon</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3.5</span>, <span class='fl'>4</span>, <span class='fl'>4</span>, <span class='fl'>3.5</span><span class='op'>)</span>, y<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>0</span>, <span class='fl'>2</span>,<span class='fl'>0</span><span class='op'>)</span>, col<span class='op'>=</span><span class='st'>"blue"</span>, density <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span>
-</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/polygon.html'>polygon</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>, <span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>4</span><span class='op'>)</span>, y<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>0</span>, <span class='fl'>3</span>,<span class='fl'>2</span><span class='op'>)</span>, col<span class='op'>=</span><span class='st'>"blue"</span>, density <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span>
-</div><div class='img'><img src='AUC-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'>AUC</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, absolutearea <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 1</div><div class='input'><span class='co'># is the same as:</span>
-<span class='fl'>0.5</span><span class='op'>*</span><span class='fl'>1</span><span class='op'>/</span><span class='fl'>2</span> <span class='op'>-</span> <span class='fl'>0.5</span><span class='op'>*</span><span class='fl'>1</span><span class='op'>*</span><span class='fl'>.5</span> <span class='op'>-</span> <span class='fl'>1</span> <span class='op'>*</span><span class='fl'>1.5</span> <span class='op'>-</span> <span class='fl'>2</span><span class='op'>*</span><span class='fl'>0.5</span><span class='op'>*</span><span class='fl'>.5</span> <span class='op'>+</span> <span class='fl'>0.5</span> <span class='op'>*</span> <span class='fl'>2</span> <span class='op'>*</span><span class='fl'>.5</span> <span class='op'>+</span> <span class='fl'>1</span> <span class='op'>*</span> <span class='fl'>2.5</span>
-</div><div class='output co'>#&gt; [1] 1</div><div class='input'>
-<span class='fu'>AUC</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, absolutearea <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 5.5</div><div class='input'><span class='co'># is the same as:</span>
-<span class='fl'>0.5</span><span class='op'>*</span><span class='fl'>1</span><span class='op'>/</span><span class='fl'>2</span> <span class='op'>+</span> <span class='fl'>0.5</span><span class='op'>*</span><span class='fl'>1</span><span class='op'>*</span><span class='fl'>.5</span> <span class='op'>+</span> <span class='fl'>1</span> <span class='op'>*</span><span class='fl'>1.5</span> <span class='op'>+</span> <span class='fl'>2</span><span class='op'>*</span><span class='fl'>0.5</span><span class='op'>*</span><span class='fl'>.5</span> <span class='op'>+</span> <span class='fl'>0.5</span> <span class='op'>*</span> <span class='fl'>2</span> <span class='op'>*</span><span class='fl'>.5</span> <span class='op'>+</span> <span class='fl'>1</span> <span class='op'>*</span> <span class='fl'>2.5</span>
-</div><div class='output co'>#&gt; [1] 5.5</div></pre>
+</div><div class='output co'>#&gt; [1] 1.999958</div><div class='input'><span class='fu'>AUC</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>x</span>, y<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>sin</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, method<span class='op'>=</span><span class='st'>"spline"</span><span class='op'>)</span> 
+</div><div class='output co'>#&gt; [1] 2</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

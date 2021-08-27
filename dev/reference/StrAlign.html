@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.41.7</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.42.1</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@
       <ul class="nav navbar-nav">
         <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa-book"></span>
+    <span class="fa fa-book"></span>
      
      
     <span class="caret"></span>
@@ -190,7 +190,15 @@
 [3,] "everywhere"</pre>
 
 <p>Any specific length of the strings can be created by <code><a href='StrPad.html'>StrPad</a></code> if required.</p>
-<p>In case of a given separator the strings will be aligned towards this separator. If a string does not contain the separator, the affected string will be aligned as if it had a separator as last character. This seems to be a good default, when integer numbers are to be aligned with numerical values. Note that the character length of the resulting strings can excceed the maximum length of the supplied strings.</p>
+<p>In case of a given character as separator the strings will be aligned towards this separator. Frequently this might be the decimal separator. If a string does not contain the separator, the affected string will be aligned as if it had a separator as last character. This seems to be a good default, when integer numbers are to be aligned with numerical values. Note that the character length of the resulting strings can excceed the maximum length of the supplied strings.</p><pre>z &lt;- c(" 6.0", "6.00 ", " 45.12 ", "784", NA)
+cbind(StrAlign(z, sep="."))
+     [,1]    
+[1,] "  6.0 "
+[2,] "  6.00"
+[3,] " 45.12"
+[4,] "784   "
+[5,] NA     </pre>
+
 <p>The character strings will not be pruned of whitespaces, if the requested alignment does not explicitly require it. <code><a href='StrTrim.html'>StrTrim</a></code> can be used for that.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
@@ -217,7 +225,7 @@
 #&gt; [1,] "    ABCDMNB"
 #&gt; [2,] "CDGHEBK    "
 #&gt; [3,] "     BCI   "</div><div class='input'>
-<span class='co'># align to decimal point</span>
+<span class='co'># align to decimal separator (here point)</span>
 <span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"    6.0"</span>, <span class='st'>"6.00  "</span>, <span class='st'>" 45.12    "</span>, <span class='st'>"784"</span>, <span class='cn'>NA</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='fu'>StrAlign</span><span class='op'>(</span><span class='va'>z</span>, sep<span class='op'>=</span><span class='st'>"."</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;      [,1]      

@@ -46,7 +46,7 @@
  — GoodmanKruskalGamma" />
 <meta property="og:description" content="Calculate Goodman Kruskal's Gamma statistic, a measure of
 association for ordinal factors in a two-way table.
-The function has interfaces for a table (matrix) and for single vectors." />
+The function has interfaces for a contingency table (matrix) and for single vectors (which will then be tabulated)." />
 
 
 <meta name="robots" content="noindex">
@@ -78,7 +78,7 @@ The function has interfaces for a table (matrix) and for single vectors." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.41.7</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.42.1</span>
       </span>
     </div>
 
@@ -86,7 +86,7 @@ The function has interfaces for a table (matrix) and for single vectors." />
       <ul class="nav navbar-nav">
         <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa-book"></span>
+    <span class="fa fa-book"></span>
      
      
     <span class="caret"></span>
@@ -159,7 +159,7 @@ The function has interfaces for a table (matrix) and for single vectors." />
     <div class="ref-description">
     <p>Calculate Goodman Kruskal's Gamma statistic, a measure of
 association for ordinal factors in a two-way table.<br />
-The function has interfaces for a table (matrix) and for single vectors.</p>
+The function has interfaces for a contingency table (matrix) and for single vectors (which will then be tabulated).</p>
     </div>
 
     <pre class="usage"><span class='fu'>GoodmanKruskalGamma</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, conf.level <span class='op'>=</span> <span class='cn'>NA</span>, <span class='va'>...</span><span class='op'>)</span></pre>
@@ -184,7 +184,7 @@ The function has interfaces for a table (matrix) and for single vectors.</p>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>further arguments are passed to the function <code><a href='https://rdrr.io/r/base/table.html'>table</a></code>, allowing i.e. to set useNA. This refers only to the vector interface.
+      <td><p>further arguments are passed to the function <code><a href='https://rdrr.io/r/base/table.html'>table</a></code>, allowing i.e. to control the handling of <code>NAs</code> by setting the <code>useNA</code> argument. This refers only to the vector interface, the dots are ignored if <code>x</code> is a contingency table.
 <!-- %%     ~~Describe \code{\dots} here~~ --></p></td>
     </tr>
     </table>
@@ -235,7 +235,7 @@ Other association measures: <br />
     <pre class="examples"><div class='input'>
 <span class='co'># example in:</span>
 <span class='co'># http://support.sas.com/documentation/cdl/en/statugfreq/63124/PDF/default/statugfreq.pdf</span>
-<span class='co'># pp. S. 1821</span>
+<span class='co'># pp. S. 1821 (149)</span>
 
 <span class='va'>tab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span>
   <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>26</span>,<span class='fl'>26</span>,<span class='fl'>23</span>,<span class='fl'>18</span>, <span class='fl'>9</span><span class='op'>)</span>,
