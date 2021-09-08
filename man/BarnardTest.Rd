@@ -8,7 +8,8 @@ using Score or Wald statistics for the difference between two binomial proportio
 \usage{
 BarnardTest(x, y = NULL, alternative = c("two.sided", "less", "greater"),
             method = c("csm", "csm approximate", "z-pooled", "z-unpooled",
-                       "boschloo", "santner and snell"), fixed = 1, ...)
+                       "boschloo", "santner and snell"), 
+            fixed = 1, useStoredCSM = FALSE, ...)
 }
 \arguments{
 
@@ -23,6 +24,8 @@ BarnardTest(x, y = NULL, alternative = c("two.sided", "less", "greater"),
   \item{method}{Indicates the method for finding the more extreme tables: must be either \code{"Zpooled"}, \code{"Z-unpooled"}, \code{"Santner and Snell"}, \code{"Boschloo"}, \code{"CSM"}, or \code{"CSM approximate"}. CSM tests cannot be calculated for multinomial models.}
 
   \item{fixed}{indicates which margins are fixed. \code{1} stands for row, \code{2} for columns, \code{NA} for none of both. }
+
+\item{useStoredCSM}{logical, use a stored ordering matrix for the CSM test to greatly reduce the computation time (default is \code{FALSE}).}
 
 \item{\dots}{the dots are passed on to the \code{Exact::exact.test()} function.}
 
@@ -64,6 +67,12 @@ The probability of observing \eqn{X} is
 where \eqn{p} is the unknown nuisance parameter.
 
 Barnard's test considers all tables with category sizes \eqn{c_1} and \eqn{c_2} for a given \eqn{p}. The p-value is the sum of probabilities of the tables having a score in the rejection region, e.g. having significantly large difference in proportions for a two-sided test. The p-value of the test is the maximum p-value calculated over all \eqn{p} between 0 and 1.
+
+If \code{useStoredCSM} is set to \code{TRUE} a companion data package called \pkg{ExactData} must be installed from GitHub.  
+
+The author states:
+\emph{"The CSM test is computationally intensive due to iteratively maximizing the p-value calculation to order the tables. The CSM ordering matrix has been stored for all possible sample sizes less than or equal to 100 (i.e., max(n1,n2)<=100). Thus, using the useStoredCSM = TRUE can greatly improve computation time. However, the stored ordering matrix was computed with npNumbers=100 and it is possible that the ordering matrix was not optimal for larger npNumbers. Increasing npNumbers and setting useStoredCSM = FALSE ensures the p-value is correctly calculated at the expense of
+significantly greater computation time. The stored ordering matrix is not used in the calculation of confidence intervals or non-inferiority tests, so CSM can still be very computationally intensive."}
 }
 \references{
 Barnard, G.A. (1945) A new test for 2x2 tables. \emph{Nature}, 156:177.
@@ -102,8 +111,10 @@ bt <- BarnardTest(tab)
 ttab <- as.table(matrix(c(40, 14, 10, 30), nrow=2,
                  dimnames=list(treat=c("I","II"), out=c("I","II"))))
 
+\donttest{
 bt <- BarnardTest(ttab)
 bts <- bt$statistic.table
+}
 
 # Mehta et. al (2003)
 tab <- as.table(matrix(c(7, 12, 8, 3), nrow=2,

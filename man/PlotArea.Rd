@@ -75,16 +75,12 @@ Matrix of cumulative sums that was used for plotting.
 %%  \item{comp2 }{Description of 'comp2'}
 %% ...
 }
-\references{
-\url{https://r.789695.n4.nabble.com/areaplot-td2255121.html}
-%% ~put references to the literature/web site here ~
-}
 \author{
 Arni Magnusson <arnima@hafro.is>
 }
 
 \seealso{
-\code{\link{barplot}}, \code{\link{polygon}}
+\code{\link{barplot}}, \code{\link{polygon}}, \code{\link[areaplot]{areaplot}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{

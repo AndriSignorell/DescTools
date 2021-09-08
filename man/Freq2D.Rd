@@ -55,12 +55,13 @@ Freq2D(x, \dots)
 
 \seealso{
   \code{\link{cut}}, \code{\link{table}}, and \code{\link{print.table}}
-  are the basic underlying functions.
+  are the basic underlying functions.\cr
+  \code{\link{Freq}}, \code{\link{PercTable}} 
 }
 
 \examples{
 Freq2D(quakes$long, quakes$lat, dnn="")
-Freq2D(lat~long, quakes, n=c(10,20), pad=1)
+Freq2D(lat ~ long, quakes, n=c(10, 20), pad=1)
 
 # range(Freq2D(saithe, print=FALSE))
 
@@ -68,7 +69,7 @@ Freq2D(lat~long, quakes, n=c(10,20), pad=1)
 # Freq2D(saithe, layout=2)
 # Freq2D(saithe, layout=3)
 # contour(Freq2D(saithe, layout=2))
-# lattice::contourplot(Freq~Bio+HR, Freq2D(saithe,layout=3))
+# lattice::contourplot(Freq ~ Bio + HR, Freq2D(saithe,layout=3))
 }
 % Graphics
 \keyword{dplot}

@@ -17,12 +17,12 @@ Keywords(topic)
 }
 \author{Gregory R. Warnes \email{greg@warnes.net}}
 \seealso{ \code{\link[utils]{help}} }
-\examples{
+\examples{\donttest{
 ## Show all valid R Keywords
 Keywords()
 
 ## Show Keywords associated with the 'merge' function
 Keywords(merge)
-Keywords("merge")
+Keywords("merge")}
 }
 \keyword{documentation}
