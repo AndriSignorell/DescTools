@@ -76,7 +76,7 @@ If y is supplied a two sample Wald-Wolfowitz-Test testing the equality of two di
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.42</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
       </span>
     </div>
 
@@ -220,8 +220,8 @@ If <code>y</code> is supplied a two sample Wald-Wolfowitz-Test testing the equal
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The runs test for randomness is used to test the hypothesis
-that a series of numbers is random. The 2-sample test is known as the Wald-Wolfowitz test. <br /></p>
+    <p><b>The runs test for randomness</b> <code>     </code>  is used to test the hypothesis
+that a series of numbers is random. <br /></p>
 <p>For a categorical variable, the number of runs correspond to the number of times the category changes, that is,
 where \(x_{i}\) belongs to one category and  \(x_{i+1}\)  belongs to the other. The number of runs is the number of sign changes plus one.<br /></p>
 <p>For a numeric variable x containing more than two values, a run is a set of sequential values that are either all above or below a specified cutpoint, typically the median. This is not necessarily the best choice. If another threshold should be used use a code like: <code>RunsTest(x &gt; mean(x))</code>.</p>
@@ -237,7 +237,7 @@ where \(n_0, n_1\) the number of values below/above the threshold and \(r\) the 
 <p>Setting the continuity correction <code>correct = TRUE</code> will yield the normal approximation as SAS (and SPSS if n &lt; 50) does it, see <a href='http://support.sas.com/kb/33/092.html'>http://support.sas.com/kb/33/092.html</a>.
 The c is set to \(c = 0.5\) if \(r &lt; \frac{2 n_0 n_1}{n_0 + n_1} + 1\)
 and to \(c = -0.5\) if \(r &gt; \frac{2 n_0 n_1}{n_0 + n_1} + 1\).</p>
-<p><b>Wald-Wolfowitz with Ties.</b>      Ideally there should be no ties in the data used for the Wald-Wolfowitz test. In practice there is no problem with ties within a group, but if ties occur between members of the different groups then there is no unique sequence of observations. For example the data sets A: 10,14,17,19,34 and B: 12,13,17,19,22 can give four possible sequences, with two possible values for r (7 or 9). The "solution" to this is to list every possible combination, and calculate the test statistic for each one. If all test statistics are significant at the chosen level, then one can reject the null hypothesis. If only some are significant, then Siegel (1956) suggests that the average of the P-values is taken.
+<p><b>The Wald-Wolfowitz test</b> <code>     </code>  is a  2-sample nonparametric test to  evaluate if two continuous cumulative distributions are significantly different or not. Ideally there should be no ties in the data. In practice there is no problem with ties within a group, but if ties occur between members of the different groups then there is no unique sequence of observations. For example the data sets A: 10,14,17,19,34 and B: 12,13,17,19,22 can give four possible sequences, with two possible values for r (7 or 9). The "solution" to this is to list every possible combination, and calculate the test statistic for each one. If all test statistics are significant at the chosen level, then one can reject the null hypothesis. If only some are significant, then Siegel (1956) suggests that the average of the P-values is taken.
 Help for finding all permutations of ties can be found at:  <a href='https://stackoverflow.com/questions/47565066/all-possible-permutations-in-factor-variable-when-ties-exist-in-r'>https://stackoverflow.com/questions/47565066/all-possible-permutations-in-factor-variable-when-ties-exist-in-r</a></p>
 <p>However this solutions seems quite coarse and in general, the test should not be used if there are more than one or two ties. We have better tests to distinguish between two samples!</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>

@@ -76,7 +76,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.42</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
       </span>
     </div>
 
@@ -209,9 +209,6 @@
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The confidence intervals for the trimmed means use winsorized variances as described in the references.</p>
-<p>Use <code><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></code>, <code><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></code> and <code><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></code> for getting a
-matrix with estimates and confidence intervals for more than 1 column. (See examples!)
-<!-- %%  ~~ If necessary, more details than the description above ~~ --></p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a numeric vector with 3 elements:</p>
@@ -228,7 +225,7 @@ matrix with estimates and confidence intervals for more than 1 column. (See exam
 <p>Wilcox, R. R. (2005) <em>Introduction to robust estimation and hypothesis testing</em> Elsevier Academic Press</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></code>, <code><a href='MeanDiffCI.html'>MeanDiffCI</a></code>, <code><a href='MedianCI.html'>MedianCI</a></code>, <code><a href='VarCI.html'>VarCI</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></code>, <code><a href='MeanDiffCI.html'>MeanDiffCI</a></code>, <code><a href='MedianCI.html'>MedianCI</a></code>, <code><a href='VarCI.html'>VarCI</a></code>, <code><a href='MeanCIn.html'>MeanCIn</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>price</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>20</span><span class='op'>]</span>
@@ -275,7 +272,7 @@ matrix with estimates and confidence intervals for more than 1 column. (See exam
 </div><div class='output co'>#&gt;     mean   lwr.ci   upr.ci 
 #&gt; 47.71441 37.34747 58.90979 </div><div class='input'>
 <span class='co'># Getting the MeanCI for more than 1 column</span>
-<span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span><span class='op'>(</span><span class='st'>"rbind"</span>, <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>[</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>,  <span class='va'>MeanCI</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>, <span class='fl'>3</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>[</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>, <span class='va'>MeanCI</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>, <span class='fl'>3</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;              mean    lwr.ci    upr.ci
 #&gt; index     605.000   585.299   624.701
 #&gt; date    16145.260 16144.746 16145.774

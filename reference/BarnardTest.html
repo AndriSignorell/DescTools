@@ -75,7 +75,7 @@ using Score or Wald statistics for the difference between two binomial proportio
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.42</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
       </span>
     </div>
 
@@ -159,7 +159,8 @@ using Score or Wald statistics for the difference between two binomial proportio
 
     <pre class="usage"><span class='fu'>BarnardTest</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, alternative <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"two.sided"</span>, <span class='st'>"less"</span>, <span class='st'>"greater"</span><span class='op'>)</span>,
             method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"csm"</span>, <span class='st'>"csm approximate"</span>, <span class='st'>"z-pooled"</span>, <span class='st'>"z-unpooled"</span>,
-                       <span class='st'>"boschloo"</span>, <span class='st'>"santner and snell"</span><span class='op'>)</span>, fixed <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+                       <span class='st'>"boschloo"</span>, <span class='st'>"santner and snell"</span><span class='op'>)</span>, 
+            fixed <span class='op'>=</span> <span class='fl'>1</span>, useStoredCSM <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -186,6 +187,10 @@ using Score or Wald statistics for the difference between two binomial proportio
     <tr>
       <th>fixed</th>
       <td><p>indicates which margins are fixed. <code>1</code> stands for row, <code>2</code> for columns, <code>NA</code> for none of both.</p></td>
+    </tr>
+    <tr>
+      <th>useStoredCSM</th>
+      <td><p>logical, use a stored ordering matrix for the CSM test to greatly reduce the computation time (default is <code>FALSE</code>).</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -225,6 +230,10 @@ The probability of observing \(X\) is
 $$P(X)=\frac{c_1!c_2!}{n_1!n_2!n_3!n_4!}p^{n_1+n_2}(1-p)^{n_3+n_4},$$
 where \(p\) is the unknown nuisance parameter.</p>
 <p>Barnard's test considers all tables with category sizes \(c_1\) and \(c_2\) for a given \(p\). The p-value is the sum of probabilities of the tables having a score in the rejection region, e.g. having significantly large difference in proportions for a two-sided test. The p-value of the test is the maximum p-value calculated over all \(p\) between 0 and 1.</p>
+<p>If <code>useStoredCSM</code> is set to <code>TRUE</code> a companion data package called <span class="pkg">ExactData</span> must be installed from GitHub.</p>
+<p>The author states:
+<em>"The CSM test is computationally intensive due to iteratively maximizing the p-value calculation to order the tables. The CSM ordering matrix has been stored for all possible sample sizes less than or equal to 100 (i.e., max(n1,n2)&lt;=100). Thus, using the useStoredCSM = TRUE can greatly improve computation time. However, the stored ordering matrix was computed with npNumbers=100 and it is possible that the ordering matrix was not optimal for larger npNumbers. Increasing npNumbers and setting useStoredCSM = FALSE ensures the p-value is correctly calculated at the expense of
+significantly greater computation time. The stored ordering matrix is not used in the calculation of confidence intervals or non-inferiority tests, so CSM can still be very computationally intensive."</em></p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Barnard, G.A. (1945) A new test for 2x2 tables. <em>Nature</em>, 156:177.</p>
@@ -266,8 +275,10 @@ where \(p\) is the unknown nuisance parameter.</p>
 <span class='va'>ttab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>40</span>, <span class='fl'>14</span>, <span class='fl'>10</span>, <span class='fl'>30</span><span class='op'>)</span>, nrow<span class='op'>=</span><span class='fl'>2</span>,
                  dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>treat<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"I"</span>,<span class='st'>"II"</span><span class='op'>)</span>, out<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"I"</span>,<span class='st'>"II"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
+<span class='co'># \donttest{</span>
 <span class='va'>bt</span> <span class='op'>&lt;-</span> <span class='fu'>BarnardTest</span><span class='op'>(</span><span class='va'>ttab</span><span class='op'>)</span>
 <span class='va'>bts</span> <span class='op'>&lt;-</span> <span class='va'>bt</span><span class='op'>$</span><span class='va'>statistic.table</span>
+<span class='co'># }</span>
 
 <span class='co'># Mehta et. al (2003)</span>
 <span class='va'>tab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>7</span>, <span class='fl'>12</span>, <span class='fl'>8</span>, <span class='fl'>3</span><span class='op'>)</span>, nrow<span class='op'>=</span><span class='fl'>2</span>,

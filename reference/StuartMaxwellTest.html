@@ -44,8 +44,8 @@
 
 <meta property="og:title" content="Stuart-Maxwell Marginal Homogeneity Test
  — StuartMaxwellTest" />
-<meta property="og:description" content="This function computes the marginal homogeneity test for a \(k \times  k\) matrix of assignments of objects to k categories or an \(n \times 2 \times k\) matrix of category scores for n data objects by two raters. The statistic is distributed as chi-square with k-1 degrees of freedom. 
-It can be viewed as an extention of McNemar test to \(k \times k\) table. 
+<meta property="og:description" content="This function computes the marginal homogeneity test for a \(k \times  k\) matrix of assignments of objects to k categories or two vectors x, y of category scores for n data objects by two raters. The statistic is distributed as \(\chi^2\) with k-1 degrees of freedom. 
+It can be viewed as an extension of the McNemar test to \(k \times k\) table. 
 " />
 
 
@@ -78,7 +78,7 @@ It can be viewed as an extention of McNemar test to \(k \times k\) table.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.42</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
       </span>
     </div>
 
@@ -157,8 +157,8 @@ It can be viewed as an extention of McNemar test to \(k \times k\) table.
     </div>
 
     <div class="ref-description">
-    <p>This function computes the marginal homogeneity test for a \(k \times  k\) matrix of assignments of objects to k categories or an \(n \times 2 \times k\) matrix of category scores for n data objects by two raters. The statistic is distributed as chi-square with k-1 degrees of freedom. <br />
-It can be viewed as an extention of McNemar test to \(k \times k\) table. 
+    <p>This function computes the marginal homogeneity test for a \(k \times  k\) matrix of assignments of objects to <code>k</code> categories or two vectors <code>x</code>, <code>y</code> of category scores for <code>n</code> data objects by two raters. The statistic is distributed as \(\chi^2\) with <code>k-1</code> degrees of freedom. <br />
+It can be viewed as an extension of the McNemar test to \(k \times k\) table. 
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
 
@@ -169,20 +169,23 @@ It can be viewed as an extention of McNemar test to \(k \times k\) table.
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>either a 2-way contingency table in matrix form, or a factor object.
+      <td><p>either a 2-way \(k \times  k\) contingency table in matrix form, or a factor.
 <!-- %%     ~~Describe \code{x} here~~ --></p></td>
     </tr>
     <tr>
       <th>y</th>
-      <td><p>a factor object; ignored if x is a matrix.
+      <td><p>a factor with the same levels as x; ignored if x is a matrix.
 <!-- %%     ~~Describe \code{y} here~~ --></p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The null is that the probabilities of being classified into cells [i,j] and [j,i] are the same.</p>
-<p>If x is a matrix, it is taken as a two-dimensional contingency table, and hence its entries should be nonnegative integers. Otherwise, both x and y must be vectors or factors of the same length. Incomplete cases are removed, vectors are coerced into factors, and the contingency table is computed from these.
+    <p>The null is that the probabilities of being classified into cells [i, j] and [j, i] are the same.</p>
+<p>If <code>x</code> is a matrix, it is taken as a two-dimensional contingency table, and hence its entries should be nonnegative integers. Otherwise, both x and y must be vectors or factors of the same length and with the same levels. <br />
+Incomplete cases are removed, vectors are coerced into factors, and the contingency table is computed from these.</p>
+<p>If there is perfect agreement for any category k, that category must be omitted in order to invert matrix S.</p>
+<p>If for any category <code>k</code>, all frequencies in row <code>k</code> and column <code>k</code> are 0, except possibly for the main diagonal element (e.g., for perfect agreement for category <code>k</code>, in such cases also the corresponding row and column marginal frequencies would be equal), then the category is not included in the test and should be ignored, say the Stuart-Maxwell test is performed with respect to the remaining categories only. The degree of freedom <code>df</code> in this case can still be considered <code>k - 1</code>, where <code>k</code> is the number of original categories; this treats omitted categories as if they were included but contributed 0 to the value of \(\chi^2\) - a reasonable view since such categories have equal row and column marginals. (See: <a href='http://www.john-uebersax.com/stat/mcnemar.htm#stuart'>http://www.john-uebersax.com/stat/mcnemar.htm#stuart</a>)
 <!-- %%  ~~ If necessary, more details than the description above ~~ --></p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
@@ -196,8 +199,10 @@ It can be viewed as an extention of McNemar test to \(k \times k\) table.
 
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Agresti, A. (2002) <em>Categorical Data Analysis</em>. John Wiley &amp; Sons, pp 86 ff.
-<!-- %% ~put references to the literature/web site here ~ --></p>
+    <p>Stuart, A (1955) A test for homogeneity of the marginal distributions in a two-way classification. <em>Biometrika</em>, 42, 412-416.</p>
+<p>Maxwell, A.E. (1970) Comparing the classification of subjects by two independent judges. <em>British Journal of Psychiatry</em>, 116, 651-655.</p>
+<p>Agresti, A. (2002) <em>Categorical Data Analysis</em>. John Wiley &amp; Sons, pp 86 ff.</p>
+<p><!-- %% ~put references to the literature/web site here ~ --></p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Andri Signorell &lt;andri@signorell.net&gt;, based on Code from Jim Lemon
@@ -209,7 +214,8 @@ It can be viewed as an extention of McNemar test to \(k \times k\) table.
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>hyp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>,<span class='fl'>3</span>,<span class='fl'>0</span>,<span class='fl'>10</span>,<span class='fl'>30</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>15</span>,<span class='fl'>40</span><span class='op'>)</span>, nrow<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='co'># Source: http://www.john-uebersax.com/stat/mcnemar.htm#stuart</span>
+<span class='va'>hyp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>,<span class='fl'>3</span>,<span class='fl'>0</span>,<span class='fl'>10</span>,<span class='fl'>30</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>15</span>,<span class='fl'>40</span><span class='op'>)</span>, nrow<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'>StuartMaxwellTest</span><span class='op'>(</span><span class='va'>hyp</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; 
 #&gt; 	Stuart-Maxwell test
@@ -217,7 +223,16 @@ It can be viewed as an extention of McNemar test to \(k \times k\) table.
 #&gt; data:  hyp
 #&gt; chi-squared = 13.765, df = 2, p-value = 0.001026
 #&gt; </div><div class='input'>
-<span class='co'># Source: http://www.john-uebersax.com/stat/mcnemar.htm#stuart</span>
+<span class='co'># same as defined with two vectors</span>
+<span class='va'>d.hyp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='Untable.html'>Untable</a></span><span class='op'>(</span><span class='va'>hyp</span><span class='op'>)</span>
+<span class='fu'>StuartMaxwellTest</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>d.hyp</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span>, y<span class='op'>=</span><span class='va'>d.hyp</span><span class='op'>[</span>,<span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
+#&gt; 	Stuart-Maxwell test
+#&gt; 
+#&gt; data:  d.hyp[, 1] and d.hyp[, 2]
+#&gt; chi-squared = 13.765, df = 2, p-value = 0.001026
+#&gt; </div><div class='input'>
+
 <span class='va'>mc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
          <span class='fl'>732</span>, <span class='fl'>1524</span>, <span class='fl'>1575</span>, <span class='fl'>1577</span>, <span class='fl'>1602</span>, <span class='fl'>837</span>, <span class='fl'>1554</span>, <span class='fl'>1437</span>, 
          <span class='fl'>1672</span>, <span class='fl'>1600</span>, <span class='fl'>841</span>, <span class='fl'>1363</span>, <span class='fl'>1385</span>, <span class='fl'>1484</span>, <span class='fl'>1524</span>, <span class='fl'>791</span><span class='op'>)</span>, nrow<span class='op'>=</span><span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>
