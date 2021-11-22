@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -257,32 +257,38 @@ The bootstrap method. <em>Journal of the American Statistical Association</em> 9
 <code>ineq()</code> in the package <span class="pkg">ineq</span> contains additional inequality measures</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># generate vector (of incomes)</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>541</span>, <span class='fl'>1463</span>, <span class='fl'>2445</span>, <span class='fl'>3438</span>, <span class='fl'>4437</span>, <span class='fl'>5401</span>, <span class='fl'>6392</span>, <span class='fl'>8304</span>, <span class='fl'>11904</span>, <span class='fl'>22261</span><span class='op'>)</span>
-
-<span class='co'># compute Gini coefficient</span>
-<span class='fu'>Gini</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.5134346</div><div class='input'>
-<span class='co'># working with weights</span>
-<span class='va'>fl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.5</span>, <span class='fl'>7.5</span>, <span class='fl'>15</span>, <span class='fl'>35</span>, <span class='fl'>75</span>, <span class='fl'>150</span><span class='op'>)</span>    <span class='co'># midpoints of classes</span>
-<span class='va'>n</span>  <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>25</span>, <span class='fl'>13</span>, <span class='fl'>10</span>, <span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>2</span><span class='op'>)</span>          <span class='co'># frequencies</span>
-
-<span class='co'># with confidence intervals</span>
-<span class='fu'>Gini</span><span class='op'>(</span><span class='va'>fl</span>, <span class='va'>n</span>, conf.level<span class='op'>=</span><span class='fl'>0.95</span>, unbiased<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;      gini    lwr.ci    upr.ci 
-#&gt; 0.6566810 0.6020155 0.7269044 </div><div class='input'>
-<span class='co'># some special cases</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='Lc.html'>Lc</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='Gini-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'>Gini</span><span class='op'>(</span><span class='va'>x</span>, unbiased<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.6</div><div class='input'>
-<span class='co'># the same with weights</span>
-<span class='fu'>Gini</span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>0</span><span class='op'>)</span>, n<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>3</span><span class='op'>)</span>, unbiased<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.6</div><div class='input'>
-<span class='co'># perfect balance</span>
-<span class='fu'>Gini</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>10</span>, <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># generate vector (of incomes)</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>541</span>, <span class='fl'>1463</span>, <span class='fl'>2445</span>, <span class='fl'>3438</span>, <span class='fl'>4437</span>, <span class='fl'>5401</span>, <span class='fl'>6392</span>, <span class='fl'>8304</span>, <span class='fl'>11904</span>, <span class='fl'>22261</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># compute Gini coefficient</span></span>
+<span class='r-in'><span class='fu'>Gini</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.5134346</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># working with weights</span></span>
+<span class='r-in'><span class='va'>fl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.5</span>, <span class='fl'>7.5</span>, <span class='fl'>15</span>, <span class='fl'>35</span>, <span class='fl'>75</span>, <span class='fl'>150</span><span class='op'>)</span>    <span class='co'># midpoints of classes</span></span>
+<span class='r-in'><span class='va'>n</span>  <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>25</span>, <span class='fl'>13</span>, <span class='fl'>10</span>, <span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>2</span><span class='op'>)</span>          <span class='co'># frequencies</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># with confidence intervals</span></span>
+<span class='r-in'><span class='fu'>Gini</span><span class='op'>(</span><span class='va'>fl</span>, <span class='va'>n</span>, conf.level<span class='op'>=</span><span class='fl'>0.95</span>, unbiased<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      gini    lwr.ci    upr.ci </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.6566810 0.6020155 0.7269044 </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># some special cases</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='Lc.html'>Lc</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='Gini-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>Gini</span><span class='op'>(</span><span class='va'>x</span>, unbiased<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.6</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># the same with weights</span></span>
+<span class='r-in'><span class='fu'>Gini</span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>0</span><span class='op'>)</span>, n<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>3</span><span class='op'>)</span>, unbiased<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.6</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># perfect balance</span></span>
+<span class='r-in'><span class='fu'>Gini</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>10</span>, <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

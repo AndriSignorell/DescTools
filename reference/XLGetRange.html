@@ -79,7 +79,7 @@ XLGetWorkbook() does the same for all the sheets in an Excel workbook.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -252,7 +252,7 @@ the square data structure to a data.frame.</p>
 </pre><p>This of course can be avoided by setting <code>as.data.frame</code> = <code>TRUE</code>.</p>
 <p>The function will return dates as integers, because MS-Excel stores them internally as integers.
 Such a date can subsequently be converted with the (unusual) origin of
-<code><a href='https://rdrr.io/r/base/as.Date.html'>as.Date(myDate, origin="1899-12-30")</a></code>. See also <code><a href='XLDateToPOSIXct.html'>XLDateToPOSIXct</a></code>, which does the job. The conversion can directly be performed by <code>XLGetRange()</code> if <code>datecols</code> is used and contains the date columns in the sheet data.</p>
+<code>as.Date(myDate, origin="1899-12-30")</code>. See also <code><a href='XLDateToPOSIXct.html'>XLDateToPOSIXct</a></code>, which does the job. The conversion can directly be performed by <code>XLGetRange()</code> if <code>datecols</code> is used and contains the date columns in the sheet data.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>If <code>as.data.frame</code> is set to <code>TRUE</code>, a single data.frame or a list of data.frames will be returned.
@@ -268,29 +268,35 @@ If set to <code>FALSE</code> a list of the cell values in the specified Excel ra
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span>  <span class='co'># Windows-specific example</span>
-
-<span class='fu'>XLGetRange</span><span class='op'>(</span>file<span class='op'>=</span><span class='st'>"C:/My Documents/data.xls"</span>,
-           sheet<span class='op'>=</span><span class='st'>"Sheet1"</span>,
-           range<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A2:B5"</span>,<span class='st'>"M6:X23"</span>,<span class='st'>"C4:D40"</span><span class='op'>)</span><span class='op'>)</span>
-
-
-<span class='co'># if the current region has to be read (incl. a header), place the cursor in the interesting region</span>
-<span class='co'># and run:</span>
-<span class='va'>d.set</span> <span class='op'>&lt;-</span> <span class='fu'>XLGetRange</span><span class='op'>(</span>header<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Loading required namespace: RDCOMClient</span></div><div class='output co'>#&gt; <span class='warning'>Warning: RDCOMClient is unfortunately not available for Darwin systems (Windows-only).</span></div><div class='output co'>#&gt; <span class='error'>Error in xl$ActiveSheet(): attempt to apply non-function</span></div><div class='input'>
-<span class='co'># Get XL nameslist</span>
-<span class='va'>nm</span> <span class='op'>&lt;-</span> <span class='va'>xl</span><span class='op'>$</span><span class='fu'>ActiveWorkbook</span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>names</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'xl' not found</span></div><div class='input'>
-<span class='va'>lst</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='kw'>for</span><span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>nm</span><span class='op'>$</span><span class='fu'>count</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-  <span class='va'>lst</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>name<span class='op'>=</span><span class='va'>nm</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='fu'>name</span><span class='op'>(</span><span class='op'>)</span>, 
-                address<span class='op'>=</span><span class='va'>nm</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='fu'>refersToRange</span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>Address</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'nm' not found</span></div><div class='input'>  
-<span class='co'># the defined names</span>
-<span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span><span class='op'>(</span><span class='va'>rbind</span>, <span class='va'>lst</span><span class='op'>)</span>, stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; data frame with 0 columns and 0 rows</div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span>  <span class='co'># Windows-specific example</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>XLGetRange</span><span class='op'>(</span>file<span class='op'>=</span><span class='st'>"C:/My Documents/data.xls"</span>,</span>
+<span class='r-in'>           sheet<span class='op'>=</span><span class='st'>"Sheet1"</span>,</span>
+<span class='r-in'>           range<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A2:B5"</span>,<span class='st'>"M6:X23"</span>,<span class='st'>"C4:D40"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># if the current region has to be read (incl. a header), place the cursor in the interesting region</span></span>
+<span class='r-in'><span class='co'># and run:</span></span>
+<span class='r-in'><span class='va'>d.set</span> <span class='op'>&lt;-</span> <span class='fu'>XLGetRange</span><span class='op'>(</span>header<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Loading required namespace: RDCOMClient</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>RDCOMClient is unfortunately not available for Darwin systems (Windows-only).</span>
+<span class='r-err co'><span class='r-pr'>#&gt;</span> <span class='error'>Error in xl$ActiveSheet():</span> attempt to apply non-function</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Get XL nameslist</span></span>
+<span class='r-in'><span class='va'>nm</span> <span class='op'>&lt;-</span> <span class='va'>xl</span><span class='op'>$</span><span class='fu'>ActiveWorkbook</span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>names</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-err co'><span class='r-pr'>#&gt;</span> <span class='error'>Error in eval(expr, envir, enclos):</span> object 'xl' not found</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>lst</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='kw'>for</span><span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>nm</span><span class='op'>$</span><span class='fu'>count</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='va'>lst</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>name<span class='op'>=</span><span class='va'>nm</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='fu'>name</span><span class='op'>(</span><span class='op'>)</span>, </span>
+<span class='r-in'>                address<span class='op'>=</span><span class='va'>nm</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='fu'>refersToRange</span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>Address</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-err co'><span class='r-pr'>#&gt;</span> <span class='error'>Error in eval(expr, envir, enclos):</span> object 'nm' not found</span>
+<span class='r-in'>  </span>
+<span class='r-in'><span class='co'># the defined names</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span><span class='op'>(</span><span class='va'>rbind</span>, <span class='va'>lst</span><span class='op'>)</span>, stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data frame with 0 columns and 0 rows</span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

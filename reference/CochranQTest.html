@@ -75,7 +75,7 @@ binary response variable and paired data." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -186,7 +186,7 @@ binary response variable and paired data.</p>
     </tr>
     <tr>
       <th>data</th>
-      <td><p>an optional matrix or data frame (or similar: see <code><a href='https://rdrr.io/r/stats/model.frame.html'>model.frame</a></code>) containing the variables in the formula. By default the variables are taken from <code><a href='https://rdrr.io/r/base/environment.html'>environment(formula)</a></code>.</p></td>
+      <td><p>an optional matrix or data frame (or similar: see <code><a href='https://rdrr.io/r/stats/model.frame.html'>model.frame</a></code>) containing the variables in the formula. By default the variables are taken from <code>environment(formula)</code>.</p></td>
     </tr>
     <tr>
       <th>subset</th>
@@ -194,7 +194,7 @@ binary response variable and paired data.</p>
     </tr>
     <tr>
       <th>na.action</th>
-      <td><p>a function which indicates what should happen when the data contain <code>NA</code>s. Defaults to <code><a href='https://rdrr.io/r/base/options.html'>getOption("na.action")</a></code>.</p></td>
+      <td><p>a function which indicates what should happen when the data contain <code>NA</code>s. Defaults to <code>getOption("na.action")</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -229,39 +229,41 @@ binary observation in y for each combination of levels of groups and blocks) whe
     <p>Andri Signorell &lt;andri@signorell.net&gt;</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># example in: </span>
-<span class='co'># http://support.sas.com/documentation/cdl/en/statugfreq/63124/PDF/default/statugfreq.pdf</span>
-<span class='co'># pp. S. 1824</span>
-
-<span class='co'># use expand.grid, xtabs and Untable to create the dataset</span>
-<span class='va'>d.frm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='Untable.html'>Untable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>6</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>6</span>,<span class='fl'>16</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>6</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>.</span>, 
-    <span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"F"</span>,<span class='st'>"U"</span><span class='op'>)</span><span class='op'>)</span>, times<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>, 
-    colnames <span class='op'>=</span> <span class='va'>LETTERS</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span>
-
-<span class='co'># rearrange to long shape    </span>
-<span class='va'>d.long</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/reshape.html'>reshape</a></span><span class='op'>(</span><span class='va'>d.frm</span>, varying<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, times<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>d.frm</span><span class='op'>)</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>]</span>, 
-                  v.names<span class='op'>=</span><span class='st'>"resp"</span>, direction<span class='op'>=</span><span class='st'>"long"</span><span class='op'>)</span>
-
-
-<span class='co'># after having done the hard work of data organisation, performing the test is a piece of cake....</span>
-<span class='fu'>CochranQTest</span><span class='op'>(</span><span class='va'>resp</span> <span class='op'>~</span> <span class='va'>time</span> <span class='op'>|</span> <span class='va'>id</span>, data<span class='op'>=</span><span class='va'>d.long</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	Cochran's Q test
-#&gt; 
-#&gt; data:  resp and time and id
-#&gt; Q = 8.4706, df = 2, p-value = 0.01448
-#&gt; </div><div class='input'>
-<span class='co'># and let's perform a post hoc analysis using mcnemar's test</span>
-<span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/split.html'>split</a></span><span class='op'>(</span><span class='va'>d.long</span>, f<span class='op'>=</span><span class='va'>d.long</span><span class='op'>$</span><span class='va'>time</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/pairwise.table.html'>pairwise.table</a></span><span class='op'>(</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>i</span>, <span class='va'>j</span><span class='op'>)</span> <span class='op'>{</span> 
-    <span class='fu'><a href='https://rdrr.io/r/stats/mcnemar.test.html'>mcnemar.test</a></span><span class='op'>(</span><span class='va'>z</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='va'>resp</span>, <span class='va'>z</span><span class='op'>[[</span><span class='va'>j</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='va'>resp</span>, correct<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>$</span><span class='va'>p.value</span>
-  <span class='op'>}</span>, 
-  level.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>z</span><span class='op'>)</span>, 
-  p.adjust.method <span class='op'>=</span> <span class='st'>"fdr"</span>
-<span class='op'>)</span>
-</div><div class='output co'>#&gt;           A         B
-#&gt; B 1.0000000        NA
-#&gt; C 0.0350133 0.0350133</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># example in: </span></span>
+<span class='r-in'><span class='co'># http://support.sas.com/documentation/cdl/en/statugfreq/63124/PDF/default/statugfreq.pdf</span></span>
+<span class='r-in'><span class='co'># pp. S. 1824</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># use expand.grid, xtabs and Untable to create the dataset</span></span>
+<span class='r-in'><span class='va'>d.frm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='Untable.html'>Untable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>6</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>6</span>,<span class='fl'>16</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>6</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>.</span>, </span>
+<span class='r-in'>    <span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"F"</span>,<span class='st'>"U"</span><span class='op'>)</span><span class='op'>)</span>, times<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>, </span>
+<span class='r-in'>    colnames <span class='op'>=</span> <span class='va'>LETTERS</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># rearrange to long shape    </span></span>
+<span class='r-in'><span class='va'>d.long</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/reshape.html'>reshape</a></span><span class='op'>(</span><span class='va'>d.frm</span>, varying<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, times<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>d.frm</span><span class='op'>)</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>]</span>, </span>
+<span class='r-in'>                  v.names<span class='op'>=</span><span class='st'>"resp"</span>, direction<span class='op'>=</span><span class='st'>"long"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># after having done the hard work of data organisation, performing the test is a piece of cake....</span></span>
+<span class='r-in'><span class='fu'>CochranQTest</span><span class='op'>(</span><span class='va'>resp</span> <span class='op'>~</span> <span class='va'>time</span> <span class='op'>|</span> <span class='va'>id</span>, data<span class='op'>=</span><span class='va'>d.long</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Cochran's Q test</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  resp and time and id</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Q = 8.4706, df = 2, p-value = 0.01448</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># and let's perform a post hoc analysis using mcnemar's test</span></span>
+<span class='r-in'><span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/split.html'>split</a></span><span class='op'>(</span><span class='va'>d.long</span>, f<span class='op'>=</span><span class='va'>d.long</span><span class='op'>$</span><span class='va'>time</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/stats/pairwise.table.html'>pairwise.table</a></span><span class='op'>(</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>i</span>, <span class='va'>j</span><span class='op'>)</span> <span class='op'>{</span> </span>
+<span class='r-in'>    <span class='fu'><a href='https://rdrr.io/r/stats/mcnemar.test.html'>mcnemar.test</a></span><span class='op'>(</span><span class='va'>z</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='va'>resp</span>, <span class='va'>z</span><span class='op'>[[</span><span class='va'>j</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='va'>resp</span>, correct<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>$</span><span class='va'>p.value</span></span>
+<span class='r-in'>  <span class='op'>}</span>, </span>
+<span class='r-in'>  level.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>z</span><span class='op'>)</span>, </span>
+<span class='r-in'>  p.adjust.method <span class='op'>=</span> <span class='st'>"fdr"</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           A         B</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> B 1.0000000        NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> C 0.0350133 0.0350133</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -215,115 +215,122 @@ This function returns the coordinates for the text, which can be used in the spe
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>, type<span class='op'>=</span><span class='st'>"n"</span>, xlab<span class='op'>=</span><span class='st'>""</span>, ylab<span class='op'>=</span><span class='st'>""</span><span class='op'>)</span>
-</div><div class='img'><img src='ABCCoords-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># note that plot.new() has to be called before we can grab the geometry</span>
-<span class='fu'>ABCCoords</span><span class='op'>(</span><span class='st'>"bottomleft"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $xy
-#&gt; $xy$x
-#&gt; [1] -0.8287469
-#&gt; 
-#&gt; $xy$y
-#&gt; [1] -3.399057
-#&gt; 
-#&gt; $xy$xlab
-#&gt; NULL
-#&gt; 
-#&gt; $xy$ylab
-#&gt; NULL
-#&gt; 
-#&gt; 
-#&gt; $adj
-#&gt; [1] 0 0
-#&gt; </div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"bottomleft"</span>, <span class='st'>"left"</span><span class='op'>)</span>, <span class='va'>ABCCoords</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [[1]]
-#&gt; [[1]]$xy
-#&gt; [[1]]$xy$x
-#&gt; [1] -0.8287469
-#&gt; 
-#&gt; [[1]]$xy$y
-#&gt; [1] -3.399057
-#&gt; 
-#&gt; [[1]]$xy$xlab
-#&gt; NULL
-#&gt; 
-#&gt; [[1]]$xy$ylab
-#&gt; NULL
-#&gt; 
-#&gt; 
-#&gt; [[1]]$adj
-#&gt; [1] 0 0
-#&gt; 
-#&gt; 
-#&gt; [[2]]
-#&gt; [[2]]$xy
-#&gt; [[2]]$xy$x
-#&gt; [1] -0.8287469
-#&gt; 
-#&gt; [[2]]$xy$y
-#&gt; [1] -0.724658
-#&gt; 
-#&gt; [[2]]$xy$xlab
-#&gt; NULL
-#&gt; 
-#&gt; [[2]]$xy$ylab
-#&gt; NULL
-#&gt; 
-#&gt; 
-#&gt; [[2]]$adj
-#&gt; [1] 0.0 0.5
-#&gt; 
-#&gt; </div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>, type<span class='op'>=</span><span class='st'>"n"</span>, xlab<span class='op'>=</span><span class='st'>""</span>, ylab<span class='op'>=</span><span class='st'>""</span><span class='op'>)</span>
-</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='op'>(</span><span class='va'>xy</span> <span class='op'>&lt;-</span> <span class='fu'>ABCCoords</span><span class='op'>(</span><span class='st'>"bottomleft"</span>, region <span class='op'>=</span> <span class='st'>"plot"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>$</span><span class='va'>xy</span>, 
-     labels <span class='op'>=</span> <span class='st'>"My Maybe Long Text"</span>, adj <span class='op'>=</span> <span class='va'>xy</span><span class='op'>$</span><span class='va'>adj</span>, xpd<span class='op'>=</span><span class='cn'>NA</span><span class='op'>)</span>
-</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='op'>(</span><span class='va'>xy</span> <span class='op'>&lt;-</span> <span class='fu'>ABCCoords</span><span class='op'>(</span><span class='st'>"topleft"</span>, region <span class='op'>=</span> <span class='st'>"figure"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>$</span><span class='va'>xy</span>, 
-     labels <span class='op'>=</span> <span class='st'>"My Maybe Long Text"</span>, adj <span class='op'>=</span> <span class='va'>xy</span><span class='op'>$</span><span class='va'>adj</span>, xpd<span class='op'>=</span><span class='cn'>NA</span><span class='op'>)</span>
-</div><div class='img'><img src='ABCCoords-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>, type<span class='op'>=</span><span class='st'>"n"</span>, xlab<span class='op'>=</span><span class='st'>""</span>, ylab<span class='op'>=</span><span class='st'>""</span><span class='op'>)</span>
-</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"topleft"</span>, <span class='st'>"top"</span>, <span class='st'>"topright"</span>, <span class='st'>"left"</span>, <span class='st'>"center"</span>, 
-         <span class='st'>"right"</span>, <span class='st'>"bottomleft"</span>, <span class='st'>"bottom"</span>, <span class='st'>"bottomright"</span><span class='op'>)</span>, 
-       <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> 
-         <span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='op'>(</span><span class='va'>xy</span> <span class='op'>&lt;-</span> <span class='fu'>ABCCoords</span><span class='op'>(</span><span class='va'>x</span>, region <span class='op'>=</span> <span class='st'>"plot"</span>, linset<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>$</span><span class='va'>xy</span>, 
-              labels <span class='op'>=</span> <span class='st'>"MyMarginText"</span>, adj <span class='op'>=</span> <span class='va'>xy</span><span class='op'>$</span><span class='va'>adj</span>, xpd<span class='op'>=</span><span class='cn'>NA</span><span class='op'>)</span>
-<span class='op'>)</span>
-</div><div class='img'><img src='ABCCoords-3.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $topleft
-#&gt; NULL
-#&gt; 
-#&gt; $top
-#&gt; NULL
-#&gt; 
-#&gt; $topright
-#&gt; NULL
-#&gt; 
-#&gt; $left
-#&gt; NULL
-#&gt; 
-#&gt; $center
-#&gt; NULL
-#&gt; 
-#&gt; $right
-#&gt; NULL
-#&gt; 
-#&gt; $bottomleft
-#&gt; NULL
-#&gt; 
-#&gt; $bottom
-#&gt; NULL
-#&gt; 
-#&gt; $bottomright
-#&gt; NULL
-#&gt; </div><div class='input'>
-
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span>, type<span class='op'>=</span><span class='st'>"n"</span>, xlab<span class='op'>=</span><span class='st'>""</span>, ylab<span class='op'>=</span><span class='st'>""</span>,
-     panel.first<span class='op'>=</span><span class='op'>{</span><span class='fu'><a href='Bg.html'>Bg</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"red"</span>, <span class='st'>"lightyellow"</span><span class='op'>)</span><span class='op'>)</span>
-             <span class='fu'><a href='https://rdrr.io/r/graphics/grid.html'>grid</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>}</span><span class='op'>)</span>
-</div><div class='input'><span class='va'>xy</span> <span class='op'>&lt;-</span> <span class='fu'>ABCCoords</span><span class='op'>(</span><span class='st'>"topleft"</span>, region <span class='op'>=</span> <span class='st'>"plot"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>xpd<span class='op'>=</span><span class='cn'>NA</span><span class='op'>)</span>
-<span class='fu'><a href='BoxedText.html'>BoxedText</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>xy</span><span class='op'>$</span><span class='va'>xy</span><span class='op'>$</span><span class='va'>x</span>, y<span class='op'>=</span><span class='va'>xy</span><span class='op'>$</span><span class='va'>xy</span><span class='op'>$</span><span class='va'>y</span>, xpad <span class='op'>=</span> <span class='fl'>1</span>, ypad <span class='op'>=</span> <span class='fl'>1</span>,
-          labels <span class='op'>=</span> <span class='st'>"My Maybe Long Text"</span>, adj <span class='op'>=</span> <span class='va'>xy</span><span class='op'>$</span><span class='va'>adj</span>, col<span class='op'>=</span><span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span><span class='op'>(</span><span class='st'>"green"</span>, <span class='fl'>0.8</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='ABCCoords-4.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>, type<span class='op'>=</span><span class='st'>"n"</span>, xlab<span class='op'>=</span><span class='st'>""</span>, ylab<span class='op'>=</span><span class='st'>""</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='ABCCoords-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'># note that plot.new() has to be called before we can grab the geometry</span></span>
+<span class='r-in'><span class='fu'>ABCCoords</span><span class='op'>(</span><span class='st'>"bottomleft"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $xy</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $xy$x</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] -0.8287469</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $xy$y</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] -3.399057</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $xy$xlab</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $xy$ylab</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $adj</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0 0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"bottomleft"</span>, <span class='st'>"left"</span><span class='op'>)</span>, <span class='va'>ABCCoords</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[1]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[1]]$xy</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[1]]$xy$x</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] -0.8287469</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[1]]$xy$y</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] -3.399057</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[1]]$xy$xlab</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[1]]$xy$ylab</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[1]]$adj</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0 0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[2]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[2]]$xy</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[2]]$xy$x</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] -0.8287469</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[2]]$xy$y</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] -0.724658</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[2]]$xy$xlab</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[2]]$xy$ylab</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[2]]$adj</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.0 0.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>, type<span class='op'>=</span><span class='st'>"n"</span>, xlab<span class='op'>=</span><span class='st'>""</span>, ylab<span class='op'>=</span><span class='st'>""</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='op'>(</span><span class='va'>xy</span> <span class='op'>&lt;-</span> <span class='fu'>ABCCoords</span><span class='op'>(</span><span class='st'>"bottomleft"</span>, region <span class='op'>=</span> <span class='st'>"plot"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>$</span><span class='va'>xy</span>, </span>
+<span class='r-in'>     labels <span class='op'>=</span> <span class='st'>"My Maybe Long Text"</span>, adj <span class='op'>=</span> <span class='va'>xy</span><span class='op'>$</span><span class='va'>adj</span>, xpd<span class='op'>=</span><span class='cn'>NA</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='op'>(</span><span class='va'>xy</span> <span class='op'>&lt;-</span> <span class='fu'>ABCCoords</span><span class='op'>(</span><span class='st'>"topleft"</span>, region <span class='op'>=</span> <span class='st'>"figure"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>$</span><span class='va'>xy</span>, </span>
+<span class='r-in'>     labels <span class='op'>=</span> <span class='st'>"My Maybe Long Text"</span>, adj <span class='op'>=</span> <span class='va'>xy</span><span class='op'>$</span><span class='va'>adj</span>, xpd<span class='op'>=</span><span class='cn'>NA</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='ABCCoords-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>, type<span class='op'>=</span><span class='st'>"n"</span>, xlab<span class='op'>=</span><span class='st'>""</span>, ylab<span class='op'>=</span><span class='st'>""</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"topleft"</span>, <span class='st'>"top"</span>, <span class='st'>"topright"</span>, <span class='st'>"left"</span>, <span class='st'>"center"</span>, </span>
+<span class='r-in'>         <span class='st'>"right"</span>, <span class='st'>"bottomleft"</span>, <span class='st'>"bottom"</span>, <span class='st'>"bottomright"</span><span class='op'>)</span>, </span>
+<span class='r-in'>       <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> </span>
+<span class='r-in'>         <span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='op'>(</span><span class='va'>xy</span> <span class='op'>&lt;-</span> <span class='fu'>ABCCoords</span><span class='op'>(</span><span class='va'>x</span>, region <span class='op'>=</span> <span class='st'>"plot"</span>, linset<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>$</span><span class='va'>xy</span>, </span>
+<span class='r-in'>              labels <span class='op'>=</span> <span class='st'>"MyMarginText"</span>, adj <span class='op'>=</span> <span class='va'>xy</span><span class='op'>$</span><span class='va'>adj</span>, xpd<span class='op'>=</span><span class='cn'>NA</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-plt img'><img src='ABCCoords-3.png' alt='' width='700' height='433' /></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $topleft</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $top</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $topright</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $left</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $center</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $right</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $bottomleft</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $bottom</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $bottomright</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span>, type<span class='op'>=</span><span class='st'>"n"</span>, xlab<span class='op'>=</span><span class='st'>""</span>, ylab<span class='op'>=</span><span class='st'>""</span>,</span>
+<span class='r-in'>     panel.first<span class='op'>=</span><span class='op'>{</span><span class='fu'><a href='Bg.html'>Bg</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"red"</span>, <span class='st'>"lightyellow"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'>             <span class='fu'><a href='https://rdrr.io/r/graphics/grid.html'>grid</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>}</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>xy</span> <span class='op'>&lt;-</span> <span class='fu'>ABCCoords</span><span class='op'>(</span><span class='st'>"topleft"</span>, region <span class='op'>=</span> <span class='st'>"plot"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>xpd<span class='op'>=</span><span class='cn'>NA</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='BoxedText.html'>BoxedText</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>xy</span><span class='op'>$</span><span class='va'>xy</span><span class='op'>$</span><span class='va'>x</span>, y<span class='op'>=</span><span class='va'>xy</span><span class='op'>$</span><span class='va'>xy</span><span class='op'>$</span><span class='va'>y</span>, xpad <span class='op'>=</span> <span class='fl'>1</span>, ypad <span class='op'>=</span> <span class='fl'>1</span>,</span>
+<span class='r-in'>          labels <span class='op'>=</span> <span class='st'>"My Maybe Long Text"</span>, adj <span class='op'>=</span> <span class='va'>xy</span><span class='op'>$</span><span class='va'>adj</span>, col<span class='op'>=</span><span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span><span class='op'>(</span><span class='st'>"green"</span>, <span class='fl'>0.8</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='ABCCoords-4.png' alt='' width='700' height='433' /></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

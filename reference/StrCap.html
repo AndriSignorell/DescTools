@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -178,30 +178,35 @@
     <p>Charles Dupont  &lt;charles.dupont@vanderbilt.edu&gt;, Andri Signorell &lt;andri@signorell.net&gt; (methods word and title)</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># capitalize first character</span>
-<span class='fu'>StrCap</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Hello"</span>, <span class='st'>"bob"</span>, <span class='st'>"daN"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "Hello" "Bob"   "DaN"  </div><div class='input'><span class='co'># but not all...</span>
-<span class='fu'>StrCap</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Hello bob, how are you?"</span>, <span class='st'>"And you, DANIEL?"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "Hello bob, how are you?" "And you, DANIEL?"       </div><div class='input'>
-<span class='co'># wordwise</span>
-<span class='fu'>StrCap</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Capitalize all words in titles of publications and documents"</span>,
-              <span class='st'>"but Up and UP, not all and all"</span>, <span class='cn'>NA</span><span class='op'>)</span>, method<span class='op'>=</span><span class='st'>"word"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "Capitalize All Words In Titles Of Publications And Documents"
-#&gt; [2] "But Up And UP Not All And All"                               
-#&gt; [3] NA                                                            </div><div class='input'>
-<span class='co'># wordwise omitting the ones listed above</span>
-<span class='fu'>StrCap</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Capitalize all words in titles of publications and documents"</span>,
-         <span class='st'>"but Up and UP, not all and all"</span>, <span class='cn'>NA</span><span class='op'>)</span>, method<span class='op'>=</span><span class='st'>"title"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "Capitalize All Words in Titles of Publications and Documents"
-#&gt; [2] "but up and up, Not All and All"                              
-#&gt; [3] NA                                                            </div><div class='input'>
-<span class='co'># do not touch non alphabetic characters</span>
-<span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Lorem ipsum dolor"</span>, <span class='st'>"-- sit amet"</span>, <span class='st'>"consectetur --"</span>, <span class='st'>" adipiscing elit "</span>,
-       <span class='st'>"sed,.--(do) / +-*eiusmod"</span><span class='op'>)</span>
-<span class='fu'>StrCap</span><span class='op'>(</span><span class='va'>z</span>, method<span class='op'>=</span><span class='st'>"title"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "Lorem Ipsum Dolor"        "-- Sit Amet"             
-#&gt; [3] "Consectetur --"           " Adipiscing Elit "       
-#&gt; [5] "Sed,.--(Do) / +-*Eiusmod"</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># capitalize first character</span></span>
+<span class='r-in'><span class='fu'>StrCap</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Hello"</span>, <span class='st'>"bob"</span>, <span class='st'>"daN"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Hello" "Bob"   "DaN"  </span>
+<span class='r-in'><span class='co'># but not all...</span></span>
+<span class='r-in'><span class='fu'>StrCap</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Hello bob, how are you?"</span>, <span class='st'>"And you, DANIEL?"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Hello bob, how are you?" "And you, DANIEL?"       </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># wordwise</span></span>
+<span class='r-in'><span class='fu'>StrCap</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Capitalize all words in titles of publications and documents"</span>,</span>
+<span class='r-in'>              <span class='st'>"but Up and UP, not all and all"</span>, <span class='cn'>NA</span><span class='op'>)</span>, method<span class='op'>=</span><span class='st'>"word"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Capitalize All Words In Titles Of Publications And Documents"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2] "But Up And UP Not All And All"                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3] NA                                                            </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># wordwise omitting the ones listed above</span></span>
+<span class='r-in'><span class='fu'>StrCap</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Capitalize all words in titles of publications and documents"</span>,</span>
+<span class='r-in'>         <span class='st'>"but Up and UP, not all and all"</span>, <span class='cn'>NA</span><span class='op'>)</span>, method<span class='op'>=</span><span class='st'>"title"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Capitalize All Words in Titles of Publications and Documents"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2] "but up and up, Not All and All"                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3] NA                                                            </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># do not touch non alphabetic characters</span></span>
+<span class='r-in'><span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Lorem ipsum dolor"</span>, <span class='st'>"-- sit amet"</span>, <span class='st'>"consectetur --"</span>, <span class='st'>" adipiscing elit "</span>,</span>
+<span class='r-in'>       <span class='st'>"sed,.--(do) / +-*eiusmod"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>StrCap</span><span class='op'>(</span><span class='va'>z</span>, method<span class='op'>=</span><span class='st'>"title"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Lorem Ipsum Dolor"        "-- Sit Amet"             </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3] "Consectetur --"           " Adipiscing Elit "       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [5] "Sed,.--(Do) / +-*Eiusmod"</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

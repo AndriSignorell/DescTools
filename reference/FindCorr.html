@@ -75,7 +75,7 @@ corresponding to columns to remove to reduce pair-wise correlations." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -185,7 +185,7 @@ corresponding to columns to remove to reduce pair-wise correlations.</p>
    to accomplish the same goal. However the package was removed from CRAN and available in the archives.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A vector of indices denoting the columns to remove. If no correlations meet the criteria, <code><a href='https://rdrr.io/r/base/numeric.html'>numeric(0)</a></code> is returned.</p>
+    <p>A vector of indices denoting the columns to remove. If no correlations meet the criteria, <code>numeric(0)</code> is returned.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Max Kuhn. Contributions from Jed Wing, Steve Weston, Andre Williams, Chris Keefer,
@@ -197,148 +197,156 @@ corresponding to columns to remove to reduce pair-wise correlations.</p>
     <p>Original R code by Dong Li, modified by Max Kuhn</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>corrMatrix</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>corrMatrix</span><span class='op'>[</span><span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>corrMatrix</span><span class='op'>[</span><span class='fl'>3</span>, <span class='fl'>2</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>.7</span>
-<span class='va'>corrMatrix</span><span class='op'>[</span><span class='fl'>5</span>, <span class='fl'>3</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>corrMatrix</span><span class='op'>[</span><span class='fl'>3</span>, <span class='fl'>5</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='op'>-</span><span class='fl'>.7</span>
-<span class='va'>corrMatrix</span><span class='op'>[</span><span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>corrMatrix</span><span class='op'>[</span><span class='fl'>1</span>, <span class='fl'>4</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='op'>-</span><span class='fl'>.67</span>
-
-<span class='va'>corrDF</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span><span class='op'>(</span>row <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, col <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>
-<span class='va'>corrDF</span><span class='op'>$</span><span class='va'>correlation</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/vector.html'>as.vector</a></span><span class='op'>(</span><span class='va'>corrMatrix</span><span class='op'>)</span>
-<span class='fu'><a href='PlotCorr.html'>PlotCorr</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span><span class='op'>(</span><span class='va'>correlation</span> <span class='op'>~</span> <span class='va'>.</span>, <span class='va'>corrDF</span><span class='op'>)</span>, las<span class='op'>=</span><span class='fl'>1</span>, border<span class='op'>=</span><span class='st'>"grey"</span><span class='op'>)</span>
-</div><div class='img'><img src='FindCorr-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'>FindCorr</span><span class='op'>(</span><span class='va'>corrMatrix</span>, cutoff <span class='op'>=</span> <span class='fl'>.65</span>, verbose <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Considering row	 3 column	 2 value	 0.7 
-#&gt;   Flagging column	 3 
-#&gt; Considering row	 2 column	 5 value	 0 
-#&gt; Considering row	 2 column	 1 value	 0 
-#&gt; Considering row	 2 column	 4 value	 0 
-#&gt; Considering row	 5 column	 1 value	 0 
-#&gt; Considering row	 5 column	 4 value	 0 
-#&gt; Considering row	 1 column	 4 value	 0.67 
-#&gt;   Flagging column	 4 </div><div class='output co'>#&gt; [1] 3 4</div><div class='input'>
-<span class='fu'>FindCorr</span><span class='op'>(</span><span class='va'>corrMatrix</span>, cutoff <span class='op'>=</span> <span class='fl'>.99</span>, verbose <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Considering row	 3 column	 2 value	 0.7 
-#&gt; Considering row	 3 column	 5 value	 0.7 
-#&gt; Considering row	 3 column	 1 value	 0 
-#&gt; Considering row	 3 column	 4 value	 0 
-#&gt; Considering row	 2 column	 5 value	 0 
-#&gt; Considering row	 2 column	 1 value	 0 
-#&gt; Considering row	 2 column	 4 value	 0 
-#&gt; Considering row	 5 column	 1 value	 0 
-#&gt; Considering row	 5 column	 4 value	 0 
-#&gt; Considering row	 1 column	 4 value	 0.67 </div><div class='output co'>#&gt; integer(0)</div><div class='input'>
-<span class='co'># d.pizza example</span>
-<span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>d.pizza</span>, <span class='va'>as.numeric</span><span class='op'>)</span><span class='op'>)</span>, use<span class='op'>=</span><span class='st'>"pairwise.complete.obs"</span><span class='op'>)</span>
-<span class='fu'>FindCorr</span><span class='op'>(</span><span class='va'>m</span>, verbose <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Considering row	 8 column	 3 value	 0.018 
-#&gt; Considering row	 8 column	 2 value	 0.028 
-#&gt; Considering row	 8 column	 1 value	 0.03 
-#&gt; Considering row	 8 column	 12 value	 0.019 
-#&gt; Considering row	 8 column	 16 value	 0.076 
-#&gt; Considering row	 8 column	 5 value	 0.152 
-#&gt; Considering row	 8 column	 11 value	 0.095 
-#&gt; Considering row	 8 column	 13 value	 0.51 
-#&gt; Considering row	 8 column	 14 value	 0.478 
-#&gt; Considering row	 8 column	 6 value	 0.807 
-#&gt; Considering row	 8 column	 7 value	 0.543 
-#&gt; Considering row	 8 column	 9 value	 0.076 
-#&gt; Considering row	 8 column	 4 value	 0.042 
-#&gt; Considering row	 8 column	 10 value	 0.038 
-#&gt; Considering row	 8 column	 15 value	 0.033 
-#&gt; Considering row	 3 column	 2 value	 0.976 
-#&gt;   Flagging column	 3 
-#&gt; Considering row	 2 column	 1 value	 0.999 
-#&gt;   Flagging column	 2 
-#&gt; Considering row	 1 column	 12 value	 0.067 
-#&gt; Considering row	 1 column	 16 value	 0.072 
-#&gt; Considering row	 1 column	 5 value	 0.119 
-#&gt; Considering row	 1 column	 11 value	 0.056 
-#&gt; Considering row	 1 column	 13 value	 0.031 
-#&gt; Considering row	 1 column	 14 value	 0.017 
-#&gt; Considering row	 1 column	 6 value	 0.009 
-#&gt; Considering row	 1 column	 7 value	 0.01 
-#&gt; Considering row	 1 column	 9 value	 0.14 
-#&gt; Considering row	 1 column	 4 value	 0.038 
-#&gt; Considering row	 1 column	 10 value	 0.063 
-#&gt; Considering row	 1 column	 15 value	 0.015 
-#&gt; Considering row	 12 column	 16 value	 0.707 
-#&gt; Considering row	 12 column	 5 value	 0.292 
-#&gt; Considering row	 12 column	 11 value	 0.575 
-#&gt; Considering row	 12 column	 13 value	 0.05 
-#&gt; Considering row	 12 column	 14 value	 0.067 
-#&gt; Considering row	 12 column	 6 value	 0.043 
-#&gt; Considering row	 12 column	 7 value	 0.109 
-#&gt; Considering row	 12 column	 9 value	 0.072 
-#&gt; Considering row	 12 column	 4 value	 0.105 
-#&gt; Considering row	 12 column	 10 value	 0.003 
-#&gt; Considering row	 12 column	 15 value	 0.035 
-#&gt; Considering row	 16 column	 5 value	 0.227 
-#&gt; Considering row	 16 column	 11 value	 0.355 
-#&gt; Considering row	 16 column	 13 value	 0.077 
-#&gt; Considering row	 16 column	 14 value	 0.114 
-#&gt; Considering row	 16 column	 6 value	 0.008 
-#&gt; Considering row	 16 column	 7 value	 0.059 
-#&gt; Considering row	 16 column	 9 value	 0.248 
-#&gt; Considering row	 16 column	 4 value	 0.102 
-#&gt; Considering row	 16 column	 10 value	 0.045 
-#&gt; Considering row	 16 column	 15 value	 0.007 
-#&gt; Considering row	 5 column	 11 value	 0.478 
-#&gt; Considering row	 5 column	 13 value	 0.14 
-#&gt; Considering row	 5 column	 14 value	 0.12 
-#&gt; Considering row	 5 column	 6 value	 0.052 
-#&gt; Considering row	 5 column	 7 value	 0.013 
-#&gt; Considering row	 5 column	 9 value	 0.085 
-#&gt; Considering row	 5 column	 4 value	 0.111 
-#&gt; Considering row	 5 column	 10 value	 0.047 
-#&gt; Considering row	 5 column	 15 value	 0.01 
-#&gt; Considering row	 11 column	 13 value	 0.076 
-#&gt; Considering row	 11 column	 14 value	 0.082 
-#&gt; Considering row	 11 column	 6 value	 0.037 
-#&gt; Considering row	 11 column	 7 value	 0.014 
-#&gt; Considering row	 11 column	 9 value	 0.08 
-#&gt; Considering row	 11 column	 4 value	 0.046 
-#&gt; Considering row	 11 column	 10 value	 0.015 
-#&gt; Considering row	 11 column	 15 value	 0.011 
-#&gt; Considering row	 13 column	 14 value	 0.923 
-#&gt;   Flagging column	 13 
-#&gt; Considering row	 14 column	 6 value	 0.013 
-#&gt; Considering row	 14 column	 7 value	 0.009 
-#&gt; Considering row	 14 column	 9 value	 0.042 
-#&gt; Considering row	 14 column	 4 value	 0.016 
-#&gt; Considering row	 14 column	 10 value	 0.022 
-#&gt; Considering row	 14 column	 15 value	 0.021 
-#&gt; Considering row	 6 column	 7 value	 0.744 
-#&gt; Considering row	 6 column	 9 value	 0.037 
-#&gt; Considering row	 6 column	 4 value	 0.023 
-#&gt; Considering row	 6 column	 10 value	 0.006 
-#&gt; Considering row	 6 column	 15 value	 0.041 
-#&gt; Considering row	 7 column	 9 value	 0.034 
-#&gt; Considering row	 7 column	 4 value	 0.139 
-#&gt; Considering row	 7 column	 10 value	 0.032 
-#&gt; Considering row	 7 column	 15 value	 0.006 
-#&gt; Considering row	 9 column	 4 value	 0.252 
-#&gt; Considering row	 9 column	 10 value	 0.168 
-#&gt; Considering row	 9 column	 15 value	 0.005 
-#&gt; Considering row	 4 column	 10 value	 0.127 
-#&gt; Considering row	 4 column	 15 value	 0.011 
-#&gt; Considering row	 10 column	 15 value	 0.012 </div><div class='output co'>#&gt; [1]  3  2 13</div><div class='input'><span class='va'>m</span><span class='op'>[</span>, <span class='fu'>FindCorr</span><span class='op'>(</span><span class='va'>m</span><span class='op'>)</span><span class='op'>]</span>
-</div><div class='output co'>#&gt;                        week         date wine_ordered
-#&gt; index           0.974192573  0.999028828  0.030600322
-#&gt; date            0.976198358  1.000000000  0.036036580
-#&gt; week            1.000000000  0.976198358  0.032014141
-#&gt; weekday        -0.258535360 -0.042875700  0.013005712
-#&gt; area            0.091975225  0.120181706  0.140393613
-#&gt; count           0.010740354  0.005943085 -0.022125402
-#&gt; rabate          0.020039206 -0.010547837  0.013302530
-#&gt; price           0.018137168  0.028162980  0.509676944
-#&gt; operator        0.070854797  0.129699307  0.038239080
-#&gt; driver         -0.037057460 -0.066844465 -0.003367271
-#&gt; delivery_min    0.054344284  0.066614544  0.076473132
-#&gt; temperature     0.088823380  0.068222467 -0.049858606
-#&gt; wine_ordered    0.032014141  0.036036580  1.000000000
-#&gt; wine_delivered  0.016697141  0.020756359  0.922727399
-#&gt; wrongpizza      0.005659736  0.008217897  0.001967424
-#&gt; quality         0.099462346  0.080014155 -0.076622011</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>corrMatrix</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>corrMatrix</span><span class='op'>[</span><span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>corrMatrix</span><span class='op'>[</span><span class='fl'>3</span>, <span class='fl'>2</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>.7</span></span>
+<span class='r-in'><span class='va'>corrMatrix</span><span class='op'>[</span><span class='fl'>5</span>, <span class='fl'>3</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>corrMatrix</span><span class='op'>[</span><span class='fl'>3</span>, <span class='fl'>5</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='op'>-</span><span class='fl'>.7</span></span>
+<span class='r-in'><span class='va'>corrMatrix</span><span class='op'>[</span><span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>corrMatrix</span><span class='op'>[</span><span class='fl'>1</span>, <span class='fl'>4</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='op'>-</span><span class='fl'>.67</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>corrDF</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span><span class='op'>(</span>row <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, col <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>corrDF</span><span class='op'>$</span><span class='va'>correlation</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/vector.html'>as.vector</a></span><span class='op'>(</span><span class='va'>corrMatrix</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='PlotCorr.html'>PlotCorr</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span><span class='op'>(</span><span class='va'>correlation</span> <span class='op'>~</span> <span class='va'>.</span>, <span class='va'>corrDF</span><span class='op'>)</span>, las<span class='op'>=</span><span class='fl'>1</span>, border<span class='op'>=</span><span class='st'>"grey"</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='FindCorr-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>FindCorr</span><span class='op'>(</span><span class='va'>corrMatrix</span>, cutoff <span class='op'>=</span> <span class='fl'>.65</span>, verbose <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 3 column	 2 value	 0.7 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Flagging column	 3 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 2 column	 5 value	 0 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 2 column	 1 value	 0 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 2 column	 4 value	 0 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 5 column	 1 value	 0 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 5 column	 4 value	 0 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 1 column	 4 value	 0.67 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Flagging column	 4 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 3 4</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>FindCorr</span><span class='op'>(</span><span class='va'>corrMatrix</span>, cutoff <span class='op'>=</span> <span class='fl'>.99</span>, verbose <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 3 column	 2 value	 0.7 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 3 column	 5 value	 0.7 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 3 column	 1 value	 0 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 3 column	 4 value	 0 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 2 column	 5 value	 0 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 2 column	 1 value	 0 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 2 column	 4 value	 0 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 5 column	 1 value	 0 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 5 column	 4 value	 0 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 1 column	 4 value	 0.67 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> integer(0)</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># d.pizza example</span></span>
+<span class='r-in'><span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>d.pizza</span>, <span class='va'>as.numeric</span><span class='op'>)</span><span class='op'>)</span>, use<span class='op'>=</span><span class='st'>"pairwise.complete.obs"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>FindCorr</span><span class='op'>(</span><span class='va'>m</span>, verbose <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 8 column	 3 value	 0.018 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 8 column	 2 value	 0.028 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 8 column	 1 value	 0.03 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 8 column	 12 value	 0.019 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 8 column	 16 value	 0.076 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 8 column	 5 value	 0.152 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 8 column	 11 value	 0.095 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 8 column	 13 value	 0.51 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 8 column	 14 value	 0.478 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 8 column	 6 value	 0.807 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 8 column	 7 value	 0.543 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 8 column	 9 value	 0.076 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 8 column	 4 value	 0.042 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 8 column	 10 value	 0.038 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 8 column	 15 value	 0.033 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 3 column	 2 value	 0.976 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Flagging column	 3 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 2 column	 1 value	 0.999 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Flagging column	 2 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 1 column	 12 value	 0.067 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 1 column	 16 value	 0.072 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 1 column	 5 value	 0.119 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 1 column	 11 value	 0.056 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 1 column	 13 value	 0.031 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 1 column	 14 value	 0.017 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 1 column	 6 value	 0.009 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 1 column	 7 value	 0.01 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 1 column	 9 value	 0.14 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 1 column	 4 value	 0.038 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 1 column	 10 value	 0.063 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 1 column	 15 value	 0.015 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 12 column	 16 value	 0.707 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 12 column	 5 value	 0.292 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 12 column	 11 value	 0.575 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 12 column	 13 value	 0.05 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 12 column	 14 value	 0.067 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 12 column	 6 value	 0.043 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 12 column	 7 value	 0.109 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 12 column	 9 value	 0.072 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 12 column	 4 value	 0.105 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 12 column	 10 value	 0.003 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 12 column	 15 value	 0.035 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 16 column	 5 value	 0.227 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 16 column	 11 value	 0.355 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 16 column	 13 value	 0.077 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 16 column	 14 value	 0.114 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 16 column	 6 value	 0.008 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 16 column	 7 value	 0.059 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 16 column	 9 value	 0.248 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 16 column	 4 value	 0.102 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 16 column	 10 value	 0.045 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 16 column	 15 value	 0.007 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 5 column	 11 value	 0.478 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 5 column	 13 value	 0.14 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 5 column	 14 value	 0.12 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 5 column	 6 value	 0.052 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 5 column	 7 value	 0.013 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 5 column	 9 value	 0.085 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 5 column	 4 value	 0.111 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 5 column	 10 value	 0.047 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 5 column	 15 value	 0.01 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 11 column	 13 value	 0.076 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 11 column	 14 value	 0.082 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 11 column	 6 value	 0.037 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 11 column	 7 value	 0.014 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 11 column	 9 value	 0.08 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 11 column	 4 value	 0.046 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 11 column	 10 value	 0.015 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 11 column	 15 value	 0.011 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 13 column	 14 value	 0.923 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Flagging column	 13 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 14 column	 6 value	 0.013 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 14 column	 7 value	 0.009 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 14 column	 9 value	 0.042 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 14 column	 4 value	 0.016 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 14 column	 10 value	 0.022 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 14 column	 15 value	 0.021 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 6 column	 7 value	 0.744 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 6 column	 9 value	 0.037 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 6 column	 4 value	 0.023 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 6 column	 10 value	 0.006 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 6 column	 15 value	 0.041 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 7 column	 9 value	 0.034 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 7 column	 4 value	 0.139 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 7 column	 10 value	 0.032 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 7 column	 15 value	 0.006 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 9 column	 4 value	 0.252 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 9 column	 10 value	 0.168 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 9 column	 15 value	 0.005 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 4 column	 10 value	 0.127 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 4 column	 15 value	 0.011 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Considering row	 10 column	 15 value	 0.012 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1]  3  2 13</span>
+<span class='r-in'><span class='va'>m</span><span class='op'>[</span>, <span class='fu'>FindCorr</span><span class='op'>(</span><span class='va'>m</span><span class='op'>)</span><span class='op'>]</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                        week         date wine_ordered</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> index           0.974192573  0.999028828  0.030600322</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> date            0.976198358  1.000000000  0.036036580</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> week            1.000000000  0.976198358  0.032014141</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> weekday        -0.258535360 -0.042875700  0.013005712</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> area            0.091975225  0.120181706  0.140393613</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> count           0.010740354  0.005943085 -0.022125402</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> rabate          0.020039206 -0.010547837  0.013302530</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> price           0.018137168  0.028162980  0.509676944</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> operator        0.070854797  0.129699307  0.038239080</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> driver         -0.037057460 -0.066844465 -0.003367271</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> delivery_min    0.054344284  0.066614544  0.076473132</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> temperature     0.088823380  0.068222467 -0.049858606</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> wine_ordered    0.032014141  0.036036580  1.000000000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> wine_delivered  0.016697141  0.020756359  0.922727399</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> wrongpizza      0.005659736  0.008217897  0.001967424</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quality         0.099462346  0.080014155 -0.076622011</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

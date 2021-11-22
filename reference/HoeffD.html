@@ -86,7 +86,7 @@ the value of D, the more dependent are x and y." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -167,7 +167,7 @@ the value of D, the more dependent are x and y." />
     <p>Computes a matrix of Hoeffding's (1948) <code>D</code> statistics for all possible
 pairs of columns of a matrix.  <code>D</code>
 is a measure of the distance
-between <code><a href='https://rdrr.io/r/base/logical.html'>F(x,y)</a></code> and <code>G(x)H(y)</code>, where <code><a href='https://rdrr.io/r/base/logical.html'>F(x,y)</a></code> is the joint CDF of <code>X</code> and <code>Y</code>,
+between <code>F(x,y)</code> and <code>G(x)H(y)</code>, where <code>F(x,y)</code> is the joint CDF of <code>X</code> and <code>Y</code>,
 and <code>G</code> and <code>H</code> are marginal CDFs. Missing values are deleted in pairs rather than deleting all rows
 of <code>x</code> having any missing variables.
 The <code>D</code> statistic is robust against a wide
@@ -240,22 +240,25 @@ Recipes in C</em> Cambridge: Cambridge University Press.</p>
     <div class='dont-index'><p><code>rcorr</code>, <code>varclus</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>2</span>, <span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span>
-<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>,   <span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>4</span><span class='op'>)</span>
-<span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,   <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>4</span>, <span class='cn'>NA</span><span class='op'>)</span>
-<span class='va'>q</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,   <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>4</span>, <span class='fl'>5</span><span class='op'>)</span>
-
-<span class='fu'>HoeffD</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>z</span>, <span class='va'>q</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in .Fortran("hoeffd", x, n, p, hmatrix = double(p * p), aad = double(p *     p), maxad = double(p * p), npair = integer(p * p), double(n),     double(n), double(n), double(n), double(n), PACKAGE = "DescTools"): "hoeffd" not available for .Fortran() for package "DescTools"</span></div><div class='input'>
-
-<span class='co'># Hoeffding's test can detect even one-to-many dependency</span>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>10</span>, <span class='fl'>10</span>, length<span class='op'>=</span><span class='fl'>200</span><span class='op'>)</span>
-<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='va'>x</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/base/sign.html'>sign</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>200</span>, <span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
-</div><div class='img'><img src='HoeffD-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'>HoeffD</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in .Fortran("hoeffd", x, n, p, hmatrix = double(p * p), aad = double(p *     p), maxad = double(p * p), npair = integer(p * p), double(n),     double(n), double(n), double(n), double(n), PACKAGE = "DescTools"): "hoeffd" not available for .Fortran() for package "DescTools"</span></div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>2</span>, <span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>,   <span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>4</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,   <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>4</span>, <span class='cn'>NA</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>q</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,   <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>4</span>, <span class='fl'>5</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>HoeffD</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>z</span>, <span class='va'>q</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-err co'><span class='r-pr'>#&gt;</span> <span class='error'>Error in .Fortran("hoeffd", x, n, p, hmatrix = double(p * p), aad = double(p *     p), maxad = double(p * p), npair = integer(p * p), double(n),     double(n), double(n), double(n), double(n), PACKAGE = "DescTools"):</span> "hoeffd" not available for .Fortran() for package "DescTools"</span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Hoeffding's test can detect even one-to-many dependency</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>10</span>, <span class='fl'>10</span>, length<span class='op'>=</span><span class='fl'>200</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>y</span> <span class='op'>&lt;-</span> <span class='va'>x</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/base/sign.html'>sign</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>200</span>, <span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='HoeffD-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>HoeffD</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span></span>
+<span class='r-err co'><span class='r-pr'>#&gt;</span> <span class='error'>Error in .Fortran("hoeffd", x, n, p, hmatrix = double(p * p), aad = double(p *     p), maxad = double(p * p), npair = integer(p * p), double(n),     double(n), double(n), double(n), double(n), PACKAGE = "DescTools"):</span> "hoeffd" not available for .Fortran() for package "DescTools"</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

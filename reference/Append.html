@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -223,48 +223,54 @@
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></code>, <code><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></code>, <code><a href='https://rdrr.io/r/base/append.html'>append</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>Append</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, <span class='fl'>0</span><span class='op'>:</span><span class='fl'>1</span>, after <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>    <span class='co'># the same as append</span>
-</div><div class='output co'>#&gt; [1] 1 2 3 0 1 4 5</div><div class='input'>
-<span class='co'># Insert columns and rows</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>25</span><span class='op'>)</span>, <span class='fl'>5</span><span class='op'>)</span>
-
-<span class='fu'>Append</span><span class='op'>(</span><span class='va'>x</span>, values<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, after<span class='op'>=</span><span class='fl'>2</span>, names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"X"</span>,<span class='st'>"Y"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                          X  Y                                
-#&gt; [1,] 0.1650110 0.5934084 1  6 0.3177902 0.05270097 0.12578923
-#&gt; [2,] 0.5669098 0.7789706 2  7 0.1116802 0.98650870 0.96318175
-#&gt; [3,] 0.8980774 0.3977716 3  8 0.1010954 0.60417397 0.04693501
-#&gt; [4,] 0.5944723 0.8498828 4  9 0.8000977 0.14878272 0.16140918
-#&gt; [5,] 0.8316899 0.7418456 5 10 0.3799467 0.53876017 0.93648743</div><div class='input'><span class='fu'>Append</span><span class='op'>(</span><span class='va'>x</span>, values<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, after<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;           [,1]      [,2] [,3] [,4]      [,5]       [,6]       [,7]
-#&gt; [1,] 0.1650110 0.5934084    1    6 0.3177902 0.05270097 0.12578923
-#&gt; [2,] 0.5669098 0.7789706    2    7 0.1116802 0.98650870 0.96318175
-#&gt; [3,] 0.8980774 0.3977716    3    8 0.1010954 0.60417397 0.04693501
-#&gt; [4,] 0.5944723 0.8498828    4    9 0.8000977 0.14878272 0.16140918
-#&gt; [5,] 0.8316899 0.7418456    5   10 0.3799467 0.53876017 0.93648743</div><div class='input'>
-<span class='fu'>Append</span><span class='op'>(</span><span class='va'>x</span>, values<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, after<span class='op'>=</span><span class='fl'>2</span>, names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"X"</span>,<span class='st'>"Y"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                          X  Y                                
-#&gt; [1,] 0.1650110 0.5934084 1  6 0.3177902 0.05270097 0.12578923
-#&gt; [2,] 0.5669098 0.7789706 2  7 0.1116802 0.98650870 0.96318175
-#&gt; [3,] 0.8980774 0.3977716 3  8 0.1010954 0.60417397 0.04693501
-#&gt; [4,] 0.5944723 0.8498828 4  9 0.8000977 0.14878272 0.16140918
-#&gt; [5,] 0.8316899 0.7418456 5 10 0.3799467 0.53876017 0.93648743</div><div class='input'><span class='fu'>Append</span><span class='op'>(</span><span class='va'>x</span>, values<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, after<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;           [,1]      [,2] [,3] [,4]      [,5]       [,6]       [,7]
-#&gt; [1,] 0.1650110 0.5934084    1    6 0.3177902 0.05270097 0.12578923
-#&gt; [2,] 0.5669098 0.7789706    2    7 0.1116802 0.98650870 0.96318175
-#&gt; [3,] 0.8980774 0.3977716    3    8 0.1010954 0.60417397 0.04693501
-#&gt; [4,] 0.5944723 0.8498828    4    9 0.8000977 0.14878272 0.16140918
-#&gt; [5,] 0.8316899 0.7418456    5   10 0.3799467 0.53876017 0.93648743</div><div class='input'>
-<span class='co'># append to a data.frame</span>
-<span class='va'>d.frm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='st'>"id"</span>   <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span><span class='op'>)</span>,
-                    <span class='st'>"code"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"AAA"</span>, <span class='st'>"BBB"</span>, <span class='st'>"CCC"</span><span class='op'>)</span>,
-                    <span class='st'>"val"</span>  <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>111</span>, <span class='fl'>222</span>, <span class='fl'>333</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>20</span>, <span class='fl'>30</span><span class='op'>)</span>
-
-<span class='fu'>Append</span><span class='op'>(</span><span class='va'>d.frm</span>, <span class='va'>z</span>, after<span class='op'>=</span><span class='fl'>2</span>, names<span class='op'>=</span><span class='st'>"ZZZ"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   id code ZZZ val
-#&gt; 1  1  AAA  10 111
-#&gt; 2  2  BBB  20 222
-#&gt; 3  3  CCC  30 333</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>Append</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, <span class='fl'>0</span><span class='op'>:</span><span class='fl'>1</span>, after <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>    <span class='co'># the same as append</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1 2 3 0 1 4 5</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Insert columns and rows</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>25</span><span class='op'>)</span>, <span class='fl'>5</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>Append</span><span class='op'>(</span><span class='va'>x</span>, values<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, after<span class='op'>=</span><span class='fl'>2</span>, names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"X"</span>,<span class='st'>"Y"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                          X  Y                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,] 0.1650110 0.5934084 1  6 0.3177902 0.05270097 0.12578923</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,] 0.5669098 0.7789706 2  7 0.1116802 0.98650870 0.96318175</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3,] 0.8980774 0.3977716 3  8 0.1010954 0.60417397 0.04693501</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [4,] 0.5944723 0.8498828 4  9 0.8000977 0.14878272 0.16140918</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [5,] 0.8316899 0.7418456 5 10 0.3799467 0.53876017 0.93648743</span>
+<span class='r-in'><span class='fu'>Append</span><span class='op'>(</span><span class='va'>x</span>, values<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, after<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           [,1]      [,2] [,3] [,4]      [,5]       [,6]       [,7]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,] 0.1650110 0.5934084    1    6 0.3177902 0.05270097 0.12578923</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,] 0.5669098 0.7789706    2    7 0.1116802 0.98650870 0.96318175</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3,] 0.8980774 0.3977716    3    8 0.1010954 0.60417397 0.04693501</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [4,] 0.5944723 0.8498828    4    9 0.8000977 0.14878272 0.16140918</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [5,] 0.8316899 0.7418456    5   10 0.3799467 0.53876017 0.93648743</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>Append</span><span class='op'>(</span><span class='va'>x</span>, values<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, after<span class='op'>=</span><span class='fl'>2</span>, names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"X"</span>,<span class='st'>"Y"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                          X  Y                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,] 0.1650110 0.5934084 1  6 0.3177902 0.05270097 0.12578923</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,] 0.5669098 0.7789706 2  7 0.1116802 0.98650870 0.96318175</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3,] 0.8980774 0.3977716 3  8 0.1010954 0.60417397 0.04693501</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [4,] 0.5944723 0.8498828 4  9 0.8000977 0.14878272 0.16140918</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [5,] 0.8316899 0.7418456 5 10 0.3799467 0.53876017 0.93648743</span>
+<span class='r-in'><span class='fu'>Append</span><span class='op'>(</span><span class='va'>x</span>, values<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, after<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           [,1]      [,2] [,3] [,4]      [,5]       [,6]       [,7]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,] 0.1650110 0.5934084    1    6 0.3177902 0.05270097 0.12578923</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,] 0.5669098 0.7789706    2    7 0.1116802 0.98650870 0.96318175</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3,] 0.8980774 0.3977716    3    8 0.1010954 0.60417397 0.04693501</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [4,] 0.5944723 0.8498828    4    9 0.8000977 0.14878272 0.16140918</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [5,] 0.8316899 0.7418456    5   10 0.3799467 0.53876017 0.93648743</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># append to a data.frame</span></span>
+<span class='r-in'><span class='va'>d.frm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='st'>"id"</span>   <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span><span class='op'>)</span>,</span>
+<span class='r-in'>                    <span class='st'>"code"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"AAA"</span>, <span class='st'>"BBB"</span>, <span class='st'>"CCC"</span><span class='op'>)</span>,</span>
+<span class='r-in'>                    <span class='st'>"val"</span>  <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>111</span>, <span class='fl'>222</span>, <span class='fl'>333</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>20</span>, <span class='fl'>30</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>Append</span><span class='op'>(</span><span class='va'>d.frm</span>, <span class='va'>z</span>, after<span class='op'>=</span><span class='fl'>2</span>, names<span class='op'>=</span><span class='st'>"ZZZ"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   id code ZZZ val</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  1  AAA  10 111</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  2  BBB  20 222</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  3  CCC  30 333</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

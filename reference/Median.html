@@ -75,7 +75,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -230,42 +230,49 @@ We'll wait for definitive results and enjoy the function's comfort so far...</p>
 <p><a href='https://stackoverflow.com/questions/7925102/idiomatic-method-of-finding-the-median-of-an-ordinal'>https://stackoverflow.com/questions/7925102/idiomatic-method-of-finding-the-median-of-an-ordinal</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>Median</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span>                <span class='co'># = 2.5 [even number]</span>
-</div><div class='output co'>#&gt; [1] 2.5</div><div class='input'><span class='fu'>Median</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='fl'>100</span>, <span class='fl'>1000</span><span class='op'>)</span><span class='op'>)</span>  <span class='co'># = 3 [odd, robust]</span>
-</div><div class='output co'>#&gt; [1] 3</div><div class='input'>
-<span class='co'># Approximation for classified data</span>
-<span class='va'>breaks</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>10</span>,<span class='fl'>70</span>, <span class='fl'>10</span><span class='op'>)</span>
-<span class='fu'>Median</span><span class='op'>(</span>
-  <span class='fu'><a href='Freq.html'>Freq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cut.html'>cut</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>temperature</span>, breaks<span class='op'>=</span><span class='va'>breaks</span><span class='op'>)</span><span class='op'>)</span>,
-  breaks<span class='op'>=</span><span class='va'>breaks</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 49.91404</div><div class='input'>
-<span class='co'># compared to</span>
-<span class='fu'>Median</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>temperature</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] NA</div><div class='input'>
-<span class='co'># starting from a classified table</span>
-<span class='co'># from     to  income</span>
-<span class='co'>#    0   4000      20</span>
-<span class='co'># 4000   6000      42</span>
-<span class='co'># 6000   8000      31</span>
-<span class='co'># 8000  10000      12</span>
-
-<span class='co'># Freq(as.table(c(20,42,31,12)))</span>
-<span class='co'>#    level  freq   perc  cumfreq  cumperc</span>
-<span class='co'># 1      A    20  19.0%       20    19.0%</span>
-<span class='co'># 2      B    42  40.0%       62    59.0%</span>
-<span class='co'># 3      C    31  29.5%       93    88.6%</span>
-<span class='co'># 4      D    12  11.4%      105   100.0%</span>
-
-<span class='fu'>Median</span><span class='op'>(</span><span class='fu'><a href='Freq.html'>Freq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>,<span class='fl'>42</span>,<span class='fl'>31</span>,<span class='fl'>12</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>, breaks<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>4000</span>,<span class='fl'>6000</span>,<span class='fl'>8000</span>,<span class='fl'>10000</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 5547.619</div><div class='input'>
-<span class='co'># use weights</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>30</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>w</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='op'>(</span><span class='va'>m1</span> <span class='op'>&lt;-</span> <span class='fu'>Median</span><span class='op'>(</span><span class='va'>z</span>, weights<span class='op'>=</span><span class='va'>w</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 9</div><div class='input'><span class='op'>(</span><span class='va'>m2</span> <span class='op'>&lt;-</span> <span class='fu'>Median</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 9</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/stopifnot.html'>stopifnot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='va'>m1</span>, <span class='va'>m2</span><span class='op'>)</span><span class='op'>)</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>Median</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span>                <span class='co'># = 2.5 [even number]</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 2.5</span>
+<span class='r-in'><span class='fu'>Median</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='fl'>100</span>, <span class='fl'>1000</span><span class='op'>)</span><span class='op'>)</span>  <span class='co'># = 3 [odd, robust]</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 3</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Approximation for classified data</span></span>
+<span class='r-in'><span class='va'>breaks</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>10</span>,<span class='fl'>70</span>, <span class='fl'>10</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>Median</span><span class='op'>(</span></span>
+<span class='r-in'>  <span class='fu'><a href='Freq.html'>Freq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cut.html'>cut</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>temperature</span>, breaks<span class='op'>=</span><span class='va'>breaks</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span class='r-in'>  breaks<span class='op'>=</span><span class='va'>breaks</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 49.91404</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># compared to</span></span>
+<span class='r-in'><span class='fu'>Median</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>temperature</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] NA</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># starting from a classified table</span></span>
+<span class='r-in'><span class='co'># from     to  income</span></span>
+<span class='r-in'><span class='co'>#    0   4000      20</span></span>
+<span class='r-in'><span class='co'># 4000   6000      42</span></span>
+<span class='r-in'><span class='co'># 6000   8000      31</span></span>
+<span class='r-in'><span class='co'># 8000  10000      12</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Freq(as.table(c(20,42,31,12)))</span></span>
+<span class='r-in'><span class='co'>#    level  freq   perc  cumfreq  cumperc</span></span>
+<span class='r-in'><span class='co'># 1      A    20  19.0%       20    19.0%</span></span>
+<span class='r-in'><span class='co'># 2      B    42  40.0%       62    59.0%</span></span>
+<span class='r-in'><span class='co'># 3      C    31  29.5%       93    88.6%</span></span>
+<span class='r-in'><span class='co'># 4      D    12  11.4%      105   100.0%</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>Median</span><span class='op'>(</span><span class='fu'><a href='Freq.html'>Freq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>,<span class='fl'>42</span>,<span class='fl'>31</span>,<span class='fl'>12</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>, breaks<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>4000</span>,<span class='fl'>6000</span>,<span class='fl'>8000</span>,<span class='fl'>10000</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 5547.619</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># use weights</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>30</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>w</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='op'>(</span><span class='va'>m1</span> <span class='op'>&lt;-</span> <span class='fu'>Median</span><span class='op'>(</span><span class='va'>z</span>, weights<span class='op'>=</span><span class='va'>w</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 9</span>
+<span class='r-in'><span class='op'>(</span><span class='va'>m2</span> <span class='op'>&lt;-</span> <span class='fu'>Median</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 9</span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/stopifnot.html'>stopifnot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='va'>m1</span>, <span class='va'>m2</span><span class='op'>)</span><span class='op'>)</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

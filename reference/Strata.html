@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -213,135 +213,140 @@ By default, the value is FALSE.</p></td>
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/sample.html'>sample</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Example from An and Watts (New SAS procedures for Analysis of Sample Survey Data)</span>
-<span class='co'># generates artificial data (a 235X3 matrix with 3 columns: state, region, income).</span>
-<span class='co'># the variable "state" has 2 categories ('nc' and 'sc').</span>
-<span class='co'># the variable "region" has 3 categories (1, 2 and 3).</span>
-<span class='co'># the sampling frame is stratified by region within state.</span>
-<span class='co'># the income variable is randomly generated</span>
-
-<span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"nc"</span>,<span class='fl'>165</span><span class='op'>)</span>, <span class='fl'>165</span>, <span class='fl'>1</span>, byrow<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>,
-           <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"sc"</span>, <span class='fl'>70</span><span class='op'>)</span>, <span class='fl'>70</span>, <span class='fl'>1</span>, byrow<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind.data.frame</a></span><span class='op'>(</span><span class='va'>m</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>100</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>50</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>15</span><span class='op'>)</span>,
-                      <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>30</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>40</span><span class='op'>)</span><span class='op'>)</span>, <span class='fl'>1000</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>235</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>m</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"state"</span>, <span class='st'>"region"</span>, <span class='st'>"income"</span><span class='op'>)</span>
-
-<span class='co'># computes the population stratum sizes</span>
-<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>m</span><span class='op'>$</span><span class='va'>region</span>, <span class='va'>m</span><span class='op'>$</span><span class='va'>state</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;    
-#&gt;      nc  sc
-#&gt;   1 100  30
-#&gt;   2  50  40
-#&gt;   3  15   0</div><div class='input'>
-<span class='co'># not run</span>
-<span class='co'>#     nc  sc</span>
-<span class='co'>#  1 100  30</span>
-<span class='co'>#  2  50  40</span>
-<span class='co'>#  3  15   0</span>
-<span class='co'># there are 5 cells with non-zero values</span>
-<span class='co'># one draws 5 samples (1 sample in each stratum)</span>
-<span class='co'># the sample stratum sizes are 10,5,10,4,6, respectively</span>
-<span class='co'># the method is 'srswor' (equal probability, without replacement)</span>
-
-<span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'>Strata</span><span class='op'>(</span><span class='va'>m</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"region"</span>, <span class='st'>"state"</span><span class='op'>)</span>, size<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>4</span>, <span class='fl'>6</span><span class='op'>)</span>, method<span class='op'>=</span><span class='st'>"srswor"</span><span class='op'>)</span>
-
-<span class='co'># extracts the observed data</span>
-<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>income<span class='op'>=</span><span class='va'>m</span><span class='op'>[</span><span class='va'>s</span><span class='op'>$</span><span class='va'>id</span>, <span class='st'>"income"</span><span class='op'>]</span>, <span class='va'>s</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;          income state region  income.1 stratum size  id
-#&gt; 1.65  866.10058    nc      1 866.10058       1   10  65
-#&gt; 1.93  592.34629    nc      1 592.34629       1   10  93
-#&gt; 1.29  286.04175    nc      1 286.04175       1   10  29
-#&gt; 1.64  547.19689    nc      1 547.19689       1   10  64
-#&gt; 1.34  200.38347    nc      1 200.38347       1   10  34
-#&gt; 1.45  482.35179    nc      1 482.35179       1   10  45
-#&gt; 1.26   52.49346    nc      1  52.49346       1   10  26
-#&gt; 1.8   598.38073    nc      1 598.38073       1   10   8
-#&gt; 1.52  329.42273    nc      1 329.42273       1   10  52
-#&gt; 1.62  895.92032    nc      1 895.92032       1   10  62
-#&gt; 2.120 507.15857    nc      2 507.15857       2    5 120
-#&gt; 2.143 232.86548    nc      2 232.86548       2    5 143
-#&gt; 2.147 688.35110    nc      2 688.35110       2    5 147
-#&gt; 2.109 451.99868    nc      2 451.99868       2    5 109
-#&gt; 2.130 571.54761    nc      2 571.54761       2    5 130
-#&gt; 3.165 794.92344    nc      3 794.92344       3   10 165
-#&gt; 3.151 628.19458    nc      3 628.19458       3   10 151
-#&gt; 3.156 755.49937    nc      3 755.49937       3   10 156
-#&gt; 3.160 426.00580    nc      3 426.00580       3   10 160
-#&gt; 3.157 578.61374    nc      3 578.61374       3   10 157
-#&gt; 3.164 616.97988    nc      3 616.97988       3   10 164
-#&gt; 3.152 780.21599    nc      3 780.21599       3   10 152
-#&gt; 3.162 507.13136    nc      3 507.13136       3   10 162
-#&gt; 3.153 178.19258    nc      3 178.19258       3   10 153
-#&gt; 3.159 948.04473    nc      3 948.04473       3   10 159
-#&gt; 4.167 427.83172    sc      1 427.83172       4    4 167
-#&gt; 4.181 381.52305    sc      1 381.52305       4    4 181
-#&gt; 4.170 391.48706    sc      1 391.48706       4    4 170
-#&gt; 4.169  27.68708    sc      1  27.68708       4    4 169
-#&gt; 5.202 773.62990    sc      2 773.62990       5    6 202
-#&gt; 5.231 469.94421    sc      2 469.94421       5    6 231
-#&gt; 5.233 196.68003    sc      2 196.68003       5    6 233
-#&gt; 5.217 822.34924    sc      2 822.34924       5    6 217
-#&gt; 5.229 369.66882    sc      2 369.66882       5    6 229
-#&gt; 5.208 152.05055    sc      2 152.05055       5    6 208</div><div class='input'>
-<span class='co'># see the result using a contigency table</span>
-<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>s</span><span class='op'>$</span><span class='va'>region</span>, <span class='va'>s</span><span class='op'>$</span><span class='va'>state</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;    
-#&gt;     nc sc
-#&gt;   1 10  4
-#&gt;   2  5  6
-#&gt;   3 10  0</div><div class='input'>
-
-<span class='co'># The same data as in Example 1</span>
-<span class='co'># the method is 'systematic' (unequal probability, without replacement)</span>
-<span class='co'># the selection probabilities are computed using the variable 'income'</span>
-<span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'>Strata</span><span class='op'>(</span><span class='va'>m</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"region"</span>, <span class='st'>"state"</span><span class='op'>)</span>, size<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>4</span>, <span class='fl'>6</span><span class='op'>)</span>,
-            method<span class='op'>=</span><span class='st'>"systematic"</span>, pik<span class='op'>=</span><span class='va'>m</span><span class='op'>$</span><span class='va'>income</span><span class='op'>)</span>
-
-<span class='co'># extracts the observed data</span>
-<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>income<span class='op'>=</span><span class='va'>m</span><span class='op'>[</span><span class='va'>s</span><span class='op'>$</span><span class='va'>id</span>, <span class='st'>"income"</span><span class='op'>]</span>, <span class='va'>s</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;          income state region  income.1 stratum size  id
-#&gt; 1.9   322.88584    nc      1 322.88584       1   10   9
-#&gt; 1.29  286.04175    nc      1 286.04175       1   10  29
-#&gt; 1.86  636.40332    nc      1 636.40332       1   10  86
-#&gt; 1.16  104.97314    nc      1 104.97314       1   10  16
-#&gt; 1.8   598.38073    nc      1 598.38073       1   10   8
-#&gt; 1.36  793.01949    nc      1 793.01949       1   10  36
-#&gt; 1.92  448.64375    nc      1 448.64375       1   10  92
-#&gt; 1.100 380.39065    nc      1 380.39065       1   10 100
-#&gt; 1.66  655.96816    nc      1 655.96816       1   10  66
-#&gt; 1.18  408.09932    nc      1 408.09932       1   10  18
-#&gt; 2.145 737.76557    nc      2 737.76557       2    5 145
-#&gt; 2.135  80.87036    nc      2  80.87036       2    5 135
-#&gt; 2.112 919.35027    nc      2 919.35027       2    5 112
-#&gt; 2.150 749.40846    nc      2 749.40846       2    5 150
-#&gt; 2.103 552.14334    nc      2 552.14334       2    5 103
-#&gt; 3.157 578.61374    nc      3 578.61374       3   10 157
-#&gt; 3.160 426.00580    nc      3 426.00580       3   10 160
-#&gt; 3.152 780.21599    nc      3 780.21599       3   10 152
-#&gt; 3.156 755.49937    nc      3 755.49937       3   10 156
-#&gt; 3.158 177.50997    nc      3 177.50997       3   10 158
-#&gt; 3.164 616.97988    nc      3 616.97988       3   10 164
-#&gt; 3.151 628.19458    nc      3 628.19458       3   10 151
-#&gt; 3.163 385.42599    nc      3 385.42599       3   10 163
-#&gt; 3.153 178.19258    nc      3 178.19258       3   10 153
-#&gt; 3.154 712.35448    nc      3 712.35448       3   10 154
-#&gt; 4.183 195.25163    sc      1 195.25163       4    4 183
-#&gt; 4.170 391.48706    sc      1 391.48706       4    4 170
-#&gt; 4.186 131.10277    sc      1 131.10277       4    4 186
-#&gt; 4.184 982.18831    sc      1 982.18831       4    4 184
-#&gt; 5.200 388.30586    sc      2 388.30586       5    6 200
-#&gt; 5.214 677.27586    sc      2 677.27586       5    6 214
-#&gt; 5.229 369.66882    sc      2 369.66882       5    6 229
-#&gt; 5.198 483.59321    sc      2 483.59321       5    6 198
-#&gt; 5.224 771.66254    sc      2 771.66254       5    6 224
-#&gt; 5.205 192.33168    sc      2 192.33168       5    6 205</div><div class='input'>
-<span class='co'># see the result using a contigency table</span>
-<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>s</span><span class='op'>$</span><span class='va'>region</span>, <span class='va'>s</span><span class='op'>$</span><span class='va'>state</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;    
-#&gt;     nc sc
-#&gt;   1 10  4
-#&gt;   2  5  6
-#&gt;   3 10  0</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># Example from An and Watts (New SAS procedures for Analysis of Sample Survey Data)</span></span>
+<span class='r-in'><span class='co'># generates artificial data (a 235X3 matrix with 3 columns: state, region, income).</span></span>
+<span class='r-in'><span class='co'># the variable "state" has 2 categories ('nc' and 'sc').</span></span>
+<span class='r-in'><span class='co'># the variable "region" has 3 categories (1, 2 and 3).</span></span>
+<span class='r-in'><span class='co'># the sampling frame is stratified by region within state.</span></span>
+<span class='r-in'><span class='co'># the income variable is randomly generated</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"nc"</span>,<span class='fl'>165</span><span class='op'>)</span>, <span class='fl'>165</span>, <span class='fl'>1</span>, byrow<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>,</span>
+<span class='r-in'>           <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"sc"</span>, <span class='fl'>70</span><span class='op'>)</span>, <span class='fl'>70</span>, <span class='fl'>1</span>, byrow<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind.data.frame</a></span><span class='op'>(</span><span class='va'>m</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>100</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>50</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>15</span><span class='op'>)</span>,</span>
+<span class='r-in'>                      <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>30</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>40</span><span class='op'>)</span><span class='op'>)</span>, <span class='fl'>1000</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>235</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>m</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"state"</span>, <span class='st'>"region"</span>, <span class='st'>"income"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># computes the population stratum sizes</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>m</span><span class='op'>$</span><span class='va'>region</span>, <span class='va'>m</span><span class='op'>$</span><span class='va'>state</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      nc  sc</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1 100  30</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2  50  40</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3  15   0</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># not run</span></span>
+<span class='r-in'><span class='co'>#     nc  sc</span></span>
+<span class='r-in'><span class='co'>#  1 100  30</span></span>
+<span class='r-in'><span class='co'>#  2  50  40</span></span>
+<span class='r-in'><span class='co'>#  3  15   0</span></span>
+<span class='r-in'><span class='co'># there are 5 cells with non-zero values</span></span>
+<span class='r-in'><span class='co'># one draws 5 samples (1 sample in each stratum)</span></span>
+<span class='r-in'><span class='co'># the sample stratum sizes are 10,5,10,4,6, respectively</span></span>
+<span class='r-in'><span class='co'># the method is 'srswor' (equal probability, without replacement)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'>Strata</span><span class='op'>(</span><span class='va'>m</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"region"</span>, <span class='st'>"state"</span><span class='op'>)</span>, size<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>4</span>, <span class='fl'>6</span><span class='op'>)</span>, method<span class='op'>=</span><span class='st'>"srswor"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># extracts the observed data</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>income<span class='op'>=</span><span class='va'>m</span><span class='op'>[</span><span class='va'>s</span><span class='op'>$</span><span class='va'>id</span>, <span class='st'>"income"</span><span class='op'>]</span>, <span class='va'>s</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          income state region  income.1 stratum size  id</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.65  866.10058    nc      1 866.10058       1   10  65</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.93  592.34629    nc      1 592.34629       1   10  93</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.29  286.04175    nc      1 286.04175       1   10  29</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.64  547.19689    nc      1 547.19689       1   10  64</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.34  200.38347    nc      1 200.38347       1   10  34</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.45  482.35179    nc      1 482.35179       1   10  45</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.26   52.49346    nc      1  52.49346       1   10  26</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.8   598.38073    nc      1 598.38073       1   10   8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.52  329.42273    nc      1 329.42273       1   10  52</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.62  895.92032    nc      1 895.92032       1   10  62</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.120 507.15857    nc      2 507.15857       2    5 120</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.143 232.86548    nc      2 232.86548       2    5 143</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.147 688.35110    nc      2 688.35110       2    5 147</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.109 451.99868    nc      2 451.99868       2    5 109</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.130 571.54761    nc      2 571.54761       2    5 130</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.165 794.92344    nc      3 794.92344       3   10 165</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.151 628.19458    nc      3 628.19458       3   10 151</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.156 755.49937    nc      3 755.49937       3   10 156</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.160 426.00580    nc      3 426.00580       3   10 160</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.157 578.61374    nc      3 578.61374       3   10 157</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.164 616.97988    nc      3 616.97988       3   10 164</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.152 780.21599    nc      3 780.21599       3   10 152</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.162 507.13136    nc      3 507.13136       3   10 162</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.153 178.19258    nc      3 178.19258       3   10 153</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.159 948.04473    nc      3 948.04473       3   10 159</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.167 427.83172    sc      1 427.83172       4    4 167</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.181 381.52305    sc      1 381.52305       4    4 181</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.170 391.48706    sc      1 391.48706       4    4 170</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.169  27.68708    sc      1  27.68708       4    4 169</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5.202 773.62990    sc      2 773.62990       5    6 202</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5.231 469.94421    sc      2 469.94421       5    6 231</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5.233 196.68003    sc      2 196.68003       5    6 233</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5.217 822.34924    sc      2 822.34924       5    6 217</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5.229 369.66882    sc      2 369.66882       5    6 229</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5.208 152.05055    sc      2 152.05055       5    6 208</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># see the result using a contigency table</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>s</span><span class='op'>$</span><span class='va'>region</span>, <span class='va'>s</span><span class='op'>$</span><span class='va'>state</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     nc sc</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1 10  4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2  5  6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3 10  0</span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># The same data as in Example 1</span></span>
+<span class='r-in'><span class='co'># the method is 'systematic' (unequal probability, without replacement)</span></span>
+<span class='r-in'><span class='co'># the selection probabilities are computed using the variable 'income'</span></span>
+<span class='r-in'><span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'>Strata</span><span class='op'>(</span><span class='va'>m</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"region"</span>, <span class='st'>"state"</span><span class='op'>)</span>, size<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>4</span>, <span class='fl'>6</span><span class='op'>)</span>,</span>
+<span class='r-in'>            method<span class='op'>=</span><span class='st'>"systematic"</span>, pik<span class='op'>=</span><span class='va'>m</span><span class='op'>$</span><span class='va'>income</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># extracts the observed data</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>income<span class='op'>=</span><span class='va'>m</span><span class='op'>[</span><span class='va'>s</span><span class='op'>$</span><span class='va'>id</span>, <span class='st'>"income"</span><span class='op'>]</span>, <span class='va'>s</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          income state region  income.1 stratum size  id</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.9   322.88584    nc      1 322.88584       1   10   9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.29  286.04175    nc      1 286.04175       1   10  29</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.86  636.40332    nc      1 636.40332       1   10  86</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.16  104.97314    nc      1 104.97314       1   10  16</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.8   598.38073    nc      1 598.38073       1   10   8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.36  793.01949    nc      1 793.01949       1   10  36</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.92  448.64375    nc      1 448.64375       1   10  92</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.100 380.39065    nc      1 380.39065       1   10 100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.66  655.96816    nc      1 655.96816       1   10  66</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.18  408.09932    nc      1 408.09932       1   10  18</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.145 737.76557    nc      2 737.76557       2    5 145</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.135  80.87036    nc      2  80.87036       2    5 135</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.112 919.35027    nc      2 919.35027       2    5 112</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.150 749.40846    nc      2 749.40846       2    5 150</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.103 552.14334    nc      2 552.14334       2    5 103</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.157 578.61374    nc      3 578.61374       3   10 157</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.160 426.00580    nc      3 426.00580       3   10 160</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.152 780.21599    nc      3 780.21599       3   10 152</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.156 755.49937    nc      3 755.49937       3   10 156</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.158 177.50997    nc      3 177.50997       3   10 158</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.164 616.97988    nc      3 616.97988       3   10 164</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.151 628.19458    nc      3 628.19458       3   10 151</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.163 385.42599    nc      3 385.42599       3   10 163</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.153 178.19258    nc      3 178.19258       3   10 153</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.154 712.35448    nc      3 712.35448       3   10 154</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.183 195.25163    sc      1 195.25163       4    4 183</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.170 391.48706    sc      1 391.48706       4    4 170</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.186 131.10277    sc      1 131.10277       4    4 186</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.184 982.18831    sc      1 982.18831       4    4 184</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5.200 388.30586    sc      2 388.30586       5    6 200</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5.214 677.27586    sc      2 677.27586       5    6 214</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5.229 369.66882    sc      2 369.66882       5    6 229</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5.198 483.59321    sc      2 483.59321       5    6 198</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5.224 771.66254    sc      2 771.66254       5    6 224</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5.205 192.33168    sc      2 192.33168       5    6 205</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># see the result using a contigency table</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>s</span><span class='op'>$</span><span class='va'>region</span>, <span class='va'>s</span><span class='op'>$</span><span class='va'>state</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     nc sc</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1 10  4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2  5  6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3 10  0</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

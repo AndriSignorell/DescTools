@@ -76,7 +76,7 @@ All the frequencies are nested into one single table.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -181,7 +181,7 @@ All the frequencies are nested into one single table.
     <tr>
       <th>x, y</th>
       <td><p>objects which can be interpreted as factors (including character strings).
-   x and y will be tabulated via <code><a href='https://rdrr.io/r/base/table.html'>table(x, y)</a></code>.<br />
+   x and y will be tabulated via <code>table(x, y)</code>.<br />
    If x is a matrix, it will be coerced to a table via as.table(x).
 <!-- %%     ~~Describe \code{x} here~~ --></p></td>
     </tr>
@@ -237,16 +237,16 @@ All the frequencies are nested into one single table.
     </tr>
     <tr>
       <th>digits</th>
-      <td><p>integer. With how many digits shoud the relative frequencies be formatted? Default can be set by <code><a href='DescToolsOptions.html'>DescToolsOptions(digits=x)</a></code>.</p></td>
+      <td><p>integer. With how many digits shoud the relative frequencies be formatted? Default can be set by <code>DescToolsOptions(digits=x)</code>.</p></td>
     </tr>
     <tr>
       <th>formula</th>
-      <td><p>a formula of the form <code>lhs ~ rhs</code> where <code>lhs</code> will be tabled versus rhs (<code><a href='https://rdrr.io/r/base/table.html'>table(lhs, rhs)</a></code>).</p></td>
+      <td><p>a formula of the form <code>lhs ~ rhs</code> where <code>lhs</code> will be tabled versus rhs (<code>table(lhs, rhs)</code>).</p></td>
     </tr>
     <tr>
       <th>data</th>
       <td><p>an optional matrix or data frame (or similar: see <code><a href='https://rdrr.io/r/stats/model.frame.html'>model.frame</a></code>) containing the variables in the formula <code>formula</code>.
-    By default the variables are taken from <code><a href='https://rdrr.io/r/base/environment.html'>environment(formula)</a></code>.</p></td>
+    By default the variables are taken from <code>environment(formula)</code>.</p></td>
     </tr>
     <tr>
       <th>subset</th>
@@ -254,7 +254,7 @@ All the frequencies are nested into one single table.
     </tr>
     <tr>
       <th>na.action</th>
-      <td><p>a function which indicates what should happen when the data contain NAs. Defaults to <code><a href='https://rdrr.io/r/base/options.html'>getOption("na.action")</a></code>.</p></td>
+      <td><p>a function which indicates what should happen when the data contain NAs. Defaults to <code>getOption("na.action")</code>.</p></td>
     </tr>
     <tr>
       <th>vsep</th>
@@ -277,7 +277,7 @@ the dimensions (included percentages are named <code>"idx"</code>) or numbers (1
 Use <code><a href='Sort.html'>Sort()</a></code> if you want to have your table sorted by rows.<br /><br />
 The style in which numbers are formatted is selected by
 <code><a href='Format.html'>Fmt</a>()</code> from the DescTools options.
-Absolute frequencies will use <code><a href='Format.html'>Fmt("abs")</a></code> and <code><a href='Format.html'>Fmt("per")</a></code> will do it for the percentages. The options can be changed with <code><a href='Format.html'>Fmt(abs=as.fmt(...))</a></code> which is basically a <code>"fmt"</code>-object containing any format information used in <code><a href='Format.html'>Format</a></code>.</p>
+Absolute frequencies will use <code>Fmt("abs")</code> and <code>Fmt("per")</code> will do it for the percentages. The options can be changed with <code>Fmt(abs=as.fmt(...))</code> which is basically a <code>"fmt"</code>-object containing any format information used in <code><a href='Format.html'>Format</a></code>.</p>
 <p><code>Margins()</code> returns a list containing all the one dimensional margin tables of a n-dimensional table along the given dimensions. It uses <code><a href='https://rdrr.io/r/base/marginSums.html'>margin.table</a>()</code> for all the dimensions and adds the appropriate percentages.</p>
 <p><!-- %%  ~~ If necessary, more details than the description above ~~ --></p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -302,427 +302,445 @@ There are similar functions in package <span class="pkg">sfsmisc</span> <code>pr
 lacking some of the flexibility we needed here. <br /></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>tab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span>driver<span class='op'>=</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>driver</span>, area<span class='op'>=</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>area</span><span class='op'>)</span>
-
-<span class='fu'>PercTable</span><span class='op'>(</span>tab<span class='op'>=</span><span class='va'>tab</span>, col.vars<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                                                
-#&gt;             area   Brent   Camden   Westminster
-#&gt; driver                                         
-#&gt;                                                
-#&gt; Butcher     freq      72        1            22
-#&gt;             perc    6.0%     0.1%          1.8%
-#&gt;                                                
-#&gt; Carpenter   freq      29       19           221
-#&gt;             perc    2.4%     1.6%         18.5%
-#&gt;                                                
-#&gt; Carter      freq     177       47             5
-#&gt;             perc   14.8%     3.9%          0.4%
-#&gt;                                                
-#&gt; Farmer      freq      19       87            11
-#&gt;             perc    1.6%     7.3%          0.9%
-#&gt;                                                
-#&gt; Hunter      freq     128        4            24
-#&gt;             perc   10.7%     0.3%          2.0%
-#&gt;                                                
-#&gt; Miller      freq       6       41            77
-#&gt;             perc    0.5%     3.4%          6.4%
-#&gt;                                                
-#&gt; Taylor      freq      42      142            20
-#&gt;             perc    3.5%    11.9%          1.7%
-#&gt;                                                </div><div class='input'>
-<span class='fu'>PercTable</span><span class='op'>(</span>tab<span class='op'>=</span><span class='va'>tab</span>, col.vars<span class='op'>=</span><span class='fl'>2</span>, margins<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                                                       
-#&gt;             area   Brent   Camden   Westminster    Sum
-#&gt; driver                                                
-#&gt;                                                       
-#&gt; Butcher     freq      72        1            22     95
-#&gt;             perc    6.0%     0.1%          1.8%   8.0%
-#&gt;                                                       
-#&gt; Carpenter   freq      29       19           221    269
-#&gt;             perc    2.4%     1.6%         18.5%  22.5%
-#&gt;                                                       
-#&gt; Carter      freq     177       47             5    229
-#&gt;             perc   14.8%     3.9%          0.4%  19.2%
-#&gt;                                                       
-#&gt; Farmer      freq      19       87            11    117
-#&gt;             perc    1.6%     7.3%          0.9%   9.8%
-#&gt;                                                       
-#&gt; Hunter      freq     128        4            24    156
-#&gt;             perc   10.7%     0.3%          2.0%  13.1%
-#&gt;                                                       
-#&gt; Miller      freq       6       41            77    124
-#&gt;             perc    0.5%     3.4%          6.4%  10.4%
-#&gt;                                                       
-#&gt; Taylor      freq      42      142            20    204
-#&gt;             perc    3.5%    11.9%          1.7%  17.1%
-#&gt;                                                       
-#&gt; Sum         freq     473      341           380  1'194
-#&gt;             perc   39.6%    28.6%         31.8% 100.0%
-#&gt;                                                       </div><div class='input'><span class='fu'>PercTable</span><span class='op'>(</span>tab<span class='op'>=</span><span class='va'>tab</span>, col.vars<span class='op'>=</span><span class='fl'>2</span>, margins<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                                                
-#&gt;             area   Brent   Camden   Westminster
-#&gt; driver                                         
-#&gt;                                                
-#&gt; Butcher     freq      72        1            22
-#&gt;             perc    6.0%     0.1%          1.8%
-#&gt;                                                
-#&gt; Carpenter   freq      29       19           221
-#&gt;             perc    2.4%     1.6%         18.5%
-#&gt;                                                
-#&gt; Carter      freq     177       47             5
-#&gt;             perc   14.8%     3.9%          0.4%
-#&gt;                                                
-#&gt; Farmer      freq      19       87            11
-#&gt;             perc    1.6%     7.3%          0.9%
-#&gt;                                                
-#&gt; Hunter      freq     128        4            24
-#&gt;             perc   10.7%     0.3%          2.0%
-#&gt;                                                
-#&gt; Miller      freq       6       41            77
-#&gt;             perc    0.5%     3.4%          6.4%
-#&gt;                                                
-#&gt; Taylor      freq      42      142            20
-#&gt;             perc    3.5%    11.9%          1.7%
-#&gt;                                                
-#&gt; Sum         freq     473      341           380
-#&gt;             perc   39.6%    28.6%         31.8%
-#&gt;                                                </div><div class='input'><span class='fu'>PercTable</span><span class='op'>(</span>tab<span class='op'>=</span><span class='va'>tab</span>, col.vars<span class='op'>=</span><span class='fl'>2</span>, margins<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                                                      
-#&gt;             area   Brent   Camden   Westminster   Sum
-#&gt; driver                                               
-#&gt;                                                      
-#&gt; Butcher     freq      72        1            22    95
-#&gt;             perc    6.0%     0.1%          1.8%  8.0%
-#&gt;                                                      
-#&gt; Carpenter   freq      29       19           221   269
-#&gt;             perc    2.4%     1.6%         18.5% 22.5%
-#&gt;                                                      
-#&gt; Carter      freq     177       47             5   229
-#&gt;             perc   14.8%     3.9%          0.4% 19.2%
-#&gt;                                                      
-#&gt; Farmer      freq      19       87            11   117
-#&gt;             perc    1.6%     7.3%          0.9%  9.8%
-#&gt;                                                      
-#&gt; Hunter      freq     128        4            24   156
-#&gt;             perc   10.7%     0.3%          2.0% 13.1%
-#&gt;                                                      
-#&gt; Miller      freq       6       41            77   124
-#&gt;             perc    0.5%     3.4%          6.4% 10.4%
-#&gt;                                                      
-#&gt; Taylor      freq      42      142            20   204
-#&gt;             perc    3.5%    11.9%          1.7% 17.1%
-#&gt;                                                      </div><div class='input'><span class='fu'>PercTable</span><span class='op'>(</span>tab<span class='op'>=</span><span class='va'>tab</span>, col.vars<span class='op'>=</span><span class='fl'>2</span>, margins<span class='op'>=</span><span class='cn'>NULL</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                                                
-#&gt;             area   Brent   Camden   Westminster
-#&gt; driver                                         
-#&gt;                                                
-#&gt; Butcher     freq      72        1            22
-#&gt;             perc    6.0%     0.1%          1.8%
-#&gt;                                                
-#&gt; Carpenter   freq      29       19           221
-#&gt;             perc    2.4%     1.6%         18.5%
-#&gt;                                                
-#&gt; Carter      freq     177       47             5
-#&gt;             perc   14.8%     3.9%          0.4%
-#&gt;                                                
-#&gt; Farmer      freq      19       87            11
-#&gt;             perc    1.6%     7.3%          0.9%
-#&gt;                                                
-#&gt; Hunter      freq     128        4            24
-#&gt;             perc   10.7%     0.3%          2.0%
-#&gt;                                                
-#&gt; Miller      freq       6       41            77
-#&gt;             perc    0.5%     3.4%          6.4%
-#&gt;                                                
-#&gt; Taylor      freq      42      142            20
-#&gt;             perc    3.5%    11.9%          1.7%
-#&gt;                                                </div><div class='input'>
-<span class='fu'>PercTable</span><span class='op'>(</span>tab<span class='op'>=</span><span class='va'>tab</span>, col.vars<span class='op'>=</span><span class='fl'>2</span>, rfrq<span class='op'>=</span><span class='st'>"000"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                                         
-#&gt; area        Brent   Camden   Westminster
-#&gt; driver                                  
-#&gt; Butcher        72        1            22
-#&gt; Carpenter      29       19           221
-#&gt; Carter        177       47             5
-#&gt; Farmer         19       87            11
-#&gt; Hunter        128        4            24
-#&gt; Miller          6       41            77
-#&gt; Taylor         42      142            20</div><div class='input'>
-<span class='co'># just the percentages without absolute values</span>
-<span class='fu'>PercTable</span><span class='op'>(</span>tab<span class='op'>=</span><span class='va'>tab</span>, col.vars<span class='op'>=</span><span class='fl'>2</span>, rfrq<span class='op'>=</span><span class='st'>"110"</span>, freq<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                                                 
-#&gt;             area    Brent   Camden   Westminster
-#&gt; driver                                          
-#&gt;                                                 
-#&gt; Butcher     perc     6.0%     0.1%          1.8%
-#&gt;             p.row   75.8%     1.1%         23.2%
-#&gt;                                                 
-#&gt; Carpenter   perc     2.4%     1.6%         18.5%
-#&gt;             p.row   10.8%     7.1%         82.2%
-#&gt;                                                 
-#&gt; Carter      perc    14.8%     3.9%          0.4%
-#&gt;             p.row   77.3%    20.5%          2.2%
-#&gt;                                                 
-#&gt; Farmer      perc     1.6%     7.3%          0.9%
-#&gt;             p.row   16.2%    74.4%          9.4%
-#&gt;                                                 
-#&gt; Hunter      perc    10.7%     0.3%          2.0%
-#&gt;             p.row   82.1%     2.6%         15.4%
-#&gt;                                                 
-#&gt; Miller      perc     0.5%     3.4%          6.4%
-#&gt;             p.row    4.8%    33.1%         62.1%
-#&gt;                                                 
-#&gt; Taylor      perc     3.5%    11.9%          1.7%
-#&gt;             p.row   20.6%    69.6%          9.8%
-#&gt;                                                 </div><div class='input'>
-<span class='co'># just the row percentages in percent format (pfmt = TRUE)</span>
-<span class='fu'>PercTable</span><span class='op'>(</span><span class='va'>tab</span>, freq<span class='op'>=</span> <span class='cn'>FALSE</span>, rfrq<span class='op'>=</span><span class='st'>"010"</span>, pfmt<span class='op'>=</span><span class='cn'>TRUE</span>, digits<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                                         
-#&gt; area        Brent   Camden   Westminster
-#&gt; driver                                  
-#&gt; Butcher     75.8%     1.1%         23.2%
-#&gt; Carpenter   10.8%     7.1%         82.2%
-#&gt; Carter      77.3%    20.5%          2.2%
-#&gt; Farmer      16.2%    74.4%          9.4%
-#&gt; Hunter      82.1%     2.6%         15.4%
-#&gt; Miller       4.8%    33.1%         62.1%
-#&gt; Taylor      20.6%    69.6%          9.8%</div><div class='input'>
-<span class='co'># just the expected frequencies and the standard residuals</span>
-<span class='fu'>PercTable</span><span class='op'>(</span>tab<span class='op'>=</span><span class='va'>tab</span>, rfrq<span class='op'>=</span><span class='st'>"000"</span>, expected <span class='op'>=</span> <span class='cn'>TRUE</span>, stdres <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                                                  
-#&gt;             area     Brent   Camden   Westminster
-#&gt; driver                                           
-#&gt;                                                  
-#&gt; Butcher     freq        72        1            22
-#&gt;             exp     37.634   27.131        30.235
-#&gt;             stdres   7.514   -6.187        -1.891
-#&gt;                                                  
-#&gt; Carpenter   freq        29       19           221
-#&gt;             exp    106.564   76.825        85.611
-#&gt;             stdres -10.985   -8.868        20.134
-#&gt;                                                  
-#&gt; Carter      freq       177       47             5
-#&gt;             exp     90.718   65.401        72.881
-#&gt;             stdres  12.967   -2.994       -10.712
-#&gt;                                                  
-#&gt; Farmer      freq        19       87            11
-#&gt;             exp     46.349   33.415        37.236
-#&gt;             stdres  -5.443   11.548        -5.483
-#&gt;                                                  
-#&gt; Hunter      freq       128        4            24
-#&gt;             exp     61.799   44.553        49.648
-#&gt;             stdres  11.623   -7.709        -4.728
-#&gt;                                                  
-#&gt; Miller      freq         6       41            77
-#&gt;             exp     49.122   35.414        39.464
-#&gt;             stdres  -8.364    1.173         7.644
-#&gt;                                                  
-#&gt; Taylor      freq        42      142            20
-#&gt;             exp     80.814   58.261        64.925
-#&gt;             stdres  -6.102   14.254        -7.416
-#&gt;                                                  </div><div class='input'>
-
-<span class='co'># rearrange output such that freq are inserted as columns instead of rows</span>
-<span class='fu'>PercTable</span><span class='op'>(</span>tab<span class='op'>=</span><span class='va'>tab</span>, col.vars<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>2</span><span class='op'>)</span>, rfrq<span class='op'>=</span><span class='st'>"111"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                                                                                
-#&gt;              freq                           perc                          p.row
-#&gt; area        Brent   Camden   Westminster   Brent   Camden   Westminster   Brent
-#&gt; driver                                                                         
-#&gt; Butcher        72        1            22    6.0%     0.1%          1.8%   75.8%
-#&gt; Carpenter      29       19           221    2.4%     1.6%         18.5%   10.8%
-#&gt; Carter        177       47             5   14.8%     3.9%          0.4%   77.3%
-#&gt; Farmer         19       87            11    1.6%     7.3%          0.9%   16.2%
-#&gt; Hunter        128        4            24   10.7%     0.3%          2.0%   82.1%
-#&gt; Miller          6       41            77    0.5%     3.4%          6.4%    4.8%
-#&gt; Taylor         42      142            20    3.5%    11.9%          1.7%   20.6%
-#&gt;                                                                
-#&gt;                                    p.col                       
-#&gt; area        Camden   Westminster   Brent   Camden   Westminster
-#&gt; driver                                                         
-#&gt; Butcher       1.1%         23.2%   15.2%     0.3%          5.8%
-#&gt; Carpenter     7.1%         82.2%    6.1%     5.6%         58.2%
-#&gt; Carter       20.5%          2.2%   37.4%    13.8%          1.3%
-#&gt; Farmer       74.4%          9.4%    4.0%    25.5%          2.9%
-#&gt; Hunter        2.6%         15.4%   27.1%     1.2%          6.3%
-#&gt; Miller       33.1%         62.1%    1.3%    12.0%         20.3%
-#&gt; Taylor       69.6%          9.8%    8.9%    41.6%          5.3%</div><div class='input'>
-<span class='co'># putting the areas in rows</span>
-<span class='fu'>PercTable</span><span class='op'>(</span>tab<span class='op'>=</span><span class='va'>tab</span>, col.vars<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>1</span><span class='op'>)</span>, rfrq<span class='op'>=</span><span class='st'>"100"</span>, margins<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                                                                               
-#&gt;                  freq                                                         
-#&gt; driver        Butcher   Carpenter   Carter   Farmer   Hunter   Miller   Taylor
-#&gt; area                                                                          
-#&gt; Brent              72          29      177       19      128        6       42
-#&gt; Camden              1          19       47       87        4       41      142
-#&gt; Westminster        22         221        5       11       24       77       20
-#&gt; Sum                95         269      229      117      156      124      204
-#&gt;                                                                             
-#&gt;                         perc                                                
-#&gt; driver         Sum   Butcher   Carpenter   Carter   Farmer   Hunter   Miller
-#&gt; area                                                                        
-#&gt; Brent          473      6.0%        2.4%    14.8%     1.6%    10.7%     0.5%
-#&gt; Camden         341      0.1%        1.6%     3.9%     7.3%     0.3%     3.4%
-#&gt; Westminster    380      1.8%       18.5%     0.4%     0.9%     2.0%     6.4%
-#&gt; Sum          1'194      8.0%       22.5%    19.2%     9.8%    13.1%    10.4%
-#&gt;                            
-#&gt;                            
-#&gt; driver        Taylor    Sum
-#&gt; area                       
-#&gt; Brent           3.5%  39.6%
-#&gt; Camden         11.9%  28.6%
-#&gt; Westminster     1.7%  31.8%
-#&gt; Sum            17.1% 100.0%</div><div class='input'>
-<span class='co'># formula interface with subset</span>
-<span class='fu'>PercTable</span><span class='op'>(</span><span class='va'>driver</span> <span class='op'>~</span> <span class='va'>area</span>, data<span class='op'>=</span><span class='va'>d.pizza</span>, subset<span class='op'>=</span><span class='va'>wine_delivered</span><span class='op'>==</span><span class='fl'>0</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                                                
-#&gt;             area   Brent   Camden   Westminster
-#&gt; driver                                         
-#&gt;                                                
-#&gt; Butcher     freq      65        1            18
-#&gt;             perc    6.4%     0.1%          1.8%
-#&gt;                                                
-#&gt; Carpenter   freq      27       14           170
-#&gt;             perc    2.6%     1.4%         16.7%
-#&gt;                                                
-#&gt; Carter      freq     161       42             4
-#&gt;             perc   15.8%     4.1%          0.4%
-#&gt;                                                
-#&gt; Farmer      freq      19       72             9
-#&gt;             perc    1.9%     7.1%          0.9%
-#&gt;                                                
-#&gt; Hunter      freq     113        4            22
-#&gt;             perc   11.1%     0.4%          2.2%
-#&gt;                                                
-#&gt; Miller      freq       6       35            67
-#&gt;             perc    0.6%     3.4%          6.6%
-#&gt;                                                
-#&gt; Taylor      freq      36      118            18
-#&gt;             perc    3.5%    11.6%          1.8%
-#&gt;                                                </div><div class='input'>
-<span class='co'># sort the table by rows, order first column (Zurich), then third, then row.names (0)</span>
-<span class='fu'>PercTable</span><span class='op'>(</span>tab<span class='op'>=</span><span class='fu'><a href='Sort.html'>Sort</a></span><span class='op'>(</span><span class='va'>tab</span>, ord<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>3</span>,<span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                                                
-#&gt;             area   Brent   Camden   Westminster
-#&gt; driver                                         
-#&gt;                                                
-#&gt; Miller      freq       6       41            77
-#&gt;             perc    0.5%     3.4%          6.4%
-#&gt;                                                
-#&gt; Farmer      freq      19       87            11
-#&gt;             perc    1.6%     7.3%          0.9%
-#&gt;                                                
-#&gt; Carpenter   freq      29       19           221
-#&gt;             perc    2.4%     1.6%         18.5%
-#&gt;                                                
-#&gt; Taylor      freq      42      142            20
-#&gt;             perc    3.5%    11.9%          1.7%
-#&gt;                                                
-#&gt; Butcher     freq      72        1            22
-#&gt;             perc    6.0%     0.1%          1.8%
-#&gt;                                                
-#&gt; Hunter      freq     128        4            24
-#&gt;             perc   10.7%     0.3%          2.0%
-#&gt;                                                
-#&gt; Carter      freq     177       47             5
-#&gt;             perc   14.8%     3.9%          0.4%
-#&gt;                                                </div><div class='input'>
-<span class='co'># reverse the row variables, so that absolute frequencies and percents</span>
-<span class='co'># are not nested together</span>
-<span class='fu'>PercTable</span><span class='op'>(</span><span class='va'>tab</span>, row.vars<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                                                
-#&gt;        area        Brent   Camden   Westminster
-#&gt;        driver                                  
-#&gt; freq   Butcher        72        1            22
-#&gt;        Carpenter      29       19           221
-#&gt;        Carter        177       47             5
-#&gt;        Farmer         19       87            11
-#&gt;        Hunter        128        4            24
-#&gt;        Miller          6       41            77
-#&gt;        Taylor         42      142            20
-#&gt;                                                
-#&gt; perc   Butcher      6.0%     0.1%          1.8%
-#&gt;        Carpenter    2.4%     1.6%         18.5%
-#&gt;        Carter      14.8%     3.9%          0.4%
-#&gt;        Farmer       1.6%     7.3%          0.9%
-#&gt;        Hunter      10.7%     0.3%          2.0%
-#&gt;        Miller       0.5%     3.4%          6.4%
-#&gt;        Taylor       3.5%    11.9%          1.7%
-#&gt;                                                </div><div class='input'>
-<span class='co'># the vector interface</span>
-<span class='fu'>PercTable</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>driver</span>, y<span class='op'>=</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>area</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                                                
-#&gt;                    Brent   Camden   Westminster
-#&gt;                                                
-#&gt; Butcher     freq      72        1            22
-#&gt;             perc    6.0%     0.1%          1.8%
-#&gt;                                                
-#&gt; Carpenter   freq      29       19           221
-#&gt;             perc    2.4%     1.6%         18.5%
-#&gt;                                                
-#&gt; Carter      freq     177       47             5
-#&gt;             perc   14.8%     3.9%          0.4%
-#&gt;                                                
-#&gt; Farmer      freq      19       87            11
-#&gt;             perc    1.6%     7.3%          0.9%
-#&gt;                                                
-#&gt; Hunter      freq     128        4            24
-#&gt;             perc   10.7%     0.3%          2.0%
-#&gt;                                                
-#&gt; Miller      freq       6       41            77
-#&gt;             perc    0.5%     3.4%          6.4%
-#&gt;                                                
-#&gt; Taylor      freq      42      142            20
-#&gt;             perc    3.5%    11.9%          1.7%
-#&gt;                                                </div><div class='input'><span class='fu'>PercTable</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>driver</span>, y<span class='op'>=</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>area</span>, margins<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span><span class='op'>)</span>, rfrq<span class='op'>=</span><span class='st'>"000"</span>, useNA<span class='op'>=</span><span class='st'>"ifany"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                                                     
-#&gt;             Brent   Camden   Westminster    NA   Sum
-#&gt;                                                     
-#&gt; Butcher        72        1            22     1    96
-#&gt; Carpenter      29       19           221     3   272
-#&gt; Carter        177       47             5     5   234
-#&gt; Farmer         19       87            11     0   117
-#&gt; Hunter        128        4            24     0   156
-#&gt; Miller          6       41            77     1   125
-#&gt; Taylor         42      142            20     0   204
-#&gt; NA              1        3             1     0     5
-#&gt; Sum           474      344           381    10 1'209</div><div class='input'>
-<span class='co'># one dimensional x falls back to the function Freq()</span>
-<span class='fu'>PercTable</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>driver</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                        
-#&gt;             freq   perc
-#&gt;                        
-#&gt; Butcher       96   8.0%
-#&gt; Carpenter    272  22.6%
-#&gt; Carter       234  19.4%
-#&gt; Farmer       117   9.7%
-#&gt; Hunter       156  13.0%
-#&gt; Miller       125  10.4%
-#&gt; Taylor       204  16.9%</div><div class='input'>
-<span class='co'># the margin tables</span>
-<span class='fu'>Margins</span><span class='op'>(</span><span class='va'>Titanic</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $Class
-#&gt;    level  freq   perc  cumfreq  cumperc
-#&gt; 1    1st   325  14.8%      325    14.8%
-#&gt; 2    2nd   285  12.9%      610    27.7%
-#&gt; 3    3rd   706  32.1%    1'316    59.8%
-#&gt; 4   Crew   885  40.2%    2'201   100.0%
-#&gt; 
-#&gt; $Sex
-#&gt;     level   freq   perc  cumfreq  cumperc
-#&gt; 1    Male  1'731  78.6%    1'731    78.6%
-#&gt; 2  Female    470  21.4%    2'201   100.0%
-#&gt; 
-#&gt; $Age
-#&gt;    level   freq   perc  cumfreq  cumperc
-#&gt; 1  Child    109   5.0%      109     5.0%
-#&gt; 2  Adult  2'092  95.0%    2'201   100.0%
-#&gt; 
-#&gt; $Survived
-#&gt;    level   freq   perc  cumfreq  cumperc
-#&gt; 1     No  1'490  67.7%    1'490    67.7%
-#&gt; 2    Yes    711  32.3%    2'201   100.0%
-#&gt; </div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>tab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span>driver<span class='op'>=</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>driver</span>, area<span class='op'>=</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>area</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>PercTable</span><span class='op'>(</span>tab<span class='op'>=</span><span class='va'>tab</span>, col.vars<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             area   Brent   Camden   Westminster</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> driver                                         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Butcher     freq      72        1            22</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    6.0%     0.1%          1.8%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Carpenter   freq      29       19           221</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    2.4%     1.6%         18.5%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Carter      freq     177       47             5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc   14.8%     3.9%          0.4%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Farmer      freq      19       87            11</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    1.6%     7.3%          0.9%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Hunter      freq     128        4            24</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc   10.7%     0.3%          2.0%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Miller      freq       6       41            77</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    0.5%     3.4%          6.4%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Taylor      freq      42      142            20</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    3.5%    11.9%          1.7%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>PercTable</span><span class='op'>(</span>tab<span class='op'>=</span><span class='va'>tab</span>, col.vars<span class='op'>=</span><span class='fl'>2</span>, margins<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             area   Brent   Camden   Westminster    Sum</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> driver                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Butcher     freq      72        1            22     95</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    6.0%     0.1%          1.8%   8.0%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Carpenter   freq      29       19           221    269</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    2.4%     1.6%         18.5%  22.5%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Carter      freq     177       47             5    229</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc   14.8%     3.9%          0.4%  19.2%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Farmer      freq      19       87            11    117</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    1.6%     7.3%          0.9%   9.8%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Hunter      freq     128        4            24    156</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc   10.7%     0.3%          2.0%  13.1%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Miller      freq       6       41            77    124</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    0.5%     3.4%          6.4%  10.4%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Taylor      freq      42      142            20    204</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    3.5%    11.9%          1.7%  17.1%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Sum         freq     473      341           380  1'194</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc   39.6%    28.6%         31.8% 100.0%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                       </span>
+<span class='r-in'><span class='fu'>PercTable</span><span class='op'>(</span>tab<span class='op'>=</span><span class='va'>tab</span>, col.vars<span class='op'>=</span><span class='fl'>2</span>, margins<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             area   Brent   Camden   Westminster</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> driver                                         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Butcher     freq      72        1            22</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    6.0%     0.1%          1.8%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Carpenter   freq      29       19           221</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    2.4%     1.6%         18.5%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Carter      freq     177       47             5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc   14.8%     3.9%          0.4%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Farmer      freq      19       87            11</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    1.6%     7.3%          0.9%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Hunter      freq     128        4            24</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc   10.7%     0.3%          2.0%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Miller      freq       6       41            77</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    0.5%     3.4%          6.4%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Taylor      freq      42      142            20</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    3.5%    11.9%          1.7%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Sum         freq     473      341           380</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc   39.6%    28.6%         31.8%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-in'><span class='fu'>PercTable</span><span class='op'>(</span>tab<span class='op'>=</span><span class='va'>tab</span>, col.vars<span class='op'>=</span><span class='fl'>2</span>, margins<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             area   Brent   Camden   Westminster   Sum</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> driver                                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Butcher     freq      72        1            22    95</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    6.0%     0.1%          1.8%  8.0%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Carpenter   freq      29       19           221   269</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    2.4%     1.6%         18.5% 22.5%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Carter      freq     177       47             5   229</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc   14.8%     3.9%          0.4% 19.2%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Farmer      freq      19       87            11   117</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    1.6%     7.3%          0.9%  9.8%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Hunter      freq     128        4            24   156</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc   10.7%     0.3%          2.0% 13.1%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Miller      freq       6       41            77   124</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    0.5%     3.4%          6.4% 10.4%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Taylor      freq      42      142            20   204</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    3.5%    11.9%          1.7% 17.1%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                      </span>
+<span class='r-in'><span class='fu'>PercTable</span><span class='op'>(</span>tab<span class='op'>=</span><span class='va'>tab</span>, col.vars<span class='op'>=</span><span class='fl'>2</span>, margins<span class='op'>=</span><span class='cn'>NULL</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             area   Brent   Camden   Westminster</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> driver                                         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Butcher     freq      72        1            22</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    6.0%     0.1%          1.8%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Carpenter   freq      29       19           221</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    2.4%     1.6%         18.5%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Carter      freq     177       47             5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc   14.8%     3.9%          0.4%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Farmer      freq      19       87            11</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    1.6%     7.3%          0.9%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Hunter      freq     128        4            24</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc   10.7%     0.3%          2.0%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Miller      freq       6       41            77</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    0.5%     3.4%          6.4%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Taylor      freq      42      142            20</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    3.5%    11.9%          1.7%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>PercTable</span><span class='op'>(</span>tab<span class='op'>=</span><span class='va'>tab</span>, col.vars<span class='op'>=</span><span class='fl'>2</span>, rfrq<span class='op'>=</span><span class='st'>"000"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> area        Brent   Camden   Westminster</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> driver                                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Butcher        72        1            22</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Carpenter      29       19           221</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Carter        177       47             5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Farmer         19       87            11</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Hunter        128        4            24</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Miller          6       41            77</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Taylor         42      142            20</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># just the percentages without absolute values</span></span>
+<span class='r-in'><span class='fu'>PercTable</span><span class='op'>(</span>tab<span class='op'>=</span><span class='va'>tab</span>, col.vars<span class='op'>=</span><span class='fl'>2</span>, rfrq<span class='op'>=</span><span class='st'>"110"</span>, freq<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             area    Brent   Camden   Westminster</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> driver                                          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Butcher     perc     6.0%     0.1%          1.8%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             p.row   75.8%     1.1%         23.2%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Carpenter   perc     2.4%     1.6%         18.5%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             p.row   10.8%     7.1%         82.2%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Carter      perc    14.8%     3.9%          0.4%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             p.row   77.3%    20.5%          2.2%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Farmer      perc     1.6%     7.3%          0.9%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             p.row   16.2%    74.4%          9.4%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Hunter      perc    10.7%     0.3%          2.0%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             p.row   82.1%     2.6%         15.4%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Miller      perc     0.5%     3.4%          6.4%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             p.row    4.8%    33.1%         62.1%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Taylor      perc     3.5%    11.9%          1.7%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             p.row   20.6%    69.6%          9.8%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                 </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># just the row percentages in percent format (pfmt = TRUE)</span></span>
+<span class='r-in'><span class='fu'>PercTable</span><span class='op'>(</span><span class='va'>tab</span>, freq<span class='op'>=</span> <span class='cn'>FALSE</span>, rfrq<span class='op'>=</span><span class='st'>"010"</span>, pfmt<span class='op'>=</span><span class='cn'>TRUE</span>, digits<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> area        Brent   Camden   Westminster</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> driver                                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Butcher     75.8%     1.1%         23.2%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Carpenter   10.8%     7.1%         82.2%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Carter      77.3%    20.5%          2.2%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Farmer      16.2%    74.4%          9.4%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Hunter      82.1%     2.6%         15.4%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Miller       4.8%    33.1%         62.1%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Taylor      20.6%    69.6%          9.8%</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># just the expected frequencies and the standard residuals</span></span>
+<span class='r-in'><span class='fu'>PercTable</span><span class='op'>(</span>tab<span class='op'>=</span><span class='va'>tab</span>, rfrq<span class='op'>=</span><span class='st'>"000"</span>, expected <span class='op'>=</span> <span class='cn'>TRUE</span>, stdres <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             area     Brent   Camden   Westminster</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> driver                                           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Butcher     freq        72        1            22</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             exp     37.634   27.131        30.235</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             stdres   7.514   -6.187        -1.891</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Carpenter   freq        29       19           221</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             exp    106.564   76.825        85.611</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             stdres -10.985   -8.868        20.134</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Carter      freq       177       47             5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             exp     90.718   65.401        72.881</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             stdres  12.967   -2.994       -10.712</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Farmer      freq        19       87            11</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             exp     46.349   33.415        37.236</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             stdres  -5.443   11.548        -5.483</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Hunter      freq       128        4            24</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             exp     61.799   44.553        49.648</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             stdres  11.623   -7.709        -4.728</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Miller      freq         6       41            77</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             exp     49.122   35.414        39.464</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             stdres  -8.364    1.173         7.644</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Taylor      freq        42      142            20</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             exp     80.814   58.261        64.925</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             stdres  -6.102   14.254        -7.416</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                  </span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># rearrange output such that freq are inserted as columns instead of rows</span></span>
+<span class='r-in'><span class='fu'>PercTable</span><span class='op'>(</span>tab<span class='op'>=</span><span class='va'>tab</span>, col.vars<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>2</span><span class='op'>)</span>, rfrq<span class='op'>=</span><span class='st'>"111"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>              freq                           perc                          p.row</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> area        Brent   Camden   Westminster   Brent   Camden   Westminster   Brent</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> driver                                                                         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Butcher        72        1            22    6.0%     0.1%          1.8%   75.8%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Carpenter      29       19           221    2.4%     1.6%         18.5%   10.8%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Carter        177       47             5   14.8%     3.9%          0.4%   77.3%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Farmer         19       87            11    1.6%     7.3%          0.9%   16.2%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Hunter        128        4            24   10.7%     0.3%          2.0%   82.1%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Miller          6       41            77    0.5%     3.4%          6.4%    4.8%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Taylor         42      142            20    3.5%    11.9%          1.7%   20.6%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                    p.col                       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> area        Camden   Westminster   Brent   Camden   Westminster</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> driver                                                         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Butcher       1.1%         23.2%   15.2%     0.3%          5.8%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Carpenter     7.1%         82.2%    6.1%     5.6%         58.2%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Carter       20.5%          2.2%   37.4%    13.8%          1.3%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Farmer       74.4%          9.4%    4.0%    25.5%          2.9%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Hunter        2.6%         15.4%   27.1%     1.2%          6.3%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Miller       33.1%         62.1%    1.3%    12.0%         20.3%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Taylor       69.6%          9.8%    8.9%    41.6%          5.3%</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># putting the areas in rows</span></span>
+<span class='r-in'><span class='fu'>PercTable</span><span class='op'>(</span>tab<span class='op'>=</span><span class='va'>tab</span>, col.vars<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>1</span><span class='op'>)</span>, rfrq<span class='op'>=</span><span class='st'>"100"</span>, margins<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  freq                                                         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> driver        Butcher   Carpenter   Carter   Farmer   Hunter   Miller   Taylor</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> area                                                                          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Brent              72          29      177       19      128        6       42</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Camden              1          19       47       87        4       41      142</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Westminster        22         221        5       11       24       77       20</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Sum                95         269      229      117      156      124      204</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                                             </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                         perc                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> driver         Sum   Butcher   Carpenter   Carter   Farmer   Hunter   Miller</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> area                                                                        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Brent          473      6.0%        2.4%    14.8%     1.6%    10.7%     0.5%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Camden         341      0.1%        1.6%     3.9%     7.3%     0.3%     3.4%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Westminster    380      1.8%       18.5%     0.4%     0.9%     2.0%     6.4%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Sum          1'194      8.0%       22.5%    19.2%     9.8%    13.1%    10.4%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                            </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                            </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> driver        Taylor    Sum</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> area                       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Brent           3.5%  39.6%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Camden         11.9%  28.6%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Westminster     1.7%  31.8%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Sum            17.1% 100.0%</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># formula interface with subset</span></span>
+<span class='r-in'><span class='fu'>PercTable</span><span class='op'>(</span><span class='va'>driver</span> <span class='op'>~</span> <span class='va'>area</span>, data<span class='op'>=</span><span class='va'>d.pizza</span>, subset<span class='op'>=</span><span class='va'>wine_delivered</span><span class='op'>==</span><span class='fl'>0</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             area   Brent   Camden   Westminster</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> driver                                         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Butcher     freq      65        1            18</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    6.4%     0.1%          1.8%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Carpenter   freq      27       14           170</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    2.6%     1.4%         16.7%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Carter      freq     161       42             4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc   15.8%     4.1%          0.4%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Farmer      freq      19       72             9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    1.9%     7.1%          0.9%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Hunter      freq     113        4            22</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc   11.1%     0.4%          2.2%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Miller      freq       6       35            67</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    0.6%     3.4%          6.6%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Taylor      freq      36      118            18</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    3.5%    11.6%          1.8%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># sort the table by rows, order first column (Zurich), then third, then row.names (0)</span></span>
+<span class='r-in'><span class='fu'>PercTable</span><span class='op'>(</span>tab<span class='op'>=</span><span class='fu'><a href='Sort.html'>Sort</a></span><span class='op'>(</span><span class='va'>tab</span>, ord<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>3</span>,<span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             area   Brent   Camden   Westminster</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> driver                                         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Miller      freq       6       41            77</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    0.5%     3.4%          6.4%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Farmer      freq      19       87            11</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    1.6%     7.3%          0.9%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Carpenter   freq      29       19           221</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    2.4%     1.6%         18.5%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Taylor      freq      42      142            20</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    3.5%    11.9%          1.7%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Butcher     freq      72        1            22</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    6.0%     0.1%          1.8%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Hunter      freq     128        4            24</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc   10.7%     0.3%          2.0%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Carter      freq     177       47             5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc   14.8%     3.9%          0.4%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># reverse the row variables, so that absolute frequencies and percents</span></span>
+<span class='r-in'><span class='co'># are not nested together</span></span>
+<span class='r-in'><span class='fu'>PercTable</span><span class='op'>(</span><span class='va'>tab</span>, row.vars<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        area        Brent   Camden   Westminster</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        driver                                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> freq   Butcher        72        1            22</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        Carpenter      29       19           221</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        Carter        177       47             5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        Farmer         19       87            11</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        Hunter        128        4            24</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        Miller          6       41            77</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        Taylor         42      142            20</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> perc   Butcher      6.0%     0.1%          1.8%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        Carpenter    2.4%     1.6%         18.5%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        Carter      14.8%     3.9%          0.4%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        Farmer       1.6%     7.3%          0.9%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        Hunter      10.7%     0.3%          2.0%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        Miller       0.5%     3.4%          6.4%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        Taylor       3.5%    11.9%          1.7%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># the vector interface</span></span>
+<span class='r-in'><span class='fu'>PercTable</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>driver</span>, y<span class='op'>=</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>area</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                    Brent   Camden   Westminster</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Butcher     freq      72        1            22</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    6.0%     0.1%          1.8%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Carpenter   freq      29       19           221</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    2.4%     1.6%         18.5%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Carter      freq     177       47             5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc   14.8%     3.9%          0.4%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Farmer      freq      19       87            11</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    1.6%     7.3%          0.9%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Hunter      freq     128        4            24</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc   10.7%     0.3%          2.0%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Miller      freq       6       41            77</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    0.5%     3.4%          6.4%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Taylor      freq      42      142            20</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             perc    3.5%    11.9%          1.7%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-in'><span class='fu'>PercTable</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>driver</span>, y<span class='op'>=</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>area</span>, margins<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span><span class='op'>)</span>, rfrq<span class='op'>=</span><span class='st'>"000"</span>, useNA<span class='op'>=</span><span class='st'>"ifany"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             Brent   Camden   Westminster    NA   Sum</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Butcher        72        1            22     1    96</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Carpenter      29       19           221     3   272</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Carter        177       47             5     5   234</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Farmer         19       87            11     0   117</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Hunter        128        4            24     0   156</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Miller          6       41            77     1   125</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Taylor         42      142            20     0   204</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NA              1        3             1     0     5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Sum           474      344           381    10 1'209</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># one dimensional x falls back to the function Freq()</span></span>
+<span class='r-in'><span class='fu'>PercTable</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>driver</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             freq   perc</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Butcher       96   8.0%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Carpenter    272  22.6%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Carter       234  19.4%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Farmer       117   9.7%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Hunter       156  13.0%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Miller       125  10.4%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Taylor       204  16.9%</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># the margin tables</span></span>
+<span class='r-in'><span class='fu'>Margins</span><span class='op'>(</span><span class='va'>Titanic</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $Class</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    level  freq   perc  cumfreq  cumperc</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1    1st   325  14.8%      325    14.8%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2    2nd   285  12.9%      610    27.7%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3    3rd   706  32.1%    1'316    59.8%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4   Crew   885  40.2%    2'201   100.0%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $Sex</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     level   freq   perc  cumfreq  cumperc</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1    Male  1'731  78.6%    1'731    78.6%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  Female    470  21.4%    2'201   100.0%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $Age</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    level   freq   perc  cumfreq  cumperc</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  Child    109   5.0%      109     5.0%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  Adult  2'092  95.0%    2'201   100.0%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $Survived</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    level   freq   perc  cumfreq  cumperc</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1     No  1'490  67.7%    1'490    67.7%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2    Yes    711  32.3%    2'201   100.0%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

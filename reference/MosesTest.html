@@ -75,7 +75,7 @@ Scores from both groups are pooled and converted to ranks, and the test statisti
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -183,7 +183,7 @@ Scores from both groups are pooled and converted to ranks, and the test statisti
     <tr>
       <th>data</th>
       <td><p>an optional matrix or data frame (or similar: see <code><a href='https://rdrr.io/r/stats/model.frame.html'>model.frame</a></code>) containing the variables in the formula <code>formula</code>.
-    By default the variables are taken from <code><a href='https://rdrr.io/r/base/environment.html'>environment(formula)</a></code>.</p></td>
+    By default the variables are taken from <code>environment(formula)</code>.</p></td>
     </tr>
     <tr>
       <th>subset</th>
@@ -191,7 +191,7 @@ Scores from both groups are pooled and converted to ranks, and the test statisti
     </tr>
     <tr>
       <th>na.action</th>
-      <td><p>a function which indicates what should happen when the data contain <code>NA</code>s. Defaults to <code><a href='https://rdrr.io/r/base/options.html'>getOption("na.action")</a></code>.</p></td>
+      <td><p>a function which indicates what should happen when the data contain <code>NA</code>s. Defaults to <code>getOption("na.action")</code>.</p></td>
     </tr>
     <tr>
       <th>extreme</th>
@@ -229,30 +229,32 @@ from which the sample with the larger range was drawn.</p>
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/wilcox.test.html'>wilcox.test</a></code>, <code><a href='https://rdrr.io/r/stats/ks.test.html'>ks.test</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.80</span>, <span class='fl'>0.83</span>, <span class='fl'>1.89</span>, <span class='fl'>1.04</span>, <span class='fl'>1.45</span>, <span class='fl'>1.38</span>, <span class='fl'>1.91</span>, <span class='fl'>1.64</span>, <span class='fl'>0.73</span>, <span class='fl'>1.46</span><span class='op'>)</span>
-<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1.15</span>, <span class='fl'>0.88</span>, <span class='fl'>0.90</span>, <span class='fl'>0.74</span>, <span class='fl'>1.21</span><span class='op'>)</span>
-
-<span class='fu'>MosesTest</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	Moses Test of Extreme Reactions
-#&gt; 
-#&gt; data:  x and y
-#&gt; S = 12, p-value = 0.8462
-#&gt; alternative hypothesis: extreme values are more likely in x than in y
-#&gt; </div><div class='input'>
-
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>1479</span><span class='op'>)</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>20</span>, <span class='fl'>10</span>, replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>:</span><span class='fl'>25</span>, <span class='fl'>6</span>, replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-
-<span class='fu'>MosesTest</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	Moses Test of Extreme Reactions
-#&gt; 
-#&gt; data:  x and y
-#&gt; S = 11, p-value = 0.3916
-#&gt; alternative hypothesis: extreme values are more likely in x than in y
-#&gt; </div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.80</span>, <span class='fl'>0.83</span>, <span class='fl'>1.89</span>, <span class='fl'>1.04</span>, <span class='fl'>1.45</span>, <span class='fl'>1.38</span>, <span class='fl'>1.91</span>, <span class='fl'>1.64</span>, <span class='fl'>0.73</span>, <span class='fl'>1.46</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1.15</span>, <span class='fl'>0.88</span>, <span class='fl'>0.90</span>, <span class='fl'>0.74</span>, <span class='fl'>1.21</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>MosesTest</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Moses Test of Extreme Reactions</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  x and y</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> S = 12, p-value = 0.8462</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> alternative hypothesis: extreme values are more likely in x than in y</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>1479</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>20</span>, <span class='fl'>10</span>, replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>:</span><span class='fl'>25</span>, <span class='fl'>6</span>, replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>MosesTest</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Moses Test of Extreme Reactions</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  x and y</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> S = 11, p-value = 0.3916</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> alternative hypothesis: extreme values are more likely in x than in y</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

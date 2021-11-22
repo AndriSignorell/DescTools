@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -271,40 +271,43 @@ Using R To Teach Econometrics.
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/lm.html'>lm</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'>## generate two AR(1) error terms with parameter</span>
-<span class='co'>## rho = 0 (white noise) and rho = 0.9 respectively</span>
-<span class='va'>err1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span>
-
-<span class='co'>## generate regressor and dependent variable</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span>, <span class='fl'>50</span><span class='op'>)</span>
-<span class='va'>y1</span> <span class='op'>&lt;-</span> <span class='fl'>1</span> <span class='op'>+</span> <span class='va'>x</span> <span class='op'>+</span> <span class='va'>err1</span>
-
-<span class='co'>## perform Durbin-Watson test</span>
-<span class='fu'>DurbinWatsonTest</span><span class='op'>(</span><span class='va'>y1</span> <span class='op'>~</span> <span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	Durbin-Watson test
-#&gt; 
-#&gt; data:  y1 ~ x
-#&gt; DW = 2.3157, p-value = 0.9551
-#&gt; alternative hypothesis: true autocorrelation is greater than 0
-#&gt; </div><div class='input'>
-<span class='va'>err2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>err1</span>, <span class='fl'>0.9</span>, method<span class='op'>=</span><span class='st'>"recursive"</span><span class='op'>)</span>
-<span class='va'>y2</span> <span class='op'>&lt;-</span> <span class='fl'>1</span> <span class='op'>+</span> <span class='va'>x</span> <span class='op'>+</span> <span class='va'>err2</span>
-<span class='fu'>DurbinWatsonTest</span><span class='op'>(</span><span class='va'>y2</span> <span class='op'>~</span> <span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	Durbin-Watson test
-#&gt; 
-#&gt; data:  y2 ~ x
-#&gt; DW = 0.56713, p-value = 4.726e-13
-#&gt; alternative hypothesis: true autocorrelation is greater than 0
-#&gt; </div><div class='input'>
-<span class='co'>## for a simple vector use:</span>
-<span class='va'>e_t</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>32.33</span>, <span class='op'>-</span><span class='fl'>26.603</span>, <span class='fl'>2.215</span>, <span class='op'>-</span><span class='fl'>16.967</span>, <span class='op'>-</span><span class='fl'>1.148</span>, <span class='op'>-</span><span class='fl'>2.512</span>, <span class='op'>-</span><span class='fl'>1.967</span>, <span class='fl'>11.669</span>,
-         <span class='op'>-</span><span class='fl'>0.513</span>, <span class='fl'>27.032</span>, <span class='op'>-</span><span class='fl'>4.422</span>, <span class='fl'>40.032</span>, <span class='fl'>23.577</span>, <span class='fl'>33.94</span>, <span class='op'>-</span><span class='fl'>2.787</span>, <span class='op'>-</span><span class='fl'>8.606</span>,
-          <span class='fl'>0.575</span>, <span class='fl'>6.848</span>, <span class='op'>-</span><span class='fl'>18.971</span>, <span class='op'>-</span><span class='fl'>29.063</span><span class='op'>)</span>
-<span class='fu'>DurbinWatsonTest</span><span class='op'>(</span><span class='va'>e_t</span> <span class='op'>~</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in .Fortran("pan", as.double(c(dw, ev)), as.integer(length(ev)),     as.double(0), as.integer(iterations), x = double(1), PACKAGE = "DescTools"): "pan" not available for .Fortran() for package "DescTools"</span></div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'>## generate two AR(1) error terms with parameter</span></span>
+<span class='r-in'><span class='co'>## rho = 0 (white noise) and rho = 0.9 respectively</span></span>
+<span class='r-in'><span class='va'>err1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## generate regressor and dependent variable</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span>, <span class='fl'>50</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>y1</span> <span class='op'>&lt;-</span> <span class='fl'>1</span> <span class='op'>+</span> <span class='va'>x</span> <span class='op'>+</span> <span class='va'>err1</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## perform Durbin-Watson test</span></span>
+<span class='r-in'><span class='fu'>DurbinWatsonTest</span><span class='op'>(</span><span class='va'>y1</span> <span class='op'>~</span> <span class='va'>x</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Durbin-Watson test</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  y1 ~ x</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> DW = 2.3157, p-value = 0.9551</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> alternative hypothesis: true autocorrelation is greater than 0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>err2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>err1</span>, <span class='fl'>0.9</span>, method<span class='op'>=</span><span class='st'>"recursive"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>y2</span> <span class='op'>&lt;-</span> <span class='fl'>1</span> <span class='op'>+</span> <span class='va'>x</span> <span class='op'>+</span> <span class='va'>err2</span></span>
+<span class='r-in'><span class='fu'>DurbinWatsonTest</span><span class='op'>(</span><span class='va'>y2</span> <span class='op'>~</span> <span class='va'>x</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Durbin-Watson test</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  y2 ~ x</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> DW = 0.56713, p-value = 4.726e-13</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> alternative hypothesis: true autocorrelation is greater than 0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## for a simple vector use:</span></span>
+<span class='r-in'><span class='va'>e_t</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>32.33</span>, <span class='op'>-</span><span class='fl'>26.603</span>, <span class='fl'>2.215</span>, <span class='op'>-</span><span class='fl'>16.967</span>, <span class='op'>-</span><span class='fl'>1.148</span>, <span class='op'>-</span><span class='fl'>2.512</span>, <span class='op'>-</span><span class='fl'>1.967</span>, <span class='fl'>11.669</span>,</span>
+<span class='r-in'>         <span class='op'>-</span><span class='fl'>0.513</span>, <span class='fl'>27.032</span>, <span class='op'>-</span><span class='fl'>4.422</span>, <span class='fl'>40.032</span>, <span class='fl'>23.577</span>, <span class='fl'>33.94</span>, <span class='op'>-</span><span class='fl'>2.787</span>, <span class='op'>-</span><span class='fl'>8.606</span>,</span>
+<span class='r-in'>          <span class='fl'>0.575</span>, <span class='fl'>6.848</span>, <span class='op'>-</span><span class='fl'>18.971</span>, <span class='op'>-</span><span class='fl'>29.063</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>DurbinWatsonTest</span><span class='op'>(</span><span class='va'>e_t</span> <span class='op'>~</span> <span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-err co'><span class='r-pr'>#&gt;</span> <span class='error'>Error in .Fortran("pan", as.double(c(dw, ev)), as.integer(length(ev)),     as.double(0), as.integer(iterations), x = double(1), PACKAGE = "DescTools"):</span> "pan" not available for .Fortran() for package "DescTools"</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

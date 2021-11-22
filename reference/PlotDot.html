@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -186,7 +186,7 @@
     <tr>
       <th>labels</th>
       <td><p>a vector of labels for each point.
-    For vectors the default is to use <code><a href='https://rdrr.io/r/base/names.html'>names(x)</a></code> and for matrices
+    For vectors the default is to use <code>names(x)</code> and for matrices
     the row labels <code>dimnames(x)[[1]]</code>.</p></td>
     </tr>
     <tr>
@@ -207,7 +207,7 @@
       <td><p>the character size to be used.  Setting <code>cex</code>
     to a value smaller than one can be a useful way of avoiding label
     overlap.  Unlike many other graphics functions, this sets the actual
-    size, not a multiple of <code><a href='https://rdrr.io/r/graphics/par.html'>par("cex")</a></code>.</p></td>
+    size, not a multiple of <code>par("cex")</code>.</p></td>
     </tr>
     <tr>
       <th>pch</th>
@@ -288,7 +288,7 @@
     </tr>
     <tr>
       <th>automar</th>
-      <td><p>logical (default <code>TRUE</code>), defining if the left margin should be set according to the width of the given labels, resp. grouplabels. If set to <code>FALSE</code> the margins are taken from <code><a href='https://rdrr.io/r/graphics/par.html'>par("mar")</a></code>.</p></td>
+      <td><p>logical (default <code>TRUE</code>), defining if the left margin should be set according to the width of the given labels, resp. grouplabels. If set to <code>FALSE</code> the margins are taken from <code>par("mar")</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -325,67 +325,76 @@
     <p>R-Core with some extensions by Andri Signorell &lt;andri@signorell.net&gt;</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>PlotDot</span><span class='op'>(</span><span class='va'>VADeaths</span>, main <span class='op'>=</span> <span class='st'>"Death Rates in Virginia - 1940"</span><span class='op'>)</span>
-</div><div class='img'><img src='PlotDot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>op</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>xaxs <span class='op'>=</span> <span class='st'>"i"</span><span class='op'>)</span>  <span class='co'># 0 -- 100%</span>
-<span class='fu'>PlotDot</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='va'>VADeaths</span><span class='op'>)</span>, xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>100</span><span class='op'>)</span>,
-        main <span class='op'>=</span> <span class='st'>"Death Rates in Virginia - 1940"</span><span class='op'>)</span>
-</div><div class='img'><img src='PlotDot-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span><span class='va'>op</span><span class='op'>)</span>
-
-<span class='co'># add some error bars</span>
-<span class='fu'>PlotDot</span><span class='op'>(</span><span class='va'>VADeaths</span>, main<span class='op'>=</span><span class='st'>"Death Rates in Virginia - 1940"</span>, col<span class='op'>=</span><span class='st'>"red"</span>, pch<span class='op'>=</span><span class='fl'>21</span>,
-        args.errbars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>from<span class='op'>=</span><span class='va'>VADeaths</span><span class='op'>-</span><span class='fl'>2</span>, to<span class='op'>=</span><span class='va'>VADeaths</span><span class='op'>+</span><span class='fl'>2</span>, mid<span class='op'>=</span><span class='va'>VADeaths</span>,
-                            cex<span class='op'>=</span><span class='fl'>1.4</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='input'>
-<span class='co'># add some other values</span>
-<span class='fu'>PlotDot</span><span class='op'>(</span><span class='va'>VADeaths</span><span class='op'>+</span><span class='fl'>3</span>, pch<span class='op'>=</span><span class='fl'>15</span>, col<span class='op'>=</span><span class='st'>"blue"</span>, add<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='img'><img src='PlotDot-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># same as PlotDotCI</span>
-<span class='va'>xci</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span><span class='op'>(</span><span class='va'>rbind</span>, <span class='fu'><a href='https://rdrr.io/r/base/tapply.html'>tapply</a></span><span class='op'>(</span> <span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>delivery_min</span>, <span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>driver</span>,
-                              <span class='va'>MeanCI</span>, conf.level<span class='op'>=</span><span class='fl'>0.99</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='fu'>PlotDot</span><span class='op'>(</span><span class='va'>xci</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span>, main<span class='op'>=</span><span class='st'>"delivery_min ~ driver"</span>, pch<span class='op'>=</span><span class='fl'>21</span>, bg<span class='op'>=</span><span class='st'>"grey80"</span>, col<span class='op'>=</span><span class='st'>"black"</span>,
-        args.errbars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>from<span class='op'>=</span><span class='va'>xci</span><span class='op'>[</span>,<span class='fl'>2</span><span class='op'>]</span>, to<span class='op'>=</span><span class='va'>xci</span><span class='op'>[</span>,<span class='fl'>3</span><span class='op'>]</span>, mid<span class='op'>=</span><span class='va'>xci</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span>, lwd<span class='op'>=</span><span class='fl'>2</span>, col<span class='op'>=</span><span class='st'>"grey40"</span>, cex<span class='op'>=</span><span class='fl'>1.5</span><span class='op'>)</span>,
-        xlim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>15</span>,<span class='fl'>35</span><span class='op'>)</span>, panel.before<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/graphics/grid.html'>grid</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='PlotDot-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># with group data</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span><span class='op'>(</span><span class='va'>d.pizza</span>, <span class='fu'><a href='https://rdrr.io/r/base/tapply.html'>tapply</a></span><span class='op'>(</span><span class='va'>temperature</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>area</span>, <span class='va'>driver</span><span class='op'>)</span>, <span class='va'>mean</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='fu'>PlotDot</span><span class='op'>(</span><span class='va'>x</span>, gdata <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tapply.html'>tapply</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>temperature</span>, <span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>driver</span>, <span class='va'>mean</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>,
-        gpch <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span>
-</div><div class='img'><img src='PlotDot-5.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># special format</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>lend<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>
-
-<span class='fu'>PlotDot</span><span class='op'>(</span><span class='va'>VADeaths</span>, main<span class='op'>=</span><span class='st'>"Death Rates in Virginia - 1940"</span>, pch<span class='op'>=</span><span class='st'>"|"</span>, lcolor <span class='op'>=</span> <span class='va'>hecru</span>, col<span class='op'>=</span><span class='va'>hred</span>,
-        args.errbars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>from<span class='op'>=</span><span class='va'>VADeaths</span><span class='op'>-</span><span class='fl'>2</span>, to<span class='op'>=</span><span class='va'>VADeaths</span><span class='op'>+</span><span class='fl'>2</span>, mid<span class='op'>=</span><span class='va'>VADeaths</span>,
-                            cex<span class='op'>=</span><span class='fl'>1.3</span>, lwd<span class='op'>=</span><span class='fl'>8</span>, code<span class='op'>=</span><span class='fl'>0</span>, col<span class='op'>=</span><span class='va'>hgreen</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='PlotDot-6.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Error bars for binomial confidence intervals</span>
-<span class='va'>tab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>driver</span>, <span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>wine_delivered</span><span class='op'>)</span>
-<span class='va'>xci</span> <span class='op'>&lt;-</span> <span class='fu'><a href='SetNames.html'>SetNames</a></span><span class='op'>(</span><span class='fu'><a href='BinomCI.html'>BinomCI</a></span><span class='op'>(</span><span class='va'>tab</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span>, <span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>rowSums</a></span><span class='op'>(</span><span class='va'>tab</span><span class='op'>)</span><span class='op'>)</span>, rownames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>tab</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>PlotDot</span><span class='op'>(</span><span class='va'>xci</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span>, main<span class='op'>=</span><span class='st'>"wine delivered ~ driver "</span>, xlim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span>,
-        args.errbars<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>from<span class='op'>=</span><span class='va'>xci</span><span class='op'>[</span>,<span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span>, mid<span class='op'>=</span><span class='va'>xci</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span>, pch<span class='op'>=</span><span class='fl'>21</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='PlotDot-7.png' alt='' width='700' height='433' /></div><div class='input'>
-
-<span class='co'># Error bars for confidence intervals for means</span>
-<span class='va'>xci</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span><span class='op'>(</span><span class='va'>rbind</span>, <span class='fu'><a href='https://rdrr.io/r/base/tapply.html'>tapply</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>delivery_min</span>, <span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>driver</span>,
-                             <span class='va'>MeanCI</span>, conf.level<span class='op'>=</span><span class='fl'>0.99</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='fu'>PlotDot</span><span class='op'>(</span><span class='va'>xci</span><span class='op'>[</span>, <span class='fl'>1</span><span class='op'>]</span>, main<span class='op'>=</span><span class='st'>"delivery_min ~ driver"</span>, args.errbars<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>from<span class='op'>=</span><span class='va'>xci</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='PlotDot-8.png' alt='' width='700' height='433' /></div><div class='input'>
-
-<span class='co'># Setting the colours</span>
-<span class='co'># define some error bars first</span>
-<span class='va'>lci</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sweep.html'>sweep</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>VADeaths</span>, MARGIN <span class='op'>=</span> <span class='fl'>2</span>, FUN <span class='op'>=</span> <span class='st'>"-"</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span>
-<span class='va'>uci</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sweep.html'>sweep</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>VADeaths</span>, MARGIN <span class='op'>=</span> <span class='fl'>1</span>, FUN <span class='op'>=</span> <span class='st'>"+"</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>
-
-<span class='fu'>PlotDot</span><span class='op'>(</span><span class='va'>VADeaths</span>, main<span class='op'>=</span><span class='st'>"This should only show how to set the colours, not be pretty"</span>,
-        pch<span class='op'>=</span><span class='fl'>21</span>, col<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"blue"</span>,<span class='st'>"grey"</span><span class='op'>)</span>, bg<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"red"</span>, <span class='st'>"yellow"</span><span class='op'>)</span>,
-        gcolor <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"green"</span>, <span class='st'>"blue"</span>, <span class='st'>"orange"</span>, <span class='st'>"magenta"</span><span class='op'>)</span>, gdata<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>,<span class='fl'>20</span>,<span class='fl'>30</span>,<span class='fl'>40</span><span class='op'>)</span>,
-        gpch <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>15</span><span class='op'>:</span><span class='fl'>18</span><span class='op'>)</span>, lcolor <span class='op'>=</span> <span class='st'>"orange"</span>,
-        args.errbars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>from<span class='op'>=</span><span class='va'>lci</span>, to<span class='op'>=</span><span class='va'>uci</span>, mid<span class='op'>=</span><span class='va'>VADeaths</span>, cex<span class='op'>=</span><span class='fl'>1.4</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='PlotDot-9.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>PlotDot</span><span class='op'>(</span><span class='va'>VADeaths</span>, main <span class='op'>=</span> <span class='st'>"Death Rates in Virginia - 1940"</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='PlotDot-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>op</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>xaxs <span class='op'>=</span> <span class='st'>"i"</span><span class='op'>)</span>  <span class='co'># 0 -- 100%</span></span>
+<span class='r-in'><span class='fu'>PlotDot</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='va'>VADeaths</span><span class='op'>)</span>, xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>100</span><span class='op'>)</span>,</span>
+<span class='r-in'>        main <span class='op'>=</span> <span class='st'>"Death Rates in Virginia - 1940"</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='PlotDot-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span><span class='va'>op</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># add some error bars</span></span>
+<span class='r-in'><span class='fu'>PlotDot</span><span class='op'>(</span><span class='va'>VADeaths</span>, main<span class='op'>=</span><span class='st'>"Death Rates in Virginia - 1940"</span>, col<span class='op'>=</span><span class='st'>"red"</span>, pch<span class='op'>=</span><span class='fl'>21</span>,</span>
+<span class='r-in'>        args.errbars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>from<span class='op'>=</span><span class='va'>VADeaths</span><span class='op'>-</span><span class='fl'>2</span>, to<span class='op'>=</span><span class='va'>VADeaths</span><span class='op'>+</span><span class='fl'>2</span>, mid<span class='op'>=</span><span class='va'>VADeaths</span>,</span>
+<span class='r-in'>                            cex<span class='op'>=</span><span class='fl'>1.4</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># add some other values</span></span>
+<span class='r-in'><span class='fu'>PlotDot</span><span class='op'>(</span><span class='va'>VADeaths</span><span class='op'>+</span><span class='fl'>3</span>, pch<span class='op'>=</span><span class='fl'>15</span>, col<span class='op'>=</span><span class='st'>"blue"</span>, add<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='PlotDot-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># same as PlotDotCI</span></span>
+<span class='r-in'><span class='va'>xci</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span><span class='op'>(</span><span class='va'>rbind</span>, <span class='fu'><a href='https://rdrr.io/r/base/tapply.html'>tapply</a></span><span class='op'>(</span> <span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>delivery_min</span>, <span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>driver</span>,</span>
+<span class='r-in'>                              <span class='va'>MeanCI</span>, conf.level<span class='op'>=</span><span class='fl'>0.99</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>PlotDot</span><span class='op'>(</span><span class='va'>xci</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span>, main<span class='op'>=</span><span class='st'>"delivery_min ~ driver"</span>, pch<span class='op'>=</span><span class='fl'>21</span>, bg<span class='op'>=</span><span class='st'>"grey80"</span>, col<span class='op'>=</span><span class='st'>"black"</span>,</span>
+<span class='r-in'>        args.errbars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>from<span class='op'>=</span><span class='va'>xci</span><span class='op'>[</span>,<span class='fl'>2</span><span class='op'>]</span>, to<span class='op'>=</span><span class='va'>xci</span><span class='op'>[</span>,<span class='fl'>3</span><span class='op'>]</span>, mid<span class='op'>=</span><span class='va'>xci</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span>, lwd<span class='op'>=</span><span class='fl'>2</span>, col<span class='op'>=</span><span class='st'>"grey40"</span>, cex<span class='op'>=</span><span class='fl'>1.5</span><span class='op'>)</span>,</span>
+<span class='r-in'>        xlim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>15</span>,<span class='fl'>35</span><span class='op'>)</span>, panel.before<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/graphics/grid.html'>grid</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='PlotDot-4.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># with group data</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span><span class='op'>(</span><span class='va'>d.pizza</span>, <span class='fu'><a href='https://rdrr.io/r/base/tapply.html'>tapply</a></span><span class='op'>(</span><span class='va'>temperature</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>area</span>, <span class='va'>driver</span><span class='op'>)</span>, <span class='va'>mean</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>PlotDot</span><span class='op'>(</span><span class='va'>x</span>, gdata <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tapply.html'>tapply</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>temperature</span>, <span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>driver</span>, <span class='va'>mean</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>,</span>
+<span class='r-in'>        gpch <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='PlotDot-5.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># special format</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>lend<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>PlotDot</span><span class='op'>(</span><span class='va'>VADeaths</span>, main<span class='op'>=</span><span class='st'>"Death Rates in Virginia - 1940"</span>, pch<span class='op'>=</span><span class='st'>"|"</span>, lcolor <span class='op'>=</span> <span class='va'>hecru</span>, col<span class='op'>=</span><span class='va'>hred</span>,</span>
+<span class='r-in'>        args.errbars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>from<span class='op'>=</span><span class='va'>VADeaths</span><span class='op'>-</span><span class='fl'>2</span>, to<span class='op'>=</span><span class='va'>VADeaths</span><span class='op'>+</span><span class='fl'>2</span>, mid<span class='op'>=</span><span class='va'>VADeaths</span>,</span>
+<span class='r-in'>                            cex<span class='op'>=</span><span class='fl'>1.3</span>, lwd<span class='op'>=</span><span class='fl'>8</span>, code<span class='op'>=</span><span class='fl'>0</span>, col<span class='op'>=</span><span class='va'>hgreen</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='PlotDot-6.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Error bars for binomial confidence intervals</span></span>
+<span class='r-in'><span class='va'>tab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>driver</span>, <span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>wine_delivered</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>xci</span> <span class='op'>&lt;-</span> <span class='fu'><a href='SetNames.html'>SetNames</a></span><span class='op'>(</span><span class='fu'><a href='BinomCI.html'>BinomCI</a></span><span class='op'>(</span><span class='va'>tab</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span>, <span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>rowSums</a></span><span class='op'>(</span><span class='va'>tab</span><span class='op'>)</span><span class='op'>)</span>, rownames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>tab</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>PlotDot</span><span class='op'>(</span><span class='va'>xci</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span>, main<span class='op'>=</span><span class='st'>"wine delivered ~ driver "</span>, xlim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span>,</span>
+<span class='r-in'>        args.errbars<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>from<span class='op'>=</span><span class='va'>xci</span><span class='op'>[</span>,<span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span>, mid<span class='op'>=</span><span class='va'>xci</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span>, pch<span class='op'>=</span><span class='fl'>21</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='PlotDot-7.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Error bars for confidence intervals for means</span></span>
+<span class='r-in'><span class='va'>xci</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span><span class='op'>(</span><span class='va'>rbind</span>, <span class='fu'><a href='https://rdrr.io/r/base/tapply.html'>tapply</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>delivery_min</span>, <span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>driver</span>,</span>
+<span class='r-in'>                             <span class='va'>MeanCI</span>, conf.level<span class='op'>=</span><span class='fl'>0.99</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>PlotDot</span><span class='op'>(</span><span class='va'>xci</span><span class='op'>[</span>, <span class='fl'>1</span><span class='op'>]</span>, main<span class='op'>=</span><span class='st'>"delivery_min ~ driver"</span>, args.errbars<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>from<span class='op'>=</span><span class='va'>xci</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='PlotDot-8.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Setting the colours</span></span>
+<span class='r-in'><span class='co'># define some error bars first</span></span>
+<span class='r-in'><span class='va'>lci</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sweep.html'>sweep</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>VADeaths</span>, MARGIN <span class='op'>=</span> <span class='fl'>2</span>, FUN <span class='op'>=</span> <span class='st'>"-"</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>uci</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sweep.html'>sweep</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>VADeaths</span>, MARGIN <span class='op'>=</span> <span class='fl'>1</span>, FUN <span class='op'>=</span> <span class='st'>"+"</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>PlotDot</span><span class='op'>(</span><span class='va'>VADeaths</span>, main<span class='op'>=</span><span class='st'>"This should only show how to set the colours, not be pretty"</span>,</span>
+<span class='r-in'>        pch<span class='op'>=</span><span class='fl'>21</span>, col<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"blue"</span>,<span class='st'>"grey"</span><span class='op'>)</span>, bg<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"red"</span>, <span class='st'>"yellow"</span><span class='op'>)</span>,</span>
+<span class='r-in'>        gcolor <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"green"</span>, <span class='st'>"blue"</span>, <span class='st'>"orange"</span>, <span class='st'>"magenta"</span><span class='op'>)</span>, gdata<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>,<span class='fl'>20</span>,<span class='fl'>30</span>,<span class='fl'>40</span><span class='op'>)</span>,</span>
+<span class='r-in'>        gpch <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>15</span><span class='op'>:</span><span class='fl'>18</span><span class='op'>)</span>, lcolor <span class='op'>=</span> <span class='st'>"orange"</span>,</span>
+<span class='r-in'>        args.errbars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>from<span class='op'>=</span><span class='va'>lci</span>, to<span class='op'>=</span><span class='va'>uci</span>, mid<span class='op'>=</span><span class='va'>VADeaths</span>, cex<span class='op'>=</span><span class='fl'>1.4</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='PlotDot-9.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

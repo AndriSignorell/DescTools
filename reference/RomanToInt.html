@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -182,31 +182,40 @@
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/utils/roman.html'>as.roman</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>RomanToInt</span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'I'</span>, <span class='st'>'V'</span>, <span class='st'>'X'</span>, <span class='st'>'C'</span>, <span class='st'>'L'</span>, <span class='st'>'D'</span>, <span class='st'>'M'</span> <span class='op'>)</span>  <span class='op'>)</span>
-</div><div class='output co'>#&gt;  I  V  X  C  L  D  M 
-#&gt; NA NA NA NA NA NA NA </div><div class='input'>
-<span class='co'># works regardless of case</span>
-<span class='fu'>RomanToInt</span><span class='op'>(</span> <span class='st'>'MMXVI'</span> <span class='op'>)</span>
-</div><div class='output co'>#&gt; MMXVI 
-#&gt;    NA </div><div class='input'><span class='fu'>RomanToInt</span><span class='op'>(</span> <span class='st'>'mmxvi'</span> <span class='op'>)</span>
-</div><div class='output co'>#&gt; MMXVI 
-#&gt;    NA </div><div class='input'>
-<span class='co'># works beyond R's limit of 3899</span>
-<span class='va'>val.3899</span> <span class='op'>&lt;-</span> <span class='st'>'MMMDCCCXCIX'</span>
-<span class='va'>val.3900</span> <span class='op'>&lt;-</span> <span class='st'>'MMMCM'</span>
-<span class='va'>val.4000</span> <span class='op'>&lt;-</span> <span class='st'>'MMMM'</span>
-<span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/roman.html'>as.roman</a></span><span class='op'>(</span> <span class='va'>val.3899</span> <span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 3899</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/roman.html'>as.roman</a></span><span class='op'>(</span> <span class='va'>val.3900</span> <span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] NA</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/roman.html'>as.roman</a></span><span class='op'>(</span> <span class='va'>val.4000</span> <span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] NA</div><div class='input'>
-<span class='fu'>RomanToInt</span><span class='op'>(</span><span class='va'>val.3899</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; MMMDCCCXCIX 
-#&gt;          NA </div><div class='input'><span class='fu'>RomanToInt</span><span class='op'>(</span><span class='va'>val.3900</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; MMMCM 
-#&gt;    NA </div><div class='input'><span class='fu'>RomanToInt</span><span class='op'>(</span><span class='va'>val.4000</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; MMMM 
-#&gt;   NA </div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>RomanToInt</span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'I'</span>, <span class='st'>'V'</span>, <span class='st'>'X'</span>, <span class='st'>'C'</span>, <span class='st'>'L'</span>, <span class='st'>'D'</span>, <span class='st'>'M'</span> <span class='op'>)</span>  <span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  I  V  X  C  L  D  M </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NA NA NA NA NA NA NA </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># works regardless of case</span></span>
+<span class='r-in'><span class='fu'>RomanToInt</span><span class='op'>(</span> <span class='st'>'MMXVI'</span> <span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> MMXVI </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    NA </span>
+<span class='r-in'><span class='fu'>RomanToInt</span><span class='op'>(</span> <span class='st'>'mmxvi'</span> <span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> MMXVI </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    NA </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># works beyond R's limit of 3899</span></span>
+<span class='r-in'><span class='va'>val.3899</span> <span class='op'>&lt;-</span> <span class='st'>'MMMDCCCXCIX'</span></span>
+<span class='r-in'><span class='va'>val.3900</span> <span class='op'>&lt;-</span> <span class='st'>'MMMCM'</span></span>
+<span class='r-in'><span class='va'>val.4000</span> <span class='op'>&lt;-</span> <span class='st'>'MMMM'</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/roman.html'>as.roman</a></span><span class='op'>(</span> <span class='va'>val.3899</span> <span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 3899</span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/roman.html'>as.roman</a></span><span class='op'>(</span> <span class='va'>val.3900</span> <span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] NA</span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/roman.html'>as.roman</a></span><span class='op'>(</span> <span class='va'>val.4000</span> <span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] NA</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>RomanToInt</span><span class='op'>(</span><span class='va'>val.3899</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> MMMDCCCXCIX </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          NA </span>
+<span class='r-in'><span class='fu'>RomanToInt</span><span class='op'>(</span><span class='va'>val.3900</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> MMMCM </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    NA </span>
+<span class='r-in'><span class='fu'>RomanToInt</span><span class='op'>(</span><span class='va'>val.4000</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> MMMM </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   NA </span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

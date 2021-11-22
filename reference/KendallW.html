@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -210,58 +210,62 @@ integrated here without logical changes, but with some adaptations in the result
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/cor.html'>cor</a></code>, <code><a href='KappaM.html'>KappaM</a></code>, <code><a href='CronbachAlpha.html'>CronbachAlpha</a></code>, <code><a href='ICC.html'>ICC</a></code>, <code><a href='https://rdrr.io/r/stats/friedman.test.html'>friedman.test</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>anxiety</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>rater1<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>5</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>6</span>,<span class='fl'>1</span>,<span class='fl'>5</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>4</span>,<span class='fl'>3</span><span class='op'>)</span>,
-                      rater2<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>6</span>,<span class='fl'>4</span>,<span class='fl'>6</span>,<span class='fl'>2</span>,<span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>4</span><span class='op'>)</span>,
-                      rater3<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>6</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='fu'>KendallW</span><span class='op'>(</span><span class='va'>anxiety</span>, <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.5396569</div><div class='input'>
-<span class='co'># with test results</span>
-<span class='fu'>KendallW</span><span class='op'>(</span><span class='va'>anxiety</span>, <span class='cn'>TRUE</span>, test<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	Kendall's coefficient of concordance Wt
-#&gt; 
-#&gt; data:  anxiety
-#&gt; Kendall chi-squared = 30.76, df = 19, subjects = 20, raters = 3,
-#&gt; p-value = 0.04288
-#&gt; alternative hypothesis: Wt is greater 0
-#&gt; sample estimates:
-#&gt;        Wt 
-#&gt; 0.5396569 
-#&gt; </div><div class='input'>
-<span class='co'># example from Siegel and Castellan (1988)</span>
-<span class='va'>d.att</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
-  id        <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>,<span class='fl'>21</span>,<span class='fl'>11</span><span class='op'>)</span>,
-  airfare   <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>,<span class='fl'>1</span>,<span class='fl'>4</span><span class='op'>)</span>,
-  climate   <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>6</span>,<span class='fl'>7</span>,<span class='fl'>5</span><span class='op'>)</span>,
-  season    <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>7</span>,<span class='fl'>6</span>,<span class='fl'>1</span><span class='op'>)</span>,
-  people    <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span><span class='op'>)</span>,
-  program   <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>2</span><span class='op'>)</span>,
-  publicity <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>7</span><span class='op'>)</span>,
-  present   <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>6</span><span class='op'>)</span>,
-  interest  <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>8</span>,<span class='fl'>8</span>,<span class='fl'>8</span><span class='op'>)</span>
-<span class='op'>)</span>
-
-<span class='fu'>KendallW</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='va'>d.att</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>, test <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	Kendall's coefficient of concordance W
-#&gt; 
-#&gt; data:  t(d.att[, -1])
-#&gt; Kendall chi-squared = 13.778, df = 7, subjects = 8, raters = 3, p-value
-#&gt; = 0.05528
-#&gt; alternative hypothesis: W is greater 0
-#&gt; sample estimates:
-#&gt;         W 
-#&gt; 0.6560847 
-#&gt; </div><div class='input'>
-<span class='co'># which is perfectly the same as</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/friedman.test.html'>friedman.test</a></span><span class='op'>(</span>y<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>d.att</span><span class='op'>[</span>,<span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>, groups <span class='op'>=</span> <span class='va'>d.att</span><span class='op'>$</span><span class='va'>id</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	Friedman rank sum test
-#&gt; 
-#&gt; data:  as.matrix(d.att[, -1])
-#&gt; Friedman chi-squared = 13.778, df = 7, p-value = 0.05528
-#&gt; </div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>anxiety</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>rater1<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>5</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>6</span>,<span class='fl'>1</span>,<span class='fl'>5</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>4</span>,<span class='fl'>3</span><span class='op'>)</span>,</span>
+<span class='r-in'>                      rater2<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>6</span>,<span class='fl'>4</span>,<span class='fl'>6</span>,<span class='fl'>2</span>,<span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>4</span><span class='op'>)</span>,</span>
+<span class='r-in'>                      rater3<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>6</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>KendallW</span><span class='op'>(</span><span class='va'>anxiety</span>, <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.5396569</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># with test results</span></span>
+<span class='r-in'><span class='fu'>KendallW</span><span class='op'>(</span><span class='va'>anxiety</span>, <span class='cn'>TRUE</span>, test<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Kendall's coefficient of concordance Wt</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  anxiety</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Kendall chi-squared = 30.76, df = 19, subjects = 20, raters = 3,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> p-value = 0.04288</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> alternative hypothesis: Wt is greater 0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> sample estimates:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        Wt </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.5396569 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># example from Siegel and Castellan (1988)</span></span>
+<span class='r-in'><span class='va'>d.att</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span></span>
+<span class='r-in'>  id        <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>,<span class='fl'>21</span>,<span class='fl'>11</span><span class='op'>)</span>,</span>
+<span class='r-in'>  airfare   <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>,<span class='fl'>1</span>,<span class='fl'>4</span><span class='op'>)</span>,</span>
+<span class='r-in'>  climate   <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>6</span>,<span class='fl'>7</span>,<span class='fl'>5</span><span class='op'>)</span>,</span>
+<span class='r-in'>  season    <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>7</span>,<span class='fl'>6</span>,<span class='fl'>1</span><span class='op'>)</span>,</span>
+<span class='r-in'>  people    <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span><span class='op'>)</span>,</span>
+<span class='r-in'>  program   <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>2</span><span class='op'>)</span>,</span>
+<span class='r-in'>  publicity <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>7</span><span class='op'>)</span>,</span>
+<span class='r-in'>  present   <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>6</span><span class='op'>)</span>,</span>
+<span class='r-in'>  interest  <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>8</span>,<span class='fl'>8</span>,<span class='fl'>8</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>KendallW</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='va'>d.att</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>, test <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Kendall's coefficient of concordance W</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  t(d.att[, -1])</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Kendall chi-squared = 13.778, df = 7, subjects = 8, raters = 3, p-value</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> = 0.05528</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> alternative hypothesis: W is greater 0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> sample estimates:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         W </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.6560847 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># which is perfectly the same as</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/stats/friedman.test.html'>friedman.test</a></span><span class='op'>(</span>y<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>d.att</span><span class='op'>[</span>,<span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>, groups <span class='op'>=</span> <span class='va'>d.att</span><span class='op'>$</span><span class='va'>id</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Friedman rank sum test</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  as.matrix(d.att[, -1])</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Friedman chi-squared = 13.778, df = 7, p-value = 0.05528</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

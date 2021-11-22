@@ -76,7 +76,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -280,260 +280,280 @@
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>scipen <span class='op'>=</span> <span class='fl'>8</span><span class='op'>)</span>
-<span class='va'>opt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='co'># define some special formats for count data, percentages and numeric results</span>
-<span class='co'># (those will be supported by TOne)</span>
-<span class='fu'><a href='Format.html'>Fmt</a></span><span class='op'>(</span>abs <span class='op'>=</span> <span class='fu'><a href='Format.html'>as.fmt</a></span><span class='op'>(</span>digits <span class='op'>=</span> <span class='fl'>0</span>, big.mark <span class='op'>=</span> <span class='st'>"'"</span><span class='op'>)</span><span class='op'>)</span>   <span class='co'># counts</span>
-</div><div class='output co'>#&gt; $abs
-#&gt;  Description:   Number format for counts
-#&gt;  Definition:    digits=0, big.mark="'"
-#&gt;  Example:       314'159
-#&gt; 
-#&gt; $per
-#&gt;  Description:   Percentage number format
-#&gt;  Definition:    digits=1, fmt='%'
-#&gt;  Example:       31415926.5%
-#&gt; 
-#&gt; $num
-#&gt;  Description:   Number format for floats
-#&gt;  Definition:    digits=3, big.mark="'"
-#&gt;  Example:       314'159.265
-#&gt; 
-#&gt; $nob
-#&gt;  Description:   Number format
-#&gt;  Definition:    digits=5, na.form='nodat'
-#&gt;  Example:       314159.26536
-#&gt; </div><div class='input'><span class='fu'><a href='Format.html'>Fmt</a></span><span class='op'>(</span>per <span class='op'>=</span> <span class='fu'><a href='Format.html'>as.fmt</a></span><span class='op'>(</span>digits <span class='op'>=</span> <span class='fl'>1</span>, fmt <span class='op'>=</span> <span class='st'>"%"</span><span class='op'>)</span><span class='op'>)</span>        <span class='co'># percentages</span>
-</div><div class='output co'>#&gt; $abs
-#&gt;  Description:   Number format
-#&gt;  Definition:    digits=0, big.mark="'"
-#&gt;  Example:       314'159
-#&gt; 
-#&gt; $per
-#&gt;  Description:   Percentage number format
-#&gt;  Definition:    digits=1, fmt='%'
-#&gt;  Example:       31415926.5%
-#&gt; 
-#&gt; $num
-#&gt;  Description:   Number format for floats
-#&gt;  Definition:    digits=3, big.mark="'"
-#&gt;  Example:       314'159.265
-#&gt; 
-#&gt; $nob
-#&gt;  Description:   Number format
-#&gt;  Definition:    digits=5, na.form='nodat'
-#&gt;  Example:       314159.26536
-#&gt; </div><div class='input'><span class='fu'><a href='Format.html'>Fmt</a></span><span class='op'>(</span>num <span class='op'>=</span> <span class='fu'><a href='Format.html'>as.fmt</a></span><span class='op'>(</span>digits <span class='op'>=</span> <span class='fl'>1</span>, big.mark <span class='op'>=</span> <span class='st'>"'"</span><span class='op'>)</span><span class='op'>)</span>   <span class='co'># numeric</span>
-</div><div class='output co'>#&gt; $abs
-#&gt;  Description:   Number format
-#&gt;  Definition:    digits=0, big.mark="'"
-#&gt;  Example:       314'159
-#&gt; 
-#&gt; $per
-#&gt;  Description:   Number format
-#&gt;  Definition:    digits=1, fmt='%'
-#&gt;  Example:       31415926.5%
-#&gt; 
-#&gt; $num
-#&gt;  Description:   Number format for floats
-#&gt;  Definition:    digits=3, big.mark="'"
-#&gt;  Example:       314'159.265
-#&gt; 
-#&gt; $nob
-#&gt;  Description:   Number format
-#&gt;  Definition:    digits=5, na.form='nodat'
-#&gt;  Example:       314159.26536
-#&gt; </div><div class='input'>
-<span class='fu'>TOne</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>d.pizza</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"temperature"</span>, <span class='st'>"delivery_min"</span>, <span class='st'>"driver"</span>, <span class='st'>"wine_ordered"</span><span class='op'>)</span><span class='op'>]</span>,
-  grp <span class='op'>=</span> <span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>quality</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; var                total              low                medium             high                                 
-#&gt; n                  1'008              156 (15.5%)        356 (35.3%)        496 (49.2%)                          
-#&gt; temperature        47.9 (9.9)         32.9 (7.8)         45.6 (7.4)         53.6 (6.5)         *** '             
-#&gt; delivery_min       25.7 (10.8)        33.9 (11.7)        26.5 (10.1)        22.6 (9.5)         *** '             
-#&gt; driver                                                                                         *** ""            
-#&gt;   Butcher          79 (8.0%)          10 (6.5%)          36 (10.1%)         33 (6.7%)                            
-#&gt;   Carpenter        225 (22.6%)        59 (38.1%)         90 (25.4%)         76 (15.4%)                           
-#&gt;   Carter           196 (19.4%)        11 (7.1%)          72 (20.3%)         113 (22.9%)                          
-#&gt;   Farmer           94 (9.7%)          10 (6.5%)          26 (7.3%)          58 (11.7%)                           
-#&gt;   Hunter           130 (13.0%)        8 (5.2%)           43 (12.1%)         79 (16.0%)                           
-#&gt;   Miller           109 (10.4%)        16 (10.3%)         35 (9.9%)          58 (11.7%)                           
-#&gt;   Taylor           171 (16.9%)        41 (26.5%)         53 (14.9%)         77 (15.6%)                           
-#&gt; wine_ordered (= 1) 161 (16.1%)        32 (20.8%)         63 (17.9%)         66 (13.4%)         .   ""            
-#&gt; ---
-#&gt; ') Kruskal-Wallis test, ") Fisher exact test, "") Chi-Square test
-#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-#&gt; </div><div class='input'>
-<span class='co'># the same but no groups now...</span>
-<span class='fu'>TOne</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>d.pizza</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"temperature"</span>, <span class='st'>"delivery_min"</span>, <span class='st'>"driver"</span>, <span class='st'>"wine_ordered"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; var                total             
-#&gt; n                  1'209             
-#&gt; temperature        47.9 (9.9)        
-#&gt; delivery_min       25.7 (10.8)       
-#&gt; driver                               
-#&gt;   Butcher          96 (8.0%)         
-#&gt;   Carpenter        272 (22.6%)       
-#&gt;   Carter           234 (19.4%)       
-#&gt;   Farmer           117 (9.7%)        
-#&gt;   Hunter           156 (13.0%)       
-#&gt;   Miller           125 (10.4%)       
-#&gt;   Taylor           204 (16.9%)       
-#&gt; wine_ordered (= 1) 187 (15.6%)       
-#&gt; </div><div class='input'>
-<span class='co'># define median/IQR as describing functions for the numeric variables</span>
-<span class='fu'>TOne</span><span class='op'>(</span><span class='va'>iris</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>5</span><span class='op'>]</span>, <span class='va'>iris</span><span class='op'>[</span>, <span class='fl'>5</span><span class='op'>]</span>,
-  FUN <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span>
-    <span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>gettextf</a></span><span class='op'>(</span><span class='st'>"%s / %s"</span>,
-      <span class='fu'><a href='Format.html'>Format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span><span class='op'>(</span><span class='va'>x</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, digits <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>, 
-      <span class='fu'><a href='Format.html'>Format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/IQR.html'>IQR</a></span><span class='op'>(</span><span class='va'>x</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, digits <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
-  <span class='op'>}</span>
-<span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; var          total        setosa       versicolor   virginica                
-#&gt; n            150          50 (33.3%)   50 (33.3%)   50 (33.3%)               
-#&gt; Sepal.Length 5.8 / 1.300  5.0 / 0.400  5.9 / 0.700  6.5 / 0.675  *** '       
-#&gt; Sepal.Width  3.0 / 0.500  3.4 / 0.475  2.8 / 0.475  3.0 / 0.375  *** '       
-#&gt; Petal.Length 4.3 / 3.500  1.5 / 0.175  4.3 / 0.600  5.5 / 0.775  *** '       
-#&gt; Petal.Width  1.3 / 1.500  0.2 / 0.100  1.3 / 0.300  2.0 / 0.500  *** '       
-#&gt; ---
-#&gt; ') Kruskal-Wallis test, ") Fisher exact test, "") Chi-Square test
-#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-#&gt; </div><div class='input'>
-<span class='co'># replace kruskal.test by ANOVA and report the p.value</span>
-<span class='co'># Change tests for all the types</span>
-<span class='fu'>TOne</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>iris</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>5</span><span class='op'>]</span>, grp <span class='op'>=</span> <span class='va'>iris</span><span class='op'>[</span>, <span class='fl'>5</span><span class='op'>]</span>,
-     FUN <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>gettextf</a></span><span class='op'>(</span><span class='st'>"%s / %s"</span>,
-            <span class='fu'><a href='Format.html'>Format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>x</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, digits <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>,
-            <span class='fu'><a href='Format.html'>Format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>(</span><span class='va'>x</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, digits <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>, 
-
-     TEST <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
-       num <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>fun <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>g</span><span class='op'>)</span><span class='op'>{</span><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span><span class='op'>(</span><span class='va'>x</span> <span class='op'>~</span> <span class='va'>g</span><span class='op'>)</span><span class='op'>)</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>[</span><span class='fl'>1</span>, <span class='st'>"Pr(&gt;F)"</span><span class='op'>]</span><span class='op'>}</span>,
-                        lbl <span class='op'>=</span> <span class='st'>"ANOVA"</span><span class='op'>)</span>,
-               cat <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>fun <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>g</span><span class='op'>)</span><span class='op'>{</span><span class='fu'><a href='https://rdrr.io/r/stats/chisq.test.html'>chisq.test</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>g</span><span class='op'>)</span><span class='op'>)</span><span class='op'>$</span><span class='va'>p.val</span><span class='op'>}</span>,
-                        lbl <span class='op'>=</span> <span class='st'>"Chi-Square test"</span><span class='op'>)</span>,
-               dich <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>fun <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>g</span><span class='op'>)</span><span class='op'>{</span><span class='fu'><a href='https://rdrr.io/r/stats/fisher.test.html'>fisher.test</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>g</span><span class='op'>)</span><span class='op'>)</span><span class='op'>$</span><span class='va'>p.val</span><span class='op'>}</span>,
-                         lbl <span class='op'>=</span> <span class='st'>"Fisher exact test"</span><span class='op'>)</span><span class='op'>)</span>,
-       fmt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>abs <span class='op'>=</span> <span class='fu'><a href='Format.html'>Fmt</a></span><span class='op'>(</span><span class='st'>"abs"</span><span class='op'>)</span>, num  <span class='op'>=</span> <span class='fu'><a href='Format.html'>Fmt</a></span><span class='op'>(</span><span class='st'>"num"</span><span class='op'>)</span>, per <span class='op'>=</span> <span class='fu'><a href='Format.html'>Fmt</a></span><span class='op'>(</span><span class='st'>"per"</span><span class='op'>)</span>,
-                pval <span class='op'>=</span> <span class='fu'><a href='Format.html'>as.fmt</a></span><span class='op'>(</span>fmt <span class='op'>=</span> <span class='st'>"*"</span>, na.form <span class='op'>=</span> <span class='st'>"   "</span><span class='op'>)</span><span class='op'>)</span> 
-<span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; var          total        setosa       versicolor   virginica                
-#&gt; n            150          50 (33.3%)   50 (33.3%)   50 (33.3%)               
-#&gt; Sepal.Length 5.8 / 0.828  5.0 / 0.352  5.9 / 0.516  6.6 / 0.636  *** '       
-#&gt; Sepal.Width  3.1 / 0.436  3.4 / 0.379  2.8 / 0.314  3.0 / 0.322  *** '       
-#&gt; Petal.Length 3.8 / 1.765  1.5 / 0.174  4.3 / 0.470  5.6 / 0.552  *** '       
-#&gt; Petal.Width  1.2 / 0.762  0.2 / 0.105  1.3 / 0.198  2.0 / 0.275  *** '       
-#&gt; ---
-#&gt; ') ANOVA, ") Fisher exact test, "") Chi-Square test
-#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-#&gt; </div><div class='input'>
-<span class='va'>t1</span> <span class='op'>&lt;-</span> <span class='fu'>TOne</span><span class='op'>(</span>x     <span class='op'>=</span> <span class='va'>d.pizza</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"temperature"</span>, <span class='st'>"driver"</span>, <span class='st'>"rabate"</span><span class='op'>)</span><span class='op'>]</span>, 
-           grp   <span class='op'>=</span> <span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>area</span>, 
-           align <span class='op'>=</span> <span class='st'>" "</span>, 
-           total <span class='op'>=</span> <span class='cn'>FALSE</span>,
-            
-           FUN <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>gettextf</a></span><span class='op'>(</span><span class='st'>"%s / %s (%s)"</span>,
-                                      <span class='fu'><a href='Format.html'>Format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>x</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, digits <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>,
-                                      <span class='fu'><a href='Format.html'>Format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>(</span><span class='va'>x</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, digits <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>,
-                                      <span class='fu'><a href='Format.html'>Format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span><span class='op'>(</span><span class='va'>x</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, digits <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>,
-           
-           TEST <span class='op'>=</span> <span class='cn'>NA</span>,
-            
-           fmt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>abs  <span class='op'>=</span> <span class='fu'><a href='Format.html'>as.fmt</a></span><span class='op'>(</span>big.mark <span class='op'>=</span> <span class='st'>" "</span>, digits<span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span>, 
-                      num  <span class='op'>=</span> <span class='fu'><a href='Format.html'>as.fmt</a></span><span class='op'>(</span>big.mark <span class='op'>=</span> <span class='st'>" "</span>, digits<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>, 
-                      per  <span class='op'>=</span> <span class='fu'><a href='Format.html'>as.fmt</a></span><span class='op'>(</span>fmt<span class='op'>=</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> 
-                          <span class='fu'><a href='StrPad.html'>StrPad</a></span><span class='op'>(</span><span class='fu'><a href='Format.html'>Format</a></span><span class='op'>(</span><span class='va'>x</span>, fmt<span class='op'>=</span><span class='st'>"%"</span>, d<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>, width<span class='op'>=</span><span class='fl'>5</span>, adj <span class='op'>=</span> <span class='st'>"r"</span><span class='op'>)</span><span class='op'>)</span>, 
-                      pval <span class='op'>=</span> <span class='fu'><a href='Format.html'>as.fmt</a></span><span class='op'>(</span>fmt <span class='op'>=</span> <span class='st'>"*"</span>, na.form <span class='op'>=</span> <span class='st'>"   "</span><span class='op'>)</span><span class='op'>)</span> 
-<span class='op'>)</span>
-<span class='co'># add a userdefined legend</span>
-<span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span><span class='op'>(</span><span class='va'>t1</span>, <span class='st'>"legend"</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='st'>"numeric: mean / sd (median)), factor: n (n%)"</span>
-
-<span class='va'>t1</span>
-</div><div class='output co'>#&gt; 
-#&gt; var                  Brent                Camden               Westminster         
-#&gt; n                     474 (39.5%)          344 (28.7%)          381 (31.8%)        
-#&gt; temperature          51.1 / 8.734 (53.4)  47.4 / 10.111 (50.3) 44.3 / 9.836 (45.9) 
-#&gt; driver                                                                             
-#&gt;   Butcher              72 (15.2%)            1 ( 0.3%)           22 ( 5.8%)        
-#&gt;   Carpenter            29 ( 6.1%)           19 ( 5.6%)          221 (58.2%)        
-#&gt;   Carter              177 (37.4%)           47 (13.8%)            5 ( 1.3%)        
-#&gt;   Farmer               19 ( 4.0%)           87 (25.5%)           11 ( 2.9%)        
-#&gt;   Hunter              128 (27.1%)            4 ( 1.2%)           24 ( 6.3%)        
-#&gt;   Miller                6 ( 1.3%)           41 (12.0%)           77 (20.3%)        
-#&gt;   Taylor               42 ( 8.9%)          142 (41.6%)           20 ( 5.3%)        
-#&gt; rabate (= TRUE)       235 (50.3%)          172 (50.3%)          184 (48.7%)        
-#&gt; ---
-#&gt; numeric: mean / sd (median)), factor: n (n%) 
-#&gt; </div><div class='input'>
-
-<span class='co'># dichotomous integer or logical values can be reported by the high or low value</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>, size <span class='op'>=</span> <span class='fl'>100</span>, prob <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.3</span>, <span class='fl'>0.7</span><span class='op'>)</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>, size <span class='op'>=</span> <span class='fl'>100</span>, prob <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.3</span>, <span class='fl'>0.7</span><span class='op'>)</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>==</span> <span class='fl'>1</span>
-<span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>, size <span class='op'>=</span> <span class='fl'>100</span>, prob <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.3</span>, <span class='fl'>0.7</span><span class='op'>)</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>g</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>, size <span class='op'>=</span> <span class='fl'>100</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='va'>d.set</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>x</span>, y <span class='op'>=</span> <span class='va'>y</span>, z <span class='op'>=</span> <span class='va'>z</span>, g <span class='op'>=</span> <span class='va'>g</span><span class='op'>)</span>
-
-<span class='fu'>TOne</span><span class='op'>(</span><span class='va'>d.set</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span>, <span class='va'>d.set</span><span class='op'>$</span><span class='va'>g</span>, intref <span class='op'>=</span> <span class='st'>"low"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Chi-squared approximation may be incorrect</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Chi-squared approximation may be incorrect</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Chi-squared approximation may be incorrect</span></div><div class='output co'>#&gt; 
-#&gt; var         total       a           b           c           d                      
-#&gt; n           100         23 (23.0%)  23 (23.0%)  34 (34.0%)  20 (20.0%)             
-#&gt; x (= 0)     23 (23.0%)  7 (30.4%)   3 (13.0%)   11 (32.4%)  2 (10.0%)       ""     
-#&gt; y (= FALSE) 23 (23.0%)  6 (26.1%)   2 (8.7%)    10 (29.4%)  5 (25.0%)       ""     
-#&gt; z (= 0)     24 (24.0%)  6 (26.1%)   5 (21.7%)   11 (32.4%)  2 (10.0%)       ""     
-#&gt; ---
-#&gt; ') Kruskal-Wallis test, ") Fisher exact test, "") Chi-Square test
-#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-#&gt; </div><div class='input'>
-<span class='fu'>TOne</span><span class='op'>(</span><span class='va'>d.set</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span>, <span class='va'>d.set</span><span class='op'>$</span><span class='va'>g</span>, intref <span class='op'>=</span> <span class='st'>"high"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Chi-squared approximation may be incorrect</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Chi-squared approximation may be incorrect</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Chi-squared approximation may be incorrect</span></div><div class='output co'>#&gt; 
-#&gt; var        total      a          b          c          d                    
-#&gt; n          100        23 (23.0%) 23 (23.0%) 34 (34.0%) 20 (20.0%)           
-#&gt; x (= 1)    77 (77.0%) 16 (69.6%) 20 (87.0%) 23 (67.6%) 18 (90.0%)     ""    
-#&gt; y (= TRUE) 77 (77.0%) 17 (73.9%) 21 (91.3%) 24 (70.6%) 15 (75.0%)     ""    
-#&gt; z (= 0)    24 (24.0%) 6 (26.1%)  5 (21.7%)  11 (32.4%) 2 (10.0%)      ""    
-#&gt; ---
-#&gt; ') Kruskal-Wallis test, ") Fisher exact test, "") Chi-Square test
-#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-#&gt; </div><div class='input'>
-<span class='co'># intref would not control factors, use relevel to change reported value</span>
-<span class='fu'>TOne</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>z <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/relevel.html'>relevel</a></span><span class='op'>(</span><span class='va'>z</span>, <span class='st'>"1"</span><span class='op'>)</span><span class='op'>)</span>, <span class='va'>g</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Chi-squared approximation may be incorrect</span></div><div class='output co'>#&gt; 
-#&gt; var        total      a          b          c          d                    
-#&gt; n          100        23 (23.0%) 23 (23.0%) 34 (34.0%) 20 (20.0%)           
-#&gt; z (= 1)    76 (76.0%) 17 (73.9%) 18 (78.3%) 23 (67.6%) 18 (90.0%)     ""    
-#&gt; ---
-#&gt; ') Kruskal-Wallis test, ") Fisher exact test, "") Chi-Square test
-#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-#&gt; </div><div class='input'>
-<span class='fu'>TOne</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>z <span class='op'>=</span> <span class='va'>z</span><span class='op'>)</span>, <span class='va'>g</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Chi-squared approximation may be incorrect</span></div><div class='output co'>#&gt; 
-#&gt; var        total      a          b          c          d                    
-#&gt; n          100        23 (23.0%) 23 (23.0%) 34 (34.0%) 20 (20.0%)           
-#&gt; z (= 0)    24 (24.0%) 6 (26.1%)  5 (21.7%)  11 (32.4%) 2 (10.0%)      ""    
-#&gt; ---
-#&gt; ') Kruskal-Wallis test, ") Fisher exact test, "") Chi-Square test
-#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-#&gt; </div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span><span class='va'>opt</span><span class='op'>)</span>
-
-
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>  
-  
-<span class='co'># Send the whole stuff to Word</span>
-<span class='va'>wrd</span> <span class='op'>&lt;-</span> <span class='fu'><a href='GetNewWrd.html'>GetNewWrd</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='fu'><a href='ToWrd.html'>ToWrd</a></span><span class='op'>(</span>
-  <span class='fu'>TOne</span><span class='op'>(</span>x   <span class='op'>=</span> <span class='va'>d.pizza</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"temperature"</span>, <span class='st'>"delivery_min"</span>, <span class='st'>"driver"</span>, <span class='st'>"wine_ordered"</span><span class='op'>)</span><span class='op'>]</span>,
-       grp <span class='op'>=</span> <span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>quality</span>,
-       fmt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>num<span class='op'>=</span><span class='fu'><a href='Format.html'>Fmt</a></span><span class='op'>(</span><span class='st'>"num"</span>, digits<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
-       <span class='op'>)</span>,
-  font <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>name<span class='op'>=</span><span class='st'>"Arial narrow"</span>, size<span class='op'>=</span><span class='fl'>8</span><span class='op'>)</span>,
-  align <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"l"</span>,<span class='st'>"r"</span><span class='op'>)</span>      <span class='co'># this will be recycled: left-right-left-right ...</span>
-<span class='op'>)</span>
-<span class='op'>}</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>scipen <span class='op'>=</span> <span class='fl'>8</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>opt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='DescToolsOptions.html'>DescToolsOptions</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># define some special formats for count data, percentages and numeric results</span></span>
+<span class='r-in'><span class='co'># (those will be supported by TOne)</span></span>
+<span class='r-in'><span class='fu'><a href='Format.html'>Fmt</a></span><span class='op'>(</span>abs <span class='op'>=</span> <span class='fu'><a href='Format.html'>as.fmt</a></span><span class='op'>(</span>digits <span class='op'>=</span> <span class='fl'>0</span>, big.mark <span class='op'>=</span> <span class='st'>"'"</span><span class='op'>)</span><span class='op'>)</span>   <span class='co'># counts</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $abs</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Description:   Number format for counts</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Definition:    digits=0, big.mark="'"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Example:       314'159</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $per</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Description:   Percentage number format</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Definition:    digits=1, fmt='%'</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Example:       31415926.5%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $num</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Description:   Number format for floats</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Definition:    digits=3, big.mark="'"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Example:       314'159.265</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $nob</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Description:   Number format</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Definition:    digits=5, na.form='nodat'</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Example:       314159.26536</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'><a href='Format.html'>Fmt</a></span><span class='op'>(</span>per <span class='op'>=</span> <span class='fu'><a href='Format.html'>as.fmt</a></span><span class='op'>(</span>digits <span class='op'>=</span> <span class='fl'>1</span>, fmt <span class='op'>=</span> <span class='st'>"%"</span><span class='op'>)</span><span class='op'>)</span>        <span class='co'># percentages</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $abs</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Description:   Number format</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Definition:    digits=0, big.mark="'"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Example:       314'159</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $per</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Description:   Percentage number format</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Definition:    digits=1, fmt='%'</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Example:       31415926.5%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $num</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Description:   Number format for floats</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Definition:    digits=3, big.mark="'"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Example:       314'159.265</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $nob</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Description:   Number format</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Definition:    digits=5, na.form='nodat'</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Example:       314159.26536</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'><a href='Format.html'>Fmt</a></span><span class='op'>(</span>num <span class='op'>=</span> <span class='fu'><a href='Format.html'>as.fmt</a></span><span class='op'>(</span>digits <span class='op'>=</span> <span class='fl'>1</span>, big.mark <span class='op'>=</span> <span class='st'>"'"</span><span class='op'>)</span><span class='op'>)</span>   <span class='co'># numeric</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $abs</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Description:   Number format</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Definition:    digits=0, big.mark="'"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Example:       314'159</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $per</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Description:   Number format</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Definition:    digits=1, fmt='%'</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Example:       31415926.5%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $num</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Description:   Number format for floats</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Definition:    digits=3, big.mark="'"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Example:       314'159.265</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $nob</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Description:   Number format</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Definition:    digits=5, na.form='nodat'</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Example:       314159.26536</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>TOne</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>d.pizza</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"temperature"</span>, <span class='st'>"delivery_min"</span>, <span class='st'>"driver"</span>, <span class='st'>"wine_ordered"</span><span class='op'>)</span><span class='op'>]</span>,</span>
+<span class='r-in'>  grp <span class='op'>=</span> <span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>quality</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> var                total              low                medium             high                                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> n                  1'008              156 (15.5%)        356 (35.3%)        496 (49.2%)                          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> temperature        47.9 (9.9)         32.9 (7.8)         45.6 (7.4)         53.6 (6.5)         *** '             </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> delivery_min       25.7 (10.8)        33.9 (11.7)        26.5 (10.1)        22.6 (9.5)         *** '             </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> driver                                                                                         *** ""            </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Butcher          79 (8.0%)          10 (6.5%)          36 (10.1%)         33 (6.7%)                            </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Carpenter        225 (22.6%)        59 (38.1%)         90 (25.4%)         76 (15.4%)                           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Carter           196 (19.4%)        11 (7.1%)          72 (20.3%)         113 (22.9%)                          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Farmer           94 (9.7%)          10 (6.5%)          26 (7.3%)          58 (11.7%)                           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Hunter           130 (13.0%)        8 (5.2%)           43 (12.1%)         79 (16.0%)                           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Miller           109 (10.4%)        16 (10.3%)         35 (9.9%)          58 (11.7%)                           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Taylor           171 (16.9%)        41 (26.5%)         53 (14.9%)         77 (15.6%)                           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> wine_ordered (= 1) 161 (16.1%)        32 (20.8%)         63 (17.9%)         66 (13.4%)         .   ""            </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ---</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ') Kruskal-Wallis test, ") Fisher exact test, "") Chi-Square test</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># the same but no groups now...</span></span>
+<span class='r-in'><span class='fu'>TOne</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>d.pizza</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"temperature"</span>, <span class='st'>"delivery_min"</span>, <span class='st'>"driver"</span>, <span class='st'>"wine_ordered"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> var                total             </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> n                  1'209             </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> temperature        47.9 (9.9)        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> delivery_min       25.7 (10.8)       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> driver                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Butcher          96 (8.0%)         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Carpenter        272 (22.6%)       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Carter           234 (19.4%)       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Farmer           117 (9.7%)        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Hunter           156 (13.0%)       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Miller           125 (10.4%)       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Taylor           204 (16.9%)       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> wine_ordered (= 1) 187 (15.6%)       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># define median/IQR as describing functions for the numeric variables</span></span>
+<span class='r-in'><span class='fu'>TOne</span><span class='op'>(</span><span class='va'>iris</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>5</span><span class='op'>]</span>, <span class='va'>iris</span><span class='op'>[</span>, <span class='fl'>5</span><span class='op'>]</span>,</span>
+<span class='r-in'>  FUN <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'>    <span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>gettextf</a></span><span class='op'>(</span><span class='st'>"%s / %s"</span>,</span>
+<span class='r-in'>      <span class='fu'><a href='Format.html'>Format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span><span class='op'>(</span><span class='va'>x</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, digits <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>, </span>
+<span class='r-in'>      <span class='fu'><a href='Format.html'>Format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/IQR.html'>IQR</a></span><span class='op'>(</span><span class='va'>x</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, digits <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='op'>}</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> var          total        setosa       versicolor   virginica                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> n            150          50 (33.3%)   50 (33.3%)   50 (33.3%)               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Sepal.Length 5.8 / 1.300  5.0 / 0.400  5.9 / 0.700  6.5 / 0.675  *** '       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Sepal.Width  3.0 / 0.500  3.4 / 0.475  2.8 / 0.475  3.0 / 0.375  *** '       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Petal.Length 4.3 / 3.500  1.5 / 0.175  4.3 / 0.600  5.5 / 0.775  *** '       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Petal.Width  1.3 / 1.500  0.2 / 0.100  1.3 / 0.300  2.0 / 0.500  *** '       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ---</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ') Kruskal-Wallis test, ") Fisher exact test, "") Chi-Square test</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># replace kruskal.test by ANOVA and report the p.value</span></span>
+<span class='r-in'><span class='co'># Change tests for all the types</span></span>
+<span class='r-in'><span class='fu'>TOne</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>iris</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>5</span><span class='op'>]</span>, grp <span class='op'>=</span> <span class='va'>iris</span><span class='op'>[</span>, <span class='fl'>5</span><span class='op'>]</span>,</span>
+<span class='r-in'>     FUN <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>gettextf</a></span><span class='op'>(</span><span class='st'>"%s / %s"</span>,</span>
+<span class='r-in'>            <span class='fu'><a href='Format.html'>Format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>x</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, digits <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>,</span>
+<span class='r-in'>            <span class='fu'><a href='Format.html'>Format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>(</span><span class='va'>x</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, digits <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>, </span>
+<span class='r-in'></span>
+<span class='r-in'>     TEST <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span></span>
+<span class='r-in'>       num <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>fun <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>g</span><span class='op'>)</span><span class='op'>{</span><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span><span class='op'>(</span><span class='va'>x</span> <span class='op'>~</span> <span class='va'>g</span><span class='op'>)</span><span class='op'>)</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>[</span><span class='fl'>1</span>, <span class='st'>"Pr(&gt;F)"</span><span class='op'>]</span><span class='op'>}</span>,</span>
+<span class='r-in'>                        lbl <span class='op'>=</span> <span class='st'>"ANOVA"</span><span class='op'>)</span>,</span>
+<span class='r-in'>               cat <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>fun <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>g</span><span class='op'>)</span><span class='op'>{</span><span class='fu'><a href='https://rdrr.io/r/stats/chisq.test.html'>chisq.test</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>g</span><span class='op'>)</span><span class='op'>)</span><span class='op'>$</span><span class='va'>p.val</span><span class='op'>}</span>,</span>
+<span class='r-in'>                        lbl <span class='op'>=</span> <span class='st'>"Chi-Square test"</span><span class='op'>)</span>,</span>
+<span class='r-in'>               dich <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>fun <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>g</span><span class='op'>)</span><span class='op'>{</span><span class='fu'><a href='https://rdrr.io/r/stats/fisher.test.html'>fisher.test</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>g</span><span class='op'>)</span><span class='op'>)</span><span class='op'>$</span><span class='va'>p.val</span><span class='op'>}</span>,</span>
+<span class='r-in'>                         lbl <span class='op'>=</span> <span class='st'>"Fisher exact test"</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span class='r-in'>       fmt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>abs <span class='op'>=</span> <span class='fu'><a href='Format.html'>Fmt</a></span><span class='op'>(</span><span class='st'>"abs"</span><span class='op'>)</span>, num  <span class='op'>=</span> <span class='fu'><a href='Format.html'>Fmt</a></span><span class='op'>(</span><span class='st'>"num"</span><span class='op'>)</span>, per <span class='op'>=</span> <span class='fu'><a href='Format.html'>Fmt</a></span><span class='op'>(</span><span class='st'>"per"</span><span class='op'>)</span>,</span>
+<span class='r-in'>                pval <span class='op'>=</span> <span class='fu'><a href='Format.html'>as.fmt</a></span><span class='op'>(</span>fmt <span class='op'>=</span> <span class='st'>"*"</span>, na.form <span class='op'>=</span> <span class='st'>"   "</span><span class='op'>)</span><span class='op'>)</span> </span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> var          total        setosa       versicolor   virginica                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> n            150          50 (33.3%)   50 (33.3%)   50 (33.3%)               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Sepal.Length 5.8 / 0.828  5.0 / 0.352  5.9 / 0.516  6.6 / 0.636  *** '       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Sepal.Width  3.1 / 0.436  3.4 / 0.379  2.8 / 0.314  3.0 / 0.322  *** '       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Petal.Length 3.8 / 1.765  1.5 / 0.174  4.3 / 0.470  5.6 / 0.552  *** '       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Petal.Width  1.2 / 0.762  0.2 / 0.105  1.3 / 0.198  2.0 / 0.275  *** '       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ---</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ') ANOVA, ") Fisher exact test, "") Chi-Square test</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>t1</span> <span class='op'>&lt;-</span> <span class='fu'>TOne</span><span class='op'>(</span>x     <span class='op'>=</span> <span class='va'>d.pizza</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"temperature"</span>, <span class='st'>"driver"</span>, <span class='st'>"rabate"</span><span class='op'>)</span><span class='op'>]</span>, </span>
+<span class='r-in'>           grp   <span class='op'>=</span> <span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>area</span>, </span>
+<span class='r-in'>           align <span class='op'>=</span> <span class='st'>" "</span>, </span>
+<span class='r-in'>           total <span class='op'>=</span> <span class='cn'>FALSE</span>,</span>
+<span class='r-in'>            </span>
+<span class='r-in'>           FUN <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>gettextf</a></span><span class='op'>(</span><span class='st'>"%s / %s (%s)"</span>,</span>
+<span class='r-in'>                                      <span class='fu'><a href='Format.html'>Format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>x</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, digits <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>,</span>
+<span class='r-in'>                                      <span class='fu'><a href='Format.html'>Format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>(</span><span class='va'>x</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, digits <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>,</span>
+<span class='r-in'>                                      <span class='fu'><a href='Format.html'>Format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span><span class='op'>(</span><span class='va'>x</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, digits <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span class='r-in'>           </span>
+<span class='r-in'>           TEST <span class='op'>=</span> <span class='cn'>NA</span>,</span>
+<span class='r-in'>            </span>
+<span class='r-in'>           fmt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>abs  <span class='op'>=</span> <span class='fu'><a href='Format.html'>as.fmt</a></span><span class='op'>(</span>big.mark <span class='op'>=</span> <span class='st'>" "</span>, digits<span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span>, </span>
+<span class='r-in'>                      num  <span class='op'>=</span> <span class='fu'><a href='Format.html'>as.fmt</a></span><span class='op'>(</span>big.mark <span class='op'>=</span> <span class='st'>" "</span>, digits<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>, </span>
+<span class='r-in'>                      per  <span class='op'>=</span> <span class='fu'><a href='Format.html'>as.fmt</a></span><span class='op'>(</span>fmt<span class='op'>=</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> </span>
+<span class='r-in'>                          <span class='fu'><a href='StrPad.html'>StrPad</a></span><span class='op'>(</span><span class='fu'><a href='Format.html'>Format</a></span><span class='op'>(</span><span class='va'>x</span>, fmt<span class='op'>=</span><span class='st'>"%"</span>, d<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>, width<span class='op'>=</span><span class='fl'>5</span>, adj <span class='op'>=</span> <span class='st'>"r"</span><span class='op'>)</span><span class='op'>)</span>, </span>
+<span class='r-in'>                      pval <span class='op'>=</span> <span class='fu'><a href='Format.html'>as.fmt</a></span><span class='op'>(</span>fmt <span class='op'>=</span> <span class='st'>"*"</span>, na.form <span class='op'>=</span> <span class='st'>"   "</span><span class='op'>)</span><span class='op'>)</span> </span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># add a userdefined legend</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span><span class='op'>(</span><span class='va'>t1</span>, <span class='st'>"legend"</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='st'>"numeric: mean / sd (median)), factor: n (n%)"</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>t1</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> var                  Brent                Camden               Westminster         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> n                     474 (39.5%)          344 (28.7%)          381 (31.8%)        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> temperature          51.1 / 8.734 (53.4)  47.4 / 10.111 (50.3) 44.3 / 9.836 (45.9) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> driver                                                                             </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Butcher              72 (15.2%)            1 ( 0.3%)           22 ( 5.8%)        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Carpenter            29 ( 6.1%)           19 ( 5.6%)          221 (58.2%)        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Carter              177 (37.4%)           47 (13.8%)            5 ( 1.3%)        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Farmer               19 ( 4.0%)           87 (25.5%)           11 ( 2.9%)        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Hunter              128 (27.1%)            4 ( 1.2%)           24 ( 6.3%)        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Miller                6 ( 1.3%)           41 (12.0%)           77 (20.3%)        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Taylor               42 ( 8.9%)          142 (41.6%)           20 ( 5.3%)        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> rabate (= TRUE)       235 (50.3%)          172 (50.3%)          184 (48.7%)        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ---</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> numeric: mean / sd (median)), factor: n (n%) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># dichotomous integer or logical values can be reported by the high or low value</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>, size <span class='op'>=</span> <span class='fl'>100</span>, prob <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.3</span>, <span class='fl'>0.7</span><span class='op'>)</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>, size <span class='op'>=</span> <span class='fl'>100</span>, prob <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.3</span>, <span class='fl'>0.7</span><span class='op'>)</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>==</span> <span class='fl'>1</span></span>
+<span class='r-in'><span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>, size <span class='op'>=</span> <span class='fl'>100</span>, prob <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.3</span>, <span class='fl'>0.7</span><span class='op'>)</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>g</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>, size <span class='op'>=</span> <span class='fl'>100</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>d.set</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>x</span>, y <span class='op'>=</span> <span class='va'>y</span>, z <span class='op'>=</span> <span class='va'>z</span>, g <span class='op'>=</span> <span class='va'>g</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>TOne</span><span class='op'>(</span><span class='va'>d.set</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span>, <span class='va'>d.set</span><span class='op'>$</span><span class='va'>g</span>, intref <span class='op'>=</span> <span class='st'>"low"</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>Chi-squared approximation may be incorrect</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>Chi-squared approximation may be incorrect</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>Chi-squared approximation may be incorrect</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> var         total       a           b           c           d                      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> n           100         23 (23.0%)  23 (23.0%)  34 (34.0%)  20 (20.0%)             </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> x (= 0)     23 (23.0%)  7 (30.4%)   3 (13.0%)   11 (32.4%)  2 (10.0%)       ""     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> y (= FALSE) 23 (23.0%)  6 (26.1%)   2 (8.7%)    10 (29.4%)  5 (25.0%)       ""     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> z (= 0)     24 (24.0%)  6 (26.1%)   5 (21.7%)   11 (32.4%)  2 (10.0%)       ""     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ---</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ') Kruskal-Wallis test, ") Fisher exact test, "") Chi-Square test</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>TOne</span><span class='op'>(</span><span class='va'>d.set</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span>, <span class='va'>d.set</span><span class='op'>$</span><span class='va'>g</span>, intref <span class='op'>=</span> <span class='st'>"high"</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>Chi-squared approximation may be incorrect</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>Chi-squared approximation may be incorrect</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>Chi-squared approximation may be incorrect</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> var        total      a          b          c          d                    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> n          100        23 (23.0%) 23 (23.0%) 34 (34.0%) 20 (20.0%)           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> x (= 1)    77 (77.0%) 16 (69.6%) 20 (87.0%) 23 (67.6%) 18 (90.0%)     ""    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> y (= TRUE) 77 (77.0%) 17 (73.9%) 21 (91.3%) 24 (70.6%) 15 (75.0%)     ""    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> z (= 0)    24 (24.0%) 6 (26.1%)  5 (21.7%)  11 (32.4%) 2 (10.0%)      ""    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ---</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ') Kruskal-Wallis test, ") Fisher exact test, "") Chi-Square test</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># intref would not control factors, use relevel to change reported value</span></span>
+<span class='r-in'><span class='fu'>TOne</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>z <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/relevel.html'>relevel</a></span><span class='op'>(</span><span class='va'>z</span>, <span class='st'>"1"</span><span class='op'>)</span><span class='op'>)</span>, <span class='va'>g</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>Chi-squared approximation may be incorrect</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> var        total      a          b          c          d                    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> n          100        23 (23.0%) 23 (23.0%) 34 (34.0%) 20 (20.0%)           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> z (= 1)    76 (76.0%) 17 (73.9%) 18 (78.3%) 23 (67.6%) 18 (90.0%)     ""    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ---</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ') Kruskal-Wallis test, ") Fisher exact test, "") Chi-Square test</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>TOne</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>z <span class='op'>=</span> <span class='va'>z</span><span class='op'>)</span>, <span class='va'>g</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>Chi-squared approximation may be incorrect</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> var        total      a          b          c          d                    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> n          100        23 (23.0%) 23 (23.0%) 34 (34.0%) 20 (20.0%)           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> z (= 0)    24 (24.0%) 6 (26.1%)  5 (21.7%)  11 (32.4%) 2 (10.0%)      ""    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ---</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ') Kruskal-Wallis test, ") Fisher exact test, "") Chi-Square test</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span><span class='va'>opt</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>  </span>
+<span class='r-in'>  </span>
+<span class='r-in'><span class='co'># Send the whole stuff to Word</span></span>
+<span class='r-in'><span class='va'>wrd</span> <span class='op'>&lt;-</span> <span class='fu'><a href='GetNewWrd.html'>GetNewWrd</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='ToWrd.html'>ToWrd</a></span><span class='op'>(</span></span>
+<span class='r-in'>  <span class='fu'>TOne</span><span class='op'>(</span>x   <span class='op'>=</span> <span class='va'>d.pizza</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"temperature"</span>, <span class='st'>"delivery_min"</span>, <span class='st'>"driver"</span>, <span class='st'>"wine_ordered"</span><span class='op'>)</span><span class='op'>]</span>,</span>
+<span class='r-in'>       grp <span class='op'>=</span> <span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>quality</span>,</span>
+<span class='r-in'>       fmt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>num<span class='op'>=</span><span class='fu'><a href='Format.html'>Fmt</a></span><span class='op'>(</span><span class='st'>"num"</span>, digits<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'>       <span class='op'>)</span>,</span>
+<span class='r-in'>  font <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>name<span class='op'>=</span><span class='st'>"Arial narrow"</span>, size<span class='op'>=</span><span class='fl'>8</span><span class='op'>)</span>,</span>
+<span class='r-in'>  align <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"l"</span>,<span class='st'>"r"</span><span class='op'>)</span>      <span class='co'># this will be recycled: left-right-left-right ...</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

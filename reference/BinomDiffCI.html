@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -246,61 +246,64 @@ the <b>Jeffreys-Perks</b> (code <code>"jp"</code>).</p>
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>x1</span> <span class='op'>&lt;-</span> <span class='fl'>56</span>; <span class='va'>n1</span> <span class='op'>&lt;-</span> <span class='fl'>70</span>; <span class='va'>x2</span> <span class='op'>&lt;-</span> <span class='fl'>48</span>; <span class='va'>n2</span> <span class='op'>&lt;-</span> <span class='fl'>80</span>
-<span class='va'>xci</span> <span class='op'>&lt;-</span> <span class='fu'>BinomDiffCI</span><span class='op'>(</span><span class='va'>x1</span>, <span class='va'>n1</span>, <span class='va'>x2</span>, <span class='va'>n2</span>, method<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"wald"</span>, <span class='st'>"waldcc"</span>, <span class='st'>"ac"</span>, <span class='st'>"score"</span>,
-            <span class='st'>"scorecc"</span>, <span class='st'>"mn"</span>, <span class='st'>"mee"</span>, <span class='st'>"blj"</span>, <span class='st'>"ha"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='Format.html'>Format</a></span><span class='op'>(</span><span class='va'>xci</span><span class='op'>[</span>,<span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span>, digits<span class='op'>=</span><span class='fl'>4</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;         lwr.ci upr.ci
-#&gt; wald    0.0575 0.3425
-#&gt; waldcc  0.0441 0.3559
-#&gt; ac      0.0525 0.3358
-#&gt; score   0.0524 0.3339
-#&gt; scorecc 0.0428 0.3422
-#&gt; mn      0.0528 0.3382
-#&gt; mee     0.0534 0.3377
-#&gt; blj     0.0540 0.3400
-#&gt; ha      0.0494 0.3506
-#&gt; attr(,"class")
-#&gt; [1] matrix  array</div><div class='input'>
-<span class='va'>x1</span> <span class='op'>&lt;-</span> <span class='fl'>9</span>; <span class='va'>n1</span> <span class='op'>&lt;-</span> <span class='fl'>10</span>; <span class='va'>x2</span> <span class='op'>&lt;-</span> <span class='fl'>3</span>; <span class='va'>n2</span> <span class='op'>&lt;-</span> <span class='fl'>10</span>
-<span class='va'>yci</span> <span class='op'>&lt;-</span> <span class='fu'>BinomDiffCI</span><span class='op'>(</span><span class='va'>x1</span>, <span class='va'>n1</span>, <span class='va'>x2</span>, <span class='va'>n2</span>, method<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"wald"</span>, <span class='st'>"waldcc"</span>, <span class='st'>"ac"</span>, <span class='st'>"score"</span>,
-            <span class='st'>"scorecc"</span>, <span class='st'>"mn"</span>, <span class='st'>"mee"</span>, <span class='st'>"blj"</span>, <span class='st'>"ha"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='Format.html'>Format</a></span><span class='op'>(</span><span class='va'>yci</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span>, digits<span class='op'>=</span><span class='fl'>4</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;         lwr.ci upr.ci
-#&gt; wald    0.2605 0.9395
-#&gt; waldcc  0.1605 1.0000
-#&gt; ac      0.1600 0.8400
-#&gt; score   0.1705 0.8090
-#&gt; scorecc 0.1013 0.8387
-#&gt; mn      0.1700 0.8406
-#&gt; mee     0.1821 0.8370
-#&gt; blj     0.1869 0.9040
-#&gt; ha      0.1922 1.0000
-#&gt; attr(,"class")
-#&gt; [1] matrix  array</div><div class='input'>
-<span class='co'># https://www.lexjansen.com/wuss/2016/127_Final_Paper_PDF.pdf, page 9</span>
-<span class='fu'><a href='SetNames.html'>SetNames</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span>
-  <span class='fu'>BinomDiffCI</span><span class='op'>(</span><span class='fl'>56</span>, <span class='fl'>70</span>, <span class='fl'>48</span>, <span class='fl'>80</span>, 
-              method<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"wald"</span>, <span class='st'>"waldcc"</span>, <span class='st'>"hal"</span>, 
-                       <span class='st'>"jp"</span>, <span class='st'>"mee"</span>,
-                       <span class='st'>"mn"</span>, <span class='st'>"score"</span>, <span class='st'>"scorecc"</span>, 
-                       <span class='st'>"ha"</span>, <span class='st'>"ac"</span>, <span class='st'>"blj"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>[</span>,<span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span>, <span class='fl'>4</span><span class='op'>)</span>,
-  rownames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1. Wald, no CC"</span>, <span class='st'>"2. Wald, CC"</span>, <span class='st'>"3. Haldane"</span>, <span class='st'>"4. Jeffreys-Perks"</span>,
-             <span class='st'>"5. Mee"</span>, <span class='st'>"6. Miettinen-Nurminen"</span>, <span class='st'>"10. Score, no CC"</span>, <span class='st'>"11. Score, CC"</span>,
-             <span class='st'>"12. Hauck-Andersen"</span>, <span class='st'>"13. Agresti-Caffo"</span>, <span class='st'>"16. Brown-Li"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                       lwr.ci upr.ci
-#&gt; 1. Wald, no CC        0.0575 0.3425
-#&gt; 2. Wald, CC           0.0441 0.3559
-#&gt; 3. Haldane            0.0535 0.3351
-#&gt; 4. Jeffreys-Perks     0.0531 0.3355
-#&gt; 5. Mee                0.0534 0.3377
-#&gt; 6. Miettinen-Nurminen 0.0528 0.3382
-#&gt; 10. Score, no CC      0.0524 0.3339
-#&gt; 11. Score, CC         0.0428 0.3422
-#&gt; 12. Hauck-Andersen    0.0494 0.3506
-#&gt; 13. Agresti-Caffo     0.0525 0.3358
-#&gt; 16. Brown-Li          0.0540 0.3400</div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>x1</span> <span class='op'>&lt;-</span> <span class='fl'>56</span>; <span class='va'>n1</span> <span class='op'>&lt;-</span> <span class='fl'>70</span>; <span class='va'>x2</span> <span class='op'>&lt;-</span> <span class='fl'>48</span>; <span class='va'>n2</span> <span class='op'>&lt;-</span> <span class='fl'>80</span></span>
+<span class='r-in'><span class='va'>xci</span> <span class='op'>&lt;-</span> <span class='fu'>BinomDiffCI</span><span class='op'>(</span><span class='va'>x1</span>, <span class='va'>n1</span>, <span class='va'>x2</span>, <span class='va'>n2</span>, method<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"wald"</span>, <span class='st'>"waldcc"</span>, <span class='st'>"ac"</span>, <span class='st'>"score"</span>,</span>
+<span class='r-in'>            <span class='st'>"scorecc"</span>, <span class='st'>"mn"</span>, <span class='st'>"mee"</span>, <span class='st'>"blj"</span>, <span class='st'>"ha"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='Format.html'>Format</a></span><span class='op'>(</span><span class='va'>xci</span><span class='op'>[</span>,<span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span>, digits<span class='op'>=</span><span class='fl'>4</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         lwr.ci upr.ci</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> wald    0.0575 0.3425</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> waldcc  0.0441 0.3559</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ac      0.0525 0.3358</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> score   0.0524 0.3339</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> scorecc 0.0428 0.3422</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> mn      0.0528 0.3382</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> mee     0.0534 0.3377</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> blj     0.0540 0.3400</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ha      0.0494 0.3506</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"class")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] matrix  array</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>x1</span> <span class='op'>&lt;-</span> <span class='fl'>9</span>; <span class='va'>n1</span> <span class='op'>&lt;-</span> <span class='fl'>10</span>; <span class='va'>x2</span> <span class='op'>&lt;-</span> <span class='fl'>3</span>; <span class='va'>n2</span> <span class='op'>&lt;-</span> <span class='fl'>10</span></span>
+<span class='r-in'><span class='va'>yci</span> <span class='op'>&lt;-</span> <span class='fu'>BinomDiffCI</span><span class='op'>(</span><span class='va'>x1</span>, <span class='va'>n1</span>, <span class='va'>x2</span>, <span class='va'>n2</span>, method<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"wald"</span>, <span class='st'>"waldcc"</span>, <span class='st'>"ac"</span>, <span class='st'>"score"</span>,</span>
+<span class='r-in'>            <span class='st'>"scorecc"</span>, <span class='st'>"mn"</span>, <span class='st'>"mee"</span>, <span class='st'>"blj"</span>, <span class='st'>"ha"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='Format.html'>Format</a></span><span class='op'>(</span><span class='va'>yci</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span>, digits<span class='op'>=</span><span class='fl'>4</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         lwr.ci upr.ci</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> wald    0.2605 0.9395</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> waldcc  0.1605 1.0000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ac      0.1600 0.8400</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> score   0.1705 0.8090</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> scorecc 0.1013 0.8387</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> mn      0.1700 0.8406</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> mee     0.1821 0.8370</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> blj     0.1869 0.9040</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ha      0.1922 1.0000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"class")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] matrix  array</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># https://www.lexjansen.com/wuss/2016/127_Final_Paper_PDF.pdf, page 9</span></span>
+<span class='r-in'><span class='fu'><a href='SetNames.html'>SetNames</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span></span>
+<span class='r-in'>  <span class='fu'>BinomDiffCI</span><span class='op'>(</span><span class='fl'>56</span>, <span class='fl'>70</span>, <span class='fl'>48</span>, <span class='fl'>80</span>, </span>
+<span class='r-in'>              method<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"wald"</span>, <span class='st'>"waldcc"</span>, <span class='st'>"hal"</span>, </span>
+<span class='r-in'>                       <span class='st'>"jp"</span>, <span class='st'>"mee"</span>,</span>
+<span class='r-in'>                       <span class='st'>"mn"</span>, <span class='st'>"score"</span>, <span class='st'>"scorecc"</span>, </span>
+<span class='r-in'>                       <span class='st'>"ha"</span>, <span class='st'>"ac"</span>, <span class='st'>"blj"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>[</span>,<span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span>, <span class='fl'>4</span><span class='op'>)</span>,</span>
+<span class='r-in'>  rownames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1. Wald, no CC"</span>, <span class='st'>"2. Wald, CC"</span>, <span class='st'>"3. Haldane"</span>, <span class='st'>"4. Jeffreys-Perks"</span>,</span>
+<span class='r-in'>             <span class='st'>"5. Mee"</span>, <span class='st'>"6. Miettinen-Nurminen"</span>, <span class='st'>"10. Score, no CC"</span>, <span class='st'>"11. Score, CC"</span>,</span>
+<span class='r-in'>             <span class='st'>"12. Hauck-Andersen"</span>, <span class='st'>"13. Agresti-Caffo"</span>, <span class='st'>"16. Brown-Li"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                       lwr.ci upr.ci</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1. Wald, no CC        0.0575 0.3425</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2. Wald, CC           0.0441 0.3559</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3. Haldane            0.0535 0.3351</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4. Jeffreys-Perks     0.0531 0.3355</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5. Mee                0.0534 0.3377</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6. Miettinen-Nurminen 0.0528 0.3382</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10. Score, no CC      0.0524 0.3339</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11. Score, CC         0.0428 0.3422</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12. Hauck-Andersen    0.0494 0.3506</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 13. Agresti-Caffo     0.0525 0.3358</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 16. Brown-Li          0.0540 0.3400</span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

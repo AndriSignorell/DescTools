@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -197,47 +197,51 @@ a named vector of 3 columns if confidence levels are required (estimate, lower a
     <p>Andri Signorell &lt;andri@signorell.net&gt;, based on code of Harold C. Doran</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>1234</span><span class='op'>)</span>
-<span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
-  item1<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span>, <span class='fl'>20</span>, replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>,
-  item2<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span>, <span class='fl'>20</span>, replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>,
-  item3<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span>, <span class='fl'>20</span>, replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>,
-  item4<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span>, <span class='fl'>20</span>, replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>,
-  item5<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span>, <span class='fl'>20</span>, replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-  <span class='op'>)</span>
-
-<span class='fu'>CronbachAlpha</span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>, cond<span class='op'>=</span><span class='cn'>FALSE</span>, conf.level<span class='op'>=</span><span class='fl'>0.95</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Cronbach Alpha         lwr.ci         upr.ci 
-#&gt;      0.4029851      0.1565282      0.5912006 </div><div class='input'><span class='fu'>CronbachAlpha</span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>, cond<span class='op'>=</span><span class='cn'>TRUE</span>, conf.level<span class='op'>=</span><span class='fl'>0.95</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $unconditional
-#&gt; Cronbach Alpha         lwr.ci         upr.ci 
-#&gt;      0.4029851      0.1565282      0.5912006 
-#&gt; 
-#&gt; $condCronbachAlpha
-#&gt;   Item Cronbach Alpha       lwr.ci    upr.ci
-#&gt; 1    1      0.1574074 -0.293641918 0.4692256
-#&gt; 2    2      0.5241379  0.269403595 0.7002402
-#&gt; 3    3      0.2537764 -0.145685462 0.5299313
-#&gt; 4    4      0.3455056 -0.004852612 0.5877143
-#&gt; </div><div class='input'>
-<span class='fu'>CronbachAlpha</span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>, cond<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.4029851</div><div class='input'><span class='fu'>CronbachAlpha</span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span>, cond<span class='op'>=</span><span class='cn'>TRUE</span>, conf.level<span class='op'>=</span><span class='fl'>0.95</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $unconditional
-#&gt; Cronbach Alpha         lwr.ci         upr.ci 
-#&gt;    -0.04678363    -0.97917368     0.44635684 
-#&gt; 
-#&gt; $condCronbachAlpha
-#&gt; list()
-#&gt; </div><div class='input'>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># Calculate bootstrap confidence intervals for CronbachAlpha</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>boot</span><span class='op'>)</span>
-<span class='va'>cronbach.boot</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>data</span>,<span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span><span class='fu'>CronbachAlpha</span><span class='op'>(</span><span class='va'>data</span><span class='op'>[</span><span class='va'>x</span>,<span class='op'>]</span><span class='op'>)</span><span class='op'>[[</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>]</span><span class='op'>}</span>
-<span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/boot/man/boot.html'>boot</a></span><span class='op'>(</span><span class='va'>datafile</span>, <span class='va'>cronbach.boot</span>, <span class='fl'>1000</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></span><span class='op'>(</span><span class='va'>res</span><span class='op'>$</span><span class='va'>t</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.025</span>,<span class='fl'>0.975</span><span class='op'>)</span><span class='op'>)</span>   <span class='co'># two-sided bootstrapped confidence interval of Cronbach's alpha</span>
-<span class='fu'><a href='https://rdrr.io/pkg/boot/man/boot.ci.html'>boot.ci</a></span><span class='op'>(</span><span class='va'>res</span>, type<span class='op'>=</span><span class='st'>"bca"</span><span class='op'>)</span>          <span class='co'># adjusted bootstrap percentile (BCa) confidence interval (better)</span>
-<span class='op'>}</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>1234</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span></span>
+<span class='r-in'>  item1<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span>, <span class='fl'>20</span>, replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>,</span>
+<span class='r-in'>  item2<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span>, <span class='fl'>20</span>, replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>,</span>
+<span class='r-in'>  item3<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span>, <span class='fl'>20</span>, replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>,</span>
+<span class='r-in'>  item4<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span>, <span class='fl'>20</span>, replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>,</span>
+<span class='r-in'>  item5<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span>, <span class='fl'>20</span>, replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>CronbachAlpha</span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>, cond<span class='op'>=</span><span class='cn'>FALSE</span>, conf.level<span class='op'>=</span><span class='fl'>0.95</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Cronbach Alpha         lwr.ci         upr.ci </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      0.4029851      0.1565282      0.5912006 </span>
+<span class='r-in'><span class='fu'>CronbachAlpha</span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>, cond<span class='op'>=</span><span class='cn'>TRUE</span>, conf.level<span class='op'>=</span><span class='fl'>0.95</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $unconditional</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Cronbach Alpha         lwr.ci         upr.ci </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      0.4029851      0.1565282      0.5912006 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $condCronbachAlpha</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Item Cronbach Alpha       lwr.ci    upr.ci</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1    1      0.1574074 -0.293641918 0.4692256</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2    2      0.5241379  0.269403595 0.7002402</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3    3      0.2537764 -0.145685462 0.5299313</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4    4      0.3455056 -0.004852612 0.5877143</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>CronbachAlpha</span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>, cond<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.4029851</span>
+<span class='r-in'><span class='fu'>CronbachAlpha</span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span>, cond<span class='op'>=</span><span class='cn'>TRUE</span>, conf.level<span class='op'>=</span><span class='fl'>0.95</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $unconditional</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Cronbach Alpha         lwr.ci         upr.ci </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    -0.04678363    -0.97917368     0.44635684 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $condCronbachAlpha</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> list()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='co'># Calculate bootstrap confidence intervals for CronbachAlpha</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>boot</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>cronbach.boot</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>data</span>,<span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span><span class='fu'>CronbachAlpha</span><span class='op'>(</span><span class='va'>data</span><span class='op'>[</span><span class='va'>x</span>,<span class='op'>]</span><span class='op'>)</span><span class='op'>[[</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>]</span><span class='op'>}</span></span>
+<span class='r-in'><span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/boot/man/boot.html'>boot</a></span><span class='op'>(</span><span class='va'>datafile</span>, <span class='va'>cronbach.boot</span>, <span class='fl'>1000</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></span><span class='op'>(</span><span class='va'>res</span><span class='op'>$</span><span class='va'>t</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.025</span>,<span class='fl'>0.975</span><span class='op'>)</span><span class='op'>)</span>   <span class='co'># two-sided bootstrapped confidence interval of Cronbach's alpha</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/boot/man/boot.ci.html'>boot.ci</a></span><span class='op'>(</span><span class='va'>res</span>, type<span class='op'>=</span><span class='st'>"bca"</span><span class='op'>)</span>          <span class='co'># adjusted bootstrap percentile (BCa) confidence interval (better)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

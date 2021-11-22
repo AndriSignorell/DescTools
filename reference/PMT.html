@@ -79,7 +79,7 @@ PPMT what portion of a period payment is going towards principal in a particular
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -217,34 +217,35 @@ PPMT what portion of a period payment is going towards principal in a particular
 <!-- %% ~~objects to See Also as, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># original principal:    20'000</span>
-<span class='co'># loan term (years):     5</span>
-<span class='co'># annual interest rate:  8%</span>
-<span class='co'># annual payment:        -4'156.847</span>
-
-<span class='co'># simple amortization schedule</span>
-<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span>
-  year      <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>,
-  payment   <span class='op'>=</span> <span class='fu'>PMT</span><span class='op'>(</span>rate<span class='op'>=</span><span class='fl'>0.08</span>, nper<span class='op'>=</span><span class='fl'>5</span>, pv<span class='op'>=</span><span class='fl'>20000</span>, fv<span class='op'>=</span><span class='op'>-</span><span class='fl'>5000</span>, type<span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span>,
-  interest  <span class='op'>=</span> <span class='fu'>IPMT</span><span class='op'>(</span>rate<span class='op'>=</span><span class='fl'>0.08</span>, per<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, nper<span class='op'>=</span><span class='fl'>5</span>, pv<span class='op'>=</span><span class='fl'>20000</span>, fv<span class='op'>=</span><span class='op'>-</span><span class='fl'>5000</span>, type<span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span>,
-  principal <span class='op'>=</span> <span class='fu'>PPMT</span><span class='op'>(</span>rate<span class='op'>=</span><span class='fl'>0.08</span>, per<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, nper<span class='op'>=</span><span class='fl'>5</span>, pv<span class='op'>=</span><span class='fl'>20000</span>, fv<span class='op'>=</span><span class='op'>-</span><span class='fl'>5000</span>, type<span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span>,
-  balance   <span class='op'>=</span> <span class='fu'>RBAL</span><span class='op'>(</span>rate<span class='op'>=</span><span class='fl'>0.08</span>, per<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, nper<span class='op'>=</span><span class='fl'>5</span>, pv<span class='op'>=</span><span class='fl'>20000</span>, fv<span class='op'>=</span><span class='op'>-</span><span class='fl'>5000</span>, type<span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span>
-<span class='op'>)</span>
-</div><div class='output co'>#&gt;      year   payment   interest principal   balance
-#&gt; [1,]    1 -4156.847 -1600.0000 -2556.847 17443.153
-#&gt; [2,]    2 -4156.847 -1395.4523 -2761.395 14681.759
-#&gt; [3,]    3 -4156.847 -1174.5407 -2982.306 11699.452
-#&gt; [4,]    4 -4156.847  -935.9562 -3220.891  8478.562
-#&gt; [5,]    5 -4156.847  -678.2849 -3478.562  5000.000</div><div class='input'>
-<span class='co'>#     year   payment   interest principal   balance</span>
-<span class='co'># [1,]    1 -4156.847 -1600.0000 -2556.847 17443.153</span>
-<span class='co'># [2,]    2 -4156.847 -1395.4523 -2761.395 14681.759</span>
-<span class='co'># [3,]    3 -4156.847 -1174.5407 -2982.306 11699.452</span>
-<span class='co'># [4,]    4 -4156.847  -935.9562 -3220.891  8478.562</span>
-<span class='co'># [5,]    5 -4156.847  -678.2849 -3478.562  5000.000</span>
-
-
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># original principal:    20'000</span></span>
+<span class='r-in'><span class='co'># loan term (years):     5</span></span>
+<span class='r-in'><span class='co'># annual interest rate:  8%</span></span>
+<span class='r-in'><span class='co'># annual payment:        -4'156.847</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># simple amortization schedule</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span></span>
+<span class='r-in'>  year      <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>,</span>
+<span class='r-in'>  payment   <span class='op'>=</span> <span class='fu'>PMT</span><span class='op'>(</span>rate<span class='op'>=</span><span class='fl'>0.08</span>, nper<span class='op'>=</span><span class='fl'>5</span>, pv<span class='op'>=</span><span class='fl'>20000</span>, fv<span class='op'>=</span><span class='op'>-</span><span class='fl'>5000</span>, type<span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span>,</span>
+<span class='r-in'>  interest  <span class='op'>=</span> <span class='fu'>IPMT</span><span class='op'>(</span>rate<span class='op'>=</span><span class='fl'>0.08</span>, per<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, nper<span class='op'>=</span><span class='fl'>5</span>, pv<span class='op'>=</span><span class='fl'>20000</span>, fv<span class='op'>=</span><span class='op'>-</span><span class='fl'>5000</span>, type<span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span>,</span>
+<span class='r-in'>  principal <span class='op'>=</span> <span class='fu'>PPMT</span><span class='op'>(</span>rate<span class='op'>=</span><span class='fl'>0.08</span>, per<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, nper<span class='op'>=</span><span class='fl'>5</span>, pv<span class='op'>=</span><span class='fl'>20000</span>, fv<span class='op'>=</span><span class='op'>-</span><span class='fl'>5000</span>, type<span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span>,</span>
+<span class='r-in'>  balance   <span class='op'>=</span> <span class='fu'>RBAL</span><span class='op'>(</span>rate<span class='op'>=</span><span class='fl'>0.08</span>, per<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, nper<span class='op'>=</span><span class='fl'>5</span>, pv<span class='op'>=</span><span class='fl'>20000</span>, fv<span class='op'>=</span><span class='op'>-</span><span class='fl'>5000</span>, type<span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year   payment   interest principal   balance</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,]    1 -4156.847 -1600.0000 -2556.847 17443.153</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,]    2 -4156.847 -1395.4523 -2761.395 14681.759</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3,]    3 -4156.847 -1174.5407 -2982.306 11699.452</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [4,]    4 -4156.847  -935.9562 -3220.891  8478.562</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [5,]    5 -4156.847  -678.2849 -3478.562  5000.000</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>#     year   payment   interest principal   balance</span></span>
+<span class='r-in'><span class='co'># [1,]    1 -4156.847 -1600.0000 -2556.847 17443.153</span></span>
+<span class='r-in'><span class='co'># [2,]    2 -4156.847 -1395.4523 -2761.395 14681.759</span></span>
+<span class='r-in'><span class='co'># [3,]    3 -4156.847 -1174.5407 -2982.306 11699.452</span></span>
+<span class='r-in'><span class='co'># [4,]    4 -4156.847  -935.9562 -3220.891  8478.562</span></span>
+<span class='r-in'><span class='co'># [5,]    5 -4156.847  -678.2849 -3478.562  5000.000</span></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

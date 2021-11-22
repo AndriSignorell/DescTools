@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -202,97 +202,100 @@
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># transform the temperature from Celsius to Fahrenheit</span>
-<span class='fu'>LinScale</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>20</span>, <span class='st'>"temperature"</span><span class='op'>]</span>, <span class='fl'>0</span>, <span class='fl'>100</span>, <span class='op'>-</span><span class='fl'>17.8</span>, <span class='fl'>37.8</span> <span class='op'>)</span>
-</div><div class='output co'>#&gt;          [,1]
-#&gt;  [1,] 11.6680
-#&gt;  [2,] 13.5584
-#&gt;  [3,]  2.4940
-#&gt;  [4,]      NA
-#&gt;  [5,] 10.0000
-#&gt;  [6,] -2.7880
-#&gt;  [7,]  1.0484
-#&gt;  [8,] 12.6688
-#&gt;  [9,]  8.8880
-#&gt; [10,] 12.4464
-#&gt; [11,] -1.7872
-#&gt; [12,] 10.7228
-#&gt; [13,] -4.4282
-#&gt; [14,]  2.0492
-#&gt; [15,] 12.0016
-#&gt; [16,] 10.7228
-#&gt; [17,] 10.5560
-#&gt; [18,]  8.7212
-#&gt; [19,] 11.5568
-#&gt; [20,] -6.6800
-#&gt; attr(,"scaled:center")
-#&gt; [1] 32.01439
-#&gt; attr(,"scaled:scale")
-#&gt; [1] 1.798561</div><div class='input'>
-<span class='co'># and the price from Dollar to Euro</span>
-<span class='fu'>LinScale</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>20</span>, <span class='st'>"price"</span><span class='op'>]</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>0.76</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;           [,1]
-#&gt;  [1,] 49.89780
-#&gt;  [2,] 20.50480
-#&gt;  [3,] 31.13720
-#&gt;  [4,] 19.74480
-#&gt;  [5,] 43.74180
-#&gt;  [6,] 10.63240
-#&gt;  [7,] 67.97592
-#&gt;  [8,]       NA
-#&gt;  [9,] 31.13720
-#&gt; [10,] 64.39860
-#&gt; [11,] 50.47160
-#&gt; [12,] 47.84580
-#&gt; [13,] 35.54064
-#&gt; [14,] 37.96200
-#&gt; [15,] 56.04696
-#&gt; [16,] 43.74180
-#&gt; [17,] 20.50480
-#&gt; [18,] 21.26480
-#&gt; [19,] 31.89720
-#&gt; [20,]  9.11240
-#&gt; attr(,"scaled:center")
-#&gt; [1] 0
-#&gt; attr(,"scaled:scale")
-#&gt; [1] 1.315789</div><div class='input'>
-<span class='co'># together</span>
-<span class='fu'>LinScale</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>20</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"temperature"</span>, <span class='st'>"price"</span><span class='op'>)</span><span class='op'>]</span>,
-  <span class='fl'>0</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>100</span>, <span class='fl'>1</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>17.8</span>, <span class='fl'>0</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>37.8</span>, <span class='fl'>0.76</span><span class='op'>)</span> <span class='op'>)</span>
-</div><div class='output co'>#&gt;    temperature    price
-#&gt; 1      11.6680 49.89780
-#&gt; 2      13.5584 20.50480
-#&gt; 3       2.4940 31.13720
-#&gt; 4           NA 19.74480
-#&gt; 5      10.0000 43.74180
-#&gt; 6      -2.7880 10.63240
-#&gt; 7       1.0484 67.97592
-#&gt; 8      12.6688       NA
-#&gt; 9       8.8880 31.13720
-#&gt; 10     12.4464 64.39860
-#&gt; 11     -1.7872 50.47160
-#&gt; 12     10.7228 47.84580
-#&gt; 13     -4.4282 35.54064
-#&gt; 14      2.0492 37.96200
-#&gt; 15     12.0016 56.04696
-#&gt; 16     10.7228 43.74180
-#&gt; 17     10.5560 20.50480
-#&gt; 18      8.7212 21.26480
-#&gt; 19     11.5568 31.89720
-#&gt; 20     -6.6800  9.11240
-#&gt; attr(,"scaled:center")
-#&gt; [1] 32.01439  0.00000
-#&gt; attr(,"scaled:scale")
-#&gt; [1] 1.798561 1.315789</div><div class='input'>
-
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>1</span><span class='op'>)</span>, mar<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>5</span>,<span class='fl'>0</span>,<span class='fl'>3</span><span class='op'>)</span>, oma<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>,<span class='fl'>0</span>,<span class='fl'>5</span>,<span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>LinScale</span><span class='op'>(</span><span class='va'>d.frm</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>, ylim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>)</span>, xaxt<span class='op'>=</span><span class='st'>"n"</span>, ylab<span class='op'>=</span><span class='st'>"LinScale"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='RobScale.html'>RobScale</a></span><span class='op'>(</span><span class='va'>d.frm</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>, ylim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>)</span>, xaxt<span class='op'>=</span><span class='st'>"n"</span>, ylab<span class='op'>=</span><span class='st'>"RobScale"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/scale.html'>scale</a></span><span class='op'>(</span><span class='va'>d.frm</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>, ylim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>)</span>, ylab<span class='op'>=</span><span class='st'>"scale"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/title.html'>title</a></span><span class='op'>(</span><span class='st'>"Compare scales"</span>, outer <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># transform the temperature from Celsius to Fahrenheit</span></span>
+<span class='r-in'><span class='fu'>LinScale</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>20</span>, <span class='st'>"temperature"</span><span class='op'>]</span>, <span class='fl'>0</span>, <span class='fl'>100</span>, <span class='op'>-</span><span class='fl'>17.8</span>, <span class='fl'>37.8</span> <span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          [,1]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1,] 11.6680</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [2,] 13.5584</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [3,]  2.4940</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [4,]      NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5,] 10.0000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6,] -2.7880</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7,]  1.0484</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8,] 12.6688</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9,]  8.8880</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10,] 12.4464</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11,] -1.7872</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [12,] 10.7228</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [13,] -4.4282</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [14,]  2.0492</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [15,] 12.0016</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [16,] 10.7228</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [17,] 10.5560</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [18,]  8.7212</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [19,] 11.5568</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [20,] -6.6800</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"scaled:center")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 32.01439</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"scaled:scale")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1.798561</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># and the price from Dollar to Euro</span></span>
+<span class='r-in'><span class='fu'>LinScale</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>20</span>, <span class='st'>"price"</span><span class='op'>]</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>0.76</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           [,1]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1,] 49.89780</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [2,] 20.50480</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [3,] 31.13720</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [4,] 19.74480</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5,] 43.74180</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6,] 10.63240</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7,] 67.97592</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8,]       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9,] 31.13720</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10,] 64.39860</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11,] 50.47160</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [12,] 47.84580</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [13,] 35.54064</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [14,] 37.96200</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [15,] 56.04696</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [16,] 43.74180</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [17,] 20.50480</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [18,] 21.26480</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [19,] 31.89720</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [20,]  9.11240</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"scaled:center")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"scaled:scale")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1.315789</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># together</span></span>
+<span class='r-in'><span class='fu'>LinScale</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>20</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"temperature"</span>, <span class='st'>"price"</span><span class='op'>)</span><span class='op'>]</span>,</span>
+<span class='r-in'>  <span class='fl'>0</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>100</span>, <span class='fl'>1</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>17.8</span>, <span class='fl'>0</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>37.8</span>, <span class='fl'>0.76</span><span class='op'>)</span> <span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    temperature    price</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1      11.6680 49.89780</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2      13.5584 20.50480</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3       2.4940 31.13720</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4           NA 19.74480</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5      10.0000 43.74180</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6      -2.7880 10.63240</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7       1.0484 67.97592</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8      12.6688       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9       8.8880 31.13720</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10     12.4464 64.39860</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11     -1.7872 50.47160</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12     10.7228 47.84580</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 13     -4.4282 35.54064</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 14      2.0492 37.96200</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 15     12.0016 56.04696</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 16     10.7228 43.74180</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 17     10.5560 20.50480</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 18      8.7212 21.26480</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 19     11.5568 31.89720</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 20     -6.6800  9.11240</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"scaled:center")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 32.01439  0.00000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"scaled:scale")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1.798561 1.315789</span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>1</span><span class='op'>)</span>, mar<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>5</span>,<span class='fl'>0</span>,<span class='fl'>3</span><span class='op'>)</span>, oma<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>,<span class='fl'>0</span>,<span class='fl'>5</span>,<span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>LinScale</span><span class='op'>(</span><span class='va'>d.frm</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>, ylim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>)</span>, xaxt<span class='op'>=</span><span class='st'>"n"</span>, ylab<span class='op'>=</span><span class='st'>"LinScale"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='RobScale.html'>RobScale</a></span><span class='op'>(</span><span class='va'>d.frm</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>, ylim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>)</span>, xaxt<span class='op'>=</span><span class='st'>"n"</span>, ylab<span class='op'>=</span><span class='st'>"RobScale"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/scale.html'>scale</a></span><span class='op'>(</span><span class='va'>d.frm</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>, ylim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>)</span>, ylab<span class='op'>=</span><span class='st'>"scale"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/title.html'>title</a></span><span class='op'>(</span><span class='st'>"Compare scales"</span>, outer <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

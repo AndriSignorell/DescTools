@@ -78,7 +78,7 @@ connecting lines between the points." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -181,7 +181,7 @@ connecting lines between the points.</p>
     </tr>
     <tr>
       <th>lty</th>
-      <td><p>the line type for the connecting lines, the default will be <code><a href='https://rdrr.io/r/graphics/par.html'>par("lty")</a></code>.
+      <td><p>the line type for the connecting lines, the default will be <code>par("lty")</code>.
 <!-- %%     ~~Describe \code{lty} here~~ --></p></td>
     </tr>
     <tr>
@@ -251,47 +251,53 @@ connecting lines between the points.</p>
     <div class='dont-index'><p><code><a href='PlotCorr.html'>PlotCorr</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span><span class='va'>d.pizza</span>, <span class='va'>IsNumeric</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>[</span><span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>]</span><span class='op'>]</span>,
-         use<span class='op'>=</span><span class='st'>"pairwise.complete.obs"</span><span class='op'>)</span>
-<span class='fu'>PlotWeb</span><span class='op'>(</span>m<span class='op'>=</span><span class='va'>m</span>, col<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>hred</span>, <span class='va'>hblue</span><span class='op'>)</span>, main<span class='op'>=</span><span class='st'>"Pizza Correlation"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div><div class='img'><img src='PlotWeb-1.png' alt='' width='700' height='433' /></div><div class='input'>
-
-<span class='co'># let's describe only the significant corrs and start with a dataset</span>
-<span class='va'>d.m</span> <span class='op'>&lt;-</span> <span class='va'>d.pizza</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span><span class='va'>d.pizza</span>, <span class='va'>IsNumeric</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>[</span><span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>]</span><span class='op'>]</span>
-
-<span class='co'># get the correlation matrix</span>
-<span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span><span class='op'>(</span><span class='va'>d.m</span>, use<span class='op'>=</span><span class='st'>"pairwise.complete.obs"</span><span class='op'>)</span>
-
-<span class='co'># let's get rid of all non significant correlations</span>
-<span class='va'>ctest</span> <span class='op'>&lt;-</span> <span class='fu'><a href='PairApply.html'>PairApply</a></span><span class='op'>(</span><span class='va'>d.m</span>,  <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/stats/cor.test.html'>cor.test</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>$</span><span class='va'>p.value</span>, symmetric<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-
-<span class='co'># ok, got all the p-values, now replace &gt; 0.05 with NAs</span>
-<span class='va'>m</span><span class='op'>[</span><span class='va'>ctest</span> <span class='op'>&gt;</span> <span class='fl'>0.05</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='cn'>NA</span>
-<span class='co'># How does that look like now?</span>
-<span class='fu'><a href='Format.html'>Format</a></span><span class='op'>(</span><span class='va'>m</span>, na.form <span class='op'>=</span> <span class='st'>". "</span>, ldigits<span class='op'>=</span><span class='fl'>0</span>, digits<span class='op'>=</span><span class='fl'>3</span>, align <span class='op'>=</span> <span class='st'>"right"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                weekday  count  price delivery_min temperature wine_ordered
-#&gt; weekday         1.000     .      .            .        -.105           .  
-#&gt; count              .   1.000   .807           .           .            .  
-#&gt; price              .    .807  1.000         .095          .          .510 
-#&gt; delivery_min       .      .    .095        1.000       -.575         .076 
-#&gt; temperature     -.105     .      .         -.575       1.000           .  
-#&gt; wine_ordered       .      .    .510         .076          .         1.000 
-#&gt; wine_delivered     .      .    .478         .082       -.067         .923 
-#&gt;                wine_delivered
-#&gt; weekday                   .  
-#&gt; count                     .  
-#&gt; price                   .478 
-#&gt; delivery_min            .082 
-#&gt; temperature            -.067 
-#&gt; wine_ordered            .923 
-#&gt; wine_delivered         1.000 
-#&gt; attr(,"class")
-#&gt; [1] matrix  array</div><div class='input'>
-<span class='fu'>PlotWeb</span><span class='op'>(</span><span class='va'>m</span>, las<span class='op'>=</span><span class='fl'>2</span>, cex<span class='op'>=</span><span class='fl'>1.2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div><div class='img'><img src='PlotWeb-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># define line widths</span>
-<span class='fu'>PlotWeb</span><span class='op'>(</span><span class='va'>m</span>, lwd<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>m</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/lower.tri.html'>lower.tri</a></span><span class='op'>(</span><span class='va'>m</span><span class='op'>)</span><span class='op'>]</span> <span class='op'>*</span> <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"): "between_num_lr" not available for .Call() for package "DescTools"</span></div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span><span class='va'>d.pizza</span>, <span class='va'>IsNumeric</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>[</span><span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>]</span><span class='op'>]</span>,</span>
+<span class='r-in'>         use<span class='op'>=</span><span class='st'>"pairwise.complete.obs"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>PlotWeb</span><span class='op'>(</span>m<span class='op'>=</span><span class='va'>m</span>, col<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>hred</span>, <span class='va'>hblue</span><span class='op'>)</span>, main<span class='op'>=</span><span class='st'>"Pizza Correlation"</span><span class='op'>)</span></span>
+<span class='r-err co'><span class='r-pr'>#&gt;</span> <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"):</span> "between_num_lr" not available for .Call() for package "DescTools"</span>
+<span class='r-plt img'><img src='PlotWeb-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># let's describe only the significant corrs and start with a dataset</span></span>
+<span class='r-in'><span class='va'>d.m</span> <span class='op'>&lt;-</span> <span class='va'>d.pizza</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span><span class='va'>d.pizza</span>, <span class='va'>IsNumeric</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>[</span><span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>]</span><span class='op'>]</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># get the correlation matrix</span></span>
+<span class='r-in'><span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span><span class='op'>(</span><span class='va'>d.m</span>, use<span class='op'>=</span><span class='st'>"pairwise.complete.obs"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># let's get rid of all non significant correlations</span></span>
+<span class='r-in'><span class='va'>ctest</span> <span class='op'>&lt;-</span> <span class='fu'><a href='PairApply.html'>PairApply</a></span><span class='op'>(</span><span class='va'>d.m</span>,  <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/stats/cor.test.html'>cor.test</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>$</span><span class='va'>p.value</span>, symmetric<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># ok, got all the p-values, now replace &gt; 0.05 with NAs</span></span>
+<span class='r-in'><span class='va'>m</span><span class='op'>[</span><span class='va'>ctest</span> <span class='op'>&gt;</span> <span class='fl'>0.05</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='cn'>NA</span></span>
+<span class='r-in'><span class='co'># How does that look like now?</span></span>
+<span class='r-in'><span class='fu'><a href='Format.html'>Format</a></span><span class='op'>(</span><span class='va'>m</span>, na.form <span class='op'>=</span> <span class='st'>". "</span>, ldigits<span class='op'>=</span><span class='fl'>0</span>, digits<span class='op'>=</span><span class='fl'>3</span>, align <span class='op'>=</span> <span class='st'>"right"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                weekday  count  price delivery_min temperature wine_ordered</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> weekday         1.000     .      .            .        -.105           .  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> count              .   1.000   .807           .           .            .  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> price              .    .807  1.000         .095          .          .510 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> delivery_min       .      .    .095        1.000       -.575         .076 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> temperature     -.105     .      .         -.575       1.000           .  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> wine_ordered       .      .    .510         .076          .         1.000 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> wine_delivered     .      .    .478         .082       -.067         .923 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                wine_delivered</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> weekday                   .  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> count                     .  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> price                   .478 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> delivery_min            .082 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> temperature            -.067 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> wine_ordered            .923 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> wine_delivered         1.000 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"class")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] matrix  array</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>PlotWeb</span><span class='op'>(</span><span class='va'>m</span>, las<span class='op'>=</span><span class='fl'>2</span>, cex<span class='op'>=</span><span class='fl'>1.2</span><span class='op'>)</span></span>
+<span class='r-err co'><span class='r-pr'>#&gt;</span> <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"):</span> "between_num_lr" not available for .Call() for package "DescTools"</span>
+<span class='r-plt img'><img src='PlotWeb-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># define line widths</span></span>
+<span class='r-in'><span class='fu'>PlotWeb</span><span class='op'>(</span><span class='va'>m</span>, lwd<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>m</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/lower.tri.html'>lower.tri</a></span><span class='op'>(</span><span class='va'>m</span><span class='op'>)</span><span class='op'>]</span> <span class='op'>*</span> <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-err co'><span class='r-pr'>#&gt;</span> <span class='error'>Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"):</span> "between_num_lr" not available for .Call() for package "DescTools"</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

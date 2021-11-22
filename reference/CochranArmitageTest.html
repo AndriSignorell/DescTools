@@ -78,7 +78,7 @@ The null hypothesis is the hypothesis of no trend, which means that the binomial
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -210,97 +210,104 @@ Eric Lecoutre &lt;lecoutre@stat.ucl.ac.be&gt;<br />
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># http://www.lexjansen.com/pharmasug/2007/sp/sp05.pdf, pp. 4</span>
-<span class='va'>dose</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>,<span class='fl'>9</span>,<span class='fl'>10</span>,<span class='fl'>7</span>, <span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>3</span><span class='op'>)</span>, byrow<span class='op'>=</span><span class='cn'>TRUE</span>, nrow<span class='op'>=</span><span class='fl'>2</span>, dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>resp<span class='op'>=</span><span class='fl'>0</span><span class='op'>:</span><span class='fl'>1</span>, dose<span class='op'>=</span><span class='fl'>0</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='Desc.html'>Desc</a></span><span class='op'>(</span><span class='va'>dose</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
-#&gt; <span style='font-weight: bold;'>dose (matrix, array)</span>
-#&gt; 
-#&gt; Summary: 
-#&gt; n: 40, rows: 2, columns: 4
-#&gt; 
-#&gt; Pearson's Chi-squared test:
-#&gt;   X-squared = 6.6667, df = 3, p-value = 0.08332
-#&gt; Log likelihood ratio (G-test) test of independence:
-#&gt;   G = 7.2877, X-squared df = 3, p-value = 0.06327
-#&gt; Mantel-Haenszel Chi-squared:
-#&gt;   X-squared = 3.4667, df = 1, p-value = 0.06262
-#&gt; 
-#&gt; Warning message:
-#&gt;   Exp. counts &lt; 5: Chi-squared approx. may be incorrect!!
-#&gt; 
-#&gt; 
-#&gt; Phi-Coefficient        0.408
-#&gt; Contingency Coeff.     0.378
-#&gt; Cramer's V             0.408
-#&gt; 
-#&gt;                                                
-#&gt;        dose       0      1      2      3    Sum
-#&gt; resp                                           
-#&gt;                                                
-#&gt; 0      freq      10      9     10      7     36
-#&gt;        perc   25.0%  22.5%  25.0%  17.5%  90.0%
-#&gt;        p.row  27.8%  25.0%  27.8%  19.4%      .
-#&gt;        p.col 100.0%  90.0% 100.0%  70.0%      .
-#&gt;                                                
-#&gt; 1      freq       0      1      0      3      4
-#&gt;        perc    0.0%   2.5%   0.0%   7.5%  10.0%
-#&gt;        p.row   0.0%  25.0%   0.0%  75.0%      .
-#&gt;        p.col   0.0%  10.0%   0.0%  30.0%      .
-#&gt;                                                
-#&gt; Sum    freq      10     10     10     10     40
-#&gt;        perc   25.0%  25.0%  25.0%  25.0% 100.0%
-#&gt;        p.row      .      .      .      .      .
-#&gt;        p.col      .      .      .      .      .
-#&gt;                                                
-#&gt; </div><div class='img'><img src='CochranArmitageTest-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'>CochranArmitageTest</span><span class='op'>(</span><span class='va'>dose</span>, <span class='st'>"increasing"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	Cochran-Armitage test for trend
-#&gt; 
-#&gt; data:  dose
-#&gt; Z = -1.8856, dim = 4, p-value = 0.02967
-#&gt; alternative hypothesis: increasing
-#&gt; </div><div class='input'><span class='fu'>CochranArmitageTest</span><span class='op'>(</span><span class='va'>dose</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	Cochran-Armitage test for trend
-#&gt; 
-#&gt; data:  dose
-#&gt; Z = -1.8856, dim = 4, p-value = 0.05935
-#&gt; alternative hypothesis: two.sided
-#&gt; </div><div class='input'><span class='fu'>CochranArmitageTest</span><span class='op'>(</span><span class='va'>dose</span>, <span class='st'>"decreasing"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	Cochran-Armitage test for trend
-#&gt; 
-#&gt; data:  dose
-#&gt; Z = -1.8856, dim = 4, p-value = 0.9703
-#&gt; alternative hypothesis: decreasing
-#&gt; </div><div class='input'>
-
-<span class='co'># not exactly the same as in package coin:</span>
-<span class='co'># independence_test(tumor ~ dose, data = lungtumor, teststat = "quad")</span>
-<span class='va'>lungtumor</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>dose <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>40</span>, <span class='fl'>50</span>, <span class='fl'>48</span><span class='op'>)</span><span class='op'>)</span>,
-                        tumor <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>38</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>,
-                                  <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>43</span>, <span class='fl'>7</span><span class='op'>)</span><span class='op'>)</span>,
-                                  <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>33</span>, <span class='fl'>15</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>tab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>lungtumor</span><span class='op'>$</span><span class='va'>dose</span>, <span class='va'>lungtumor</span><span class='op'>$</span><span class='va'>tumor</span><span class='op'>)</span>
-<span class='fu'>CochranArmitageTest</span><span class='op'>(</span><span class='va'>tab</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	Cochran-Armitage test for trend
-#&gt; 
-#&gt; data:  tab
-#&gt; Z = -3.2735, dim = 3, p-value = 0.001062
-#&gt; alternative hypothesis: two.sided
-#&gt; </div><div class='input'>
-<span class='co'># but similar to</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/prop.trend.test.html'>prop.trend.test</a></span><span class='op'>(</span><span class='va'>tab</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span>, <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>tab</span>,<span class='fl'>1</span>, <span class='va'>sum</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	Chi-squared Test for Trend in Proportions
-#&gt; 
-#&gt; data:  tab[, 1] out of apply(tab, 1, sum) ,
-#&gt;  using scores: 1 2 3
-#&gt; X-squared = 10.716, df = 1, p-value = 0.001062
-#&gt; </div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># http://www.lexjansen.com/pharmasug/2007/sp/sp05.pdf, pp. 4</span></span>
+<span class='r-in'><span class='va'>dose</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>,<span class='fl'>9</span>,<span class='fl'>10</span>,<span class='fl'>7</span>, <span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>3</span><span class='op'>)</span>, byrow<span class='op'>=</span><span class='cn'>TRUE</span>, nrow<span class='op'>=</span><span class='fl'>2</span>, dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>resp<span class='op'>=</span><span class='fl'>0</span><span class='op'>:</span><span class='fl'>1</span>, dose<span class='op'>=</span><span class='fl'>0</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='Desc.html'>Desc</a></span><span class='op'>(</span><span class='va'>dose</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ------------------------------------------------------------------------------ </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='font-weight: bold;'>dose (matrix, array)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Summary: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> n: 40, rows: 2, columns: 4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Pearson's Chi-squared test:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   X-squared = 6.6667, df = 3, p-value = 0.08332</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Log likelihood ratio (G-test) test of independence:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   G = 7.2877, X-squared df = 3, p-value = 0.06327</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Mantel-Haenszel Chi-squared:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   X-squared = 3.4667, df = 1, p-value = 0.06262</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Warning message:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Exp. counts &lt; 5: Chi-squared approx. may be incorrect!!</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Phi-Coefficient        0.408</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Contingency Coeff.     0.378</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Cramer's V             0.408</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        dose       0      1      2      3    Sum</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> resp                                           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0      freq      10      9     10      7     36</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        perc   25.0%  22.5%  25.0%  17.5%  90.0%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        p.row  27.8%  25.0%  27.8%  19.4%      .</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        p.col 100.0%  90.0% 100.0%  70.0%      .</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1      freq       0      1      0      3      4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        perc    0.0%   2.5%   0.0%   7.5%  10.0%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        p.row   0.0%  25.0%   0.0%  75.0%      .</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        p.col   0.0%  10.0%   0.0%  30.0%      .</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Sum    freq      10     10     10     10     40</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        perc   25.0%  25.0%  25.0%  25.0% 100.0%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        p.row      .      .      .      .      .</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        p.col      .      .      .      .      .</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-plt img'><img src='CochranArmitageTest-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>CochranArmitageTest</span><span class='op'>(</span><span class='va'>dose</span>, <span class='st'>"increasing"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Cochran-Armitage test for trend</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  dose</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Z = -1.8856, dim = 4, p-value = 0.02967</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> alternative hypothesis: increasing</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'>CochranArmitageTest</span><span class='op'>(</span><span class='va'>dose</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Cochran-Armitage test for trend</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  dose</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Z = -1.8856, dim = 4, p-value = 0.05935</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> alternative hypothesis: two.sided</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'>CochranArmitageTest</span><span class='op'>(</span><span class='va'>dose</span>, <span class='st'>"decreasing"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Cochran-Armitage test for trend</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  dose</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Z = -1.8856, dim = 4, p-value = 0.9703</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> alternative hypothesis: decreasing</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># not exactly the same as in package coin:</span></span>
+<span class='r-in'><span class='co'># independence_test(tumor ~ dose, data = lungtumor, teststat = "quad")</span></span>
+<span class='r-in'><span class='va'>lungtumor</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>dose <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>40</span>, <span class='fl'>50</span>, <span class='fl'>48</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span class='r-in'>                        tumor <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>38</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span class='r-in'>                                  <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>43</span>, <span class='fl'>7</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span class='r-in'>                                  <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>33</span>, <span class='fl'>15</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>tab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>lungtumor</span><span class='op'>$</span><span class='va'>dose</span>, <span class='va'>lungtumor</span><span class='op'>$</span><span class='va'>tumor</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>CochranArmitageTest</span><span class='op'>(</span><span class='va'>tab</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Cochran-Armitage test for trend</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  tab</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Z = -3.2735, dim = 3, p-value = 0.001062</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> alternative hypothesis: two.sided</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># but similar to</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/stats/prop.trend.test.html'>prop.trend.test</a></span><span class='op'>(</span><span class='va'>tab</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span>, <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>tab</span>,<span class='fl'>1</span>, <span class='va'>sum</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Chi-squared Test for Trend in Proportions</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  tab[, 1] out of apply(tab, 1, sum) ,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  using scores: 1 2 3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> X-squared = 10.716, df = 1, p-value = 0.001062</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

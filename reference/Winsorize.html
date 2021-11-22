@@ -75,7 +75,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -229,19 +229,22 @@ $$</p>
     <p>Andri Signorell &lt;andri@signorell.net&gt; <!-- %, based on code by Gabor Grothendieck &lt;ggrothendieck@gmail.com&gt; --></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>## generate data</span>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>1234</span><span class='op'>)</span>     <span class='co'># for reproducibility</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>     <span class='co'># standard normal</span>
-<span class='va'>x</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>x</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>*</span> <span class='fl'>10</span>  <span class='co'># introduce outlier</span>
-
-<span class='co'>## Winsorize data</span>
-<span class='va'>x</span>
-</div><div class='output co'>#&gt;  [1] -12.071   0.277   1.084  -2.346   0.429   0.506  -0.575  -0.547  -0.564
-#&gt; [10]  -0.890</div><div class='input'><span class='fu'>Winsorize</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1] -7.694  0.277  0.824 -2.346  0.429  0.506 -0.575 -0.547 -0.564 -0.890</div><div class='input'>
-<span class='co'># use Large and Small, if a fix number of values should be winsorized (here k=3):</span>
-<span class='fu'>Winsorize</span><span class='op'>(</span><span class='va'>x</span>, minval<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span><span class='op'>(</span><span class='fu'><a href='Extremes.html'>Small</a></span><span class='op'>(</span><span class='va'>x</span>, k<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>, <span class='fl'>1</span><span class='op'>)</span>, maxval<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'><a href='Extremes.html'>Large</a></span><span class='op'>(</span><span class='va'>x</span>, k<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in .Call("_DescTools_bottom_i", PACKAGE = "DescTools", x, k): "_DescTools_bottom_i" not available for .Call() for package "DescTools"</span></div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'>## generate data</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>1234</span><span class='op'>)</span>     <span class='co'># for reproducibility</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>     <span class='co'># standard normal</span></span>
+<span class='r-in'><span class='va'>x</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>x</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>*</span> <span class='fl'>10</span>  <span class='co'># introduce outlier</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Winsorize data</span></span>
+<span class='r-in'><span class='va'>x</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] -12.071   0.277   1.084  -2.346   0.429   0.506  -0.575  -0.547  -0.564</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10]  -0.890</span>
+<span class='r-in'><span class='fu'>Winsorize</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] -7.694  0.277  0.824 -2.346  0.429  0.506 -0.575 -0.547 -0.564 -0.890</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># use Large and Small, if a fix number of values should be winsorized (here k=3):</span></span>
+<span class='r-in'><span class='fu'>Winsorize</span><span class='op'>(</span><span class='va'>x</span>, minval<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span><span class='op'>(</span><span class='fu'><a href='Extremes.html'>Small</a></span><span class='op'>(</span><span class='va'>x</span>, k<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>, <span class='fl'>1</span><span class='op'>)</span>, maxval<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'><a href='Extremes.html'>Large</a></span><span class='op'>(</span><span class='va'>x</span>, k<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-err co'><span class='r-pr'>#&gt;</span> <span class='error'>Error in .Call("_DescTools_bottom_i", PACKAGE = "DescTools", x, k):</span> "_DescTools_bottom_i" not available for .Call() for package "DescTools"</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

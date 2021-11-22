@@ -75,7 +75,7 @@ a contingency table or ftable object by re-assigning levels of the table variabl
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -193,166 +193,174 @@ one or more of its factors collapsed or rearranged into other levels.</p>
 summing over table dimensions.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># create some sample data in table form</span>
-<span class='va'>sex</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Male"</span>, <span class='st'>"Female"</span><span class='op'>)</span>
-<span class='va'>age</span> <span class='op'>&lt;-</span> <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>6</span><span class='op'>]</span>
-<span class='va'>education</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"low"</span>, <span class='st'>'med'</span>, <span class='st'>'high'</span><span class='op'>)</span>
-<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span><span class='op'>(</span>sex<span class='op'>=</span><span class='va'>sex</span>, age<span class='op'>=</span><span class='va'>age</span>, education<span class='op'>=</span><span class='va'>education</span><span class='op'>)</span>
-<span class='va'>counts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span><span class='fl'>36</span>, <span class='fl'>100</span><span class='op'>)</span>
-<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>counts</span><span class='op'>)</span>
-<span class='va'>t1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span><span class='op'>(</span><span class='va'>counts</span> <span class='op'>~</span> <span class='va'>sex</span> <span class='op'>+</span> <span class='va'>age</span> <span class='op'>+</span> <span class='va'>education</span>, data<span class='op'>=</span><span class='va'>data</span><span class='op'>)</span>
-
-<span class='fu'><a href='Desc.html'>Desc</a></span><span class='op'>(</span><span class='va'>t1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
-#&gt; <span style='font-weight: bold;'>t1 (xtabs, table)</span>
-#&gt; 
-#&gt; Summary: 
-#&gt; n: 3'699, 3-dim table: 2 x 6 x 3
-#&gt; 
-#&gt; Chi-squared test for independence of all factors:
-#&gt;   X-squared = 22.094, df = 27, p-value = 0.7326
-#&gt; 
-#&gt;            education low med high Sum
-#&gt; sex    age                           
-#&gt; Male   a             106  88  107 301
-#&gt;        b              97  84  103 284
-#&gt;        c              95 127  115 337
-#&gt;        d             105 107  109 321
-#&gt;        e             100 106   95 301
-#&gt;        f              94 102   87 283
-#&gt; Female a             110 107  105 322
-#&gt;        b             113 112  110 335
-#&gt;        c              93 103  107 303
-#&gt;        d             101 113  109 323
-#&gt;        e              94 114   86 294
-#&gt;        f              93 105   97 295
-#&gt; Sum    a             216 195  212 623
-#&gt;        b             210 196  213 619
-#&gt;        c             188 230  222 640
-#&gt;        d             206 220  218 644
-#&gt;        e             194 220  181 595
-#&gt;        f             187 207  184 578
-#&gt; </div><div class='img'><img src='CollapseTable-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>##                  age   a   b   c   d   e   f</span>
-<span class='co'>## sex    education</span>
-<span class='co'>## Male   low           119 101 109  85  99  93</span>
-<span class='co'>##        med            94  98 103 108  84  84</span>
-<span class='co'>##        high           81  88  96 110 100  92</span>
-<span class='co'>## Female low           107 104  95  86 103  96</span>
-<span class='co'>##        med           104  98  94  95 110 106</span>
-<span class='co'>##        high           93  85  90 109  99  86</span>
-
-
-<span class='co'># collapse age to 3 levels</span>
-<span class='va'>t2</span> <span class='op'>&lt;-</span> <span class='fu'>CollapseTable</span><span class='op'>(</span><span class='va'>t1</span>, age<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>, <span class='st'>"A"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"C"</span>, <span class='st'>"C"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='Desc.html'>Desc</a></span><span class='op'>(</span><span class='va'>t2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
-#&gt; <span style='font-weight: bold;'>t2 (table)</span>
-#&gt; 
-#&gt; Summary: 
-#&gt; n: 3'699, 3-dim table: 2 x 3 x 3
-#&gt; 
-#&gt; Chi-squared test for independence of all factors:
-#&gt;   X-squared = 16.651, df = 12, p-value = 0.1632
-#&gt; 
-#&gt;            education  low  med high  Sum
-#&gt; sex    age                              
-#&gt; Male   A              203  172  210  585
-#&gt;        B              200  234  224  658
-#&gt;        C              194  208  182  584
-#&gt; Female A              223  219  215  657
-#&gt;        B              194  216  216  626
-#&gt;        C              187  219  183  589
-#&gt; Sum    A              426  391  425 1242
-#&gt;        B              394  450  440 1284
-#&gt;        C              381  427  365 1173
-#&gt; </div><div class='img'><img src='CollapseTable-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>##                  age   A   B   C</span>
-<span class='co'>## sex    education</span>
-<span class='co'>## Male   low           220 194 192</span>
-<span class='co'>##        med           192 211 168</span>
-<span class='co'>##        high          169 206 192</span>
-<span class='co'>## Female low           211 181 199</span>
-<span class='co'>##        med           202 189 216</span>
-<span class='co'>##        high          178 199 185</span>
-
-
-<span class='co'># collapse age to 3 levels and pool education: "low" and "med" to "low"</span>
-<span class='va'>t3</span> <span class='op'>&lt;-</span> <span class='fu'>CollapseTable</span><span class='op'>(</span><span class='va'>t1</span>, age<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>, <span class='st'>"A"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"C"</span>, <span class='st'>"C"</span><span class='op'>)</span>,
-    education<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"low"</span>, <span class='st'>"low"</span>, <span class='st'>"high"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='Desc.html'>Desc</a></span><span class='op'>(</span><span class='va'>t3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
-#&gt; <span style='font-weight: bold;'>t3 (table)</span>
-#&gt; 
-#&gt; Summary: 
-#&gt; n: 3'699, 3-dim table: 2 x 3 x 2
-#&gt; 
-#&gt; Chi-squared test for independence of all factors:
-#&gt;   X-squared = 9.320, df = 7, p-value = 0.2305
-#&gt; 
-#&gt;            education  low high  Sum
-#&gt; sex    age                         
-#&gt; Male   A              375  210  585
-#&gt;        B              434  224  658
-#&gt;        C              402  182  584
-#&gt; Female A              442  215  657
-#&gt;        B              410  216  626
-#&gt;        C              406  183  589
-#&gt; Sum    A              817  425 1242
-#&gt;        B              844  440 1284
-#&gt;        C              808  365 1173
-#&gt; </div><div class='img'><img src='CollapseTable-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>##                  age   A   B   C</span>
-<span class='co'>## sex    education</span>
-<span class='co'>## Male   low           412 405 360</span>
-<span class='co'>##        high          169 206 192</span>
-<span class='co'>## Female low           413 370 415</span>
-<span class='co'>##        high          178 199 185</span>
-
-
-
-<span class='co'># change labels for levels of education to 1:3</span>
-<span class='va'>t4</span> <span class='op'>&lt;-</span> <span class='fu'>CollapseTable</span><span class='op'>(</span><span class='va'>t1</span>,  education<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span>
-<span class='fu'><a href='Desc.html'>Desc</a></span><span class='op'>(</span><span class='va'>t4</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
-#&gt; <span style='font-weight: bold;'>t4 (table)</span>
-#&gt; 
-#&gt; Summary: 
-#&gt; n: 3'699, 3-dim table: 2 x 6 x 3
-#&gt; 
-#&gt; Chi-squared test for independence of all factors:
-#&gt;   X-squared = 22.094, df = 27, p-value = 0.7326
-#&gt; 
-#&gt;            education   1   2   3 Sum
-#&gt; sex    age                          
-#&gt; Male   a             106  88 107 301
-#&gt;        b              97  84 103 284
-#&gt;        c              95 127 115 337
-#&gt;        d             105 107 109 321
-#&gt;        e             100 106  95 301
-#&gt;        f              94 102  87 283
-#&gt; Female a             110 107 105 322
-#&gt;        b             113 112 110 335
-#&gt;        c              93 103 107 303
-#&gt;        d             101 113 109 323
-#&gt;        e              94 114  86 294
-#&gt;        f              93 105  97 295
-#&gt; Sum    a             216 195 212 623
-#&gt;        b             210 196 213 619
-#&gt;        c             188 230 222 640
-#&gt;        d             206 220 218 644
-#&gt;        e             194 220 181 595
-#&gt;        f             187 207 184 578
-#&gt; </div><div class='img'><img src='CollapseTable-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>##                  age   a   b   c   d   e   f</span>
-<span class='co'>## sex    education</span>
-<span class='co'>## Male   1             119 101 109  85  99  93</span>
-<span class='co'>##        2              94  98 103 108  84  84</span>
-<span class='co'>##        3              81  88  96 110 100  92</span>
-<span class='co'>## Female 1             107 104  95  86 103  96</span>
-<span class='co'>##        2             104  98  94  95 110 106</span>
-<span class='co'>##        3              93  85  90 109  99  86</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># create some sample data in table form</span></span>
+<span class='r-in'><span class='va'>sex</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Male"</span>, <span class='st'>"Female"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>age</span> <span class='op'>&lt;-</span> <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>6</span><span class='op'>]</span></span>
+<span class='r-in'><span class='va'>education</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"low"</span>, <span class='st'>'med'</span>, <span class='st'>'high'</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span><span class='op'>(</span>sex<span class='op'>=</span><span class='va'>sex</span>, age<span class='op'>=</span><span class='va'>age</span>, education<span class='op'>=</span><span class='va'>education</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>counts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span><span class='fl'>36</span>, <span class='fl'>100</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>counts</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>t1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span><span class='op'>(</span><span class='va'>counts</span> <span class='op'>~</span> <span class='va'>sex</span> <span class='op'>+</span> <span class='va'>age</span> <span class='op'>+</span> <span class='va'>education</span>, data<span class='op'>=</span><span class='va'>data</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='Desc.html'>Desc</a></span><span class='op'>(</span><span class='va'>t1</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ------------------------------------------------------------------------------ </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='font-weight: bold;'>t1 (xtabs, table)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Summary: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> n: 3'699, 3-dim table: 2 x 6 x 3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Chi-squared test for independence of all factors:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   X-squared = 22.094, df = 27, p-value = 0.7326</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>            education low med high Sum</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> sex    age                           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Male   a             106  88  107 301</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        b              97  84  103 284</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        c              95 127  115 337</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        d             105 107  109 321</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        e             100 106   95 301</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        f              94 102   87 283</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Female a             110 107  105 322</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        b             113 112  110 335</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        c              93 103  107 303</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        d             101 113  109 323</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        e              94 114   86 294</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        f              93 105   97 295</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Sum    a             216 195  212 623</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        b             210 196  213 619</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        c             188 230  222 640</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        d             206 220  218 644</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        e             194 220  181 595</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        f             187 207  184 578</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-plt img'><img src='CollapseTable-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##                  age   a   b   c   d   e   f</span></span>
+<span class='r-in'><span class='co'>## sex    education</span></span>
+<span class='r-in'><span class='co'>## Male   low           119 101 109  85  99  93</span></span>
+<span class='r-in'><span class='co'>##        med            94  98 103 108  84  84</span></span>
+<span class='r-in'><span class='co'>##        high           81  88  96 110 100  92</span></span>
+<span class='r-in'><span class='co'>## Female low           107 104  95  86 103  96</span></span>
+<span class='r-in'><span class='co'>##        med           104  98  94  95 110 106</span></span>
+<span class='r-in'><span class='co'>##        high           93  85  90 109  99  86</span></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># collapse age to 3 levels</span></span>
+<span class='r-in'><span class='va'>t2</span> <span class='op'>&lt;-</span> <span class='fu'>CollapseTable</span><span class='op'>(</span><span class='va'>t1</span>, age<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>, <span class='st'>"A"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"C"</span>, <span class='st'>"C"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='Desc.html'>Desc</a></span><span class='op'>(</span><span class='va'>t2</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ------------------------------------------------------------------------------ </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='font-weight: bold;'>t2 (table)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Summary: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> n: 3'699, 3-dim table: 2 x 3 x 3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Chi-squared test for independence of all factors:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   X-squared = 16.651, df = 12, p-value = 0.1632</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>            education  low  med high  Sum</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> sex    age                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Male   A              203  172  210  585</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        B              200  234  224  658</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        C              194  208  182  584</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Female A              223  219  215  657</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        B              194  216  216  626</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        C              187  219  183  589</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Sum    A              426  391  425 1242</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        B              394  450  440 1284</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        C              381  427  365 1173</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-plt img'><img src='CollapseTable-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##                  age   A   B   C</span></span>
+<span class='r-in'><span class='co'>## sex    education</span></span>
+<span class='r-in'><span class='co'>## Male   low           220 194 192</span></span>
+<span class='r-in'><span class='co'>##        med           192 211 168</span></span>
+<span class='r-in'><span class='co'>##        high          169 206 192</span></span>
+<span class='r-in'><span class='co'>## Female low           211 181 199</span></span>
+<span class='r-in'><span class='co'>##        med           202 189 216</span></span>
+<span class='r-in'><span class='co'>##        high          178 199 185</span></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># collapse age to 3 levels and pool education: "low" and "med" to "low"</span></span>
+<span class='r-in'><span class='va'>t3</span> <span class='op'>&lt;-</span> <span class='fu'>CollapseTable</span><span class='op'>(</span><span class='va'>t1</span>, age<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>, <span class='st'>"A"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"C"</span>, <span class='st'>"C"</span><span class='op'>)</span>,</span>
+<span class='r-in'>    education<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"low"</span>, <span class='st'>"low"</span>, <span class='st'>"high"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='Desc.html'>Desc</a></span><span class='op'>(</span><span class='va'>t3</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ------------------------------------------------------------------------------ </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='font-weight: bold;'>t3 (table)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Summary: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> n: 3'699, 3-dim table: 2 x 3 x 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Chi-squared test for independence of all factors:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   X-squared = 9.320, df = 7, p-value = 0.2305</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>            education  low high  Sum</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> sex    age                         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Male   A              375  210  585</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        B              434  224  658</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        C              402  182  584</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Female A              442  215  657</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        B              410  216  626</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        C              406  183  589</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Sum    A              817  425 1242</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        B              844  440 1284</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        C              808  365 1173</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-plt img'><img src='CollapseTable-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##                  age   A   B   C</span></span>
+<span class='r-in'><span class='co'>## sex    education</span></span>
+<span class='r-in'><span class='co'>## Male   low           412 405 360</span></span>
+<span class='r-in'><span class='co'>##        high          169 206 192</span></span>
+<span class='r-in'><span class='co'>## Female low           413 370 415</span></span>
+<span class='r-in'><span class='co'>##        high          178 199 185</span></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># change labels for levels of education to 1:3</span></span>
+<span class='r-in'><span class='va'>t4</span> <span class='op'>&lt;-</span> <span class='fu'>CollapseTable</span><span class='op'>(</span><span class='va'>t1</span>,  education<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='Desc.html'>Desc</a></span><span class='op'>(</span><span class='va'>t4</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ------------------------------------------------------------------------------ </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='font-weight: bold;'>t4 (table)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Summary: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> n: 3'699, 3-dim table: 2 x 6 x 3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Chi-squared test for independence of all factors:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   X-squared = 22.094, df = 27, p-value = 0.7326</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>            education   1   2   3 Sum</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> sex    age                          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Male   a             106  88 107 301</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        b              97  84 103 284</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        c              95 127 115 337</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        d             105 107 109 321</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        e             100 106  95 301</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        f              94 102  87 283</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Female a             110 107 105 322</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        b             113 112 110 335</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        c              93 103 107 303</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        d             101 113 109 323</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        e              94 114  86 294</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        f              93 105  97 295</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Sum    a             216 195 212 623</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        b             210 196 213 619</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        c             188 230 222 640</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        d             206 220 218 644</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        e             194 220 181 595</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        f             187 207 184 578</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-plt img'><img src='CollapseTable-4.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##                  age   a   b   c   d   e   f</span></span>
+<span class='r-in'><span class='co'>## sex    education</span></span>
+<span class='r-in'><span class='co'>## Male   1             119 101 109  85  99  93</span></span>
+<span class='r-in'><span class='co'>##        2              94  98 103 108  84  84</span></span>
+<span class='r-in'><span class='co'>##        3              81  88  96 110 100  92</span></span>
+<span class='r-in'><span class='co'>## Female 1             107 104  95  86 103  96</span></span>
+<span class='r-in'><span class='co'>##        2             104  98  94  95 110 106</span></span>
+<span class='r-in'><span class='co'>##        3              93  85  90 109  99  86</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

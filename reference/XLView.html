@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -206,7 +206,7 @@
     </tr>
     <tr>
       <th>at</th>
-      <td><p>can be a range adress as character (e.g. <code>"A1"</code>), a vector of 2 integers (e.g <code><a href='https://rdrr.io/r/base/c.html'>c(1,1)</a></code>) or a cell object as it is returned by <code>xl$Cells(1,1)</code>, denominating the left upper cell, where the data.frame will be placed in the MS-Excel sheet.</p></td>
+      <td><p>can be a range adress as character (e.g. <code>"A1"</code>), a vector of 2 integers (e.g <code>c(1,1)</code>) or a cell object as it is returned by <code>xl$Cells(1,1)</code>, denominating the left upper cell, where the data.frame will be placed in the MS-Excel sheet.</p></td>
     </tr>
     <tr>
       <th>byrow</th>
@@ -215,7 +215,7 @@
     <tr>
       <th>xl</th>
       <td><p>the pointer to a MS-Excel instance. An new instance can be created with <code><a href='GetNewXL.html'>GetNewXL()</a></code>, returning the appropriate handle. A handle to an already running instance is returned by <code><a href='GetCurrWrd.html'>GetCurrXL()</a></code>.
-  Default is the last created pointer stored in <code><a href='DescToolsOptions.html'>DescToolsOptions("lastXL")</a></code>.</p></td>
+  Default is the last created pointer stored in <code>DescToolsOptions("lastXL")</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -226,7 +226,7 @@
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The data.frame will be exported in CSV format and then imported in MS-Excel. When importing data, MS-Excel will potentially change characters to numeric values. If this seems undesirable (maybe we're loosing leading zeros) then you should enclose the text in quotes and preset a =.
-x &lt;- <code><a href='https://rdrr.io/r/base/sprintf.html'>gettextf('="%s"', x)</a></code> would do the trick.   <br /><br />
+x &lt;- <code>gettextf('="%s"', x)</code> would do the trick.   <br /><br />
 Take care: Changes to the data made in MS-Excel will NOT automatically be updated in the original data.frame.
 The user will have to read the csv-file into R again.
 See examples how to get this done.<br /></p>
@@ -250,58 +250,58 @@ would not terminate a running XL task, but only set it invisible (observe the Ta
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># Windows-specific example</span>
-<span class='fu'>XLView</span><span class='op'>(</span><span class='va'>d.diamonds</span><span class='op'>)</span>
-
-<span class='co'># edit an existing data.frame in MS-Excel, make changes and save there, return the filename</span>
-<span class='va'>fn</span> <span class='op'>&lt;-</span> <span class='fu'>XLView</span><span class='op'>(</span><span class='va'>d.diamonds</span><span class='op'>)</span>
-<span class='co'># read the changed file and store in new data.frame</span>
-<span class='va'>d.frm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.table</a></span><span class='op'>(</span><span class='va'>fn</span>, header<span class='op'>=</span><span class='cn'>TRUE</span>, quote<span class='op'>=</span><span class='st'>""</span>, sep<span class='op'>=</span><span class='st'>";"</span><span class='op'>)</span>
-
-<span class='co'># Create a new file, edit it in MS-Excel...</span>
-<span class='va'>fn</span> <span class='op'>&lt;-</span> <span class='fu'>XLView</span><span class='op'>(</span><span class='op'>)</span>
-<span class='co'># ... and read it into a data.frame when in R again</span>
-<span class='va'>d.set</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.table</a></span><span class='op'>(</span><span class='va'>fn</span>, header<span class='op'>=</span><span class='cn'>TRUE</span>, quote<span class='op'>=</span><span class='st'>""</span>, sep<span class='op'>=</span><span class='st'>";"</span><span class='op'>)</span>
-
-<span class='co'># Export a ftable object, quite elegant...</span>
-<span class='fu'>XLView</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/ftable.html'>ftable</a></span><span class='op'>(</span><span class='va'>Titanic</span><span class='op'>)</span>, quote<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>, row.names <span class='op'>=</span> <span class='cn'>FALSE</span>, col.names <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-
-<span class='co'># Export a data.frame directly to XL, combined with subsequent formatting</span>
-
-<span class='va'>xl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='GetNewXL.html'>GetNewXL</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>owb</span> <span class='op'>&lt;-</span> <span class='va'>xl</span><span class='op'>[[</span><span class='st'>"Workbooks"</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='fu'>Add</span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>sheet</span> <span class='op'>&lt;-</span> <span class='va'>xl</span><span class='op'>$</span><span class='fu'>Sheets</span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>Add</span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>sheet</span><span class='op'>[[</span><span class='st'>"name"</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='st'>"pizza"</span>
-
-<span class='fu'>ToXL</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>]</span>, <span class='va'>xl</span><span class='op'>$</span><span class='fu'>Cells</span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='va'>obj</span> <span class='op'>&lt;-</span> <span class='va'>xl</span><span class='op'>$</span><span class='fu'>Cells</span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>CurrentRegion</span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>obj</span><span class='op'>[[</span><span class='st'>"VerticalAlignment"</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>xlConst</span><span class='op'>$</span><span class='va'>xlTop</span>
-
-<span class='va'>row</span> <span class='op'>&lt;-</span> <span class='va'>xl</span><span class='op'>$</span><span class='fu'>Cells</span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>CurrentRegion</span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>rows</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
-<span class='co'># does not work:   row$font()[["bold"]] &lt;- TRUE</span>
-<span class='co'># works:</span>
-<span class='va'>obj</span> <span class='op'>&lt;-</span> <span class='va'>row</span><span class='op'>$</span><span class='fu'>font</span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>obj</span><span class='op'>[[</span><span class='st'>"bold"</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='cn'>TRUE</span>
-
-<span class='va'>obj</span> <span class='op'>&lt;-</span> <span class='va'>row</span><span class='op'>$</span><span class='fu'>borders</span><span class='op'>(</span><span class='va'>xlConst</span><span class='op'>$</span><span class='va'>xlEdgeBottom</span><span class='op'>)</span>
-<span class='va'>obj</span><span class='op'>[[</span><span class='st'>"linestyle"</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>xlConst</span><span class='op'>$</span><span class='va'>xlContinuous</span>
-
-<span class='va'>cols</span> <span class='op'>&lt;-</span> <span class='va'>xl</span><span class='op'>$</span><span class='fu'>Cells</span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>CurrentRegion</span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>columns</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
-<span class='va'>cols</span><span class='op'>[[</span><span class='st'>"HorizontalAlignment"</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>xlConst</span><span class='op'>$</span><span class='va'>xlLeft</span>
-
-<span class='va'>xl</span><span class='op'>$</span><span class='fu'>Cells</span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>CurrentRegion</span><span class='op'>(</span><span class='op'>)</span><span class='op'>[[</span><span class='st'>"EntireColumn"</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='fu'>AutoFit</span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>cols</span> <span class='op'>&lt;-</span> <span class='va'>xl</span><span class='op'>$</span><span class='fu'>Cells</span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>CurrentRegion</span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>columns</span><span class='op'>(</span><span class='fl'>4</span><span class='op'>)</span>
-<span class='va'>cols</span><span class='op'>[[</span><span class='st'>"WrapText"</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='cn'>TRUE</span>
-<span class='va'>cols</span><span class='op'>[[</span><span class='st'>"ColumnWidth"</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>80</span>
-<span class='va'>xl</span><span class='op'>$</span><span class='fu'>Cells</span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>CurrentRegion</span><span class='op'>(</span><span class='op'>)</span><span class='op'>[[</span><span class='st'>"EntireRow"</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='fu'>AutoFit</span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='va'>sheet</span> <span class='op'>&lt;-</span> <span class='va'>xl</span><span class='op'>$</span><span class='fu'>Sheets</span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>Add</span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>sheet</span><span class='op'>[[</span><span class='st'>"name"</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='st'>"whisky"</span>
-<span class='fu'>ToXL</span><span class='op'>(</span><span class='va'>d.whisky</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>]</span>, <span class='va'>xl</span><span class='op'>$</span><span class='fu'>Cells</span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>}</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='co'># Windows-specific example</span></span>
+<span class='r-in'><span class='fu'>XLView</span><span class='op'>(</span><span class='va'>d.diamonds</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># edit an existing data.frame in MS-Excel, make changes and save there, return the filename</span></span>
+<span class='r-in'><span class='va'>fn</span> <span class='op'>&lt;-</span> <span class='fu'>XLView</span><span class='op'>(</span><span class='va'>d.diamonds</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># read the changed file and store in new data.frame</span></span>
+<span class='r-in'><span class='va'>d.frm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.table</a></span><span class='op'>(</span><span class='va'>fn</span>, header<span class='op'>=</span><span class='cn'>TRUE</span>, quote<span class='op'>=</span><span class='st'>""</span>, sep<span class='op'>=</span><span class='st'>";"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Create a new file, edit it in MS-Excel...</span></span>
+<span class='r-in'><span class='va'>fn</span> <span class='op'>&lt;-</span> <span class='fu'>XLView</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># ... and read it into a data.frame when in R again</span></span>
+<span class='r-in'><span class='va'>d.set</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.table</a></span><span class='op'>(</span><span class='va'>fn</span>, header<span class='op'>=</span><span class='cn'>TRUE</span>, quote<span class='op'>=</span><span class='st'>""</span>, sep<span class='op'>=</span><span class='st'>";"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Export a ftable object, quite elegant...</span></span>
+<span class='r-in'><span class='fu'>XLView</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/ftable.html'>ftable</a></span><span class='op'>(</span><span class='va'>Titanic</span><span class='op'>)</span>, quote<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>, row.names <span class='op'>=</span> <span class='cn'>FALSE</span>, col.names <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Export a data.frame directly to XL, combined with subsequent formatting</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>xl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='GetNewXL.html'>GetNewXL</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>owb</span> <span class='op'>&lt;-</span> <span class='va'>xl</span><span class='op'>[[</span><span class='st'>"Workbooks"</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='fu'>Add</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>sheet</span> <span class='op'>&lt;-</span> <span class='va'>xl</span><span class='op'>$</span><span class='fu'>Sheets</span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>Add</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>sheet</span><span class='op'>[[</span><span class='st'>"name"</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='st'>"pizza"</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>ToXL</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>]</span>, <span class='va'>xl</span><span class='op'>$</span><span class='fu'>Cells</span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>obj</span> <span class='op'>&lt;-</span> <span class='va'>xl</span><span class='op'>$</span><span class='fu'>Cells</span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>CurrentRegion</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>obj</span><span class='op'>[[</span><span class='st'>"VerticalAlignment"</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>xlConst</span><span class='op'>$</span><span class='va'>xlTop</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>row</span> <span class='op'>&lt;-</span> <span class='va'>xl</span><span class='op'>$</span><span class='fu'>Cells</span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>CurrentRegion</span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>rows</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># does not work:   row$font()[["bold"]] &lt;- TRUE</span></span>
+<span class='r-in'><span class='co'># works:</span></span>
+<span class='r-in'><span class='va'>obj</span> <span class='op'>&lt;-</span> <span class='va'>row</span><span class='op'>$</span><span class='fu'>font</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>obj</span><span class='op'>[[</span><span class='st'>"bold"</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='cn'>TRUE</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>obj</span> <span class='op'>&lt;-</span> <span class='va'>row</span><span class='op'>$</span><span class='fu'>borders</span><span class='op'>(</span><span class='va'>xlConst</span><span class='op'>$</span><span class='va'>xlEdgeBottom</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>obj</span><span class='op'>[[</span><span class='st'>"linestyle"</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>xlConst</span><span class='op'>$</span><span class='va'>xlContinuous</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>cols</span> <span class='op'>&lt;-</span> <span class='va'>xl</span><span class='op'>$</span><span class='fu'>Cells</span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>CurrentRegion</span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>columns</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>cols</span><span class='op'>[[</span><span class='st'>"HorizontalAlignment"</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>xlConst</span><span class='op'>$</span><span class='va'>xlLeft</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>xl</span><span class='op'>$</span><span class='fu'>Cells</span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>CurrentRegion</span><span class='op'>(</span><span class='op'>)</span><span class='op'>[[</span><span class='st'>"EntireColumn"</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='fu'>AutoFit</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>cols</span> <span class='op'>&lt;-</span> <span class='va'>xl</span><span class='op'>$</span><span class='fu'>Cells</span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>CurrentRegion</span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>columns</span><span class='op'>(</span><span class='fl'>4</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>cols</span><span class='op'>[[</span><span class='st'>"WrapText"</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='cn'>TRUE</span></span>
+<span class='r-in'><span class='va'>cols</span><span class='op'>[[</span><span class='st'>"ColumnWidth"</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>80</span></span>
+<span class='r-in'><span class='va'>xl</span><span class='op'>$</span><span class='fu'>Cells</span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>CurrentRegion</span><span class='op'>(</span><span class='op'>)</span><span class='op'>[[</span><span class='st'>"EntireRow"</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='fu'>AutoFit</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>sheet</span> <span class='op'>&lt;-</span> <span class='va'>xl</span><span class='op'>$</span><span class='fu'>Sheets</span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>Add</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>sheet</span><span class='op'>[[</span><span class='st'>"name"</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='st'>"whisky"</span></span>
+<span class='r-in'><span class='fu'>ToXL</span><span class='op'>(</span><span class='va'>d.whisky</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>]</span>, <span class='va'>xl</span><span class='op'>$</span><span class='fu'>Cells</span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>}</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

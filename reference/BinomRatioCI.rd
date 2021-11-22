@@ -76,7 +76,7 @@ and the Noether (1957) procedure. Koopman results are found iteratively for most
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -276,13 +276,15 @@ binomial variate.  <em>Biometrika</em> 73(2): 425-435.</p>
     <div class='dont-index'><p><code><a href='BinomCI.html'>BinomCI</a>, <a href='BinomDiffCI.html'>BinomDiffCI</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># From Koopman (1984)</span>
-
-<span class='fu'>BinomRatioCI</span><span class='op'>(</span>x1 <span class='op'>=</span> <span class='fl'>36</span>, n1 <span class='op'>=</span> <span class='fl'>40</span>, x2 <span class='op'>=</span> <span class='fl'>16</span>, n2 <span class='op'>=</span> <span class='fl'>80</span>, method <span class='op'>=</span> <span class='st'>"katz"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;      est  lwr.ci   upr.ci
-#&gt; &lt;NA&gt; 4.5 2.86855 7.059315</div><div class='input'><span class='fu'>BinomRatioCI</span><span class='op'>(</span>x1 <span class='op'>=</span> <span class='fl'>36</span>, n1 <span class='op'>=</span> <span class='fl'>40</span>, x2 <span class='op'>=</span> <span class='fl'>16</span>, n2 <span class='op'>=</span> <span class='fl'>80</span>, method <span class='op'>=</span> <span class='st'>"koop"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;      est   lwr.ci   upr.ci
-#&gt; &lt;NA&gt; 4.5 2.939581 7.152209</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># From Koopman (1984)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>BinomRatioCI</span><span class='op'>(</span>x1 <span class='op'>=</span> <span class='fl'>36</span>, n1 <span class='op'>=</span> <span class='fl'>40</span>, x2 <span class='op'>=</span> <span class='fl'>16</span>, n2 <span class='op'>=</span> <span class='fl'>80</span>, method <span class='op'>=</span> <span class='st'>"katz"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      est  lwr.ci   upr.ci</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;NA&gt; 4.5 2.86855 7.059315</span>
+<span class='r-in'><span class='fu'>BinomRatioCI</span><span class='op'>(</span>x1 <span class='op'>=</span> <span class='fl'>36</span>, n1 <span class='op'>=</span> <span class='fl'>40</span>, x2 <span class='op'>=</span> <span class='fl'>16</span>, n2 <span class='op'>=</span> <span class='fl'>80</span>, method <span class='op'>=</span> <span class='st'>"koop"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      est   lwr.ci   upr.ci</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;NA&gt; 4.5 2.939581 7.152209</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

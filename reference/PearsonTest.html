@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -212,8 +212,8 @@ from the chi-square distribution with <code>n.classes</code> - 3 degrees of free
 additional estimation of two parameters. (For the simple hypothesis of normality (mean and variance known)
 the test statistic is asymptotically chi-square distributed with
 <code>n.classes</code> - 1 degrees of freedom.)
-This is, however, not correct as long as the parameters are estimated by <code><a href='https://rdrr.io/r/base/mean.html'>mean(x)</a></code> and <code><a href='https://rdrr.io/r/stats/cor.html'>var(x)</a></code>
-(or <code><a href='https://rdrr.io/r/stats/sd.html'>sd(x)</a></code>), as it is usually done, see Moore (1986) for details.
+This is, however, not correct as long as the parameters are estimated by <code>mean(x)</code> and <code>var(x)</code>
+(or <code>sd(x)</code>), as it is usually done, see Moore (1986) for details.
 Since the true p-value is somewhere between the two, it is suggested to run <code>PearsonTest</code> twice, with
 <code>adjust = TRUE</code> (default) and with <code>adjust = FALSE</code>.
 It is also suggested to slightly change the default number of classes, in order
@@ -228,19 +228,21 @@ the same result as the S-PLUS function call <code>chisq.gof((x-mean(x))/sqrt(var
 <code><a href='https://rdrr.io/r/stats/qqnorm.html'>qqnorm</a></code> for producing a normal quantile-quantile plot.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>PearsonTest</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span>, mean <span class='op'>=</span> <span class='fl'>5</span>, sd <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	Pearson chi-square normality test
-#&gt; 
-#&gt; data:  rnorm(100, mean = 5, sd = 3)
-#&gt; P = 20.64, p-value = 0.02375
-#&gt; </div><div class='input'><span class='fu'>PearsonTest</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>100</span>, min <span class='op'>=</span> <span class='fl'>2</span>, max <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	Pearson chi-square normality test
-#&gt; 
-#&gt; data:  runif(100, min = 2, max = 4)
-#&gt; P = 18.82, p-value = 0.04261
-#&gt; </div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>PearsonTest</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span>, mean <span class='op'>=</span> <span class='fl'>5</span>, sd <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Pearson chi-square normality test</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  rnorm(100, mean = 5, sd = 3)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> P = 20.64, p-value = 0.02375</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'>PearsonTest</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>100</span>, min <span class='op'>=</span> <span class='fl'>2</span>, max <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Pearson chi-square normality test</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  runif(100, min = 2, max = 4)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> P = 18.82, p-value = 0.04261</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

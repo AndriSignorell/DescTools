@@ -75,7 +75,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -195,7 +195,7 @@
       <td><p>an optional matrix or data frame (or similar: see
                                                 <code><a href='https://rdrr.io/r/stats/model.frame.html'>model.frame</a></code>) containing the variables in the
               formula <code>formula</code>.  By default the variables are taken from
-              <code><a href='https://rdrr.io/r/base/environment.html'>environment(formula)</a></code>.</p></td>
+              <code>environment(formula)</code>.</p></td>
     </tr>
     <tr>
       <th>subset</th>
@@ -206,7 +206,7 @@
       <th>na.action</th>
       <td><p>a function which indicates what should happen when
                    the data contain <code>NA</code>s.  Defaults to
-                   <code><a href='https://rdrr.io/r/base/options.html'>getOption("na.action")</a></code>.</p></td>
+                   <code>getOption("na.action")</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -262,100 +262,106 @@
     <p>Stefan Wellek &lt;stefan.wellek@zi-mannheim.de&gt; (exact p-values), Andri Signorell &lt;andri@signorell.net&gt; (interface) (strongly based on R-Core code)</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'> <span class='co'># Craig's data from Siegel &amp; Castellan, p 186</span>
- <span class='va'>soa.mat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.797</span>,<span class='fl'>.873</span>,<span class='fl'>.888</span>,<span class='fl'>.923</span>,<span class='fl'>.942</span>,<span class='fl'>.956</span>,
-  <span class='fl'>.794</span>,<span class='fl'>.772</span>,<span class='fl'>.908</span>,<span class='fl'>.982</span>,<span class='fl'>.946</span>,<span class='fl'>.913</span>,
-  <span class='fl'>.838</span>,<span class='fl'>.801</span>,<span class='fl'>.853</span>,<span class='fl'>.951</span>,<span class='fl'>.883</span>,<span class='fl'>.837</span>,
-  <span class='fl'>.815</span>,<span class='fl'>.801</span>,<span class='fl'>.747</span>,<span class='fl'>.859</span>,<span class='fl'>.887</span>,<span class='fl'>.902</span><span class='op'>)</span>, nrow<span class='op'>=</span><span class='fl'>4</span>, byrow<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
- <span class='fu'>PageTest</span><span class='op'>(</span><span class='va'>soa.mat</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	Page test for ordered alternatives
-#&gt; 
-#&gt; data:  soa.mat
-#&gt; L = 342, p-value = 0.0005661
-#&gt; </div><div class='input'> 
-
-<span class='co'># Duller, pg. 236 </span>
-<span class='va'>pers</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
-<span class='fl'>1</span>, <span class='fl'>72</span>, <span class='fl'>72</span>, <span class='fl'>71.5</span>, <span class='fl'>69</span>, <span class='fl'>70</span>, <span class='fl'>69.5</span>, <span class='fl'>68</span>, <span class='fl'>68</span>, <span class='fl'>67</span>, <span class='fl'>68</span>,
-<span class='fl'>2</span>, <span class='fl'>83</span>, <span class='fl'>81</span>, <span class='fl'>81</span>, <span class='fl'>82</span>, <span class='fl'>82.5</span>, <span class='fl'>81</span>, <span class='fl'>79</span>, <span class='fl'>80.5</span>, <span class='fl'>80</span>, <span class='fl'>81</span>,
-<span class='fl'>3</span>, <span class='fl'>95</span>, <span class='fl'>92</span>, <span class='fl'>91.5</span>, <span class='fl'>89</span>, <span class='fl'>89</span>, <span class='fl'>90.5</span>, <span class='fl'>89</span>, <span class='fl'>89</span>, <span class='fl'>88</span>, <span class='fl'>88</span>,
-<span class='fl'>4</span>, <span class='fl'>71</span>, <span class='fl'>72</span>, <span class='fl'>71</span>, <span class='fl'>70.5</span>, <span class='fl'>70</span>, <span class='fl'>71</span>, <span class='fl'>71</span>, <span class='fl'>70</span>, <span class='fl'>69.5</span>, <span class='fl'>69</span>,
-<span class='fl'>5</span>, <span class='fl'>79</span>, <span class='fl'>79</span>, <span class='fl'>78.5</span>, <span class='fl'>77</span>, <span class='fl'>77.5</span>, <span class='fl'>78</span>, <span class='fl'>77.5</span>, <span class='fl'>76</span>, <span class='fl'>76.5</span>, <span class='fl'>76</span>,
-<span class='fl'>6</span>, <span class='fl'>80</span>, <span class='fl'>78.5</span>, <span class='fl'>78</span>, <span class='fl'>77</span>, <span class='fl'>77.5</span>, <span class='fl'>77</span>, <span class='fl'>76</span>, <span class='fl'>76</span>, <span class='fl'>75.5</span>, <span class='fl'>75.5</span>
-<span class='op'>)</span>, nrow<span class='op'>=</span><span class='fl'>6</span>, byrow<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span> 
-
-<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>pers</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"person"</span>, <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"week"</span>,<span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'># Alternative: week10 &lt; week9 &lt; week8 ... </span>
-<span class='fu'>PageTest</span><span class='op'>(</span><span class='va'>pers</span><span class='op'>[</span>, <span class='fl'>11</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	Page test for ordered alternatives
-#&gt; 
-#&gt; data:  pers[, 11:2]
-#&gt; L = 2226, p-value = 9.033e-14
-#&gt; </div><div class='input'>
-
-<span class='co'># Sachs, pg. 464</span>
-
-<span class='va'>pers</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
-  <span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>4</span>,
-  <span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,
-  <span class='fl'>4</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,
-  <span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,
-  <span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>4</span>,
-  <span class='fl'>4</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,
-  <span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,
-  <span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>4</span>,
-  <span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>4</span>,<span class='fl'>2</span><span class='op'>)</span>, 
-  nrow<span class='op'>=</span><span class='fl'>9</span>, byrow<span class='op'>=</span><span class='cn'>TRUE</span>, dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>9</span>, <span class='va'>LETTERS</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>  
-
-<span class='co'># Alternative: B &lt; C &lt; D &lt; A</span>
-<span class='fu'>PageTest</span><span class='op'>(</span><span class='va'>pers</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"B"</span>,<span class='st'>"C"</span>,<span class='st'>"D"</span>,<span class='st'>"A"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	Page test for ordered alternatives
-#&gt; 
-#&gt; data:  pers[, c("B", "C", "D", "A")]
-#&gt; L = 252, p-value = 0.0007053
-#&gt; </div><div class='input'>
-
-<span class='co'># long shape and formula interface</span>
-<span class='va'>plng</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>9</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"B"</span>,<span class='st'>"C"</span>,<span class='st'>"D"</span>,<span class='st'>"A"</span><span class='op'>)</span><span class='op'>)</span>, 
-                   <span class='fu'><a href='https://rdrr.io/r/base/vector.html'>as.vector</a></span><span class='op'>(</span><span class='va'>pers</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"B"</span>,<span class='st'>"C"</span>,<span class='st'>"D"</span>,<span class='st'>"A"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>plng</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"block"</span>,<span class='st'>"group"</span>,<span class='st'>"x"</span><span class='op'>)</span>
-
-<span class='fu'>PageTest</span><span class='op'>(</span><span class='va'>plng</span><span class='op'>$</span><span class='va'>x</span>, <span class='va'>plng</span><span class='op'>$</span><span class='va'>group</span>, <span class='va'>plng</span><span class='op'>$</span><span class='va'>block</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	Page test for ordered alternatives
-#&gt; 
-#&gt; data:  plng$x, plng$group and plng$block
-#&gt; L = 252, p-value = 0.0007053
-#&gt; </div><div class='input'>
-<span class='fu'>PageTest</span><span class='op'>(</span><span class='va'>x</span> <span class='op'>~</span> <span class='va'>group</span> <span class='op'>|</span> <span class='va'>block</span>, data <span class='op'>=</span> <span class='va'>plng</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	Page test for ordered alternatives
-#&gt; 
-#&gt; data:  x and group and block
-#&gt; L = 252, p-value = 0.0007053
-#&gt; </div><div class='input'>
-
-
-<span class='va'>score</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
-  <span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>6</span>,<span class='fl'>9</span>,
-  <span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>7</span>,<span class='fl'>8</span>,
-  <span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>6</span>,
-  <span class='fl'>5</span>,<span class='fl'>6</span>,<span class='fl'>8</span>,<span class='fl'>9</span>,
-  <span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>9</span>,<span class='fl'>9</span>,
-  <span class='fl'>6</span>,<span class='fl'>7</span>,<span class='fl'>11</span>,<span class='fl'>10</span>
-  <span class='op'>)</span>, nrow<span class='op'>=</span><span class='fl'>6</span>, byrow<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span> 
-
-<span class='fu'>PageTest</span><span class='op'>(</span><span class='va'>score</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	Page test for ordered alternatives
-#&gt; 
-#&gt; data:  score
-#&gt; L = 176.5, p-value = 0.000004259
-#&gt; </div></pre>
+    <pre class="examples"><span class='r-in'> <span class='co'># Craig's data from Siegel &amp; Castellan, p 186</span></span>
+<span class='r-in'> <span class='va'>soa.mat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.797</span>,<span class='fl'>.873</span>,<span class='fl'>.888</span>,<span class='fl'>.923</span>,<span class='fl'>.942</span>,<span class='fl'>.956</span>,</span>
+<span class='r-in'>  <span class='fl'>.794</span>,<span class='fl'>.772</span>,<span class='fl'>.908</span>,<span class='fl'>.982</span>,<span class='fl'>.946</span>,<span class='fl'>.913</span>,</span>
+<span class='r-in'>  <span class='fl'>.838</span>,<span class='fl'>.801</span>,<span class='fl'>.853</span>,<span class='fl'>.951</span>,<span class='fl'>.883</span>,<span class='fl'>.837</span>,</span>
+<span class='r-in'>  <span class='fl'>.815</span>,<span class='fl'>.801</span>,<span class='fl'>.747</span>,<span class='fl'>.859</span>,<span class='fl'>.887</span>,<span class='fl'>.902</span><span class='op'>)</span>, nrow<span class='op'>=</span><span class='fl'>4</span>, byrow<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'> <span class='fu'>PageTest</span><span class='op'>(</span><span class='va'>soa.mat</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Page test for ordered alternatives</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  soa.mat</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> L = 342, p-value = 0.0005661</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Duller, pg. 236 </span></span>
+<span class='r-in'><span class='va'>pers</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span></span>
+<span class='r-in'><span class='fl'>1</span>, <span class='fl'>72</span>, <span class='fl'>72</span>, <span class='fl'>71.5</span>, <span class='fl'>69</span>, <span class='fl'>70</span>, <span class='fl'>69.5</span>, <span class='fl'>68</span>, <span class='fl'>68</span>, <span class='fl'>67</span>, <span class='fl'>68</span>,</span>
+<span class='r-in'><span class='fl'>2</span>, <span class='fl'>83</span>, <span class='fl'>81</span>, <span class='fl'>81</span>, <span class='fl'>82</span>, <span class='fl'>82.5</span>, <span class='fl'>81</span>, <span class='fl'>79</span>, <span class='fl'>80.5</span>, <span class='fl'>80</span>, <span class='fl'>81</span>,</span>
+<span class='r-in'><span class='fl'>3</span>, <span class='fl'>95</span>, <span class='fl'>92</span>, <span class='fl'>91.5</span>, <span class='fl'>89</span>, <span class='fl'>89</span>, <span class='fl'>90.5</span>, <span class='fl'>89</span>, <span class='fl'>89</span>, <span class='fl'>88</span>, <span class='fl'>88</span>,</span>
+<span class='r-in'><span class='fl'>4</span>, <span class='fl'>71</span>, <span class='fl'>72</span>, <span class='fl'>71</span>, <span class='fl'>70.5</span>, <span class='fl'>70</span>, <span class='fl'>71</span>, <span class='fl'>71</span>, <span class='fl'>70</span>, <span class='fl'>69.5</span>, <span class='fl'>69</span>,</span>
+<span class='r-in'><span class='fl'>5</span>, <span class='fl'>79</span>, <span class='fl'>79</span>, <span class='fl'>78.5</span>, <span class='fl'>77</span>, <span class='fl'>77.5</span>, <span class='fl'>78</span>, <span class='fl'>77.5</span>, <span class='fl'>76</span>, <span class='fl'>76.5</span>, <span class='fl'>76</span>,</span>
+<span class='r-in'><span class='fl'>6</span>, <span class='fl'>80</span>, <span class='fl'>78.5</span>, <span class='fl'>78</span>, <span class='fl'>77</span>, <span class='fl'>77.5</span>, <span class='fl'>77</span>, <span class='fl'>76</span>, <span class='fl'>76</span>, <span class='fl'>75.5</span>, <span class='fl'>75.5</span></span>
+<span class='r-in'><span class='op'>)</span>, nrow<span class='op'>=</span><span class='fl'>6</span>, byrow<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>pers</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"person"</span>, <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"week"</span>,<span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Alternative: week10 &lt; week9 &lt; week8 ... </span></span>
+<span class='r-in'><span class='fu'>PageTest</span><span class='op'>(</span><span class='va'>pers</span><span class='op'>[</span>, <span class='fl'>11</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Page test for ordered alternatives</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  pers[, 11:2]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> L = 2226, p-value = 9.033e-14</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Sachs, pg. 464</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>pers</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span></span>
+<span class='r-in'>  <span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>4</span>,</span>
+<span class='r-in'>  <span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,</span>
+<span class='r-in'>  <span class='fl'>4</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,</span>
+<span class='r-in'>  <span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,</span>
+<span class='r-in'>  <span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>4</span>,</span>
+<span class='r-in'>  <span class='fl'>4</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,</span>
+<span class='r-in'>  <span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,</span>
+<span class='r-in'>  <span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>4</span>,</span>
+<span class='r-in'>  <span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>4</span>,<span class='fl'>2</span><span class='op'>)</span>, </span>
+<span class='r-in'>  nrow<span class='op'>=</span><span class='fl'>9</span>, byrow<span class='op'>=</span><span class='cn'>TRUE</span>, dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>9</span>, <span class='va'>LETTERS</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>  </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Alternative: B &lt; C &lt; D &lt; A</span></span>
+<span class='r-in'><span class='fu'>PageTest</span><span class='op'>(</span><span class='va'>pers</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"B"</span>,<span class='st'>"C"</span>,<span class='st'>"D"</span>,<span class='st'>"A"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Page test for ordered alternatives</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  pers[, c("B", "C", "D", "A")]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> L = 252, p-value = 0.0007053</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># long shape and formula interface</span></span>
+<span class='r-in'><span class='va'>plng</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>9</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"B"</span>,<span class='st'>"C"</span>,<span class='st'>"D"</span>,<span class='st'>"A"</span><span class='op'>)</span><span class='op'>)</span>, </span>
+<span class='r-in'>                   <span class='fu'><a href='https://rdrr.io/r/base/vector.html'>as.vector</a></span><span class='op'>(</span><span class='va'>pers</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"B"</span>,<span class='st'>"C"</span>,<span class='st'>"D"</span>,<span class='st'>"A"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>plng</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"block"</span>,<span class='st'>"group"</span>,<span class='st'>"x"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>PageTest</span><span class='op'>(</span><span class='va'>plng</span><span class='op'>$</span><span class='va'>x</span>, <span class='va'>plng</span><span class='op'>$</span><span class='va'>group</span>, <span class='va'>plng</span><span class='op'>$</span><span class='va'>block</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Page test for ordered alternatives</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  plng$x, plng$group and plng$block</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> L = 252, p-value = 0.0007053</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>PageTest</span><span class='op'>(</span><span class='va'>x</span> <span class='op'>~</span> <span class='va'>group</span> <span class='op'>|</span> <span class='va'>block</span>, data <span class='op'>=</span> <span class='va'>plng</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Page test for ordered alternatives</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  x and group and block</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> L = 252, p-value = 0.0007053</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>score</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span></span>
+<span class='r-in'>  <span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>6</span>,<span class='fl'>9</span>,</span>
+<span class='r-in'>  <span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>7</span>,<span class='fl'>8</span>,</span>
+<span class='r-in'>  <span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>6</span>,</span>
+<span class='r-in'>  <span class='fl'>5</span>,<span class='fl'>6</span>,<span class='fl'>8</span>,<span class='fl'>9</span>,</span>
+<span class='r-in'>  <span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>9</span>,<span class='fl'>9</span>,</span>
+<span class='r-in'>  <span class='fl'>6</span>,<span class='fl'>7</span>,<span class='fl'>11</span>,<span class='fl'>10</span></span>
+<span class='r-in'>  <span class='op'>)</span>, nrow<span class='op'>=</span><span class='fl'>6</span>, byrow<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>PageTest</span><span class='op'>(</span><span class='va'>score</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Page test for ordered alternatives</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  score</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> L = 176.5, p-value = 0.000004259</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

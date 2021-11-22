@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -193,7 +193,7 @@
     <tr>
       <th>data</th>
       <td><p>an optional matrix or data frame (or similar: see <code><a href='https://rdrr.io/r/stats/model.frame.html'>model.frame</a></code>) containing the variables in the formula <code>formula</code>. 
-    By default the variables are taken from <code><a href='https://rdrr.io/r/base/environment.html'>environment(formula)</a></code>.</p></td>
+    By default the variables are taken from <code>environment(formula)</code>.</p></td>
     </tr>
     <tr>
       <th>subset</th>
@@ -201,7 +201,7 @@
     </tr>
     <tr>
       <th>na.action</th>
-      <td><p>a function which indicates what should happen when the data contain NAs. Defaults to <code><a href='https://rdrr.io/r/base/options.html'>getOption("na.action")</a></code>.</p></td>
+      <td><p>a function which indicates what should happen when the data contain NAs. Defaults to <code>getOption("na.action")</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -216,7 +216,7 @@
   $$\sum_{k&lt;l} \sum_{ij} I(X_{ik} &lt; X_{jl}) + 0.5 I(X_{ik} =
     X_{jl}),$$ where \(i, j\) are observations in groups \(k\) and
   \(l\) respectively.  The asymptotic version is equivalent to
-  <code><a href='https://rdrr.io/r/stats/cor.test.html'>cor.test(x, g, method="k")</a></code>. The exact calculation requires that there
+  <code>cor.test(x, g, method="k")</code>. The exact calculation requires that there
   be no ties and that the sample size is less than 100. When data are
   tied and sample size is at most 100 permutation p-value is returned.<br /></p>
 <p>If x is a list, its elements are taken as the samples to be compared, and hence have to be numeric data vectors. 
@@ -240,42 +240,47 @@ integrated here without logical changes. Some argument checks and a formula inte
   <em>Indagationes Mathematicae</em> 14:327-333.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>1234</span><span class='op'>)</span>
-<span class='va'>g</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>ordered</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>10</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>50</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>0.3</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>g</span><span class='op'>)</span>
-
-<span class='fu'>JonckheereTerpstraTest</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>g</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in .Fortran("jtpdf", as.integer(mxsum), pdf = double(mxsum), as.integer(ng),     as.integer(cgsize), double(mxsum), double(mxsum)): Fortran symbol name "jtpdf" not in load table</span></div><div class='input'>
-<span class='va'>x</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span> <span class='co'># tied data</span>
-
-<span class='fu'>JonckheereTerpstraTest</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>g</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Sample size &gt; 100 or data with ties </span>
-#&gt; <span class='warning'> p-value based on normal approximation. Specify nperm for permutation p-value</span></div><div class='output co'>#&gt; 
-#&gt; 	Jonckheere-Terpstra test
-#&gt; 
-#&gt; data:  x and g
-#&gt; JT = 639, p-value = 0.01741
-#&gt; alternative hypothesis: two.sided
-#&gt; </div><div class='input'><span class='fu'>JonckheereTerpstraTest</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>g</span>, nperm<span class='op'>=</span><span class='fl'>5000</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	Jonckheere-Terpstra test
-#&gt; 
-#&gt; data:  x and g
-#&gt; JT = 639, p-value = 0.0136
-#&gt; alternative hypothesis: two.sided
-#&gt; </div><div class='input'>
-<span class='co'># Duller, S. 222</span>
-<span class='va'>coffee</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
-  time<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
-  <span class='fl'>447</span>,<span class='fl'>396</span>,<span class='fl'>383</span>,<span class='fl'>410</span>,
-  <span class='fl'>438</span>,<span class='fl'>521</span>,<span class='fl'>468</span>,<span class='fl'>391</span>,<span class='fl'>504</span>,<span class='fl'>472</span>,
-  <span class='fl'>513</span>,<span class='fl'>543</span>,<span class='fl'>506</span>,<span class='fl'>489</span>,<span class='fl'>407</span><span class='op'>)</span>, 
-  grp<span class='op'>=</span><span class='fu'><a href='Untable.html'>Untable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>,<span class='fl'>6</span>,<span class='fl'>5</span><span class='op'>)</span>, type<span class='op'>=</span><span class='st'>"ordered"</span><span class='op'>)</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span>
-<span class='op'>)</span>  
-
-<span class='co'># the formula interface:</span>
-<span class='fu'>JonckheereTerpstraTest</span><span class='op'>(</span><span class='va'>time</span> <span class='op'>~</span> <span class='va'>grp</span>, data<span class='op'>=</span><span class='va'>coffee</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in .Fortran("jtpdf", as.integer(mxsum), pdf = double(mxsum), as.integer(ng),     as.integer(cgsize), double(mxsum), double(mxsum)): Fortran symbol name "jtpdf" not in load table</span></div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>1234</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>g</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>ordered</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>10</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>50</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>0.3</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>g</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>JonckheereTerpstraTest</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>g</span><span class='op'>)</span></span>
+<span class='r-err co'><span class='r-pr'>#&gt;</span> <span class='error'>Error in .Fortran("jtpdf", as.integer(mxsum), pdf = double(mxsum), as.integer(ng),     as.integer(cgsize), double(mxsum), double(mxsum)):</span> Fortran symbol name "jtpdf" not in load table</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>x</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span> <span class='co'># tied data</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>JonckheereTerpstraTest</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>g</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>Sample size &gt; 100 or data with ties </span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span>  p-value based on normal approximation. Specify nperm for permutation p-value</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Jonckheere-Terpstra test</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  x and g</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> JT = 639, p-value = 0.01741</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> alternative hypothesis: two.sided</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'>JonckheereTerpstraTest</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>g</span>, nperm<span class='op'>=</span><span class='fl'>5000</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Jonckheere-Terpstra test</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  x and g</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> JT = 639, p-value = 0.0136</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> alternative hypothesis: two.sided</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Duller, S. 222</span></span>
+<span class='r-in'><span class='va'>coffee</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span></span>
+<span class='r-in'>  time<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span></span>
+<span class='r-in'>  <span class='fl'>447</span>,<span class='fl'>396</span>,<span class='fl'>383</span>,<span class='fl'>410</span>,</span>
+<span class='r-in'>  <span class='fl'>438</span>,<span class='fl'>521</span>,<span class='fl'>468</span>,<span class='fl'>391</span>,<span class='fl'>504</span>,<span class='fl'>472</span>,</span>
+<span class='r-in'>  <span class='fl'>513</span>,<span class='fl'>543</span>,<span class='fl'>506</span>,<span class='fl'>489</span>,<span class='fl'>407</span><span class='op'>)</span>, </span>
+<span class='r-in'>  grp<span class='op'>=</span><span class='fu'><a href='Untable.html'>Untable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>,<span class='fl'>6</span>,<span class='fl'>5</span><span class='op'>)</span>, type<span class='op'>=</span><span class='st'>"ordered"</span><span class='op'>)</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span></span>
+<span class='r-in'><span class='op'>)</span>  </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># the formula interface:</span></span>
+<span class='r-in'><span class='fu'>JonckheereTerpstraTest</span><span class='op'>(</span><span class='va'>time</span> <span class='op'>~</span> <span class='va'>grp</span>, data<span class='op'>=</span><span class='va'>coffee</span><span class='op'>)</span></span>
+<span class='r-err co'><span class='r-pr'>#&gt;</span> <span class='error'>Error in .Fortran("jtpdf", as.integer(mxsum), pdf = double(mxsum), as.integer(ng),     as.integer(cgsize), double(mxsum), double(mxsum)):</span> Fortran symbol name "jtpdf" not in load table</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -197,7 +197,7 @@
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The levels of a factor and describing variable labels (as created by <code><a href='Label, Unit.html'>Label</a></code>) will be wrapped within the columns.</p>
-<p>The first 4 columns are printed with the needed fix width, the last 2 (Levels and Labels) are wrapped within the column. The width is calculated depending on the width of the screen as given by <code><a href='https://rdrr.io/r/base/options.html'>getOption("width")</a></code>.</p>
+<p>The first 4 columns are printed with the needed fix width, the last 2 (Levels and Labels) are wrapped within the column. The width is calculated depending on the width of the screen as given by <code>getOption("width")</code>.</p>
 <p>ToWord has an interface for the class <code>abstract</code>.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
@@ -212,62 +212,63 @@ containing a sequential nr (Nr), the name of the column (ColName), the class (Cl
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/utils/str.html'>str</a></code>, <code><a href='https://rdrr.io/r/base/summary.html'>summary</a></code>, <code><a href='ColumnWrap.html'>ColumnWrap</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>d.mydata</span> <span class='op'>&lt;-</span> <span class='va'>d.pizza</span>
-<span class='co'># let's use some labels</span>
-<span class='fu'><a href='Label, Unit.html'>Label</a></span><span class='op'>(</span><span class='va'>d.mydata</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='st'>"Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-sed diam voluptua. At vero eos et accusam."</span>
-
-<span class='fu'><a href='Label, Unit.html'>Label</a></span><span class='op'>(</span><span class='va'>d.mydata</span><span class='op'>$</span><span class='va'>temperature</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='st'>"Amet, consetetur sadipscing elitr, sed diam nonumy "</span>
-
-<span class='fu'>Abstract</span><span class='op'>(</span><span class='va'>d.mydata</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; ------------------------------------------------------------------------------ 
-#&gt; d.mydata :
-#&gt;   Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-#&gt;   nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-#&gt;   erat, sed diam voluptua. At vero eos et accusam.
-#&gt; 
-#&gt; data frame:	1209 obs. of  16 variables
-#&gt; 		917 complete cases (75.8%)
-#&gt; 
-#&gt;   Nr  ColName         Class            NAs          Levels          Label     
-#&gt;   1   index           integer            .                          -         
-#&gt;   2   date            Date              32 (2.6%)                   -         
-#&gt;   3   week            numeric           32 (2.6%)                   -         
-#&gt;   4   weekday         numeric           32 (2.6%)                   -         
-#&gt;   5   area            factor            10 (0.8%)   (3):            -         
-#&gt;                                                     1-Brent,                  
-#&gt;                                                     2-Camden,                 
-#&gt;                                                     3-Westminst...            
-#&gt;   6   count           integer           12 (1.0%)                   -         
-#&gt;   7   rabate          logical           12 (1.0%)                   -         
-#&gt;   8   price           numeric           12 (1.0%)                   -         
-#&gt;   9   operator        factor             8 (0.7%)   (3):            -         
-#&gt;                                                     1-Allanah,                
-#&gt;                                                     2-Maria,                  
-#&gt;                                                     3-Rhonda                  
-#&gt;   10  driver          factor             5 (0.4%)   (7):            -         
-#&gt;                                                     1-Butcher,                
-#&gt;                                                     2-Carpenter...            
-#&gt;                                                     3-Carter,                 
-#&gt;                                                     4-Farmer,                 
-#&gt;                                                     5-Hunter,                 
-#&gt;                                                     ...                       
-#&gt;   11  delivery_min    numeric            .                          -         
-#&gt;   12  temperature     numeric           39 (3.2%)                   Amet,     
-#&gt;                                                                     consetetur
-#&gt;                                                                     sadipscing
-#&gt;                                                                     elitr, sed
-#&gt;                                                                     diam      
-#&gt;                                                                     nonumy    
-#&gt;   13  wine_ordered    integer           12 (1.0%)                   -         
-#&gt;   14  wine_delivered  integer           12 (1.0%)                   -         
-#&gt;   15  wrongpizza      logical            4 (0.3%)                   -         
-#&gt;   16  quality         ordered, factor  201 (16.6%)  (3):            -         
-#&gt;                                                     1-low,                    
-#&gt;                                                     2-medium,                 
-#&gt;                                                     3-high                    
-#&gt; </div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>d.mydata</span> <span class='op'>&lt;-</span> <span class='va'>d.pizza</span></span>
+<span class='r-in'><span class='co'># let's use some labels</span></span>
+<span class='r-in'><span class='fu'><a href='Label, Unit.html'>Label</a></span><span class='op'>(</span><span class='va'>d.mydata</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='st'>"Lorem ipsum dolor sit amet, consetetur sadipscing elitr,</span>
+<span class='r-in'>sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,</span>
+<span class='r-in'>sed diam voluptua. At vero eos et accusam."</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='Label, Unit.html'>Label</a></span><span class='op'>(</span><span class='va'>d.mydata</span><span class='op'>$</span><span class='va'>temperature</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='st'>"Amet, consetetur sadipscing elitr, sed diam nonumy "</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>Abstract</span><span class='op'>(</span><span class='va'>d.mydata</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ------------------------------------------------------------------------------ </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> d.mydata :</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   erat, sed diam voluptua. At vero eos et accusam.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data frame:	1209 obs. of  16 variables</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 		917 complete cases (75.8%)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Nr  ColName         Class            NAs          Levels          Label     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1   index           integer            .                          -         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2   date            Date              32 (2.6%)                   -         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3   week            numeric           32 (2.6%)                   -         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4   weekday         numeric           32 (2.6%)                   -         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5   area            factor            10 (0.8%)   (3):            -         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                     1-Brent,                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                     2-Camden,                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                     3-Westminst...            </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   6   count           integer           12 (1.0%)                   -         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   7   rabate          logical           12 (1.0%)                   -         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   8   price           numeric           12 (1.0%)                   -         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   9   operator        factor             8 (0.7%)   (3):            -         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                     1-Allanah,                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                     2-Maria,                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                     3-Rhonda                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   10  driver          factor             5 (0.4%)   (7):            -         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                     1-Butcher,                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                     2-Carpenter...            </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                     3-Carter,                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                     4-Farmer,                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                     5-Hunter,                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                     ...                       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   11  delivery_min    numeric            .                          -         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   12  temperature     numeric           39 (3.2%)                   Amet,     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                                     consetetur</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                                     sadipscing</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                                     elitr, sed</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                                     diam      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                                     nonumy    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   13  wine_ordered    integer           12 (1.0%)                   -         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   14  wine_delivered  integer           12 (1.0%)                   -         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   15  wrongpizza      logical            4 (0.3%)                   -         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   16  quality         ordered, factor  201 (16.6%)  (3):            -         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                     1-low,                    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                     2-medium,                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                     3-high                    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

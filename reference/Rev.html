@@ -75,7 +75,7 @@ Unlike the basic function, it does in higher-dimensional structures such as matr
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -196,117 +196,126 @@ Unlike the basic function, it does in higher-dimensional structures such as matr
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/rev.html'>rev</a></code>, <code><a href='https://rdrr.io/r/base/order.html'>order</a></code>, <code><a href='https://rdrr.io/r/base/sort.html'>sort</a></code>, <code><a href='https://rdrr.io/r/base/seq.html'>seq</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>tab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>11</span>, <span class='fl'>111</span>,
-                <span class='fl'>2</span>, <span class='fl'>22</span>, <span class='fl'>222</span>,
-                <span class='fl'>3</span>, <span class='fl'>33</span>, <span class='fl'>333</span><span class='op'>)</span>, 
-              byrow<span class='op'>=</span><span class='cn'>TRUE</span>, nrow<span class='op'>=</span><span class='fl'>3</span>,
-              dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mar1<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, mar2<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>,<span class='st'>"b"</span>,<span class='st'>"c"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='fu'>Rev</span><span class='op'>(</span><span class='va'>tab</span>, margin<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;     mar2
-#&gt; mar1 a  b   c
-#&gt;    3 3 33 333
-#&gt;    2 2 22 222
-#&gt;    1 1 11 111</div><div class='input'><span class='fu'>Rev</span><span class='op'>(</span><span class='va'>tab</span>, margin<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;     mar2
-#&gt; mar1   c  b a
-#&gt;    1 111 11 1
-#&gt;    2 222 22 2
-#&gt;    3 333 33 3</div><div class='input'>
-<span class='co'># reverse both dimensions</span>
-<span class='fu'>Rev</span><span class='op'>(</span><span class='va'>tab</span>, margin<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;     mar2
-#&gt; mar1   c  b a
-#&gt;    3 333 33 3
-#&gt;    2 222 22 2
-#&gt;    1 111 11 1</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='va'>tab</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;     mar1
-#&gt; mar2   1   2   3
-#&gt;    a   1   2   3
-#&gt;    b  11  22  33
-#&gt;    c 111 222 333</div><div class='input'>
-<span class='co'># reverse 3dimensional array</span>
-<span class='va'>aa</span> <span class='op'>&lt;-</span> <span class='fu'><a href='Abind.html'>Abind</a></span><span class='op'>(</span><span class='va'>tab</span>, <span class='fl'>2</span> <span class='op'>*</span> <span class='va'>tab</span>, along<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span><span class='op'>(</span><span class='va'>aa</span><span class='op'>)</span><span class='op'>[[</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>,<span class='st'>"Z"</span><span class='op'>)</span>
-
-<span class='co'># reverse rows</span>
-<span class='fu'>Rev</span><span class='op'>(</span><span class='va'>aa</span>, <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; , , A
-#&gt; 
-#&gt;   a  b   c
-#&gt; 3 3 33 333
-#&gt; 2 2 22 222
-#&gt; 1 1 11 111
-#&gt; 
-#&gt; , , Z
-#&gt; 
-#&gt;   a  b   c
-#&gt; 3 6 66 666
-#&gt; 2 4 44 444
-#&gt; 1 2 22 222
-#&gt; </div><div class='input'><span class='co'># reverse columns</span>
-<span class='fu'>Rev</span><span class='op'>(</span><span class='va'>aa</span>, <span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; , , A
-#&gt; 
-#&gt;     c  b a
-#&gt; 1 111 11 1
-#&gt; 2 222 22 2
-#&gt; 3 333 33 3
-#&gt; 
-#&gt; , , Z
-#&gt; 
-#&gt;     c  b a
-#&gt; 1 222 22 2
-#&gt; 2 444 44 4
-#&gt; 3 666 66 6
-#&gt; </div><div class='input'><span class='co'># reverse 3th dimension</span>
-<span class='fu'>Rev</span><span class='op'>(</span><span class='va'>aa</span>, <span class='fl'>3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; , , Z
-#&gt; 
-#&gt;   a  b   c
-#&gt; 1 2 22 222
-#&gt; 2 4 44 444
-#&gt; 3 6 66 666
-#&gt; 
-#&gt; , , A
-#&gt; 
-#&gt;   a  b   c
-#&gt; 1 1 11 111
-#&gt; 2 2 22 222
-#&gt; 3 3 33 333
-#&gt; </div><div class='input'>
-<span class='co'># reverse all dimensions</span>
-<span class='fu'>Rev</span><span class='op'>(</span><span class='va'>aa</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; , , Z
-#&gt; 
-#&gt;     c  b a
-#&gt; 3 666 66 6
-#&gt; 2 444 44 4
-#&gt; 1 222 22 2
-#&gt; 
-#&gt; , , A
-#&gt; 
-#&gt;     c  b a
-#&gt; 3 333 33 3
-#&gt; 2 222 22 2
-#&gt; 1 111 11 1
-#&gt; </div><div class='input'><span class='co'># same as</span>
-<span class='fu'>Rev</span><span class='op'>(</span><span class='va'>aa</span>, margin<span class='op'>=</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; , , Z
-#&gt; 
-#&gt;     c  b a
-#&gt; 3 666 66 6
-#&gt; 2 444 44 4
-#&gt; 1 222 22 2
-#&gt; 
-#&gt; , , A
-#&gt; 
-#&gt;     c  b a
-#&gt; 3 333 33 3
-#&gt; 2 222 22 2
-#&gt; 1 111 11 1
-#&gt; </div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>tab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>11</span>, <span class='fl'>111</span>,</span>
+<span class='r-in'>                <span class='fl'>2</span>, <span class='fl'>22</span>, <span class='fl'>222</span>,</span>
+<span class='r-in'>                <span class='fl'>3</span>, <span class='fl'>33</span>, <span class='fl'>333</span><span class='op'>)</span>, </span>
+<span class='r-in'>              byrow<span class='op'>=</span><span class='cn'>TRUE</span>, nrow<span class='op'>=</span><span class='fl'>3</span>,</span>
+<span class='r-in'>              dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mar1<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, mar2<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>,<span class='st'>"b"</span>,<span class='st'>"c"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>Rev</span><span class='op'>(</span><span class='va'>tab</span>, margin<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     mar2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> mar1 a  b   c</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    3 3 33 333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    2 2 22 222</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    1 1 11 111</span>
+<span class='r-in'><span class='fu'>Rev</span><span class='op'>(</span><span class='va'>tab</span>, margin<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     mar2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> mar1   c  b a</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    1 111 11 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    2 222 22 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    3 333 33 3</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># reverse both dimensions</span></span>
+<span class='r-in'><span class='fu'>Rev</span><span class='op'>(</span><span class='va'>tab</span>, margin<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     mar2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> mar1   c  b a</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    3 333 33 3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    2 222 22 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    1 111 11 1</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='va'>tab</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     mar1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> mar2   1   2   3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    a   1   2   3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    b  11  22  33</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    c 111 222 333</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># reverse 3dimensional array</span></span>
+<span class='r-in'><span class='va'>aa</span> <span class='op'>&lt;-</span> <span class='fu'><a href='Abind.html'>Abind</a></span><span class='op'>(</span><span class='va'>tab</span>, <span class='fl'>2</span> <span class='op'>*</span> <span class='va'>tab</span>, along<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span><span class='op'>(</span><span class='va'>aa</span><span class='op'>)</span><span class='op'>[[</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>,<span class='st'>"Z"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># reverse rows</span></span>
+<span class='r-in'><span class='fu'>Rev</span><span class='op'>(</span><span class='va'>aa</span>, <span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , A</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   a  b   c</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 3 33 333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 2 22 222</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 1 11 111</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , Z</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   a  b   c</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 6 66 666</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 4 44 444</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 2 22 222</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='co'># reverse columns</span></span>
+<span class='r-in'><span class='fu'>Rev</span><span class='op'>(</span><span class='va'>aa</span>, <span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , A</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     c  b a</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 111 11 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 222 22 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 333 33 3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , Z</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     c  b a</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 222 22 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 444 44 4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 666 66 6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='co'># reverse 3th dimension</span></span>
+<span class='r-in'><span class='fu'>Rev</span><span class='op'>(</span><span class='va'>aa</span>, <span class='fl'>3</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , Z</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   a  b   c</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 2 22 222</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 4 44 444</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 6 66 666</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , A</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   a  b   c</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 1 11 111</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 2 22 222</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 3 33 333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># reverse all dimensions</span></span>
+<span class='r-in'><span class='fu'>Rev</span><span class='op'>(</span><span class='va'>aa</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , Z</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     c  b a</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 666 66 6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 444 44 4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 222 22 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , A</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     c  b a</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 333 33 3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 222 22 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 111 11 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='co'># same as</span></span>
+<span class='r-in'><span class='fu'>Rev</span><span class='op'>(</span><span class='va'>aa</span>, margin<span class='op'>=</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , Z</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     c  b a</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 666 66 6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 444 44 4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 222 22 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , A</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     c  b a</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 333 33 3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 222 22 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 111 11 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

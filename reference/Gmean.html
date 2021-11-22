@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -202,11 +202,11 @@
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>To compute the geometric mean, <code><a href='https://rdrr.io/r/base/Log.html'>log(x)</a></code> is first calculated, before the arithmetic mean and its confidence interval are computed by <code><a href='MeanCI.html'>MeanCI</a></code>.</p>
+    <p>To compute the geometric mean, <code>log(x)</code> is first calculated, before the arithmetic mean and its confidence interval are computed by <code><a href='MeanCI.html'>MeanCI</a></code>.</p>
 <p>So the geometric mean and geometric sd are restricted to positive inputs (because otherwise the answer can have an imaginary component). Hence if any argument is negative, the result will be <code>NA</code>. If any argument is zero, then the geometric mean is zero.<br /></p>
 <p>The geometric mean is defined as
 $$\sqrt[n]{x_{1}\cdot x_{2}\cdot x_{3} \ldots \cdot x_{n}}$$</p>
-<p>and its confidence interval is given as <code><a href='https://rdrr.io/r/base/Log.html'>exp(MeanCI(log(x)))</a></code>.</p>
+<p>and its confidence interval is given as <code>exp(MeanCI(log(x)))</code>.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a numeric value.</p>
@@ -223,15 +223,18 @@ $$\sqrt[n]{x_{1}\cdot x_{2}\cdot x_{3} \ldots \cdot x_{n}}$$</p>
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>
-<span class='fu'>Gmean</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.5757935</div><div class='input'>
-<span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>50</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>m</span>, <span class='fl'>2</span>, <span class='va'>Gmean</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.3124452 0.2588343 0.2198648 0.6325116 0.2296664</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>m</span><span class='op'>)</span>, <span class='va'>Gmean</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;        V1        V2        V3        V4        V5 
-#&gt; 0.3124452 0.2588343 0.2198648 0.6325116 0.2296664 </div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>Gmean</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.5757935</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>50</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>m</span>, <span class='fl'>2</span>, <span class='va'>Gmean</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.3124452 0.2588343 0.2198648 0.6325116 0.2296664</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>m</span><span class='op'>)</span>, <span class='va'>Gmean</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        V1        V2        V3        V4        V5 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.3124452 0.2588343 0.2198648 0.6325116 0.2296664 </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

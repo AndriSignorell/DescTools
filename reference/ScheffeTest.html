@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -211,7 +211,7 @@
       <td><p>an optional matrix or data frame (or similar: see
     <code><a href='https://rdrr.io/r/stats/model.frame.html'>model.frame</a></code>) containing the variables in the
     formula <code>formula</code>.  By default the variables are taken from
-    <code><a href='https://rdrr.io/r/base/environment.html'>environment(formula)</a></code>.</p></td>
+    <code>environment(formula)</code>.</p></td>
     </tr>
     <tr>
       <th>subset</th>
@@ -222,7 +222,7 @@
       <th>na.action</th>
       <td><p>a function which indicates what should happen when
     the data contain <code>NA</code>s.  Defaults to
-    <code><a href='https://rdrr.io/r/base/options.html'>getOption("na.action")</a></code>.</p></td>
+    <code>getOption("na.action")</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -233,7 +233,7 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list of classes <code><a href='https://rdrr.io/r/base/c.html'>c("PostHocTest")</a></code>, with one component for each term requested in <code>which</code>. Each component is a matrix with columns <code>diff</code> giving the difference in the observed means, <code>lwr.ci</code> giving the lower end point of the interval, <code>upr.ci</code> giving the upper end point and <code>pval</code> giving the p-value after adjustment for the multiple comparisons.</p>
+    <p>A list of classes <code>c("PostHocTest")</code>, with one component for each term requested in <code>which</code>. Each component is a matrix with columns <code>diff</code> giving the difference in the observed means, <code>lwr.ci</code> giving the lower end point of the interval, <code>upr.ci</code> giving the upper end point and <code>pval</code> giving the p-value after adjustment for the multiple comparisons.</p>
 <p>There are print and plot methods for class <code>"PostHocTest"</code>. The plot method does not accept <code>xlab</code>, <code>ylab</code> or <code>main</code> arguments and creates its own values for each plot.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -249,92 +249,97 @@
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>fm1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span><span class='op'>(</span><span class='va'>breaks</span> <span class='op'>~</span> <span class='va'>wool</span> <span class='op'>+</span> <span class='va'>tension</span>, data <span class='op'>=</span> <span class='va'>warpbreaks</span><span class='op'>)</span>
-
-<span class='fu'>ScheffeTest</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>fm1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;   Posthoc multiple comparisons of means: Scheffe Test 
-#&gt;     95% family-wise confidence level
-#&gt; 
-#&gt; $wool
-#&gt;          diff    lwr.ci   upr.ci   pval    
-#&gt; B-A -5.777778 -14.92513 3.369576 0.3526    
-#&gt; 
-#&gt; $tension
-#&gt;           diff    lwr.ci    upr.ci   pval    
-#&gt; M-L -10.000000 -21.20317  1.203174 0.0970 .  
-#&gt; H-L -14.722222 -25.92540 -3.519048 0.0050 ** 
-#&gt; H-M  -4.722222 -15.92540  6.480952 0.6869    
-#&gt; 
-#&gt; ---
-#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-#&gt; </div><div class='input'><span class='fu'>ScheffeTest</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>fm1</span>, which<span class='op'>=</span><span class='st'>"tension"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;   Posthoc multiple comparisons of means: Scheffe Test 
-#&gt;     95% family-wise confidence level
-#&gt; 
-#&gt; $tension
-#&gt;           diff    lwr.ci    upr.ci   pval    
-#&gt; M-L -10.000000 -21.20317  1.203174 0.0970 .  
-#&gt; H-L -14.722222 -25.92540 -3.519048 0.0050 ** 
-#&gt; H-M  -4.722222 -15.92540  6.480952 0.6869    
-#&gt; 
-#&gt; ---
-#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-#&gt; </div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/stats/TukeyHSD.html'>TukeyHSD</a></span><span class='op'>(</span><span class='va'>fm1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   Tukey multiple comparisons of means
-#&gt;     95% family-wise confidence level
-#&gt; 
-#&gt; Fit: aov(formula = breaks ~ wool + tension, data = warpbreaks)
-#&gt; 
-#&gt; $wool
-#&gt;          diff       lwr       upr     p adj
-#&gt; B-A -5.777778 -12.12841 0.5728505 0.0736137
-#&gt; 
-#&gt; $tension
-#&gt;           diff       lwr        upr     p adj
-#&gt; M-L -10.000000 -19.35342 -0.6465793 0.0336262
-#&gt; H-L -14.722222 -24.07564 -5.3688015 0.0011218
-#&gt; H-M  -4.722222 -14.07564  4.6311985 0.4474210
-#&gt; </div><div class='input'>
-<span class='co'># some special contrasts</span>
-<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>7</span>,<span class='fl'>33</span>,<span class='fl'>26</span>,<span class='fl'>27</span>,<span class='fl'>21</span>,<span class='fl'>6</span>,<span class='fl'>14</span>,<span class='fl'>19</span>,<span class='fl'>6</span>,<span class='fl'>11</span>,<span class='fl'>11</span>,<span class='fl'>18</span>,<span class='fl'>14</span>,<span class='fl'>18</span>,<span class='fl'>19</span>,<span class='fl'>14</span>,<span class='fl'>9</span>,<span class='fl'>12</span>,<span class='fl'>6</span>,
-       <span class='fl'>24</span>,<span class='fl'>7</span>,<span class='fl'>10</span>,<span class='fl'>1</span>,<span class='fl'>10</span>,<span class='fl'>42</span>,<span class='fl'>25</span>,<span class='fl'>8</span>,<span class='fl'>28</span>,<span class='fl'>30</span>,<span class='fl'>22</span>,<span class='fl'>17</span>,<span class='fl'>32</span>,<span class='fl'>28</span>,<span class='fl'>6</span>,<span class='fl'>1</span>,<span class='fl'>15</span>,<span class='fl'>9</span>,<span class='fl'>15</span>,
-       <span class='fl'>2</span>,<span class='fl'>37</span>,<span class='fl'>13</span>,<span class='fl'>18</span>,<span class='fl'>23</span>,<span class='fl'>1</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>6</span>,<span class='fl'>2</span><span class='op'>)</span>
-<span class='va'>group</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,
-       <span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>6</span>,<span class='fl'>6</span>,<span class='fl'>6</span>,<span class='fl'>6</span>,<span class='fl'>6</span>,<span class='fl'>6</span>,<span class='fl'>6</span>,<span class='fl'>6</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='va'>r.aov</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>group</span><span class='op'>)</span>
-
-<span class='fu'>ScheffeTest</span><span class='op'>(</span><span class='va'>r.aov</span>, contrasts<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='op'>-</span><span class='fl'>0.5</span>,<span class='op'>-</span><span class='fl'>0.5</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,
-                                       <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='op'>-</span><span class='fl'>0.5</span>,<span class='op'>-</span><span class='fl'>0.5</span><span class='op'>)</span>, ncol<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span> <span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;   Posthoc multiple comparisons of means: Scheffe Test 
-#&gt;     95% family-wise confidence level
-#&gt; 
-#&gt; $group
-#&gt;          diff    lwr.ci   upr.ci   pval    
-#&gt; 1-2,3  7.2500 -6.417446 20.91745 0.6367    
-#&gt; 4-5,6 14.0625  0.395054 27.72995 0.0401 *  
-#&gt; 
-#&gt; ---
-#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-#&gt; </div><div class='input'>
-<span class='co'># just p-values:</span>
-<span class='fu'>ScheffeTest</span><span class='op'>(</span><span class='va'>r.aov</span>, conf.level<span class='op'>=</span><span class='cn'>NA</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;   Posthoc multiple comparisons of means: Scheffe Test 
-#&gt; 
-#&gt; $group
-#&gt;   1     2     3     4     5    
-#&gt; 2 0.927 -     -     -     -    
-#&gt; 3 0.531 0.977 -     -     -    
-#&gt; 4 0.848 0.273 0.054 -     -    
-#&gt; 5 0.940 1.000 0.970 0.296 -    
-#&gt; 6 0.400 0.934 1.000 0.031 0.920
-#&gt; 
-#&gt; </div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>fm1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span><span class='op'>(</span><span class='va'>breaks</span> <span class='op'>~</span> <span class='va'>wool</span> <span class='op'>+</span> <span class='va'>tension</span>, data <span class='op'>=</span> <span class='va'>warpbreaks</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>ScheffeTest</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>fm1</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Posthoc multiple comparisons of means: Scheffe Test </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     95% family-wise confidence level</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $wool</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          diff    lwr.ci   upr.ci   pval    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> B-A -5.777778 -14.92513 3.369576 0.3526    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $tension</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           diff    lwr.ci    upr.ci   pval    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> M-L -10.000000 -21.20317  1.203174 0.0970 .  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> H-L -14.722222 -25.92540 -3.519048 0.0050 ** </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> H-M  -4.722222 -15.92540  6.480952 0.6869    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ---</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'>ScheffeTest</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>fm1</span>, which<span class='op'>=</span><span class='st'>"tension"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Posthoc multiple comparisons of means: Scheffe Test </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     95% family-wise confidence level</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $tension</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           diff    lwr.ci    upr.ci   pval    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> M-L -10.000000 -21.20317  1.203174 0.0970 .  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> H-L -14.722222 -25.92540 -3.519048 0.0050 ** </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> H-M  -4.722222 -15.92540  6.480952 0.6869    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ---</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/stats/TukeyHSD.html'>TukeyHSD</a></span><span class='op'>(</span><span class='va'>fm1</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Tukey multiple comparisons of means</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     95% family-wise confidence level</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Fit: aov(formula = breaks ~ wool + tension, data = warpbreaks)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $wool</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          diff       lwr       upr     p adj</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> B-A -5.777778 -12.12841 0.5728505 0.0736137</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $tension</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           diff       lwr        upr     p adj</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> M-L -10.000000 -19.35342 -0.6465793 0.0336262</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> H-L -14.722222 -24.07564 -5.3688015 0.0011218</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> H-M  -4.722222 -14.07564  4.6311985 0.4474210</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># some special contrasts</span></span>
+<span class='r-in'><span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>7</span>,<span class='fl'>33</span>,<span class='fl'>26</span>,<span class='fl'>27</span>,<span class='fl'>21</span>,<span class='fl'>6</span>,<span class='fl'>14</span>,<span class='fl'>19</span>,<span class='fl'>6</span>,<span class='fl'>11</span>,<span class='fl'>11</span>,<span class='fl'>18</span>,<span class='fl'>14</span>,<span class='fl'>18</span>,<span class='fl'>19</span>,<span class='fl'>14</span>,<span class='fl'>9</span>,<span class='fl'>12</span>,<span class='fl'>6</span>,</span>
+<span class='r-in'>       <span class='fl'>24</span>,<span class='fl'>7</span>,<span class='fl'>10</span>,<span class='fl'>1</span>,<span class='fl'>10</span>,<span class='fl'>42</span>,<span class='fl'>25</span>,<span class='fl'>8</span>,<span class='fl'>28</span>,<span class='fl'>30</span>,<span class='fl'>22</span>,<span class='fl'>17</span>,<span class='fl'>32</span>,<span class='fl'>28</span>,<span class='fl'>6</span>,<span class='fl'>1</span>,<span class='fl'>15</span>,<span class='fl'>9</span>,<span class='fl'>15</span>,</span>
+<span class='r-in'>       <span class='fl'>2</span>,<span class='fl'>37</span>,<span class='fl'>13</span>,<span class='fl'>18</span>,<span class='fl'>23</span>,<span class='fl'>1</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>6</span>,<span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>group</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,</span>
+<span class='r-in'>       <span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>6</span>,<span class='fl'>6</span>,<span class='fl'>6</span>,<span class='fl'>6</span>,<span class='fl'>6</span>,<span class='fl'>6</span>,<span class='fl'>6</span>,<span class='fl'>6</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>r.aov</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>group</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>ScheffeTest</span><span class='op'>(</span><span class='va'>r.aov</span>, contrasts<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='op'>-</span><span class='fl'>0.5</span>,<span class='op'>-</span><span class='fl'>0.5</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,</span>
+<span class='r-in'>                                       <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='op'>-</span><span class='fl'>0.5</span>,<span class='op'>-</span><span class='fl'>0.5</span><span class='op'>)</span>, ncol<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span> <span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Posthoc multiple comparisons of means: Scheffe Test </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     95% family-wise confidence level</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $group</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          diff    lwr.ci   upr.ci   pval    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1-2,3  7.2500 -6.417446 20.91745 0.6367    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4-5,6 14.0625  0.395054 27.72995 0.0401 *  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ---</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># just p-values:</span></span>
+<span class='r-in'><span class='fu'>ScheffeTest</span><span class='op'>(</span><span class='va'>r.aov</span>, conf.level<span class='op'>=</span><span class='cn'>NA</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Posthoc multiple comparisons of means: Scheffe Test </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $group</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1     2     3     4     5    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 0.927 -     -     -     -    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 0.531 0.977 -     -     -    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 0.848 0.273 0.054 -     -    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 0.940 1.000 0.970 0.296 -    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6 0.400 0.934 1.000 0.031 0.920</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

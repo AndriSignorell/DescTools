@@ -79,7 +79,7 @@ There's also an easygoing interface for format templates, defined as a list cons
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -210,7 +210,7 @@ The <code>Format()</code> function wraps all these functions and tries to offer 
     <tr>
       <th>sci</th>
       <td><p>integer. The power of 10 to be set when deciding to print numeric values in exponential notation. Fixed notation will be preferred unless the number is larger than 10^scipen. If just one value is set it will be used for the left border 10^(-scipen) as well as for the right one (10^scipen). A negative and a positive value can also be set independently. Default is
-  <code><a href='https://rdrr.io/r/base/options.html'>getOption("scipen")</a></code>, whereas <code>scipen=0</code> is overridden.
+  <code>getOption("scipen")</code>, whereas <code>scipen=0</code> is overridden.
 <!-- %%     ~~Describe \code{sci} here~~ --></p></td>
     </tr>
     <tr>
@@ -303,12 +303,12 @@ The argument <code>fmt</code> is very flexible and is used to generate a variety
 <tr><td>Use <code>eps</code> to define the threshold to switch to a <code> &lt; 000 </code> representation.</td><td></td><td></td></tr>
 <tr><td><code>frac</code></td><td>fractions</td><td>will (try to) convert numbers to fractions. So 0.1 will be displayed as 1/10.</td></tr>
 <tr><td></td><td></td><td>See <code><a href='https://rdrr.io/pkg/MASS/man/fractions.html'>fractions</a>()</code>.</td></tr>
-<tr><td></td><td></td><td><code><a href='https://rdrr.io/r/base/Arithmetic.html'>*</a></code></td></tr>
+<tr><td></td><td></td><td><code>*</code></td></tr>
 <tr><td>significance</td><td>will produce a significance representation of a p-value consisting of *  and .,</td><td></td></tr>
 <tr><td></td><td>while the breaks are set according to the used defaults e.g. in <code>lm</code> as</td><td></td></tr>
 <tr><td></td><td>[0, 0.001] = <code>***</code></td><td></td></tr>
 <tr><td></td><td>(0.001, 0.01] = <code>**</code></td><td></td></tr>
-<tr><td></td><td>(0.01, 0.05] = <code><a href='https://rdrr.io/r/base/Arithmetic.html'>*</a></code></td><td></td></tr>
+<tr><td></td><td>(0.01, 0.05] = <code>*</code></td><td></td></tr>
 <tr><td></td><td>(0.05, 0.1] = <code>.</code></td><td></td></tr>
 <tr><td></td><td>(0.1,1] = <code> </code></td><td><code>p*</code></td></tr>
 </table>
@@ -324,7 +324,7 @@ Format(12222.89345, fmt=myNumFmt) = 12,222.89</pre><p>The latter returns the sam
 <p>Many report functions (e.g. <code><a href='TOne.html'>TOne</a>()</code>) in <b>DescTools</b> use three default formats for counts (named <code>"abs"</code>), numeric values (<code>"num"</code>) and percentages (<code>"per"</code>). These formats can be set by the user as options (see <code><a href='DescToolsOptions.html'>DescToolsOptions</a>()</code>. For other purposes any number of any named formats can be defined.</p>
 <p><code>Fmt()</code> is used to access and edit already defined Formats. It can directly adapt defined properties and returns the format template. <code>Fmt("num", digits=1, sci=10)</code> will use the current version of the numeric format and change the digits to 1 and the threshold to switch to scientifc presentation to numbers &gt;1e10 and &lt;1e-10.
 Format templates can be altered using their names. With <code>Fmt(abs=Fmt("abs", big.mark=" "))</code> the format template for count values <code>"abs"</code> will be overwritten with the new values and stored as option for the current session.</p>
-<p>The formats can as well be organized as options. <code><a href='DescToolsOptions.html'>DescToolsOptions("fmt")</a></code> would display the currently defined formats. This mechanic works analogously to the <code><a href='https://rdrr.io/r/base/options.html'>options()</a></code> procedure of base R. So to store the current settings we can use</p><pre>opt &lt;- DescToolsOptions("fmt")
+<p>The formats can as well be organized as options. <code>DescToolsOptions("fmt")</code> would display the currently defined formats. This mechanic works analogously to the <code><a href='https://rdrr.io/r/base/options.html'>options()</a></code> procedure of base R. So to store the current settings we can use</p><pre>opt &lt;- DescToolsOptions("fmt")
 ... do some stuff like redefining the global formats ...
 DescToolOptions(opt)  </pre><p>The last command resets the options and so we have again the initial definitions for the format templates.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -349,165 +349,184 @@ If <code>x</code> was a <code>matrix</code>, then a the result will also be a <c
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>Format</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2014-11-28"</span>, <span class='st'>"2014-1-2"</span><span class='op'>)</span><span class='op'>)</span>, fmt<span class='op'>=</span><span class='st'>"ddd, d mmmm yyyy"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] Fri, 28 November 2014  Thu,  2 January 2014</div><div class='input'><span class='fu'>Format</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2014-11-28"</span>, <span class='st'>"2014-1-2"</span><span class='op'>)</span><span class='op'>)</span>, fmt<span class='op'>=</span><span class='st'>"ddd, d mmmm yyyy"</span>, lang<span class='op'>=</span><span class='st'>"engl"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] Fri, 28 November 2014  Thu,  2 January 2014</div><div class='input'>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='va'>pi</span> <span class='op'>*</span> <span class='fl'>10</span><span class='op'>^</span><span class='op'>(</span><span class='op'>-</span><span class='fl'>10</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span>
-
-<span class='fu'>Format</span><span class='op'>(</span><span class='va'>x</span>, digits<span class='op'>=</span><span class='fl'>3</span>, fmt<span class='op'>=</span><span class='st'>"%"</span>, sci<span class='op'>=</span><span class='cn'>NA</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1]             0.000%             0.000%             0.000%             0.000%
-#&gt;  [5]             0.000%             0.003%             0.031%             0.314%
-#&gt;  [9]             3.142%            31.416%           314.159%          3141.593%
-#&gt; [13]         31415.927%        314159.265%       3141592.654%      31415926.536%
-#&gt; [17]     314159265.359%    3141592653.590%   31415926535.898%  314159265358.979%
-#&gt; [21] 3141592653589.793%</div><div class='input'><span class='fu'>Format</span><span class='op'>(</span><span class='va'>x</span>, digits<span class='op'>=</span><span class='fl'>4</span>, sci<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>, <span class='fl'>6</span><span class='op'>)</span>, ldigits<span class='op'>=</span><span class='fl'>0</span>, width<span class='op'>=</span><span class='fl'>9</span>, align<span class='op'>=</span><span class='st'>"."</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1]    3.1416e-10    3.1416e-09    3.1416e-08    3.1416e-07     .0000    
-#&gt;  [6]     .0000         .0003         .0031         .0314         .3142    
-#&gt; [11]    3.1416       31.4159      314.1593     3141.5927        3.1416e+04
-#&gt; [16]    3.1416e+05    3.1416e+06    3.1416e+07    3.1416e+08    3.1416e+09
-#&gt; [21]    3.1416e+10</div><div class='input'>
-
-<span class='co'># format a matrix</span>
-<span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span>, nrow<span class='op'>=</span><span class='fl'>10</span>,
-            dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>LETTERS</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>]</span>, <span class='va'>LETTERS</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='fu'>Format</span><span class='op'>(</span><span class='va'>m</span>, digits<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;     A   B   C   D   E   F   G   H   I   J
-#&gt; A 0.5 0.2 0.4 0.2 0.9 0.2 0.2 0.9 0.4 0.1
-#&gt; B 0.9 0.7 0.5 0.6 0.3 0.4 0.1 0.8 0.8 0.5
-#&gt; C 0.2 0.9 0.8 0.8 0.6 0.9 0.9 0.9 0.9 0.7
-#&gt; D 0.5 0.9 0.2 0.7 0.9 1.0 0.4 0.2 0.4 1.0
-#&gt; E 0.2 0.5 0.7 0.8 1.0 0.4 0.8 0.4 0.6 0.4
-#&gt; F 1.0 0.7 1.0 0.7 0.5 0.6 0.4 0.3 0.9 0.1
-#&gt; G 0.8 1.0 0.5 0.6 0.6 0.4 0.1 0.1 0.8 0.1
-#&gt; H 0.5 0.2 0.3 0.4 0.6 0.9 0.9 0.7 0.3 0.9
-#&gt; I 0.3 0.2 0.5 0.6 0.1 0.7 0.5 0.6 0.2 0.2
-#&gt; J 0.8 0.4 0.7 0.4 0.7 0.9 0.9 0.1 0.0 0.6
-#&gt; attr(,"class")
-#&gt; [1] matrix  array</div><div class='input'>
-<span class='co'># engineering format</span>
-<span class='fu'>Format</span><span class='op'>(</span><span class='va'>x</span>, fmt<span class='op'>=</span><span class='st'>"eng"</span>,  digits<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1] 314.16e-12   3.14e-09  31.42e-09 314.16e-09   3.14e-06  31.42e-06
-#&gt;  [7] 314.16e-06   3.14e-03  31.42e-03 314.16e-03   3.14e+00  31.42e+00
-#&gt; [13] 314.16e+00   3.14e+03  31.42e+03 314.16e+03   3.14e+06  31.42e+06
-#&gt; [19] 314.16e+06   3.14e+09  31.42e+09</div><div class='input'><span class='fu'>Format</span><span class='op'>(</span><span class='va'>x</span>, fmt<span class='op'>=</span><span class='st'>"engabb"</span>, ldigits<span class='op'>=</span><span class='fl'>2</span>, digits<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1] 314.16 p  03.14 n  31.42 n 314.16 n  03.14 u  31.42 u 314.16 u  03.14 m
-#&gt;  [9]  31.42 m 314.16 m   03.14    31.42   314.16   03.14 k  31.42 k 314.16 k
-#&gt; [17]  03.14 M  31.42 M 314.16 M  03.14 G  31.42 G</div><div class='input'><span class='co'># combine with grams [g]</span>
-<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='fu'>Format</span><span class='op'>(</span><span class='va'>x</span>, fmt<span class='op'>=</span><span class='st'>"engabb"</span>, ldigits<span class='op'>=</span><span class='fl'>2</span>, digits<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>, <span class='st'>"g"</span>, sep<span class='op'>=</span><span class='st'>""</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1] "314.16 pg" "03.14 ng"  "31.42 ng"  "314.16 ng" "03.14 ug"  "31.42 ug" 
-#&gt;  [7] "314.16 ug" "03.14 mg"  "31.42 mg"  "314.16 mg" "03.14 g"   "31.42 g"  
-#&gt; [13] "314.16 g"  "03.14 kg"  "31.42 kg"  "314.16 kg" "03.14 Mg"  "31.42 Mg" 
-#&gt; [19] "314.16 Mg" "03.14 Gg"  "31.42 Gg" </div><div class='input'>
-<span class='co'># example form symnum</span>
-<span class='va'>pval</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rev.html'>rev</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/outer.html'>outer</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>6</span>, <span class='fl'>10</span><span class='op'>^</span><span class='op'>-</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/noquote.html'>noquote</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='fu'>Format</span><span class='op'>(</span><span class='va'>pval</span>, fmt<span class='op'>=</span><span class='st'>"p"</span><span class='op'>)</span>, <span class='fu'>Format</span><span class='op'>(</span><span class='va'>pval</span>, fmt<span class='op'>=</span><span class='st'>"*"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;       [,1]   [,2]
-#&gt;  [1,] 0.6000     
-#&gt;  [2,] 0.5000     
-#&gt;  [3,] 0.4000     
-#&gt;  [4,] 0.3000     
-#&gt;  [5,] 0.2000     
-#&gt;  [6,] 0.1000 .   
-#&gt;  [7,] 0.0600 .   
-#&gt;  [8,] 0.0500 *   
-#&gt;  [9,] 0.0400 *   
-#&gt; [10,] 0.0300 *   
-#&gt; [11,] 0.0200 *   
-#&gt; [12,] 0.0100 **  
-#&gt; [13,] 0.0060 **  
-#&gt; [14,] 0.0050 **  
-#&gt; [15,] 0.0040 **  
-#&gt; [16,] 0.0030 **  
-#&gt; [17,] 0.0020 **  
-#&gt; [18,] 0.0010 *** </div><div class='input'>
-<span class='co'># use Fmt() to get and define new formats stored as option</span>
-<span class='fu'>Fmt</span><span class='op'>(</span><span class='op'>)</span>                        <span class='co'># all defined formats</span>
-</div><div class='output co'>#&gt; $abs
-#&gt;  Description:   Number format for counts
-#&gt;  Definition:    digits=0, big.mark="'"
-#&gt;  Example:       314'159
-#&gt; 
-#&gt; $per
-#&gt;  Description:   Percentage number format
-#&gt;  Definition:    digits=1, fmt='%'
-#&gt;  Example:       31415926.5%
-#&gt; 
-#&gt; $num
-#&gt;  Description:   Number format for floats
-#&gt;  Definition:    digits=3, big.mark="'"
-#&gt;  Example:       314'159.265
-#&gt; </div><div class='input'><span class='fu'>Fmt</span><span class='op'>(</span><span class='st'>"abs"</span><span class='op'>)</span>                   <span class='co'># only format named "abs"</span>
-</div><div class='output co'>#&gt;  Description:   Number format for counts
-#&gt;  Definition:    digits=0, big.mark="'"
-#&gt;  Example:       314'159</div><div class='input'><span class='fu'>Fmt</span><span class='op'>(</span><span class='st'>"nexist"</span><span class='op'>)</span>                <span class='co'># only format named "nexist" (nonexisting)</span>
-</div><div class='output co'>#&gt; NULL</div><div class='input'><span class='fu'>Fmt</span><span class='op'>(</span><span class='st'>"abs"</span>, <span class='st'>"per"</span>, <span class='st'>"nexist"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $abs
-#&gt;  Description:   Number format for counts
-#&gt;  Definition:    digits=0, big.mark="'"
-#&gt;  Example:       314'159
-#&gt; 
-#&gt; $per
-#&gt;  Description:   Percentage number format
-#&gt;  Definition:    digits=1, fmt='%'
-#&gt;  Example:       31415926.5%
-#&gt; 
-#&gt; $&lt;NA&gt;
-#&gt; NULL
-#&gt; </div><div class='input'><span class='fu'>Fmt</span><span class='op'>(</span><span class='st'>"abs"</span>, digits<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>         <span class='co'># get Fmt("abs") and overwrite digits</span>
-</div><div class='output co'>#&gt;  Description:   Number format for counts
-#&gt;  Definition:    digits=3, big.mark="'"
-#&gt;  Example:       314'159.265</div><div class='input'><span class='fu'>Fmt</span><span class='op'>(</span><span class='st'>"abs"</span>, na.form<span class='op'>=</span><span class='st'>"-"</span><span class='op'>)</span>      <span class='co'># get Fmt("abs") and add user defined na.form</span>
-</div><div class='output co'>#&gt;  Description:   Number format for counts
-#&gt;  Definition:    digits=0, big.mark="'", na.form="-"
-#&gt;  Example:       314'159</div><div class='input'>
-<span class='co'># define totally new format and store as option</span>
-<span class='fu'>Fmt</span><span class='op'>(</span>nob<span class='op'>=</span><span class='fu'>as.fmt</span><span class='op'>(</span>digits<span class='op'>=</span><span class='fl'>10</span>, na.form<span class='op'>=</span><span class='st'>"nodat"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $abs
-#&gt;  Description:   Number format for counts
-#&gt;  Definition:    digits=0, big.mark="'"
-#&gt;  Example:       314'159
-#&gt; 
-#&gt; $per
-#&gt;  Description:   Percentage number format
-#&gt;  Definition:    digits=1, fmt='%'
-#&gt;  Example:       31415926.5%
-#&gt; 
-#&gt; $num
-#&gt;  Description:   Number format for floats
-#&gt;  Definition:    digits=3, big.mark="'"
-#&gt;  Example:       314'159.265
-#&gt; </div><div class='input'>
-<span class='co'># overwrite an existing format</span>
-<span class='fu'>Fmt</span><span class='op'>(</span>nob<span class='op'>=</span><span class='fu'>Fmt</span><span class='op'>(</span><span class='st'>"nob"</span>, digits<span class='op'>=</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $abs
-#&gt;  Description:   Number format for counts
-#&gt;  Definition:    digits=0, big.mark="'"
-#&gt;  Example:       314'159
-#&gt; 
-#&gt; $per
-#&gt;  Description:   Percentage number format
-#&gt;  Definition:    digits=1, fmt='%'
-#&gt;  Example:       31415926.5%
-#&gt; 
-#&gt; $num
-#&gt;  Description:   Number format for floats
-#&gt;  Definition:    digits=3, big.mark="'"
-#&gt;  Example:       314'159.265
-#&gt; 
-#&gt; $nob
-#&gt;  Description:   Number format
-#&gt;  Definition:    digits=10, na.form='nodat'
-#&gt;  Example:       314159.2653589793
-#&gt; </div><div class='input'><span class='fu'>Fmt</span><span class='op'>(</span><span class='st'>"nob"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  Description:   Number format
-#&gt;  Definition:    digits=5, na.form='nodat'
-#&gt;  Example:       314159.26536</div><div class='input'>
-<span class='co'># change the character to be used as the decimal point</span>
-<span class='va'>opt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>OutDec<span class='op'>=</span><span class='st'>","</span><span class='op'>)</span>
-<span class='fu'>Format</span><span class='op'>(</span><span class='fl'>1200</span>, digits<span class='op'>=</span><span class='fl'>2</span>, big.mark <span class='op'>=</span> <span class='st'>"."</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 1.200,00</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span><span class='va'>opt</span><span class='op'>)</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>Format</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2014-11-28"</span>, <span class='st'>"2014-1-2"</span><span class='op'>)</span><span class='op'>)</span>, fmt<span class='op'>=</span><span class='st'>"ddd, d mmmm yyyy"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] Fri, 28 November 2014  Thu,  2 January 2014</span>
+<span class='r-in'><span class='fu'>Format</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2014-11-28"</span>, <span class='st'>"2014-1-2"</span><span class='op'>)</span><span class='op'>)</span>, fmt<span class='op'>=</span><span class='st'>"ddd, d mmmm yyyy"</span>, lang<span class='op'>=</span><span class='st'>"engl"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] Fri, 28 November 2014  Thu,  2 January 2014</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='va'>pi</span> <span class='op'>*</span> <span class='fl'>10</span><span class='op'>^</span><span class='op'>(</span><span class='op'>-</span><span class='fl'>10</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>Format</span><span class='op'>(</span><span class='va'>x</span>, digits<span class='op'>=</span><span class='fl'>3</span>, fmt<span class='op'>=</span><span class='st'>"%"</span>, sci<span class='op'>=</span><span class='cn'>NA</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1]             0.000%             0.000%             0.000%             0.000%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5]             0.000%             0.003%             0.031%             0.314%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9]             3.142%            31.416%           314.159%          3141.593%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [13]         31415.927%        314159.265%       3141592.654%      31415926.536%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [17]     314159265.359%    3141592653.590%   31415926535.898%  314159265358.979%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [21] 3141592653589.793%</span>
+<span class='r-in'><span class='fu'>Format</span><span class='op'>(</span><span class='va'>x</span>, digits<span class='op'>=</span><span class='fl'>4</span>, sci<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>, <span class='fl'>6</span><span class='op'>)</span>, ldigits<span class='op'>=</span><span class='fl'>0</span>, width<span class='op'>=</span><span class='fl'>9</span>, align<span class='op'>=</span><span class='st'>"."</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1]    3.1416e-10    3.1416e-09    3.1416e-08    3.1416e-07     .0000    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6]     .0000         .0003         .0031         .0314         .3142    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11]    3.1416       31.4159      314.1593     3141.5927        3.1416e+04</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [16]    3.1416e+05    3.1416e+06    3.1416e+07    3.1416e+08    3.1416e+09</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [21]    3.1416e+10</span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># format a matrix</span></span>
+<span class='r-in'><span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span>, nrow<span class='op'>=</span><span class='fl'>10</span>,</span>
+<span class='r-in'>            dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>LETTERS</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>]</span>, <span class='va'>LETTERS</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>Format</span><span class='op'>(</span><span class='va'>m</span>, digits<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     A   B   C   D   E   F   G   H   I   J</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> A 0.5 0.2 0.4 0.2 0.9 0.2 0.2 0.9 0.4 0.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> B 0.9 0.7 0.5 0.6 0.3 0.4 0.1 0.8 0.8 0.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> C 0.2 0.9 0.8 0.8 0.6 0.9 0.9 0.9 0.9 0.7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> D 0.5 0.9 0.2 0.7 0.9 1.0 0.4 0.2 0.4 1.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> E 0.2 0.5 0.7 0.8 1.0 0.4 0.8 0.4 0.6 0.4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> F 1.0 0.7 1.0 0.7 0.5 0.6 0.4 0.3 0.9 0.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> G 0.8 1.0 0.5 0.6 0.6 0.4 0.1 0.1 0.8 0.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> H 0.5 0.2 0.3 0.4 0.6 0.9 0.9 0.7 0.3 0.9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> I 0.3 0.2 0.5 0.6 0.1 0.7 0.5 0.6 0.2 0.2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> J 0.8 0.4 0.7 0.4 0.7 0.9 0.9 0.1 0.0 0.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"class")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] matrix  array</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># engineering format</span></span>
+<span class='r-in'><span class='fu'>Format</span><span class='op'>(</span><span class='va'>x</span>, fmt<span class='op'>=</span><span class='st'>"eng"</span>,  digits<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] 314.16e-12   3.14e-09  31.42e-09 314.16e-09   3.14e-06  31.42e-06</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7] 314.16e-06   3.14e-03  31.42e-03 314.16e-03   3.14e+00  31.42e+00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [13] 314.16e+00   3.14e+03  31.42e+03 314.16e+03   3.14e+06  31.42e+06</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [19] 314.16e+06   3.14e+09  31.42e+09</span>
+<span class='r-in'><span class='fu'>Format</span><span class='op'>(</span><span class='va'>x</span>, fmt<span class='op'>=</span><span class='st'>"engabb"</span>, ldigits<span class='op'>=</span><span class='fl'>2</span>, digits<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] 314.16 p  03.14 n  31.42 n 314.16 n  03.14 u  31.42 u 314.16 u  03.14 m</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9]  31.42 m 314.16 m   03.14    31.42   314.16   03.14 k  31.42 k 314.16 k</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [17]  03.14 M  31.42 M 314.16 M  03.14 G  31.42 G</span>
+<span class='r-in'><span class='co'># combine with grams [g]</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='fu'>Format</span><span class='op'>(</span><span class='va'>x</span>, fmt<span class='op'>=</span><span class='st'>"engabb"</span>, ldigits<span class='op'>=</span><span class='fl'>2</span>, digits<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>, <span class='st'>"g"</span>, sep<span class='op'>=</span><span class='st'>""</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] "314.16 pg" "03.14 ng"  "31.42 ng"  "314.16 ng" "03.14 ug"  "31.42 ug" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7] "314.16 ug" "03.14 mg"  "31.42 mg"  "314.16 mg" "03.14 g"   "31.42 g"  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [13] "314.16 g"  "03.14 kg"  "31.42 kg"  "314.16 kg" "03.14 Mg"  "31.42 Mg" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [19] "314.16 Mg" "03.14 Gg"  "31.42 Gg" </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># example form symnum</span></span>
+<span class='r-in'><span class='va'>pval</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rev.html'>rev</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/outer.html'>outer</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>6</span>, <span class='fl'>10</span><span class='op'>^</span><span class='op'>-</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/noquote.html'>noquote</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='fu'>Format</span><span class='op'>(</span><span class='va'>pval</span>, fmt<span class='op'>=</span><span class='st'>"p"</span><span class='op'>)</span>, <span class='fu'>Format</span><span class='op'>(</span><span class='va'>pval</span>, fmt<span class='op'>=</span><span class='st'>"*"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       [,1]   [,2]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1,] 0.6000     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [2,] 0.5000     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [3,] 0.4000     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [4,] 0.3000     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5,] 0.2000     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6,] 0.1000 .   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7,] 0.0600 .   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8,] 0.0500 *   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9,] 0.0400 *   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10,] 0.0300 *   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11,] 0.0200 *   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [12,] 0.0100 **  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [13,] 0.0060 **  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [14,] 0.0050 **  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [15,] 0.0040 **  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [16,] 0.0030 **  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [17,] 0.0020 **  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [18,] 0.0010 *** </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># use Fmt() to get and define new formats stored as option</span></span>
+<span class='r-in'><span class='fu'>Fmt</span><span class='op'>(</span><span class='op'>)</span>                        <span class='co'># all defined formats</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $abs</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Description:   Number format for counts</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Definition:    digits=0, big.mark="'"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Example:       314'159</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $per</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Description:   Percentage number format</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Definition:    digits=1, fmt='%'</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Example:       31415926.5%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $num</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Description:   Number format for floats</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Definition:    digits=3, big.mark="'"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Example:       314'159.265</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'>Fmt</span><span class='op'>(</span><span class='st'>"abs"</span><span class='op'>)</span>                   <span class='co'># only format named "abs"</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Description:   Number format for counts</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Definition:    digits=0, big.mark="'"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Example:       314'159</span>
+<span class='r-in'><span class='fu'>Fmt</span><span class='op'>(</span><span class='st'>"nexist"</span><span class='op'>)</span>                <span class='co'># only format named "nexist" (nonexisting)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-in'><span class='fu'>Fmt</span><span class='op'>(</span><span class='st'>"abs"</span>, <span class='st'>"per"</span>, <span class='st'>"nexist"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $abs</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Description:   Number format for counts</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Definition:    digits=0, big.mark="'"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Example:       314'159</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $per</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Description:   Percentage number format</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Definition:    digits=1, fmt='%'</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Example:       31415926.5%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $&lt;NA&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'>Fmt</span><span class='op'>(</span><span class='st'>"abs"</span>, digits<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>         <span class='co'># get Fmt("abs") and overwrite digits</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Description:   Number format for counts</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Definition:    digits=3, big.mark="'"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Example:       314'159.265</span>
+<span class='r-in'><span class='fu'>Fmt</span><span class='op'>(</span><span class='st'>"abs"</span>, na.form<span class='op'>=</span><span class='st'>"-"</span><span class='op'>)</span>      <span class='co'># get Fmt("abs") and add user defined na.form</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Description:   Number format for counts</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Definition:    digits=0, big.mark="'", na.form="-"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Example:       314'159</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># define totally new format and store as option</span></span>
+<span class='r-in'><span class='fu'>Fmt</span><span class='op'>(</span>nob<span class='op'>=</span><span class='fu'>as.fmt</span><span class='op'>(</span>digits<span class='op'>=</span><span class='fl'>10</span>, na.form<span class='op'>=</span><span class='st'>"nodat"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $abs</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Description:   Number format for counts</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Definition:    digits=0, big.mark="'"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Example:       314'159</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $per</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Description:   Percentage number format</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Definition:    digits=1, fmt='%'</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Example:       31415926.5%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $num</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Description:   Number format for floats</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Definition:    digits=3, big.mark="'"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Example:       314'159.265</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># overwrite an existing format</span></span>
+<span class='r-in'><span class='fu'>Fmt</span><span class='op'>(</span>nob<span class='op'>=</span><span class='fu'>Fmt</span><span class='op'>(</span><span class='st'>"nob"</span>, digits<span class='op'>=</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $abs</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Description:   Number format for counts</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Definition:    digits=0, big.mark="'"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Example:       314'159</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $per</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Description:   Percentage number format</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Definition:    digits=1, fmt='%'</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Example:       31415926.5%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $num</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Description:   Number format for floats</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Definition:    digits=3, big.mark="'"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Example:       314'159.265</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $nob</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Description:   Number format</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Definition:    digits=10, na.form='nodat'</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Example:       314159.2653589793</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'>Fmt</span><span class='op'>(</span><span class='st'>"nob"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Description:   Number format</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Definition:    digits=5, na.form='nodat'</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Example:       314159.26536</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># change the character to be used as the decimal point</span></span>
+<span class='r-in'><span class='va'>opt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>OutDec<span class='op'>=</span><span class='st'>","</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>Format</span><span class='op'>(</span><span class='fl'>1200</span>, digits<span class='op'>=</span><span class='fl'>2</span>, big.mark <span class='op'>=</span> <span class='st'>"."</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1.200,00</span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span><span class='va'>opt</span><span class='op'>)</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

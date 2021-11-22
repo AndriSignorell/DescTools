@@ -78,7 +78,7 @@ By computing the Pearson correlation coefficient and specifying a threshold valu
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -197,39 +197,43 @@ By computing the Pearson correlation coefficient and specifying a threshold valu
     <p>http://www.mathstat.strath.ac.uk/outreach/nessie/index.html</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>d.whisky</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   distillery brand   region body sweetness smoky medicinal tobacco honey spicy
-#&gt; 1  Aberfeldy     A highland    2         2     2         0       0     2     1
-#&gt; 2   Aberlour     A speyside    3         3     1         0       0     4     3
-#&gt; 3     AnCnoc     A highland    1         3     2         0       0     2     0
-#&gt; 4     Ardbeg     A    islay    4         1     4         4       0     0     2
-#&gt; 5    Ardmore     B highland    2         2     2         0       0     1     1
-#&gt; 6      Arran     A  islands    2         3     1         1       0     1     1
-#&gt;   winey nutty malty fruity floral postcode latitude longitude
-#&gt; 1     2     2     2      2      2 PH15 2EB   286580    749680
-#&gt; 2     2     2     3      3      2 AB38 9PJ   326340    842570
-#&gt; 3     0     2     2      3      2  AB5 5LI   352960    839320
-#&gt; 4     0     1     2      1      0 PA42 7EB   141560    646220
-#&gt; 5     1     2     3      1      1 AB54 4NH   355350    829140
-#&gt; 6     1     0     1      1      2 KA27 8HJ   194050    649950</div><div class='input'>
-<span class='va'>opar</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>3</span><span class='op'>)</span>, cex.main<span class='op'>=</span><span class='fl'>1.8</span><span class='op'>)</span>
-<span class='kw'>for</span><span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>9</span><span class='op'>)</span>
-  <span class='fu'><a href='PlotPolar.html'>PlotPolar</a></span><span class='op'>(</span><span class='va'>d.whisky</span><span class='op'>[</span><span class='va'>i</span>, <span class='fl'>4</span><span class='op'>:</span><span class='fl'>15</span><span class='op'>]</span>, rlim<span class='op'>=</span><span class='fl'>4</span>, type<span class='op'>=</span><span class='st'>"l"</span>, col<span class='op'>=</span><span class='va'>hecru</span>, lwd<span class='op'>=</span><span class='fl'>2</span>, fill<span class='op'>=</span><span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span><span class='op'>(</span><span class='va'>hecru</span>, <span class='fl'>0.4</span><span class='op'>)</span>,
-            panel.first<span class='op'>=</span><span class='fu'><a href='PolarGrid.html'>PolarGrid</a></span><span class='op'>(</span>
-              ntheta<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>d.whisky</span><span class='op'>[</span><span class='va'>i</span>, <span class='fl'>2</span><span class='op'>:</span><span class='fl'>13</span><span class='op'>]</span><span class='op'>)</span>, nr <span class='op'>=</span> <span class='cn'>NA</span>, col<span class='op'>=</span><span class='st'>"grey"</span>,
-              lty<span class='op'>=</span><span class='st'>"dotted"</span>, las<span class='op'>=</span><span class='fl'>1</span>, cex<span class='op'>=</span><span class='fl'>1.4</span>, alabels<span class='op'>=</span><span class='fu'><a href='StrCap.html'>StrCap</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>d.whisky</span><span class='op'>[</span><span class='va'>i</span>, <span class='fl'>3</span><span class='op'>:</span><span class='fl'>14</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>,
-              lblradians<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>,
-            main<span class='op'>=</span><span class='va'>d.whisky</span><span class='op'>[</span><span class='va'>i</span>, <span class='st'>"distillery"</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in .Call("between_num_r", as.numeric(x), as.numeric(rng[1L]), as.numeric(rng[2L]),     PACKAGE = "DescTools"): "between_num_r" not available for .Call() for package "DescTools"</span></div><div class='input'>
-
-<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>3</span><span class='op'>)</span>, cex.main<span class='op'>=</span><span class='fl'>1.8</span>, xpd<span class='op'>=</span><span class='cn'>NA</span><span class='op'>)</span>
-</div><div class='img'><img src='d.whisky-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>id</span> <span class='op'>&lt;-</span> <span class='va'>d.whisky</span><span class='op'>$</span><span class='va'>distillery</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Ardbeg"</span>,<span class='st'>"Caol Ila"</span>,<span class='st'>"Cragganmore"</span>,<span class='st'>"Lagavulin"</span>,<span class='st'>"Laphroig"</span>,
-                                   <span class='st'>"Macallan"</span>,<span class='st'>"Mortlach"</span>,<span class='st'>"Talisker"</span>,<span class='st'>"Tobermory"</span><span class='op'>)</span>
-<span class='fu'><a href='PlotFaces.html'>PlotFaces</a></span><span class='op'>(</span><span class='va'>d.whisky</span><span class='op'>[</span><span class='va'>id</span>, <span class='fl'>4</span><span class='op'>:</span><span class='fl'>15</span><span class='op'>]</span>, nr<span class='op'>=</span><span class='fl'>3</span>, nc<span class='op'>=</span><span class='fl'>3</span>, col<span class='op'>=</span><span class='va'>hecru</span>, scale<span class='op'>=</span><span class='cn'>TRUE</span>, fill<span class='op'>=</span><span class='cn'>TRUE</span>,
-          labels<span class='op'>=</span><span class='va'>d.whisky</span><span class='op'>$</span><span class='va'>distillery</span><span class='op'>[</span><span class='va'>id</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='img'><img src='d.whisky-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span><span class='va'>opar</span><span class='op'>)</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>d.whisky</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   distillery brand   region body sweetness smoky medicinal tobacco honey spicy</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  Aberfeldy     A highland    2         2     2         0       0     2     1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2   Aberlour     A speyside    3         3     1         0       0     4     3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3     AnCnoc     A highland    1         3     2         0       0     2     0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4     Ardbeg     A    islay    4         1     4         4       0     0     2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5    Ardmore     B highland    2         2     2         0       0     1     1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6      Arran     A  islands    2         3     1         1       0     1     1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   winey nutty malty fruity floral postcode latitude longitude</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1     2     2     2      2      2 PH15 2EB   286580    749680</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2     2     2     3      3      2 AB38 9PJ   326340    842570</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3     0     2     2      3      2  AB5 5LI   352960    839320</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4     0     1     2      1      0 PA42 7EB   141560    646220</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5     1     2     3      1      1 AB54 4NH   355350    829140</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6     1     0     1      1      2 KA27 8HJ   194050    649950</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>opar</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>3</span><span class='op'>)</span>, cex.main<span class='op'>=</span><span class='fl'>1.8</span><span class='op'>)</span></span>
+<span class='r-in'><span class='kw'>for</span><span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>9</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='fu'><a href='PlotPolar.html'>PlotPolar</a></span><span class='op'>(</span><span class='va'>d.whisky</span><span class='op'>[</span><span class='va'>i</span>, <span class='fl'>4</span><span class='op'>:</span><span class='fl'>15</span><span class='op'>]</span>, rlim<span class='op'>=</span><span class='fl'>4</span>, type<span class='op'>=</span><span class='st'>"l"</span>, col<span class='op'>=</span><span class='va'>hecru</span>, lwd<span class='op'>=</span><span class='fl'>2</span>, fill<span class='op'>=</span><span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span><span class='op'>(</span><span class='va'>hecru</span>, <span class='fl'>0.4</span><span class='op'>)</span>,</span>
+<span class='r-in'>            panel.first<span class='op'>=</span><span class='fu'><a href='PolarGrid.html'>PolarGrid</a></span><span class='op'>(</span></span>
+<span class='r-in'>              ntheta<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>d.whisky</span><span class='op'>[</span><span class='va'>i</span>, <span class='fl'>2</span><span class='op'>:</span><span class='fl'>13</span><span class='op'>]</span><span class='op'>)</span>, nr <span class='op'>=</span> <span class='cn'>NA</span>, col<span class='op'>=</span><span class='st'>"grey"</span>,</span>
+<span class='r-in'>              lty<span class='op'>=</span><span class='st'>"dotted"</span>, las<span class='op'>=</span><span class='fl'>1</span>, cex<span class='op'>=</span><span class='fl'>1.4</span>, alabels<span class='op'>=</span><span class='fu'><a href='StrCap.html'>StrCap</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>d.whisky</span><span class='op'>[</span><span class='va'>i</span>, <span class='fl'>3</span><span class='op'>:</span><span class='fl'>14</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span class='r-in'>              lblradians<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>,</span>
+<span class='r-in'>            main<span class='op'>=</span><span class='va'>d.whisky</span><span class='op'>[</span><span class='va'>i</span>, <span class='st'>"distillery"</span><span class='op'>]</span><span class='op'>)</span></span>
+<span class='r-err co'><span class='r-pr'>#&gt;</span> <span class='error'>Error in .Call("between_num_r", as.numeric(x), as.numeric(rng[1L]), as.numeric(rng[2L]),     PACKAGE = "DescTools"):</span> "between_num_r" not available for .Call() for package "DescTools"</span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>3</span><span class='op'>)</span>, cex.main<span class='op'>=</span><span class='fl'>1.8</span>, xpd<span class='op'>=</span><span class='cn'>NA</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='d.whisky-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>id</span> <span class='op'>&lt;-</span> <span class='va'>d.whisky</span><span class='op'>$</span><span class='va'>distillery</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Ardbeg"</span>,<span class='st'>"Caol Ila"</span>,<span class='st'>"Cragganmore"</span>,<span class='st'>"Lagavulin"</span>,<span class='st'>"Laphroig"</span>,</span>
+<span class='r-in'>                                   <span class='st'>"Macallan"</span>,<span class='st'>"Mortlach"</span>,<span class='st'>"Talisker"</span>,<span class='st'>"Tobermory"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='PlotFaces.html'>PlotFaces</a></span><span class='op'>(</span><span class='va'>d.whisky</span><span class='op'>[</span><span class='va'>id</span>, <span class='fl'>4</span><span class='op'>:</span><span class='fl'>15</span><span class='op'>]</span>, nr<span class='op'>=</span><span class='fl'>3</span>, nc<span class='op'>=</span><span class='fl'>3</span>, col<span class='op'>=</span><span class='va'>hecru</span>, scale<span class='op'>=</span><span class='cn'>TRUE</span>, fill<span class='op'>=</span><span class='cn'>TRUE</span>,</span>
+<span class='r-in'>          labels<span class='op'>=</span><span class='va'>d.whisky</span><span class='op'>$</span><span class='va'>distillery</span><span class='op'>[</span><span class='va'>id</span><span class='op'>]</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='d.whisky-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span><span class='va'>opar</span><span class='op'>)</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

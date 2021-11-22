@@ -75,7 +75,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -285,71 +285,77 @@ Andri Signorell &lt;andri@signorell.net&gt; (interface issues and all the rest)<
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/binom.test.html'>binom.test</a></code>, <code>binconf</code>, <code><a href='MultinomCI.html'>MultinomCI</a></code>,  <code><a href='BinomDiffCI.html'>BinomDiffCI</a></code>, <code><a href='BinomRatioCI.html'>BinomRatioCI</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>BinomCI</span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>37</span>, n<span class='op'>=</span><span class='fl'>43</span>, 
-        method<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/formals.html'>formals</a></span><span class='op'>(</span><span class='va'>BinomCI</span><span class='op'>)</span><span class='op'>$</span><span class='va'>method</span><span class='op'>)</span><span class='op'>)</span>   <span class='co'># return all methods</span>
-</div><div class='output co'>#&gt;                         est    lwr.ci    upr.ci
-#&gt; wilson            0.8604651 0.7273641 0.9344428
-#&gt; wald              0.8604651 0.7568980 0.9640322
-#&gt; waldcc            0.8604651 0.7452701 0.9756601
-#&gt; agresti-coull     0.8309034 0.7235600 0.9382469
-#&gt; jeffreys          0.8604651 0.7348110 0.9395927
-#&gt; modified wilson   0.8604651 0.7273641 0.9344428
-#&gt; wilsoncc          0.8604651 0.7137335 0.9419725
-#&gt; modified jeffreys 0.8604651 0.7348110 0.9395927
-#&gt; clopper-pearson   0.8604651 0.7206752 0.9470234
-#&gt; arcsine           0.8542857 0.7346862 0.9424696
-#&gt; logit             0.8604651 0.7224337 0.9359412
-#&gt; witting           0.8604651 0.7493378 0.9273288
-#&gt; pratt             0.8604651 0.7661306 0.9472522
-#&gt; midp              0.8604651 0.7321815 0.9414281
-#&gt; lik               0.8604651 0.7372546 0.9420472
-#&gt; blaker            0.8604651 0.7255152 0.9374534</div><div class='input'>
-<span class='co'># the confidence interval computed by binom.test</span>
-<span class='co'>#   corresponds to the Clopper-Pearson interval</span>
-<span class='fu'>BinomCI</span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>42</span>, n<span class='op'>=</span><span class='fl'>43</span>, method<span class='op'>=</span><span class='st'>"clopper-pearson"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;            est    lwr.ci    upr.ci
-#&gt; [1,] 0.9767442 0.8771095 0.9994114</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/binom.test.html'>binom.test</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>42</span>, n<span class='op'>=</span><span class='fl'>43</span><span class='op'>)</span><span class='op'>$</span><span class='va'>conf.int</span>
-</div><div class='output co'>#&gt; [1] 0.8771095 0.9994114
-#&gt; attr(,"conf.level")
-#&gt; [1] 0.95</div><div class='input'>
-
-<span class='co'># all arguments are being recycled:</span>
-<span class='fu'>BinomCI</span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>42</span>, <span class='fl'>35</span>, <span class='fl'>23</span>, <span class='fl'>22</span><span class='op'>)</span>, n<span class='op'>=</span><span class='fl'>43</span>, method<span class='op'>=</span><span class='st'>"wilson"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;           est    lwr.ci    upr.ci
-#&gt; x.1 0.9767442 0.8794101 0.9958829
-#&gt; x.2 0.8139535 0.6738300 0.9025825
-#&gt; x.3 0.5348837 0.3891564 0.6748894
-#&gt; x.4 0.5116279 0.3675231 0.6538255</div><div class='input'><span class='fu'>BinomCI</span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>42</span>, <span class='fl'>35</span>, <span class='fl'>23</span>, <span class='fl'>22</span><span class='op'>)</span>, n<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>50</span>, <span class='fl'>60</span>, <span class='fl'>70</span>, <span class='fl'>80</span><span class='op'>)</span>, method<span class='op'>=</span><span class='st'>"jeffreys"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;               est    lwr.ci    upr.ci
-#&gt; x.1:n.1 0.8400000 0.7206737 0.9213325
-#&gt; x.2:n.2 0.5833333 0.4571040 0.7017365
-#&gt; x.3:n.3 0.3285714 0.2272016 0.4437899
-#&gt; x.4:n.4 0.2750000 0.1863875 0.3795587</div><div class='input'>
-<span class='co'># example Table I in Newcombe (1998)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span><span class='op'>(</span><span class='va'>cbind</span>, <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>, 
-  <span class='kw'>function</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span><span class='op'>{</span>
-    <span class='fu'><a href='Format.html'>Format</a></span><span class='op'>(</span><span class='fu'>BinomCI</span><span class='op'>(</span>x      <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>81</span>, <span class='fl'>15</span>, <span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span>, 
-                   n      <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>263</span>, <span class='fl'>148</span>, <span class='fl'>20</span>, <span class='fl'>29</span><span class='op'>)</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span>, 
-                   method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"wald"</span>, <span class='st'>"waldcc"</span>, <span class='st'>"wilson"</span>,<span class='st'>"wilsoncc"</span>, 
-                              <span class='st'>"clopper-pearson"</span>, <span class='st'>"midp"</span>, <span class='st'>"lik"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span>, 
-           digits<span class='op'>=</span><span class='fl'>4</span><span class='op'>)</span>
-<span class='op'>}</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                 lwr.ci   upr.ci   lwr.ci   upr.ci   lwr.ci   upr.ci   lwr.ci  
-#&gt; wald            "0.2522" "0.3638" "0.0527" "0.1500" "0.0000" "0.0000" "0.0000"
-#&gt; waldcc          "0.2503" "0.3657" "0.0494" "0.1534" "0.0000" "0.0250" "0.0000"
-#&gt; wilson          "0.2553" "0.3662" "0.0624" "0.1605" "0.0000" "0.1611" "0.0061"
-#&gt; wilsoncc        "0.2535" "0.3682" "0.0598" "0.1644" "0.0000" "0.2005" "0.0018"
-#&gt; clopper-pearson "0.2527" "0.3676" "0.0578" "0.1617" "0.0000" "0.1684" "0.0009"
-#&gt; midp            "0.2544" "0.3658" "0.0601" "0.1581" "0.0000" "0.1391" "0.0017"
-#&gt; lik             "0.2543" "0.3655" "0.0596" "0.1567" "0.0000" "0.0916" "0.0020"
-#&gt;                 upr.ci  
-#&gt; wald            "0.1009"
-#&gt; waldcc          "0.1181"
-#&gt; wilson          "0.1718"
-#&gt; wilsoncc        "0.1963"
-#&gt; clopper-pearson "0.1776"
-#&gt; midp            "0.1585"
-#&gt; lik             "0.1432"</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>BinomCI</span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>37</span>, n<span class='op'>=</span><span class='fl'>43</span>, </span>
+<span class='r-in'>        method<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/formals.html'>formals</a></span><span class='op'>(</span><span class='va'>BinomCI</span><span class='op'>)</span><span class='op'>$</span><span class='va'>method</span><span class='op'>)</span><span class='op'>)</span>   <span class='co'># return all methods</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                         est    lwr.ci    upr.ci</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> wilson            0.8604651 0.7273641 0.9344428</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> wald              0.8604651 0.7568980 0.9640322</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> waldcc            0.8604651 0.7452701 0.9756601</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> agresti-coull     0.8309034 0.7235600 0.9382469</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> jeffreys          0.8604651 0.7348110 0.9395927</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> modified wilson   0.8604651 0.7273641 0.9344428</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> wilsoncc          0.8604651 0.7137335 0.9419725</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> modified jeffreys 0.8604651 0.7348110 0.9395927</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> clopper-pearson   0.8604651 0.7206752 0.9470234</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> arcsine           0.8542857 0.7346862 0.9424696</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> logit             0.8604651 0.7224337 0.9359412</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> witting           0.8604651 0.7493378 0.9273288</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> pratt             0.8604651 0.7661306 0.9472522</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> midp              0.8604651 0.7321815 0.9414281</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> lik               0.8604651 0.7372546 0.9420472</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> blaker            0.8604651 0.7255152 0.9374534</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># the confidence interval computed by binom.test</span></span>
+<span class='r-in'><span class='co'>#   corresponds to the Clopper-Pearson interval</span></span>
+<span class='r-in'><span class='fu'>BinomCI</span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>42</span>, n<span class='op'>=</span><span class='fl'>43</span>, method<span class='op'>=</span><span class='st'>"clopper-pearson"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>            est    lwr.ci    upr.ci</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,] 0.9767442 0.8771095 0.9994114</span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/stats/binom.test.html'>binom.test</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>42</span>, n<span class='op'>=</span><span class='fl'>43</span><span class='op'>)</span><span class='op'>$</span><span class='va'>conf.int</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.8771095 0.9994114</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"conf.level")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.95</span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># all arguments are being recycled:</span></span>
+<span class='r-in'><span class='fu'>BinomCI</span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>42</span>, <span class='fl'>35</span>, <span class='fl'>23</span>, <span class='fl'>22</span><span class='op'>)</span>, n<span class='op'>=</span><span class='fl'>43</span>, method<span class='op'>=</span><span class='st'>"wilson"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           est    lwr.ci    upr.ci</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> x.1 0.9767442 0.8794101 0.9958829</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> x.2 0.8139535 0.6738300 0.9025825</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> x.3 0.5348837 0.3891564 0.6748894</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> x.4 0.5116279 0.3675231 0.6538255</span>
+<span class='r-in'><span class='fu'>BinomCI</span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>42</span>, <span class='fl'>35</span>, <span class='fl'>23</span>, <span class='fl'>22</span><span class='op'>)</span>, n<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>50</span>, <span class='fl'>60</span>, <span class='fl'>70</span>, <span class='fl'>80</span><span class='op'>)</span>, method<span class='op'>=</span><span class='st'>"jeffreys"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               est    lwr.ci    upr.ci</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> x.1:n.1 0.8400000 0.7206737 0.9213325</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> x.2:n.2 0.5833333 0.4571040 0.7017365</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> x.3:n.3 0.3285714 0.2272016 0.4437899</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> x.4:n.4 0.2750000 0.1863875 0.3795587</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># example Table I in Newcombe (1998)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span><span class='op'>(</span><span class='va'>cbind</span>, <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>, </span>
+<span class='r-in'>  <span class='kw'>function</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span><span class='op'>{</span></span>
+<span class='r-in'>    <span class='fu'><a href='Format.html'>Format</a></span><span class='op'>(</span><span class='fu'>BinomCI</span><span class='op'>(</span>x      <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>81</span>, <span class='fl'>15</span>, <span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span>, </span>
+<span class='r-in'>                   n      <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>263</span>, <span class='fl'>148</span>, <span class='fl'>20</span>, <span class='fl'>29</span><span class='op'>)</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span>, </span>
+<span class='r-in'>                   method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"wald"</span>, <span class='st'>"waldcc"</span>, <span class='st'>"wilson"</span>,<span class='st'>"wilsoncc"</span>, </span>
+<span class='r-in'>                              <span class='st'>"clopper-pearson"</span>, <span class='st'>"midp"</span>, <span class='st'>"lik"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span>, </span>
+<span class='r-in'>           digits<span class='op'>=</span><span class='fl'>4</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 lwr.ci   upr.ci   lwr.ci   upr.ci   lwr.ci   upr.ci   lwr.ci  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> wald            "0.2522" "0.3638" "0.0527" "0.1500" "0.0000" "0.0000" "0.0000"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> waldcc          "0.2503" "0.3657" "0.0494" "0.1534" "0.0000" "0.0250" "0.0000"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> wilson          "0.2553" "0.3662" "0.0624" "0.1605" "0.0000" "0.1611" "0.0061"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> wilsoncc        "0.2535" "0.3682" "0.0598" "0.1644" "0.0000" "0.2005" "0.0018"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> clopper-pearson "0.2527" "0.3676" "0.0578" "0.1617" "0.0000" "0.1684" "0.0009"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> midp            "0.2544" "0.3658" "0.0601" "0.1581" "0.0000" "0.1391" "0.0017"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> lik             "0.2543" "0.3655" "0.0596" "0.1567" "0.0000" "0.0916" "0.0020"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 upr.ci  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> wald            "0.1009"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> waldcc          "0.1181"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> wilson          "0.1718"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> wilsoncc        "0.1963"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> clopper-pearson "0.1776"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> midp            "0.1585"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> lik             "0.1432"</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

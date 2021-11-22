@@ -80,7 +80,7 @@ instead." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -211,7 +211,7 @@ case of numeric variables) or the most frequent value (in case of
 factors), of the neighbours to fill in the NAs. If
 <code>meth='weighAvg'</code> the function will use a weighted average of the
 values of the neighbours. The weights are given by <code>exp(-dist(k,x)</code>
-where <code><a href='https://rdrr.io/r/stats/dist.html'>dist(k,x)</a></code> is the euclidean distance between the case with
+where <code>dist(k,x)</code> is the euclidean distance between the case with
 NAs (x) and the neighbour k.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
@@ -229,40 +229,41 @@ NAs (x) and the neighbour k.</p>
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/complete.cases.html'>complete.cases</a></code>, <code><a href='https://rdrr.io/r/stats/na.fail.html'>na.omit</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>cleanPizza</span> <span class='op'>&lt;-</span> <span class='fu'>ImputeKnn</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span>   <span class='co'># no dates allowed</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>cleanPizza</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;      index           week          weekday               area    
-#&gt;  Min.   :   1   Min.   : 9.00   Min.   :1.000   Brent      :480  
-#&gt;  1st Qu.: 303   1st Qu.:10.00   1st Qu.:3.000   Camden     :346  
-#&gt;  Median : 605   Median :11.00   Median :5.000   Westminster:383  
-#&gt;  Mean   : 605   Mean   :11.41   Mean   :4.443                    
-#&gt;  3rd Qu.: 907   3rd Qu.:13.00   3rd Qu.:6.000                    
-#&gt;  Max.   :1209   Max.   :14.00   Max.   :7.000                    
-#&gt;                                                                  
-#&gt;      count          rabate              price            operator  
-#&gt;  Min.   :1.000   Length:1209        Min.   :  8.792   Allanah:370  
-#&gt;  1st Qu.:2.000   Class :character   1st Qu.: 31.176   Maria  :391  
-#&gt;  Median :3.000   Mode  :character   Median : 46.764   Rhonda :448  
-#&gt;  Mean   :3.445                      Mean   : 48.734                
-#&gt;  3rd Qu.:4.000                      3rd Qu.: 62.955                
-#&gt;  Max.   :8.000                      Max.   :134.334                
-#&gt;                                                                    
-#&gt;        driver     delivery_min    temperature     wine_ordered   
-#&gt;  Butcher  : 96   Min.   : 8.80   Min.   :19.30   Min.   :0.0000  
-#&gt;  Carpenter:275   1st Qu.:17.40   1st Qu.:42.20   1st Qu.:0.0000  
-#&gt;  Carter   :235   Median :24.40   Median :49.80   Median :0.0000  
-#&gt;  Farmer   :118   Mean   :25.65   Mean   :47.84   Mean   :0.1561  
-#&gt;  Hunter   :156   3rd Qu.:32.50   3rd Qu.:55.30   3rd Qu.:0.0000  
-#&gt;  Miller   :125   Max.   :65.60   Max.   :64.80   Max.   :1.0000  
-#&gt;  Taylor   :204                                                   
-#&gt;  wine_delivered    wrongpizza          quality   
-#&gt;  Min.   :0.0000   Length:1209        low   :229  
-#&gt;  1st Qu.:0.0000   Class :character   medium:458  
-#&gt;  Median :0.0000   Mode  :character   high  :522  
-#&gt;  Mean   :0.1361                                  
-#&gt;  3rd Qu.:0.0000                                  
-#&gt;  Max.   :1.0000                                  
-#&gt;                                                  </div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>cleanPizza</span> <span class='op'>&lt;-</span> <span class='fu'>ImputeKnn</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span>   <span class='co'># no dates allowed</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>cleanPizza</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      index           week          weekday               area    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Min.   :   1   Min.   : 9.00   Min.   :1.000   Brent      :480  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  1st Qu.: 303   1st Qu.:10.00   1st Qu.:3.000   Camden     :346  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Median : 605   Median :11.00   Median :5.000   Westminster:383  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Mean   : 605   Mean   :11.41   Mean   :4.443                    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  3rd Qu.: 907   3rd Qu.:13.00   3rd Qu.:6.000                    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Max.   :1209   Max.   :14.00   Max.   :7.000                    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      count          rabate              price            operator  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Min.   :1.000   Length:1209        Min.   :  8.792   Allanah:370  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  1st Qu.:2.000   Class :character   1st Qu.: 31.176   Maria  :391  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Median :3.000   Mode  :character   Median : 46.764   Rhonda :448  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Mean   :3.445                      Mean   : 48.734                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  3rd Qu.:4.000                      3rd Qu.: 62.955                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Max.   :8.000                      Max.   :134.334                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                                    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        driver     delivery_min    temperature     wine_ordered   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Butcher  : 96   Min.   : 8.80   Min.   :19.30   Min.   :0.0000  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Carpenter:275   1st Qu.:17.40   1st Qu.:42.20   1st Qu.:0.0000  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Carter   :235   Median :24.40   Median :49.80   Median :0.0000  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Farmer   :118   Mean   :25.65   Mean   :47.84   Mean   :0.1561  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Hunter   :156   3rd Qu.:32.50   3rd Qu.:55.30   3rd Qu.:0.0000  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Miller   :125   Max.   :65.60   Max.   :64.80   Max.   :1.0000  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Taylor   :204                                                   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  wine_delivered    wrongpizza          quality   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Min.   :0.0000   Length:1209        low   :229  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  1st Qu.:0.0000   Class :character   medium:458  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Median :0.0000   Mode  :character   high  :522  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Mean   :0.1361                                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  3rd Qu.:0.0000                                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Max.   :1.0000                                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                  </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -75,7 +75,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -211,7 +211,7 @@
     <tr>
       <th>data</th>
       <td><p>an optional matrix or data frame (or similar: see <code><a href='https://rdrr.io/r/stats/model.frame.html'>model.frame</a></code>) containing the variables in the formula <code>formula</code>.
-    By default the variables are taken from <code><a href='https://rdrr.io/r/base/environment.html'>environment(formula)</a></code>.</p></td>
+    By default the variables are taken from <code>environment(formula)</code>.</p></td>
     </tr>
     <tr>
       <th>subset</th>
@@ -219,7 +219,7 @@
     </tr>
     <tr>
       <th>na.action</th>
-      <td><p>a function which indicates what should happen when the data contain <code>NA</code>s. Defaults to <code><a href='https://rdrr.io/r/base/options.html'>getOption("na.action")</a></code>.</p></td>
+      <td><p>a function which indicates what should happen when the data contain <code>NA</code>s. Defaults to <code>getOption("na.action")</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -266,82 +266,87 @@ documentation partly from Greg Snow &lt;greg.snow@imail.org&gt;</p>
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></code>, <code><a href='https://rdrr.io/r/stats/print.power.htest.html'>print.htest</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>25</span>, <span class='fl'>100</span>, <span class='fl'>5</span><span class='op'>)</span>
-<span class='fu'>ZTest</span><span class='op'>(</span><span class='va'>x</span>, mu<span class='op'>=</span><span class='fl'>99</span>, sd_pop<span class='op'>=</span><span class='fl'>5</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	One Sample z-test
-#&gt; 
-#&gt; data:  x
-#&gt; z = -2, Std. Dev. Population = 5, p-value = 0.06
-#&gt; alternative hypothesis: true mean is not equal to 99
-#&gt; 95 percent confidence interval:
-#&gt;  95.2 99.1
-#&gt; sample estimates:
-#&gt; mean of x 
-#&gt;      97.1 
-#&gt; </div><div class='input'>
-<span class='co'># the classic interface</span>
-<span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span><span class='op'>(</span><span class='va'>sleep</span>, <span class='fu'>ZTest</span><span class='op'>(</span><span class='va'>extra</span><span class='op'>[</span><span class='va'>group</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>]</span>, <span class='va'>extra</span><span class='op'>[</span><span class='va'>group</span> <span class='op'>==</span> <span class='fl'>2</span><span class='op'>]</span>, sd_pop<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	Two Sample z-test
-#&gt; 
-#&gt; data:  extra[group == 1] and extra[group == 2]
-#&gt; z = -2, Std. Dev. Population = 2, p-value = 0.08
-#&gt; alternative hypothesis: true difference in means is not equal to 0
-#&gt; 95 percent confidence interval:
-#&gt;  -3.333  0.173
-#&gt; sample estimates:
-#&gt; mean of x mean of y 
-#&gt;      0.75      2.33 
-#&gt; </div><div class='input'>
-<span class='co'># the formula interface</span>
-<span class='fu'>ZTest</span><span class='op'>(</span><span class='va'>extra</span> <span class='op'>~</span> <span class='va'>group</span>, data <span class='op'>=</span> <span class='va'>sleep</span>, sd_pop<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	Two Sample z-test
-#&gt; 
-#&gt; data:  extra by group
-#&gt; z = -2, Std. Dev. Population = 2, p-value = 0.08
-#&gt; alternative hypothesis: true difference in means is not equal to 0
-#&gt; 95 percent confidence interval:
-#&gt;  -3.333  0.173
-#&gt; sample estimates:
-#&gt; mean in group 1 mean in group 2 
-#&gt;            0.75            2.33 
-#&gt; </div><div class='input'>
-
-<span class='co'># Stahel (2002), pp. 186, 196</span>
-
-<span class='va'>d.tyres</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>A<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>44.5</span>,<span class='fl'>55</span>,<span class='fl'>52.5</span>,<span class='fl'>50.2</span>,<span class='fl'>45.3</span>,<span class='fl'>46.1</span>,<span class='fl'>52.1</span>,<span class='fl'>50.5</span>,<span class='fl'>50.6</span>,<span class='fl'>49.2</span><span class='op'>)</span>,
-                      B<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>44.9</span>,<span class='fl'>54.8</span>,<span class='fl'>55.6</span>,<span class='fl'>55.2</span>,<span class='fl'>55.6</span>,<span class='fl'>47.7</span>,<span class='fl'>53</span>,<span class='fl'>49.1</span>,<span class='fl'>52.3</span>,<span class='fl'>50.7</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span><span class='op'>(</span><span class='va'>d.tyres</span>, <span class='fu'>ZTest</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>B</span>, sd_pop<span class='op'>=</span><span class='fl'>3</span>, paired<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	Paired z-test
-#&gt; 
-#&gt; data:  A and B
-#&gt; z = -2, Std. Dev. Population = 3, p-value = 0.02
-#&gt; alternative hypothesis: true difference in means is not equal to 0
-#&gt; 95 percent confidence interval:
-#&gt;  -4.149 -0.431
-#&gt; sample estimates:
-#&gt; mean of the differences 
-#&gt;                   -2.29 
-#&gt; </div><div class='input'>
-
-<span class='va'>d.oxen</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>ext<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.7</span>,<span class='fl'>2.7</span>,<span class='fl'>1.1</span>,<span class='fl'>3.0</span>,<span class='fl'>1.9</span>,<span class='fl'>3.0</span>,<span class='fl'>3.8</span>,<span class='fl'>3.8</span>,<span class='fl'>0.3</span>,<span class='fl'>1.9</span>,<span class='fl'>1.9</span><span class='op'>)</span>,
-                     int<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>6.5</span>,<span class='fl'>5.4</span>,<span class='fl'>8.1</span>,<span class='fl'>3.5</span>,<span class='fl'>0.5</span>,<span class='fl'>3.8</span>,<span class='fl'>6.8</span>,<span class='fl'>4.9</span>,<span class='fl'>9.5</span>,<span class='fl'>6.2</span>,<span class='fl'>4.1</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span><span class='op'>(</span><span class='va'>d.oxen</span>, <span class='fu'>ZTest</span><span class='op'>(</span><span class='va'>int</span>, <span class='va'>ext</span>, sd_pop<span class='op'>=</span><span class='fl'>1.8</span>, paired<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	Two Sample z-test
-#&gt; 
-#&gt; data:  int and ext
-#&gt; z = 4, Std. Dev. Population = 2, p-value = 0.00008
-#&gt; alternative hypothesis: true difference in means is not equal to 0
-#&gt; 95 percent confidence interval:
-#&gt;  1.51 4.52
-#&gt; sample estimates:
-#&gt; mean of x mean of y 
-#&gt;      5.39      2.37 
-#&gt; </div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>25</span>, <span class='fl'>100</span>, <span class='fl'>5</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>ZTest</span><span class='op'>(</span><span class='va'>x</span>, mu<span class='op'>=</span><span class='fl'>99</span>, sd_pop<span class='op'>=</span><span class='fl'>5</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	One Sample z-test</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  x</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> z = -2, Std. Dev. Population = 5, p-value = 0.06</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> alternative hypothesis: true mean is not equal to 99</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 95 percent confidence interval:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  95.2 99.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> sample estimates:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> mean of x </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      97.1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># the classic interface</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span><span class='op'>(</span><span class='va'>sleep</span>, <span class='fu'>ZTest</span><span class='op'>(</span><span class='va'>extra</span><span class='op'>[</span><span class='va'>group</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>]</span>, <span class='va'>extra</span><span class='op'>[</span><span class='va'>group</span> <span class='op'>==</span> <span class='fl'>2</span><span class='op'>]</span>, sd_pop<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Two Sample z-test</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  extra[group == 1] and extra[group == 2]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> z = -2, Std. Dev. Population = 2, p-value = 0.08</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> alternative hypothesis: true difference in means is not equal to 0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 95 percent confidence interval:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  -3.333  0.173</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> sample estimates:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> mean of x mean of y </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      0.75      2.33 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># the formula interface</span></span>
+<span class='r-in'><span class='fu'>ZTest</span><span class='op'>(</span><span class='va'>extra</span> <span class='op'>~</span> <span class='va'>group</span>, data <span class='op'>=</span> <span class='va'>sleep</span>, sd_pop<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Two Sample z-test</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  extra by group</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> z = -2, Std. Dev. Population = 2, p-value = 0.08</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> alternative hypothesis: true difference in means is not equal to 0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 95 percent confidence interval:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  -3.333  0.173</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> sample estimates:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> mean in group 1 mean in group 2 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>            0.75            2.33 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Stahel (2002), pp. 186, 196</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>d.tyres</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>A<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>44.5</span>,<span class='fl'>55</span>,<span class='fl'>52.5</span>,<span class='fl'>50.2</span>,<span class='fl'>45.3</span>,<span class='fl'>46.1</span>,<span class='fl'>52.1</span>,<span class='fl'>50.5</span>,<span class='fl'>50.6</span>,<span class='fl'>49.2</span><span class='op'>)</span>,</span>
+<span class='r-in'>                      B<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>44.9</span>,<span class='fl'>54.8</span>,<span class='fl'>55.6</span>,<span class='fl'>55.2</span>,<span class='fl'>55.6</span>,<span class='fl'>47.7</span>,<span class='fl'>53</span>,<span class='fl'>49.1</span>,<span class='fl'>52.3</span>,<span class='fl'>50.7</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span><span class='op'>(</span><span class='va'>d.tyres</span>, <span class='fu'>ZTest</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>B</span>, sd_pop<span class='op'>=</span><span class='fl'>3</span>, paired<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Paired z-test</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  A and B</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> z = -2, Std. Dev. Population = 3, p-value = 0.02</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> alternative hypothesis: true difference in means is not equal to 0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 95 percent confidence interval:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  -4.149 -0.431</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> sample estimates:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> mean of the differences </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   -2.29 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>d.oxen</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>ext<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.7</span>,<span class='fl'>2.7</span>,<span class='fl'>1.1</span>,<span class='fl'>3.0</span>,<span class='fl'>1.9</span>,<span class='fl'>3.0</span>,<span class='fl'>3.8</span>,<span class='fl'>3.8</span>,<span class='fl'>0.3</span>,<span class='fl'>1.9</span>,<span class='fl'>1.9</span><span class='op'>)</span>,</span>
+<span class='r-in'>                     int<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>6.5</span>,<span class='fl'>5.4</span>,<span class='fl'>8.1</span>,<span class='fl'>3.5</span>,<span class='fl'>0.5</span>,<span class='fl'>3.8</span>,<span class='fl'>6.8</span>,<span class='fl'>4.9</span>,<span class='fl'>9.5</span>,<span class='fl'>6.2</span>,<span class='fl'>4.1</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span><span class='op'>(</span><span class='va'>d.oxen</span>, <span class='fu'>ZTest</span><span class='op'>(</span><span class='va'>int</span>, <span class='va'>ext</span>, sd_pop<span class='op'>=</span><span class='fl'>1.8</span>, paired<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Two Sample z-test</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  int and ext</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> z = 4, Std. Dev. Population = 2, p-value = 0.00008</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> alternative hypothesis: true difference in means is not equal to 0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 95 percent confidence interval:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  1.51 4.52</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> sample estimates:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> mean of x mean of y </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      5.39      2.37 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

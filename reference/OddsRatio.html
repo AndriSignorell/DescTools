@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -186,7 +186,7 @@
     </tr>
     <tr>
       <th>y</th>
-      <td><p>NULL (default) or a vector with compatible dimensions to <code>x</code>. If y is provided, <code><a href='https://rdrr.io/r/base/table.html'>table(x, y, ...)</a></code> will be calculated.
+      <td><p>NULL (default) or a vector with compatible dimensions to <code>x</code>. If y is provided, <code>table(x, y, ...)</code> will be calculated.
 <!-- %%     ~~Describe \code{y} here~~ --></p></td>
     </tr>
     <tr>
@@ -266,66 +266,77 @@
     <div class='dont-index'><p><code><a href='RelRisk.html'>RelRisk</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Case-control study assessing whether exposure to tap water</span>
-<span class='co'>#   is associated with cryptosporidiosis among AIDS patients</span>
-
-<span class='va'>tab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>29</span>, <span class='fl'>35</span>, <span class='fl'>64</span>, <span class='fl'>12</span>, <span class='fl'>6</span><span class='op'>)</span>, <span class='fl'>3</span>, <span class='fl'>2</span>, byrow<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span><span class='op'>(</span><span class='va'>tab</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='st'>"Tap water exposure"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Lowest"</span>, <span class='st'>"Intermediate"</span>, <span class='st'>"Highest"</span><span class='op'>)</span>,
-                      <span class='st'>"Outcome"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Case"</span>, <span class='st'>"Control"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>tab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='Rev.html'>Rev</a></span><span class='op'>(</span><span class='va'>tab</span>, margin<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
-
-<span class='fu'>OddsRatio</span><span class='op'>(</span><span class='va'>tab</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>,<span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 7.929688</div><div class='input'><span class='fu'>OddsRatio</span><span class='op'>(</span><span class='va'>tab</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>3</span><span class='op'>)</span>,<span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 29</div><div class='input'>
-<span class='fu'>OddsRatio</span><span class='op'>(</span><span class='va'>tab</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>,<span class='op'>]</span>, method<span class='op'>=</span><span class='st'>"mle"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 7.836979</div><div class='input'><span class='fu'>OddsRatio</span><span class='op'>(</span><span class='va'>tab</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>,<span class='op'>]</span>, method<span class='op'>=</span><span class='st'>"midp"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 7.355436</div><div class='input'><span class='fu'>OddsRatio</span><span class='op'>(</span><span class='va'>tab</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>,<span class='op'>]</span>, method<span class='op'>=</span><span class='st'>"wald"</span>, conf.level<span class='op'>=</span><span class='fl'>0.95</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; odds ratio     lwr.ci     upr.ci 
-#&gt;   7.929688   1.785414  35.218699 </div><div class='input'>
-<span class='co'># in case of zeros consider using glm for calculating OR</span>
-<span class='va'>dp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span> <span class='op'>(</span>a<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>7</span>, <span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span>, b<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>12</span><span class='op'>)</span>, t<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>fit</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='va'>a</span>, <span class='va'>b</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>t</span>, data<span class='op'>=</span><span class='va'>dp</span>, family<span class='op'>=</span><span class='va'>binomial</span><span class='op'>)</span>
-
-<span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span><span class='op'>(</span><span class='va'>fit</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;       (Intercept)                 t 
-#&gt;         0.5833333 648881105.1376113 </div><div class='input'>
-<span class='co'># calculation of log oddsratios in a 2x2xk table</span>
-<span class='va'>migraine</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span><span class='op'>(</span><span class='va'>freq</span> <span class='op'>~</span> <span class='va'>.</span>,
-                  <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span><span class='op'>(</span>treatment<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"active"</span>,<span class='st'>"placebo"</span><span class='op'>)</span>,
-                                    response<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"better"</span>,<span class='st'>"same"</span><span class='op'>)</span>,
-                                    gender<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"female"</span>,<span class='st'>"male"</span><span class='op'>)</span><span class='op'>)</span>,
-                        freq<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>16</span>,<span class='fl'>5</span>,<span class='fl'>11</span>,<span class='fl'>20</span>,<span class='fl'>12</span>,<span class='fl'>7</span>,<span class='fl'>16</span>,<span class='fl'>19</span><span class='op'>)</span><span class='op'>)</span>
-<span class='op'>)</span>
-
-<span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>migraine</span>, <span class='fl'>3</span>, <span class='va'>OddsRatio</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;    female      male 
-#&gt; 1.7609878 0.7108468 </div><div class='input'>
-<span class='co'># OddsRatio table for logistic regression models</span>
-<span class='va'>r.glm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span><span class='va'>type</span> <span class='op'>~</span> <span class='va'>.</span>, data<span class='op'>=</span><span class='fu'>MASS</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/MASS/man/Pima.tr.html'>Pima.tr2</a></span>, family<span class='op'>=</span><span class='va'>binomial</span><span class='op'>)</span>
-<span class='fu'>OddsRatio</span><span class='op'>(</span><span class='va'>r.glm</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt; 
-#&gt; Call:
-#&gt; glm(formula = type ~ ., family = binomial, data = MASS::Pima.tr2)
-#&gt; 
-#&gt; Odds Ratios:
-#&gt;                or or.lci or.uci Pr(&gt;|z|)    
-#&gt; (Intercept) 0.000  0.000  0.002 3.38e-08 ***
-#&gt; npreg       1.109  0.978  1.263   0.1107    
-#&gt; glu         1.033  1.020  1.047 2.22e-06 ***
-#&gt; bp          0.995  0.959  1.032   0.7971    
-#&gt; skin        0.998  0.957  1.045   0.9321    
-#&gt; bmi         1.087  1.000  1.184   0.0509 .  
-#&gt; ped         6.174  1.728 23.681   0.0062 ** 
-#&gt; age         1.042  0.998  1.090   0.0623 .  
-#&gt; ---
-#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-#&gt; 
-#&gt; Brier Score: 0.147     Nagelkerke R2: 0.447
-#&gt; </div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>OddsRatio</span><span class='op'>(</span><span class='va'>r.glm</span><span class='op'>)</span>, xlim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='fl'>2</span><span class='op'>)</span>, main<span class='op'>=</span><span class='st'>"OddsRatio - glm"</span>, pch<span class='op'>=</span><span class='cn'>NA</span>,
-     lblcolor<span class='op'>=</span><span class='va'>hred</span>, args.errbars<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>col<span class='op'>=</span><span class='va'>horange</span>, pch<span class='op'>=</span><span class='fl'>21</span>, col.pch<span class='op'>=</span><span class='va'>hblue</span>,
-     bg.pch<span class='op'>=</span><span class='va'>hyellow</span>, cex.pch<span class='op'>=</span><span class='fl'>1.5</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='img'><img src='OddsRatio-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># Case-control study assessing whether exposure to tap water</span></span>
+<span class='r-in'><span class='co'>#   is associated with cryptosporidiosis among AIDS patients</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>tab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>29</span>, <span class='fl'>35</span>, <span class='fl'>64</span>, <span class='fl'>12</span>, <span class='fl'>6</span><span class='op'>)</span>, <span class='fl'>3</span>, <span class='fl'>2</span>, byrow<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span><span class='op'>(</span><span class='va'>tab</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='st'>"Tap water exposure"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Lowest"</span>, <span class='st'>"Intermediate"</span>, <span class='st'>"Highest"</span><span class='op'>)</span>,</span>
+<span class='r-in'>                      <span class='st'>"Outcome"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Case"</span>, <span class='st'>"Control"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>tab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='Rev.html'>Rev</a></span><span class='op'>(</span><span class='va'>tab</span>, margin<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>OddsRatio</span><span class='op'>(</span><span class='va'>tab</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>,<span class='op'>]</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 7.929688</span>
+<span class='r-in'><span class='fu'>OddsRatio</span><span class='op'>(</span><span class='va'>tab</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>3</span><span class='op'>)</span>,<span class='op'>]</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 29</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>OddsRatio</span><span class='op'>(</span><span class='va'>tab</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>,<span class='op'>]</span>, method<span class='op'>=</span><span class='st'>"mle"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 7.836979</span>
+<span class='r-in'><span class='fu'>OddsRatio</span><span class='op'>(</span><span class='va'>tab</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>,<span class='op'>]</span>, method<span class='op'>=</span><span class='st'>"midp"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 7.355436</span>
+<span class='r-in'><span class='fu'>OddsRatio</span><span class='op'>(</span><span class='va'>tab</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>,<span class='op'>]</span>, method<span class='op'>=</span><span class='st'>"wald"</span>, conf.level<span class='op'>=</span><span class='fl'>0.95</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> odds ratio     lwr.ci     upr.ci </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   7.929688   1.785414  35.218699 </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># in case of zeros consider using glm for calculating OR</span></span>
+<span class='r-in'><span class='va'>dp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span> <span class='op'>(</span>a<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>7</span>, <span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span>, b<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>12</span><span class='op'>)</span>, t<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>fit</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='va'>a</span>, <span class='va'>b</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>t</span>, data<span class='op'>=</span><span class='va'>dp</span>, family<span class='op'>=</span><span class='va'>binomial</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span><span class='op'>(</span><span class='va'>fit</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       (Intercept)                 t </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         0.5833333 648881105.1376113 </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># calculation of log oddsratios in a 2x2xk table</span></span>
+<span class='r-in'><span class='va'>migraine</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span><span class='op'>(</span><span class='va'>freq</span> <span class='op'>~</span> <span class='va'>.</span>,</span>
+<span class='r-in'>                  <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span><span class='op'>(</span>treatment<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"active"</span>,<span class='st'>"placebo"</span><span class='op'>)</span>,</span>
+<span class='r-in'>                                    response<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"better"</span>,<span class='st'>"same"</span><span class='op'>)</span>,</span>
+<span class='r-in'>                                    gender<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"female"</span>,<span class='st'>"male"</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span class='r-in'>                        freq<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>16</span>,<span class='fl'>5</span>,<span class='fl'>11</span>,<span class='fl'>20</span>,<span class='fl'>12</span>,<span class='fl'>7</span>,<span class='fl'>16</span>,<span class='fl'>19</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>migraine</span>, <span class='fl'>3</span>, <span class='va'>OddsRatio</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    female      male </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.7609878 0.7108468 </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># OddsRatio table for logistic regression models</span></span>
+<span class='r-in'><span class='va'>r.glm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span><span class='va'>type</span> <span class='op'>~</span> <span class='va'>.</span>, data<span class='op'>=</span><span class='fu'>MASS</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/MASS/man/Pima.tr.html'>Pima.tr2</a></span>, family<span class='op'>=</span><span class='va'>binomial</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>OddsRatio</span><span class='op'>(</span><span class='va'>r.glm</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Waiting for profiling to be done...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Call:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> glm(formula = type ~ ., family = binomial, data = MASS::Pima.tr2)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Odds Ratios:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                or or.lci or.uci Pr(&gt;|z|)    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> (Intercept) 0.000  0.000  0.002 3.38e-08 ***</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> npreg       1.109  0.978  1.263   0.1107    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> glu         1.033  1.020  1.047 2.22e-06 ***</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> bp          0.995  0.959  1.032   0.7971    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> skin        0.998  0.957  1.045   0.9321    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> bmi         1.087  1.000  1.184   0.0509 .  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ped         6.174  1.728 23.681   0.0062 ** </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age         1.042  0.998  1.090   0.0623 .  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ---</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Brier Score: 0.147     Nagelkerke R2: 0.447</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>OddsRatio</span><span class='op'>(</span><span class='va'>r.glm</span><span class='op'>)</span>, xlim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='fl'>2</span><span class='op'>)</span>, main<span class='op'>=</span><span class='st'>"OddsRatio - glm"</span>, pch<span class='op'>=</span><span class='cn'>NA</span>,</span>
+<span class='r-in'>     lblcolor<span class='op'>=</span><span class='va'>hred</span>, args.errbars<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>col<span class='op'>=</span><span class='va'>horange</span>, pch<span class='op'>=</span><span class='fl'>21</span>, col.pch<span class='op'>=</span><span class='va'>hblue</span>,</span>
+<span class='r-in'>     bg.pch<span class='op'>=</span><span class='va'>hyellow</span>, cex.pch<span class='op'>=</span><span class='fl'>1.5</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Waiting for profiling to be done...</span>
+<span class='r-plt img'><img src='OddsRatio-1.png' alt='' width='700' height='433' /></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

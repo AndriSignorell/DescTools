@@ -76,7 +76,7 @@ cards contains the standard set of 52 playing cards in four colours (without Jok
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -174,52 +174,59 @@ The dataset <code>roulette</code> contains the standard sample space for one spi
     <div class='dont-index'><p><code><a href='Sample.html'>Sample</a></code>, <code><a href='https://rdrr.io/r/base/sample.html'>sample</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>cards</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;     card rank suit
-#&gt; 1 2-club    2 club
-#&gt; 2 3-club    3 club
-#&gt; 3 4-club    4 club
-#&gt; 4 5-club    5 club
-#&gt; 5 6-club    6 club
-#&gt; 6 7-club    7 club</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>tarot</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;     card rank suit desc
-#&gt; 1 1-wand    1 wand &lt;NA&gt;
-#&gt; 2 2-wand    2 wand &lt;NA&gt;
-#&gt; 3 3-wand    3 wand &lt;NA&gt;
-#&gt; 4 4-wand    4 wand &lt;NA&gt;
-#&gt; 5 5-wand    5 wand &lt;NA&gt;
-#&gt; 6 6-wand    6 wand &lt;NA&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>roulette</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   num   col parity highlow dozens column     pocketrange
-#&gt; 1   0 green   &lt;NA&gt;    &lt;NA&gt;     NA     NA        jeu zero
-#&gt; 2  26 black   even    high      3     35        jeu zero
-#&gt; 3   3   red    odd     low      1     36        jeu zero
-#&gt; 4  35 black    odd    high      3     35        jeu zero
-#&gt; 5  12   red   even     low      1     36        jeu zero
-#&gt; 6  28 black   even    high      3     34 voisins du zero</div><div class='input'>
-<span class='co'># drawing 5 cards</span>
-<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='va'>cards</span><span class='op'>$</span><span class='va'>card</span>, <span class='fl'>5</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "Q-spade"   "9-diamond" "3-heart"   "Q-diamond" "4-club"   </div><div class='input'>
-<span class='co'># drawing 5 cards with jokers</span>
-<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>cards</span><span class='op'>$</span><span class='va'>card</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"Joker"</span>, <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>, <span class='fl'>5</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "8-club" "Joker"  "K-club" "2-club" "3-club"</div><div class='input'>
-<span class='co'># spin the wheel by using the DescTools::Sample() for sampling</span>
-<span class='co'># rows from a data frame</span>
-<span class='fu'><a href='Sample.html'>Sample</a></span><span class='op'>(</span><span class='va'>roulette</span>, size<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;    num col parity highlow dozens column pocketrange
-#&gt; 11   9 red    odd     low      1     36   orphelins</div><div class='input'>
-<span class='co'># simulate the evening in Las Vegas with 10 games</span>
-<span class='fu'><a href='Sample.html'>Sample</a></span><span class='op'>(</span><span class='va'>roulette</span>, <span class='fl'>10</span>, replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;      num   col parity highlow dozens column       pocketrange
-#&gt; 4     35 black    odd    high      3     35          jeu zero
-#&gt; 15     1   red    odd     low      1     34         orphelins
-#&gt; 17    16   red   even     low      2     34 tiers du cylindre
-#&gt; 17.1  16   red   even     low      2     34 tiers du cylindre
-#&gt; 33    21   red    odd    high      2     36   voisins du zero
-#&gt; 28     6 black   even     low      1     36         orphelins
-#&gt; 5     12   red   even     low      1     36          jeu zero
-#&gt; 21    23   red    odd    high      2     35 tiers du cylindre
-#&gt; 24    11 black    odd     low      1     35 tiers du cylindre
-#&gt; 2     26 black   even    high      3     35          jeu zero</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>cards</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     card rank suit</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 2-club    2 club</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 3-club    3 club</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 4-club    4 club</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 5-club    5 club</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 6-club    6 club</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6 7-club    7 club</span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>tarot</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     card rank suit desc</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 1-wand    1 wand &lt;NA&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 2-wand    2 wand &lt;NA&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 3-wand    3 wand &lt;NA&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 4-wand    4 wand &lt;NA&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 5-wand    5 wand &lt;NA&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6 6-wand    6 wand &lt;NA&gt;</span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>roulette</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   num   col parity highlow dozens column     pocketrange</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1   0 green   &lt;NA&gt;    &lt;NA&gt;     NA     NA        jeu zero</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  26 black   even    high      3     35        jeu zero</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3   3   red    odd     low      1     36        jeu zero</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4  35 black    odd    high      3     35        jeu zero</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5  12   red   even     low      1     36        jeu zero</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6  28 black   even    high      3     34 voisins du zero</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># drawing 5 cards</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='va'>cards</span><span class='op'>$</span><span class='va'>card</span>, <span class='fl'>5</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Q-spade"   "9-diamond" "3-heart"   "Q-diamond" "4-club"   </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># drawing 5 cards with jokers</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>cards</span><span class='op'>$</span><span class='va'>card</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"Joker"</span>, <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>, <span class='fl'>5</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "8-club" "Joker"  "K-club" "2-club" "3-club"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># spin the wheel by using the DescTools::Sample() for sampling</span></span>
+<span class='r-in'><span class='co'># rows from a data frame</span></span>
+<span class='r-in'><span class='fu'><a href='Sample.html'>Sample</a></span><span class='op'>(</span><span class='va'>roulette</span>, size<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    num col parity highlow dozens column pocketrange</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11   9 red    odd     low      1     36   orphelins</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># simulate the evening in Las Vegas with 10 games</span></span>
+<span class='r-in'><span class='fu'><a href='Sample.html'>Sample</a></span><span class='op'>(</span><span class='va'>roulette</span>, <span class='fl'>10</span>, replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      num   col parity highlow dozens column       pocketrange</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4     35 black    odd    high      3     35          jeu zero</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 15     1   red    odd     low      1     34         orphelins</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 17    16   red   even     low      2     34 tiers du cylindre</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 17.1  16   red   even     low      2     34 tiers du cylindre</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 33    21   red    odd    high      2     36   voisins du zero</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 28     6 black   even     low      1     36         orphelins</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5     12   red   even     low      1     36          jeu zero</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 21    23   red    odd    high      2     35 tiers du cylindre</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 24    11 black    odd     low      1     35 tiers du cylindre</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2     26 black   even    high      3     35          jeu zero</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

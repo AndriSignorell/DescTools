@@ -78,7 +78,7 @@ Sort wraps the base sort function and adds an interface for sorting the rows of 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -220,108 +220,118 @@ and usually confusing for unordered factors, whose levels may be defined in the 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/sort.html'>sort</a></code>, <code><a href='https://rdrr.io/r/base/order.html'>order</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>d.frm</span> <span class='op'>&lt;-</span> <span class='va'>d.pizza</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"driver"</span>,<span class='st'>"temperature"</span>,<span class='st'>"delivery_min"</span><span class='op'>)</span><span class='op'>]</span>
-
-<span class='fu'>Sort</span><span class='op'>(</span><span class='va'>d.frm</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1] Butcher Butcher Carter  Carter  Taylor  Taylor  Taylor  Taylor  Taylor 
-#&gt; [10] Taylor 
-#&gt; Levels: Butcher Carpenter Carter Farmer Hunter Miller Taylor</div><div class='input'><span class='co'># Sort follows the levels by default</span>
-<span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>d.frm</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "Butcher"   "Carpenter" "Carter"    "Farmer"    "Hunter"    "Miller"   
-#&gt; [7] "Taylor"   </div><div class='input'>
-<span class='fu'>Sort</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>d.frm</span>, ord<span class='op'>=</span><span class='st'>"driver"</span>, decreasing<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;     driver temperature delivery_min
-#&gt; 2  Butcher        56.4         19.6
-#&gt; 3  Butcher        36.5         17.8
-#&gt; 5   Carter        50.0         21.8
-#&gt; 10  Carter        54.4         24.3
-#&gt; 1   Taylor        53.0         20.0
-#&gt; 4   Taylor          NA         37.3
-#&gt; 6   Taylor        27.0         48.7
-#&gt; 7   Taylor        33.9         49.3
-#&gt; 8   Taylor        54.8         25.6
-#&gt; 9   Taylor        48.0         26.4</div><div class='input'><span class='co'># set factorsAsCharacter = TRUE, if alphabetical order is required</span>
-<span class='fu'>Sort</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>d.frm</span>, ord<span class='op'>=</span><span class='st'>"driver"</span>, decreasing<span class='op'>=</span><span class='cn'>FALSE</span>, factorsAsCharacter<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;     driver temperature delivery_min
-#&gt; 2  Butcher        56.4         19.6
-#&gt; 3  Butcher        36.5         17.8
-#&gt; 5   Carter        50.0         21.8
-#&gt; 10  Carter        54.4         24.3
-#&gt; 1   Taylor        53.0         20.0
-#&gt; 4   Taylor          NA         37.3
-#&gt; 6   Taylor        27.0         48.7
-#&gt; 7   Taylor        33.9         49.3
-#&gt; 8   Taylor        54.8         25.6
-#&gt; 9   Taylor        48.0         26.4</div><div class='input'>
-<span class='fu'>Sort</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>d.frm</span>, ord<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"driver"</span>,<span class='st'>"delivery_min"</span><span class='op'>)</span>, factorsAsCharacter <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;     driver temperature delivery_min
-#&gt; 3  Butcher        36.5         17.8
-#&gt; 2  Butcher        56.4         19.6
-#&gt; 5   Carter        50.0         21.8
-#&gt; 10  Carter        54.4         24.3
-#&gt; 1   Taylor        53.0         20.0
-#&gt; 8   Taylor        54.8         25.6
-#&gt; 9   Taylor        48.0         26.4
-#&gt; 4   Taylor          NA         37.3
-#&gt; 6   Taylor        27.0         48.7
-#&gt; 7   Taylor        33.9         49.3</div><div class='input'><span class='fu'>Sort</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>d.frm</span>, ord<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"driver"</span>,<span class='st'>"delivery_min"</span><span class='op'>)</span>, factorsAsCharacter <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;     driver temperature delivery_min
-#&gt; 3  Butcher        36.5         17.8
-#&gt; 2  Butcher        56.4         19.6
-#&gt; 5   Carter        50.0         21.8
-#&gt; 10  Carter        54.4         24.3
-#&gt; 1   Taylor        53.0         20.0
-#&gt; 8   Taylor        54.8         25.6
-#&gt; 9   Taylor        48.0         26.4
-#&gt; 4   Taylor          NA         37.3
-#&gt; 6   Taylor        27.0         48.7
-#&gt; 7   Taylor        33.9         49.3</div><div class='input'>
-<span class='fu'>Sort</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>d.frm</span>, ord<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"driver"</span>,<span class='st'>"delivery_min"</span><span class='op'>)</span>, decreasing<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>FALSE</span>, <span class='cn'>TRUE</span><span class='op'>)</span>,
-  factorsAsCharacter <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;     driver temperature delivery_min
-#&gt; 2  Butcher        56.4         19.6
-#&gt; 3  Butcher        36.5         17.8
-#&gt; 10  Carter        54.4         24.3
-#&gt; 5   Carter        50.0         21.8
-#&gt; 7   Taylor        33.9         49.3
-#&gt; 6   Taylor        27.0         48.7
-#&gt; 4   Taylor          NA         37.3
-#&gt; 9   Taylor        48.0         26.4
-#&gt; 8   Taylor        54.8         25.6
-#&gt; 1   Taylor        53.0         20.0</div><div class='input'>
-<span class='co'># Sorting tables</span>
-<span class='va'>tab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>driver</span>, <span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>area</span><span class='op'>)</span>
-
-<span class='fu'>Sort</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>tab</span>, ord<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>2</span><span class='op'>)</span>, decreasing<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>TRUE</span>, <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;            
-#&gt;             Brent Camden Westminster
-#&gt;   Taylor       42    142          20
-#&gt;   Miller        6     41          77
-#&gt;   Hunter      128      4          24
-#&gt;   Farmer       19     87          11
-#&gt;   Carter      177     47           5
-#&gt;   Carpenter    29     19         221
-#&gt;   Butcher      72      1          22</div><div class='input'><span class='fu'>Sort</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>tab</span>, ord<span class='op'>=</span><span class='fl'>2</span>, decreasing<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;            
-#&gt;             Brent Camden Westminster
-#&gt;   Taylor       42    142          20
-#&gt;   Farmer       19     87          11
-#&gt;   Carter      177     47           5
-#&gt;   Miller        6     41          77
-#&gt;   Carpenter    29     19         221
-#&gt;   Hunter      128      4          24
-#&gt;   Butcher      72      1          22</div><div class='input'>
-<span class='co'># partial matching ok:</span>
-<span class='fu'>Sort</span><span class='op'>(</span><span class='va'>tab</span>, o<span class='op'>=</span><span class='fl'>1</span>, d<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;            
-#&gt;             Brent Camden Westminster
-#&gt;   Carter      177     47           5
-#&gt;   Hunter      128      4          24
-#&gt;   Butcher      72      1          22
-#&gt;   Taylor       42    142          20
-#&gt;   Carpenter    29     19         221
-#&gt;   Farmer       19     87          11
-#&gt;   Miller        6     41          77</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>d.frm</span> <span class='op'>&lt;-</span> <span class='va'>d.pizza</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"driver"</span>,<span class='st'>"temperature"</span>,<span class='st'>"delivery_min"</span><span class='op'>)</span><span class='op'>]</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>Sort</span><span class='op'>(</span><span class='va'>d.frm</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] Butcher Butcher Carter  Carter  Taylor  Taylor  Taylor  Taylor  Taylor </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10] Taylor </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Levels: Butcher Carpenter Carter Farmer Hunter Miller Taylor</span>
+<span class='r-in'><span class='co'># Sort follows the levels by default</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>d.frm</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Butcher"   "Carpenter" "Carter"    "Farmer"    "Hunter"    "Miller"   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [7] "Taylor"   </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>Sort</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>d.frm</span>, ord<span class='op'>=</span><span class='st'>"driver"</span>, decreasing<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     driver temperature delivery_min</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  Butcher        56.4         19.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  Butcher        36.5         17.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5   Carter        50.0         21.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10  Carter        54.4         24.3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1   Taylor        53.0         20.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4   Taylor          NA         37.3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6   Taylor        27.0         48.7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7   Taylor        33.9         49.3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8   Taylor        54.8         25.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9   Taylor        48.0         26.4</span>
+<span class='r-in'><span class='co'># set factorsAsCharacter = TRUE, if alphabetical order is required</span></span>
+<span class='r-in'><span class='fu'>Sort</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>d.frm</span>, ord<span class='op'>=</span><span class='st'>"driver"</span>, decreasing<span class='op'>=</span><span class='cn'>FALSE</span>, factorsAsCharacter<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     driver temperature delivery_min</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  Butcher        56.4         19.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  Butcher        36.5         17.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5   Carter        50.0         21.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10  Carter        54.4         24.3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1   Taylor        53.0         20.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4   Taylor          NA         37.3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6   Taylor        27.0         48.7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7   Taylor        33.9         49.3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8   Taylor        54.8         25.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9   Taylor        48.0         26.4</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>Sort</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>d.frm</span>, ord<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"driver"</span>,<span class='st'>"delivery_min"</span><span class='op'>)</span>, factorsAsCharacter <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     driver temperature delivery_min</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  Butcher        36.5         17.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  Butcher        56.4         19.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5   Carter        50.0         21.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10  Carter        54.4         24.3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1   Taylor        53.0         20.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8   Taylor        54.8         25.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9   Taylor        48.0         26.4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4   Taylor          NA         37.3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6   Taylor        27.0         48.7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7   Taylor        33.9         49.3</span>
+<span class='r-in'><span class='fu'>Sort</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>d.frm</span>, ord<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"driver"</span>,<span class='st'>"delivery_min"</span><span class='op'>)</span>, factorsAsCharacter <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     driver temperature delivery_min</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  Butcher        36.5         17.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  Butcher        56.4         19.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5   Carter        50.0         21.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10  Carter        54.4         24.3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1   Taylor        53.0         20.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8   Taylor        54.8         25.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9   Taylor        48.0         26.4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4   Taylor          NA         37.3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6   Taylor        27.0         48.7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7   Taylor        33.9         49.3</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>Sort</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>d.frm</span>, ord<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"driver"</span>,<span class='st'>"delivery_min"</span><span class='op'>)</span>, decreasing<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>FALSE</span>, <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
+<span class='r-in'>  factorsAsCharacter <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     driver temperature delivery_min</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  Butcher        56.4         19.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  Butcher        36.5         17.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10  Carter        54.4         24.3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5   Carter        50.0         21.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7   Taylor        33.9         49.3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6   Taylor        27.0         48.7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4   Taylor          NA         37.3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9   Taylor        48.0         26.4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8   Taylor        54.8         25.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1   Taylor        53.0         20.0</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Sorting tables</span></span>
+<span class='r-in'><span class='va'>tab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>driver</span>, <span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>area</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>Sort</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>tab</span>, ord<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>2</span><span class='op'>)</span>, decreasing<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>TRUE</span>, <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>            </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             Brent Camden Westminster</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Taylor       42    142          20</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Miller        6     41          77</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Hunter      128      4          24</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Farmer       19     87          11</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Carter      177     47           5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Carpenter    29     19         221</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Butcher      72      1          22</span>
+<span class='r-in'><span class='fu'>Sort</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>tab</span>, ord<span class='op'>=</span><span class='fl'>2</span>, decreasing<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>            </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             Brent Camden Westminster</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Taylor       42    142          20</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Farmer       19     87          11</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Carter      177     47           5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Miller        6     41          77</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Carpenter    29     19         221</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Hunter      128      4          24</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Butcher      72      1          22</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># partial matching ok:</span></span>
+<span class='r-in'><span class='fu'>Sort</span><span class='op'>(</span><span class='va'>tab</span>, o<span class='op'>=</span><span class='fl'>1</span>, d<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>            </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             Brent Camden Westminster</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Carter      177     47           5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Hunter      128      4          24</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Butcher      72      1          22</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Taylor       42    142          20</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Carpenter    29     19         221</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Farmer       19     87          11</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Miller        6     41          77</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

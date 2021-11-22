@@ -76,7 +76,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -204,39 +204,42 @@
     <div class='dont-index'><p><code><a href='BrierScore.html'>BrierScore</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>d.titanic</span> <span class='op'>=</span> <span class='fu'><a href='Untable.html'>Untable</a></span><span class='op'>(</span><span class='va'>Titanic</span><span class='op'>)</span>
-<span class='va'>r.glm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span><span class='va'>Survived</span> <span class='op'>~</span> <span class='va'>.</span>, data<span class='op'>=</span><span class='va'>d.titanic</span>, family<span class='op'>=</span><span class='va'>binomial</span><span class='op'>)</span>
-<span class='fu'>Cstat</span><span class='op'>(</span><span class='va'>r.glm</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in .Call("conc", PACKAGE = "DescTools", y[ord, ], as.double(wts[ord]),     as.integer(idx), as.integer(n2)): "conc" not available for .Call() for package "DescTools"</span></div><div class='input'>
-<span class='co'># default interface</span>
-<span class='fu'>Cstat</span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>r.glm</span>, method<span class='op'>=</span><span class='st'>"response"</span><span class='op'>)</span>, 
-      resp <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/model.extract.html'>model.response</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/model.frame.html'>model.frame</a></span><span class='op'>(</span><span class='va'>r.glm</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in .Call("conc", PACKAGE = "DescTools", y[ord, ], as.double(wts[ord]),     as.integer(idx), as.integer(n2)): "conc" not available for .Call() for package "DescTools"</span></div><div class='input'>  
-      
-<span class='co'># calculating bootstrap confidence intervals</span>
-<span class='va'>FUN</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>d.set</span>, <span class='va'>i</span><span class='op'>)</span> <span class='op'>{</span>
-   <span class='va'>r.glm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span><span class='va'>Survived</span> <span class='op'>~</span> <span class='va'>.</span>, data<span class='op'>=</span><span class='va'>d.set</span><span class='op'>[</span><span class='va'>i</span>,<span class='op'>]</span>, family<span class='op'>=</span><span class='va'>binomial</span><span class='op'>)</span>
-   <span class='fu'>Cstat</span><span class='op'>(</span><span class='va'>r.glm</span><span class='op'>)</span>
-   <span class='op'>}</span>
-   
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>boot</span><span class='op'>)</span>
-<span class='va'>boot.res</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/boot/man/boot.html'>boot</a></span><span class='op'>(</span><span class='va'>d.titanic</span>, <span class='va'>FUN</span>, R<span class='op'>=</span><span class='fl'>999</span><span class='op'>)</span> 
-
-<span class='co'># the percentile confidence intervals</span>
-<span class='fu'><a href='https://rdrr.io/pkg/boot/man/boot.ci.html'>boot.ci</a></span><span class='op'>(</span><span class='va'>boot.res</span>, type<span class='op'>=</span><span class='st'>"perc"</span><span class='op'>)</span>
-
-<span class='co'>## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS</span>
-<span class='co'>## Based on 999 bootstrap replicates</span>
-<span class='co'>##</span>
-<span class='co'>## CALL : </span>
-<span class='co'>## boot.ci(boot.out = res, type = "perc")</span>
-<span class='co'>## </span>
-<span class='co'>## Intervals : </span>
-<span class='co'>## Level     Percentile     </span>
-<span class='co'>## 95%   ( 0.7308,  0.7808 )  </span>
-<span class='co'>## Calculations and Intervals on Original Scale</span>
-<span class='op'>}</span>   </div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>d.titanic</span> <span class='op'>=</span> <span class='fu'><a href='Untable.html'>Untable</a></span><span class='op'>(</span><span class='va'>Titanic</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>r.glm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span><span class='va'>Survived</span> <span class='op'>~</span> <span class='va'>.</span>, data<span class='op'>=</span><span class='va'>d.titanic</span>, family<span class='op'>=</span><span class='va'>binomial</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>Cstat</span><span class='op'>(</span><span class='va'>r.glm</span><span class='op'>)</span></span>
+<span class='r-err co'><span class='r-pr'>#&gt;</span> <span class='error'>Error in .Call("conc", PACKAGE = "DescTools", y[ord, ], as.double(wts[ord]),     as.integer(idx), as.integer(n2)):</span> "conc" not available for .Call() for package "DescTools"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># default interface</span></span>
+<span class='r-in'><span class='fu'>Cstat</span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>r.glm</span>, method<span class='op'>=</span><span class='st'>"response"</span><span class='op'>)</span>, </span>
+<span class='r-in'>      resp <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/model.extract.html'>model.response</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/model.frame.html'>model.frame</a></span><span class='op'>(</span><span class='va'>r.glm</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-err co'><span class='r-pr'>#&gt;</span> <span class='error'>Error in .Call("conc", PACKAGE = "DescTools", y[ord, ], as.double(wts[ord]),     as.integer(idx), as.integer(n2)):</span> "conc" not available for .Call() for package "DescTools"</span>
+<span class='r-in'>  </span>
+<span class='r-in'>      </span>
+<span class='r-in'><span class='co'># calculating bootstrap confidence intervals</span></span>
+<span class='r-in'><span class='va'>FUN</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>d.set</span>, <span class='va'>i</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'>   <span class='va'>r.glm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span><span class='va'>Survived</span> <span class='op'>~</span> <span class='va'>.</span>, data<span class='op'>=</span><span class='va'>d.set</span><span class='op'>[</span><span class='va'>i</span>,<span class='op'>]</span>, family<span class='op'>=</span><span class='va'>binomial</span><span class='op'>)</span></span>
+<span class='r-in'>   <span class='fu'>Cstat</span><span class='op'>(</span><span class='va'>r.glm</span><span class='op'>)</span></span>
+<span class='r-in'>   <span class='op'>}</span></span>
+<span class='r-in'>   </span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>boot</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>boot.res</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/boot/man/boot.html'>boot</a></span><span class='op'>(</span><span class='va'>d.titanic</span>, <span class='va'>FUN</span>, R<span class='op'>=</span><span class='fl'>999</span><span class='op'>)</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># the percentile confidence intervals</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/boot/man/boot.ci.html'>boot.ci</a></span><span class='op'>(</span><span class='va'>boot.res</span>, type<span class='op'>=</span><span class='st'>"perc"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS</span></span>
+<span class='r-in'><span class='co'>## Based on 999 bootstrap replicates</span></span>
+<span class='r-in'><span class='co'>##</span></span>
+<span class='r-in'><span class='co'>## CALL : </span></span>
+<span class='r-in'><span class='co'>## boot.ci(boot.out = res, type = "perc")</span></span>
+<span class='r-in'><span class='co'>## </span></span>
+<span class='r-in'><span class='co'>## Intervals : </span></span>
+<span class='r-in'><span class='co'>## Level     Percentile     </span></span>
+<span class='r-in'><span class='co'>## 95%   ( 0.7308,  0.7808 )  </span></span>
+<span class='r-in'><span class='co'>## Calculations and Intervals on Original Scale</span></span>
+<span class='r-in'><span class='op'>}</span>   </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

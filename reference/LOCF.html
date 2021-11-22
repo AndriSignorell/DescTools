@@ -78,7 +78,7 @@ LOCF() replaces NAs with the most recent non-NA prior to it." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -198,41 +198,42 @@ the variability.</p>
     <div class='dont-index'><p>See also the package <span class="pkg">Hmisc</span> for less coarse imputation functions.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>d.frm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
-  tag<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"mo"</span>, <span class='st'>"di"</span>, <span class='st'>"mi"</span>, <span class='st'>"do"</span>, <span class='st'>"fr"</span>, <span class='st'>"sa"</span>, <span class='st'>"so"</span><span class='op'>)</span>, <span class='fl'>4</span><span class='op'>)</span>
-, val<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='cn'>NA</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>, <span class='fl'>4</span><span class='op'>)</span> <span class='op'>)</span>
-
-<span class='va'>d.frm</span><span class='op'>$</span><span class='va'>locf</span> <span class='op'>&lt;-</span> <span class='fu'>LOCF</span><span class='op'>(</span> <span class='va'>d.frm</span><span class='op'>$</span><span class='va'>val</span> <span class='op'>)</span>
-<span class='va'>d.frm</span>
-</div><div class='output co'>#&gt;    tag       val      locf
-#&gt; 1   mo 0.3191548 0.3191548
-#&gt; 2   di 0.2087307 0.2087307
-#&gt; 3   mi 0.8284840 0.8284840
-#&gt; 4   do 0.9706503 0.9706503
-#&gt; 5   fr 0.6544848 0.6544848
-#&gt; 6   sa        NA 0.6544848
-#&gt; 7   so        NA 0.6544848
-#&gt; 8   mo 0.3191548 0.3191548
-#&gt; 9   di 0.2087307 0.2087307
-#&gt; 10  mi 0.8284840 0.8284840
-#&gt; 11  do 0.9706503 0.9706503
-#&gt; 12  fr 0.6544848 0.6544848
-#&gt; 13  sa        NA 0.6544848
-#&gt; 14  so        NA 0.6544848
-#&gt; 15  mo 0.3191548 0.3191548
-#&gt; 16  di 0.2087307 0.2087307
-#&gt; 17  mi 0.8284840 0.8284840
-#&gt; 18  do 0.9706503 0.9706503
-#&gt; 19  fr 0.6544848 0.6544848
-#&gt; 20  sa        NA 0.6544848
-#&gt; 21  so        NA 0.6544848
-#&gt; 22  mo 0.3191548 0.3191548
-#&gt; 23  di 0.2087307 0.2087307
-#&gt; 24  mi 0.8284840 0.8284840
-#&gt; 25  do 0.9706503 0.9706503
-#&gt; 26  fr 0.6544848 0.6544848
-#&gt; 27  sa        NA 0.6544848
-#&gt; 28  so        NA 0.6544848</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>d.frm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span></span>
+<span class='r-in'>  tag<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"mo"</span>, <span class='st'>"di"</span>, <span class='st'>"mi"</span>, <span class='st'>"do"</span>, <span class='st'>"fr"</span>, <span class='st'>"sa"</span>, <span class='st'>"so"</span><span class='op'>)</span>, <span class='fl'>4</span><span class='op'>)</span></span>
+<span class='r-in'>, val<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='cn'>NA</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>, <span class='fl'>4</span><span class='op'>)</span> <span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>d.frm</span><span class='op'>$</span><span class='va'>locf</span> <span class='op'>&lt;-</span> <span class='fu'>LOCF</span><span class='op'>(</span> <span class='va'>d.frm</span><span class='op'>$</span><span class='va'>val</span> <span class='op'>)</span></span>
+<span class='r-in'><span class='va'>d.frm</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    tag       val      locf</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1   mo 0.3191548 0.3191548</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2   di 0.2087307 0.2087307</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3   mi 0.8284840 0.8284840</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4   do 0.9706503 0.9706503</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5   fr 0.6544848 0.6544848</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6   sa        NA 0.6544848</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7   so        NA 0.6544848</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8   mo 0.3191548 0.3191548</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9   di 0.2087307 0.2087307</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10  mi 0.8284840 0.8284840</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11  do 0.9706503 0.9706503</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12  fr 0.6544848 0.6544848</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 13  sa        NA 0.6544848</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 14  so        NA 0.6544848</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 15  mo 0.3191548 0.3191548</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 16  di 0.2087307 0.2087307</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 17  mi 0.8284840 0.8284840</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 18  do 0.9706503 0.9706503</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 19  fr 0.6544848 0.6544848</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 20  sa        NA 0.6544848</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 21  so        NA 0.6544848</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 22  mo 0.3191548 0.3191548</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 23  di 0.2087307 0.2087307</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 24  mi 0.8284840 0.8284840</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 25  do 0.9706503 0.9706503</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 26  fr 0.6544848 0.6544848</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 27  sa        NA 0.6544848</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 28  so        NA 0.6544848</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

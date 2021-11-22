@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -211,74 +211,78 @@
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>d.x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.table</a></span><span class='op'>(</span>header<span class='op'>=</span><span class='cn'>TRUE</span>, text<span class='op'>=</span><span class='st'>"
-AA BB CC DD EE FF GG
-7.9 18.1 13.3 6.2 9.3 8.3 10.6
-9.8 14.0 13.6 7.9 2.9 9.1 13.0
-6.4 17.4 16.0 10.9 8.6 11.7 17.5
-"</span><span class='op'>)</span>
-
-<span class='fu'>ToLong</span><span class='op'>(</span><span class='va'>d.x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;      grp    x
-#&gt; 1.AA  AA  7.9
-#&gt; 2.AA  AA  9.8
-#&gt; 3.AA  AA  6.4
-#&gt; 1.BB  BB 18.1
-#&gt; 2.BB  BB 14.0
-#&gt; 3.BB  BB 17.4
-#&gt; 1.CC  CC 13.3
-#&gt; 2.CC  CC 13.6
-#&gt; 3.CC  CC 16.0
-#&gt; 1.DD  DD  6.2
-#&gt; 2.DD  DD  7.9
-#&gt; 3.DD  DD 10.9
-#&gt; 1.EE  EE  9.3
-#&gt; 2.EE  EE  2.9
-#&gt; 3.EE  EE  8.6
-#&gt; 1.FF  FF  8.3
-#&gt; 2.FF  FF  9.1
-#&gt; 3.FF  FF 11.7
-#&gt; 1.GG  GG 10.6
-#&gt; 2.GG  GG 13.0
-#&gt; 3.GG  GG 17.5</div><div class='input'>
-<span class='co'># ToWide by row numbers (by = NULL)</span>
-<span class='fu'>ToWide</span><span class='op'>(</span><span class='va'>PlantGrowth</span><span class='op'>$</span><span class='va'>weight</span>, <span class='va'>PlantGrowth</span><span class='op'>$</span><span class='va'>group</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;    ctrl trt1 trt2
-#&gt; 1  4.17 4.81 6.31
-#&gt; 2  5.33 4.32 5.26
-#&gt; 3  5.14 4.69 5.12
-#&gt; 4  5.58 4.17 5.54
-#&gt; 5  5.18 4.41 5.50
-#&gt; 6  6.11 3.59 5.37
-#&gt; 7  4.50 5.87 5.29
-#&gt; 8  4.61 3.83 4.92
-#&gt; 9  5.17 6.03 6.15
-#&gt; 10 4.53 4.89 5.80</div><div class='input'>
-<span class='co'># To wide aligned by key</span>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>41</span><span class='op'>)</span>
-<span class='va'>PlantGrowth</span><span class='op'>$</span><span class='va'>nr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>12</span>, <span class='fl'>10</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>12</span>, <span class='fl'>10</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>12</span>, <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>PlantGrowth</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   weight group nr
-#&gt; 1   4.17  ctrl  8
-#&gt; 2   5.58  ctrl  3
-#&gt; 3   5.18  ctrl  5
-#&gt; 4   6.11  ctrl 12
-#&gt; 5   4.50  ctrl  2
-#&gt; 6   4.61  ctrl 10</div><div class='input'>
-<span class='fu'>ToWide</span><span class='op'>(</span><span class='va'>PlantGrowth</span><span class='op'>$</span><span class='va'>weight</span>, <span class='va'>PlantGrowth</span><span class='op'>$</span><span class='va'>group</span>, by<span class='op'>=</span><span class='va'>PlantGrowth</span><span class='op'>$</span><span class='va'>nr</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;    by ctrl trt1 trt2
-#&gt; 1   1   NA 4.89 5.80
-#&gt; 2   2 4.50 4.17 5.12
-#&gt; 3   3 5.58   NA 5.26
-#&gt; 4   4   NA 6.03 6.31
-#&gt; 5   5 5.18 4.41   NA
-#&gt; 6   6 5.17 4.81 5.50
-#&gt; 7   7 5.33 4.69   NA
-#&gt; 8   8 4.17 5.87 5.29
-#&gt; 9   9 4.53 4.32 6.15
-#&gt; 10 10 4.61 3.83 4.92
-#&gt; 11 11 5.14   NA 5.37
-#&gt; 12 12 6.11 3.59 5.54</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>d.x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.table</a></span><span class='op'>(</span>header<span class='op'>=</span><span class='cn'>TRUE</span>, text<span class='op'>=</span><span class='st'>"</span>
+<span class='r-in'>AA BB CC DD EE FF GG</span>
+<span class='r-in'>7.9 18.1 13.3 6.2 9.3 8.3 10.6</span>
+<span class='r-in'>9.8 14.0 13.6 7.9 2.9 9.1 13.0</span>
+<span class='r-in'>6.4 17.4 16.0 10.9 8.6 11.7 17.5</span>
+<span class='r-in'>"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>ToLong</span><span class='op'>(</span><span class='va'>d.x</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      grp    x</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.AA  AA  7.9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.AA  AA  9.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.AA  AA  6.4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.BB  BB 18.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.BB  BB 14.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.BB  BB 17.4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.CC  CC 13.3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.CC  CC 13.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.CC  CC 16.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.DD  DD  6.2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.DD  DD  7.9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.DD  DD 10.9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.EE  EE  9.3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.EE  EE  2.9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.EE  EE  8.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.FF  FF  8.3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.FF  FF  9.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.FF  FF 11.7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.GG  GG 10.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.GG  GG 13.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.GG  GG 17.5</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># ToWide by row numbers (by = NULL)</span></span>
+<span class='r-in'><span class='fu'>ToWide</span><span class='op'>(</span><span class='va'>PlantGrowth</span><span class='op'>$</span><span class='va'>weight</span>, <span class='va'>PlantGrowth</span><span class='op'>$</span><span class='va'>group</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    ctrl trt1 trt2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  4.17 4.81 6.31</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  5.33 4.32 5.26</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  5.14 4.69 5.12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4  5.58 4.17 5.54</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5  5.18 4.41 5.50</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6  6.11 3.59 5.37</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7  4.50 5.87 5.29</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8  4.61 3.83 4.92</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9  5.17 6.03 6.15</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10 4.53 4.89 5.80</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># To wide aligned by key</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>41</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>PlantGrowth</span><span class='op'>$</span><span class='va'>nr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>12</span>, <span class='fl'>10</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>12</span>, <span class='fl'>10</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>12</span>, <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>PlantGrowth</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   weight group nr</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1   4.17  ctrl  8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2   5.58  ctrl  3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3   5.18  ctrl  5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4   6.11  ctrl 12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5   4.50  ctrl  2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6   4.61  ctrl 10</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>ToWide</span><span class='op'>(</span><span class='va'>PlantGrowth</span><span class='op'>$</span><span class='va'>weight</span>, <span class='va'>PlantGrowth</span><span class='op'>$</span><span class='va'>group</span>, by<span class='op'>=</span><span class='va'>PlantGrowth</span><span class='op'>$</span><span class='va'>nr</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    by ctrl trt1 trt2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1   1   NA 4.89 5.80</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2   2 4.50 4.17 5.12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3   3 5.58   NA 5.26</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4   4   NA 6.03 6.31</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5   5 5.18 4.41   NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6   6 5.17 4.81 5.50</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7   7 5.33 4.69   NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8   8 4.17 5.87 5.29</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9   9 4.53 4.32 6.15</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10 10 4.61 3.83 4.92</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11 11 5.14   NA 5.37</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12 12 6.11 3.59 5.54</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

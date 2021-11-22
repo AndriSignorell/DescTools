@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -198,181 +198,189 @@
 
     <p>Krippendorff's alpha coefficient is particularly useful where
  the level of measurement of classification data is higher than nominal
- or ordinal.</p>
+ or ordinal.
+ https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/s12874-016-0200-9</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>This function was previously published as <code>kripp.alpha()</code> in the  <span class="pkg">irr</span> package and has been
 integrated here without logical changes, but with some adaptations in the result structure.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='CronbachAlpha.html'>CronbachAlpha</a></code>, <code><a href='KappaM.html'>KappaM</a></code>, <code><a href='CohenKappa.html'>CohenKappa</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># the "C" data from Krippendorff</span>
- <span class='va'>nmm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>1</span>,<span class='cn'>NA</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,
-                 <span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='cn'>NA</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='cn'>NA</span>,<span class='cn'>NA</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='cn'>NA</span>,<span class='cn'>NA</span>,<span class='fl'>3</span>,<span class='cn'>NA</span><span class='op'>)</span>, nrow<span class='op'>=</span><span class='fl'>4</span><span class='op'>)</span>
- 
- <span class='co'># first assume the default nominal classification</span>
- <span class='fu'>KrippAlpha</span><span class='op'>(</span><span class='va'>nmm</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $method
-#&gt; [1] "Krippendorff's alpha"
-#&gt; 
-#&gt; $subjects
-#&gt; [1] 12
-#&gt; 
-#&gt; $raters
-#&gt; [1] 4
-#&gt; 
-#&gt; $irr.name
-#&gt; [1] "alpha"
-#&gt; 
-#&gt; $value
-#&gt; [1] 0.7434211
-#&gt; 
-#&gt; $stat.name
-#&gt; [1] "nil"
-#&gt; 
-#&gt; $statistic
-#&gt; NULL
-#&gt; 
-#&gt; $cm
-#&gt;           [,1]       [,2]      [,3]      [,4] [,5]
-#&gt; [1,] 7.0000000  1.3333333 0.3333333 0.3333333    0
-#&gt; [2,] 1.3333333 10.0000000 1.3333333 0.3333333    0
-#&gt; [3,] 0.3333333  1.3333333 8.0000000 0.3333333    0
-#&gt; [4,] 0.3333333  0.3333333 0.3333333 4.0000000    0
-#&gt; [5,] 0.0000000  0.0000000 0.0000000 0.0000000    3
-#&gt; 
-#&gt; $data.values
-#&gt; [1] "1" "2" "3" "4" "5"
-#&gt; 
-#&gt; $nmatchval
-#&gt; [1] 40
-#&gt; 
-#&gt; $data.level
-#&gt; [1] "nominal"
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "irrlist"</div><div class='input'> 
- <span class='co'># now use the same data with the other three methods</span>
- <span class='fu'>KrippAlpha</span><span class='op'>(</span><span class='va'>nmm</span>, <span class='st'>"ordinal"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $method
-#&gt; [1] "Krippendorff's alpha"
-#&gt; 
-#&gt; $subjects
-#&gt; [1] 12
-#&gt; 
-#&gt; $raters
-#&gt; [1] 4
-#&gt; 
-#&gt; $irr.name
-#&gt; [1] "alpha"
-#&gt; 
-#&gt; $value
-#&gt; [1] 0.8153875
-#&gt; 
-#&gt; $stat.name
-#&gt; [1] "nil"
-#&gt; 
-#&gt; $statistic
-#&gt; NULL
-#&gt; 
-#&gt; $cm
-#&gt;           [,1]       [,2]      [,3]      [,4] [,5]
-#&gt; [1,] 7.0000000  1.3333333 0.3333333 0.3333333    0
-#&gt; [2,] 1.3333333 10.0000000 1.3333333 0.3333333    0
-#&gt; [3,] 0.3333333  1.3333333 8.0000000 0.3333333    0
-#&gt; [4,] 0.3333333  0.3333333 0.3333333 4.0000000    0
-#&gt; [5,] 0.0000000  0.0000000 0.0000000 0.0000000    3
-#&gt; 
-#&gt; $data.values
-#&gt; [1] "1" "2" "3" "4" "5"
-#&gt; 
-#&gt; $nmatchval
-#&gt; [1] 40
-#&gt; 
-#&gt; $data.level
-#&gt; [1] "ordinal"
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "irrlist"</div><div class='input'> <span class='fu'>KrippAlpha</span><span class='op'>(</span><span class='va'>nmm</span>, <span class='st'>"interval"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $method
-#&gt; [1] "Krippendorff's alpha"
-#&gt; 
-#&gt; $subjects
-#&gt; [1] 12
-#&gt; 
-#&gt; $raters
-#&gt; [1] 4
-#&gt; 
-#&gt; $irr.name
-#&gt; [1] "alpha"
-#&gt; 
-#&gt; $value
-#&gt; [1] 0.8491071
-#&gt; 
-#&gt; $stat.name
-#&gt; [1] "nil"
-#&gt; 
-#&gt; $statistic
-#&gt; NULL
-#&gt; 
-#&gt; $cm
-#&gt;           [,1]       [,2]      [,3]      [,4] [,5]
-#&gt; [1,] 7.0000000  1.3333333 0.3333333 0.3333333    0
-#&gt; [2,] 1.3333333 10.0000000 1.3333333 0.3333333    0
-#&gt; [3,] 0.3333333  1.3333333 8.0000000 0.3333333    0
-#&gt; [4,] 0.3333333  0.3333333 0.3333333 4.0000000    0
-#&gt; [5,] 0.0000000  0.0000000 0.0000000 0.0000000    3
-#&gt; 
-#&gt; $data.values
-#&gt; [1] "1" "2" "3" "4" "5"
-#&gt; 
-#&gt; $nmatchval
-#&gt; [1] 40
-#&gt; 
-#&gt; $data.level
-#&gt; [1] "interval"
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "irrlist"</div><div class='input'> <span class='fu'>KrippAlpha</span><span class='op'>(</span><span class='va'>nmm</span>, <span class='st'>"ratio"</span><span class='op'>)</span> 
-</div><div class='output co'>#&gt; $method
-#&gt; [1] "Krippendorff's alpha"
-#&gt; 
-#&gt; $subjects
-#&gt; [1] 12
-#&gt; 
-#&gt; $raters
-#&gt; [1] 4
-#&gt; 
-#&gt; $irr.name
-#&gt; [1] "alpha"
-#&gt; 
-#&gt; $value
-#&gt; [1] 0.7974028
-#&gt; 
-#&gt; $stat.name
-#&gt; [1] "nil"
-#&gt; 
-#&gt; $statistic
-#&gt; NULL
-#&gt; 
-#&gt; $cm
-#&gt;           [,1]       [,2]      [,3]      [,4] [,5]
-#&gt; [1,] 7.0000000  1.3333333 0.3333333 0.3333333    0
-#&gt; [2,] 1.3333333 10.0000000 1.3333333 0.3333333    0
-#&gt; [3,] 0.3333333  1.3333333 8.0000000 0.3333333    0
-#&gt; [4,] 0.3333333  0.3333333 0.3333333 4.0000000    0
-#&gt; [5,] 0.0000000  0.0000000 0.0000000 0.0000000    3
-#&gt; 
-#&gt; $data.values
-#&gt; [1] "1" "2" "3" "4" "5"
-#&gt; 
-#&gt; $nmatchval
-#&gt; [1] 40
-#&gt; 
-#&gt; $data.level
-#&gt; [1] "ratio"
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "irrlist"</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># the "C" data from Krippendorff</span></span>
+<span class='r-in'> <span class='va'>nmm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>1</span>,<span class='cn'>NA</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,</span>
+<span class='r-in'>                 <span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='cn'>NA</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='cn'>NA</span>,<span class='cn'>NA</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='cn'>NA</span>,<span class='cn'>NA</span>,<span class='fl'>3</span>,<span class='cn'>NA</span><span class='op'>)</span>, nrow<span class='op'>=</span><span class='fl'>4</span><span class='op'>)</span></span>
+<span class='r-in'> </span>
+<span class='r-in'> <span class='co'># first assume the default nominal classification</span></span>
+<span class='r-in'> <span class='fu'>KrippAlpha</span><span class='op'>(</span><span class='va'>nmm</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $method</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Krippendorff's alpha"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $subjects</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $raters</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $irr.name</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "alpha"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $value</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.7434211</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $stat.name</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "nil"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $statistic</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $cm</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           [,1]       [,2]      [,3]      [,4] [,5]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,] 7.0000000  1.3333333 0.3333333 0.3333333    0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,] 1.3333333 10.0000000 1.3333333 0.3333333    0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3,] 0.3333333  1.3333333 8.0000000 0.3333333    0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [4,] 0.3333333  0.3333333 0.3333333 4.0000000    0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [5,] 0.0000000  0.0000000 0.0000000 0.0000000    3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $data.values</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "1" "2" "3" "4" "5"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $nmatchval</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 40</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $data.level</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "nominal"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"class")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "irrlist"</span>
+<span class='r-in'> </span>
+<span class='r-in'> <span class='co'># now use the same data with the other three methods</span></span>
+<span class='r-in'> <span class='fu'>KrippAlpha</span><span class='op'>(</span><span class='va'>nmm</span>, <span class='st'>"ordinal"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $method</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Krippendorff's alpha"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $subjects</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $raters</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $irr.name</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "alpha"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $value</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.8153875</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $stat.name</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "nil"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $statistic</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $cm</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           [,1]       [,2]      [,3]      [,4] [,5]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,] 7.0000000  1.3333333 0.3333333 0.3333333    0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,] 1.3333333 10.0000000 1.3333333 0.3333333    0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3,] 0.3333333  1.3333333 8.0000000 0.3333333    0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [4,] 0.3333333  0.3333333 0.3333333 4.0000000    0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [5,] 0.0000000  0.0000000 0.0000000 0.0000000    3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $data.values</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "1" "2" "3" "4" "5"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $nmatchval</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 40</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $data.level</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "ordinal"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"class")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "irrlist"</span>
+<span class='r-in'> <span class='fu'>KrippAlpha</span><span class='op'>(</span><span class='va'>nmm</span>, <span class='st'>"interval"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $method</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Krippendorff's alpha"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $subjects</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $raters</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $irr.name</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "alpha"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $value</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.8491071</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $stat.name</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "nil"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $statistic</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $cm</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           [,1]       [,2]      [,3]      [,4] [,5]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,] 7.0000000  1.3333333 0.3333333 0.3333333    0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,] 1.3333333 10.0000000 1.3333333 0.3333333    0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3,] 0.3333333  1.3333333 8.0000000 0.3333333    0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [4,] 0.3333333  0.3333333 0.3333333 4.0000000    0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [5,] 0.0000000  0.0000000 0.0000000 0.0000000    3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $data.values</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "1" "2" "3" "4" "5"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $nmatchval</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 40</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $data.level</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "interval"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"class")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "irrlist"</span>
+<span class='r-in'> <span class='fu'>KrippAlpha</span><span class='op'>(</span><span class='va'>nmm</span>, <span class='st'>"ratio"</span><span class='op'>)</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $method</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Krippendorff's alpha"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $subjects</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $raters</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $irr.name</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "alpha"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $value</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.7974028</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $stat.name</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "nil"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $statistic</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $cm</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           [,1]       [,2]      [,3]      [,4] [,5]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,] 7.0000000  1.3333333 0.3333333 0.3333333    0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,] 1.3333333 10.0000000 1.3333333 0.3333333    0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3,] 0.3333333  1.3333333 8.0000000 0.3333333    0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [4,] 0.3333333  0.3333333 0.3333333 4.0000000    0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [5,] 0.0000000  0.0000000 0.0000000 0.0000000    3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $data.values</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "1" "2" "3" "4" "5"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $nmatchval</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 40</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $data.level</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "ratio"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"class")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "irrlist"</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

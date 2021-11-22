@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -205,7 +205,7 @@
       <td><p>an optional matrix or data frame (or similar: see
     <code><a href='https://rdrr.io/r/stats/model.frame.html'>model.frame</a></code>) containing the variables in the
     formula <code>formula</code>.  By default the variables are taken from
-    <code><a href='https://rdrr.io/r/base/environment.html'>environment(formula)</a></code>.</p></td>
+    <code>environment(formula)</code>.</p></td>
     </tr>
     <tr>
       <th>subset</th>
@@ -216,7 +216,7 @@
       <th>na.action</th>
       <td><p>a function which indicates what should happen when
     the data contain <code>NA</code>s.  Defaults to
-    <code><a href='https://rdrr.io/r/base/options.html'>getOption("na.action")</a></code>.</p></td>
+    <code>getOption("na.action")</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -261,49 +261,52 @@ Two Sample test and help text from R-Core.</p>
   based (nonparametric) two-sample tests for difference in scale.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>50</span>, mean <span class='op'>=</span> <span class='fl'>0</span>, sd <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-
-<span class='co'># One sample test</span>
-<span class='fu'>VarTest</span><span class='op'>(</span><span class='va'>x</span>, sigma.squared <span class='op'>=</span> <span class='fl'>2.5</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	One Sample Chi-Square test on variance
-#&gt; 
-#&gt; data:  x
-#&gt; X-squared = 67, df = 49, p-value = 0.09
-#&gt; alternative hypothesis: true variance is not equal to 2.5
-#&gt; 95 percent confidence interval:
-#&gt;  2.39 5.31
-#&gt; sample estimates:
-#&gt; variance of x 
-#&gt;          3.42 
-#&gt; </div><div class='input'>
-<span class='co'># two samples</span>
-<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>30</span>, mean <span class='op'>=</span> <span class='fl'>1</span>, sd <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-<span class='fu'>VarTest</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>                  <span class='co'># Do x and y have the same variance?</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	F test to compare two variances
-#&gt; 
-#&gt; data:  x and y
-#&gt; F = 5, num df = 49, denom df = 29, p-value = 0.00002
-#&gt; alternative hypothesis: true ratio of variances is not equal to 1
-#&gt; 95 percent confidence interval:
-#&gt;  2.52 9.44
-#&gt; sample estimates:
-#&gt; ratio of variances 
-#&gt;               5.02 
-#&gt; </div><div class='input'><span class='fu'>VarTest</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>x</span> <span class='op'>~</span> <span class='fl'>1</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>  <span class='co'># The same.</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	F test to compare two variances
-#&gt; 
-#&gt; data:  x and y
-#&gt; F = 5, num df = 49, denom df = 29, p-value = 0.00002
-#&gt; alternative hypothesis: true ratio of variances is not equal to 1
-#&gt; 95 percent confidence interval:
-#&gt;  2.52 9.44
-#&gt; sample estimates:
-#&gt; ratio of variances 
-#&gt;               5.02 
-#&gt; </div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>50</span>, mean <span class='op'>=</span> <span class='fl'>0</span>, sd <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># One sample test</span></span>
+<span class='r-in'><span class='fu'>VarTest</span><span class='op'>(</span><span class='va'>x</span>, sigma.squared <span class='op'>=</span> <span class='fl'>2.5</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	One Sample Chi-Square test on variance</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  x</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> X-squared = 67, df = 49, p-value = 0.09</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> alternative hypothesis: true variance is not equal to 2.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 95 percent confidence interval:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  2.39 5.31</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> sample estimates:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> variance of x </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          3.42 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># two samples</span></span>
+<span class='r-in'><span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>30</span>, mean <span class='op'>=</span> <span class='fl'>1</span>, sd <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>VarTest</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>                  <span class='co'># Do x and y have the same variance?</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	F test to compare two variances</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  x and y</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> F = 5, num df = 49, denom df = 29, p-value = 0.00002</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> alternative hypothesis: true ratio of variances is not equal to 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 95 percent confidence interval:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  2.52 9.44</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> sample estimates:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ratio of variances </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               5.02 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'>VarTest</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>x</span> <span class='op'>~</span> <span class='fl'>1</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>  <span class='co'># The same.</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	F test to compare two variances</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  x and y</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> F = 5, num df = 49, denom df = 29, p-value = 0.00002</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> alternative hypothesis: true ratio of variances is not equal to 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 95 percent confidence interval:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  2.52 9.44</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> sample estimates:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ratio of variances </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               5.02 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

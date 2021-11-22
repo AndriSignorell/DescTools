@@ -76,7 +76,7 @@ It further accepts vectors, lists, data.frames or data.tables as input. In addit
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -172,7 +172,7 @@ It further accepts vectors, lists, <code>data.frame</code>s or <code>data.table<
     </tr>
     <tr>
       <th>decreasing</th>
-      <td><p>An <code>logical</code> vector corresponding to ascending and descending order. <code>decreasing</code> is recycled to <code><a href='https://rdrr.io/r/base/length.html'>length(...)</a></code>.</p></td>
+      <td><p>An <code>logical</code> vector corresponding to ascending and descending order. <code>decreasing</code> is recycled to <code>length(...)</code>.</p></td>
     </tr>
     <tr>
       <th>na.last</th>
@@ -187,39 +187,46 @@ It further accepts vectors, lists, <code>data.frame</code>s or <code>data.table<
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>To be consistent with other <code>data.table</code> operations, <code>NA</code>s are considered identical to other <code>NA</code>s (and <code>NaN</code>s to other <code>NaN</code>s), unlike <code><a href='https://rdrr.io/r/base/rank.html'>base::rank</a></code>. Therefore, for <code>na.last=TRUE</code> and <code>na.last=FALSE</code>, <code>NA</code>s (and <code>NaN</code>s) are given identical ranks, unlike <code><a href='https://rdrr.io/r/base/rank.html'>rank</a></code>.</p>
-<p><code>Rank</code> is not limited to vectors. It accepts <code>data.table</code>s (and <code>list</code>s and <code>data.frame</code>s) as well. It accepts unquoted column names (with names preceded with a <code><a href='https://rdrr.io/r/base/Arithmetic.html'>-</a></code> sign for descending order, even on character vectors), for e.g., <code>Rank(DT, a, -b, c, ties.method="first")</code> where <code>a,b,c</code> are columns in <code>DT</code>.</p>
+<p><code>Rank</code> is not limited to vectors. It accepts <code>data.table</code>s (and <code>list</code>s and <code>data.frame</code>s) as well. It accepts unquoted column names (with names preceded with a <code>-</code> sign for descending order, even on character vectors), for e.g., <code>Rank(DT, a, -b, c, ties.method="first")</code> where <code>a,b,c</code> are columns in <code>DT</code>.</p>
 <p>In addition to the <code>ties.method</code> values possible using base's <code><a href='https://rdrr.io/r/base/rank.html'>rank</a></code>, it also provides another additional argument <code>"dense"</code>.
 Dense ranks are consecutive integers beginning with 1. No ranks are skipped if there are ranks with multiple items. So the largest rank value is the number of unique values of x. See examples.</p>
 <p>Like <code>forder</code>, sorting is done in "C-locale"; in particular, this may affect how capital/lowercase letters are ranked. See Details on <code>forder</code> for more.</p>
 <p><code>bit64::integer64</code> type is also supported.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A numeric vector of length equal to <code><a href='https://rdrr.io/r/base/nrow.html'>NROW(x)</a></code> (unless <code>na.last = NA</code>, when missing values are removed). The vector is of integer type unless <code>ties.method = "average"</code> when it is of double type (irrespective of ties).</p>
+    <p>A numeric vector of length equal to <code>NROW(x)</code> (unless <code>na.last = NA</code>, when missing values are removed). The vector is of integer type unless <code>ties.method = "average"</code> when it is of double type (irrespective of ties).</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code>frankv</code>, <code>data.table</code>, <code>setkey</code>, <code>setorder</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># on vectors</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>, <span class='fl'>1</span>, <span class='fl'>4</span>, <span class='cn'>NA</span>, <span class='fl'>1</span>, <span class='cn'>NA</span>, <span class='fl'>4</span><span class='op'>)</span>
-<span class='co'># NAs are considered identical (unlike base R)</span>
-<span class='co'># default is average</span>
-<span class='fu'>Rank</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='co'># na.last=TRUE</span>
-</div><div class='output co'>#&gt; [1] 4.0 1.5 4.0 6.5 1.5 6.5 4.0</div><div class='input'><span class='fu'>Rank</span><span class='op'>(</span><span class='va'>x</span>, na.last<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 6.0 3.5 6.0 1.5 3.5 1.5 6.0</div><div class='input'>
-<span class='co'># ties.method = min</span>
-<span class='fu'>Rank</span><span class='op'>(</span><span class='va'>x</span>, ties.method<span class='op'>=</span><span class='st'>"min"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 3 1 3 6 1 6 3</div><div class='input'><span class='co'># ties.method = dense</span>
-<span class='fu'>Rank</span><span class='op'>(</span><span class='va'>x</span>, ties.method<span class='op'>=</span><span class='st'>"dense"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 2 1 2 3 1 3 2</div><div class='input'>
-<span class='co'># on data.frame, using both columns</span>
-<span class='va'>d.set</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='va'>x</span>, y<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>0</span>, <span class='cn'>NA</span>, <span class='fl'>0</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>Rank</span><span class='op'>(</span><span class='va'>d.set</span>, na.last<span class='op'>=</span><span class='st'>"keep"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 2.5 1.0 2.5  NA  NA  NA 4.0</div><div class='input'><span class='fu'>Rank</span><span class='op'>(</span><span class='va'>d.set</span>, ties.method<span class='op'>=</span><span class='st'>"dense"</span>, na.last<span class='op'>=</span><span class='cn'>NA</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 2 1 2 3</div><div class='input'>
-<span class='co'># decreasing argument</span>
-<span class='fu'>Rank</span><span class='op'>(</span><span class='va'>d.set</span>, decreasing<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>FALSE</span>, <span class='cn'>TRUE</span><span class='op'>)</span>, ties.method<span class='op'>=</span><span class='st'>"first"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 4 1 5 6 2 7 3</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># on vectors</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>, <span class='fl'>1</span>, <span class='fl'>4</span>, <span class='cn'>NA</span>, <span class='fl'>1</span>, <span class='cn'>NA</span>, <span class='fl'>4</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># NAs are considered identical (unlike base R)</span></span>
+<span class='r-in'><span class='co'># default is average</span></span>
+<span class='r-in'><span class='fu'>Rank</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='co'># na.last=TRUE</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 4.0 1.5 4.0 6.5 1.5 6.5 4.0</span>
+<span class='r-in'><span class='fu'>Rank</span><span class='op'>(</span><span class='va'>x</span>, na.last<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 6.0 3.5 6.0 1.5 3.5 1.5 6.0</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># ties.method = min</span></span>
+<span class='r-in'><span class='fu'>Rank</span><span class='op'>(</span><span class='va'>x</span>, ties.method<span class='op'>=</span><span class='st'>"min"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 3 1 3 6 1 6 3</span>
+<span class='r-in'><span class='co'># ties.method = dense</span></span>
+<span class='r-in'><span class='fu'>Rank</span><span class='op'>(</span><span class='va'>x</span>, ties.method<span class='op'>=</span><span class='st'>"dense"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 2 1 2 3 1 3 2</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># on data.frame, using both columns</span></span>
+<span class='r-in'><span class='va'>d.set</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='va'>x</span>, y<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>0</span>, <span class='cn'>NA</span>, <span class='fl'>0</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>Rank</span><span class='op'>(</span><span class='va'>d.set</span>, na.last<span class='op'>=</span><span class='st'>"keep"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 2.5 1.0 2.5  NA  NA  NA 4.0</span>
+<span class='r-in'><span class='fu'>Rank</span><span class='op'>(</span><span class='va'>d.set</span>, ties.method<span class='op'>=</span><span class='st'>"dense"</span>, na.last<span class='op'>=</span><span class='cn'>NA</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 2 1 2 3</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># decreasing argument</span></span>
+<span class='r-in'><span class='fu'>Rank</span><span class='op'>(</span><span class='va'>d.set</span>, decreasing<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>FALSE</span>, <span class='cn'>TRUE</span><span class='op'>)</span>, ties.method<span class='op'>=</span><span class='st'>"first"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 4 1 5 6 2 7 3</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

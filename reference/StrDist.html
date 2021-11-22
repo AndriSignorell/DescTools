@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -203,7 +203,7 @@ preferred because it is somewhat diffcult to judge whether an LD of for example 
 In this implementation, the Levenshtein distance is transformed to fall in this interval as
 follows:
 $$lnd = 1 - \frac{ld}{max(length(x), length(y))}$$</p>
-<p>where <code>ld</code> is the edit distance and <code><a href='https://rdrr.io/r/base/Extremes.html'>max(length(x), length(y))</a></code> denotes that we divide by the length of the larger of the two character strings. This normalization, referred to as the Levenshtein normalized distance (lnd), yields a statistic where 1 indicates perfect agreement between the two strings, and a 0 denotes imperfect agreement. The closer a value is to 1, the more certain we can be that the character strings are the same; the closer to 0, the less certain.</p>
+<p>where <code>ld</code> is the edit distance and <code>max(length(x), length(y))</code> denotes that we divide by the length of the larger of the two character strings. This normalization, referred to as the Levenshtein normalized distance (lnd), yields a statistic where 1 indicates perfect agreement between the two strings, and a 0 denotes imperfect agreement. The closer a value is to 1, the more certain we can be that the character strings are the same; the closer to 0, the less certain.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>StrDist</code> returns an object of class <code>"dist"</code>; cf. <code><a href='https://rdrr.io/r/stats/dist.html'>dist</a></code>.</p>
@@ -223,56 +223,60 @@ $$lnd = 1 - \frac{ld}{max(length(x), length(y))}$$</p>
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/utils/adist.html'>adist</a></code>, <code><a href='https://rdrr.io/r/stats/dist.html'>dist</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='st'>"GACGGATTATG"</span>
-<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='st'>"GATCGGAATAG"</span>
-<span class='co'>## Levenshtein distance</span>
-<span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'>StrDist</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
-<span class='va'>d</span>
-</div><div class='output co'>#&gt;             GACGGATTATG
-#&gt; GATCGGAATAG           3</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span><span class='op'>(</span><span class='va'>d</span>, <span class='st'>"ScoringMatrix"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;     gap  G A T C G G A A T  A  G
-#&gt; gap   0  1 2 3 4 5 6 7 8 9 10 11
-#&gt; G     1  0 1 2 3 4 5 6 7 8  9 10
-#&gt; A     2  1 0 1 2 3 4 5 6 7  8  9
-#&gt; C     3  2 1 1 1 2 3 4 5 6  7  8
-#&gt; G     4  3 2 2 2 1 2 3 4 5  6  7
-#&gt; G     5  4 3 3 3 2 1 2 3 4  5  6
-#&gt; A     6  5 4 4 4 3 2 1 2 3  4  5
-#&gt; T     7  6 5 4 5 4 3 2 2 2  3  4
-#&gt; T     8  7 6 5 5 5 4 3 3 2  3  4
-#&gt; A     9  8 7 6 6 6 5 4 3 3  2  3
-#&gt; T    10  9 8 7 7 7 6 5 4 3  3  3
-#&gt; G    11 10 9 8 8 7 7 6 5 4  4  3</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span><span class='op'>(</span><span class='va'>d</span>, <span class='st'>"TraceBackMatrix"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;     gap     G     A     T      C        G      G     A     A      T   A     
-#&gt; gap "start" "i"   "i"   "i"    "i"      "i"    "i"   "i"   "i"    "i" "i"   
-#&gt; G   "d"     "m"   "i"   "i"    "i"      "m/i"  "m/i" "i"   "i"    "i" "i"   
-#&gt; A   "d"     "d"   "m"   "i"    "i"      "i"    "i"   "m/i" "m/i"  "i" "m/i" 
-#&gt; C   "d"     "d"   "d"   "mm"   "m"      "i"    "i"   "i"   "i"    "i" "i"   
-#&gt; G   "d"     "d/m" "d"   "d/mm" "d/mm"   "m"    "m/i" "i"   "i"    "i" "i"   
-#&gt; G   "d"     "d/m" "d"   "d/mm" "d/mm"   "d/m"  "m"   "i"   "i"    "i" "i"   
-#&gt; A   "d"     "d"   "d/m" "d/mm" "d/mm"   "d"    "d"   "m"   "m/i"  "i" "m/i" 
-#&gt; T   "d"     "d"   "d"   "m"    "d/mm/i" "d"    "d"   "d"   "mm"   "m" "i"   
-#&gt; T   "d"     "d"   "d"   "d/m"  "mm"     "d"    "d"   "d"   "d/mm" "m" "mm/i"
-#&gt; A   "d"     "d"   "d/m" "d"    "d/mm"   "d/mm" "d"   "d/m" "m"    "d" "m"   
-#&gt; T   "d"     "d"   "d"   "d/m"  "d/mm"   "d/mm" "d"   "d"   "d"    "m" "d"   
-#&gt; G   "d"     "d/m" "d"   "d"    "d/mm"   "m"    "d/m" "d"   "d"    "d" "d/mm"
-#&gt;     G     
-#&gt; gap "i"   
-#&gt; G   "m/i" 
-#&gt; A   "i"   
-#&gt; C   "i"   
-#&gt; G   "m/i" 
-#&gt; G   "m/i" 
-#&gt; A   "i"   
-#&gt; T   "i"   
-#&gt; T   "mm/i"
-#&gt; A   "i"   
-#&gt; T   "mm"  
-#&gt; G   "m"   </div><div class='input'>
-<span class='co'>## Hamming distance</span>
-<span class='fu'>StrDist</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, method<span class='op'>=</span><span class='st'>"hamming"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;             GACGGATTATG
-#&gt; GATCGGAATAG           7</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='st'>"GACGGATTATG"</span></span>
+<span class='r-in'><span class='va'>y</span> <span class='op'>&lt;-</span> <span class='st'>"GATCGGAATAG"</span></span>
+<span class='r-in'><span class='co'>## Levenshtein distance</span></span>
+<span class='r-in'><span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'>StrDist</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>d</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             GACGGATTATG</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GATCGGAATAG           3</span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span><span class='op'>(</span><span class='va'>d</span>, <span class='st'>"ScoringMatrix"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     gap  G A T C G G A A T  A  G</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> gap   0  1 2 3 4 5 6 7 8 9 10 11</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> G     1  0 1 2 3 4 5 6 7 8  9 10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> A     2  1 0 1 2 3 4 5 6 7  8  9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> C     3  2 1 1 1 2 3 4 5 6  7  8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> G     4  3 2 2 2 1 2 3 4 5  6  7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> G     5  4 3 3 3 2 1 2 3 4  5  6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> A     6  5 4 4 4 3 2 1 2 3  4  5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> T     7  6 5 4 5 4 3 2 2 2  3  4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> T     8  7 6 5 5 5 4 3 3 2  3  4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> A     9  8 7 6 6 6 5 4 3 3  2  3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> T    10  9 8 7 7 7 6 5 4 3  3  3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> G    11 10 9 8 8 7 7 6 5 4  4  3</span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span><span class='op'>(</span><span class='va'>d</span>, <span class='st'>"TraceBackMatrix"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     gap     G     A     T      C        G      G     A     A      T   A     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> gap "start" "i"   "i"   "i"    "i"      "i"    "i"   "i"   "i"    "i" "i"   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> G   "d"     "m"   "i"   "i"    "i"      "m/i"  "m/i" "i"   "i"    "i" "i"   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> A   "d"     "d"   "m"   "i"    "i"      "i"    "i"   "m/i" "m/i"  "i" "m/i" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> C   "d"     "d"   "d"   "mm"   "m"      "i"    "i"   "i"   "i"    "i" "i"   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> G   "d"     "d/m" "d"   "d/mm" "d/mm"   "m"    "m/i" "i"   "i"    "i" "i"   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> G   "d"     "d/m" "d"   "d/mm" "d/mm"   "d/m"  "m"   "i"   "i"    "i" "i"   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> A   "d"     "d"   "d/m" "d/mm" "d/mm"   "d"    "d"   "m"   "m/i"  "i" "m/i" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> T   "d"     "d"   "d"   "m"    "d/mm/i" "d"    "d"   "d"   "mm"   "m" "i"   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> T   "d"     "d"   "d"   "d/m"  "mm"     "d"    "d"   "d"   "d/mm" "m" "mm/i"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> A   "d"     "d"   "d/m" "d"    "d/mm"   "d/mm" "d"   "d/m" "m"    "d" "m"   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> T   "d"     "d"   "d"   "d/m"  "d/mm"   "d/mm" "d"   "d"   "d"    "m" "d"   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> G   "d"     "d/m" "d"   "d"    "d/mm"   "m"    "d/m" "d"   "d"    "d" "d/mm"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     G     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> gap "i"   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> G   "m/i" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> A   "i"   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> C   "i"   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> G   "m/i" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> G   "m/i" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> A   "i"   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> T   "i"   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> T   "mm/i"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> A   "i"   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> T   "mm"  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> G   "m"   </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Hamming distance</span></span>
+<span class='r-in'><span class='fu'>StrDist</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, method<span class='op'>=</span><span class='st'>"hamming"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             GACGGATTATG</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GATCGGAATAG           7</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

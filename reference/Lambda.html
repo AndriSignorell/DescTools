@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -172,7 +172,7 @@
     </tr>
     <tr>
       <th>y</th>
-      <td><p><code>NULL</code> (default) or a vector with compatible dimensions to x. If y is provided, <code><a href='https://rdrr.io/r/base/table.html'>table(x, y, ...)</a></code> is calculated.
+      <td><p><code>NULL</code> (default) or a vector with compatible dimensions to x. If y is provided, <code>table(x, y, ...)</code> is calculated.
 <!-- %%     ~~Describe \code{y} here~~ --></p></td>
     </tr>
     <tr>
@@ -199,7 +199,7 @@
 The nondirectional lambda is the average of the two asymmetric lambdas, Lambda(C|R) and Lambda(R|C).
 Lambda (asymmetric and symmetric) has a scale ranging from 0 to 1.
 <br /><br />
-Data can be passed to the function either as matrix or data.frame in <code>x</code>, or as two numeric vectors <code>x</code> and <code>y</code>. In the latter case <code><a href='https://rdrr.io/r/base/table.html'>table(x, y, ...)</a></code> is calculated. Thus <code>NA</code>s are handled the same way as <code><a href='https://rdrr.io/r/base/table.html'>table</a></code> does. Note that tables are by default calculated <b>without</b> NAs (which breaks the package's law to in general not omit NAs silently). The specific argument <code>useNA</code> can be passed via the ... argument.<br />
+Data can be passed to the function either as matrix or data.frame in <code>x</code>, or as two numeric vectors <code>x</code> and <code>y</code>. In the latter case <code>table(x, y, ...)</code> is calculated. Thus <code>NA</code>s are handled the same way as <code><a href='https://rdrr.io/r/base/table.html'>table</a></code> does. Note that tables are by default calculated <b>without</b> NAs (which breaks the package's law to in general not omit NAs silently). The specific argument <code>useNA</code> can be passed via the ... argument.<br />
 <code><a href='PairApply.html'>PairApply</a></code> can be used to calculate pairwise lambdas.
 <!-- %%  ~~ If necessary, more details than the description above ~~ --></p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -229,22 +229,27 @@ http://www.nssl.noaa.gov/users/brooks/public_html/feda/papers/goodmankruskal1.pd
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># example from Goodman Kruskal (1954)</span>
-<span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1768</span>,<span class='fl'>946</span>,<span class='fl'>115</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>807</span>,<span class='fl'>1387</span>,<span class='fl'>438</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>189</span>,<span class='fl'>746</span>,<span class='fl'>288</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>47</span>,<span class='fl'>53</span>,<span class='fl'>16</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span><span class='op'>(</span><span class='va'>m</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"A"</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"B"</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>m</span>
-</div><div class='output co'>#&gt;      B 1  B 2  B 3  B 4
-#&gt; A 1 1768  807  189   47
-#&gt; A 2  946 1387  746   53
-#&gt; A 3  115  438  288   16</div><div class='input'>
-<span class='co'># direction default is "symmetric"</span>
-<span class='fu'>Lambda</span><span class='op'>(</span><span class='va'>m</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.2076188</div><div class='input'><span class='fu'>Lambda</span><span class='op'>(</span><span class='va'>m</span>, conf.level<span class='op'>=</span><span class='fl'>0.95</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;    lambda    lwr.ci    upr.ci 
-#&gt; 0.2076188 0.1871747 0.2280629 </div><div class='input'>
-<span class='fu'>Lambda</span><span class='op'>(</span><span class='va'>m</span>, direction<span class='op'>=</span><span class='st'>"row"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.2241003</div><div class='input'><span class='fu'>Lambda</span><span class='op'>(</span><span class='va'>m</span>, direction<span class='op'>=</span><span class='st'>"column"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.1923949</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># example from Goodman Kruskal (1954)</span></span>
+<span class='r-in'><span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1768</span>,<span class='fl'>946</span>,<span class='fl'>115</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>807</span>,<span class='fl'>1387</span>,<span class='fl'>438</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>189</span>,<span class='fl'>746</span>,<span class='fl'>288</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>47</span>,<span class='fl'>53</span>,<span class='fl'>16</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span><span class='op'>(</span><span class='va'>m</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"A"</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"B"</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>m</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      B 1  B 2  B 3  B 4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> A 1 1768  807  189   47</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> A 2  946 1387  746   53</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> A 3  115  438  288   16</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># direction default is "symmetric"</span></span>
+<span class='r-in'><span class='fu'>Lambda</span><span class='op'>(</span><span class='va'>m</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.2076188</span>
+<span class='r-in'><span class='fu'>Lambda</span><span class='op'>(</span><span class='va'>m</span>, conf.level<span class='op'>=</span><span class='fl'>0.95</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    lambda    lwr.ci    upr.ci </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.2076188 0.1871747 0.2280629 </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>Lambda</span><span class='op'>(</span><span class='va'>m</span>, direction<span class='op'>=</span><span class='st'>"row"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.2241003</span>
+<span class='r-in'><span class='fu'>Lambda</span><span class='op'>(</span><span class='va'>m</span>, direction<span class='op'>=</span><span class='st'>"column"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.1923949</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

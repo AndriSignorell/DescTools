@@ -78,7 +78,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -244,60 +244,63 @@
     <div class='dont-index'><p><code>hetcor</code>, <code>polyserial</code>, <code>print.CorPolychor</code>, <code><a href='https://rdrr.io/r/stats/optim.html'>optim</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>12345</span><span class='op'>)</span>
-<span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='RndPairs.html'>RndPairs</a></span><span class='op'>(</span><span class='fl'>1000</span>, <span class='fl'>0.6</span><span class='op'>)</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='va'>z</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span>
-<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='va'>z</span><span class='op'>[</span>,<span class='fl'>2</span><span class='op'>]</span>
-
-<span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>                                  <span class='co'># sample correlation</span>
-</div><div class='output co'>#&gt; [1] 0.6161179</div><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cut.html'>cut</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='cn'>Inf</span>, <span class='fl'>.75</span>, <span class='cn'>Inf</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cut.html'>cut</a></span><span class='op'>(</span><span class='va'>y</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='cn'>Inf</span>, <span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>.5</span>, <span class='fl'>1.5</span>, <span class='cn'>Inf</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='fu'>CorPolychor</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>                          <span class='co'># 2-step estimate</span>
-</div><div class='output co'>#&gt; [1] 0.5911583</div><div class='input'><span class='fu'>CorPolychor</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, ML<span class='op'>=</span><span class='cn'>TRUE</span>, std.err<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>   <span class='co'># ML estimate</span>
-</div><div class='output co'>#&gt; $type
-#&gt; [1] "polychoric"
-#&gt; 
-#&gt; $rho
-#&gt;           
-#&gt; 0.5911191 
-#&gt; 
-#&gt; $row.cuts
-#&gt; (-Inf,0.75] 
-#&gt;   0.7077541 
-#&gt; 
-#&gt; $col.cuts
-#&gt;  (-Inf,-1]   (-1,0.5]  (0.5,1.5] 
-#&gt; -1.0168617  0.5122542  1.4805999 
-#&gt; 
-#&gt; $var
-#&gt;                             (-Inf,0.75]    (-Inf,-1]      (-1,0.5]
-#&gt;              0.0012487057 -0.0001238037 0.0001830118 -0.0000473158
-#&gt; (-Inf,0.75] -0.0001238037  0.0018825207 0.0004473909  0.0006780769
-#&gt; (-Inf,-1]    0.0001830118  0.0004473909 0.0023096776  0.0005703172
-#&gt; (-1,0.5]    -0.0000473158  0.0006780769 0.0005703172  0.0017191902
-#&gt; (0.5,1.5]   -0.0004084741  0.0007663246 0.0003328309  0.0010402437
-#&gt;                 (0.5,1.5]
-#&gt;             -0.0004084741
-#&gt; (-Inf,0.75]  0.0007663246
-#&gt; (-Inf,-1]    0.0003328309
-#&gt; (-1,0.5]     0.0010402437
-#&gt; (0.5,1.5]    0.0036116108
-#&gt; 
-#&gt; $n
-#&gt; [1] 1000
-#&gt; 
-#&gt; $chisq
-#&gt; [1] 0.75265
-#&gt; 
-#&gt; $df
-#&gt; [1] 2
-#&gt; 
-#&gt; $ML
-#&gt; [1] TRUE
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "polycor"</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>12345</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='RndPairs.html'>RndPairs</a></span><span class='op'>(</span><span class='fl'>1000</span>, <span class='fl'>0.6</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='va'>z</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span></span>
+<span class='r-in'><span class='va'>y</span> <span class='op'>&lt;-</span> <span class='va'>z</span><span class='op'>[</span>,<span class='fl'>2</span><span class='op'>]</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>                                  <span class='co'># sample correlation</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.6161179</span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cut.html'>cut</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='cn'>Inf</span>, <span class='fl'>.75</span>, <span class='cn'>Inf</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cut.html'>cut</a></span><span class='op'>(</span><span class='va'>y</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='cn'>Inf</span>, <span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>.5</span>, <span class='fl'>1.5</span>, <span class='cn'>Inf</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>CorPolychor</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>                          <span class='co'># 2-step estimate</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.5911583</span>
+<span class='r-in'><span class='fu'>CorPolychor</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, ML<span class='op'>=</span><span class='cn'>TRUE</span>, std.err<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>   <span class='co'># ML estimate</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $type</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "polychoric"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $rho</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.5911191 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $row.cuts</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> (-Inf,0.75] </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   0.7077541 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $col.cuts</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  (-Inf,-1]   (-1,0.5]  (0.5,1.5] </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> -1.0168617  0.5122542  1.4805999 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $var</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             (-Inf,0.75]    (-Inf,-1]      (-1,0.5]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>              0.0012487057 -0.0001238037 0.0001830118 -0.0000473158</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> (-Inf,0.75] -0.0001238037  0.0018825207 0.0004473909  0.0006780769</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> (-Inf,-1]    0.0001830118  0.0004473909 0.0023096776  0.0005703172</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> (-1,0.5]    -0.0000473158  0.0006780769 0.0005703172  0.0017191902</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> (0.5,1.5]   -0.0004084741  0.0007663246 0.0003328309  0.0010402437</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 (0.5,1.5]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             -0.0004084741</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> (-Inf,0.75]  0.0007663246</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> (-Inf,-1]    0.0003328309</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> (-1,0.5]     0.0010402437</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> (0.5,1.5]    0.0036116108</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $n</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $chisq</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.75265</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $df</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $ML</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"class")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "polycor"</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

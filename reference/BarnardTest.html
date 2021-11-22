@@ -75,7 +75,7 @@ using Score or Wald statistics for the difference between two binomial proportio
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -254,48 +254,50 @@ significantly greater computation time. The stored ordering matrix is not used i
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/fisher.test.html'>fisher.test</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>tab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>8</span>, <span class='fl'>14</span>, <span class='fl'>1</span>, <span class='fl'>3</span><span class='op'>)</span>, nrow<span class='op'>=</span><span class='fl'>2</span>,
-                dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>treat<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"I"</span>,<span class='st'>"II"</span><span class='op'>)</span>, out<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"I"</span>,<span class='st'>"II"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>BarnardTest</span><span class='op'>(</span><span class='va'>tab</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	CSM Exact Test
-#&gt; 
-#&gt; data:  8 out of 9 vs. 14 out of 17
-#&gt; test statistic = NA, first sample size = 9, second sample size = 17,
-#&gt; p-value = 0.7181
-#&gt; alternative hypothesis: true difference in proportion is not equal to 0
-#&gt; sample estimates:
-#&gt; difference in proportion 
-#&gt;               0.06535948 
-#&gt; </div><div class='input'>
-<span class='co'># Plotting the search for the nuisance parameter for a one-sided test</span>
-<span class='va'>bt</span> <span class='op'>&lt;-</span> <span class='fu'>BarnardTest</span><span class='op'>(</span><span class='va'>tab</span><span class='op'>)</span>
-
-<span class='co'># Plotting the tables included in the p-value</span>
-<span class='va'>ttab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>40</span>, <span class='fl'>14</span>, <span class='fl'>10</span>, <span class='fl'>30</span><span class='op'>)</span>, nrow<span class='op'>=</span><span class='fl'>2</span>,
-                 dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>treat<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"I"</span>,<span class='st'>"II"</span><span class='op'>)</span>, out<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"I"</span>,<span class='st'>"II"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'># \donttest{</span>
-<span class='va'>bt</span> <span class='op'>&lt;-</span> <span class='fu'>BarnardTest</span><span class='op'>(</span><span class='va'>ttab</span><span class='op'>)</span>
-<span class='va'>bts</span> <span class='op'>&lt;-</span> <span class='va'>bt</span><span class='op'>$</span><span class='va'>statistic.table</span>
-<span class='co'># }</span>
-
-<span class='co'># Mehta et. al (2003)</span>
-<span class='va'>tab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>7</span>, <span class='fl'>12</span>, <span class='fl'>8</span>, <span class='fl'>3</span><span class='op'>)</span>, nrow<span class='op'>=</span><span class='fl'>2</span>,
-                       dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>treat<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"vaccine"</span>,<span class='st'>"placebo"</span><span class='op'>)</span>,
-                                     infection<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"yes"</span>,<span class='st'>"no"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>BarnardTest</span><span class='op'>(</span><span class='va'>tab</span>, alternative<span class='op'>=</span><span class='st'>"less"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	CSM Exact Test
-#&gt; 
-#&gt; data:  7 out of 15 vs. 12 out of 15
-#&gt; test statistic = NA, first sample size = 15, second sample size = 15,
-#&gt; p-value = 0.03669
-#&gt; alternative hypothesis: true difference in proportion is less than 0
-#&gt; sample estimates:
-#&gt; difference in proportion 
-#&gt;               -0.3333333 
-#&gt; </div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>tab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>8</span>, <span class='fl'>14</span>, <span class='fl'>1</span>, <span class='fl'>3</span><span class='op'>)</span>, nrow<span class='op'>=</span><span class='fl'>2</span>,</span>
+<span class='r-in'>                dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>treat<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"I"</span>,<span class='st'>"II"</span><span class='op'>)</span>, out<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"I"</span>,<span class='st'>"II"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>BarnardTest</span><span class='op'>(</span><span class='va'>tab</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	CSM Exact Test</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  8 out of 9 vs. 14 out of 17</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> test statistic = NA, first sample size = 9, second sample size = 17,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> p-value = 0.7181</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> alternative hypothesis: true difference in proportion is not equal to 0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> sample estimates:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> difference in proportion </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               0.06535948 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Plotting the search for the nuisance parameter for a one-sided test</span></span>
+<span class='r-in'><span class='va'>bt</span> <span class='op'>&lt;-</span> <span class='fu'>BarnardTest</span><span class='op'>(</span><span class='va'>tab</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Plotting the tables included in the p-value</span></span>
+<span class='r-in'><span class='va'>ttab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>40</span>, <span class='fl'>14</span>, <span class='fl'>10</span>, <span class='fl'>30</span><span class='op'>)</span>, nrow<span class='op'>=</span><span class='fl'>2</span>,</span>
+<span class='r-in'>                 dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>treat<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"I"</span>,<span class='st'>"II"</span><span class='op'>)</span>, out<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"I"</span>,<span class='st'>"II"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># \donttest{</span></span>
+<span class='r-in'><span class='va'>bt</span> <span class='op'>&lt;-</span> <span class='fu'>BarnardTest</span><span class='op'>(</span><span class='va'>ttab</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>bts</span> <span class='op'>&lt;-</span> <span class='va'>bt</span><span class='op'>$</span><span class='va'>statistic.table</span></span>
+<span class='r-in'><span class='co'># }</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Mehta et. al (2003)</span></span>
+<span class='r-in'><span class='va'>tab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>7</span>, <span class='fl'>12</span>, <span class='fl'>8</span>, <span class='fl'>3</span><span class='op'>)</span>, nrow<span class='op'>=</span><span class='fl'>2</span>,</span>
+<span class='r-in'>                       dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>treat<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"vaccine"</span>,<span class='st'>"placebo"</span><span class='op'>)</span>,</span>
+<span class='r-in'>                                     infection<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"yes"</span>,<span class='st'>"no"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>BarnardTest</span><span class='op'>(</span><span class='va'>tab</span>, alternative<span class='op'>=</span><span class='st'>"less"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	CSM Exact Test</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  7 out of 15 vs. 12 out of 15</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> test statistic = NA, first sample size = 15, second sample size = 15,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> p-value = 0.03669</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> alternative hypothesis: true difference in proportion is less than 0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> sample estimates:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> difference in proportion </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               -0.3333333 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

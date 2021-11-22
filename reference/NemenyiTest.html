@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -200,7 +200,7 @@
       <td><p>an optional matrix or data frame (or similar: see
     <code><a href='https://rdrr.io/r/stats/model.frame.html'>model.frame</a></code>) containing the variables in the
     formula <code>formula</code>.  By default the variables are taken from
-    <code><a href='https://rdrr.io/r/base/environment.html'>environment(formula)</a></code>.</p></td>
+    <code>environment(formula)</code>.</p></td>
     </tr>
     <tr>
       <th>subset</th>
@@ -211,7 +211,7 @@
       <th>na.action</th>
       <td><p>a function which indicates what should happen when
     the data contain <code>NA</code>s.  Defaults to
-    <code><a href='https://rdrr.io/r/base/options.html'>getOption("na.action")</a></code>.</p></td>
+    <code>getOption("na.action")</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -250,82 +250,87 @@ Nemenyi proposed a test based on rank sums and the application of the family-wis
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>## Hollander &amp; Wolfe (1973), 116.</span>
-<span class='co'>## Mucociliary efficiency from the rate of removal of dust in normal</span>
-<span class='co'>##  subjects, subjects with obstructive airway disease, and subjects</span>
-<span class='co'>##  with asbestosis.</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.9</span>, <span class='fl'>3.0</span>, <span class='fl'>2.5</span>, <span class='fl'>2.6</span>, <span class='fl'>3.2</span><span class='op'>)</span> <span class='co'># normal subjects</span>
-<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3.8</span>, <span class='fl'>2.7</span>, <span class='fl'>4.0</span>, <span class='fl'>2.4</span><span class='op'>)</span>      <span class='co'># with obstructive airway disease</span>
-<span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.8</span>, <span class='fl'>3.4</span>, <span class='fl'>3.7</span>, <span class='fl'>2.2</span>, <span class='fl'>2.0</span><span class='op'>)</span> <span class='co'># with asbestosis</span>
-
-<span class='fu'>NemenyiTest</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>z</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;  Nemenyi's test of multiple comparisons for independent samples (tukey)  
-#&gt; 
-#&gt;     mean.rank.diff   pval    
-#&gt; 2-1            1.8 0.7972    
-#&gt; 3-1           -0.6 0.9720    
-#&gt; 3-2           -2.4 0.6686    
-#&gt; ---
-#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-#&gt; </div><div class='input'>
-<span class='co'>## Equivalently,</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>z</span><span class='op'>)</span>
-<span class='va'>g</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>4</span>, <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>,
-            labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Normal subjects"</span>,
-                       <span class='st'>"Subjects with obstructive airway disease"</span>,
-                       <span class='st'>"Subjects with asbestosis"</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='fu'>NemenyiTest</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>g</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;  Nemenyi's test of multiple comparisons for independent samples (tukey)  
-#&gt; 
-#&gt;                                                                   mean.rank.diff
-#&gt; Subjects with obstructive airway disease-Normal subjects                     1.8
-#&gt; Subjects with asbestosis-Normal subjects                                    -0.6
-#&gt; Subjects with asbestosis-Subjects with obstructive airway disease           -2.4
-#&gt;                                                                     pval    
-#&gt; Subjects with obstructive airway disease-Normal subjects          0.7972    
-#&gt; Subjects with asbestosis-Normal subjects                          0.9720    
-#&gt; Subjects with asbestosis-Subjects with obstructive airway disease 0.6686    
-#&gt; ---
-#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-#&gt; </div><div class='input'>
-<span class='co'>## Formula interface.</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/boxplot.html'>boxplot</a></span><span class='op'>(</span><span class='va'>Ozone</span> <span class='op'>~</span> <span class='va'>Month</span>, data <span class='op'>=</span> <span class='va'>airquality</span><span class='op'>)</span>
-</div><div class='img'><img src='NemenyiTest-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>NemenyiTest</span><span class='op'>(</span><span class='va'>Ozone</span> <span class='op'>~</span> <span class='va'>Month</span>, data <span class='op'>=</span> <span class='va'>airquality</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;  Nemenyi's test of multiple comparisons for independent samples (tukey)  
-#&gt; 
-#&gt;     mean.rank.diff     pval    
-#&gt; 6-5    12.02991453  0.88737    
-#&gt; 7-5    41.21153846 0.000097 ***
-#&gt; 8-5    38.53846154  0.00035 ***
-#&gt; 9-5    11.99734748  0.67819    
-#&gt; 7-6    29.18162393  0.16373    
-#&gt; 8-6    26.50854701  0.24773    
-#&gt; 9-6    -0.03256705  1.00000    
-#&gt; 8-7    -2.67307692  0.99853    
-#&gt; 9-7   -29.21419098  0.01136 *  
-#&gt; 9-8   -26.54111406  0.02867 *  
-#&gt; ---
-#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-#&gt; </div><div class='input'>
-<span class='co'># Hedderich &amp; Sachs, 2012, p. 555</span>
-<span class='va'>d.frm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>28</span>,<span class='fl'>30</span>,<span class='fl'>33</span>,<span class='fl'>35</span>,<span class='fl'>38</span>,<span class='fl'>41</span>, <span class='fl'>36</span>,<span class='fl'>39</span>,<span class='fl'>40</span>,<span class='fl'>43</span>,<span class='fl'>45</span>,<span class='fl'>50</span>, <span class='fl'>44</span>,<span class='fl'>45</span>,<span class='fl'>47</span>,<span class='fl'>49</span>,<span class='fl'>53</span>,<span class='fl'>54</span><span class='op'>)</span>,
-                    g<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='va'>LETTERS</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span>, each<span class='op'>=</span><span class='fl'>6</span><span class='op'>)</span><span class='op'>)</span>, stringsAsFactors<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-
-<span class='fu'>NemenyiTest</span><span class='op'>(</span><span class='va'>x</span><span class='op'>~</span><span class='va'>g</span>, <span class='va'>d.frm</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;  Nemenyi's test of multiple comparisons for independent samples (tukey)  
-#&gt; 
-#&gt;     mean.rank.diff   pval    
-#&gt; B-A       5.583333 0.1658    
-#&gt; C-A      10.416667 0.0021 ** 
-#&gt; C-B       4.833333 0.2595    
-#&gt; ---
-#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-#&gt; </div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'>## Hollander &amp; Wolfe (1973), 116.</span></span>
+<span class='r-in'><span class='co'>## Mucociliary efficiency from the rate of removal of dust in normal</span></span>
+<span class='r-in'><span class='co'>##  subjects, subjects with obstructive airway disease, and subjects</span></span>
+<span class='r-in'><span class='co'>##  with asbestosis.</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.9</span>, <span class='fl'>3.0</span>, <span class='fl'>2.5</span>, <span class='fl'>2.6</span>, <span class='fl'>3.2</span><span class='op'>)</span> <span class='co'># normal subjects</span></span>
+<span class='r-in'><span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3.8</span>, <span class='fl'>2.7</span>, <span class='fl'>4.0</span>, <span class='fl'>2.4</span><span class='op'>)</span>      <span class='co'># with obstructive airway disease</span></span>
+<span class='r-in'><span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.8</span>, <span class='fl'>3.4</span>, <span class='fl'>3.7</span>, <span class='fl'>2.2</span>, <span class='fl'>2.0</span><span class='op'>)</span> <span class='co'># with asbestosis</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>NemenyiTest</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>z</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Nemenyi's test of multiple comparisons for independent samples (tukey)  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     mean.rank.diff   pval    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2-1            1.8 0.7972    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3-1           -0.6 0.9720    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3-2           -2.4 0.6686    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ---</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Equivalently,</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>z</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>g</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>4</span>, <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span class='r-in'>            labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Normal subjects"</span>,</span>
+<span class='r-in'>                       <span class='st'>"Subjects with obstructive airway disease"</span>,</span>
+<span class='r-in'>                       <span class='st'>"Subjects with asbestosis"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>NemenyiTest</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>g</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Nemenyi's test of multiple comparisons for independent samples (tukey)  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                                   mean.rank.diff</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Subjects with obstructive airway disease-Normal subjects                     1.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Subjects with asbestosis-Normal subjects                                    -0.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Subjects with asbestosis-Subjects with obstructive airway disease           -2.4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                                     pval    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Subjects with obstructive airway disease-Normal subjects          0.7972    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Subjects with asbestosis-Normal subjects                          0.9720    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Subjects with asbestosis-Subjects with obstructive airway disease 0.6686    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ---</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Formula interface.</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/boxplot.html'>boxplot</a></span><span class='op'>(</span><span class='va'>Ozone</span> <span class='op'>~</span> <span class='va'>Month</span>, data <span class='op'>=</span> <span class='va'>airquality</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='NemenyiTest-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'>NemenyiTest</span><span class='op'>(</span><span class='va'>Ozone</span> <span class='op'>~</span> <span class='va'>Month</span>, data <span class='op'>=</span> <span class='va'>airquality</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Nemenyi's test of multiple comparisons for independent samples (tukey)  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     mean.rank.diff     pval    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6-5    12.02991453  0.88737    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7-5    41.21153846 0.000097 ***</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8-5    38.53846154  0.00035 ***</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9-5    11.99734748  0.67819    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7-6    29.18162393  0.16373    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8-6    26.50854701  0.24773    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9-6    -0.03256705  1.00000    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8-7    -2.67307692  0.99853    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9-7   -29.21419098  0.01136 *  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9-8   -26.54111406  0.02867 *  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ---</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Hedderich &amp; Sachs, 2012, p. 555</span></span>
+<span class='r-in'><span class='va'>d.frm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>28</span>,<span class='fl'>30</span>,<span class='fl'>33</span>,<span class='fl'>35</span>,<span class='fl'>38</span>,<span class='fl'>41</span>, <span class='fl'>36</span>,<span class='fl'>39</span>,<span class='fl'>40</span>,<span class='fl'>43</span>,<span class='fl'>45</span>,<span class='fl'>50</span>, <span class='fl'>44</span>,<span class='fl'>45</span>,<span class='fl'>47</span>,<span class='fl'>49</span>,<span class='fl'>53</span>,<span class='fl'>54</span><span class='op'>)</span>,</span>
+<span class='r-in'>                    g<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='va'>LETTERS</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span>, each<span class='op'>=</span><span class='fl'>6</span><span class='op'>)</span><span class='op'>)</span>, stringsAsFactors<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>NemenyiTest</span><span class='op'>(</span><span class='va'>x</span><span class='op'>~</span><span class='va'>g</span>, <span class='va'>d.frm</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Nemenyi's test of multiple comparisons for independent samples (tukey)  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     mean.rank.diff   pval    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> B-A       5.583333 0.1658    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> C-A      10.416667 0.0021 ** </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> C-B       4.833333 0.2595    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ---</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

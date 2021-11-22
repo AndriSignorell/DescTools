@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -212,42 +212,45 @@ URL: <a href='http://books.google.pt/books?id=dPhtioXwI9cC&amp;lpg=PA97&amp;ots=
     <div class='dont-index'><p><code>rank.test</code>, <code><a href='RunsTest.html'>RunsTest</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>## Example 5.1 in Gibbons and Chakraborti (2003), p.98.</span>
-<span class='co'>## Annual data on total number of tourists to the United States for 1970-1982.</span>
-
-<span class='va'>years</span> <span class='op'>&lt;-</span> <span class='fl'>1970</span><span class='op'>:</span><span class='fl'>1982</span>
-<span class='va'>tourists</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>12362</span>, <span class='fl'>12739</span>, <span class='fl'>13057</span>, <span class='fl'>13955</span>, <span class='fl'>14123</span>,  <span class='fl'>15698</span>, <span class='fl'>17523</span>, <span class='fl'>18610</span>, <span class='fl'>19842</span>,
-      <span class='fl'>20310</span>, <span class='fl'>22500</span>, <span class='fl'>23080</span>, <span class='fl'>21916</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>years</span>, <span class='va'>tourists</span>, pch<span class='op'>=</span><span class='fl'>20</span><span class='op'>)</span>
-</div><div class='img'><img src='BartelsRankTest-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'>BartelsRankTest</span><span class='op'>(</span><span class='va'>tourists</span>, alternative<span class='op'>=</span><span class='st'>"trend"</span>, method<span class='op'>=</span><span class='st'>"beta"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	Bartels Ratio Test
-#&gt; 
-#&gt; data:  tourists
-#&gt; RVN = 0.098901, z = -3.645338, n = 13, p-value = 0.0000000121
-#&gt; alternative hypothesis: trend
-#&gt; </div><div class='input'>
-<span class='co'>#  Bartels Ratio Test</span>
-<span class='co'>#</span>
-<span class='co'># data:  tourists</span>
-<span class='co'># statistic = -3.6453, n = 13, p-value = 1.21e-08</span>
-<span class='co'># alternative hypothesis: trend</span>
-
-
-<span class='co'>## Example in Bartels (1982).</span>
-<span class='co'>## Changes in stock levels for 1968-1969 to 1977-1978 (in $A million), deflated by the</span>
-<span class='co'>## Australian gross domestic product (GDP) price index (base 1966-1967).</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>528</span>, <span class='fl'>348</span>, <span class='fl'>264</span>, <span class='op'>-</span><span class='fl'>20</span>, <span class='op'>-</span> <span class='fl'>167</span>, <span class='fl'>575</span>, <span class='fl'>410</span>, <span class='op'>-</span><span class='fl'>4</span>, <span class='fl'>430</span>, <span class='op'>-</span> <span class='fl'>122</span><span class='op'>)</span>
-
-<span class='fu'>BartelsRankTest</span><span class='op'>(</span><span class='va'>x</span>, method<span class='op'>=</span><span class='st'>"beta"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	Bartels Ratio Test
-#&gt; 
-#&gt; data:  x
-#&gt; RVN = 2.048485, z = 0.083357, n = 10, p-value = 0.9379
-#&gt; alternative hypothesis: nonrandomness
-#&gt; </div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'>## Example 5.1 in Gibbons and Chakraborti (2003), p.98.</span></span>
+<span class='r-in'><span class='co'>## Annual data on total number of tourists to the United States for 1970-1982.</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>years</span> <span class='op'>&lt;-</span> <span class='fl'>1970</span><span class='op'>:</span><span class='fl'>1982</span></span>
+<span class='r-in'><span class='va'>tourists</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>12362</span>, <span class='fl'>12739</span>, <span class='fl'>13057</span>, <span class='fl'>13955</span>, <span class='fl'>14123</span>,  <span class='fl'>15698</span>, <span class='fl'>17523</span>, <span class='fl'>18610</span>, <span class='fl'>19842</span>,</span>
+<span class='r-in'>      <span class='fl'>20310</span>, <span class='fl'>22500</span>, <span class='fl'>23080</span>, <span class='fl'>21916</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>years</span>, <span class='va'>tourists</span>, pch<span class='op'>=</span><span class='fl'>20</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='BartelsRankTest-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>BartelsRankTest</span><span class='op'>(</span><span class='va'>tourists</span>, alternative<span class='op'>=</span><span class='st'>"trend"</span>, method<span class='op'>=</span><span class='st'>"beta"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Bartels Ratio Test</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  tourists</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> RVN = 0.098901, z = -3.645338, n = 13, p-value = 0.0000000121</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> alternative hypothesis: trend</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>#  Bartels Ratio Test</span></span>
+<span class='r-in'><span class='co'>#</span></span>
+<span class='r-in'><span class='co'># data:  tourists</span></span>
+<span class='r-in'><span class='co'># statistic = -3.6453, n = 13, p-value = 1.21e-08</span></span>
+<span class='r-in'><span class='co'># alternative hypothesis: trend</span></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Example in Bartels (1982).</span></span>
+<span class='r-in'><span class='co'>## Changes in stock levels for 1968-1969 to 1977-1978 (in $A million), deflated by the</span></span>
+<span class='r-in'><span class='co'>## Australian gross domestic product (GDP) price index (base 1966-1967).</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>528</span>, <span class='fl'>348</span>, <span class='fl'>264</span>, <span class='op'>-</span><span class='fl'>20</span>, <span class='op'>-</span> <span class='fl'>167</span>, <span class='fl'>575</span>, <span class='fl'>410</span>, <span class='op'>-</span><span class='fl'>4</span>, <span class='fl'>430</span>, <span class='op'>-</span> <span class='fl'>122</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>BartelsRankTest</span><span class='op'>(</span><span class='va'>x</span>, method<span class='op'>=</span><span class='st'>"beta"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Bartels Ratio Test</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  x</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> RVN = 2.048485, z = 0.083357, n = 10, p-value = 0.9379</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> alternative hypothesis: nonrandomness</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -251,74 +251,79 @@ structures to a polygon.
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='Canvas.html'>Canvas</a></span><span class='op'>(</span>xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>5</span>,<span class='fl'>5</span><span class='op'>)</span>, xpd<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='input'><span class='va'>cols</span> <span class='op'>&lt;-</span> <span class='fu'><a href='DescTools Palettes.html'>Pal</a></span><span class='op'>(</span><span class='st'>"Helsana"</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>
-
-<span class='co'># Draw ring</span>
-<span class='fu'>DrawCircle</span> <span class='op'>(</span>r.in <span class='op'>=</span> <span class='fl'>1</span>, r.out <span class='op'>=</span> <span class='fl'>5</span>, border<span class='op'>=</span><span class='st'>"darkgrey"</span>, col<span class='op'>=</span><span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span><span class='op'>(</span><span class='va'>hyellow</span>, <span class='fl'>0.2</span><span class='op'>)</span>, lwd<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
-</div><div class='input'>
-<span class='co'># Draw circle</span>
-<span class='fu'>DrawCircle</span> <span class='op'>(</span>r.in <span class='op'>=</span> <span class='fl'>6</span>, border<span class='op'>=</span><span class='va'>hgreen</span>, lwd<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>
-</div><div class='input'>
-<span class='co'># Draw sectors</span>
-<span class='va'>geom</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>pi</span>, <span class='fl'>0</span>, <span class='fl'>.25</span>, <span class='fl'>.5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='va'>pi</span>, <span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span>,
-              <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>pi</span><span class='op'>/</span><span class='fl'>2</span>, <span class='va'>pi</span><span class='op'>/</span><span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2.5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>pi</span><span class='op'>/</span><span class='fl'>2</span>, <span class='fl'>3</span> <span class='op'>*</span> <span class='va'>pi</span><span class='op'>/</span><span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>4</span><span class='op'>)</span>,
-              <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>pi</span> <span class='op'>-</span> <span class='va'>pi</span><span class='op'>/</span><span class='fl'>8</span>, <span class='va'>pi</span> <span class='op'>+</span> <span class='va'>pi</span><span class='op'>/</span><span class='fl'>8</span>, <span class='fl'>1.5</span>, <span class='fl'>2.5</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='fu'>DrawCircle</span> <span class='op'>(</span>r.in <span class='op'>=</span> <span class='va'>geom</span><span class='op'>[</span>,<span class='fl'>3</span><span class='op'>]</span>, r.out <span class='op'>=</span> <span class='va'>geom</span><span class='op'>[</span>,<span class='fl'>4</span><span class='op'>]</span>,
-           theta.1 <span class='op'>=</span> <span class='va'>geom</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span>, theta.2 <span class='op'>=</span> <span class='va'>geom</span><span class='op'>[</span>,<span class='fl'>2</span><span class='op'>]</span>,
-           col <span class='op'>=</span> <span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span><span class='op'>(</span><span class='va'>cols</span>, <span class='fl'>0.6</span><span class='op'>)</span>,
-           border <span class='op'>=</span> <span class='va'>cols</span>, lwd<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>
-</div><div class='img'><img src='DrawCircle-1.png' alt='' width='700' height='433' /></div><div class='input'>
-
-<span class='co'># clipping</span>
-<span class='fu'><a href='Canvas.html'>Canvas</a></span><span class='op'>(</span>bg<span class='op'>=</span><span class='st'>"lightgrey"</span>, main<span class='op'>=</span><span class='st'>"Yin ~ Yang"</span><span class='op'>)</span>
-</div><div class='input'><span class='fu'>DrawCircle</span> <span class='op'>(</span>r.out <span class='op'>=</span> <span class='fl'>1</span>, col<span class='op'>=</span><span class='st'>"white"</span><span class='op'>)</span>
-</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/clip.html'>clip</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='op'>-</span><span class='fl'>2</span><span class='op'>)</span>
-<span class='fu'>DrawCircle</span><span class='op'>(</span>col<span class='op'>=</span><span class='st'>"black"</span><span class='op'>)</span>
-</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/clip.html'>clip</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='op'>-</span><span class='fl'>2</span><span class='op'>)</span>
-<span class='fu'>DrawCircle</span> <span class='op'>(</span>y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>0.5</span>,<span class='fl'>0.5</span><span class='op'>)</span>, r.out <span class='op'>=</span> <span class='fl'>0.5</span>, col<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"black"</span>, <span class='st'>"white"</span><span class='op'>)</span>, border<span class='op'>=</span><span class='cn'>NA</span><span class='op'>)</span>
-</div><div class='input'><span class='fu'>DrawCircle</span> <span class='op'>(</span>y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>0.5</span>,<span class='fl'>0.5</span><span class='op'>)</span>, r.out <span class='op'>=</span> <span class='fl'>0.1</span>, col<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"white"</span>, <span class='st'>"black"</span><span class='op'>)</span>, border<span class='op'>=</span><span class='cn'>NA</span><span class='op'>)</span>
-</div><div class='input'><span class='fu'>DrawCircle</span> <span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='DrawCircle-2.png' alt='' width='700' height='433' /></div><div class='input'>
-
-<span class='co'># overplotting circles</span>
-<span class='fu'><a href='Canvas.html'>Canvas</a></span><span class='op'>(</span>xlim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>5</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='input'><span class='fu'>DrawCircle</span> <span class='op'>(</span>r.out<span class='op'>=</span><span class='fl'>4</span><span class='op'>:</span><span class='fl'>1</span>, col<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"white"</span>, <span class='st'>"steelblue2"</span>, <span class='st'>"white"</span>, <span class='st'>"red"</span><span class='op'>)</span>, lwd<span class='op'>=</span><span class='fl'>3</span>, nv<span class='op'>=</span><span class='fl'>300</span><span class='op'>)</span>
-</div><div class='img'><img src='DrawCircle-3.png' alt='' width='700' height='433' /></div><div class='input'>
-
-<span class='co'># rotation</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>3</span>, <span class='fl'>3</span>, length.out<span class='op'>=</span><span class='fl'>10</span><span class='op'>)</span>
-<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>0</span>, length.out<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='fu'><a href='Canvas.html'>Canvas</a></span><span class='op'>(</span>xlim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>5</span>,<span class='fl'>5</span><span class='op'>)</span>, bg<span class='op'>=</span><span class='st'>"black"</span><span class='op'>)</span>
-</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span> <span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='fl'>11</span><span class='op'>)</span> <span class='op'>*</span> <span class='va'>pi</span><span class='op'>/</span><span class='fl'>6</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>theta</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='va'>xy</span> <span class='op'>&lt;-</span> <span class='fu'><a href='Rotate.html'>Rotate</a></span><span class='op'>(</span><span class='va'>x</span>, y<span class='op'>=</span><span class='va'>y</span>, theta<span class='op'>=</span><span class='va'>theta</span><span class='op'>)</span>
-  <span class='fu'>DrawCircle</span> <span class='op'>(</span>x<span class='op'>=</span><span class='va'>xy</span><span class='op'>$</span><span class='va'>x</span>, y<span class='op'>=</span><span class='va'>xy</span><span class='op'>$</span><span class='va'>y</span>, r.in<span class='op'>=</span><span class='fl'>2.4</span>, border<span class='op'>=</span><span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span><span class='op'>(</span><span class='st'>"white"</span>, <span class='fl'>0.2</span><span class='op'>)</span><span class='op'>)</span>
-<span class='op'>}</span> <span class='op'>)</span>
-</div><div class='img'><img src='DrawCircle-4.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt;       [,1]   [,2]   [,3]   [,4]   [,5]   [,6]   [,7]   [,8]   [,9]   [,10] 
-#&gt;  [1,] list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2
-#&gt;  [2,] list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2
-#&gt;  [3,] list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2
-#&gt;  [4,] list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2
-#&gt;  [5,] list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2
-#&gt;  [6,] list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2
-#&gt;  [7,] list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2
-#&gt;  [8,] list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2
-#&gt;  [9,] list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2
-#&gt; [10,] list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2
-#&gt;       [,11]  [,12] 
-#&gt;  [1,] list,2 list,2
-#&gt;  [2,] list,2 list,2
-#&gt;  [3,] list,2 list,2
-#&gt;  [4,] list,2 list,2
-#&gt;  [5,] list,2 list,2
-#&gt;  [6,] list,2 list,2
-#&gt;  [7,] list,2 list,2
-#&gt;  [8,] list,2 list,2
-#&gt;  [9,] list,2 list,2
-#&gt; [10,] list,2 list,2</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'><a href='Canvas.html'>Canvas</a></span><span class='op'>(</span>xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>5</span>,<span class='fl'>5</span><span class='op'>)</span>, xpd<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>cols</span> <span class='op'>&lt;-</span> <span class='fu'><a href='DescTools Palettes.html'>Pal</a></span><span class='op'>(</span><span class='st'>"Helsana"</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Draw ring</span></span>
+<span class='r-in'><span class='fu'>DrawCircle</span> <span class='op'>(</span>r.in <span class='op'>=</span> <span class='fl'>1</span>, r.out <span class='op'>=</span> <span class='fl'>5</span>, border<span class='op'>=</span><span class='st'>"darkgrey"</span>, col<span class='op'>=</span><span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span><span class='op'>(</span><span class='va'>hyellow</span>, <span class='fl'>0.2</span><span class='op'>)</span>, lwd<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Draw circle</span></span>
+<span class='r-in'><span class='fu'>DrawCircle</span> <span class='op'>(</span>r.in <span class='op'>=</span> <span class='fl'>6</span>, border<span class='op'>=</span><span class='va'>hgreen</span>, lwd<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Draw sectors</span></span>
+<span class='r-in'><span class='va'>geom</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>pi</span>, <span class='fl'>0</span>, <span class='fl'>.25</span>, <span class='fl'>.5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='va'>pi</span>, <span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span>,</span>
+<span class='r-in'>              <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>pi</span><span class='op'>/</span><span class='fl'>2</span>, <span class='va'>pi</span><span class='op'>/</span><span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2.5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>pi</span><span class='op'>/</span><span class='fl'>2</span>, <span class='fl'>3</span> <span class='op'>*</span> <span class='va'>pi</span><span class='op'>/</span><span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>4</span><span class='op'>)</span>,</span>
+<span class='r-in'>              <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>pi</span> <span class='op'>-</span> <span class='va'>pi</span><span class='op'>/</span><span class='fl'>8</span>, <span class='va'>pi</span> <span class='op'>+</span> <span class='va'>pi</span><span class='op'>/</span><span class='fl'>8</span>, <span class='fl'>1.5</span>, <span class='fl'>2.5</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>DrawCircle</span> <span class='op'>(</span>r.in <span class='op'>=</span> <span class='va'>geom</span><span class='op'>[</span>,<span class='fl'>3</span><span class='op'>]</span>, r.out <span class='op'>=</span> <span class='va'>geom</span><span class='op'>[</span>,<span class='fl'>4</span><span class='op'>]</span>,</span>
+<span class='r-in'>           theta.1 <span class='op'>=</span> <span class='va'>geom</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span>, theta.2 <span class='op'>=</span> <span class='va'>geom</span><span class='op'>[</span>,<span class='fl'>2</span><span class='op'>]</span>,</span>
+<span class='r-in'>           col <span class='op'>=</span> <span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span><span class='op'>(</span><span class='va'>cols</span>, <span class='fl'>0.6</span><span class='op'>)</span>,</span>
+<span class='r-in'>           border <span class='op'>=</span> <span class='va'>cols</span>, lwd<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='DrawCircle-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># clipping</span></span>
+<span class='r-in'><span class='fu'><a href='Canvas.html'>Canvas</a></span><span class='op'>(</span>bg<span class='op'>=</span><span class='st'>"lightgrey"</span>, main<span class='op'>=</span><span class='st'>"Yin ~ Yang"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>DrawCircle</span> <span class='op'>(</span>r.out <span class='op'>=</span> <span class='fl'>1</span>, col<span class='op'>=</span><span class='st'>"white"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/clip.html'>clip</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='op'>-</span><span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>DrawCircle</span><span class='op'>(</span>col<span class='op'>=</span><span class='st'>"black"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/clip.html'>clip</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='op'>-</span><span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>DrawCircle</span> <span class='op'>(</span>y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>0.5</span>,<span class='fl'>0.5</span><span class='op'>)</span>, r.out <span class='op'>=</span> <span class='fl'>0.5</span>, col<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"black"</span>, <span class='st'>"white"</span><span class='op'>)</span>, border<span class='op'>=</span><span class='cn'>NA</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>DrawCircle</span> <span class='op'>(</span>y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>0.5</span>,<span class='fl'>0.5</span><span class='op'>)</span>, r.out <span class='op'>=</span> <span class='fl'>0.1</span>, col<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"white"</span>, <span class='st'>"black"</span><span class='op'>)</span>, border<span class='op'>=</span><span class='cn'>NA</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>DrawCircle</span> <span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='DrawCircle-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># overplotting circles</span></span>
+<span class='r-in'><span class='fu'><a href='Canvas.html'>Canvas</a></span><span class='op'>(</span>xlim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>5</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>DrawCircle</span> <span class='op'>(</span>r.out<span class='op'>=</span><span class='fl'>4</span><span class='op'>:</span><span class='fl'>1</span>, col<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"white"</span>, <span class='st'>"steelblue2"</span>, <span class='st'>"white"</span>, <span class='st'>"red"</span><span class='op'>)</span>, lwd<span class='op'>=</span><span class='fl'>3</span>, nv<span class='op'>=</span><span class='fl'>300</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='DrawCircle-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># rotation</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>3</span>, <span class='fl'>3</span>, length.out<span class='op'>=</span><span class='fl'>10</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>0</span>, length.out<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='Canvas.html'>Canvas</a></span><span class='op'>(</span>xlim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>5</span>,<span class='fl'>5</span><span class='op'>)</span>, bg<span class='op'>=</span><span class='st'>"black"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span> <span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='fl'>11</span><span class='op'>)</span> <span class='op'>*</span> <span class='va'>pi</span><span class='op'>/</span><span class='fl'>6</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>theta</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'>  <span class='va'>xy</span> <span class='op'>&lt;-</span> <span class='fu'><a href='Rotate.html'>Rotate</a></span><span class='op'>(</span><span class='va'>x</span>, y<span class='op'>=</span><span class='va'>y</span>, theta<span class='op'>=</span><span class='va'>theta</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='fu'>DrawCircle</span> <span class='op'>(</span>x<span class='op'>=</span><span class='va'>xy</span><span class='op'>$</span><span class='va'>x</span>, y<span class='op'>=</span><span class='va'>xy</span><span class='op'>$</span><span class='va'>y</span>, r.in<span class='op'>=</span><span class='fl'>2.4</span>, border<span class='op'>=</span><span class='fu'><a href='SetAlpha.html'>SetAlpha</a></span><span class='op'>(</span><span class='st'>"white"</span>, <span class='fl'>0.2</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span> <span class='op'>)</span></span>
+<span class='r-plt img'><img src='DrawCircle-4.png' alt='' width='700' height='433' /></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       [,1]   [,2]   [,3]   [,4]   [,5]   [,6]   [,7]   [,8]   [,9]   [,10] </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1,] list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [2,] list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [3,] list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [4,] list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5,] list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6,] list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7,] list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8,] list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9,] list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10,] list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2 list,2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       [,11]  [,12] </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1,] list,2 list,2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [2,] list,2 list,2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [3,] list,2 list,2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [4,] list,2 list,2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5,] list,2 list,2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6,] list,2 list,2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7,] list,2 list,2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8,] list,2 list,2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9,] list,2 list,2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10,] list,2 list,2</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -78,7 +78,7 @@ Mgp() does the same for the distances of axis title, labels and line.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -157,7 +157,7 @@ Mgp() does the same for the distances of axis title, labels and line.
     </div>
 
     <div class="ref-description">
-    <p>Plot margins are normally set by <code><a href='https://rdrr.io/r/graphics/par.html'>par("mar")</a></code>. However one is forced to always define all margins, even if just one should be altered. The convenience function <code>Mar()</code> allows to set one single margin (or several) while leaving the others unchanged.</p>
+    <p>Plot margins are normally set by <code>par("mar")</code>. However one is forced to always define all margins, even if just one should be altered. The convenience function <code>Mar()</code> allows to set one single margin (or several) while leaving the others unchanged.</p>
 <p><code>Mgp()</code> does the same for the distances of axis title, labels and line.
 <!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
     </div>
@@ -191,7 +191,7 @@ Mgp() does the same for the distances of axis title, labels and line.
     </tr>
     <tr>
       <th>outer</th>
-      <td><p>logical, defining if inner margins (<code><a href='https://rdrr.io/r/graphics/par.html'>par("mar")</a></code>) or the outer margins (<code><a href='https://rdrr.io/r/graphics/par.html'>par("oma")</a></code>) should be set. Default is <code>FALSE</code>, meaning that the inner margins will be concerned.
+      <td><p>logical, defining if inner margins (<code>par("mar")</code>) or the outer margins (<code>par("oma")</code>) should be set. Default is <code>FALSE</code>, meaning that the inner margins will be concerned.
 <!-- %%     ~~Describe \code{outer} here~~ --></p></td>
     </tr>
     <tr>
@@ -214,7 +214,7 @@ Mgp() does the same for the distances of axis title, labels and line.
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Running <code>Mar()</code> without any arguments will return the current settings, either <code><a href='https://rdrr.io/r/graphics/par.html'>par("mar")</a></code>, when outer is set to <code>FALSE</code> or <code><a href='https://rdrr.io/r/graphics/par.html'>par("oma")</a></code> for <code>outer = TRUE</code>.</p>
+    <p>Running <code>Mar()</code> without any arguments will return the current settings, either <code>par("mar")</code>, when outer is set to <code>FALSE</code> or <code>par("oma")</code> for <code>outer = TRUE</code>.</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Andri Signorell &lt;andri@signorell.net&gt;
@@ -225,12 +225,13 @@ Mgp() does the same for the distances of axis title, labels and line.
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># largen the left margin only</span>
-<span class='fu'>Mar</span><span class='op'>(</span>left<span class='op'>=</span><span class='fl'>10.1</span><span class='op'>)</span>   <span class='co'># or as alternative: Mar(, 10.1)</span>
-<span class='fu'>Mgp</span><span class='op'>(</span>title<span class='op'>=</span><span class='fl'>6</span><span class='op'>)</span>     <span class='co'># ylab must be placed a little further to the left</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>7</span>, names<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>driver</span><span class='op'>)</span>, horiz<span class='op'>=</span><span class='cn'>TRUE</span>, las<span class='op'>=</span><span class='fl'>1</span>, 
-        ylab<span class='op'>=</span><span class='st'>"driver"</span>, col<span class='op'>=</span><span class='fu'><a href='DescTools Palettes.html'>Pal</a></span><span class='op'>(</span><span class='st'>"Helsana"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='Mar-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># largen the left margin only</span></span>
+<span class='r-in'><span class='fu'>Mar</span><span class='op'>(</span>left<span class='op'>=</span><span class='fl'>10.1</span><span class='op'>)</span>   <span class='co'># or as alternative: Mar(, 10.1)</span></span>
+<span class='r-in'><span class='fu'>Mgp</span><span class='op'>(</span>title<span class='op'>=</span><span class='fl'>6</span><span class='op'>)</span>     <span class='co'># ylab must be placed a little further to the left</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>7</span>, names<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>driver</span><span class='op'>)</span>, horiz<span class='op'>=</span><span class='cn'>TRUE</span>, las<span class='op'>=</span><span class='fl'>1</span>, </span>
+<span class='r-in'>        ylab<span class='op'>=</span><span class='st'>"driver"</span>, col<span class='op'>=</span><span class='fu'><a href='DescTools Palettes.html'>Pal</a></span><span class='op'>(</span><span class='st'>"Helsana"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='Mar-1.png' alt='' width='700' height='433' /></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

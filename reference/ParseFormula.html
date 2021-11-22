@@ -79,7 +79,7 @@ variables.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -192,7 +192,7 @@ variables.
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This is used by <code><a href='Desc.html'>Desc.formula</a></code> for describing data by groups while remaining flexible for using
-<code><a href='https://rdrr.io/r/base/AsIs.html'>I(...)</a></code> constructions, functions or interaction terms.</p>
+<code>I(...)</code> constructions, functions or interaction terms.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a list of 3 elements</p>
@@ -216,528 +216,536 @@ variables.
 Used in: <code><a href='Desc.html'>Desc.formula</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>17</span><span class='op'>)</span>
-<span class='va'>piz</span> <span class='op'>&lt;-</span> <span class='va'>d.pizza</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>)</span>,<span class='fl'>10</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"temperature"</span>,<span class='st'>"price"</span>,<span class='st'>"driver"</span>,<span class='st'>"weekday"</span><span class='op'>)</span><span class='op'>]</span>
-
-<span class='va'>f1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span><span class='op'>(</span><span class='va'>.</span> <span class='op'>~</span> <span class='va'>driver</span><span class='op'>)</span>
-<span class='va'>f2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span><span class='op'>(</span><span class='va'>temperature</span> <span class='op'>~</span> <span class='va'>.</span><span class='op'>)</span>
-<span class='va'>f3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span><span class='op'>(</span><span class='va'>temperature</span> <span class='op'>+</span> <span class='va'>price</span> <span class='op'>~</span> <span class='va'>.</span><span class='op'>)</span>
-<span class='va'>f4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span><span class='op'>(</span><span class='va'>temperature</span> <span class='op'>~</span> <span class='va'>.</span> <span class='op'>-</span> <span class='va'>driver</span><span class='op'>)</span>
-<span class='va'>f5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span><span class='op'>(</span><span class='va'>temperature</span> <span class='op'>+</span> <span class='va'>price</span> <span class='op'>~</span> <span class='va'>driver</span><span class='op'>)</span>
-<span class='va'>f6</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span><span class='op'>(</span><span class='va'>temperature</span> <span class='op'>+</span> <span class='va'>price</span> <span class='op'>~</span> <span class='va'>driver</span> <span class='op'>*</span> <span class='va'>weekday</span><span class='op'>)</span>
-<span class='va'>f7</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span><span class='op'>(</span><span class='va'>temperature</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>price</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>driver</span> <span class='op'>+</span> <span class='va'>weekday</span><span class='op'>)</span>
-<span class='va'>f8</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span><span class='op'>(</span><span class='va'>temperature</span> <span class='op'>+</span> <span class='va'>price</span> <span class='op'>~</span> <span class='fl'>1</span><span class='op'>)</span>
-<span class='va'>f9</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span><span class='op'>(</span><span class='va'>temperature</span> <span class='op'>+</span> <span class='va'>price</span> <span class='op'>~</span> <span class='va'>driver</span> <span class='op'>*</span> <span class='va'>weekday</span> <span class='op'>-</span> <span class='va'>price</span><span class='op'>)</span>
-
-<span class='fu'>ParseFormula</span><span class='op'>(</span><span class='va'>f1</span>, data<span class='op'>=</span><span class='va'>piz</span><span class='op'>)</span>  
-</div><div class='output co'>#&gt; $formula
-#&gt; . ~ driver
-#&gt; &lt;environment: 0x7f9a1c2aea08&gt;
-#&gt; 
-#&gt; $lhs
-#&gt; $lhs$mf
-#&gt;      temperature  price weekday
-#&gt; 108         61.5 62.955       1
-#&gt; 495         53.8 73.746       5
-#&gt; 423         53.8 21.980       3
-#&gt; 150         45.7 47.664       3
-#&gt; 1153        47.5 16.990       7
-#&gt; 721         30.7 36.970       4
-#&gt; 458         57.6 31.980       4
-#&gt; 774         38.6 78.237       5
-#&gt; 1182        33.8 45.864       1
-#&gt; 404         35.5 31.176       2
-#&gt; 
-#&gt; $lhs$mf.eval
-#&gt;      temperature  price weekday
-#&gt; 108         61.5 62.955       1
-#&gt; 495         53.8 73.746       5
-#&gt; 423         53.8 21.980       3
-#&gt; 150         45.7 47.664       3
-#&gt; 1153        47.5 16.990       7
-#&gt; 721         30.7 36.970       4
-#&gt; 458         57.6 31.980       4
-#&gt; 774         38.6 78.237       5
-#&gt; 1182        33.8 45.864       1
-#&gt; 404         35.5 31.176       2
-#&gt; 
-#&gt; $lhs$vars
-#&gt; [1] "temperature" "price"       "weekday"    
-#&gt; 
-#&gt; 
-#&gt; $rhs
-#&gt; $rhs$mf
-#&gt;         driver
-#&gt; 108     Hunter
-#&gt; 495  Carpenter
-#&gt; 423     Carter
-#&gt; 150     Carter
-#&gt; 1153    Miller
-#&gt; 721  Carpenter
-#&gt; 458     Carter
-#&gt; 774     Miller
-#&gt; 1182 Carpenter
-#&gt; 404     Taylor
-#&gt; 
-#&gt; $rhs$mf.eval
-#&gt;         driver
-#&gt; 108     Hunter
-#&gt; 495  Carpenter
-#&gt; 423     Carter
-#&gt; 150     Carter
-#&gt; 1153    Miller
-#&gt; 721  Carpenter
-#&gt; 458     Carter
-#&gt; 774     Miller
-#&gt; 1182 Carpenter
-#&gt; 404     Taylor
-#&gt; 
-#&gt; $rhs$vars
-#&gt; [1] "driver"
-#&gt; 
-#&gt; </div><div class='input'><span class='fu'>ParseFormula</span><span class='op'>(</span><span class='va'>f2</span>, data<span class='op'>=</span><span class='va'>piz</span><span class='op'>)</span>  
-</div><div class='output co'>#&gt; $formula
-#&gt; temperature ~ .
-#&gt; &lt;environment: 0x7f9a1c2aea08&gt;
-#&gt; 
-#&gt; $lhs
-#&gt; $lhs$mf
-#&gt;      temperature
-#&gt; 108         61.5
-#&gt; 495         53.8
-#&gt; 423         53.8
-#&gt; 150         45.7
-#&gt; 1153        47.5
-#&gt; 721         30.7
-#&gt; 458         57.6
-#&gt; 774         38.6
-#&gt; 1182        33.8
-#&gt; 404         35.5
-#&gt; 
-#&gt; $lhs$mf.eval
-#&gt;      temperature
-#&gt; 108         61.5
-#&gt; 495         53.8
-#&gt; 423         53.8
-#&gt; 150         45.7
-#&gt; 1153        47.5
-#&gt; 721         30.7
-#&gt; 458         57.6
-#&gt; 774         38.6
-#&gt; 1182        33.8
-#&gt; 404         35.5
-#&gt; 
-#&gt; $lhs$vars
-#&gt; [1] "temperature"
-#&gt; 
-#&gt; 
-#&gt; $rhs
-#&gt; $rhs$mf
-#&gt;       price    driver weekday
-#&gt; 108  62.955    Hunter       1
-#&gt; 495  73.746 Carpenter       5
-#&gt; 423  21.980    Carter       3
-#&gt; 150  47.664    Carter       3
-#&gt; 1153 16.990    Miller       7
-#&gt; 721  36.970 Carpenter       4
-#&gt; 458  31.980    Carter       4
-#&gt; 774  78.237    Miller       5
-#&gt; 1182 45.864 Carpenter       1
-#&gt; 404  31.176    Taylor       2
-#&gt; 
-#&gt; $rhs$mf.eval
-#&gt;       price    driver weekday
-#&gt; 108  62.955    Hunter       1
-#&gt; 495  73.746 Carpenter       5
-#&gt; 423  21.980    Carter       3
-#&gt; 150  47.664    Carter       3
-#&gt; 1153 16.990    Miller       7
-#&gt; 721  36.970 Carpenter       4
-#&gt; 458  31.980    Carter       4
-#&gt; 774  78.237    Miller       5
-#&gt; 1182 45.864 Carpenter       1
-#&gt; 404  31.176    Taylor       2
-#&gt; 
-#&gt; $rhs$vars
-#&gt; [1] "price"   "driver"  "weekday"
-#&gt; 
-#&gt; </div><div class='input'><span class='fu'>ParseFormula</span><span class='op'>(</span><span class='va'>f3</span>, data<span class='op'>=</span><span class='va'>piz</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $formula
-#&gt; temperature + price ~ .
-#&gt; &lt;environment: 0x7f9a1c2aea08&gt;
-#&gt; 
-#&gt; $lhs
-#&gt; $lhs$mf
-#&gt;      temperature  price
-#&gt; 108         61.5 62.955
-#&gt; 495         53.8 73.746
-#&gt; 423         53.8 21.980
-#&gt; 150         45.7 47.664
-#&gt; 1153        47.5 16.990
-#&gt; 721         30.7 36.970
-#&gt; 458         57.6 31.980
-#&gt; 774         38.6 78.237
-#&gt; 1182        33.8 45.864
-#&gt; 404         35.5 31.176
-#&gt; 
-#&gt; $lhs$mf.eval
-#&gt;      temperature  price
-#&gt; 108         61.5 62.955
-#&gt; 495         53.8 73.746
-#&gt; 423         53.8 21.980
-#&gt; 150         45.7 47.664
-#&gt; 1153        47.5 16.990
-#&gt; 721         30.7 36.970
-#&gt; 458         57.6 31.980
-#&gt; 774         38.6 78.237
-#&gt; 1182        33.8 45.864
-#&gt; 404         35.5 31.176
-#&gt; 
-#&gt; $lhs$vars
-#&gt; [1] "temperature" "price"      
-#&gt; 
-#&gt; 
-#&gt; $rhs
-#&gt; $rhs$mf
-#&gt;         driver weekday
-#&gt; 108     Hunter       1
-#&gt; 495  Carpenter       5
-#&gt; 423     Carter       3
-#&gt; 150     Carter       3
-#&gt; 1153    Miller       7
-#&gt; 721  Carpenter       4
-#&gt; 458     Carter       4
-#&gt; 774     Miller       5
-#&gt; 1182 Carpenter       1
-#&gt; 404     Taylor       2
-#&gt; 
-#&gt; $rhs$mf.eval
-#&gt;         driver weekday
-#&gt; 108     Hunter       1
-#&gt; 495  Carpenter       5
-#&gt; 423     Carter       3
-#&gt; 150     Carter       3
-#&gt; 1153    Miller       7
-#&gt; 721  Carpenter       4
-#&gt; 458     Carter       4
-#&gt; 774     Miller       5
-#&gt; 1182 Carpenter       1
-#&gt; 404     Taylor       2
-#&gt; 
-#&gt; $rhs$vars
-#&gt; [1] "driver"  "weekday"
-#&gt; 
-#&gt; </div><div class='input'><span class='fu'>ParseFormula</span><span class='op'>(</span><span class='va'>f4</span>, data<span class='op'>=</span><span class='va'>piz</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $formula
-#&gt; temperature ~ . - driver
-#&gt; &lt;environment: 0x7f9a1c2aea08&gt;
-#&gt; 
-#&gt; $lhs
-#&gt; $lhs$mf
-#&gt;      temperature
-#&gt; 108         61.5
-#&gt; 495         53.8
-#&gt; 423         53.8
-#&gt; 150         45.7
-#&gt; 1153        47.5
-#&gt; 721         30.7
-#&gt; 458         57.6
-#&gt; 774         38.6
-#&gt; 1182        33.8
-#&gt; 404         35.5
-#&gt; 
-#&gt; $lhs$mf.eval
-#&gt;      temperature
-#&gt; 108         61.5
-#&gt; 495         53.8
-#&gt; 423         53.8
-#&gt; 150         45.7
-#&gt; 1153        47.5
-#&gt; 721         30.7
-#&gt; 458         57.6
-#&gt; 774         38.6
-#&gt; 1182        33.8
-#&gt; 404         35.5
-#&gt; 
-#&gt; $lhs$vars
-#&gt; [1] "temperature"
-#&gt; 
-#&gt; 
-#&gt; $rhs
-#&gt; $rhs$mf
-#&gt;       price weekday
-#&gt; 108  62.955       1
-#&gt; 495  73.746       5
-#&gt; 423  21.980       3
-#&gt; 150  47.664       3
-#&gt; 1153 16.990       7
-#&gt; 721  36.970       4
-#&gt; 458  31.980       4
-#&gt; 774  78.237       5
-#&gt; 1182 45.864       1
-#&gt; 404  31.176       2
-#&gt; 
-#&gt; $rhs$mf.eval
-#&gt;       price weekday
-#&gt; 108  62.955       1
-#&gt; 495  73.746       5
-#&gt; 423  21.980       3
-#&gt; 150  47.664       3
-#&gt; 1153 16.990       7
-#&gt; 721  36.970       4
-#&gt; 458  31.980       4
-#&gt; 774  78.237       5
-#&gt; 1182 45.864       1
-#&gt; 404  31.176       2
-#&gt; 
-#&gt; $rhs$vars
-#&gt; [1] "price"   "weekday"
-#&gt; 
-#&gt; </div><div class='input'><span class='fu'>ParseFormula</span><span class='op'>(</span><span class='va'>f5</span>, data<span class='op'>=</span><span class='va'>piz</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $formula
-#&gt; temperature + price ~ driver
-#&gt; &lt;environment: 0x7f9a1c2aea08&gt;
-#&gt; 
-#&gt; $lhs
-#&gt; $lhs$mf
-#&gt;      temperature  price
-#&gt; 108         61.5 62.955
-#&gt; 495         53.8 73.746
-#&gt; 423         53.8 21.980
-#&gt; 150         45.7 47.664
-#&gt; 1153        47.5 16.990
-#&gt; 721         30.7 36.970
-#&gt; 458         57.6 31.980
-#&gt; 774         38.6 78.237
-#&gt; 1182        33.8 45.864
-#&gt; 404         35.5 31.176
-#&gt; 
-#&gt; $lhs$mf.eval
-#&gt;      temperature  price
-#&gt; 108         61.5 62.955
-#&gt; 495         53.8 73.746
-#&gt; 423         53.8 21.980
-#&gt; 150         45.7 47.664
-#&gt; 1153        47.5 16.990
-#&gt; 721         30.7 36.970
-#&gt; 458         57.6 31.980
-#&gt; 774         38.6 78.237
-#&gt; 1182        33.8 45.864
-#&gt; 404         35.5 31.176
-#&gt; 
-#&gt; $lhs$vars
-#&gt; [1] "temperature" "price"      
-#&gt; 
-#&gt; 
-#&gt; $rhs
-#&gt; $rhs$mf
-#&gt;         driver
-#&gt; 108     Hunter
-#&gt; 495  Carpenter
-#&gt; 423     Carter
-#&gt; 150     Carter
-#&gt; 1153    Miller
-#&gt; 721  Carpenter
-#&gt; 458     Carter
-#&gt; 774     Miller
-#&gt; 1182 Carpenter
-#&gt; 404     Taylor
-#&gt; 
-#&gt; $rhs$mf.eval
-#&gt;         driver
-#&gt; 108     Hunter
-#&gt; 495  Carpenter
-#&gt; 423     Carter
-#&gt; 150     Carter
-#&gt; 1153    Miller
-#&gt; 721  Carpenter
-#&gt; 458     Carter
-#&gt; 774     Miller
-#&gt; 1182 Carpenter
-#&gt; 404     Taylor
-#&gt; 
-#&gt; $rhs$vars
-#&gt; [1] "driver"
-#&gt; 
-#&gt; </div><div class='input'><span class='fu'>ParseFormula</span><span class='op'>(</span><span class='va'>f6</span>, data<span class='op'>=</span><span class='va'>piz</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $formula
-#&gt; temperature + price ~ driver * weekday
-#&gt; &lt;environment: 0x7f9a1c2aea08&gt;
-#&gt; 
-#&gt; $lhs
-#&gt; $lhs$mf
-#&gt;      temperature  price
-#&gt; 108         61.5 62.955
-#&gt; 495         53.8 73.746
-#&gt; 423         53.8 21.980
-#&gt; 150         45.7 47.664
-#&gt; 1153        47.5 16.990
-#&gt; 721         30.7 36.970
-#&gt; 458         57.6 31.980
-#&gt; 774         38.6 78.237
-#&gt; 1182        33.8 45.864
-#&gt; 404         35.5 31.176
-#&gt; 
-#&gt; $lhs$mf.eval
-#&gt;      temperature  price
-#&gt; 108         61.5 62.955
-#&gt; 495         53.8 73.746
-#&gt; 423         53.8 21.980
-#&gt; 150         45.7 47.664
-#&gt; 1153        47.5 16.990
-#&gt; 721         30.7 36.970
-#&gt; 458         57.6 31.980
-#&gt; 774         38.6 78.237
-#&gt; 1182        33.8 45.864
-#&gt; 404         35.5 31.176
-#&gt; 
-#&gt; $lhs$vars
-#&gt; [1] "temperature" "price"      
-#&gt; 
-#&gt; 
-#&gt; $rhs
-#&gt; $rhs$mf
-#&gt;         driver weekday
-#&gt; 108     Hunter       1
-#&gt; 495  Carpenter       5
-#&gt; 423     Carter       3
-#&gt; 150     Carter       3
-#&gt; 1153    Miller       7
-#&gt; 721  Carpenter       4
-#&gt; 458     Carter       4
-#&gt; 774     Miller       5
-#&gt; 1182 Carpenter       1
-#&gt; 404     Taylor       2
-#&gt; 
-#&gt; $rhs$mf.eval
-#&gt;         driver weekday driver:weekday
-#&gt; 108     Hunter       1       Hunter:1
-#&gt; 495  Carpenter       5    Carpenter:5
-#&gt; 423     Carter       3       Carter:3
-#&gt; 150     Carter       3       Carter:3
-#&gt; 1153    Miller       7       Miller:7
-#&gt; 721  Carpenter       4    Carpenter:4
-#&gt; 458     Carter       4       Carter:4
-#&gt; 774     Miller       5       Miller:5
-#&gt; 1182 Carpenter       1    Carpenter:1
-#&gt; 404     Taylor       2       Taylor:2
-#&gt; 
-#&gt; $rhs$vars
-#&gt; [1] "driver"         "weekday"        "driver:weekday"
-#&gt; 
-#&gt; </div><div class='input'><span class='fu'>ParseFormula</span><span class='op'>(</span><span class='va'>f7</span>, data<span class='op'>=</span><span class='va'>piz</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $formula
-#&gt; I(temperature^2) + sqrt(price) ~ driver + weekday
-#&gt; &lt;environment: 0x7f9a1c2aea08&gt;
-#&gt; 
-#&gt; $lhs
-#&gt; $lhs$mf
-#&gt;      I(temperature^2) sqrt(price)
-#&gt; 108           3782.25    7.934419
-#&gt; 495           2894.44    8.587549
-#&gt; 423           2894.44    4.688283
-#&gt; 150           2088.49    6.903912
-#&gt; 1153          2256.25    4.121893
-#&gt; 721            942.49    6.080296
-#&gt; 458           3317.76    5.655086
-#&gt; 774           1489.96    8.845168
-#&gt; 1182          1142.44    6.772297
-#&gt; 404           1260.25    5.583547
-#&gt; 
-#&gt; $lhs$mf.eval
-#&gt;      I(temperature^2) sqrt(price)
-#&gt; 108           3782.25    7.934419
-#&gt; 495           2894.44    8.587549
-#&gt; 423           2894.44    4.688283
-#&gt; 150           2088.49    6.903912
-#&gt; 1153          2256.25    4.121893
-#&gt; 721            942.49    6.080296
-#&gt; 458           3317.76    5.655086
-#&gt; 774           1489.96    8.845168
-#&gt; 1182          1142.44    6.772297
-#&gt; 404           1260.25    5.583547
-#&gt; 
-#&gt; $lhs$vars
-#&gt; [1] "I(temperature^2)" "sqrt(price)"     
-#&gt; 
-#&gt; 
-#&gt; $rhs
-#&gt; $rhs$mf
-#&gt;         driver weekday
-#&gt; 108     Hunter       1
-#&gt; 495  Carpenter       5
-#&gt; 423     Carter       3
-#&gt; 150     Carter       3
-#&gt; 1153    Miller       7
-#&gt; 721  Carpenter       4
-#&gt; 458     Carter       4
-#&gt; 774     Miller       5
-#&gt; 1182 Carpenter       1
-#&gt; 404     Taylor       2
-#&gt; 
-#&gt; $rhs$mf.eval
-#&gt;         driver weekday
-#&gt; 108     Hunter       1
-#&gt; 495  Carpenter       5
-#&gt; 423     Carter       3
-#&gt; 150     Carter       3
-#&gt; 1153    Miller       7
-#&gt; 721  Carpenter       4
-#&gt; 458     Carter       4
-#&gt; 774     Miller       5
-#&gt; 1182 Carpenter       1
-#&gt; 404     Taylor       2
-#&gt; 
-#&gt; $rhs$vars
-#&gt; [1] "driver"  "weekday"
-#&gt; 
-#&gt; </div><div class='input'><span class='fu'>ParseFormula</span><span class='op'>(</span><span class='va'>f8</span>, data<span class='op'>=</span><span class='va'>piz</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $formula
-#&gt; temperature + price ~ 1
-#&gt; &lt;environment: 0x7f9a1c2aea08&gt;
-#&gt; 
-#&gt; $lhs
-#&gt; $lhs$mf
-#&gt;      temperature  price
-#&gt; 108         61.5 62.955
-#&gt; 495         53.8 73.746
-#&gt; 423         53.8 21.980
-#&gt; 150         45.7 47.664
-#&gt; 1153        47.5 16.990
-#&gt; 721         30.7 36.970
-#&gt; 458         57.6 31.980
-#&gt; 774         38.6 78.237
-#&gt; 1182        33.8 45.864
-#&gt; 404         35.5 31.176
-#&gt; 
-#&gt; $lhs$mf.eval
-#&gt;      temperature  price
-#&gt; 108         61.5 62.955
-#&gt; 495         53.8 73.746
-#&gt; 423         53.8 21.980
-#&gt; 150         45.7 47.664
-#&gt; 1153        47.5 16.990
-#&gt; 721         30.7 36.970
-#&gt; 458         57.6 31.980
-#&gt; 774         38.6 78.237
-#&gt; 1182        33.8 45.864
-#&gt; 404         35.5 31.176
-#&gt; 
-#&gt; $lhs$vars
-#&gt; [1] "temperature" "price"      
-#&gt; 
-#&gt; 
-#&gt; $rhs
-#&gt; $rhs$mf
-#&gt; data frame with 0 columns and 10 rows
-#&gt; 
-#&gt; $rhs$mf.eval
-#&gt; data frame with 0 columns and 10 rows
-#&gt; 
-#&gt; $rhs$vars
-#&gt; character(0)
-#&gt; 
-#&gt; </div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>17</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>piz</span> <span class='op'>&lt;-</span> <span class='va'>d.pizza</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>)</span>,<span class='fl'>10</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"temperature"</span>,<span class='st'>"price"</span>,<span class='st'>"driver"</span>,<span class='st'>"weekday"</span><span class='op'>)</span><span class='op'>]</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>f1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span><span class='op'>(</span><span class='va'>.</span> <span class='op'>~</span> <span class='va'>driver</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>f2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span><span class='op'>(</span><span class='va'>temperature</span> <span class='op'>~</span> <span class='va'>.</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>f3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span><span class='op'>(</span><span class='va'>temperature</span> <span class='op'>+</span> <span class='va'>price</span> <span class='op'>~</span> <span class='va'>.</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>f4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span><span class='op'>(</span><span class='va'>temperature</span> <span class='op'>~</span> <span class='va'>.</span> <span class='op'>-</span> <span class='va'>driver</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>f5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span><span class='op'>(</span><span class='va'>temperature</span> <span class='op'>+</span> <span class='va'>price</span> <span class='op'>~</span> <span class='va'>driver</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>f6</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span><span class='op'>(</span><span class='va'>temperature</span> <span class='op'>+</span> <span class='va'>price</span> <span class='op'>~</span> <span class='va'>driver</span> <span class='op'>*</span> <span class='va'>weekday</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>f7</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span><span class='op'>(</span><span class='va'>temperature</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>price</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>driver</span> <span class='op'>+</span> <span class='va'>weekday</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>f8</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span><span class='op'>(</span><span class='va'>temperature</span> <span class='op'>+</span> <span class='va'>price</span> <span class='op'>~</span> <span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>f9</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span><span class='op'>(</span><span class='va'>temperature</span> <span class='op'>+</span> <span class='va'>price</span> <span class='op'>~</span> <span class='va'>driver</span> <span class='op'>*</span> <span class='va'>weekday</span> <span class='op'>-</span> <span class='va'>price</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>ParseFormula</span><span class='op'>(</span><span class='va'>f1</span>, data<span class='op'>=</span><span class='va'>piz</span><span class='op'>)</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $formula</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> . ~ driver</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: 0x7fdde24d72e0&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $lhs</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $lhs$mf</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      temperature  price weekday</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 108         61.5 62.955       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 495         53.8 73.746       5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 423         53.8 21.980       3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 150         45.7 47.664       3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1153        47.5 16.990       7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 721         30.7 36.970       4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 458         57.6 31.980       4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 774         38.6 78.237       5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1182        33.8 45.864       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 404         35.5 31.176       2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $lhs$mf.eval</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      temperature  price weekday</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 108         61.5 62.955       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 495         53.8 73.746       5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 423         53.8 21.980       3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 150         45.7 47.664       3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1153        47.5 16.990       7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 721         30.7 36.970       4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 458         57.6 31.980       4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 774         38.6 78.237       5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1182        33.8 45.864       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 404         35.5 31.176       2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $lhs$vars</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "temperature" "price"       "weekday"    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $rhs</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $rhs$mf</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         driver</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 108     Hunter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 495  Carpenter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 423     Carter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 150     Carter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1153    Miller</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 721  Carpenter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 458     Carter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 774     Miller</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1182 Carpenter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 404     Taylor</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $rhs$mf.eval</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         driver</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 108     Hunter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 495  Carpenter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 423     Carter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 150     Carter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1153    Miller</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 721  Carpenter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 458     Carter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 774     Miller</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1182 Carpenter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 404     Taylor</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $rhs$vars</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "driver"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'>ParseFormula</span><span class='op'>(</span><span class='va'>f2</span>, data<span class='op'>=</span><span class='va'>piz</span><span class='op'>)</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $formula</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> temperature ~ .</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: 0x7fdde24d72e0&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $lhs</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $lhs$mf</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      temperature</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 108         61.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 495         53.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 423         53.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 150         45.7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1153        47.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 721         30.7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 458         57.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 774         38.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1182        33.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 404         35.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $lhs$mf.eval</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      temperature</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 108         61.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 495         53.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 423         53.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 150         45.7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1153        47.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 721         30.7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 458         57.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 774         38.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1182        33.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 404         35.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $lhs$vars</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "temperature"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $rhs</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $rhs$mf</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       price    driver weekday</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 108  62.955    Hunter       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 495  73.746 Carpenter       5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 423  21.980    Carter       3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 150  47.664    Carter       3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1153 16.990    Miller       7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 721  36.970 Carpenter       4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 458  31.980    Carter       4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 774  78.237    Miller       5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1182 45.864 Carpenter       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 404  31.176    Taylor       2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $rhs$mf.eval</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       price    driver weekday</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 108  62.955    Hunter       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 495  73.746 Carpenter       5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 423  21.980    Carter       3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 150  47.664    Carter       3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1153 16.990    Miller       7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 721  36.970 Carpenter       4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 458  31.980    Carter       4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 774  78.237    Miller       5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1182 45.864 Carpenter       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 404  31.176    Taylor       2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $rhs$vars</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "price"   "driver"  "weekday"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'>ParseFormula</span><span class='op'>(</span><span class='va'>f3</span>, data<span class='op'>=</span><span class='va'>piz</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $formula</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> temperature + price ~ .</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: 0x7fdde24d72e0&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $lhs</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $lhs$mf</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      temperature  price</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 108         61.5 62.955</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 495         53.8 73.746</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 423         53.8 21.980</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 150         45.7 47.664</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1153        47.5 16.990</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 721         30.7 36.970</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 458         57.6 31.980</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 774         38.6 78.237</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1182        33.8 45.864</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 404         35.5 31.176</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $lhs$mf.eval</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      temperature  price</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 108         61.5 62.955</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 495         53.8 73.746</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 423         53.8 21.980</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 150         45.7 47.664</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1153        47.5 16.990</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 721         30.7 36.970</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 458         57.6 31.980</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 774         38.6 78.237</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1182        33.8 45.864</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 404         35.5 31.176</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $lhs$vars</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "temperature" "price"      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $rhs</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $rhs$mf</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         driver weekday</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 108     Hunter       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 495  Carpenter       5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 423     Carter       3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 150     Carter       3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1153    Miller       7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 721  Carpenter       4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 458     Carter       4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 774     Miller       5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1182 Carpenter       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 404     Taylor       2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $rhs$mf.eval</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         driver weekday</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 108     Hunter       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 495  Carpenter       5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 423     Carter       3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 150     Carter       3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1153    Miller       7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 721  Carpenter       4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 458     Carter       4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 774     Miller       5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1182 Carpenter       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 404     Taylor       2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $rhs$vars</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "driver"  "weekday"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'>ParseFormula</span><span class='op'>(</span><span class='va'>f4</span>, data<span class='op'>=</span><span class='va'>piz</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $formula</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> temperature ~ . - driver</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: 0x7fdde24d72e0&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $lhs</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $lhs$mf</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      temperature</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 108         61.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 495         53.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 423         53.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 150         45.7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1153        47.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 721         30.7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 458         57.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 774         38.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1182        33.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 404         35.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $lhs$mf.eval</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      temperature</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 108         61.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 495         53.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 423         53.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 150         45.7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1153        47.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 721         30.7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 458         57.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 774         38.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1182        33.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 404         35.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $lhs$vars</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "temperature"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $rhs</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $rhs$mf</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       price weekday</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 108  62.955       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 495  73.746       5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 423  21.980       3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 150  47.664       3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1153 16.990       7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 721  36.970       4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 458  31.980       4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 774  78.237       5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1182 45.864       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 404  31.176       2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $rhs$mf.eval</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       price weekday</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 108  62.955       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 495  73.746       5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 423  21.980       3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 150  47.664       3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1153 16.990       7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 721  36.970       4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 458  31.980       4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 774  78.237       5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1182 45.864       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 404  31.176       2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $rhs$vars</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "price"   "weekday"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'>ParseFormula</span><span class='op'>(</span><span class='va'>f5</span>, data<span class='op'>=</span><span class='va'>piz</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $formula</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> temperature + price ~ driver</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: 0x7fdde24d72e0&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $lhs</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $lhs$mf</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      temperature  price</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 108         61.5 62.955</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 495         53.8 73.746</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 423         53.8 21.980</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 150         45.7 47.664</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1153        47.5 16.990</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 721         30.7 36.970</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 458         57.6 31.980</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 774         38.6 78.237</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1182        33.8 45.864</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 404         35.5 31.176</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $lhs$mf.eval</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      temperature  price</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 108         61.5 62.955</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 495         53.8 73.746</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 423         53.8 21.980</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 150         45.7 47.664</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1153        47.5 16.990</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 721         30.7 36.970</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 458         57.6 31.980</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 774         38.6 78.237</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1182        33.8 45.864</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 404         35.5 31.176</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $lhs$vars</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "temperature" "price"      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $rhs</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $rhs$mf</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         driver</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 108     Hunter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 495  Carpenter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 423     Carter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 150     Carter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1153    Miller</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 721  Carpenter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 458     Carter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 774     Miller</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1182 Carpenter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 404     Taylor</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $rhs$mf.eval</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         driver</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 108     Hunter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 495  Carpenter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 423     Carter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 150     Carter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1153    Miller</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 721  Carpenter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 458     Carter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 774     Miller</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1182 Carpenter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 404     Taylor</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $rhs$vars</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "driver"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'>ParseFormula</span><span class='op'>(</span><span class='va'>f6</span>, data<span class='op'>=</span><span class='va'>piz</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $formula</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> temperature + price ~ driver * weekday</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: 0x7fdde24d72e0&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $lhs</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $lhs$mf</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      temperature  price</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 108         61.5 62.955</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 495         53.8 73.746</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 423         53.8 21.980</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 150         45.7 47.664</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1153        47.5 16.990</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 721         30.7 36.970</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 458         57.6 31.980</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 774         38.6 78.237</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1182        33.8 45.864</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 404         35.5 31.176</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $lhs$mf.eval</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      temperature  price</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 108         61.5 62.955</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 495         53.8 73.746</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 423         53.8 21.980</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 150         45.7 47.664</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1153        47.5 16.990</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 721         30.7 36.970</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 458         57.6 31.980</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 774         38.6 78.237</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1182        33.8 45.864</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 404         35.5 31.176</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $lhs$vars</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "temperature" "price"      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $rhs</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $rhs$mf</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         driver weekday</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 108     Hunter       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 495  Carpenter       5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 423     Carter       3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 150     Carter       3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1153    Miller       7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 721  Carpenter       4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 458     Carter       4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 774     Miller       5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1182 Carpenter       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 404     Taylor       2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $rhs$mf.eval</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         driver weekday driver:weekday</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 108     Hunter       1       Hunter:1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 495  Carpenter       5    Carpenter:5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 423     Carter       3       Carter:3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 150     Carter       3       Carter:3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1153    Miller       7       Miller:7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 721  Carpenter       4    Carpenter:4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 458     Carter       4       Carter:4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 774     Miller       5       Miller:5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1182 Carpenter       1    Carpenter:1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 404     Taylor       2       Taylor:2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $rhs$vars</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "driver"         "weekday"        "driver:weekday"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'>ParseFormula</span><span class='op'>(</span><span class='va'>f7</span>, data<span class='op'>=</span><span class='va'>piz</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $formula</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> I(temperature^2) + sqrt(price) ~ driver + weekday</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: 0x7fdde24d72e0&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $lhs</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $lhs$mf</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      I(temperature^2) sqrt(price)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 108           3782.25    7.934419</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 495           2894.44    8.587549</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 423           2894.44    4.688283</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 150           2088.49    6.903912</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1153          2256.25    4.121893</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 721            942.49    6.080296</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 458           3317.76    5.655086</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 774           1489.96    8.845168</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1182          1142.44    6.772297</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 404           1260.25    5.583547</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $lhs$mf.eval</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      I(temperature^2) sqrt(price)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 108           3782.25    7.934419</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 495           2894.44    8.587549</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 423           2894.44    4.688283</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 150           2088.49    6.903912</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1153          2256.25    4.121893</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 721            942.49    6.080296</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 458           3317.76    5.655086</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 774           1489.96    8.845168</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1182          1142.44    6.772297</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 404           1260.25    5.583547</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $lhs$vars</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "I(temperature^2)" "sqrt(price)"     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $rhs</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $rhs$mf</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         driver weekday</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 108     Hunter       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 495  Carpenter       5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 423     Carter       3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 150     Carter       3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1153    Miller       7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 721  Carpenter       4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 458     Carter       4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 774     Miller       5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1182 Carpenter       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 404     Taylor       2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $rhs$mf.eval</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         driver weekday</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 108     Hunter       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 495  Carpenter       5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 423     Carter       3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 150     Carter       3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1153    Miller       7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 721  Carpenter       4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 458     Carter       4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 774     Miller       5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1182 Carpenter       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 404     Taylor       2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $rhs$vars</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "driver"  "weekday"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'>ParseFormula</span><span class='op'>(</span><span class='va'>f8</span>, data<span class='op'>=</span><span class='va'>piz</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $formula</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> temperature + price ~ 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: 0x7fdde24d72e0&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $lhs</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $lhs$mf</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      temperature  price</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 108         61.5 62.955</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 495         53.8 73.746</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 423         53.8 21.980</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 150         45.7 47.664</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1153        47.5 16.990</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 721         30.7 36.970</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 458         57.6 31.980</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 774         38.6 78.237</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1182        33.8 45.864</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 404         35.5 31.176</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $lhs$mf.eval</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      temperature  price</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 108         61.5 62.955</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 495         53.8 73.746</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 423         53.8 21.980</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 150         45.7 47.664</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1153        47.5 16.990</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 721         30.7 36.970</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 458         57.6 31.980</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 774         38.6 78.237</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1182        33.8 45.864</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 404         35.5 31.176</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $lhs$vars</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "temperature" "price"      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $rhs</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $rhs$mf</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data frame with 0 columns and 10 rows</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $rhs$mf.eval</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data frame with 0 columns and 10 rows</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $rhs$vars</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> character(0)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

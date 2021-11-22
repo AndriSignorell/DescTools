@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -208,27 +208,32 @@ Use <code><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></code>, resp.<
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/wilcox.test.html'>wilcox.test</a></code>, <code><a href='MeanCI.html'>MeanCI</a></code>, <code><a href='https://rdrr.io/r/stats/median.html'>median</a></code>, <code><a href='HodgesLehmann.html'>HodgesLehmann</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>MedianCI</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>price</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; median lwr.ci upr.ci 
-#&gt; 46.764 44.970 47.664 
-#&gt; attr(,"conf.level")
-#&gt; [1] 0.9506831</div><div class='input'><span class='fu'>MedianCI</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>price</span>, conf.level<span class='op'>=</span><span class='fl'>0.99</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; median lwr.ci upr.ci 
-#&gt; 46.764 44.970 48.070 
-#&gt; attr(,"conf.level")
-#&gt; [1] 0.990742</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"delivery_min"</span>,<span class='st'>"temperature"</span>,<span class='st'>"price"</span><span class='op'>)</span><span class='op'>]</span>, <span class='va'>MedianCI</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>, <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;              median lwr.ci upr.ci
-#&gt; delivery_min 24.400  23.80 25.200
-#&gt; temperature  50.000  49.50 50.700
-#&gt; price        46.764  44.97 47.664</div><div class='input'>
-<span class='fu'>MedianCI</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>price</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span>, method<span class='op'>=</span><span class='st'>"exact"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; median lwr.ci upr.ci 
-#&gt; 46.764 44.970 47.664 
-#&gt; attr(,"conf.level")
-#&gt; [1] 0.9506831</div><div class='input'><span class='fu'>MedianCI</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>price</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span>, method<span class='op'>=</span><span class='st'>"boot"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; median lwr.ci upr.ci 
-#&gt; 46.764 45.864 48.558 </div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>MedianCI</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>price</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> median lwr.ci upr.ci </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 46.764 44.970 47.664 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"conf.level")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.9506831</span>
+<span class='r-in'><span class='fu'>MedianCI</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>price</span>, conf.level<span class='op'>=</span><span class='fl'>0.99</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> median lwr.ci upr.ci </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 46.764 44.970 48.070 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"conf.level")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.990742</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"delivery_min"</span>,<span class='st'>"temperature"</span>,<span class='st'>"price"</span><span class='op'>)</span><span class='op'>]</span>, <span class='va'>MedianCI</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>, <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>              median lwr.ci upr.ci</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> delivery_min 24.400  23.80 25.200</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> temperature  50.000  49.50 50.700</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> price        46.764  44.97 47.664</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>MedianCI</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>price</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span>, method<span class='op'>=</span><span class='st'>"exact"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> median lwr.ci upr.ci </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 46.764 44.970 47.664 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"conf.level")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.9506831</span>
+<span class='r-in'><span class='fu'>MedianCI</span><span class='op'>(</span><span class='va'>d.pizza</span><span class='op'>$</span><span class='va'>price</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span>, method<span class='op'>=</span><span class='st'>"boot"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> median lwr.ci upr.ci </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 46.764 45.864 48.558 </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -271,69 +271,74 @@ B) a list of matrices with the p-values, if conf.level has been set to NA.
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>PostHocTest</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span><span class='op'>(</span><span class='va'>breaks</span> <span class='op'>~</span> <span class='va'>tension</span>, data <span class='op'>=</span> <span class='va'>warpbreaks</span><span class='op'>)</span>, method <span class='op'>=</span> <span class='st'>"lsd"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;   Posthoc multiple comparisons of means : Fisher LSD 
-#&gt;     95% family-wise confidence level
-#&gt; 
-#&gt; $tension
-#&gt;           diff    lwr.ci    upr.ci   pval    
-#&gt; M-L -10.000000 -17.95042 -2.049581 0.0147 *  
-#&gt; H-L -14.722222 -22.67264 -6.771803 0.0005 ***
-#&gt; H-M  -4.722222 -12.67264  3.228197 0.2386    
-#&gt; 
-#&gt; ---
-#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-#&gt; </div><div class='input'><span class='fu'>PostHocTest</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span><span class='op'>(</span><span class='va'>breaks</span> <span class='op'>~</span> <span class='va'>tension</span>, data <span class='op'>=</span> <span class='va'>warpbreaks</span><span class='op'>)</span>, method <span class='op'>=</span> <span class='st'>"hsd"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;   Posthoc multiple comparisons of means : Tukey HSD 
-#&gt;     95% family-wise confidence level
-#&gt; 
-#&gt; $tension
-#&gt;           diff    lwr.ci     upr.ci   pval    
-#&gt; M-L -10.000000 -19.55982 -0.4401756 0.0385 *  
-#&gt; H-L -14.722222 -24.28205 -5.1623978 0.0014 ** 
-#&gt; H-M  -4.722222 -14.28205  4.8376022 0.4631    
-#&gt; 
-#&gt; ---
-#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-#&gt; </div><div class='input'><span class='fu'>PostHocTest</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span><span class='op'>(</span><span class='va'>breaks</span> <span class='op'>~</span> <span class='va'>tension</span>, data <span class='op'>=</span> <span class='va'>warpbreaks</span><span class='op'>)</span>, method <span class='op'>=</span> <span class='st'>"scheffe"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;   Posthoc multiple comparisons of means: Scheffe Test 
-#&gt;     95% family-wise confidence level
-#&gt; 
-#&gt; $tension
-#&gt;           diff    lwr.ci      upr.ci   pval    
-#&gt; M-L -10.000000 -19.98534 -0.01465926 0.0496 *  
-#&gt; H-L -14.722222 -24.70756 -4.73688148 0.0022 ** 
-#&gt; H-M  -4.722222 -14.70756  5.26311852 0.4960    
-#&gt; 
-#&gt; ---
-#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-#&gt; </div><div class='input'>
-<span class='va'>r.aov</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span><span class='op'>(</span><span class='va'>breaks</span> <span class='op'>~</span> <span class='va'>tension</span>, data <span class='op'>=</span> <span class='va'>warpbreaks</span><span class='op'>)</span>
-
-<span class='co'># compare p-values:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span>
-    lsd<span class='op'>=</span> <span class='fu'>PostHocTest</span><span class='op'>(</span><span class='va'>r.aov</span>, method<span class='op'>=</span><span class='st'>"lsd"</span><span class='op'>)</span><span class='op'>$</span><span class='va'>tension</span><span class='op'>[</span>,<span class='st'>"pval"</span><span class='op'>]</span>
-  , bonf<span class='op'>=</span><span class='fu'>PostHocTest</span><span class='op'>(</span><span class='va'>r.aov</span>, method<span class='op'>=</span><span class='st'>"bonf"</span><span class='op'>)</span><span class='op'>$</span><span class='va'>tension</span><span class='op'>[</span>,<span class='st'>"pval"</span><span class='op'>]</span>
-<span class='op'>)</span>, <span class='fl'>4</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;        lsd   bonf
-#&gt; M-L 0.0147 0.0442
-#&gt; H-L 0.0005 0.0015
-#&gt; H-M 0.2386 0.7158</div><div class='input'>
-<span class='co'># only p-values by setting conf.level to NA</span>
-<span class='fu'>PostHocTest</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span><span class='op'>(</span><span class='va'>breaks</span> <span class='op'>~</span> <span class='va'>tension</span>, data <span class='op'>=</span> <span class='va'>warpbreaks</span><span class='op'>)</span>, method <span class='op'>=</span> <span class='st'>"hsd"</span>,
-            conf.level<span class='op'>=</span><span class='cn'>NA</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;   Posthoc multiple comparisons of means : Tukey HSD 
-#&gt; 
-#&gt; $tension
-#&gt;   L      M     
-#&gt; M 0.0385 -     
-#&gt; H 0.0014 0.4631
-#&gt; 
-#&gt; </div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>PostHocTest</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span><span class='op'>(</span><span class='va'>breaks</span> <span class='op'>~</span> <span class='va'>tension</span>, data <span class='op'>=</span> <span class='va'>warpbreaks</span><span class='op'>)</span>, method <span class='op'>=</span> <span class='st'>"lsd"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Posthoc multiple comparisons of means : Fisher LSD </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     95% family-wise confidence level</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $tension</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           diff    lwr.ci    upr.ci   pval    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> M-L -10.000000 -17.95042 -2.049581 0.0147 *  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> H-L -14.722222 -22.67264 -6.771803 0.0005 ***</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> H-M  -4.722222 -12.67264  3.228197 0.2386    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ---</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'>PostHocTest</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span><span class='op'>(</span><span class='va'>breaks</span> <span class='op'>~</span> <span class='va'>tension</span>, data <span class='op'>=</span> <span class='va'>warpbreaks</span><span class='op'>)</span>, method <span class='op'>=</span> <span class='st'>"hsd"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Posthoc multiple comparisons of means : Tukey HSD </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     95% family-wise confidence level</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $tension</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           diff    lwr.ci     upr.ci   pval    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> M-L -10.000000 -19.55982 -0.4401756 0.0385 *  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> H-L -14.722222 -24.28205 -5.1623978 0.0014 ** </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> H-M  -4.722222 -14.28205  4.8376022 0.4631    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ---</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'>PostHocTest</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span><span class='op'>(</span><span class='va'>breaks</span> <span class='op'>~</span> <span class='va'>tension</span>, data <span class='op'>=</span> <span class='va'>warpbreaks</span><span class='op'>)</span>, method <span class='op'>=</span> <span class='st'>"scheffe"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Posthoc multiple comparisons of means: Scheffe Test </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     95% family-wise confidence level</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $tension</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           diff    lwr.ci      upr.ci   pval    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> M-L -10.000000 -19.98534 -0.01465926 0.0496 *  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> H-L -14.722222 -24.70756 -4.73688148 0.0022 ** </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> H-M  -4.722222 -14.70756  5.26311852 0.4960    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ---</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>r.aov</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span><span class='op'>(</span><span class='va'>breaks</span> <span class='op'>~</span> <span class='va'>tension</span>, data <span class='op'>=</span> <span class='va'>warpbreaks</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># compare p-values:</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span></span>
+<span class='r-in'>    lsd<span class='op'>=</span> <span class='fu'>PostHocTest</span><span class='op'>(</span><span class='va'>r.aov</span>, method<span class='op'>=</span><span class='st'>"lsd"</span><span class='op'>)</span><span class='op'>$</span><span class='va'>tension</span><span class='op'>[</span>,<span class='st'>"pval"</span><span class='op'>]</span></span>
+<span class='r-in'>  , bonf<span class='op'>=</span><span class='fu'>PostHocTest</span><span class='op'>(</span><span class='va'>r.aov</span>, method<span class='op'>=</span><span class='st'>"bonf"</span><span class='op'>)</span><span class='op'>$</span><span class='va'>tension</span><span class='op'>[</span>,<span class='st'>"pval"</span><span class='op'>]</span></span>
+<span class='r-in'><span class='op'>)</span>, <span class='fl'>4</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        lsd   bonf</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> M-L 0.0147 0.0442</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> H-L 0.0005 0.0015</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> H-M 0.2386 0.7158</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># only p-values by setting conf.level to NA</span></span>
+<span class='r-in'><span class='fu'>PostHocTest</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span><span class='op'>(</span><span class='va'>breaks</span> <span class='op'>~</span> <span class='va'>tension</span>, data <span class='op'>=</span> <span class='va'>warpbreaks</span><span class='op'>)</span>, method <span class='op'>=</span> <span class='st'>"hsd"</span>,</span>
+<span class='r-in'>            conf.level<span class='op'>=</span><span class='cn'>NA</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Posthoc multiple comparisons of means : Tukey HSD </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $tension</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   L      M     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> M 0.0385 -     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> H 0.0014 0.4631</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

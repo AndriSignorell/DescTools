@@ -75,7 +75,7 @@ BoxCoxInv() reverses the transformation." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -203,24 +203,26 @@ $$</p>
     <div class='dont-index'><p>Use <code><a href='BoxCoxLambda.html'>BoxCoxLambda</a></code> or <code><a href='https://rdrr.io/pkg/MASS/man/boxcox.html'>boxcox</a></code> in <code><a href='http://www.stats.ox.ac.uk/pub/MASS4/'>library(MASS)</a></code> to find optimal lambda values.</p></div>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>These two functions are borrowed from <code><a href='https://rdrr.io/r/base/library.html'>library(forecast)</a></code>.</p>
+    <p>These two functions are borrowed from <code><a href='https://pkg.robjhyndman.com/forecast/'>library(forecast)</a></code>.</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Rob J Hyndman &lt;rob.hyndman@monash.edu&gt;</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># example by Greg Snow</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span><span class='op'>(</span><span class='fl'>500</span>, <span class='fl'>3</span>, <span class='fl'>2</span><span class='op'>)</span>
-
-<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/qqnorm.html'>qqnorm</a></span><span class='op'>(</span><span class='va'>x</span>, main<span class='op'>=</span><span class='st'>"Lognormal"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/qqnorm.html'>qqnorm</a></span><span class='op'>(</span><span class='fu'>BoxCox</span><span class='op'>(</span><span class='va'>x</span>, <span class='fl'>1</span><span class='op'>/</span><span class='fl'>2</span><span class='op'>)</span>, main<span class='op'>=</span><span class='st'>"BoxCox(lambda=0.5)"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/qqnorm.html'>qqnorm</a></span><span class='op'>(</span><span class='fu'>BoxCox</span><span class='op'>(</span><span class='va'>x</span>, <span class='fl'>0</span><span class='op'>)</span>, main<span class='op'>=</span><span class='st'>"BoxCox(lambda=0)"</span><span class='op'>)</span>
-
-<span class='fu'><a href='PlotFdist.html'>PlotFdist</a></span><span class='op'>(</span><span class='fu'>BoxCox</span><span class='op'>(</span><span class='va'>x</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='BoxCox-1.png' alt='' width='700' height='433' /></div><div class='img'><img src='BoxCox-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='va'>bx</span> <span class='op'>&lt;-</span> <span class='fu'>BoxCox</span><span class='op'>(</span><span class='va'>x</span>, lambda <span class='op'>=</span> <span class='fu'><a href='BoxCoxLambda.html'>BoxCoxLambda</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>)</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># example by Greg Snow</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span><span class='op'>(</span><span class='fl'>500</span>, <span class='fl'>3</span>, <span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/stats/qqnorm.html'>qqnorm</a></span><span class='op'>(</span><span class='va'>x</span>, main<span class='op'>=</span><span class='st'>"Lognormal"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/stats/qqnorm.html'>qqnorm</a></span><span class='op'>(</span><span class='fu'>BoxCox</span><span class='op'>(</span><span class='va'>x</span>, <span class='fl'>1</span><span class='op'>/</span><span class='fl'>2</span><span class='op'>)</span>, main<span class='op'>=</span><span class='st'>"BoxCox(lambda=0.5)"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/stats/qqnorm.html'>qqnorm</a></span><span class='op'>(</span><span class='fu'>BoxCox</span><span class='op'>(</span><span class='va'>x</span>, <span class='fl'>0</span><span class='op'>)</span>, main<span class='op'>=</span><span class='st'>"BoxCox(lambda=0)"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='PlotFdist.html'>PlotFdist</a></span><span class='op'>(</span><span class='fu'>BoxCox</span><span class='op'>(</span><span class='va'>x</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='BoxCox-1.png' alt='' width='700' height='433' /></span>
+<span class='r-plt img'><img src='BoxCox-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>bx</span> <span class='op'>&lt;-</span> <span class='fu'>BoxCox</span><span class='op'>(</span><span class='va'>x</span>, lambda <span class='op'>=</span> <span class='fu'><a href='BoxCoxLambda.html'>BoxCoxLambda</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>)</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

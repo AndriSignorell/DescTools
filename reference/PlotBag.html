@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -334,7 +334,7 @@ you can use the <code>transparency</code> flag.
 If <code>transparency==TRUE</code> the alpha layer is set to '99' (hex).
 This causes the bagplots to appear semi-transparent,
 but ONLY if the output device is PDF and opened using:
-<code><a href='https://rdrr.io/r/grDevices/pdf.html'>pdf(file="filename.pdf", version="1.4")</a></code>.
+<code>pdf(file="filename.pdf", version="1.4")</code>.
 For this reason, the default is <code>transparency==FALSE</code>.
 This feature as well as the arguments
 to specify different colors has been proposed by Wouter Meuleman.</p>
@@ -378,94 +378,101 @@ to specify different colors has been proposed by Wouter Meuleman.</p>
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/graphics/boxplot.html'>boxplot</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># example: 100 random points and one outlier</span>
-<span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>100</span>, <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>300</span><span class='op'>)</span>
-<span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>dat</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>105</span>,<span class='fl'>295</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='fu'>PlotBag</span><span class='op'>(</span><span class='va'>dat</span>,factor<span class='op'>=</span><span class='fl'>2.5</span>,create.plot<span class='op'>=</span><span class='cn'>TRUE</span>,approx.limit<span class='op'>=</span><span class='fl'>300</span>,
-   show.outlier<span class='op'>=</span><span class='cn'>TRUE</span>,show.looppoints<span class='op'>=</span><span class='cn'>TRUE</span>,
-   show.bagpoints<span class='op'>=</span><span class='cn'>TRUE</span>,dkmethod<span class='op'>=</span><span class='fl'>2</span>,
-   show.whiskers<span class='op'>=</span><span class='cn'>TRUE</span>,show.loophull<span class='op'>=</span><span class='cn'>TRUE</span>,
-   show.baghull<span class='op'>=</span><span class='cn'>TRUE</span>,verbose<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='PlotBag-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># example of Rousseeuw et al., see R-package rpart</span>
-<span class='va'>cardata</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/structure.html'>structure</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2560</span>,<span class='fl'>2345</span>,<span class='fl'>1845</span>,<span class='fl'>2260</span>,<span class='fl'>2440</span>,
- <span class='fl'>2285</span>, <span class='fl'>2275</span>, <span class='fl'>2350</span>, <span class='fl'>2295</span>, <span class='fl'>1900</span>, <span class='fl'>2390</span>, <span class='fl'>2075</span>, <span class='fl'>2330</span>, <span class='fl'>3320</span>, <span class='fl'>2885</span>,
- <span class='fl'>3310</span>, <span class='fl'>2695</span>, <span class='fl'>2170</span>, <span class='fl'>2710</span>, <span class='fl'>2775</span>, <span class='fl'>2840</span>, <span class='fl'>2485</span>, <span class='fl'>2670</span>, <span class='fl'>2640</span>, <span class='fl'>2655</span>,
- <span class='fl'>3065</span>, <span class='fl'>2750</span>, <span class='fl'>2920</span>, <span class='fl'>2780</span>, <span class='fl'>2745</span>, <span class='fl'>3110</span>, <span class='fl'>2920</span>, <span class='fl'>2645</span>, <span class='fl'>2575</span>, <span class='fl'>2935</span>,
- <span class='fl'>2920</span>, <span class='fl'>2985</span>, <span class='fl'>3265</span>, <span class='fl'>2880</span>, <span class='fl'>2975</span>, <span class='fl'>3450</span>, <span class='fl'>3145</span>, <span class='fl'>3190</span>, <span class='fl'>3610</span>, <span class='fl'>2885</span>,
- <span class='fl'>3480</span>, <span class='fl'>3200</span>, <span class='fl'>2765</span>, <span class='fl'>3220</span>, <span class='fl'>3480</span>, <span class='fl'>3325</span>, <span class='fl'>3855</span>, <span class='fl'>3850</span>, <span class='fl'>3195</span>, <span class='fl'>3735</span>,
- <span class='fl'>3665</span>, <span class='fl'>3735</span>, <span class='fl'>3415</span>, <span class='fl'>3185</span>, <span class='fl'>3690</span>, <span class='fl'>97</span>, <span class='fl'>114</span>, <span class='fl'>81</span>, <span class='fl'>91</span>, <span class='fl'>113</span>, <span class='fl'>97</span>, <span class='fl'>97</span>,
- <span class='fl'>98</span>, <span class='fl'>109</span>, <span class='fl'>73</span>, <span class='fl'>97</span>, <span class='fl'>89</span>, <span class='fl'>109</span>, <span class='fl'>305</span>, <span class='fl'>153</span>, <span class='fl'>302</span>, <span class='fl'>133</span>, <span class='fl'>97</span>, <span class='fl'>125</span>, <span class='fl'>146</span>,
- <span class='fl'>107</span>, <span class='fl'>109</span>, <span class='fl'>121</span>, <span class='fl'>151</span>, <span class='fl'>133</span>, <span class='fl'>181</span>, <span class='fl'>141</span>, <span class='fl'>132</span>, <span class='fl'>133</span>, <span class='fl'>122</span>, <span class='fl'>181</span>, <span class='fl'>146</span>,
- <span class='fl'>151</span>, <span class='fl'>116</span>, <span class='fl'>135</span>, <span class='fl'>122</span>, <span class='fl'>141</span>, <span class='fl'>163</span>, <span class='fl'>151</span>, <span class='fl'>153</span>, <span class='fl'>202</span>, <span class='fl'>180</span>, <span class='fl'>182</span>, <span class='fl'>232</span>,
- <span class='fl'>143</span>, <span class='fl'>180</span>, <span class='fl'>180</span>, <span class='fl'>151</span>, <span class='fl'>189</span>, <span class='fl'>180</span>, <span class='fl'>231</span>, <span class='fl'>305</span>, <span class='fl'>302</span>, <span class='fl'>151</span>, <span class='fl'>202</span>, <span class='fl'>182</span>,
- <span class='fl'>181</span>, <span class='fl'>143</span>, <span class='fl'>146</span>, <span class='fl'>146</span><span class='op'>)</span><span class='op'>)</span>, .Dim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>60</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>,
- .Dimnames <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='cn'>NULL</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Weight"</span>, <span class='st'>"Disp."</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='fu'>PlotBag</span><span class='op'>(</span><span class='va'>cardata</span>,factor<span class='op'>=</span><span class='fl'>3</span>,show.baghull<span class='op'>=</span><span class='cn'>TRUE</span>,
-  show.loophull<span class='op'>=</span><span class='cn'>TRUE</span>,precision<span class='op'>=</span><span class='fl'>1</span>, dkmethod<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
-</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/graphics/title.html'>title</a></span><span class='op'>(</span><span class='st'>"car data Chambers/Hastie 1992"</span><span class='op'>)</span>
-</div><div class='img'><img src='PlotBag-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># points of y=x*x</span>
-<span class='fu'>PlotBag</span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>30</span>,y<span class='op'>=</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>30</span><span class='op'>)</span><span class='op'>^</span><span class='fl'>2</span>,verbose<span class='op'>=</span><span class='cn'>FALSE</span>,dkmethod<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
-</div><div class='img'><img src='PlotBag-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># one dimensional subspace</span>
-<span class='fu'>PlotBag</span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>50</span>,y<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>50</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; data set one dimensional</div><div class='img'><img src='PlotBag-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># pairwise bagplots</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>las<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>
-<span class='fu'>PlotBagPairs</span><span class='op'>(</span><span class='va'>swiss</span><span class='op'>[</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span>,
-             main<span class='op'>=</span><span class='st'>"Swiss Fertility and Socioeconomic Indicators (1888) Data"</span><span class='op'>)</span>
-</div><div class='img'><img src='PlotBag-5.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt;              Fertility Agriculture
-#&gt; Courtelary        80.2        17.0
-#&gt; Delemont          83.1        45.1
-#&gt; Franches-Mnt      92.5        39.7
-#&gt; Moutier           85.8        36.5
-#&gt; Neuveville        76.9        43.5
-#&gt; Porrentruy        76.1        35.3
-#&gt; Broye             83.8        70.2
-#&gt; Glane             92.4        67.8
-#&gt; Gruyere           82.4        53.3
-#&gt; Sarine            82.9        45.2
-#&gt; Veveyse           87.1        64.5
-#&gt; Aigle             64.1        62.0
-#&gt; Aubonne           66.9        67.5
-#&gt; Avenches          68.9        60.7
-#&gt; Cossonay          61.7        69.3
-#&gt; Echallens         68.3        72.6
-#&gt; Grandson          71.7        34.0
-#&gt; Lausanne          55.7        19.4
-#&gt; La Vallee         54.3        15.2
-#&gt; Lavaux            65.1        73.0
-#&gt; Morges            65.5        59.8
-#&gt; Moudon            65.0        55.1
-#&gt; Nyone             56.6        50.9
-#&gt; Orbe              57.4        54.1
-#&gt; Oron              72.5        71.2
-#&gt; Payerne           74.2        58.1
-#&gt; Paysd'enhaut      72.0        63.5
-#&gt; Rolle             60.5        60.8
-#&gt; Vevey             58.3        26.8
-#&gt; Yverdon           65.4        49.5
-#&gt; Conthey           75.5        85.9
-#&gt; Entremont         69.3        84.9
-#&gt; Herens            77.3        89.7
-#&gt; Martigwy          70.5        78.2
-#&gt; Monthey           79.4        64.9
-#&gt; St Maurice        65.0        75.9
-#&gt; Sierre            92.2        84.6
-#&gt; Sion              79.3        63.1
-#&gt; Boudry            70.4        38.4
-#&gt; La Chauxdfnd      65.7         7.7
-#&gt; Le Locle          72.7        16.7
-#&gt; Neuchatel         64.4        17.6
-#&gt; Val de Ruz        77.6        37.6
-#&gt; ValdeTravers      67.6        18.7
-#&gt; V. De Geneve      35.0         1.2
-#&gt; Rive Droite       44.7        46.6
-#&gt; Rive Gauche       42.8        27.7</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># example: 100 random points and one outlier</span></span>
+<span class='r-in'><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>100</span>, <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>300</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>dat</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>105</span>,<span class='fl'>295</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>PlotBag</span><span class='op'>(</span><span class='va'>dat</span>,factor<span class='op'>=</span><span class='fl'>2.5</span>,create.plot<span class='op'>=</span><span class='cn'>TRUE</span>,approx.limit<span class='op'>=</span><span class='fl'>300</span>,</span>
+<span class='r-in'>   show.outlier<span class='op'>=</span><span class='cn'>TRUE</span>,show.looppoints<span class='op'>=</span><span class='cn'>TRUE</span>,</span>
+<span class='r-in'>   show.bagpoints<span class='op'>=</span><span class='cn'>TRUE</span>,dkmethod<span class='op'>=</span><span class='fl'>2</span>,</span>
+<span class='r-in'>   show.whiskers<span class='op'>=</span><span class='cn'>TRUE</span>,show.loophull<span class='op'>=</span><span class='cn'>TRUE</span>,</span>
+<span class='r-in'>   show.baghull<span class='op'>=</span><span class='cn'>TRUE</span>,verbose<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='PlotBag-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># example of Rousseeuw et al., see R-package rpart</span></span>
+<span class='r-in'><span class='va'>cardata</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/structure.html'>structure</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2560</span>,<span class='fl'>2345</span>,<span class='fl'>1845</span>,<span class='fl'>2260</span>,<span class='fl'>2440</span>,</span>
+<span class='r-in'> <span class='fl'>2285</span>, <span class='fl'>2275</span>, <span class='fl'>2350</span>, <span class='fl'>2295</span>, <span class='fl'>1900</span>, <span class='fl'>2390</span>, <span class='fl'>2075</span>, <span class='fl'>2330</span>, <span class='fl'>3320</span>, <span class='fl'>2885</span>,</span>
+<span class='r-in'> <span class='fl'>3310</span>, <span class='fl'>2695</span>, <span class='fl'>2170</span>, <span class='fl'>2710</span>, <span class='fl'>2775</span>, <span class='fl'>2840</span>, <span class='fl'>2485</span>, <span class='fl'>2670</span>, <span class='fl'>2640</span>, <span class='fl'>2655</span>,</span>
+<span class='r-in'> <span class='fl'>3065</span>, <span class='fl'>2750</span>, <span class='fl'>2920</span>, <span class='fl'>2780</span>, <span class='fl'>2745</span>, <span class='fl'>3110</span>, <span class='fl'>2920</span>, <span class='fl'>2645</span>, <span class='fl'>2575</span>, <span class='fl'>2935</span>,</span>
+<span class='r-in'> <span class='fl'>2920</span>, <span class='fl'>2985</span>, <span class='fl'>3265</span>, <span class='fl'>2880</span>, <span class='fl'>2975</span>, <span class='fl'>3450</span>, <span class='fl'>3145</span>, <span class='fl'>3190</span>, <span class='fl'>3610</span>, <span class='fl'>2885</span>,</span>
+<span class='r-in'> <span class='fl'>3480</span>, <span class='fl'>3200</span>, <span class='fl'>2765</span>, <span class='fl'>3220</span>, <span class='fl'>3480</span>, <span class='fl'>3325</span>, <span class='fl'>3855</span>, <span class='fl'>3850</span>, <span class='fl'>3195</span>, <span class='fl'>3735</span>,</span>
+<span class='r-in'> <span class='fl'>3665</span>, <span class='fl'>3735</span>, <span class='fl'>3415</span>, <span class='fl'>3185</span>, <span class='fl'>3690</span>, <span class='fl'>97</span>, <span class='fl'>114</span>, <span class='fl'>81</span>, <span class='fl'>91</span>, <span class='fl'>113</span>, <span class='fl'>97</span>, <span class='fl'>97</span>,</span>
+<span class='r-in'> <span class='fl'>98</span>, <span class='fl'>109</span>, <span class='fl'>73</span>, <span class='fl'>97</span>, <span class='fl'>89</span>, <span class='fl'>109</span>, <span class='fl'>305</span>, <span class='fl'>153</span>, <span class='fl'>302</span>, <span class='fl'>133</span>, <span class='fl'>97</span>, <span class='fl'>125</span>, <span class='fl'>146</span>,</span>
+<span class='r-in'> <span class='fl'>107</span>, <span class='fl'>109</span>, <span class='fl'>121</span>, <span class='fl'>151</span>, <span class='fl'>133</span>, <span class='fl'>181</span>, <span class='fl'>141</span>, <span class='fl'>132</span>, <span class='fl'>133</span>, <span class='fl'>122</span>, <span class='fl'>181</span>, <span class='fl'>146</span>,</span>
+<span class='r-in'> <span class='fl'>151</span>, <span class='fl'>116</span>, <span class='fl'>135</span>, <span class='fl'>122</span>, <span class='fl'>141</span>, <span class='fl'>163</span>, <span class='fl'>151</span>, <span class='fl'>153</span>, <span class='fl'>202</span>, <span class='fl'>180</span>, <span class='fl'>182</span>, <span class='fl'>232</span>,</span>
+<span class='r-in'> <span class='fl'>143</span>, <span class='fl'>180</span>, <span class='fl'>180</span>, <span class='fl'>151</span>, <span class='fl'>189</span>, <span class='fl'>180</span>, <span class='fl'>231</span>, <span class='fl'>305</span>, <span class='fl'>302</span>, <span class='fl'>151</span>, <span class='fl'>202</span>, <span class='fl'>182</span>,</span>
+<span class='r-in'> <span class='fl'>181</span>, <span class='fl'>143</span>, <span class='fl'>146</span>, <span class='fl'>146</span><span class='op'>)</span><span class='op'>)</span>, .Dim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>60</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span class='r-in'> .Dimnames <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='cn'>NULL</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Weight"</span>, <span class='st'>"Disp."</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>PlotBag</span><span class='op'>(</span><span class='va'>cardata</span>,factor<span class='op'>=</span><span class='fl'>3</span>,show.baghull<span class='op'>=</span><span class='cn'>TRUE</span>,</span>
+<span class='r-in'>  show.loophull<span class='op'>=</span><span class='cn'>TRUE</span>,precision<span class='op'>=</span><span class='fl'>1</span>, dkmethod<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/title.html'>title</a></span><span class='op'>(</span><span class='st'>"car data Chambers/Hastie 1992"</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='PlotBag-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># points of y=x*x</span></span>
+<span class='r-in'><span class='fu'>PlotBag</span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>30</span>,y<span class='op'>=</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>30</span><span class='op'>)</span><span class='op'>^</span><span class='fl'>2</span>,verbose<span class='op'>=</span><span class='cn'>FALSE</span>,dkmethod<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='PlotBag-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># one dimensional subspace</span></span>
+<span class='r-in'><span class='fu'>PlotBag</span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>50</span>,y<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>50</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data set one dimensional</span>
+<span class='r-plt img'><img src='PlotBag-4.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># pairwise bagplots</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>las<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>PlotBagPairs</span><span class='op'>(</span><span class='va'>swiss</span><span class='op'>[</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span>,</span>
+<span class='r-in'>             main<span class='op'>=</span><span class='st'>"Swiss Fertility and Socioeconomic Indicators (1888) Data"</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='PlotBag-5.png' alt='' width='700' height='433' /></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>              Fertility Agriculture</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Courtelary        80.2        17.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Delemont          83.1        45.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Franches-Mnt      92.5        39.7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Moutier           85.8        36.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Neuveville        76.9        43.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Porrentruy        76.1        35.3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Broye             83.8        70.2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Glane             92.4        67.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Gruyere           82.4        53.3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Sarine            82.9        45.2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Veveyse           87.1        64.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Aigle             64.1        62.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Aubonne           66.9        67.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Avenches          68.9        60.7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Cossonay          61.7        69.3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Echallens         68.3        72.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Grandson          71.7        34.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Lausanne          55.7        19.4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> La Vallee         54.3        15.2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Lavaux            65.1        73.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Morges            65.5        59.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Moudon            65.0        55.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Nyone             56.6        50.9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Orbe              57.4        54.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Oron              72.5        71.2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Payerne           74.2        58.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Paysd'enhaut      72.0        63.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Rolle             60.5        60.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Vevey             58.3        26.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Yverdon           65.4        49.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Conthey           75.5        85.9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Entremont         69.3        84.9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Herens            77.3        89.7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Martigwy          70.5        78.2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Monthey           79.4        64.9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> St Maurice        65.0        75.9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Sierre            92.2        84.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Sion              79.3        63.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Boudry            70.4        38.4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> La Chauxdfnd      65.7         7.7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Le Locle          72.7        16.7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Neuchatel         64.4        17.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Val de Ruz        77.6        37.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ValdeTravers      67.6        18.7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> V. De Geneve      35.0         1.2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Rive Droite       44.7        46.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Rive Gauche       42.8        27.7</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

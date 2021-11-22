@@ -78,7 +78,7 @@ The logic is the same as the OLAP functions in SQL, e.g. SUM(x) OVER (PARTITION 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.43</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.44</span>
       </span>
     </div>
 
@@ -203,7 +203,7 @@ The logic is the same as the OLAP functions in SQL, e.g. <code>SUM(x) OVER (PART
     </tr>
     <tr>
       <th>na.action</th>
-      <td><p>a function which indicates what should happen when the data contain <code>NA</code>s. Defaults to <code><a href='https://rdrr.io/r/base/options.html'>getOption("na.action")</a></code>.</p></td>
+      <td><p>a function which indicates what should happen when the data contain <code>NA</code>s. Defaults to <code>getOption("na.action")</code>.</p></td>
     </tr>
     <tr>
       <th>vnames</th>
@@ -246,143 +246,146 @@ The attribute <code>response</code> denotes the name of the response variable in
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>d.frm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>,<span class='fl'>3</span><span class='op'>)</span>, v<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, size<span class='op'>=</span><span class='fl'>12</span>, replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>,
-                    g<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/gl.html'>gl</a></span><span class='op'>(</span><span class='fl'>4</span>,<span class='fl'>3</span>,labels<span class='op'>=</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span><span class='op'>)</span>, m<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/gl.html'>gl</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>4</span>,labels<span class='op'>=</span><span class='va'>LETTERS</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'># SQL-OLAP: sum() over (partition by g)</span>
-<span class='fu'>DoBy</span><span class='op'>(</span><span class='va'>d.frm</span><span class='op'>$</span><span class='va'>x</span>, <span class='va'>d.frm</span><span class='op'>$</span><span class='va'>g</span>, FUN<span class='op'>=</span><span class='va'>sum</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;    d.frm$x by sum.d.frm$x
-#&gt; 1        1  a           6
-#&gt; 2        2  a           6
-#&gt; 3        3  a           6
-#&gt; 4        4  b           7
-#&gt; 5        1  b           7
-#&gt; 6        2  b           7
-#&gt; 7        3  c           8
-#&gt; 8        4  c           8
-#&gt; 9        1  c           8
-#&gt; 10       2  d           9
-#&gt; 11       3  d           9
-#&gt; 12       4  d           9</div><div class='input'><span class='co'># DoBy(d.frm$x, FUN=sum)</span>
-
-<span class='co'># more than 1 grouping variables are organized as list as in tapply:</span>
-<span class='fu'>DoBy</span><span class='op'>(</span><span class='va'>d.frm</span><span class='op'>$</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>d.frm</span><span class='op'>$</span><span class='va'>g</span>, <span class='va'>d.frm</span><span class='op'>$</span><span class='va'>m</span><span class='op'>)</span>, <span class='va'>mean</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;    d.frm$x
-#&gt; 1        1
-#&gt; 2        2
-#&gt; 3        3
-#&gt; 4        4
-#&gt; 5        1
-#&gt; 6        2
-#&gt; 7        3
-#&gt; 8        4
-#&gt; 9        1
-#&gt; 10       2
-#&gt; 11       3
-#&gt; 12       4
-#&gt;    structure.c.1L..1L..1L..2L..2L..2L..3L..3L..3L..4L..4L..4L....Label...c..a...
-#&gt; 1                                                                              a
-#&gt; 2                                                                              a
-#&gt; 3                                                                              a
-#&gt; 4                                                                              b
-#&gt; 5                                                                              b
-#&gt; 6                                                                              b
-#&gt; 7                                                                              c
-#&gt; 8                                                                              c
-#&gt; 9                                                                              c
-#&gt; 10                                                                             d
-#&gt; 11                                                                             d
-#&gt; 12                                                                             d
-#&gt;    structure.c.1L..1L..1L..1L..2L..2L..2L..2L..3L..3L..3L..3L....Label...c..A...
-#&gt; 1                                                                              A
-#&gt; 2                                                                              A
-#&gt; 3                                                                              A
-#&gt; 4                                                                              A
-#&gt; 5                                                                              B
-#&gt; 6                                                                              B
-#&gt; 7                                                                              B
-#&gt; 8                                                                              B
-#&gt; 9                                                                              C
-#&gt; 10                                                                             C
-#&gt; 11                                                                             C
-#&gt; 12                                                                             C
-#&gt;    mean.d.frm$x
-#&gt; 1           2.0
-#&gt; 2           2.0
-#&gt; 3           2.0
-#&gt; 4           4.0
-#&gt; 5           1.5
-#&gt; 6           1.5
-#&gt; 7           3.5
-#&gt; 8           3.5
-#&gt; 9           1.0
-#&gt; 10          3.0
-#&gt; 11          3.0
-#&gt; 12          3.0</div><div class='input'>
-<span class='co'># count</span>
-<span class='va'>d.frm</span><span class='op'>$</span><span class='va'>count</span> <span class='op'>&lt;-</span> <span class='fu'>DoBy</span><span class='op'>(</span><span class='va'>d.frm</span><span class='op'>$</span><span class='va'>x</span>, <span class='va'>d.frm</span><span class='op'>$</span><span class='va'>g</span>, <span class='va'>length</span><span class='op'>)</span>
-
-<span class='co'># rank</span>
-<span class='va'>d.frm</span><span class='op'>$</span><span class='va'>rank</span> <span class='op'>&lt;-</span> <span class='fu'>DoBy</span><span class='op'>(</span><span class='va'>d.frm</span><span class='op'>$</span><span class='va'>v</span>, <span class='va'>d.frm</span><span class='op'>$</span><span class='va'>g</span>, <span class='va'>rank</span><span class='op'>)</span>
-<span class='va'>d.frm</span><span class='op'>$</span><span class='va'>dense_rank</span> <span class='op'>&lt;-</span> <span class='fu'>DoBy</span><span class='op'>(</span><span class='va'>d.frm</span><span class='op'>$</span><span class='va'>v</span>, <span class='va'>d.frm</span><span class='op'>$</span><span class='va'>g</span>, <span class='va'>Rank</span>, ties.method<span class='op'>=</span><span class='st'>"dense"</span><span class='op'>)</span>
-<span class='va'>d.frm</span><span class='op'>$</span><span class='va'>rank_desc</span> <span class='op'>&lt;-</span> <span class='fu'>DoBy</span><span class='op'>(</span><span class='va'>d.frm</span><span class='op'>$</span><span class='va'>x</span>, <span class='va'>d.frm</span><span class='op'>$</span><span class='va'>g</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/rank.html'>rank</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'># row_number</span>
-<span class='va'>d.frm</span><span class='op'>$</span><span class='va'>row_number</span> <span class='op'>&lt;-</span> <span class='fu'>DoBy</span><span class='op'>(</span><span class='va'>d.frm</span><span class='op'>$</span><span class='va'>v</span>, <span class='va'>d.frm</span><span class='op'>$</span><span class='va'>g</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/order.html'>order</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>d.frm</span>
-</div><div class='output co'>#&gt;    x v g m count.d.frm$x count.by count.length.d.frm$x rank.d.frm$v rank.by
-#&gt; 1  1 3 a A             1        a                    3            3       a
-#&gt; 2  2 2 a A             2        a                    3            2       a
-#&gt; 3  3 2 a A             3        a                    3            2       a
-#&gt; 4  4 1 b A             4        b                    3            1       b
-#&gt; 5  1 1 b B             1        b                    3            1       b
-#&gt; 6  2 1 b B             2        b                    3            1       b
-#&gt; 7  3 2 c B             3        c                    3            2       c
-#&gt; 8  4 3 c B             4        c                    3            3       c
-#&gt; 9  1 3 c C             1        c                    3            3       c
-#&gt; 10 2 3 d C             2        d                    3            3       d
-#&gt; 11 3 2 d C             3        d                    3            2       d
-#&gt; 12 4 1 d C             4        d                    3            1       d
-#&gt;    rank.rank.d.frm$v dense_rank.d.frm$v dense_rank.by dense_rank.Rank.d.frm$v
-#&gt; 1                3.0                  3             a                       2
-#&gt; 2                1.5                  2             a                       1
-#&gt; 3                1.5                  2             a                       1
-#&gt; 4                2.0                  1             b                       1
-#&gt; 5                2.0                  1             b                       1
-#&gt; 6                2.0                  1             b                       1
-#&gt; 7                1.0                  2             c                       1
-#&gt; 8                2.5                  3             c                       2
-#&gt; 9                2.5                  3             c                       2
-#&gt; 10               3.0                  3             d                       3
-#&gt; 11               2.0                  2             d                       2
-#&gt; 12               1.0                  1             d                       1
-#&gt;    rank_desc.d.frm$x rank_desc.by rank_desc.function(x) rank(-x).d.frm$x
-#&gt; 1                  1            a                                      3
-#&gt; 2                  2            a                                      2
-#&gt; 3                  3            a                                      1
-#&gt; 4                  4            b                                      1
-#&gt; 5                  1            b                                      3
-#&gt; 6                  2            b                                      2
-#&gt; 7                  3            c                                      2
-#&gt; 8                  4            c                                      1
-#&gt; 9                  1            c                                      3
-#&gt; 10                 2            d                                      3
-#&gt; 11                 3            d                                      2
-#&gt; 12                 4            d                                      1
-#&gt;    row_number.d.frm$v row_number.by row_number.function(x) order(x).d.frm$v
-#&gt; 1                   3             a                                       2
-#&gt; 2                   2             a                                       3
-#&gt; 3                   2             a                                       1
-#&gt; 4                   1             b                                       1
-#&gt; 5                   1             b                                       2
-#&gt; 6                   1             b                                       3
-#&gt; 7                   2             c                                       1
-#&gt; 8                   3             c                                       2
-#&gt; 9                   3             c                                       3
-#&gt; 10                  3             d                                       3
-#&gt; 11                  2             d                                       2
-#&gt; 12                  1             d                                       1</div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>d.frm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>,<span class='fl'>3</span><span class='op'>)</span>, v<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, size<span class='op'>=</span><span class='fl'>12</span>, replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>,</span>
+<span class='r-in'>                    g<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/gl.html'>gl</a></span><span class='op'>(</span><span class='fl'>4</span>,<span class='fl'>3</span>,labels<span class='op'>=</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span><span class='op'>)</span>, m<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/gl.html'>gl</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>4</span>,labels<span class='op'>=</span><span class='va'>LETTERS</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># SQL-OLAP: sum() over (partition by g)</span></span>
+<span class='r-in'><span class='fu'>DoBy</span><span class='op'>(</span><span class='va'>d.frm</span><span class='op'>$</span><span class='va'>x</span>, <span class='va'>d.frm</span><span class='op'>$</span><span class='va'>g</span>, FUN<span class='op'>=</span><span class='va'>sum</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    d.frm$x by sum.d.frm$x</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1        1  a           6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2        2  a           6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3        3  a           6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4        4  b           7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5        1  b           7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6        2  b           7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7        3  c           8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8        4  c           8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9        1  c           8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10       2  d           9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11       3  d           9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12       4  d           9</span>
+<span class='r-in'><span class='co'># DoBy(d.frm$x, FUN=sum)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># more than 1 grouping variables are organized as list as in tapply:</span></span>
+<span class='r-in'><span class='fu'>DoBy</span><span class='op'>(</span><span class='va'>d.frm</span><span class='op'>$</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>d.frm</span><span class='op'>$</span><span class='va'>g</span>, <span class='va'>d.frm</span><span class='op'>$</span><span class='va'>m</span><span class='op'>)</span>, <span class='va'>mean</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    d.frm$x</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2        2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3        3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4        4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6        2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7        3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8        4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10       2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11       3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12       4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    structure.c.1L..1L..1L..2L..2L..2L..3L..3L..3L..4L..4L..4L....Label...c..a...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1                                                                              a</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2                                                                              a</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3                                                                              a</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4                                                                              b</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5                                                                              b</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6                                                                              b</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7                                                                              c</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8                                                                              c</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9                                                                              c</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10                                                                             d</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11                                                                             d</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12                                                                             d</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    structure.c.1L..1L..1L..1L..2L..2L..2L..2L..3L..3L..3L..3L....Label...c..A...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1                                                                              A</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2                                                                              A</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3                                                                              A</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4                                                                              A</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5                                                                              B</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6                                                                              B</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7                                                                              B</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8                                                                              B</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9                                                                              C</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10                                                                             C</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11                                                                             C</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12                                                                             C</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    mean.d.frm$x</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1           2.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2           2.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3           2.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4           4.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5           1.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6           1.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7           3.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8           3.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9           1.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10          3.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11          3.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12          3.0</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># count</span></span>
+<span class='r-in'><span class='va'>d.frm</span><span class='op'>$</span><span class='va'>count</span> <span class='op'>&lt;-</span> <span class='fu'>DoBy</span><span class='op'>(</span><span class='va'>d.frm</span><span class='op'>$</span><span class='va'>x</span>, <span class='va'>d.frm</span><span class='op'>$</span><span class='va'>g</span>, <span class='va'>length</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># rank</span></span>
+<span class='r-in'><span class='va'>d.frm</span><span class='op'>$</span><span class='va'>rank</span> <span class='op'>&lt;-</span> <span class='fu'>DoBy</span><span class='op'>(</span><span class='va'>d.frm</span><span class='op'>$</span><span class='va'>v</span>, <span class='va'>d.frm</span><span class='op'>$</span><span class='va'>g</span>, <span class='va'>rank</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>d.frm</span><span class='op'>$</span><span class='va'>dense_rank</span> <span class='op'>&lt;-</span> <span class='fu'>DoBy</span><span class='op'>(</span><span class='va'>d.frm</span><span class='op'>$</span><span class='va'>v</span>, <span class='va'>d.frm</span><span class='op'>$</span><span class='va'>g</span>, <span class='va'>Rank</span>, ties.method<span class='op'>=</span><span class='st'>"dense"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>d.frm</span><span class='op'>$</span><span class='va'>rank_desc</span> <span class='op'>&lt;-</span> <span class='fu'>DoBy</span><span class='op'>(</span><span class='va'>d.frm</span><span class='op'>$</span><span class='va'>x</span>, <span class='va'>d.frm</span><span class='op'>$</span><span class='va'>g</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/rank.html'>rank</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># row_number</span></span>
+<span class='r-in'><span class='va'>d.frm</span><span class='op'>$</span><span class='va'>row_number</span> <span class='op'>&lt;-</span> <span class='fu'>DoBy</span><span class='op'>(</span><span class='va'>d.frm</span><span class='op'>$</span><span class='va'>v</span>, <span class='va'>d.frm</span><span class='op'>$</span><span class='va'>g</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/order.html'>order</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>d.frm</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    x v g m count.d.frm$x count.by count.length.d.frm$x rank.d.frm$v rank.by</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  1 3 a A             1        a                    3            3       a</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  2 2 a A             2        a                    3            2       a</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  3 2 a A             3        a                    3            2       a</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4  4 1 b A             4        b                    3            1       b</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5  1 1 b B             1        b                    3            1       b</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6  2 1 b B             2        b                    3            1       b</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7  3 2 c B             3        c                    3            2       c</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8  4 3 c B             4        c                    3            3       c</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9  1 3 c C             1        c                    3            3       c</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10 2 3 d C             2        d                    3            3       d</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11 3 2 d C             3        d                    3            2       d</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12 4 1 d C             4        d                    3            1       d</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    rank.rank.d.frm$v dense_rank.d.frm$v dense_rank.by dense_rank.Rank.d.frm$v</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1                3.0                  3             a                       2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2                1.5                  2             a                       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3                1.5                  2             a                       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4                2.0                  1             b                       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5                2.0                  1             b                       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6                2.0                  1             b                       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7                1.0                  2             c                       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8                2.5                  3             c                       2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9                2.5                  3             c                       2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10               3.0                  3             d                       3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11               2.0                  2             d                       2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12               1.0                  1             d                       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    rank_desc.d.frm$x rank_desc.by rank_desc.function(x) rank(-x).d.frm$x</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1                  1            a                                      3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2                  2            a                                      2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3                  3            a                                      1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4                  4            b                                      1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5                  1            b                                      3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6                  2            b                                      2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7                  3            c                                      2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8                  4            c                                      1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9                  1            c                                      3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10                 2            d                                      3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11                 3            d                                      2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12                 4            d                                      1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    row_number.d.frm$v row_number.by row_number.function(x) order(x).d.frm$v</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1                   3             a                                       2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2                   2             a                                       3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3                   2             a                                       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4                   1             b                                       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5                   1             b                                       2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6                   1             b                                       3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7                   2             c                                       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8                   3             c                                       2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9                   3             c                                       3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10                  3             d                                       3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11                  2             d                                       2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12                  1             d                                       1</span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
