@@ -508,6 +508,18 @@ LCM <- function(..., na.rm = FALSE) {
 
 
 
+rSum21 <- function(size, digits=NULL){
+  
+  rnd <- (p <- runif(5))/sum(p)
+  if(!is.null(digits)){
+    rnd <- round(rnd, 2)
+    rnd[1] <- rnd[1] + (1-sum(rnd))
+  }
+  
+  rnd
+}
+
+
 DigitSum <- function(x)
   # calculates the digit sum of a number: DigitSum(124) = 7
   sapply(x, function(z)
@@ -2395,6 +2407,11 @@ TextToTable <- function(x, dimnames = NULL, check.names=FALSE, ...){
 
 Recode <- function(x, ..., elselevel=NA, use.empty=FALSE, num=FALSE){
 
+  # if x is character, turn it to factor and reconvert it when finished
+  if(xchar <- is.character(x)){
+    x <- factor(x)
+  }
+  
   newlevels <- list(...)
 
   if( sum(duplicated(unlist(newlevels))) > 0) stop ("newlevels contain non unique values!")
@@ -2417,9 +2434,14 @@ Recode <- function(x, ..., elselevel=NA, use.empty=FALSE, num=FALSE){
   levels(x) <- newlevels
   if(!use.empty) x <- factor(x)  # delete potentially empty levels
 
+  # x was character, convert to original then
+  if(xchar)
+    x <- as.character
+  
   if(num)
     x <- as.numeric(as.character(x))
 
+  
   return(x)
 }
 
@@ -8995,17 +9017,117 @@ SpreadOut <- function(x, mindist = NULL, cex = 1.0) {
 
 
 
-BarText <- function(height, b, labels=height, beside = FALSE, horiz = FALSE,
-                    cex=par("cex"), 
-                    adj=NULL, 
-                    pos=c("topout", "topin", "mid", "bottomin", "bottomout"), 
-                    offset=0, ...) {
+# BarText <- function(height, b, labels=height, beside = FALSE, horiz = FALSE,
+#                     cex=par("cex"), 
+#                     adj=NULL, 
+#                     pos=c("topout", "topin", "mid", "bottomin", "bottomout"), 
+#                     offset=0, ...) {
+# 
+#   if (is.vector(height) || (is.array(height) && (length(dim(height)) == 1))) {
+#     height <- cbind(height)
+#     beside <- TRUE
+#   }
+# 
+#   offset <- rep_len(as.vector(offset), length(height))
+#   
+#   pos <- match.arg(pos)
+#   
+#   
+#   if(beside){
+#     if(horiz){
+#       if(is.null(adj)) adj <- 0
+#       adjy <- 0.5
+#       
+#       if(pos=="topout"){
+#         x <- height + offset + 1.2 * sign(height) * par("cxy")[1] * cex
+#         adjx <- Recode(x = factor(sign(x+offset)), "0"=1, "1"=-1, num = TRUE)
+#       }
+#       else if(pos=="topin") {
+#         x <- height + offset - 1.2 * sign(height) * par("cxy")[1] * cex
+#         adjx <- Recode(x = factor(sign(x+offset)), "1"=1, "0"=-1, num = TRUE)
+#       }
+#       else if(pos=="mid"){
+#         x <- offset + height / 2
+#         adjx <- 0.5
+#       }
+#       else if(pos=="bottomout") {
+#         x <- offset - 1.2 * sign(height) * par("cxy")[1] * cex
+#         adjx <- Recode(x = factor(sign(x+offset)), "1"=1, "0"=-1, num = TRUE)
+#       }
+#       else if(pos=="bottomin") {
+#         x <- offset + 1.2 * sign(height) * par("cxy")[1] * cex
+#         adjx <- Recode(x = factor(sign(x+offset)), "0"=1, "1"=-1, num = TRUE)
+#       }
+# 
+#       pp <- Recycle(b=b, x=x, labels=labels, adjx=adjx, adjy=adjy)
+#       
+#       for(i in seq(attr(pp, "maxdim"))){
+#         with(pp, text(y=b[i], x=x[i], labels=labels[i], 
+#                       adj=c(adjx[i], adjy[i]), 
+#                       cex=cex, xpd=TRUE, ...))    
+#       } 
+#       
+#       res <- pp$x
+#       
+# 
+#     } else {
+#       
+#       if(is.null(adj)) adjx <- 0.5
+#       
+#       if(pos=="topout")
+#         y <- height + offset + sign(height) * par("cxy")[2] * cex
+#       else if(pos=="topin")
+#         y <- height + offset - sign(height) * par("cxy")[2] * cex
+#       else if(pos=="mid")
+#         y <- offset + height/2
+#       if(pos=="bottomin")
+#         y <- offset + sign(height) * par("cxy")[2] * cex
+#       if(pos=="bottomout")
+#         y <- offset - sign(height) * par("cxy")[2] * cex
+# 
+#       text(x=b, y=y, labels=labels, xpd=TRUE, cex=cex, adj=adj, ...) # 
+#       
+#       res <- y
+#       
+#     }
+# 
+#     # The xpd=TRUE means to not plot the text even if it is outside
+#     # of the plot area and par("cxy") gives the size of a typical
+#     # character in the current user coordinate system.
+# 
+#     
+#     
+# 
+#   } else {
+#     if(horiz){
+#       if(is.null(adj)) adj <- 0.5
+#       x <- t(apply(offset + height, 2, Midx, incl.zero=TRUE, cumulate=TRUE))
+#       text(labels=t(labels), x=x, y=b, cex=cex, adj=adj, ...) 
+#     } else {
+#       if(is.null(adj)) adj <- 0.5
+#       x <- t(apply(offset + height, 2, Midx, incl.zero=TRUE, cumulate=TRUE))
+#       text(labels=t(labels), x=b, y=x, cex=cex, adj=adj, ...) 
+#     }
+#     res <- x
+#     
+#   }
+# 
+#   invisible(res)
+# 
+# }
 
+
+BarText <- function(height, b, labels=height, beside = FALSE, horiz = FALSE,
+                     cex=par("cex"), 
+                     adj=NULL, 
+                     pos=c("topout", "topin", "mid", "bottomin", "bottomout"), 
+                     offset=0, ...) {
+  
   if (is.vector(height) || (is.array(height) && (length(dim(height)) == 1))) {
     height <- cbind(height)
     beside <- TRUE
   }
-
+  
   offset <- rep_len(as.vector(offset), length(height))
   
   pos <- match.arg(pos)
@@ -9036,7 +9158,7 @@ BarText <- function(height, b, labels=height, beside = FALSE, horiz = FALSE,
         x <- offset + 1.2 * sign(height) * par("cxy")[1] * cex
         adjx <- Recode(x = factor(sign(x+offset)), "0"=1, "1"=-1, num = TRUE)
       }
-
+      
       pp <- Recycle(b=b, x=x, labels=labels, adjx=adjx, adjy=adjy)
       
       for(i in seq(attr(pp, "maxdim"))){
@@ -9047,7 +9169,7 @@ BarText <- function(height, b, labels=height, beside = FALSE, horiz = FALSE,
       
       res <- pp$x
       
-
+      
     } else {
       
       if(is.null(adj)) adjx <- 0.5
@@ -9062,37 +9184,75 @@ BarText <- function(height, b, labels=height, beside = FALSE, horiz = FALSE,
         y <- offset + sign(height) * par("cxy")[2] * cex
       if(pos=="bottomout")
         y <- offset - sign(height) * par("cxy")[2] * cex
-
+      
       text(x=b, y=y, labels=labels, xpd=TRUE, cex=cex, adj=adj, ...) # 
       
       res <- y
       
     }
-
+    
     # The xpd=TRUE means to not plot the text even if it is outside
     # of the plot area and par("cxy") gives the size of a typical
     # character in the current user coordinate system.
-
     
     
-
+    
+    
   } else {
-    if(horiz){
-      if(is.null(adj)) adj <- 0.5
+    
+    if(horiz)
+      shift <- par("cxy")[1] * cex * .5
+    else 
+      shift <- par("cxy")[2] * cex * .25
+    
+    
+    if(pos=="topout"){
+      x <- t(apply(offset + height, 2, cumsum) + sign(height) * shift)
+      adjx <- 0
+      
+    } else if(pos=="topin") {
+      x <- t(apply(offset + height, 2, cumsum) - sign(height) * shift)
+      adjx <- 1
+      
+    } else if(pos=="mid"){
       x <- t(apply(offset + height, 2, Midx, incl.zero=TRUE, cumulate=TRUE))
-      text(labels=t(labels), x=x, y=b, cex=cex, adj=adj, ...) 
+      adjx <- 0.5
+      
+    } else if(pos=="bottomin"){
+      x <- t(head(rbind(0, apply(offset + height, 2, cumsum)), -1) + sign(height) * shift)
+      adjx <- 0
+      
+    } else if(pos=="bottomout"){
+      x <- t(head(rbind(0, apply(offset + height, 2, cumsum)), -1) - sign(height) * shift)
+      adjx <- 1
+      
+    }
+    
+    if(horiz){
+      
+      if(is.null(adj)) adj <- 0.5
+      adjy <- 0.5
+      
+      text(labels=t(labels), x=x, y=b, cex=cex, adj=c(adjx, adjy), ...)
+      
     } else {
       if(is.null(adj)) adj <- 0.5
-      x <- t(apply(offset + height, 2, Midx, incl.zero=TRUE, cumulate=TRUE))
-      text(labels=t(labels), x=b, y=x, cex=cex, adj=adj, ...) 
+      adjy <- adjx
+      adjx <- 0.5
+      
+      text(labels=t(labels), x=b, y=x, cex=cex, adj=c(adjx, adjy), ...)
+      
     }
+    
     res <- x
     
   }
-
+  
   invisible(res)
-
+  
 }
+
+
 
 
 
@@ -11561,7 +11721,7 @@ Shade <- function(expr, col=par("fg"), breaks, density=10, n=101, xname = "x", .
     ll <- list(x = x)
     names(ll) <- xname
     # Calculates the function for given xval
-    yval <- c(0, eval(expr, envir = ll, enclos = parent.frame()), 0)
+    yval <- c(0, eval(expr, envir = ll, enclos = parent.frame(n=2)), 0)
     if (length(yval) != length(xval))
       stop("'expr' did not evaluate to an object of length 'n'")
 
@@ -11581,6 +11741,43 @@ Shade <- function(expr, col=par("fg"), breaks, density=10, n=101, xname = "x", .
 
 }
 
+
+
+PlotProbDist <- function(breaks, FUN, blab=NULL, main="", xlim=NULL, 
+                         col=NULL, density=7, 
+                         alab = LETTERS[1:(length(breaks)-1)], 
+                         alab_x=NULL, alab_y = NULL){
+  
+  fct <- FUN
+  FUN <- "fct"
+  FUN <- eval(parse(text = FUN))
+  
+  
+  if(is.null(col))
+    col <- Pal("Helsana")[1:length(breaks)]
+  
+  curve(FUN, xlim=xlim,
+        main=main,
+        type="n", las=1, ylab="density", xlab="")
+  
+  Shade(FUN, breaks=breaks,
+        col=col, density=density)
+  
+  if(is.null(alab_x))
+    alab_x <- DescTools::MoveAvg(c(xlim[1], head(breaks, -1)[-1], xlim[2]), order=2, align="left")
+  
+  if(is.null(alab_y))
+    alab_y <- ABCCoords("left")$xy$y
+  
+  if(!identical(alab, NA))
+    BoxedText(labels = alab,
+              x=alab_x, y=alab_y, cex=2, border=NA)
+  
+  if(!is.null(blab)){
+    mtext(blab, side=1, line=2.5, at=head(breaks, -1)[-1], font=2, cex=1.4)
+  }
+  
+}
 
 
 

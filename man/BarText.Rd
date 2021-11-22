@@ -34,7 +34,7 @@ BarText(height, b, labels = height, beside = FALSE, horiz = FALSE,
 \item{adj}{one or two values in [0, 1] which specify the x (and optionally y) adjustment of the labels. On most devices values outside that interval will also work.}
 
 \item{pos}{one of \code{"topout"}, \code{"topin"}, \code{"mid"}, \code{"bottomin"}, \code{"bottomout"}, 
-defining if the labels should be placed on top of the bars (inside or outside) or at the bottom of the bars (inside or outside). Will be ignored if \code{beside} is \code{FALSE}.}
+defining if the labels should be placed on top of the bars (inside or outside) or at the bottom of the bars (inside or outside).}
 
 \item{offset}{a vector indicating how much the bars should be shifted relative to the x axis.}
 

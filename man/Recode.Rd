@@ -13,7 +13,7 @@ Recode(x, ..., elselevel = NA, use.empty = FALSE, num = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{the factor whose levels are to be altered.
+  \item{x}{the factor whose levels are to be altered. If x is \code{character} it will be factorized (using \code{factor} defaults).
 %%     ~~Describe \code{x} here~~
 }
   \item{\dots}{the old levels (combined by \code{c}() if there are several) named with the new level:\cr

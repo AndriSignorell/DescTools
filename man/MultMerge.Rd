@@ -45,7 +45,13 @@ x2 <- SetNames(data.frame(v=letters[1:3], ww=11:13),
 x3 <- SetNames(data.frame(v=letters[12:16], wwww=22:26), 
                rownames=c("A", "C", "E", "G", "J"))
 
+# default is "merge by rownames" 
 MultMerge(x1, x2, x3)
+# ... which does not really make sense here
+
+# merge by column v
+MultMerge(x1, x2, x3, by="v")
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

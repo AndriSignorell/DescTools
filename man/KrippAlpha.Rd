@@ -35,11 +35,16 @@
 
 \note{Krippendorff's alpha coefficient is particularly useful where
  the level of measurement of classification data is higher than nominal
- or ordinal.}
+ or ordinal.
+ https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/s12874-016-0200-9
+ }
 \note{
 This function was previously published as \code{kripp.alpha()} in the  \pkg{irr} package and has been
 integrated here without logical changes, but with some adaptations in the result structure.
 }
+
+\seealso{ \code{\link{CronbachAlpha}}, \code{\link{KappaM}}, \code{\link{CohenKappa}}}
+
 \examples{# the "C" data from Krippendorff
  nmm <- matrix(c(1,1,NA,1,2,2,3,2,3,3,3,3,3,3,3,3,2,2,2,2,1,2,3,4,4,4,4,4,
                  1,1,2,1,2,2,2,2,NA,5,5,5,NA,NA,1,1,NA,NA,3,NA), nrow=4)

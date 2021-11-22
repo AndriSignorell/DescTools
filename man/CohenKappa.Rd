@@ -70,7 +70,7 @@ David Meyer <david.meyer@r-project.org>, some slight changes Andri Signorell <an
 }
 
 
-\seealso{ \code{\link{CronbachAlpha}}, \code{\link{KappaM}}
+\seealso{ \code{\link{CronbachAlpha}}, \code{\link{KappaM}}, \code{\link{KrippAlpha}}
 }
 \examples{
 # from Bortz et. al (1990) Verteilungsfreie Methoden in der Biostatistik, Springer, pp. 459
