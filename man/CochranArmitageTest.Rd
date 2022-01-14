@@ -10,14 +10,14 @@ The null hypothesis is the hypothesis of no trend, which means that the binomial
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-CochranArmitageTest(x, alternative = c("two.sided", "increasing", "decreasing"))
+CochranArmitageTest(x, alternative = c("two.sided", "one.sided"))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{a frequency table or a matrix.
 %%     ~~Describe \code{x} here~~
 }
-  \item{alternative}{a character string specifying the alternative hypothesis, must be one of \code{"two.sided"} (default), \code{"increasing"} or \code{"decreasing"}. You can specify just the initial letter.
+  \item{alternative}{a character string specifying the alternative hypothesis, must be one of \code{"two.sided"} (default), \code{"one.sided"}. You can specify just the initial letter.
 %%     ~~Describe \code{alternative} here~~
 }
 }
@@ -49,6 +49,8 @@ Eric Lecoutre <lecoutre@stat.ucl.ac.be>\cr
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{\code{\link{prop.trend.test}}
+
+\url{https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/procstat/procstat_freq_details76.htm}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
@@ -56,9 +58,8 @@ Eric Lecoutre <lecoutre@stat.ucl.ac.be>\cr
 dose <- matrix(c(10,9,10,7, 0,1,0,3), byrow=TRUE, nrow=2, dimnames=list(resp=0:1, dose=0:3))
 Desc(dose)
 
-CochranArmitageTest(dose, "increasing")
 CochranArmitageTest(dose)
-CochranArmitageTest(dose, "decreasing")
+CochranArmitageTest(dose, alternative="one.sided")
 
 
 # not exactly the same as in package coin:

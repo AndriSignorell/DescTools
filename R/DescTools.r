@@ -16138,9 +16138,16 @@ XLGetRange <- function (file = NULL, sheet = NULL, range = NULL, as.data.frame =
   
   if (echo) 
     cat(attr(lst, "call"))
-  
+
+  class(lst) <- c("xlrange", class(lst))
   return(lst)
   
+}
+
+
+
+as.matrix.xlrange <- function(x, ...){
+  SetNames(as.matrix(x[[1]]), rownames=x[[2]][,1], colnames=x[[3]][1,])
 }
 
 

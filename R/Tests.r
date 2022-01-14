@@ -3152,10 +3152,87 @@ print.mtest <- function (x, digits = 4L, ...) {
 
 
 
-CochranArmitageTest <- function(x, alternative = c("two.sided","increasing","decreasing")) {
+# scores <- function(x, MARGIN=1, method="table") {
+#   # MARGIN
+#   #	1 - row
+#   # 2 - columns
+#   
+#   # Methods for ranks are
+#   #
+#   # x - default
+#   # rank
+#   # ridit
+#   # modridit
+#   
+#   if(method=="table") {
+#     if (is.null(dimnames(x))) return(1:(dim(x)[MARGIN]))
+#     else {
+#       options(warn=-1)
+#       if
+#       (sum(is.na(as.numeric(dimnames(x)[[MARGIN]])))>0)
+#       {
+#         out=(1:(dim(x)[MARGIN]))
+#       }
+#       else
+#       {
+#         out=(as.numeric(dimnames(x)[[MARGIN]]))
+#       }
+#       options(warn=0)
+#     }
+#   }
+#   else	{
+#     ### method is a rank one
+#     Ndim=dim(x)[MARGIN]
+#     OTHERMARGIN=3-MARGIN
+#     
+#     ranks=c(0,(cumsum(apply(x,MARGIN,sum))))[1:Ndim]+(apply(x,MARGIN,sum)+1)
+#     /2
+#     if (method=="ranks") out=ranks
+#     if (method=="ridit") out=ranks/(sum(x))
+#     if (method=="modridit") out=ranks/(sum(x)+1)
+#   }
+#   
+#   return(out)
+# }
+# 
+
+
+scores <- function(x, MARGIN=1, method="table") { 
+
+  # original by Eric Lecoutre
+  # https://stat.ethz.ch/pipermail/r-help/2005-July/076371.html
+  
+  if (method == "table"){
+    
+    if (is.null(dimnames(x)) || any(is.na(N(dimnames(x)[[MARGIN]])))){
+      res <- 1:dim(x)[MARGIN]
+    } else {
+      res <- (N(dimnames(x)[[MARGIN]]))
+    }
+    
+  } else	{
+    ### method is a rank one
+    Ndim <- dim(x)[MARGIN]
+    OTHERMARGIN <- 3 - MARGIN
+    
+    ranks <- c(0, (cumsum(apply(x, MARGIN, sum))))[1:Ndim] + (apply(x, MARGIN, sum)+1) /2 
+    
+    if (method == "ranks") res <- ranks
+    if (method == "ridit") res <- ranks/(sum(x))
+    if (method == "modridit") res <- ranks/(sum(x)+1)
+  }
+  
+  return(res)
+  
+}
+
+
+
+
+CochranArmitageTest <- function(x, alternative = c("two.sided","one.sided")) {
 
   # based on:
-  # http://tolstoy.newcastle.edu.au/R/help/05/07/9442.html
+  # https://stat.ethz.ch/pipermail/r-help/2005-July/076371.html
   DNAME <- deparse(substitute(x))
 
   if (!(any(dim(x)==2)))
@@ -3166,8 +3243,8 @@ CochranArmitageTest <- function(x, alternative = c("two.sided","increasing","dec
   nidot <- apply(x, 1, sum)
   n <- sum(nidot)
 
-  # Ri <- scores(x, 1, "table")
-  Ri <- 1:dim(x)[1]
+  Ri <- scores(x, 1, "table")
+
   Rbar <- sum(nidot*Ri)/n
 
   s2 <- sum(nidot*(Ri-Rbar)^2)
@@ -3179,8 +3256,8 @@ CochranArmitageTest <- function(x, alternative = c("two.sided","increasing","dec
 
   PVAL <- switch(alternative,
                  two.sided = 2*pnorm(abs(z), lower.tail=FALSE),
-                 increasing = pnorm(z),
-                 decreasing = pnorm(z, lower.tail=FALSE) )
+                 one.sided = 1- pnorm(abs(z))
+                 )
 
   PARAMETER <- dim(x)[1]
   names(STATISTIC) <- "Z"

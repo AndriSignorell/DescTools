@@ -96,16 +96,16 @@ For more details we refer to Brown et al (2001) as well as Witting (1985).
 
 
 
-Some approaches for the confidence intervals can potentially yield negative results or values beyond 1. These would be reset such as not to exceed the range of [0, 1].
+Some approaches for the confidence intervals are capable of violating the [0, 1] boundaries and potentially yield negative results or values beyond 1. These would be truncated such as not to exceed the valid range of [0, 1].
 
-  And now, which interval should we use? The Wald interval often has inadequate coverage, particularly for small n and values of p close to 0 or 1. Conversely, the Clopper-Pearson Exact method is very conservative and tends to produce wider intervals than necessary. Brown et al. recommends the Wilson or Jeffreys methods for small n and Agresti-Coull, Wilson, or Jeffreys, for larger n as providing more reliable coverage than the alternatives. Also note that the point estimate for the Agresti-Coull method is slightly larger than for other methods because of the way this interval is calculated.
+And now, which interval should we use? The Wald interval often has inadequate coverage, particularly for small n and values of p close to 0 or 1. Conversely, the Clopper-Pearson Exact method is very conservative and tends to produce wider intervals than necessary. Brown et al. recommends the Wilson or Jeffreys methods for small n and Agresti-Coull, Wilson, or Jeffreys, for larger n as providing more reliable coverage than the alternatives. Also note that the point estimate for the Agresti-Coull method is slightly larger than for other methods because of the way this interval is calculated.
 
 }
 \value{
   A vector with 3 elements for estimate, lower confidence intervall and upper for the upper one.
  }
 
-\note{ The base of this function once was \code{binomCI()} from the \pkg{SLmisc} package. In the meantime, the code has been updated several times  and has undergone many additions and bugfixes.
+\note{ The base of this function once was \code{binomCI()} from the \pkg{SLmisc} package. In the meantime, the code has been updated on several occasions and it has undergone numerous extensions and bug fixes.
 }
 
 
