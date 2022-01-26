@@ -11,7 +11,7 @@
 JonckheereTerpstraTest(x, \dots)
 
 \method{JonckheereTerpstraTest}{default}(x, g, alternative = c("two.sided", "increasing", "decreasing"), 
-                       nperm = NULL, \dots)
+                       nperm = NULL, exact = NULL, \dots)
 
 \method{JonckheereTerpstraTest}{formula}(formula, data, subset, na.action, \dots)
 
@@ -30,6 +30,7 @@ JonckheereTerpstraTest(x, \dots)
     By default the variables are taken from \code{environment(formula)}.}  
   \item{subset}{an optional vector specifying a subset of observations to be used.}  
   \item{na.action}{a function which indicates what should happen when the data contain NAs. Defaults to \code{getOption("na.action")}.}  
+  \item{exact}{logical, defining if the exact test should be calculated. If left to \code{NULL}, the function uses the exact test up to a samplesize of 100 and falls back to normal approximation for larger samples. The exact procedure can not be applied to samples containing ties. }
   \item{\dots}{further argument to be passed to methods.}
 }
 
@@ -71,16 +72,21 @@ JonckheereTerpstraTest(x, g)
 JonckheereTerpstraTest(x, g, nperm=5000)
 
 # Duller, S. 222
-coffee <- data.frame(
-  time=c(
-  447,396,383,410,
-  438,521,468,391,504,472,
-  513,543,506,489,407), 
-  grp=Untable(c(4,6,5), type="ordered")[,1]
-)  
+coffee <- list(
+  c_4=c(447,396,383,410),
+  c_2=c(438,521,468,391,504,472),
+  c_0=c(513,543,506,489,407))  
 
-# the formula interface:
-JonckheereTerpstraTest(time ~ grp, data=coffee)
+# the list interface:
+JonckheereTerpstraTest(coffee)
+
+# the formula interface
+breaking <- data.frame(
+  speed=c(20,25,25,25,25,30,30,30,35,35),
+  distance=c(48,33,59,48,56,60,101,67,85,107))
+
+JonckheereTerpstraTest(distance ~ speed, breaking, alternative="increasing")
+
 }
 
 \references{

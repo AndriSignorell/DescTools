@@ -1,5 +1,6 @@
 \name{BoxedText}
 \alias{BoxedText}
+\alias{BoxedText.default}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Add Text in a Box to a Plot
 %%  ~~function to do ... ~~
@@ -8,7 +9,9 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-BoxedText(x, y = NULL, labels = seq_along(x), adj = NULL, pos = NULL, offset = 0.5, 
+BoxedText(x, ...)
+
+\method{BoxedText}{default}(x, y = NULL, labels = seq_along(x), adj = NULL, pos = NULL, offset = 0.5, 
           vfont = NULL, cex = 1, txt.col = NULL, font = NULL, srt = 0, 
           xpad = 0.2, ypad = 0.2, density = NULL, angle = 45, col = "white", 
           border = par("fg"), lty = par("lty"), lwd = par("lwd"), ...)

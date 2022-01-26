@@ -4,7 +4,7 @@
 \title{Draw Confidence Band
 %%  ~~function to do ... ~~
 }
-\description{Draw a (confidence) band. Just a wrapper for polygon.
+\description{Draw a band using a simple syntax. Just a wrapper for the function \code{polygon()} typically used to draw confidence bands.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{

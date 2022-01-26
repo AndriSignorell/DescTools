@@ -1624,53 +1624,70 @@ SiegelTukeyTest.default <- function(x, y, adjust.median = FALSE,
 
 JonckheereTerpstraTest <- function (x, ...)  UseMethod("JonckheereTerpstraTest")
 
+
 JonckheereTerpstraTest.formula <- function (formula, data, subset, na.action, ...) {
 
-  if (missing(formula) || (length(formula) != 3L))
+  if (missing(formula) || (length(formula) != 3L)) 
     stop("'formula' missing or incorrect")
   m <- match.call(expand.dots = FALSE)
-  if (is.matrix(eval(m$data, parent.frame())))
+  if (is.matrix(eval(m$data, parent.frame()))) 
     m$data <- as.data.frame(data)
-  m[[1L]] <- as.name("model.frame")
+  m[[1L]] <- quote(stats::model.frame)
+  m$... <- NULL
   mf <- eval(m, parent.frame())
+  if (length(mf) > 2L) 
+    stop("'formula' should be of the form response ~ group")
   DNAME <- paste(names(mf), collapse = " by ")
   names(mf) <- NULL
-  y <- DoCall("JonckheereTerpstraTest", as.list(mf))
+  y <- DoCall("JonckheereTerpstraTest", c(as.list(mf), list(...)))
   y$data.name <- DNAME
   y
+
 }
 
-JonckheereTerpstraTest.default <- function (x, g, alternative = c("two.sided", "increasing", "decreasing"), nperm=NULL, ...) {
+
+
+
+
+JonckheereTerpstraTest.default <- function (x, g, 
+                                            alternative = c("two.sided", "increasing", "decreasing"), 
+                                            nperm=NULL, exact=NULL,...) {
+  
 
   if (is.list(x)) {
-    if (length(x) < 2L)
+    if (length(x) < 2L) 
       stop("'x' must be a list with at least 2 elements")
-    DNAME <- deparse(substitute(x))
+    if (!missing(g)) 
+      warning("'x' is a list, so ignoring argument 'g'")
+    DNAME <- deparse1(substitute(x))
     x <- lapply(x, function(u) u <- u[complete.cases(u)])
+    if (!all(sapply(x, is.numeric))) 
+      warning("some elements of 'x' are not numeric and will be coerced to numeric")
     k <- length(x)
-    l <- sapply(x, "length")
-    if (any(l == 0))
+    l <- lengths(x)
+    if (any(l == 0L)) 
       stop("all groups must contain data")
-    g <- factor(rep(1:k, l))
+    g <- ordered(rep.int(seq_len(k), l))
     x <- unlist(x)
-  }
-  else {
-    if (length(x) != length(g))
+    
+  } else {
+    
+    if (length(x) != length(g)) 
       stop("'x' and 'g' must have the same length")
-    DNAME <- paste(deparse(substitute(x)), "and", deparse(substitute(g)))
+    DNAME <- paste(deparse1(substitute(x)), "by", 
+                   deparse1(substitute(g)))
     OK <- complete.cases(x, g)
     x <- x[OK]
     g <- g[OK]
-    if (!all(is.finite(g)))
-      stop("all group levels must be finite")
-    g <- factor(g)
+    g <- ordered(g)
     k <- nlevels(g)
-    if (k < 2)
+    if (k < 2L) 
       stop("all observations are in the same group")
   }
   n <- length(x)
-  if (n < 2)
+  if (n < 2L) 
     stop("not enough observations")
+
 
   # start calculating
 
@@ -1688,6 +1705,11 @@ JonckheereTerpstraTest.default <- function (x, g, alternative = c("two.sided", "
     zz$pdf
   }
 
+  if(!is.numeric(g) & !is.ordered(g)) stop("group should be numeric or ordered factor")
+  
+  alternative <- match.arg(alternative)
+  
+  
   jtperm.p <- function(x, ng, gsize, cgsize, alternative, nperm) {
     # this function computes the pdf using the convolution by Mark van de Wiel
 
@@ -1752,9 +1774,6 @@ JonckheereTerpstraTest.default <- function (x, g, alternative = c("two.sided", "
   #   pJCK(piece, grp)
 
 
-  if(!is.numeric(x)) stop("data values should be numeric")
-  if(!is.numeric(g) & !is.ordered(g)) stop("group should be numeric or ordered factor")
-  alternative <- match.arg(alternative)
   METHOD <- "Jonckheere-Terpstra test"
   PERM <- !missing(nperm)
   n <- length(x)
@@ -1777,24 +1796,38 @@ JonckheereTerpstraTest.default <- function (x, g, alternative = c("two.sided", "
   jtrsum <- 2*jtmean - jtrsum
   STATISTIC <- jtrsum
   names(STATISTIC) <- "JT"
+  
+  if(is.null(exact)) {
+    exact <- !(n > 100 | TIES)
+    if(!exact)
+      warning("Sample size > 100 or data with ties \n p-value based on normal approximation. Specify nperm for permutation p-value")
+  }
+  
+  if(exact & TIES){
+    warning("Sample data with ties \n p-value based on normal approximation. Specify nperm for permutation p-value.")
+    exact <- FALSE
+  }
+  
   if (PERM) {
     PVAL <- jtperm.p(x, ng, gsize, cgsize, alternative, nperm)
-  } else {
-    if (n > 100 | TIES) {
-      warning("Sample size > 100 or data with ties \n p-value based on normal approximation. Specify nperm for permutation p-value")
-      zstat <- (STATISTIC-jtmean)/sqrt(jtvar)
+  
+    } else {
+    if(!exact){
+      zstat <- (STATISTIC - jtmean) / sqrt(jtvar)
       PVAL <- pnorm(zstat)
       PVAL <- switch(alternative,
-                     "two.sided" = 2*min(PVAL, 1-PVAL, 1),
+                     "two.sided" = 2 * min(PVAL, 1-PVAL, 1),
                      "increasing" = 1-PVAL,
                      "decreasing" = PVAL)
+      
     } else {
       dPVAL <- sum(jtpdf(gsize)[1:(jtrsum+1)])
       iPVAL <- 1-sum(jtpdf(gsize)[1:(jtrsum)])
       PVAL <- switch(alternative,
-                     "two.sided" = 2*min(iPVAL, dPVAL, 1),
+                     "two.sided" = 2 * min(iPVAL, dPVAL, 1),
                      "increasing" = iPVAL,
                      "decreasing" = dPVAL)
+      
     }
   }
 
