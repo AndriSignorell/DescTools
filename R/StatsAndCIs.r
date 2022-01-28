@@ -5150,77 +5150,84 @@ TschuprowT <- function(x, y = NULL, correct = FALSE, ...){
 # author: David Meyer
 # see also: kappa in library(psych)
 
-CohenKappa <- function (x, y = NULL, weights = c("Unweighted", "Equal-Spacing", "Fleiss-Cohen"), conf.level = NA, ...) {
-
-  if (is.character(weights)) weights <- match.arg(weights)
-
-  if(!is.null(y)) {
+CohenKappaA <- function (x, y = NULL, 
+                         weights = c("Unweighted", "Equal-Spacing", "Fleiss-Cohen"), 
+                         conf.level = NA, ...) {
+  
+  if (is.character(weights)) 
+    weights <- match.arg(weights)
+  
+  if (!is.null(y)) {
     # we can not ensure a reliable weighted kappa for 2 factors with different levels
     # so refuse trying it... (unweighted is no problem)
-
-    if( !identical(weights, "Unweighted")) stop("Vector interface for weighted Kappa is not supported. Provide confusion matrix.")
-
+    
+    if (!identical(weights, "Unweighted")) 
+      stop("Vector interface for weighted Kappa is not supported. Provide confusion matrix.")
+    
     # x and y must have the same levels in order to build a symmetric confusion matrix
     x <- factor(x)
     y <- factor(y)
     lvl <- unique(c(levels(x), levels(y)))
-    x <- factor(x, levels=lvl)
-    y <- factor(y, levels=lvl)
+    x <- factor(x, levels = lvl)
+    y <- factor(y, levels = lvl)
     x <- table(x, y, ...)
-
+    
   } else {
     d <- dim(x)
-    if (d[1L] != d[2L]) stop("x must be square matrix if provided as confusion matrix")
+    if (d[1L] != d[2L]) 
+      stop("x must be square matrix if provided as confusion matrix")
   }
-
+  
   d <- diag(x)
   n <- sum(x)
   nc <- ncol(x)
   colFreqs <- colSums(x)/n
   rowFreqs <- rowSums(x)/n
-
-  kappa <- function(po, pc) (po - pc)/(1 - pc)
-  std <- function(po, pc, W = 1) sqrt(sum(W * W * po * (1 - po))/crossprod(1 - pc)/n)
-
-  po <- sum(d)/n
-  pc <- crossprod(colFreqs, rowFreqs)
-
-  k <- as.vector(kappa(po, pc))
-  s <- as.vector(std(po, pc))
-
-  W <- if (is.matrix(weights))
-    weights
-  else if (weights == "Equal-Spacing")
-    1 - abs(outer(1:nc, 1:nc, "-"))/(nc - 1)
-  else # weightx == "Fleiss-Cohen"
-    1 - (abs(outer(1:nc, 1:nc, "-"))/(nc - 1))^2
-
-  pow <- sum(W * x)/n
-  pcw <- sum(W * colFreqs %o% rowFreqs)
-
-  kw <- as.vector(kappa(pow, pcw))
-  sw <- as.vector(std(x/n, 1 - pcw, W))
-
-  #   structure(list(Unweighted = c(value = k, ASE = s), Weighted = c(value = kw,
-  #       ASE = sw), Weights = W), class = "Kappa")
-
-  if (is.na(conf.level)) {
-    if(identical(weights, "Unweighted"))
-      res <- k
-    else
-      res <- kw
-  } else {
-    if(identical(weights, "Unweighted")) {
-      ci <- k + c(1,-1) * qnorm((1-conf.level)/2) * s
-      res <- c("kappa"=k, lwr.ci=ci[1], upr.ci=ci[2])
-    } else {
-      ci <- kw + c(1,-1) * qnorm((1-conf.level)/2) * sw
-      res <- c("kappa"=kw, lwr.ci=ci[1], upr.ci=ci[2])
-    }
+  
+  kappa <- function(po, pc) {
+    (po - pc)/(1 - pc)
   }
+  
+  std <- function(p, pc, k, W = diag(1, ncol = nc, nrow = nc)) {
+    sqrt((sum(p * sweep(sweep(W, 1, W %*% colSums(p) * (1 - k)), 
+                        2, W %*% rowSums(p) * (1 - k))^2) - 
+            (k - pc * (1 - k))^2) / crossprod(1 - pc)/n)
+  }
+  
+  if(identical(weights, "Unweighted")) {
+    po <- sum(d)/n
+    pc <- as.vector(crossprod(colFreqs, rowFreqs))
+    k <- kappa(po, pc)
+    s <- as.vector(std(x/n, pc, k))
+    
+  } else {  
+    
+    # some kind of weights defined
+    W <- if (is.matrix(weights)) 
+      weights
+    else if (weights == "Equal-Spacing") 
+      1 - abs(outer(1:nc, 1:nc, "-"))/(nc - 1)
+    else # weights == "Fleiss-Cohen"
+      1 - (abs(outer(1:nc, 1:nc, "-"))/(nc - 1))^2
+    
+    po <- sum(W * x)/n
+    pc <- sum(W * colFreqs %o% rowFreqs)
+    k <- kappa(po, pc)
+    s <- as.vector(std(x/n, pc, k, W))
+  }
+  
+  if (is.na(conf.level)) {
+    res <- k
+  } else {
+    ci <- k + c(1, -1) * qnorm((1 - conf.level)/2) * s
+    res <- c(kappa = k, lwr.ci = ci[1], upr.ci = ci[2])
+  }
+  
   return(res)
-
+  
 }
+
+
 
 # KappaTest <- function(x, weights = c("Equal-Spacing", "Fleiss-Cohen"), conf.level = NA) {
 # to do, idea is to implement a Kappa test for H0: kappa = 0 as in
