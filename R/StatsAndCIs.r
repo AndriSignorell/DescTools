@@ -5150,7 +5150,7 @@ TschuprowT <- function(x, y = NULL, correct = FALSE, ...){
 # author: David Meyer
 # see also: kappa in library(psych)
 
-CohenKappaA <- function (x, y = NULL, 
+CohenKappa <- function (x, y = NULL, 
                          weights = c("Unweighted", "Equal-Spacing", "Fleiss-Cohen"), 
                          conf.level = NA, ...) {
   

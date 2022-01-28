@@ -19,11 +19,11 @@ CohenKappa(x, y = NULL, weights = c("Unweighted", "Equal-Spacing", "Fleiss-Cohen
   \item{x}{can either be a numeric vector or a confusion matrix. In the latter case x must be a square matrix.
 %%     ~~Describe \code{x} here~~
 }
- \item{y}{NULL (default) or a vector with compatible dimensions to \code{x}. If y is provided, \code{table(x, y, \dots)} is calculated. In order to get a square matrix, x and y are
+ \item{y}{NULL (default) or a vector with compatible dimensions to \code{x}. If \code{y} is provided, \code{table(x, y, \dots)} is calculated. In order to get a square matrix, \code{x} and \code{y} are
  coerced to factors with synchronized levels. (Note, that the vector interface can not be used together with weights.)
 %%     ~~Describe \code{y} here~~
 }
-  \item{weights}{either one out of \code{"Unweighted"}, \code{"Equal-Spacing"}, \code{"Fleiss-Cohen"}, which will calculate the weights accordingly, or a user-specified matrix having the same dimensions as x containing the weights for each cell.
+  \item{weights}{either one out of \code{"Unweighted"} (default), \code{"Equal-Spacing"}, \code{"Fleiss-Cohen"}, which will calculate the weights accordingly, or a user-specified matrix having the same dimensions as x containing the weights for each cell.
 
 %%     ~~Describe \code{weights} here~~
 }
@@ -41,8 +41,7 @@ The equal-spacing weights (see Cicchetti and Allison 1971) are defined by \deqn{
 The latter attaches greater importance to closer disagreements.\cr
 \cr
 Data can be passed to the function either as matrix or data.frame in \code{x}, or as two numeric vectors \code{x} and \code{y}. In the latter case \code{table(x, y, ...)} is calculated. Thus \code{NA}s are handled the same way as \code{\link{table}} does. Note that tables are by default calculated \bold{without} NAs. The specific argument \code{useNA} can be passed via the ... argument.\cr
-The vector interface \code{(x, y)} is only supported for the calculation of unweighted kappa. For 2 factors with different levels we cannot ensure a reproducible construction of a confusion table, which is independent of the order of x and y. All weights might lead to inconsistent results.
-Thus the function will raise an error in such cases.
+The vector interface \code{(x, y)} is only supported for the calculation of unweighted kappa. This is because we cannot ensure a safe construction of a confusion table for two factors with different levels, which is independent of the order of the levels in \code{x} and \code{y}. So weights might lead to inconsistent results. The function will raise an error in this case.
 %%  ~~ If necessary, more details than the description above ~~
 }
 
@@ -66,7 +65,7 @@ of Scoring EEG Sleep Recordings \emph{American Journal of EEG Technology}, 11,
 101-109.
 }
 \author{
-David Meyer <david.meyer@r-project.org>, some slight changes Andri Signorell <andri@signorell.net>
+David Meyer <david.meyer@r-project.org>, some changes and tweaks Andri Signorell <andri@signorell.net>
 }
 
 
