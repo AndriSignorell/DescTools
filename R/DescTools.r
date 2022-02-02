@@ -2458,14 +2458,14 @@ Recode <- function(x, ..., elselevel=NA, use.empty=FALSE, num=FALSE){
 
 
 
-RevCode <- function (x) {
+RevCode <- function (x, ...) {
   
   if(is.factor(x)) {
     levels(x) <- rev(levels(x))
     res <- factor(x, levels=rev(levels(x)))
     
   } else if(is.numeric(x)){
-    res <- (min(x) + max(x) - x)
+    res <- (min(x, ...) + max(x, ...) - x)
     
   } else if(is.logical(x)) {
     res <- as.logical(1 - x)

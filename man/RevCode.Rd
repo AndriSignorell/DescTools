@@ -9,10 +9,11 @@ Let's say we have a Likert scale from 1 to 5 and we want to recode the variable 
 }
 
 \usage{
-RevCode(x)
+RevCode(x, ...)
 }
 \arguments{
   \item{x}{a numerical or logical vector, or a factor.}
+  \item{\dots}{the dots are sent to \code{min}/\code{max}, such as possibly to remove \code{NA}s before reversing numeric values.}
 }
 
 \details{The function recodes based on:

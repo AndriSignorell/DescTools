@@ -1149,26 +1149,38 @@ Gmean <- function (x, method = c("classic", "boot"),
   # see also: http://www.stata.com/manuals13/rameans.pdf
 
   if(na.rm) x <- na.omit(x)
-  is.na(x) <- x < 0
+  
+  if(any(is.na(x) | (is_neg <- x < 0))){
+    
+    if(any(na.omit(is_neg))) 
+      warning("x contains negative values")
 
-  if(any(x==0)){
+    if(is.na(conf.level))
+      NA
+    else
+      c(NA, NA, NA)
+    
+  } else if(any(x==0)) {
+    
     if(is.na(conf.level))
       0
-
     else
       c(0, NA, NA)
-
+    
   } else {
-
+    
     if(is.na(conf.level))
       exp(mean(log(x)))
-
+    
     else
       exp(MeanCI(x=log(x), method = method,
                  conf.level = conf.level, sides = sides, ...))
   }
 
 }
+
+
+
 
 
 Gsd <- function (x, na.rm = FALSE) {
