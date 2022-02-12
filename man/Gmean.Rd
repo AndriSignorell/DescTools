@@ -91,7 +91,7 @@ x <- c(5,4,-4,-5,0,0,NA,7)
 Gmean(x[x>0], na.rm=TRUE, conf.level=0.95)
 
 # add 5 to original values and remove zeros
-Gmean(NAIfZero(x+5), na.rm=T, conf.level = 0.95)
+Gmean(NAIfZero(x+5), na.rm=TRUE, conf.level = 0.95)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

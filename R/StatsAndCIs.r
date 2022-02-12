@@ -488,7 +488,7 @@ Median.Freq <- function(x, breaks, ...)  {
 
 
 Quantile <- function(x, weights = NULL, probs = seq(0, 1, 0.25),
-                             na.rm = FALSE, names = TRUE, type = 7) {
+                             na.rm = FALSE, type = 7) {
 
   sorted <- FALSE
 
