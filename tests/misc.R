@@ -14,7 +14,7 @@ library(DescTools)
 # 
 
 set.seed(45)
-(z <- as.numeric(names(w <- table(x <- sample(-10:20, size=50, r=T)))))
+(z <- as.numeric(names(w <- table(x <- sample(-10:20, size=50, r=TRUE)))))
 
 stopifnot(all(
   identical(Mode(5), structure(5, freq = 1L))

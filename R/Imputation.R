@@ -12,7 +12,7 @@
 
 .CentralValue <- function(x, weights=NULL) {
   if (is.numeric(x)) {
-    if (is.null(weights)) median(x,na.rm=T)
+    if (is.null(weights)) median(x,na.rm=TRUE)
     else if ((s <- sum(weights)) > 0) sum(x*(weights/s)) else NA
   } else {
     x <- as.factor(x)
@@ -35,7 +35,7 @@
 # Luis Torgo, Mar 2009, Nov 2011
 # =====================================================
 
-ImputeKnn <- function(data, k=10, scale=T, meth='weighAvg', distData=NULL) {
+ImputeKnn <- function(data, k=10, scale=TRUE, meth='weighAvg', distData=NULL) {
   
   n <- nrow(data)  
   if (!is.null(distData)) {

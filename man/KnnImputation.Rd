@@ -14,7 +14,7 @@ If meth='median' it uses the median/most frequent value,
 instead.
 }
 \usage{
-ImputeKnn(data, k = 10, scale = T, meth = "weighAvg", distData = NULL)
+ImputeKnn(data, k = 10, scale = TRUE, meth = "weighAvg", distData = NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -26,7 +26,7 @@ The number of nearest neighbours to use (defaults to 10)
 }
   \item{scale}{
 Boolean setting if the data should be scale before finding the nearest neighbours (defaults
-to T)
+to TRUE)
 }
   \item{meth}{
 String indicating the method used to calculate the value to fill in each
