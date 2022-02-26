@@ -19,7 +19,7 @@
 #  The bootstrap percentile t method is used.
 #
 #  The default amount of trimming is tr=.2
-#  side=T indicates two-sided method using absolute value of the
+#  side=TRUE indicates two-sided method using absolute value of the
 #  test statistics within the bootstrap; otherwise the equal-tailed method
 #  is used.
 #
@@ -36,7 +36,7 @@
 # xcen<-x-mean(x,tr)
 # ycen<-y-mean(y,tr)
 # if(!side){
-#   if(pr)print("NOTE: p-value computed only when side=T")
+#   if(pr)print("NOTE: p-value computed only when side=TRUE")
 # }
 # test<-(mean(x,tr)-mean(y,tr))/sqrt(trimse(x,tr=tr)^2+trimse(y,tr=tr)^2)
 # datax<-matrix(sample(xcen,size=length(x)*nboot,replace=TRUE),nrow=nboot)
