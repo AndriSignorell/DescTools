@@ -404,7 +404,7 @@ Median <- function(x, ...)
 
 
 Median.default <- function(x, weights = NULL, na.rm = FALSE, ...) {
-  Quantile(x, weights, probs=0.5, na.rm=na.rm)
+  Quantile(x, weights, probs=0.5, na.rm=na.rm, names=FALSE)
 
 }
 
@@ -487,9 +487,29 @@ Median.Freq <- function(x, breaks, ...)  {
 #' @export
 
 
-Quantile <- function(x, weights = NULL, probs = seq(0, 1, 0.25),
-                             na.rm = FALSE, type = 7) {
+# further weighted quantiles in Hmisc and modi, both on CRAN
 
+Quantile <- function(x, weights = NULL, probs = seq(0, 1, 0.25),
+                             na.rm = FALSE, names=TRUE, type = 7, digits=7) {
+
+  
+  # this is a not exported stats function
+  format_perc <- function (x, digits = max(2L, getOption("digits")), probability = TRUE, 
+            use.fC = length(x) < 100, ...) {
+    if (length(x)) {
+      if (probability) 
+        x <- 100 * x
+      ans <- paste0(if (use.fC) 
+        formatC(x, format = "fg", width = 1, digits = digits)
+        else format(x, trim = TRUE, digits = digits, ...), "%")
+      ans[is.na(x)] <- ""
+      ans
+    }
+    else character(0)
+  }
+  
+  
+  
   sorted <- FALSE
 
   # initializations
@@ -539,18 +559,59 @@ Quantile <- function(x, weights = NULL, probs = seq(0, 1, 0.25),
   else rw <- cumsum(weights)/sum(weights)
   
   # obtain quantiles
-  q <- sapply(probs,
-              function(p) {
-                if (p == 0) return(x[1])
-                else if (p == 1) return(x[n])
-                select <- min(which(rw >= p))
-                if(rw[select] == p) mean(x[select:(select+1)])
-                else x[select]
-              })
+  # currently only type 5
+  if (type == 5) {
+    qs <- sapply(probs,
+                function(p) {
+                  if (p == 0) return(x[1])
+                  else if (p == 1) return(x[n])
+                  select <- min(which(rw >= p))
+                  if(rw[select] == p) mean(x[select:(select+1)])
+                  else x[select]
+                })
+    
+  } else if(type == 7){
+    
+    if(is.null(weights)){
+      index <- 1 + max(n - 1, 0) * probs
+      lo <- pmax(floor(index), 1)
+      hi <- ceiling(index)
+      x <- sort(x, partial = if (n == 0) 
+        numeric()
+        else unique(c(lo, hi)))
+      qs <- x[lo]
+      i <- which((index > lo & x[hi] != qs))
+      h <- (index - lo)[i]
+      qs[i] <- (1 - h) * qs[i] + h * x[hi[i]]
+    
+    } else {
+      n     <- sum(weights)
+      ord <- 1 + (n - 1) * probs
+      low   <- pmax(floor(ord), 1)
+      high  <- pmin(low + 1, n)
+      ord <- ord %% 1
+      ## Find low and high order statistics
+      ## These are minimum values of x such that the cum. freqs >= c(low,high)
+      allq <- approx(cumsum(weights), x, xout=c(low, high), 
+                     method='constant', f=1, rule=2)$y
+      k <- length(probs)
+      qs <- (1 - ord)*allq[1:k] + ord*allq[-(1:k)]
+    }
+    
+  } else {
+    qs <- NA
+    warning(gettextf("type %s is not implemented", type))
+  }
   
   # return(unname(q))
   # why unname? change to named.. 14.10.2020
-  return(q)
+  
+  if (names && length(probs) > 0L) {
+    stopifnot(is.numeric(digits), digits >= 1)
+    names(qs) <- format_perc(probs, digits = digits)
+  }
+  
+  return(qs)
   
 }
 

@@ -11954,7 +11954,12 @@ PlotCorr <- function(x, cols = colorRampPalette(c(Pal()[2], "white", Pal()[1]), 
   if(yaxt!="n") axis(side=2, at=1:ncol(x), labels=colnames(x), cex.axis=cex.axis, las=las, lwd=-1)
 
   if((is.list(args.colorlegend) || is.null(args.colorlegend))){
-    args.colorlegend1 <- list( labels=sprintf("%.1f", seq(-1,1, length=length(cols)/2+1))
+    
+    # bugfix dmurdoch 7.2.2022
+    digits <- round(1 - log10(diff(range(breaks))))
+    args.colorlegend1 <- list( labels=sprintf("%.*f", digits,
+                                              breaks[seq(1,length(breaks), by = 2)])
+    # args.colorlegend1 <- list( labels=sprintf("%.1f", seq(-1,1, length=length(cols)/2+1))
       , x=nrow(x)+0.5 + nrow(x)/20, y=ncol(x)+0.5
       , width=nrow(x)/20, height=ncol(x), cols=cols, cex=0.8 )
     if ( !is.null(args.colorlegend) ) { args.colorlegend1[names(args.colorlegend)] <- args.colorlegend }
