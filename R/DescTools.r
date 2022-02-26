@@ -11889,9 +11889,9 @@ PlotPyramid <- function(lx, rx = NA, ylab = "",
   lborder <- rep(border[seq_along(border) %% 2 == 1], times=length(lx))
   rborder <- rep(border[seq_along(border) %% 2 == 0], times=length(rx))
 
-  barplot(-lx, horiz=TRUE, col=lcol, add=T, axes=FALSE, names.arg="",
+  barplot(-lx, horiz=TRUE, col=lcol, add=TRUE, axes=FALSE, names.arg="",
           offset=-gapwidth/2, border=lborder, ...)
-  barplot(rx, horiz=TRUE, col=rcol, add=T, axes=FALSE, names.arg="",
+  barplot(rx, horiz=TRUE, col=rcol, add=TRUE, axes=FALSE, names.arg="",
           offset=gapwidth/2, border=rborder, ...)
 
   oldpar <- par(xpd=TRUE); on.exit(par(oldpar))
@@ -11954,7 +11954,7 @@ PlotCorr <- function(x, cols = colorRampPalette(c(Pal()[2], "white", Pal()[1]), 
   if(yaxt!="n") axis(side=2, at=1:ncol(x), labels=colnames(x), cex.axis=cex.axis, las=las, lwd=-1)
 
   if((is.list(args.colorlegend) || is.null(args.colorlegend))){
-    
+
     # bugfix dmurdoch 7.2.2022
     digits <- round(1 - log10(diff(range(breaks))))
     args.colorlegend1 <- list( labels=sprintf("%.*f", digits,
@@ -13219,7 +13219,7 @@ SaveAs <- function(x, objectname, file, ...){
 #   on.exit(par(old.par))
 # 
 #   split.screen(figs=matrix(c(0,1,0.33,1, 0,0.5,0,0.33, 0.5,1,0,0.33),
-#                            ncol=4, byrow=T), erase=TRUE)
+#                            ncol=4, byrow=TRUE), erase=TRUE)
 # 
 #   ## screen(1)
 #   plot.ts(series, cex=0.7, ylab=deparse(substitute(series)), ...)
@@ -13275,7 +13275,7 @@ PlotACF <- function (series, lag.max = 10 * log10(length(series)), main=NULL,
   on.exit(par(old.par))
   
   split.screen(figs = matrix(c(0, 1, 0.33, 1, 0, 0.5, 0, 0.33, 
-                               0.5, 1, 0, 0.33), ncol = 4, byrow = T), erase = TRUE)
+                               0.5, 1, 0, 0.33), ncol = 4, byrow = TRUE), erase = TRUE)
   
   plot.ts(series, cex = cex, ylab="", xlab="", main=main, ...)
   
@@ -13375,8 +13375,8 @@ PlotMonth <- function(x, type = "l", labels, xlab = "", ylab = deparse(substitut
   m <- tapply(x, cx, mean)
   if(cx[1] != 1 || cx[length(x)] != f) {
     x <- ts(c(rep(NA, cx[1] - 1), x, rep(NA, f - cx[length(x)])),
-            start = start(x, format = T)[1], end = c(end(x, format
-                                                         = T)[1], f), frequency = f)
+            start = start(x, format = TRUE)[1], end = c(end(x, format
+                                                         = TRUE)[1], f), frequency = f)
     cx <- cycle(x)
   }
   i <- order(cx)
@@ -13399,7 +13399,7 @@ PlotMonth <- function(x, type = "l", labels, xlab = "", ylab = deparse(substitut
   ddttl <- match(c("main", "sub", "axes", "ylim"), names(dotdot), nomatch
                  = 0)
   ddttl <- ddttl[ddttl != 0]
-  add.axes <- T
+  add.axes <- TRUE
   if(length(ddttl)) {
     if(any(names(dotdot) == "axes"))
       add.axes <- dotdot$axes
@@ -15724,7 +15724,7 @@ Phrase <- function(x, g, glabels=NULL, xname=NULL, unit=NULL, lang="engl", na.rm
 # txt <- Desc( temperature ~ driver, data=d.pizza )
 # WrdInsTable( txt, wrd=wrd )
 
-# WrdPlot(PlotDescNumFact( temperature ~ driver, data=d.pizza, newwin=T )
+# WrdPlot(PlotDescNumFact( temperature ~ driver, data=d.pizza, newwin=TRUE )
 # , wrd=wrd, width=17, crop=c(0,0,60,0))
 
 
@@ -16711,7 +16711,7 @@ as.statafactor <- function(x){
 # wrdInsertText( "Mittelwerte zusammengefasst\n\n" )
 # wrdInsertSummary(
 # signif( cbind(
-# t(as.data.frame( lapply( d.frm, tapply, grp, "mean", na.rm=T )))
-# , tot=mean(d.frm, na.rm=T)
+# t(as.data.frame( lapply( d.frm, tapply, grp, "mean", na.rm=TRUE )))
+# , tot=mean(d.frm, na.rm=TRUE)
 # ), 3)
 
