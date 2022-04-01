@@ -142,6 +142,28 @@ idx <- order.dendrogram(as.dendrogram(
           hclust(dist(m), method = "mcquitty")
        ))
 PlotCorr(m[idx, idx])
+
+
+# plot only upper triangular matrix and move legend to bottom
+m <- cor(mtcars)
+m[lower.tri(m, diag = T)] <- NA
+
+p <- PairApply(mtcars,  function(x, y) cor.test(x, y)$p.value, symmetric=TRUE)
+m[p > 0.05] <- NA
+
+PlotCorr(m, mar=c(8,8,8,8), yaxt="n",
+         args.colorlegend = list(x="bottom", inset=-.15, horiz=TRUE, 
+                                 height=abs(LineToUser(line = 2.5, side = 1)), 
+                                 width=ncol(m)))
+mtext(text = rev(rownames(m)), side = 4, at=1:ncol(m), las=1, line = -5, cex=0.8)
+
+text(1:ncol(m), ncol(m):1, colnames(m), xpd=NA, cex=0.8, font=2)
+
+n <- ncol(m)
+text(x=rep(seq(n), times=n),
+     y=rep(rev(seq(n)), rep.int(n, n)),
+     labels=Format(t(m), digits=2, na.form=""),
+     cex=0.8, xpd=TRUE)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

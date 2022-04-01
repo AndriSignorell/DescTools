@@ -510,13 +510,15 @@ LCM <- function(..., na.rm = FALSE) {
 
 rSum21 <- function(size, digits=NULL){
   
-  rnd <- (p <- runif(5))/sum(p)
+  rnd <- (p <- runif(n = size))/sum(p)
+  
   if(!is.null(digits)){
-    rnd <- round(rnd, 2)
+    rnd <- round(rnd, digits = digits)
     rnd[1] <- rnd[1] + (1-sum(rnd))
   }
   
   rnd
+  
 }
 
 
@@ -2027,6 +2029,18 @@ SplitToCol <- function(x, split=" ", fixed = TRUE, na.form="", colnames=NULL){
   
 }
 
+
+SplitToDummy <- function(x, split=",", ...){
+  
+  # found values
+  lvl <- sort(unique(unlist(strsplit(x = x, split=split, ...))))
+  
+  d.frm <- data.frame(x,
+                      sapply(lvl, function(y) grepl(y, x) * 1))
+  
+  return(d.frm)
+  
+}
 
 
 
@@ -11933,7 +11947,10 @@ PlotCorr <- function(x, cols = colorRampPalette(c(Pal()[2], "white", Pal()[1]), 
   # PlotCorr(round(CramerV(d.pizza[,c("driver","operator","city", "quality")]),3))
 
   pars <- par(mar=mar); on.exit(par(pars))
-
+  
+  # matrix should be transposed to allow upper.tri with the corresponding representation
+  x <- t(x)
+  
   if(clust==TRUE) {
     # cluster correlations in order to put similar values together
     idx <- order.dendrogram(as.dendrogram(

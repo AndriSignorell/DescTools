@@ -3237,7 +3237,7 @@ scores <- function(x, MARGIN=1, method="table") {
   
   if (method == "table"){
     
-    if (is.null(dimnames(x)) || any(is.na(N(dimnames(x)[[MARGIN]])))){
+    if (is.null(dimnames(x)) || any(is.na(suppressWarnings(N(dimnames(x)[[MARGIN]]))))) {
       res <- 1:dim(x)[MARGIN]
     } else {
       res <- (N(dimnames(x)[[MARGIN]]))

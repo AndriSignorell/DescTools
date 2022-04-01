@@ -1,10 +1,10 @@
 \name{rSum21}
 \alias{rSum21}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Random Numbers Summing to 1
+\title{Random Numbers Adding Up to 1
 %%  ~~function to do ... ~~
 }
-\description{Generates a vector of random numbers which sum to 1.
+\description{Generates a vector of uniformly distributed random numbers which sum to 1.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
@@ -34,6 +34,7 @@ rSum21(size, digits = NULL)
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
+# generate 5 numbers
 x <- rSum21(5)
 sum(x)
 }

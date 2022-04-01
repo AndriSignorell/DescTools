@@ -7719,6 +7719,37 @@ PlotBinTree <- function(x, main="Binary tree", horiz=FALSE, cex=1.0, col=1, ...)
 
 
 
+TablePearson <- function(x, scores.type="table") {
+  
+  # based on Lecoutre 
+  # https://stat.ethz.ch/pipermail/r-help/2005-July/076371.html
+  # but the test might not be correctly implemented (negative values in sqrt)
+  
+  
+  # Statistic
+  sR <- scores(x, 1, scores.type)
+  sC <- scores(x, 2, scores.type)
+  n <- sum(x)
+  Rbar <- sum(apply(x, 1, sum) * sR) / n
+  Cbar <- sum(apply(x, 2, sum) * sC) / n
+  ssr <- sum(x * (sR-Rbar)^2)
+  ssc <- sum(t(x) * (sC-Cbar)^2)
+  tmpij <- outer(sR, sC, FUN=function(a,b) return((a-Rbar)*(b-Cbar)))
+  ssrc <-  sum(x*tmpij)
+  v <- ssrc
+  w <- sqrt(ssr*ssc)
+  r <- v/w
+  
+  return(r)
+  
+}  
+
+
+TableSpearman <-  function(x, scores.type="table"){
+  
+}
+
+
 
 # all association measures combined
 
@@ -7741,8 +7772,13 @@ Assocs <- function(x, conf.level = 0.95, verbose=NULL){
 
   if(verbose=="3") {
 
-    # this is from boot::corr combined with ci logic from cor.test
-    r <- boot::corr(d=CombPairs(1:nrow(x), 1:ncol(x)), as.vector(x))
+    # # this is from boot::corr combined with ci logic from cor.test
+    # r <- boot::corr(d=CombPairs(1:nrow(x), 1:ncol(x)), as.vector(x))
+    
+    # the boot::corr does not respect ordinal values in dimnames
+    # so do it ourselves
+    r <- TablePearson(x)
+    
     r.ci <- CorCI(rho = r, n = sum(x), conf.level = conf.level)
 
     res <- rbind(res
