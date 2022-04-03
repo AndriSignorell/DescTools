@@ -18,7 +18,7 @@ SplitToDummy(x, split = ",", ...)
   \item{split}{character vector (or object which can be coerced to such) containing regular expression(s) (unless \code{fixed = TRUE}) to use for splitting. If empty matches occur, in particular if \code{split} has length 0, \code{x} is split into single characters. If \code{split} has length greater than 1, it is re-cycled along x.
 %%     ~~Describe \code{split} here~~
 }
-\item{dots}{the dots are passed on to \code{\link{strsplit}}}
+\item{\dots}{the dots are passed on to \code{\link{strsplit}}}
 }
 \value{a data.frame containing \code{x} and all the found dummy vectors
 %%  ~Describe the value returned

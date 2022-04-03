@@ -146,7 +146,7 @@ PlotCorr(m[idx, idx])
 
 # plot only upper triangular matrix and move legend to bottom
 m <- cor(mtcars)
-m[lower.tri(m, diag = T)] <- NA
+m[lower.tri(m, diag=TRUE)] <- NA
 
 p <- PairApply(mtcars,  function(x, y) cor.test(x, y)$p.value, symmetric=TRUE)
 m[p > 0.05] <- NA
