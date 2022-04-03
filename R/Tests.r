@@ -4917,7 +4917,7 @@ DunnettTest.default <- function (x, g, control = NULL
     R <- outer(Rij, Rij, "*")
     diag(R) <- 1
 
-    set.seed(5)  # for getting consistent results every run
+    # set.seed(5)  # for getting consistent results every run
     qvt <- mvtnorm::qmvt((1 - (1 - conf.level)/2), df = N - k, sigma = R, tail = "lower.tail")$quantile
 
     lower <- meandiffs - s * sqrt((1/fittedn) + (1/controln)) * qvt

@@ -16641,15 +16641,75 @@ WrdKill <- function(){
 
 
 
-CourseData <- function(name, url=NULL, header=TRUE, sep=";",  ...){
+CourseData <- function(name, url=NULL, header=TRUE, sep=";", ...){
 
   if(length(grep(pattern = "\\..{3}", x = name))==0)
     name <- paste(name, ".txt", sep="")
   if(is.null(url))
     url <- "http://www.signorell.net/hwz/datasets/"
   url <- gettextf(paste(url, "%s", sep=""), name)
-  read.table(file = url, header = header, sep = sep, ...)
+  
+  if(grepl("xls", tools::file_ext(name)))
+     res <- OpenDataObject(name=name, url=url)
+     
+  else   
+    res <- read.table(file = url, header = header, sep = sep, ...)
+  
+  return(res)
+     
 }
+
+
+
+
+OpenDataObject <- function(name, url=NULL, 
+                           doc=list(Description=c("Variable", "Beschreibung", "Codes", "Skala")), 
+                           ...){
+
+
+  if(is.null(url))
+    url <- "http://www.signorell.net/hwz/datasets/"
+  url <- gettextf(paste(url, "%s", sep=""), name)
+  
+  resp <- httr::GET(url = url, httr::write_disk(tf <- tempfile()))
+  if(http_status(resp)$category != "Success") 
+    stop(resp)
+  
+  z <- as.data.frame(read_excel(tf))
+  
+  if(!is.na(doc)) {
+
+    # the documentation sheet must contain the following columns
+    doc_sheet <- names(doc)    # default is Description
+    col_var <- doc[[1]][1]
+    col_lbl <- doc[[1]][2]
+    col_code <- doc[[1]][3]
+    col_scale <- doc[[1]][4]
+    
+    code <- as.data.frame(read_excel(tf, sheet = doc_sheet))
+    
+    # Define factors
+    id <- which(code[[col_scale]] %in% c("nominal", "ordinal"))
+    codes <- lapply(strsplit(code[[col_code]][id], "\\r\\n"), strsplit, split="=")
+    names(codes) <- code[[col_var]][id]
+    
+    for(x in code[[col_var]][id]){
+      z[, x] <- factor(z[, x], 
+                       ordered = (code[[col_scale]][code[[col_var]] == x]) == "ordinal")
+      levels(z[, x]) <- StrTrim(sapply(codes[[x]], "[", 2))[
+                    match(levels(z[, x]), StrTrim(sapply(codes[[x]], "[", 1)))]
+    }
+  
+    # Labels:
+    for(x in code[[col_var]])
+      Label(z[, x]) <- code[[col_lbl]][code[[col_var]] == x]
+    
+  }
+  
+  return(z)
+  
+}
+
 
 
 
