@@ -474,6 +474,7 @@ calcDesc.numeric   <- function(x, n, maxrows = NULL, conf.level=0.95, include_x=
 
     if(maxrows > 0) {
       freq <- Freq(factor(x))
+      colnames(freq)[1] <- "value"
       # use maxrows as percentage, when < 1
       if (maxrows < 1)
         maxrows <- sum(freq[, 5] < maxrows) + 1
@@ -1265,7 +1266,7 @@ print.Desc.table    <- function(x, digits = NULL, ...) {
              }
              , "2" = {
                cat(sprintf(
-                 "\nPhi-Coefficient        %.3f\nContingency Coeff.     %.3f\nCramer's V             %.3f\n"
+                 "\nContingency Coeff.     %.3f\nCramer's V             %.3f\nKendall Tau-b          %.3f\n"
                  , x$assocs[1,1]
                  , x$assocs[2,1]
                  , x$assocs[3,1]

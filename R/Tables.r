@@ -63,11 +63,14 @@ print.Freq <- function(x, digits=NULL, ...) {
       pfmt$digits <- digits
 
     # object x comes as list lacking an as.data.frame option...
-    print(data.frame(level=x$level,
-                     freq=Format(x$freq, fmt=afmt),
-                     perc=Format(x$perc, fmt=pfmt),
-                     cumfreq=Format(x$cumfreq, fmt=afmt),
-                     cumperc=Format(x$cumperc, fmt=pfmt)),
+    d.frm <- SetNames(data.frame(x[,1],
+                        Format(x$freq, fmt=afmt),
+                        Format(x$perc, fmt=pfmt),
+                        Format(x$cumfreq, fmt=afmt),
+                        Format(x$cumperc, fmt=pfmt)),
+                      colnames=names(x))
+    
+    print(d.frm,
           print.gap = InDots(..., arg="print.gap", default=2))
   }
 }

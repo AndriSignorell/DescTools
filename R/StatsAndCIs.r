@@ -7760,14 +7760,16 @@ Assocs <- function(x, conf.level = 0.95, verbose=NULL){
 
 
   res <- rbind(
-    "Phi Coeff." = c(Phi(x), NA, NA)
-    , "Contingency Coeff." = c(ContCoef(x),NA, NA)
+    # "Phi Coeff." = c(Phi(x), NA, NA)
+    "Contingency Coeff." = c(ContCoef(x),NA, NA)
   )
 
   if(is.na(conf.level)){
     res <- rbind(res, "Cramer V" = c(CramerV(x), NA, NA))
+    res <- rbind(res, "Kendall Tau-b" = c(KendallTauB(x), NA, NA))
   } else {
     res <- rbind(res, "Cramer V" = CramerV(x, conf.level=conf.level))
+    res <- rbind(res, "Kendall Tau-b" = c(KendallTauB(x, conf.level=conf.level)))
   }
 
   if(verbose=="3") {
@@ -7783,7 +7785,7 @@ Assocs <- function(x, conf.level = 0.95, verbose=NULL){
 
     res <- rbind(res
       , "Goodman Kruskal Gamma" = GoodmanKruskalGamma(x, conf.level=conf.level)
-      , "Kendall Tau-b" = KendallTauB(x, conf.level=conf.level)
+      # , "Kendall Tau-b" = KendallTauB(x, conf.level=conf.level)
       , "Stuart Tau-c" = StuartTauC(x, conf.level=conf.level)
       , "Somers D C|R" = SomersDelta(x, direction="column", conf.level=conf.level)
       , "Somers D R|C" = SomersDelta(x, direction="r", conf.level=conf.level)
@@ -7817,7 +7819,7 @@ print.Assocs <- function(x, digits=4, ...){
   if(nrow(x) == 3){
 
   } else {
-    out[c(1,2,17), 2:3] <- "      -"
+    out[c(1,16), 2:3] <- "      -"
   }
   dimnames(out) <- dimnames(x)
 

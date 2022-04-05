@@ -16643,17 +16643,18 @@ WrdKill <- function(){
 
 CourseData <- function(name, url=NULL, header=TRUE, sep=";", ...){
 
-  if(length(grep(pattern = "\\..{3}", x = name))==0)
-    name <- paste(name, ".txt", sep="")
-  if(is.null(url))
-    url <- "http://www.signorell.net/hwz/datasets/"
-  url <- gettextf(paste(url, "%s", sep=""), name)
+  if(grepl("xls", tools::file_ext(name))) {
+    res <- OpenDataObject(name=name, url=url)
+    
+  } else {
   
-  if(grepl("xls", tools::file_ext(name)))
-     res <- OpenDataObject(name=name, url=url)
-     
-  else   
+    if(length(grep(pattern = "\\..{3}", x = name))==0)
+      name <- paste(name, ".txt", sep="")
+    if(is.null(url))
+      url <- "http://www.signorell.net/hwz/datasets/"
+    url <- gettextf(paste(url, "%s", sep=""), name)
     res <- read.table(file = url, header = header, sep = sep, ...)
+  }
   
   return(res)
      
