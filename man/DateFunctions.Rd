@@ -20,6 +20,7 @@
 \alias{Timezone}
 \alias{YearDays}
 \alias{MonthDays}
+\alias{HmsToMinute}
 
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Basic Date Functions
@@ -49,6 +50,7 @@ Hour(x)
 Minute(x)
 Second(x)
 Timezone(x)
+HMSToMinute(x)
 
 Now()
 Today()
@@ -95,6 +97,7 @@ Based on the requested time component, the output is as follows:\cr\cr
 \code{Day} returns the day of the month (1 to 31). \cr
 \code{YearMonth} returns the yearmonth representation (yyyymm) of a date as long integer. \cr
 \code{Hour}, \code{Minute}, \code{Second}, \code{Timezone} return the hour, minute, second or timezone from a POSIXlt object. \cr
+\code{HmsToMinute} converts the time parts of a POSIXlt object to minutes.\cr
 \code{Today}, \code{Now} return the current date, resp. the current date and time.\cr
 
 \code{IsWeekend} returns \code{TRUE}, if the date x falls on a weekend. \cr

@@ -31,7 +31,10 @@ Cowell, F. A. (2000) Measurement of Inequality in Atkinson, A. B. / Bourguignon,
 Cowell, F. A. (1995) \emph{Measuring Inequality} Harvester Wheatshef: Prentice Hall.
 
 Marshall, Olkin (1979) \emph{Inequalities: Theory of Majorization and Its
-Applications}. New York: Academic Press.}
+Applications}. New York: Academic Press.
+
+Atkinson, A. B. (1970): On the Measurment of Inequality, \emph{Journal of Economic Theory}, Vol. 2(3), pp. 244-263.
+}
 
 \author{Achim Zeileis <Achim.Zeileis@R-project.org>}
 
@@ -42,8 +45,8 @@ Applications}. New York: Academic Press.}
 # generate vector (of incomes)
 x <- c(541, 1463, 2445, 3438, 4437, 5401, 6392, 8304, 11904, 22261)
 
-# compute Atkinson coefficient with parameter=0.5
-Atkinson(x, parameter=0.5)
+# compute Atkinson coefficient with parameter=1
+Atkinson(x, parameter=1)
 }
 \keyword{univar}
 

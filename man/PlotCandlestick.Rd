@@ -7,9 +7,9 @@ security, derivative, or currency over time. Candlestick charts are a visual aid
 in stock, foreign exchange, commodity, and option trading.
 }
 \usage{
-PlotCandlestick(x, y, xlim = NULL, ylim = NULL, 
+PlotCandlestick(x, y, vol = NA, xlim = NULL, ylim = NULL, 
                 col = c("springgreen4","firebrick"), 
-                border = NA, args.grid = NULL, ...) 
+                border = NA, args.bar = NULL, args.grid = NULL, ...) 
 
 }
 \arguments{
@@ -18,6 +18,7 @@ PlotCandlestick(x, y, xlim = NULL, ylim = NULL,
   \item{y}{the y-values in a matrix (or a data.frame that can be coerced to a matrix) with 4 columns, whereas the first column contains the open price, 
   the second the high, the third the lowest and the 4th the close price of daily stock prices.
 }
+\item{vol}{the volume, if it should be included in the plot as separate part.}
   \item{xlim}{the x limits (x1, x2) of the plot. The default value, \code{NULL}, indicates that the range of the finite values to be plotted should be used.}
   \item{ylim}{the y limits of the plot.}
 
@@ -28,6 +29,7 @@ PlotCandlestick(x, y, xlim = NULL, ylim = NULL,
   \item{args.grid}{the arguments of a potential grid. Default is \code{NULL}, which will have a grid plotted. If arguments are provided, they
   have to be organized as list with the names of the arguments. (For example: ..., args.grid = list(col="red")) }
 
+\item{args.bar}{optional additional arguments for the volume barplot.}
   \item{\dots}{the dots are passed to \code{plot()} command}
 
 }
@@ -71,6 +73,11 @@ nov <- rbind(
 colnames(nov) <- c("open","high","low","close")
 
 PlotCandlestick(x=as.Date(rownames(nov)), y=nov, border=NA, las=1, ylab="")
+
+# include some volume information
+v <- c(213,108,310,762,70,46,411,652,887,704,289,579,934,619,860,35,215,211,8)
+PlotCandlestick(x=as.Date(rownames(nov)), y=nov, vol=v,
+                border=NA, las=1, ylab="")
 }
 \keyword{ hplot }
 

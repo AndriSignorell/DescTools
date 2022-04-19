@@ -3093,6 +3093,11 @@ PairApply <- function(x, FUN = NULL, ..., symmetric = FALSE){
 #   .POSIXct(if (is.character(x)) .Call("parse_ts", x, required.components) else .Call("parse_ts", as.character(x), required.components), tz)
 
 
+HmsToMinute <- function(x){
+  Hour(x)*60 + Minute(x) + Second(x)/60
+}
+
+
 HmsToSec <- function(x) {
 
   hms <- as.character(x)
@@ -3378,6 +3383,7 @@ Second <- function(x) {
 #  strptime(x, "%S")
   as.POSIXlt(x)$sec
 }
+
 
 Timezone <- function(x) {
   as.POSIXlt(x)$zone
@@ -12905,56 +12911,101 @@ PlotWeb <- function(m, col=c(hred, hblue), lty=NULL, lwd = NULL, args.legend=NUL
 
 ## plots: PlotCandlestick ====
 
-PlotCandlestick <-  function(x, y, xlim = NULL, ylim = NULL, col = c("springgreen4","firebrick"), border=NA, args.grid = NULL, ...) {
-
-
-  xlim <- if (is.null(xlim))
+PlotCandlestick <- function (x, y, vol=NA, xlim = NULL, ylim = NULL, 
+                             col = c("springgreen4", "firebrick"), 
+                             border = NA, 
+                             args.bar=NULL, args.grid = NULL, ...) {
+  
+  
+  pp <- par(no.readonly = TRUE)
+  on.exit(par(pp))
+  
+  add.bar <- !(identical(args.bar, NA) | identical(vol, NA))
+  
+  if (add.bar) {
+    layout(matrix(c(1, 2), nrow = 2, byrow = TRUE), 
+           heights = c(1.5, 1), TRUE)
+    Mar(bottom=0, right=5)
+    
+  }
+  
+  xlim <- if (is.null(xlim)) 
     range(x[is.finite(x)])
-  else xlim
-  ylim <- if (is.null(ylim))
+  else 
+    xlim
+  
+  ylim <- if (is.null(ylim)) 
     range(y[is.finite(y)])
-  else ylim
-
-  plot(x = 1, y = 1, xlim = xlim,
-    ylim = ylim, type = "n", xaxt = "n", xlab = "", ...)
-
+  else 
+    ylim
+  
+  plot(x = 1, y = 1, xlim = xlim, ylim = ylim, type = "n", 
+       xaxt = "n", xlab = "", ...)
+  
   add.grid <- TRUE
-  if(!is.null(args.grid)) if(all(is.na(args.grid))) {add.grid <- FALSE}
-
+  if (!is.null(args.grid)) 
+    if (all(is.na(args.grid))) {
+      add.grid <- FALSE
+    }
+  
   if (add.grid) {
-    args.grid1 <- list(lty="solid", col="grey83")
+    args.grid1 <- list(nx=NA, ny=NULL, lty = "solid", col = "grey83")
     if (!is.null(args.grid)) {
       args.grid1[names(args.grid)] <- args.grid
     }
     do.call("grid", args.grid1)
   }
-
+  
+  
   # open low high close
-  segments(x0 = x, y0 = y[,2], y1 = y[,3], col = col[(y[,1] > y[,4]) * 1 + 1])
-  rect(xleft = x - 0.3, ybottom = y[,1], xright = x + 0.3, ytop = y[, 4],
-    col = col[(y[,1] > y[,4]) * 1 + 1], border = border)
-
-  if(is.null(list(...)[["xaxt"]])){
-    if(IsDate(x)){
+  segments(x0 = x, y0 = y[, 2], y1 = y[, 3], col = col[(y[, 1] > y[, 4]) * 1 + 1])
+  
+  rect(xleft = x - 0.3, ybottom = y[, 1], xright = x + 0.3, 
+       ytop = y[, 4], col = col[(y[, 1] > y[, 4]) * 1 + 1], 
+       border = border)
+  
+  if(add.bar){
+    
+    Mar(top=0, bottom=pp$mar[1])
+    
+    args.bar1 <- list(col = col[(y[, 1] > y[, 4]) * 1 + 1], 
+                      x=1, y=1, ylab="", border=border,
+                      xlim = xlim, type="n", xaxt="n", yaxt="n", xlab="",
+                      ylim = range(0, vol[is.finite(vol)] ))
+    if (!is.null(args.bar)) {
+      args.bar1[names(args.bar)] <- args.bar
+    }
+    
+    DoCall("plot", args.bar1[names(args.bar1) %nin% c("border")])
+    
+    axis(4, las=1)
+    rect(xleft = x - 0.3, ybottom = 0, xright = x + 0.3, 
+         ytop = vol, col = args.bar1$col, 
+         border = args.bar1$border)
+    
+  }
+  
+  if (is.null(list(...)[["xaxt"]])) {
+    if (IsDate(x)) {
       j <- Year(x)
       j[!c(1, diff(j))] <- NA
-      mtext(side = 1, at = x, text= j, cex=1, line=1)
-
+      mtext(side = 1, at = x, text = j, cex = 1, line = 1)
       j <- Month(x)
       j[!c(1, diff(j))] <- NA
-      mtext(side = 1, at = x, text= month.name[j], cex=1, line=2)
-
-      mtext(side = 1, at = x, text= Day(x), cex=1, line=3)
-    } else {
+      mtext(side = 1, at = x, text = month.name[j], cex = 1, 
+            line = 2)
+      mtext(side = 1, at = x, text = Day(x), cex = 1, line = 3)
+    }
+    else {
       axis(side = 1, at = x, labels = x)
     }
   }
-
-
-  if(!is.null(DescToolsOptions("stamp")))
+  
+  
+  if (!is.null(DescToolsOptions("stamp"))) 
     Stamp()
-
 }
+
 
 
 

@@ -72,7 +72,7 @@ and the ones for the kurtosis:\cr
   \code{method = 2:  G_2 = ((n+1) g_2 + 6) * (n-1) / ((n-2)(n-3)) }  \cr
   \code{method = 3:  b_2 = m_4 / s^4 - 3 = (g_2 + 3) (1 - 1/n)^2 - 3 } \cr
 
-  method = 1 is the typical definition used in many older textbooks.   \cr
+  method = 1 is the typical definition used in Stata and in many older textbooks.   \cr
   method = 2 is used in SAS and SPSS.  \cr
   method = 3 is used in MINITAB and BMDP. \cr
 
