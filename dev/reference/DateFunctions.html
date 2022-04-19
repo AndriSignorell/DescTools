@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.44.8</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.44.12</span>
       </span>
     </div>
 
@@ -107,6 +107,7 @@
 <span class="fu">Minute</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="fu">Second</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="fu">Timezone</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="fu">HMSToMinute</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 
 <span class="fu">Now</span><span class="op">(</span><span class="op">)</span>
 <span class="fu">Today</span><span class="op">(</span><span class="op">)</span>
@@ -144,7 +145,7 @@
     <div id="details">
     <h2>Details</h2>
     <p>These functions are mainly convenience wrappers for the painful <code><a href="https://rdrr.io/r/base/format.html" class="external-link">format()</a></code> and its strange codes...<br>
-Based on the requested time component, the output is as follows:<br><br><code>Year</code> returns the year of the input date in yyyy format.<br><code>Quarter</code> returns the quarter of the year (1 to 4) for the input date. <br><code>Month</code> returns the month of the year (1 to 12) for the input date. <br><code>Week</code> returns the week of the year for the input date (0 to 53), as defined in ISO8601. <br><code>Weekday</code> returns the week day of the input date. (1 - Monday, 2 - Tuesday, ... 7 - Sunday). (Names and abbreviations are either english or in the current locale!)<br><code>YearDay</code> returns the day of the year numbering (1 to 366). <br><code>Day</code> returns the day of the month (1 to 31). <br><code>YearMonth</code> returns the yearmonth representation (yyyymm) of a date as long integer. <br><code>Hour</code>, <code>Minute</code>, <code>Second</code>, <code>Timezone</code> return the hour, minute, second or timezone from a POSIXlt object. <br><code>Today</code>, <code>Now</code> return the current date, resp. the current date and time.<br></p>
+Based on the requested time component, the output is as follows:<br><br><code>Year</code> returns the year of the input date in yyyy format.<br><code>Quarter</code> returns the quarter of the year (1 to 4) for the input date. <br><code>Month</code> returns the month of the year (1 to 12) for the input date. <br><code>Week</code> returns the week of the year for the input date (0 to 53), as defined in ISO8601. <br><code>Weekday</code> returns the week day of the input date. (1 - Monday, 2 - Tuesday, ... 7 - Sunday). (Names and abbreviations are either english or in the current locale!)<br><code>YearDay</code> returns the day of the year numbering (1 to 366). <br><code>Day</code> returns the day of the month (1 to 31). <br><code>YearMonth</code> returns the yearmonth representation (yyyymm) of a date as long integer. <br><code>Hour</code>, <code>Minute</code>, <code>Second</code>, <code>Timezone</code> return the hour, minute, second or timezone from a POSIXlt object. <br><code>HmsToMinute</code> converts the time parts of a POSIXlt object to minutes.<br><code>Today</code>, <code>Now</code> return the current date, resp. the current date and time.<br></p>
 <p><code>IsWeekend</code> returns <code>TRUE</code>, if the date x falls on a weekend. <br><code>IsLeapYear</code> returns <code>TRUE</code>, if the year of the date x is a leap year. <br></p>
 <p>The day can not only be extracted, but as well be defined. See examples.</p>
 <p><code>DiffDays360</code> calculates the difference between 2 dates using the 360-days convention.<br><code>LastDayOfMonth</code> returns the last day of the month of the given date(s).
@@ -174,60 +175,60 @@ Based on the requested time component, the output is as follows:<br><br><code>Ye
 <span class="r-in"><span class="fu">Year</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2022</span>
 <span class="r-in"><span class="fu">Quarter</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu">Month</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
 <span class="r-in"><span class="fu">Month</span><span class="op">(</span><span class="va">x</span>, fmt <span class="op">=</span> <span class="st">"mm"</span>, lang<span class="op">=</span><span class="st">"engl"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] Mar</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] Apr</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Levels: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec</span>
 <span class="r-in"><span class="fu">Month</span><span class="op">(</span><span class="va">x</span>, fmt <span class="op">=</span> <span class="st">"mm"</span>, lang<span class="op">=</span><span class="st">"local"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] Mar</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] Apr</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Levels: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec</span>
 <span class="r-in"><span class="fu">Month</span><span class="op">(</span><span class="va">x</span>, fmt <span class="op">=</span> <span class="st">"mmm"</span>, lang<span class="op">=</span><span class="st">"engl"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] March</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] April</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12 Levels: January February March April May June July August ... December</span>
 <span class="r-in"><span class="fu">Month</span><span class="op">(</span><span class="va">x</span>, fmt <span class="op">=</span> <span class="st">"mmm"</span>, lang<span class="op">=</span><span class="st">"local"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] March</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] April</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12 Levels: January February March April May June July August ... December</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu">Week</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 16</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu">Day</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 19</span>
 <span class="r-in"><span class="fu">Day</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">20</span></span>
 <span class="r-in"><span class="va">x</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2022-03-20"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2022-04-20"</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu">Weekday</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
 <span class="r-in"><span class="fu">Weekday</span><span class="op">(</span><span class="va">x</span>, fmt <span class="op">=</span> <span class="st">"dd"</span>, lang<span class="op">=</span><span class="st">"engl"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] Sun</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] Wed</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Levels: Mon Tue Wed Thu Fri Sat Sun</span>
 <span class="r-in"><span class="fu">Weekday</span><span class="op">(</span><span class="va">x</span>, fmt <span class="op">=</span> <span class="st">"dd"</span>, lang<span class="op">=</span><span class="st">"local"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] Sun</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] Wed</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Levels: Mon Tue Wed Thu Fri Sat Sun</span>
 <span class="r-in"><span class="fu">Weekday</span><span class="op">(</span><span class="va">x</span>, fmt <span class="op">=</span> <span class="st">"ddd"</span>, lang<span class="op">=</span><span class="st">"engl"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] Sunday</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] Wednesday</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Levels: Monday Tuesday Wednesday Thursday Friday Saturday Sunday</span>
 <span class="r-in"><span class="fu">Weekday</span><span class="op">(</span><span class="va">x</span>, fmt <span class="op">=</span> <span class="st">"ddd"</span>, lang<span class="op">=</span><span class="st">"local"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] Sunday</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] Wednesday</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Levels: Monday Tuesday Wednesday Thursday Friday Saturday Sunday</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu">YearDay</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 79</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 110</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu">IsWeekend</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu">IsLeapYear</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># let's generate a time sequence by weeks</span></span>
 <span class="r-in"><span class="fu">Month</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span>from<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, to<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span><span class="fl">150</span>, by<span class="op">=</span><span class="st">"weeks"</span><span class="op">)</span>, fmt<span class="op">=</span><span class="st">"mm"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] Mar Mar Mar Mar Mar Apr Apr Apr Apr May May May May Jun Jun Jun Jun Jun Jul</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [20] Jul Jul Jul</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] Apr Apr May May May May May Jun Jun Jun Jun Jul Jul Jul Jul Aug Aug Aug Aug</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [20] Aug Sep Sep</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Levels: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu">LastDayOfMonth</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2014-10-12"</span>,<span class="st">"2013-01-31"</span>,<span class="st">"2011-12-05"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
