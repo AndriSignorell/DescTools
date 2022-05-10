@@ -32,7 +32,7 @@ HuberM(x, k = 1.345, mu = median(x), s = mad(x, center = mu),
 
 \value{
 If \code{conf.level} is set to \code{NA} then the result will be  
-\item{}{a single numeric value} and 
+\item{a}{ single numeric value} and 
 if a \code{conf.level} is provided, a named numeric vector with 3 elements:
   \item{huberm}{the estimate for location}
   \item{lwr.ci}{lower bound of the confidence interval}

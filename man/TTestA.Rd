@@ -25,7 +25,7 @@ TTestA(mx, sx, nx, my = NULL, sy = NULL, ny = NULL,
   letter.}
   \item{mu}{a number indicating the true value of the mean (or
   difference in means if you are performing a two sample test).}
-  \item{paired}{paired = \code{TRUE} is not supported here and only present for consistency of arguments. Use one-sample-test for the differences instead.}
+  \item{paired}{paired = \code{TRUE} is not supported here and only present for consistency of arguments. Use the one-sample-test for the differences instead.}
   \item{var.equal}{a logical variable indicating whether to treat the
   two variances as being equal. If \code{TRUE} then the pooled
   variance is used to estimate the variance otherwise the Welch
@@ -37,8 +37,9 @@ TTestA(mx, sx, nx, my = NULL, sy = NULL, ny = NULL,
   \code{alternative = "greater"} is the alternative that \code{x} has a
   larger mean than \code{y}.
 
-  If \code{paired} is \code{TRUE} then both \code{mx, sx} and \code{my, sy} must
-  be specified and \code{nx} must be equal to \code{ny}.  If
+  The option \code{paired} is not supported here, as the variance of the differences can't be calculated on the base of the variances of the two samples. However, for calculating the paired test we can simply supply the mean and standard deviation of the differences and use the one-sample test with \code{mu = 0}. 
+  
+  If
   \code{var.equal} is \code{TRUE} then the pooled estimate of the
   variance is used.  By default, if \code{var.equal} is \code{FALSE}
   then the variance is estimated separately for both groups and the

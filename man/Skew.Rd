@@ -87,7 +87,7 @@ This implementation of the two functions is comparably fast, as the expensive su
 
 \value{
 If \code{conf.level} is set to \code{NA} then the result will be  
-\item{}{a single numeric value} and 
+\item{a}{ single numeric value} and 
 if a \code{conf.level} is provided, a named numeric vector with 3 elements:
   \item{skew, kurt}{the specific estimate, either skewness or kurtosis}
   \item{lwr.ci}{lower bound of the confidence interval}
@@ -99,7 +99,7 @@ if a \code{conf.level} is provided, a named numeric vector with 3 elements:
 \references{
 Cramer, D. (1997): \emph{Basic Statistics for Social Research} Routledge.
 
-Joanes, D. N., Gill, C. A. (1998): Comparing measures of sample skewness and Kurt. \emph{The Statistician}, 47, 183-189.
+Joanes, D. N., Gill, C. A. (1998): Comparing measures of sample skewness and kurtosis. \emph{The Statistician}, 47, 183-189.
 }
 
 \seealso{

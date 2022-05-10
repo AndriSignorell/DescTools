@@ -50,7 +50,7 @@ Hour(x)
 Minute(x)
 Second(x)
 Timezone(x)
-HMSToMinute(x)
+HmsToMinute(x)
 
 Now()
 Today()

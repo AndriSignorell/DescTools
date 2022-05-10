@@ -60,7 +60,7 @@ this produces values very closed to conventional bias corrected intervals.\cr
 }
 \value{
 If \code{conf.level} is set to \code{NA} then the result will be
-\item{}{a single numeric value} and
+\item{a}{ single numeric value} and
 if a \code{conf.level} is provided, a named numeric vector with 3 elements:
   \item{gini}{Gini coefficient}
   \item{lwr.ci}{lower bound of the confidence interval}

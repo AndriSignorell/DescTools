@@ -2293,7 +2293,7 @@ DoCall <- function (what, args, quote = FALSE, envir = parent.frame())  {
     args <- args[names(args) != ""]
   }
 
-  if (class(what) == "character"){
+  if (inherits(x = what, what = "character")){
     if(is.character(what)){
       fn <- strsplit(what, "[:]{2,3}")[[1]]
       what <- if(length(fn)==1) {
@@ -2303,11 +2303,11 @@ DoCall <- function (what, args, quote = FALSE, envir = parent.frame())  {
       }
     }
     call <- as.call(c(list(what), argn))
-  }else if (class(what) == "function"){
+  }else if (inherits(x = what, "function")){
     f_name <- deparse(substitute(what))
     call <- as.call(c(list(as.name(f_name)), argn))
     args[[f_name]] <- what
-  }else if (class(what) == "name"){
+  }else if (inherits(x = what, what="name")){
     call <- as.call(c(list(what, argn)))
   }
 
@@ -3719,7 +3719,7 @@ axTicks.Date <- function(side = 1, x, ...) {
                  as.numeric(match(rng[1L], levels(x))), 
                  as.numeric(match(rng[2L], levels(x))), PACKAGE="DescTools")
     res[is.na(x)] <- NA
-  }  else if(class(x) == "character")  {
+  }  else if(inherits(x = x, what = "character"))  {
     res <- ifelse ( x >= rng[1L] & x <= rng[2L], TRUE, FALSE )
   } else {
     res <- rep(NA, length(x))
@@ -3756,7 +3756,7 @@ axTicks.Date <- function(side = 1, x, ...) {
                  as.numeric(match(rng[1L], levels(x))), 
                  as.numeric(match(rng[2L], levels(x))), PACKAGE="DescTools")
     res[is.na(x)] <- NA
-  }  else if(class(x) == "character")  {
+  }  else if(inherits(x=x, what="character"))  {
     res <- ifelse ( x > rng[1L] & x <= rng[2L], TRUE, FALSE )
   } else {
     res <- rep(NA, length(x))
@@ -3793,7 +3793,7 @@ axTicks.Date <- function(side = 1, x, ...) {
                  as.numeric(match(rng[1L], levels(x))), 
                  as.numeric(match(rng[2L], levels(x))), PACKAGE="DescTools")
     res[is.na(x)] <- NA
-  }  else if(class(x) == "character")  {
+  }  else if(inherits(x=x, what="character"))  {
     res <- ifelse ( x >= rng[1L] & x < rng[2L], TRUE, FALSE )
   } else {
     res <- rep(NA, length(x))
@@ -3832,7 +3832,7 @@ axTicks.Date <- function(side = 1, x, ...) {
                  as.numeric(match(rng[1L], levels(x))), 
                  as.numeric(match(rng[2L], levels(x))), PACKAGE="DescTools")
     res[is.na(x)] <- NA
-  }  else if(class(x) == "character")  {
+  }  else if(inherits(x=x, what="character"))  {
     res <- ifelse ( x > rng[1L] & x < rng[2L], TRUE, FALSE )
   } else {
     res <- rep(NA, length(x))
@@ -5416,7 +5416,7 @@ Format.default <- function(x, digits = NULL, sci = NULL
       fmt <- Fmt(fmt)
     }  
   
-  if(class(fmt) == "fmt") {
+  if(inherits(x=fmt, what="fmt")) {
     
     # we want to offer the user the option to overrun format definitions
     # consequence is, that all defaults of the function must be set to NULL
@@ -5474,7 +5474,7 @@ Format.default <- function(x, digits = NULL, sci = NULL
     
     r <- fmt(x)
     
-  } else if(all(class(x) == "Date")) {
+  } else if(all(inherits(x=x, what="Date"))) {
     
     # the language is only needed for date formats, so avoid looking up the option
     # for other types
@@ -6929,7 +6929,7 @@ Append.matrix <- function(x, values, after = NULL, rows=FALSE, names=NULL, ...){
     values <- matrix(values, ncol=ncol(x))
     if(!is.null(names)){
       err <- try(row.names(x) <- names, silent = TRUE)
-      if(class(err) == "try-error")
+      if(inherits(err, "try-error"))
         warning("Could not set rownames.")
     }
     
@@ -12989,12 +12989,12 @@ PlotCandlestick <- function (x, y, vol=NA, xlim = NULL, ylim = NULL,
     if (IsDate(x)) {
       j <- Year(x)
       j[!c(1, diff(j))] <- NA
-      mtext(side = 1, at = x, text = j, cex = 1, line = 1)
+      mtext(side = 1, at = x, text = j, cex = par("cex.axis"), line = 1)
       j <- Month(x)
       j[!c(1, diff(j))] <- NA
-      mtext(side = 1, at = x, text = month.name[j], cex = 1, 
+      mtext(side = 1, at = x, text = month.name[j], cex = par("cex.axis"), 
             line = 2)
-      mtext(side = 1, at = x, text = Day(x), cex = 1, line = 3)
+      mtext(side = 1, at = x, text = Day(x), cex = par("cex.axis"), line = 3)
     }
     else {
       axis(side = 1, at = x, labels = x)
@@ -16151,11 +16151,11 @@ XLGetRange <- function (file = NULL, sheet = NULL, range = NULL, as.data.frame =
     ws <- wb$Sheets(sheet)$select()
   }
   
-  if(class(range) == "XLCurrReg"){
+  if(inherits(x=range, what="XLCurrReg")){
     # take only the first cell of a given range
     zs <- A1ToZ1S1(range)[[1]]
     range <- xl$Cells(zs[1], zs[2])$CurrentRegion()$Address(FALSE, FALSE)
-  } else if(class(range) == "XLNamedReg"){
+  } else if(inherits(x=range, what="XLNamedReg")){
     # get the address of the named region
     sel <- xl$ActiveWorkbook()$Names(as.character(range))$RefersToRange()
     range <- sapply(1:sel$Areas()$Count(), function(i) sel$Areas()[[i]]$Address(FALSE, FALSE) )
@@ -16200,11 +16200,11 @@ XLGetRange <- function (file = NULL, sheet = NULL, range = NULL, as.data.frame =
     lst[[i]] <- rapply(lst[[i]],
                        function(x) {
                          
-                         if(class(x) == "VARIANT"){
+                         if(inherits(x=x, what="VARIANT")){
                            # if there are errors replace them by NA
                            NA
                            
-                         } else if(class(x) == "COMDate") {
+                         } else if(inherits(x=x, what="COMDate")) {
                            # if there are XL dates, replace them by their date value
                            if(IsWhole(x))
                              as.Date(XLDateToPOSIXct(x))
@@ -16382,7 +16382,7 @@ PpText <- function (txt, x=1, y=1, height=50, width=100, fontname = "Calibri", f
 
   msoShapeRectangle <- 1
 
-  if (class(txt) != "character")
+  if (!inherits(x=txt, what="character"))
     txt <- .CaptOut(txt)
 #  slide <- pp[["ActivePresentation"]][["Slides"]]$Item(1)
   slide <- pp$ActiveWindow()$View()$Slide()
