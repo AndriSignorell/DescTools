@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.44.12</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.1</span>
       </span>
     </div>
 
@@ -111,7 +111,7 @@
 <dd><p>a number indicating the true value of the mean (or
   difference in means if you are performing a two sample test).</p></dd>
 <dt>paired</dt>
-<dd><p>paired = <code>TRUE</code> is not supported here and only present for consistency of arguments. Use one-sample-test for the differences instead.</p></dd>
+<dd><p>paired = <code>TRUE</code> is not supported here and only present for consistency of arguments. Use the one-sample-test for the differences instead.</p></dd>
 <dt>var.equal</dt>
 <dd><p>a logical variable indicating whether to treat the
   two variances as being equal. If <code>TRUE</code> then the pooled
@@ -126,8 +126,8 @@
     <h2>Details</h2>
     <p><code>alternative = "greater"</code> is the alternative that <code>x</code> has a
   larger mean than <code>y</code>.</p>
-<p>If <code>paired</code> is <code>TRUE</code> then both <code>mx, sx</code> and <code>my, sy</code> must
-  be specified and <code>nx</code> must be equal to <code>ny</code>.  If
+<p>The option <code>paired</code> is not supported here, as the variance of the differences can't be calculated on the base of the variances of the two samples. However, for calculating the paired test we can simply supply the mean and standard deviation of the differences and use the one-sample test with <code>mu = 0</code>.</p>  
+<p>If
   <code>var.equal</code> is <code>TRUE</code> then the pooled estimate of the
   variance is used.  By default, if <code>var.equal</code> is <code>FALSE</code>
   then the variance is estimated separately for both groups and the
@@ -230,12 +230,12 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  x and y</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> t = -4, df = 9, p-value = 0.003</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: true difference in means is not equal to 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: true mean difference is not equal to 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  -2.46 -0.70</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mean of the differences </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   -1.58 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mean difference </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           -1.58 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
@@ -251,7 +251,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer></div>
