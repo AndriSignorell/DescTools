@@ -6924,7 +6924,7 @@ Append.matrix <- function(x, values, after = NULL, rows=FALSE, names=NULL, ...){
 
   if(rows){
     nr <- dim(x)[1]
-    if(is.null(after)) after <- nr
+    if(missing(after) | is.null(after)) after <- nr
 
     values <- matrix(values, ncol=ncol(x))
     if(!is.null(names)){
@@ -6947,7 +6947,7 @@ Append.matrix <- function(x, values, after = NULL, rows=FALSE, names=NULL, ...){
   } else {
 
     nc <- dim(x)[2]
-    if(missing(after)) after <- nc
+    if(missing(after) | is.null(after)) after <- nc
 
     values <- matrix(values, nrow=nrow(x))
     
@@ -7002,7 +7002,18 @@ Append.data.frame <- function(x, values, after = NULL, rows=FALSE, names=NULL, .
 
 
 
-
+Append.TOne <-  function(x, values, after = NULL, rows=TRUE, names=NULL, ...) {
+  
+  # appending to a TOne object means appending to a matrix while preserving the class
+  # (which is lost, when using rbind)
+  
+  res <- Append.matrix(x, values, after=after, rows=rows, names=names, ...)
+  attr(res, "legend") <- attr(x, "legend")
+  class(res) <- "TOne"
+  
+  return(res)
+  
+}
 
 
 
@@ -7567,8 +7578,12 @@ IdentifyA.default <- function(x, y=NULL, poly = FALSE, ...){
     xy <- locator(n=2, type="n")[1:2]
     rect(xy$x[1], xy$y[1], xy$x[2], xy$y[2], border="grey", lty="dotted")
 
-    idx <- (pxy$x %[]% range(xy$x) & pxy$y %[]% range(xy$y))
-    code <- paste(xlabel, " %[]% c(", xy$x[1], ", ", xy$x[2], ") & ", ylabel ," %[]% c(",  xy$y[1], ", ", xy$y[2], "))", sep="")
+    idx <- (pxy$x %[]% sort(range(xy$x)) & pxy$y %[]% sort(range(xy$y)))
+    # code <- paste(xlabel, " %[]% c(", xy$x[1], ", ", xy$x[2], ") & ", ylabel ," %[]% c(",  xy$y[1], ", ", xy$y[2], "))", sep="")
+    # the new coordinates entsure we find the points...
+    code <- paste(xlabel, " %[]% c(", min(xy$x), ", ", max(xy$x), ") & ", 
+                  ylabel ," %[]% c(",  min(xy$y), ", ", max(xy$y), "))", sep="")
+    
   }
 
   res <- which(idx)
@@ -8566,6 +8581,9 @@ BoxedText.default <- function(x, y = NULL, labels = seq_along(x), adj = NULL,
        cex = 1, txt.col = NULL, font = NULL, srt = 0, xpad = 0.2, ypad=0.2,
        density = NULL, angle = 45,
        col = "white", border = NULL, lty = par("lty"), lwd = par("lwd"), ...) {
+    
+    # we don't manage to remove the color otherwise
+    if(is.na(col)) density <- 0
 
     if(is.na(pos)) pos <- NULL   # we have to change default NULL to NA to be able to repeat it
     if(is.na(vfont)) vfont <- NULL
@@ -9192,11 +9210,31 @@ SpreadOut <- function(x, mindist = NULL, cex = 1.0) {
 # }
 
 
+
+
 BarText <- function(height, b, labels=height, beside = FALSE, horiz = FALSE,
                      cex=par("cex"), 
                      adj=NULL, 
                      pos=c("topout", "topin", "mid", "bottomin", "bottomout"), 
                      offset=0, ...) {
+
+  # allow to use the more flexible BoxedText instead of text here  
+  # redirection to be able to change defaults of BoxedText
+  .btext <- function (x, y = NULL, labels = seq_along(x), adj = NULL, pos = NULL, 
+                      offset = 0.5, vfont = NULL, cex = 1, txt.col = NULL, font = NULL, 
+                      srt = 0, xpad = 0.2, ypad = 0.2, density = NULL, angle = 45, 
+                      col = "white", border = NA, lty = par("lty"), 
+                      lwd = par("lwd"), ...) {
+    
+    BoxedText(x=x, y=y, labels = labels, adj = adj, pos = pos, 
+              offset = offset, vfont = vfont, cex = cex, txt.col = txt.col, 
+              font = font, 
+              srt = srt, xpad = xpad, ypad = ypad, density = density, angle = angle, 
+              col = col, border = border, lty = lty, 
+              lwd = lwd, ...) 
+    
+  }
+  
   
   if (is.vector(height) || (is.array(height) && (length(dim(height)) == 1))) {
     height <- cbind(height)
@@ -9237,7 +9275,7 @@ BarText <- function(height, b, labels=height, beside = FALSE, horiz = FALSE,
       pp <- Recycle(b=b, x=x, labels=labels, adjx=adjx, adjy=adjy)
       
       for(i in seq(attr(pp, "maxdim"))){
-        with(pp, text(y=b[i], x=x[i], labels=labels[i], 
+        with(pp, .btext(y=b[i], x=x[i], labels=labels[i], 
                       adj=c(adjx[i], adjy[i]), 
                       cex=cex, xpd=TRUE, ...))    
       } 
@@ -9260,7 +9298,7 @@ BarText <- function(height, b, labels=height, beside = FALSE, horiz = FALSE,
       if(pos=="bottomout")
         y <- offset - sign(height) * par("cxy")[2] * cex
       
-      text(x=b, y=y, labels=labels, xpd=TRUE, cex=cex, adj=adj, ...) # 
+      .btext(x=b, y=y, labels=labels, xpd=TRUE, cex=cex, adj=adj, ...) # 
       
       res <- y
       
@@ -9308,14 +9346,14 @@ BarText <- function(height, b, labels=height, beside = FALSE, horiz = FALSE,
       if(is.null(adj)) adj <- 0.5
       adjy <- 0.5
       
-      text(labels=t(labels), x=x, y=b, cex=cex, adj=c(adjx, adjy), ...)
+      .btext(labels=t(labels), x=x, y=b, cex=cex, adj=c(adjx, adjy), ...)
       
     } else {
       if(is.null(adj)) adj <- 0.5
       adjy <- adjx
       adjx <- 0.5
       
-      text(labels=t(labels), x=b, y=x, cex=cex, adj=c(adjx, adjy), ...)
+      .btext(labels=t(labels), x=b, y=x, cex=cex, adj=c(adjx, adjy), ...)
       
     }
     
