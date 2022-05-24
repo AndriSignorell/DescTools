@@ -16777,6 +16777,9 @@ OpenDataObject <- function(name, url=NULL,
     col_scale <- doc[[1]][4]
     
     code <- as.data.frame(read_excel(tf, sheet = doc_sheet))
+    # use only currentrange("A1"), say: clip on the first completely empty row
+    code <- code[1:(min(which(apply(code, 1, 
+                                    function(x) sum(is.na(x)) == ncol(code))))-1),]
     
     # Define factors
     id <- which(code[[col_scale]] %in% c("nominal", "ordinal"))
@@ -16792,7 +16795,7 @@ OpenDataObject <- function(name, url=NULL,
   
     # Labels:
     for(x in code[[col_var]])
-      Label(z[, x]) <- code[[col_lbl]][code[[col_var]] == x]
+      Label(z[, x]) <- na.omit(code[[col_lbl]][code[[col_var]] == x])
     
   }
   
