@@ -4075,12 +4075,6 @@ VanWaerdenTest.formula <- function (formula, data, subset, na.action, ...) {
 
 
 
-# move back to deparse1 as soon R 4.0 is out
-# and set restrictions to >= R4.0
-deparse1tmp <- 
-  function (expr, collapse = " ", width.cutoff = 500L, ...) 
-    paste(deparse(expr, width.cutoff, ...), collapse = collapse)
-
 
 VanWaerdenTest.default <- function (x, g, ...) {
   
@@ -4091,7 +4085,7 @@ VanWaerdenTest.default <- function (x, g, ...) {
       stop("'x' must be a list with at least 2 elements")
     if (!missing(g)) 
       warning("'x' is a list, so ignoring argument 'g'")
-    DNAME <- deparse1tmp(substitute(x))
+    DNAME <- deparse1(substitute(x))
     x <- lapply(x, function(u) u <- u[complete.cases(u)])
     if (!all(sapply(x, is.numeric))) 
       warning("some elements of 'x' are not numeric and will be coerced to numeric")
@@ -4101,11 +4095,11 @@ VanWaerdenTest.default <- function (x, g, ...) {
       stop("all groups must contain data")
     g <- factor(rep.int(seq_len(k), l))
     x <- unlist(x)
-  }  else {
+  }
+  else {
     if (length(x) != length(g)) 
       stop("'x' and 'g' must have the same length")
-    DNAME <- paste(deparse1tmp(substitute(x)), "and", 
-                   deparse1tmp(substitute(g)))
+    DNAME <- paste(deparse1(substitute(x)), "and", deparse1(substitute(g)))
     OK <- complete.cases(x, g)
     x <- x[OK]
     g <- g[OK]
@@ -4114,10 +4108,10 @@ VanWaerdenTest.default <- function (x, g, ...) {
     if (k < 2L) 
       stop("all observations are in the same group")
   }
-  
   n <- length(x)
   if (n < 2L) 
-    stop("not enough observations")
+    stop("not enough observations")  
+  
   r <- rank(x)
   
   z <- qnorm(r/(n + 1))
@@ -4452,35 +4446,37 @@ DunnTest.default <- function (x, g, method = c("holm","hochberg","hommel","bonfe
   alternative <- match.arg(alternative)
 
   if (is.list(x)) {
-    if (length(x) < 2L)
+    if (length(x) < 2L) 
       stop("'x' must be a list with at least 2 elements")
-    DNAME <- deparse(substitute(x))
+    if (!missing(g)) 
+      warning("'x' is a list, so ignoring argument 'g'")
+    DNAME <- deparse1(substitute(x))
     x <- lapply(x, function(u) u <- u[complete.cases(u)])
+    if (!all(sapply(x, is.numeric))) 
+      warning("some elements of 'x' are not numeric and will be coerced to numeric")
     k <- length(x)
-    l <- sapply(x, "length")
-    if (any(l == 0))
+    l <- lengths(x)
+    if (any(l == 0L)) 
       stop("all groups must contain data")
-    g <- factor(rep(1:k, l))
+    g <- factor(rep.int(seq_len(k), l))
     x <- unlist(x)
   }
   else {
-    if (length(x) != length(g))
+    if (length(x) != length(g)) 
       stop("'x' and 'g' must have the same length")
-    DNAME <- paste(deparse(substitute(x)), "and", deparse(substitute(g)))
+    DNAME <- paste(deparse1(substitute(x)), "and", deparse1(substitute(g)))
     OK <- complete.cases(x, g)
     x <- x[OK]
     g <- g[OK]
-    if (!all(is.finite(g)))
-      stop("all group levels must be finite")
     g <- factor(g)
     k <- nlevels(g)
-    if (k < 2)
+    if (k < 2L) 
       stop("all observations are in the same group")
   }
   N <- length(x)
-  if (N < 2)
-    stop("not enough observations")
-
+  if (N < 2L) 
+    stop("not enough observations")  
+  
   method <- match.arg(method)
 
   nms <- levels(g)
@@ -4516,6 +4512,11 @@ DunnTest.default <- function (x, g, method = c("holm","hochberg","hommel","bonfe
   pvals <- p.adjust(pvals, method=method)
   method.str <- method
 
+  # p-values matrix
+  pmat <- matrix(NA, nrow=length(nms), ncol=length(nms))
+  pmat[lower.tri(pmat, diag = FALSE)] <- pvals
+  dimnames(pmat) <- list(nms, nms)
+  
   if(out.list){
     dnames <- list(NULL, c("mean rank diff", "pval"))
     if (!is.null(nms))
@@ -4523,13 +4524,18 @@ DunnTest.default <- function (x, g, method = c("holm","hochberg","hommel","bonfe
     out[[1]] <- array(c(mrnkdiff[keep], pvals), c(length(mrnkdiff[keep]), 2L), dnames)
 
   } else {
-    out[[1]] <- matrix(NA, nrow=length(nms), ncol=length(nms))
-    out[[1]][lower.tri(out[[1]], diag = FALSE)] <- pvals
-    dimnames(out[[1]]) <- list(nms, nms)
-    out[[1]] <- out[[1]][-1, -ncol(out[[1]])]
-
+    out[[1]] <- pmat[-1, -ncol(pmat)]
   }
 
+  
+  # make symmetric matrix from lower diagonal
+  pmatxt <- pmat
+  pmatxt[upper.tri(pmatxt)] <- t(pmatxt)[upper.tri(pmatxt)]
+  diag(pmatxt) <- 1
+  out[["pmat"]] <- pmatxt
+  attr(out[["pmat"]], "lbl") <- apply(pmatxt, 1, 
+                                      function(x) paste(rownames(pmatxt)[x<0.05], collapse=","))
+  
   class(out) <- c("DunnTest")
   attr(out, "main") <- gettextf("Dunn's test of multiple comparisons using rank sums : %s ", method.str)
   attr(out, "method") <- method.str
@@ -4577,34 +4583,38 @@ ConoverTest.default <- function (x, g,
   alternative <- match.arg(alternative)
 
   if (is.list(x)) {
-    if (length(x) < 2L)
+    if (length(x) < 2L) 
       stop("'x' must be a list with at least 2 elements")
-    DNAME <- deparse(substitute(x))
+    if (!missing(g)) 
+      warning("'x' is a list, so ignoring argument 'g'")
+    DNAME <- deparse1(substitute(x))
     x <- lapply(x, function(u) u <- u[complete.cases(u)])
+    if (!all(sapply(x, is.numeric))) 
+      warning("some elements of 'x' are not numeric and will be coerced to numeric")
     k <- length(x)
-    l <- sapply(x, "length")
-    if (any(l == 0))
+    l <- lengths(x)
+    if (any(l == 0L)) 
       stop("all groups must contain data")
-    g <- factor(rep(1:k, l))
+    g <- factor(rep.int(seq_len(k), l))
     x <- unlist(x)
-  } else {
-    if (length(x) != length(g))
+  }
+  else {
+    if (length(x) != length(g)) 
       stop("'x' and 'g' must have the same length")
-    DNAME <- paste(deparse(substitute(x)), "and", deparse(substitute(g)))
+    DNAME <- paste(deparse1(substitute(x)), "and", deparse1(substitute(g)))
     OK <- complete.cases(x, g)
     x <- x[OK]
     g <- g[OK]
-    if (!all(is.finite(g)))
-      stop("all group levels must be finite")
     g <- factor(g)
     k <- nlevels(g)
-    if (k < 2)
+    if (k < 2L) 
       stop("all observations are in the same group")
   }
-
   N <- length(x)
-  if (N < 2)
+  if (N < 2L) 
     stop("not enough observations")
+  
+  
   method <- match.arg(method)
   nms <- levels(g)
   n <- tapply(g, g, length)
@@ -4743,35 +4753,38 @@ NemenyiTest.default <- function (x, g,
                                  dist = c("tukey", "chisq"), out.list = TRUE, ...) {
 
   if (is.list(x)) {
-    if (length(x) < 2L)
+    if (length(x) < 2L) 
       stop("'x' must be a list with at least 2 elements")
-    DNAME <- deparse(substitute(x))
+    if (!missing(g)) 
+      warning("'x' is a list, so ignoring argument 'g'")
+    DNAME <- deparse1(substitute(x))
     x <- lapply(x, function(u) u <- u[complete.cases(u)])
+    if (!all(sapply(x, is.numeric))) 
+      warning("some elements of 'x' are not numeric and will be coerced to numeric")
     k <- length(x)
-    l <- sapply(x, "length")
-    if (any(l == 0))
+    l <- lengths(x)
+    if (any(l == 0L)) 
       stop("all groups must contain data")
-    g <- factor(rep(1:k, l))
+    g <- factor(rep.int(seq_len(k), l))
     x <- unlist(x)
   }
   else {
-    if (length(x) != length(g))
+    if (length(x) != length(g)) 
       stop("'x' and 'g' must have the same length")
-    DNAME <- paste(deparse(substitute(x)), "and", deparse(substitute(g)))
+    DNAME <- paste(deparse1(substitute(x)), "and", deparse1(substitute(g)))
     OK <- complete.cases(x, g)
     x <- x[OK]
     g <- g[OK]
-    if (!all(is.finite(g)))
-      stop("all group levels must be finite")
     g <- factor(g)
     k <- nlevels(g)
-    if (k < 2)
+    if (k < 2L) 
       stop("all observations are in the same group")
   }
   N <- length(x)
-  if (N < 2)
-    stop("not enough observations")
-
+  if (N < 2L) 
+    stop("not enough observations")  
+  
+  
   dist <- match.arg(dist, c("tukey", "chisq"))
 
   nms <- levels(g)
@@ -4861,34 +4874,38 @@ DunnettTest.default <- function (x, g, control = NULL
                                  , conf.level = 0.95, ...) {
 
   if (is.list(x)) {
-    if (length(x) < 2L)
+    if (length(x) < 2L) 
       stop("'x' must be a list with at least 2 elements")
-    DNAME <- deparse(substitute(x))
+    if (!missing(g)) 
+      warning("'x' is a list, so ignoring argument 'g'")
+    DNAME <- deparse1(substitute(x))
     x <- lapply(x, function(u) u <- u[complete.cases(u)])
+    if (!all(sapply(x, is.numeric))) 
+      warning("some elements of 'x' are not numeric and will be coerced to numeric")
     k <- length(x)
-    l <- sapply(x, "length")
-    if (any(l == 0))
+    l <- lengths(x)
+    if (any(l == 0L)) 
       stop("all groups must contain data")
-    g <- factor(rep(1:k, l))
+    g <- factor(rep.int(seq_len(k), l))
     x <- unlist(x)
-  } else {
-    if (length(x) != length(g))
+  }
+  else {
+    if (length(x) != length(g)) 
       stop("'x' and 'g' must have the same length")
-    DNAME <- paste(deparse(substitute(x)), "and", deparse(substitute(g)))
+    DNAME <- paste(deparse1(substitute(x)), "and", deparse1(substitute(g)))
     OK <- complete.cases(x, g)
     x <- x[OK]
     g <- g[OK]
-    if (!all(is.finite(g)))
-      stop("all group levels must be finite")
     g <- factor(g)
     k <- nlevels(g)
-    if (k < 2)
+    if (k < 2L) 
       stop("all observations are in the same group")
   }
   N <- length(x)
-  if (N < 2)
+  if (N < 2L) 
     stop("not enough observations")
-
+  
+  
   # just organisational stuff so far, got a fine x and g now
 
   if (is.null(control)) control <- levels(g)[1]
