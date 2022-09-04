@@ -85,7 +85,7 @@ Inv. hyperbolic sine \tab \eqn{\ln({{\hat{\theta }}_{i}})\pm \left[ 2sin{{h}^{-1
 Koopman \tab Find \eqn{X^2(\theta_0)} = \eqn{\chi _1^2(1 - \alpha)}, where \cr
 \tab  \eqn{{{\tilde{\pi }}_{1i}}=\frac{{{\theta }_{0}}({{n}_{1}}+{{y}_{2i}})+{{y}_{1i}}+{{n}_{2}}-{{[{{\{{{\theta }_{0}}({{n}_{1}}+{{y}_{2i}})+{{y}_{1i}}+
 {{n}_{2}}\}}^{2}}-4{{\theta }_{0}}({{n}_{1}}+{{n}_{2}})({{y}_{1i}}+{{y}_{2i}})]}^{0.5}}}{2({{n}_{1}}+{{n}_{2}})}}, \cr
-\tab \eqn{{{\tilde{\pi }}_{2i}}=\frac{{{{\tilde{\pi }}}_{1i}}}{{{\theta }_{0}}}$, and ${{X}^{2}}({{\theta}_{0}})=\frac{{{\left( {{y}_{1i}}-{{n}_{1}}{{{\tilde{\pi }}}_{1i}} \right)}^{2}}}
+\tab \eqn{{{\tilde{\pi }}_{2i}}=\frac{{{{\tilde{\pi }}}_{1i}}}{{{\theta }_{0}}}, and {{X}^{2}}({{\theta}_{0}})=\frac{{{\left( {{y}_{1i}}-{{n}_{1}}{{{\tilde{\pi }}}_{1i}} \right)}^{2}}}
 {{{n}_{1}}{{{\tilde{\pi }}}_{1i}}(1-{{{\tilde{\pi }}}_{1i}})}\left\{ 1+\frac{{{n}_{1}}({{\theta}_{0}}-{{{\tilde{\pi }}}_{1i}})}{{{n}_{2}}(1-{\tilde{\pi}_{1i}})} \right\}}. \cr 
 \tab \cr
 %% Noether

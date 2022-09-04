@@ -5162,6 +5162,24 @@ Format.table <- function(x, digits = NULL, sci = NULL
 }
 
 
+Format.ftable <- function(x, digits = NULL, sci = NULL, big.mark = NULL,
+                          ldigits = NULL, zero.form = NULL, na.form = NULL,
+                          fmt = NULL, align = NULL, width = NULL, lang = NULL, 
+                          eps = NULL, ...){
+  
+  # convert ftable first to matrix, then to data.frame in order to 
+  # apply recycled arguments columnwise, which is a common need
+  res <- Format(as.data.frame(as.matrix(x)), digits = digits, sci = sci, big.mark = big.mark,
+                ldigits = ldigits, zero.form = zero.form, na.form = na.form,
+                fmt = fmt, align = align, width = width, lang = lang, 
+                eps = eps, ...)
+  
+  x[] <- as.matrix(res)
+  
+  return(x)
+  
+}
+
 
 as.CDateFmt <- function(fmt) {
 
@@ -16733,7 +16751,7 @@ WrdKill <- function(){
 CourseData <- function(name, url=NULL, header=TRUE, sep=";", ...){
 
   if(grepl("xls", tools::file_ext(name))) {
-    res <- OpenDataObject(name=name, url=url)
+    res <- OpenDataObject(name=name, url=url, ...)
     
   } else {
   
@@ -16789,8 +16807,12 @@ OpenDataObject <- function(name, url=NULL,
     for(x in code[[col_var]][id]){
       z[, x] <- factor(z[, x], 
                        ordered = (code[[col_scale]][code[[col_var]] == x]) == "ordinal")
-      levels(z[, x]) <- StrTrim(sapply(codes[[x]], "[", 2))[
-                    match(levels(z[, x]), StrTrim(sapply(codes[[x]], "[", 1)))]
+      
+      # could also not be defined, e.g. patient id (nominal, but no codes)
+      if(!identical(codes[[x]], NA)){
+        levels(z[, x]) <- StrTrim(sapply(codes[[x]], "[", 2))[
+                      match(levels(z[, x]), StrTrim(sapply(codes[[x]], "[", 1)))]
+      }
     }
   
     # Labels:

@@ -66,11 +66,11 @@ increase can only occur from 0 to 1, and therefore, the standardized coeffient i
     \myequation{X_i}{Xᵢ}{Xi}  with the other \eqn{X} variables
 	included in the regression equation. The partial standard deviation is
 	calculated as
-    \myequation{s_{X_{i}}^{*}=s_{X_{i}} \var{VIF}(X_i)^{-0.5} (\frac{n-1}{n-p} )^{0.5}
+    \myequation{s_{X_{i}}^{*}=s_{X_{i}} {VIF}(X_i)^{-0.5} (\frac{n-1}{n-p} )^{0.5}
         }{s*ₓᵢ = sₓᵢ √(VIFₓᵢ⁻¹) √((n-1)/(n-p))
         }{sXi* = SXi * sqrt(1/VIF(Xi)) * sqrt((n-1)/(n-p))},
-    where \var{VIF} is the variance inflation factor,
-	\var{n} is the number of observations and \var{p} number of predictors in
+    where VIF is the variance inflation factor,
+	n is the number of observations and p number of predictors in
 	the model. Coefficient is then transformed as
     \myequation{\beta^{*}_i = \beta_i s_{X_{i}}^{*}
         }{\betaᵢ* = \betaᵢ s*ₓᵢ

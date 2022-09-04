@@ -33,7 +33,7 @@ All characters beside charlist = c(LETTERS, letters, 0:9) will be discarded from
 %% ...
 }
 \author{Andri Signorell <andri@signorell.net>\cr
-strongly based on code found at \url{http://rosettacode.org/wiki/Vigen\%C3\%A8re_cipher#R} (credits to the unknown soldier)
+strongly based on code found at \url{https://rosettacode.org/wiki/Vigen\%C3\%A8re_cipher#R} (credits to the unknown soldier)
 %%  ~~who you are~~
 }
 
