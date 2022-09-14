@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -82,9 +82,9 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">DurbinWatsonTest</span><span class="op">(</span><span class="va">formula</span>, order.by <span class="op">=</span> <span class="cn">NULL</span>,
-                 alternative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"greater"</span>, <span class="st">"two.sided"</span>, <span class="st">"less"</span><span class="op">)</span>,
-                 iterations <span class="op">=</span> <span class="fl">15</span>, exact <span class="op">=</span> <span class="cn">NULL</span>, tol <span class="op">=</span> <span class="fl">1e-10</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">DurbinWatsonTest</span><span class="op">(</span><span class="va">formula</span>, order.by <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>                 alternative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"greater"</span>, <span class="st">"two.sided"</span>, <span class="st">"less"</span><span class="op">)</span>,</span>
+<span>                 iterations <span class="op">=</span> <span class="fl">15</span>, exact <span class="op">=</span> <span class="cn">NULL</span>, tol <span class="op">=</span> <span class="fl">1e-10</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -92,29 +92,36 @@
     <dl><dt>formula</dt>
 <dd><p>a symbolic description for the model to be tested
     (or a fitted <code>"lm"</code> object).</p></dd>
-<dt>order.by</dt>
+
+ <dt>order.by</dt>
 <dd><p>Either a vector <code>z</code> or a formula with a single explanatory
     variable like <code>~ z</code>. The observations in the model
     are ordered by the size of <code>z</code>. If set to <code>NULL</code> (the
     default) the observations are assumed to be ordered (e.g., a
     time series).</p></dd>
-<dt>alternative</dt>
+
+ <dt>alternative</dt>
 <dd><p>a character string specifying the alternative hypothesis.</p></dd>
-<dt>iterations</dt>
+
+ <dt>iterations</dt>
 <dd><p>an integer specifying the number of iterations
     when calculating the p-value with the "pan" algorithm.</p></dd>
-<dt>exact</dt>
+
+ <dt>exact</dt>
 <dd><p>logical. If set to <code>FALSE</code> a normal approximation
    will be used to compute the p value, if <code>TRUE</code> the "pan"
    algorithm is used. The default is to use "pan" if the sample size
    is &lt; 100.</p></dd>
-<dt>tol</dt>
+
+ <dt>tol</dt>
 <dd><p>tolerance. Eigenvalues computed have to be greater than
             <code>tol</code> to be treated as non-zero.</p></dd>
-<dt>data</dt>
+
+ <dt>data</dt>
 <dd><p>an optional data frame containing the variables in the model.
     By default the variables are taken from the environment which <code>DurbinWatsonTest</code>
     is called from.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -142,12 +149,16 @@ data sets <code>bondyield</code>, <code>currencysubstitution</code>,
     <p>An object of class <code>"htest"</code> containing:</p>
 <dl><dt>statistic</dt>
 <dd><p>the test statistic.</p></dd>
-<dt>p.value</dt>
+
+  <dt>p.value</dt>
 <dd><p>the corresponding p-value.</p></dd>
-<dt>method</dt>
+
+  <dt>method</dt>
 <dd><p>a character string with the method used.</p></dd>
-<dt>data.name</dt>
+
+  <dt>data.name</dt>
 <dd><p>a character string with the data name.</p></dd>
+
 </dl></div>
     <div id="note">
     <h2>Note</h2>
@@ -193,17 +204,17 @@ Using R To Teach Econometrics.
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co">## generate two AR(1) error terms with parameter</span></span>
-<span class="r-in"><span class="co">## rho = 0 (white noise) and rho = 0.9 respectively</span></span>
-<span class="r-in"><span class="va">err1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## generate regressor and dependent variable</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, <span class="fl">50</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">y1</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">x</span> <span class="op">+</span> <span class="va">err1</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## perform Durbin-Watson test</span></span>
-<span class="r-in"><span class="fu">DurbinWatsonTest</span><span class="op">(</span><span class="va">y1</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## generate two AR(1) error terms with parameter</span></span></span>
+<span class="r-in"><span><span class="co">## rho = 0 (white noise) and rho = 0.9 respectively</span></span></span>
+<span class="r-in"><span><span class="va">err1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## generate regressor and dependent variable</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, <span class="fl">50</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">y1</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">x</span> <span class="op">+</span> <span class="va">err1</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## perform Durbin-Watson test</span></span></span>
+<span class="r-in"><span><span class="fu">DurbinWatsonTest</span><span class="op">(</span><span class="va">y1</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Durbin-Watson test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -211,10 +222,10 @@ Using R To Teach Econometrics.
 <span class="r-out co"><span class="r-pr">#&gt;</span> DW = 1.9847, p-value = 0.5095</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: true autocorrelation is greater than 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">err2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">err1</span>, <span class="fl">0.9</span>, method<span class="op">=</span><span class="st">"recursive"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">y2</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">x</span> <span class="op">+</span> <span class="va">err2</span></span>
-<span class="r-in"><span class="fu">DurbinWatsonTest</span><span class="op">(</span><span class="va">y2</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">err2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">err1</span>, <span class="fl">0.9</span>, method<span class="op">=</span><span class="st">"recursive"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">y2</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">x</span> <span class="op">+</span> <span class="va">err2</span></span></span>
+<span class="r-in"><span><span class="fu">DurbinWatsonTest</span><span class="op">(</span><span class="va">y2</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Durbin-Watson test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -222,12 +233,12 @@ Using R To Teach Econometrics.
 <span class="r-out co"><span class="r-pr">#&gt;</span> DW = 0.31054, p-value &lt; 2.2e-16</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: true autocorrelation is greater than 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## for a simple vector use:</span></span>
-<span class="r-in"><span class="va">e_t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">32.33</span>, <span class="op">-</span><span class="fl">26.603</span>, <span class="fl">2.215</span>, <span class="op">-</span><span class="fl">16.967</span>, <span class="op">-</span><span class="fl">1.148</span>, <span class="op">-</span><span class="fl">2.512</span>, <span class="op">-</span><span class="fl">1.967</span>, <span class="fl">11.669</span>,</span>
-<span class="r-in">         <span class="op">-</span><span class="fl">0.513</span>, <span class="fl">27.032</span>, <span class="op">-</span><span class="fl">4.422</span>, <span class="fl">40.032</span>, <span class="fl">23.577</span>, <span class="fl">33.94</span>, <span class="op">-</span><span class="fl">2.787</span>, <span class="op">-</span><span class="fl">8.606</span>,</span>
-<span class="r-in">          <span class="fl">0.575</span>, <span class="fl">6.848</span>, <span class="op">-</span><span class="fl">18.971</span>, <span class="op">-</span><span class="fl">29.063</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">DurbinWatsonTest</span><span class="op">(</span><span class="va">e_t</span> <span class="op">~</span> <span class="fl">1</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## for a simple vector use:</span></span></span>
+<span class="r-in"><span><span class="va">e_t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">32.33</span>, <span class="op">-</span><span class="fl">26.603</span>, <span class="fl">2.215</span>, <span class="op">-</span><span class="fl">16.967</span>, <span class="op">-</span><span class="fl">1.148</span>, <span class="op">-</span><span class="fl">2.512</span>, <span class="op">-</span><span class="fl">1.967</span>, <span class="fl">11.669</span>,</span></span>
+<span class="r-in"><span>         <span class="op">-</span><span class="fl">0.513</span>, <span class="fl">27.032</span>, <span class="op">-</span><span class="fl">4.422</span>, <span class="fl">40.032</span>, <span class="fl">23.577</span>, <span class="fl">33.94</span>, <span class="op">-</span><span class="fl">2.787</span>, <span class="op">-</span><span class="fl">8.606</span>,</span></span>
+<span class="r-in"><span>          <span class="fl">0.575</span>, <span class="fl">6.848</span>, <span class="op">-</span><span class="fl">18.971</span>, <span class="op">-</span><span class="fl">29.063</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">DurbinWatsonTest</span><span class="op">(</span><span class="va">e_t</span> <span class="op">~</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Fortran("pan", as.double(c(dw, ev)), as.integer(length(ev)),     as.double(0), as.integer(iterations), x = double(1), PACKAGE = "DescTools"):</span> "pan" not available for .Fortran() for package "DescTools"</span>
 </code></pre></div>
     </div>
@@ -243,7 +254,7 @@ Using R To Teach Econometrics.
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

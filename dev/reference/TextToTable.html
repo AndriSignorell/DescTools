@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">TextToTable</span><span class="op">(</span><span class="va">x</span>, dimnames <span class="op">=</span> <span class="cn">NULL</span>, check.names <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">TextToTable</span><span class="op">(</span><span class="va">x</span>, dimnames <span class="op">=</span> <span class="cn">NULL</span>, check.names <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -95,19 +95,37 @@
     <dl><dt>x</dt>
 <dd><p>the string to be interpreted as table.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>dimnames</dt>
+
+  <dt>dimnames</dt>
 <dd><p>the names of the dimensions.
 <!-- %%     ~~Describe \code{dimnames} here~~ --></p></dd>
+
 <dt>check.names</dt>
 <dd><p>passed on to <code><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></code> and determines, if invalid column names should be adapted to valid ones. The default here is changed to <code>FALSE</code>.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>the dots will be passed to the function <code><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></code> and can be used for example to specify <code>header</code>, <code>sep</code> and <code>row.names</code> arguments.
 <!-- %%     ~~Describe \code{\dots} here~~ --></p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     <p>a table
-<!-- %%  ~Describe the value returned --><!-- %%  If it is a LIST, use --><!-- %%  \item{comp1 }{Description of 'comp1'} --><!-- %%  \item{comp2 }{Description of 'comp2'} --><!-- %% ... --></p>
+<!-- %%  ~Describe the value returned --></p>
+
+
+<p><!-- %%  If it is a LIST, use --></p>
+
+
+<p><!-- %%  \item{comp1 }{Description of 'comp1'} --></p>
+
+
+<p><!-- %%  \item{comp2 }{Description of 'comp2'} --></p>
+
+
+<p><!-- %% ... --></p>
+
+
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -122,12 +140,12 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">txt</span> <span class="op">&lt;-</span> <span class="st">"</span>
-<span class="r-in">    Democrat, Independent, Republican</span>
-<span class="r-in">  M, 762, 327, 468</span>
-<span class="r-in">  F, 484, 239, 477"</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="op">(</span><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu">TextToTable</span><span class="op">(</span><span class="va">txt</span>, header<span class="op">=</span><span class="cn">TRUE</span>, sep<span class="op">=</span><span class="st">","</span>, dimnames<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"gender"</span>, <span class="st">"party"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">txt</span> <span class="op">&lt;-</span> <span class="st">"</span></span></span>
+<span class="r-in"><span><span class="st">    Democrat, Independent, Republican</span></span></span>
+<span class="r-in"><span><span class="st">  M, 762, 327, 468</span></span></span>
+<span class="r-in"><span><span class="st">  F, 484, 239, 477"</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu">TextToTable</span><span class="op">(</span><span class="va">txt</span>, header<span class="op">=</span><span class="cn">TRUE</span>, sep<span class="op">=</span><span class="st">","</span>, dimnames<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"gender"</span>, <span class="st">"party"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       party</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> gender Democrat Independent Republican</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      M      762         327        468</span>
@@ -146,7 +164,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

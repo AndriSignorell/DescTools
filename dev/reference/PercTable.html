@@ -19,7 +19,7 @@ All the frequencies are nested into one single table.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -86,21 +86,21 @@ All the frequencies are nested into one single table.
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for default</span>
-<span class="fu">PercTable</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for table</span>
-<span class="fu">PercTable</span><span class="op">(</span><span class="va">tab</span>, row.vars <span class="op">=</span> <span class="cn">NULL</span>, col.vars <span class="op">=</span> <span class="cn">NULL</span>, justify <span class="op">=</span> <span class="st">"right"</span>,
-          freq <span class="op">=</span> <span class="cn">TRUE</span>, rfrq <span class="op">=</span> <span class="st">"100"</span>, expected <span class="op">=</span> <span class="cn">FALSE</span>, residuals <span class="op">=</span> <span class="cn">FALSE</span>,
-          stdres <span class="op">=</span> <span class="cn">FALSE</span>, margins <span class="op">=</span> <span class="cn">NULL</span>, digits <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for formula</span>
-<span class="fu">PercTable</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">subset</span>, <span class="va">na.action</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for PercTable</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, vsep <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">Margins</span><span class="op">(</span><span class="va">tab</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">PercTable</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for table</span></span>
+<span><span class="fu">PercTable</span><span class="op">(</span><span class="va">tab</span>, row.vars <span class="op">=</span> <span class="cn">NULL</span>, col.vars <span class="op">=</span> <span class="cn">NULL</span>, justify <span class="op">=</span> <span class="st">"right"</span>,</span>
+<span>          freq <span class="op">=</span> <span class="cn">TRUE</span>, rfrq <span class="op">=</span> <span class="st">"100"</span>, expected <span class="op">=</span> <span class="cn">FALSE</span>, residuals <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>          stdres <span class="op">=</span> <span class="cn">FALSE</span>, margins <span class="op">=</span> <span class="cn">NULL</span>, digits <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for formula</span></span>
+<span><span class="fu">PercTable</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">subset</span>, <span class="va">na.action</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for PercTable</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, vsep <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">Margins</span><span class="op">(</span><span class="va">tab</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -110,53 +110,73 @@ All the frequencies are nested into one single table.
    x and y will be tabulated via <code>table(x, y)</code>.<br>
    If x is a matrix, it will be coerced to a table via as.table(x).
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>tab</dt>
+
+  <dt>tab</dt>
 <dd><p>a r x c-contingency table
 <!-- %%     ~~Describe \code{tab} here~~ --></p></dd>
-<dt>row.vars</dt>
+
+  <dt>row.vars</dt>
 <dd><p>a vector of row variables (see Details).
 <!-- %%     ~~Describe \code{row.vars} here~~ --></p></dd>
-<dt>col.vars</dt>
+
+  <dt>col.vars</dt>
 <dd><p>a vector of column variables (see Details). If this is left to <code>NULL</code> the table structure will be preserved.
 <!-- %%     ~~Describe \code{col.vars} here~~ --></p></dd>
-<dt>justify</dt>
+
+  <dt>justify</dt>
 <dd><p>either <code>"left"</code> or <code>"right"</code> for defining the alignment of the table cells.
 <!-- %%     ~~Describe \code{col.vars} here~~ --></p></dd>
-<dt>freq</dt>
+
+  <dt>freq</dt>
 <dd><p>boolean. Should absolute frequencies be included? Defaults to TRUE.
 <!-- %%     ~~Describe \code{freq} here~~ --></p></dd>
-<dt>rfrq</dt>
+
+  <dt>rfrq</dt>
 <dd><p>a string with 3 characters, each of them being 1 or 0. The first position means total percentages,
   the second means row percentages and the third column percentages. "011" produces a table output with row and column percentages.
 <!-- %%     ~~Describe \code{rfrq} here~~ --></p></dd>
-<dt>expected</dt>
+
+  <dt>expected</dt>
 <dd><p>the expected counts under the null hypothesis.</p></dd>
-<dt>residuals</dt>
+
+  <dt>residuals</dt>
 <dd><p>the Pearson residuals, (observed - expected) / sqrt(expected).</p></dd>
-<dt>stdres</dt>
+
+  <dt>stdres</dt>
 <dd><p>standardized residuals, (observed - expected) / sqrt(V), where V is the residual cell variance
     (for the case where x is a matrix, n * p * (1 - p) otherwise).</p></dd>
-<dt>margins</dt>
+
+  <dt>margins</dt>
 <dd><p>a vector, consisting out of 1 and/or 2. Defines the margin sums to be included.
   1 stands for row margins, 2 for column margins, c(1,2) for both. Default is <code>NULL</code> (none).
 <!-- %%     ~~Describe \code{margins} here~~ --></p></dd>
+
 <dt>digits</dt>
 <dd><p>integer. With how many digits shoud the relative frequencies be formatted? Default can be set by <code>DescToolsOptions(digits=x)</code>.</p></dd>
-<dt>formula</dt>
+
+
+   <dt>formula</dt>
 <dd><p>a formula of the form <code>lhs ~ rhs</code> where <code>lhs</code> will be tabled versus rhs (<code>table(lhs, rhs)</code>).</p></dd>
-<dt>data</dt>
+
+  <dt>data</dt>
 <dd><p>an optional matrix or data frame (or similar: see <code><a href="https://rdrr.io/r/stats/model.frame.html" class="external-link">model.frame</a></code>) containing the variables in the formula <code>formula</code>.
     By default the variables are taken from <code>environment(formula)</code>.</p></dd>
-<dt>subset</dt>
+
+  <dt>subset</dt>
 <dd><p>an optional vector specifying a subset of observations to be used.</p></dd>
-<dt>na.action</dt>
+
+  <dt>na.action</dt>
 <dd><p>a function which indicates what should happen when the data contain NAs. Defaults to <code>getOption("na.action")</code>.</p></dd>
-<dt>vsep</dt>
+
+
+  <dt>vsep</dt>
 <dd><p>logical, defining if an empty row should be introduced between the table rows. Default is FALSE, if only a table with one single description (either frequencies or percents) should be returned and <code>TRUE</code> in any other case.
 <!-- %%     ~~Describe \code{digits} here~~ --></p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>the dots are passed from <code>PercTable.default()</code> to <code>PercTable.table()</code> and from <code>Margins</code> to the function <code><a href="Freq.html">Freq</a></code>.
 <!-- %%     ~~Describe \code{\dots} here~~ --></p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -174,7 +194,21 @@ Absolute frequencies will use <code>Fmt("abs")</code> and <code>Fmt("per")</code
     <div id="value">
     <h2>Value</h2>
     <p>Returns an object of class <code>"ftable"</code>.
-<!-- %%  ~Describe the value returned --><!-- %%  If it is a LIST, use --><!-- %%  \item{comp1 }{Description of 'comp1'} --><!-- %%  \item{comp2 }{Description of 'comp2'} --><!-- %% ... --></p>
+<!-- %%  ~Describe the value returned --></p>
+
+
+<p><!-- %%  If it is a LIST, use --></p>
+
+
+<p><!-- %%  \item{comp1 }{Description of 'comp1'} --></p>
+
+
+<p><!-- %%  \item{comp2 }{Description of 'comp2'} --></p>
+
+
+<p><!-- %% ... --></p>
+
+
     </div>
     <div id="references">
     <h2>References</h2>
@@ -194,9 +228,9 @@ lacking some of the flexibility we needed here. <br></p></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span>driver<span class="op">=</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span>, area<span class="op">=</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">area</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">PercTable</span><span class="op">(</span>tab<span class="op">=</span><span class="va">tab</span>, col.vars<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span>driver<span class="op">=</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span>, area<span class="op">=</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">area</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">PercTable</span><span class="op">(</span>tab<span class="op">=</span><span class="va">tab</span>, col.vars<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             area   Brent   Camden   Westminster</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> driver                                         </span>
@@ -222,8 +256,8 @@ lacking some of the flexibility we needed here. <br></p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Taylor      freq      42      142            20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             perc    3.5%    11.9%          1.7%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">PercTable</span><span class="op">(</span>tab<span class="op">=</span><span class="va">tab</span>, col.vars<span class="op">=</span><span class="fl">2</span>, margins<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">PercTable</span><span class="op">(</span>tab<span class="op">=</span><span class="va">tab</span>, col.vars<span class="op">=</span><span class="fl">2</span>, margins<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             area   Brent   Camden   Westminster    Sum</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> driver                                                </span>
@@ -252,7 +286,7 @@ lacking some of the flexibility we needed here. <br></p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Sum         freq     473      341           380  1'194</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             perc   39.6%    28.6%         31.8% 100.0%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                       </span>
-<span class="r-in"><span class="fu">PercTable</span><span class="op">(</span>tab<span class="op">=</span><span class="va">tab</span>, col.vars<span class="op">=</span><span class="fl">2</span>, margins<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">PercTable</span><span class="op">(</span>tab<span class="op">=</span><span class="va">tab</span>, col.vars<span class="op">=</span><span class="fl">2</span>, margins<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             area   Brent   Camden   Westminster</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> driver                                         </span>
@@ -281,7 +315,7 @@ lacking some of the flexibility we needed here. <br></p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Sum         freq     473      341           380</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             perc   39.6%    28.6%         31.8%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                </span>
-<span class="r-in"><span class="fu">PercTable</span><span class="op">(</span>tab<span class="op">=</span><span class="va">tab</span>, col.vars<span class="op">=</span><span class="fl">2</span>, margins<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">PercTable</span><span class="op">(</span>tab<span class="op">=</span><span class="va">tab</span>, col.vars<span class="op">=</span><span class="fl">2</span>, margins<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             area   Brent   Camden   Westminster   Sum</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> driver                                               </span>
@@ -307,7 +341,7 @@ lacking some of the flexibility we needed here. <br></p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Taylor      freq      42      142            20   204</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             perc    3.5%    11.9%          1.7% 17.1%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                      </span>
-<span class="r-in"><span class="fu">PercTable</span><span class="op">(</span>tab<span class="op">=</span><span class="va">tab</span>, col.vars<span class="op">=</span><span class="fl">2</span>, margins<span class="op">=</span><span class="cn">NULL</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">PercTable</span><span class="op">(</span>tab<span class="op">=</span><span class="va">tab</span>, col.vars<span class="op">=</span><span class="fl">2</span>, margins<span class="op">=</span><span class="cn">NULL</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             area   Brent   Camden   Westminster</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> driver                                         </span>
@@ -333,8 +367,8 @@ lacking some of the flexibility we needed here. <br></p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Taylor      freq      42      142            20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             perc    3.5%    11.9%          1.7%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">PercTable</span><span class="op">(</span>tab<span class="op">=</span><span class="va">tab</span>, col.vars<span class="op">=</span><span class="fl">2</span>, rfrq<span class="op">=</span><span class="st">"000"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">PercTable</span><span class="op">(</span>tab<span class="op">=</span><span class="va">tab</span>, col.vars<span class="op">=</span><span class="fl">2</span>, rfrq<span class="op">=</span><span class="st">"000"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> area        Brent   Camden   Westminster</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> driver                                  </span>
@@ -345,9 +379,9 @@ lacking some of the flexibility we needed here. <br></p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hunter        128        4            24</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Miller          6       41            77</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Taylor         42      142            20</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># just the percentages without absolute values</span></span>
-<span class="r-in"><span class="fu">PercTable</span><span class="op">(</span>tab<span class="op">=</span><span class="va">tab</span>, col.vars<span class="op">=</span><span class="fl">2</span>, rfrq<span class="op">=</span><span class="st">"110"</span>, freq<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># just the percentages without absolute values</span></span></span>
+<span class="r-in"><span><span class="fu">PercTable</span><span class="op">(</span>tab<span class="op">=</span><span class="va">tab</span>, col.vars<span class="op">=</span><span class="fl">2</span>, rfrq<span class="op">=</span><span class="st">"110"</span>, freq<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             area    Brent   Camden   Westminster</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> driver                                          </span>
@@ -373,9 +407,9 @@ lacking some of the flexibility we needed here. <br></p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Taylor      perc     3.5%    11.9%          1.7%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             p.row   20.6%    69.6%          9.8%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># just the row percentages in percent format (pfmt = TRUE)</span></span>
-<span class="r-in"><span class="fu">PercTable</span><span class="op">(</span><span class="va">tab</span>, freq<span class="op">=</span> <span class="cn">FALSE</span>, rfrq<span class="op">=</span><span class="st">"010"</span>, pfmt<span class="op">=</span><span class="cn">TRUE</span>, digits<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># just the row percentages in percent format (pfmt = TRUE)</span></span></span>
+<span class="r-in"><span><span class="fu">PercTable</span><span class="op">(</span><span class="va">tab</span>, freq<span class="op">=</span> <span class="cn">FALSE</span>, rfrq<span class="op">=</span><span class="st">"010"</span>, pfmt<span class="op">=</span><span class="cn">TRUE</span>, digits<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> area        Brent   Camden   Westminster</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> driver                                  </span>
@@ -386,9 +420,9 @@ lacking some of the flexibility we needed here. <br></p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hunter      82.1%     2.6%         15.4%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Miller       4.8%    33.1%         62.1%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Taylor      20.6%    69.6%          9.8%</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># just the expected frequencies and the standard residuals</span></span>
-<span class="r-in"><span class="fu">PercTable</span><span class="op">(</span>tab<span class="op">=</span><span class="va">tab</span>, rfrq<span class="op">=</span><span class="st">"000"</span>, expected <span class="op">=</span> <span class="cn">TRUE</span>, stdres <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># just the expected frequencies and the standard residuals</span></span></span>
+<span class="r-in"><span><span class="fu">PercTable</span><span class="op">(</span>tab<span class="op">=</span><span class="va">tab</span>, rfrq<span class="op">=</span><span class="st">"000"</span>, expected <span class="op">=</span> <span class="cn">TRUE</span>, stdres <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             area     Brent   Camden   Westminster</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> driver                                           </span>
@@ -421,10 +455,10 @@ lacking some of the flexibility we needed here. <br></p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             exp     80.814   58.261        64.925</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             stdres  -6.102   14.254        -7.416</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                  </span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># rearrange output such that freq are inserted as columns instead of rows</span></span>
-<span class="r-in"><span class="fu">PercTable</span><span class="op">(</span>tab<span class="op">=</span><span class="va">tab</span>, col.vars<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">2</span><span class="op">)</span>, rfrq<span class="op">=</span><span class="st">"111"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># rearrange output such that freq are inserted as columns instead of rows</span></span></span>
+<span class="r-in"><span><span class="fu">PercTable</span><span class="op">(</span>tab<span class="op">=</span><span class="va">tab</span>, col.vars<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">2</span><span class="op">)</span>, rfrq<span class="op">=</span><span class="st">"111"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              freq                           perc                          p.row</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> area        Brent   Camden   Westminster   Brent   Camden   Westminster   Brent</span>
@@ -447,9 +481,9 @@ lacking some of the flexibility we needed here. <br></p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hunter        2.6%         15.4%   27.1%     1.2%          6.3%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Miller       33.1%         62.1%    1.3%    12.0%         20.3%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Taylor       69.6%          9.8%    8.9%    41.6%          5.3%</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># putting the areas in rows</span></span>
-<span class="r-in"><span class="fu">PercTable</span><span class="op">(</span>tab<span class="op">=</span><span class="va">tab</span>, col.vars<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">1</span><span class="op">)</span>, rfrq<span class="op">=</span><span class="st">"100"</span>, margins<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># putting the areas in rows</span></span></span>
+<span class="r-in"><span><span class="fu">PercTable</span><span class="op">(</span>tab<span class="op">=</span><span class="va">tab</span>, col.vars<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">1</span><span class="op">)</span>, rfrq<span class="op">=</span><span class="st">"100"</span>, margins<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                               </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                  freq                                                         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> driver        Butcher   Carpenter   Carter   Farmer   Hunter   Miller   Taylor</span>
@@ -474,9 +508,9 @@ lacking some of the flexibility we needed here. <br></p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Camden         11.9%  28.6%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Westminster     1.7%  31.8%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Sum            17.1% 100.0%</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># formula interface with subset</span></span>
-<span class="r-in"><span class="fu">PercTable</span><span class="op">(</span><span class="va">driver</span> <span class="op">~</span> <span class="va">area</span>, data<span class="op">=</span><span class="va">d.pizza</span>, subset<span class="op">=</span><span class="va">wine_delivered</span><span class="op">==</span><span class="fl">0</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># formula interface with subset</span></span></span>
+<span class="r-in"><span><span class="fu">PercTable</span><span class="op">(</span><span class="va">driver</span> <span class="op">~</span> <span class="va">area</span>, data<span class="op">=</span><span class="va">d.pizza</span>, subset<span class="op">=</span><span class="va">wine_delivered</span><span class="op">==</span><span class="fl">0</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             area   Brent   Camden   Westminster</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> driver                                         </span>
@@ -502,9 +536,9 @@ lacking some of the flexibility we needed here. <br></p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Taylor      freq      36      118            18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             perc    3.5%    11.6%          1.8%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># sort the table by rows, order first column (Zurich), then third, then row.names (0)</span></span>
-<span class="r-in"><span class="fu">PercTable</span><span class="op">(</span>tab<span class="op">=</span><span class="fu"><a href="Sort.html">Sort</a></span><span class="op">(</span><span class="va">tab</span>, ord<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># sort the table by rows, order first column (Zurich), then third, then row.names (0)</span></span></span>
+<span class="r-in"><span><span class="fu">PercTable</span><span class="op">(</span>tab<span class="op">=</span><span class="fu"><a href="Sort.html">Sort</a></span><span class="op">(</span><span class="va">tab</span>, ord<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             area   Brent   Camden   Westminster</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> driver                                         </span>
@@ -530,10 +564,10 @@ lacking some of the flexibility we needed here. <br></p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Carter      freq     177       47             5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             perc   14.8%     3.9%          0.4%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># reverse the row variables, so that absolute frequencies and percents</span></span>
-<span class="r-in"><span class="co"># are not nested together</span></span>
-<span class="r-in"><span class="fu">PercTable</span><span class="op">(</span><span class="va">tab</span>, row.vars<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># reverse the row variables, so that absolute frequencies and percents</span></span></span>
+<span class="r-in"><span><span class="co"># are not nested together</span></span></span>
+<span class="r-in"><span><span class="fu">PercTable</span><span class="op">(</span><span class="va">tab</span>, row.vars<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        area        Brent   Camden   Westminster</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        driver                                  </span>
@@ -553,9 +587,9 @@ lacking some of the flexibility we needed here. <br></p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        Miller       0.5%     3.4%          6.4%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        Taylor       3.5%    11.9%          1.7%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># the vector interface</span></span>
-<span class="r-in"><span class="fu">PercTable</span><span class="op">(</span>x<span class="op">=</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span>, y<span class="op">=</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">area</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># the vector interface</span></span></span>
+<span class="r-in"><span><span class="fu">PercTable</span><span class="op">(</span>x<span class="op">=</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span>, y<span class="op">=</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">area</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                    Brent   Camden   Westminster</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                </span>
@@ -580,7 +614,7 @@ lacking some of the flexibility we needed here. <br></p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Taylor      freq      42      142            20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             perc    3.5%    11.9%          1.7%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                </span>
-<span class="r-in"><span class="fu">PercTable</span><span class="op">(</span>x<span class="op">=</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span>, y<span class="op">=</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">area</span>, margins<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, rfrq<span class="op">=</span><span class="st">"000"</span>, useNA<span class="op">=</span><span class="st">"ifany"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">PercTable</span><span class="op">(</span>x<span class="op">=</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span>, y<span class="op">=</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">area</span>, margins<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, rfrq<span class="op">=</span><span class="st">"000"</span>, useNA<span class="op">=</span><span class="st">"ifany"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             Brent   Camden   Westminster    NA   Sum</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                     </span>
@@ -593,9 +627,9 @@ lacking some of the flexibility we needed here. <br></p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Taylor         42      142            20     0   204</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NA              1        3             1     0     5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Sum           474      344           381    10 1'209</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># one dimensional x falls back to the function Freq()</span></span>
-<span class="r-in"><span class="fu">PercTable</span><span class="op">(</span>x<span class="op">=</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># one dimensional x falls back to the function Freq()</span></span></span>
+<span class="r-in"><span><span class="fu">PercTable</span><span class="op">(</span>x<span class="op">=</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             freq   perc</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                        </span>
@@ -606,9 +640,9 @@ lacking some of the flexibility we needed here. <br></p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hunter       156  13.0%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Miller       125  10.4%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Taylor       204  16.9%</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># the margin tables</span></span>
-<span class="r-in"><span class="fu">Margins</span><span class="op">(</span><span class="va">Titanic</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># the margin tables</span></span></span>
+<span class="r-in"><span><span class="fu">Margins</span><span class="op">(</span><span class="va">Titanic</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Class</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    level  freq   perc  cumfreq  cumperc</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    1st   325  14.8%      325    14.8%</span>
@@ -631,7 +665,7 @@ lacking some of the flexibility we needed here. <br></p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1     No  1'490  67.7%    1'490    67.7%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    Yes    711  32.3%    2'201   100.0%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -646,7 +680,7 @@ lacking some of the flexibility we needed here. <br></p></div>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

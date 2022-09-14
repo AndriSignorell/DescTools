@@ -21,7 +21,7 @@ This is a verbatim copy of the base R function strsplit, but with a split defaul
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -89,7 +89,7 @@ This is a verbatim copy of the base R function <code><a href="https://rdrr.io/r/
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">StrSplit</span><span class="op">(</span><span class="va">x</span>, split <span class="op">=</span> <span class="st">""</span>, fixed <span class="op">=</span> <span class="cn">FALSE</span>, perl <span class="op">=</span> <span class="cn">FALSE</span>, useBytes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">StrSplit</span><span class="op">(</span><span class="va">x</span>, split <span class="op">=</span> <span class="st">""</span>, fixed <span class="op">=</span> <span class="cn">FALSE</span>, perl <span class="op">=</span> <span class="cn">FALSE</span>, useBytes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -97,24 +97,29 @@ This is a verbatim copy of the base R function <code><a href="https://rdrr.io/r/
     <dl><dt>x</dt>
 <dd><p>character vector, each element of which is to be split.  Other
     inputs, including a factor, will give an error.</p></dd>
-<dt>split</dt>
+
+  <dt>split</dt>
 <dd><p>character vector (or object which can be coerced to such)
     containing <a href="https://rdrr.io/r/base/regex.html" class="external-link">regular expression</a>(s) (unless <code>fixed = TRUE</code>)
     to use for splitting.  If empty matches occur, in particular if
     <code>split</code> has length 0, <code>x</code> is split into single characters.
     If <code>split</code> has length greater than 1, it is re-cycled along
     <code>x</code>.</p></dd>
-<dt>fixed</dt>
+
+  <dt>fixed</dt>
 <dd><p>logical.  If <code>TRUE</code> match <code>split</code> exactly, otherwise
     use regular expressions.  Has priority over <code>perl</code>.</p></dd>
-<dt>perl</dt>
+
+  <dt>perl</dt>
 <dd><p>logical.  Should Perl-compatible regexps be used?</p></dd>
-<dt>useBytes</dt>
+
+  <dt>useBytes</dt>
 <dd><p>logical.  If <code>TRUE</code> the matching is done
     byte-by-byte rather than character-by-character, and inputs with
     marked encodings are not converted.  This is forced (with a warning)
     if any input is found which is marked as <code>"bytes"</code>
     (see <code><a href="https://rdrr.io/r/base/Encoding.html" class="external-link">Encoding</a></code>).</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -122,9 +127,15 @@ This is a verbatim copy of the base R function <code><a href="https://rdrr.io/r/
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list of the same length as <code>x</code>, the <code>i</code>-th element of which
-  contains the vector of splits of <code>x[i]</code>.
-  If the length x was 1 a vecotor with the splits will be returned.</p>
+    
+
+<p>A list of the same length as <code>x</code>, the <code>i</code>-th element of which
+  contains the vector of splits of <code>x[i]</code>.</p>
+  
+
+<p>If the length x was 1 a vecotor with the splits will be returned.</p>
+  
+
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -137,11 +148,11 @@ This is a verbatim copy of the base R function <code><a href="https://rdrr.io/r/
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/noquote.html" class="external-link">noquote</a></span><span class="op">(</span><span class="fu">StrSplit</span><span class="op">(</span><span class="st">"A text I want to display with spaces"</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/noquote.html" class="external-link">noquote</a></span><span class="op">(</span><span class="fu">StrSplit</span><span class="op">(</span><span class="st">"A text I want to display with spaces"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] A   t e x t   I   w a n t   t o   d i s p l a y   w i t h   s p a c e s</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># the same as ...</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/noquote.html" class="external-link">noquote</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strsplit.html" class="external-link">strsplit</a></span><span class="op">(</span><span class="st">"A text I want to display with spaces"</span>, <span class="cn">NULL</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># the same as ...</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/noquote.html" class="external-link">noquote</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strsplit.html" class="external-link">strsplit</a></span><span class="op">(</span><span class="st">"A text I want to display with spaces"</span>, <span class="cn">NULL</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] A   t e x t   I   w a n t   t o   d i s p l a y   w i t h   s p a c e s</span>
 </code></pre></div>
     </div>
@@ -157,7 +168,7 @@ This is a verbatim copy of the base R function <code><a href="https://rdrr.io/r/
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

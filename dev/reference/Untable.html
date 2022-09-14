@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -82,13 +82,13 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Untable</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for data.frame</span>
-<span class="fu">Untable</span><span class="op">(</span><span class="va">x</span>, freq <span class="op">=</span> <span class="st">"Freq"</span>, rownames <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for default</span>
-<span class="fu">Untable</span><span class="op">(</span><span class="va">x</span>, dimnames <span class="op">=</span> <span class="cn">NULL</span>, type <span class="op">=</span> <span class="cn">NULL</span>, rownames <span class="op">=</span> <span class="cn">NULL</span>, colnames <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Untable</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for data.frame</span></span>
+<span><span class="fu">Untable</span><span class="op">(</span><span class="va">x</span>, freq <span class="op">=</span> <span class="st">"Freq"</span>, rownames <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">Untable</span><span class="op">(</span><span class="va">x</span>, dimnames <span class="op">=</span> <span class="cn">NULL</span>, type <span class="op">=</span> <span class="cn">NULL</span>, rownames <span class="op">=</span> <span class="cn">NULL</span>, colnames <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -96,20 +96,28 @@
     <dl><dt>x</dt>
 <dd><p>a numeric vector, a matrix, a table or a data.frame. If x is a vector, a matrix or a table it is  interpreted as frequencies which are to be inflated to the original list. <br> If x is a data.frame it is interpreted as a table in frequency form (containing one or more factors and a frequency variable).
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
+
 <dt>dimnames</dt>
 <dd><p>the dimension names of x to be used for expanding. Can be used to expand a weight vector to its original values. If set to <code>NULL</code> (default) the dimnames of x will be used.</p></dd>
+
 <dt>type</dt>
 <dd><p>defines the data type generated. This allows to directly define factors or ordered factors, but also numeric values. See examples.</p></dd>
-<dt>rownames</dt>
+
+  <dt>rownames</dt>
 <dd><p>A names vector for the rownames of the resulting data.frame. If set to <code>NULL</code> (default) the 
   names will be defined according to the table's dimnames.</p></dd>
-<dt>colnames</dt>
+
+  <dt>colnames</dt>
 <dd><p>A names vector for the colnames of the resulting data.frame. If set to <code>NULL</code> (default) the 
   names will be defined according to the table's dimnames.</p></dd>
+
 <dt>freq</dt>
 <dd><p>character, the name of the frequency variable in case x is a data.frame.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>further arguments passed to or from functions (not used here).</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -131,8 +139,8 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">d.titanic</span> <span class="op">&lt;-</span> <span class="fu">Untable</span><span class="op">(</span><span class="va">Titanic</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">d.titanic</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">d.titanic</span> <span class="op">&lt;-</span> <span class="fu">Untable</span><span class="op">(</span><span class="va">Titanic</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">d.titanic</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	2201 obs. of  4 variables:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ Class   : Factor w/ 4 levels "1st","2nd","3rd",..: 3 3 3 3 3 3 3 3 3 3 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ Sex     : Factor w/ 2 levels "Male","Female": 1 1 1 1 1 1 1 1 1 1 ...</span>
@@ -146,9 +154,9 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ Sex     : chr [1:2] "Sex=Male" "Sex=Female"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ Age     : chr [1:2] "Age=Child" "Age=Adult"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ Survived: chr [1:2] "Survived=No" "Survived=Yes"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># ... not the same as:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">Titanic</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># ... not the same as:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">Titanic</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Class    Sex   Age Survived Freq</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    1st   Male Child       No    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    2nd   Male Child       No    0</span>
@@ -182,11 +190,11 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 30   2nd Female Adult      Yes   80</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 31   3rd Female Adult      Yes   76</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 32  Crew Female Adult      Yes   20</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span>set1<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>, size<span class="op">=</span><span class="fl">40</span>, replace<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>, </span>
-<span class="r-in">             set2<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">11</span><span class="op">:</span><span class="fl">15</span><span class="op">]</span>, size<span class="op">=</span><span class="fl">40</span>, replace<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">Untable</span><span class="op">(</span><span class="va">tab</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span>set1<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>, size<span class="op">=</span><span class="fl">40</span>, replace<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>             set2<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">11</span><span class="op">:</span><span class="fl">15</span><span class="op">]</span>, size<span class="op">=</span><span class="fl">40</span>, replace<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">Untable</span><span class="op">(</span><span class="va">tab</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    set1 set2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1     a    k</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2     a    k</span>
@@ -228,20 +236,20 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 38    e    o</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 39    e    o</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 40    e    o</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># return a numeric vector by setting type and coerce to a vector by [,]</span></span>
-<span class="r-in"><span class="fu">Untable</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, type<span class="op">=</span><span class="st">"as.numeric"</span><span class="op">)</span><span class="op">[</span>,<span class="op">]</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># return a numeric vector by setting type and coerce to a vector by [,]</span></span></span>
+<span class="r-in"><span><span class="fu">Untable</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, type<span class="op">=</span><span class="st">"as.numeric"</span><span class="op">)</span><span class="op">[</span>,<span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 1 1 1 1 1 1 2 2 3 3</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># how to produce the original list based on frequencies, given as a data.frame</span></span>
-<span class="r-in"><span class="va">d.freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs</a></span><span class="op">(</span><span class="va">Freq</span> <span class="op">~</span> <span class="va">Sex</span> <span class="op">+</span> <span class="va">Survived</span>, data<span class="op">=</span><span class="va">Titanic</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># a data list with each individual</span></span>
-<span class="r-in"><span class="va">d.data</span> <span class="op">&lt;-</span> <span class="fu">Untable</span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1364</span>, <span class="fl">126</span>, <span class="fl">367</span>, <span class="fl">344</span><span class="op">)</span> <span class="op">~</span> <span class="va">.</span>, </span>
-<span class="r-in">             <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">d.freq</span><span class="op">$</span><span class="va">Sex</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">d.freq</span><span class="op">$</span><span class="va">Survived</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">d.data</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># how to produce the original list based on frequencies, given as a data.frame</span></span></span>
+<span class="r-in"><span><span class="va">d.freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs</a></span><span class="op">(</span><span class="va">Freq</span> <span class="op">~</span> <span class="va">Sex</span> <span class="op">+</span> <span class="va">Survived</span>, data<span class="op">=</span><span class="va">Titanic</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># a data list with each individual</span></span></span>
+<span class="r-in"><span><span class="va">d.data</span> <span class="op">&lt;-</span> <span class="fu">Untable</span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1364</span>, <span class="fl">126</span>, <span class="fl">367</span>, <span class="fl">344</span><span class="op">)</span> <span class="op">~</span> <span class="va">.</span>, </span></span>
+<span class="r-in"><span>             <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">d.freq</span><span class="op">$</span><span class="va">Sex</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">d.freq</span><span class="op">$</span><span class="va">Survived</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> </span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">d.data</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Var1 Var2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 Male   No</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 Male   No</span>
@@ -249,9 +257,9 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 Male   No</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 Male   No</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 Male   No</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># expand a weights vector</span></span>
-<span class="r-in"><span class="fu">Untable</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span>, dimnames<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Zurich"</span>,<span class="st">"Berlin"</span>,<span class="st">"London"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># expand a weights vector</span></span></span>
+<span class="r-in"><span><span class="fu">Untable</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span>, dimnames<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Zurich"</span>,<span class="st">"Berlin"</span>,<span class="st">"London"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      Var1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  Zurich</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  Berlin</span>
@@ -263,17 +271,17 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8  London</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9  London</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10 London</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># and the same with a numeric vector </span></span>
-<span class="r-in"><span class="fu">Untable</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span>, dimnames<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">10</span>,<span class="fl">15</span><span class="op">)</span><span class="op">)</span>, type<span class="op">=</span><span class="st">"as.numeric"</span><span class="op">)</span><span class="op">[</span>,<span class="op">]</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># and the same with a numeric vector </span></span></span>
+<span class="r-in"><span><span class="fu">Untable</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span>, dimnames<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">10</span>,<span class="fl">15</span><span class="op">)</span><span class="op">)</span>, type<span class="op">=</span><span class="st">"as.numeric"</span><span class="op">)</span><span class="op">[</span>,<span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  5 10 10 10 10 15 15 15 15 15</span>
-<span class="r-in"><span class="co"># ... which again is nothing else than</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span>times<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span>, x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">10</span>,<span class="fl">15</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># ... which again is nothing else than</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span>times<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span>, x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">10</span>,<span class="fl">15</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  5 10 10 10 10 15 15 15 15 15</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># the data.frame interface</span></span>
-<span class="r-in"><span class="va">d.freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>f1<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>,<span class="st">"A"</span>,<span class="st">"B"</span>,<span class="st">"B"</span><span class="op">)</span>, f2<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"C"</span>,<span class="st">"D"</span>,<span class="st">"C"</span>,<span class="st">"D"</span><span class="op">)</span>, Freq<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">Untable</span><span class="op">(</span><span class="va">d.freq</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># the data.frame interface</span></span></span>
+<span class="r-in"><span><span class="va">d.freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>f1<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>,<span class="st">"A"</span>,<span class="st">"B"</span>,<span class="st">"B"</span><span class="op">)</span>, f2<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"C"</span>,<span class="st">"D"</span>,<span class="st">"C"</span>,<span class="st">"D"</span><span class="op">)</span>, Freq<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">Untable</span><span class="op">(</span><span class="va">d.freq</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    f1 f2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   A  C</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   A  D</span>
@@ -299,7 +307,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

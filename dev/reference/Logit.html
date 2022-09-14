@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -82,18 +82,21 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Logit</span><span class="op">(</span><span class="va">x</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-<span class="fu">LogitInv</span><span class="op">(</span><span class="va">x</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Logit</span><span class="op">(</span><span class="va">x</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="fu">LogitInv</span><span class="op">(</span><span class="va">x</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>value(s) to be transformed</p></dd>
-<dt>min</dt>
+
+  <dt>min</dt>
 <dd><p>lower end of logit interval</p></dd>
-<dt>max</dt>
+
+  <dt>max</dt>
 <dd><p>upper end of logit interval</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -117,7 +120,9 @@
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>Transformed value(s).</p>
+    
+
+<p>Transformed value(s).</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -130,10 +135,10 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">10</span>, by<span class="op">=</span><span class="fl">0.25</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">xt</span> <span class="op">&lt;-</span> <span class="fu">Logit</span><span class="op">(</span><span class="va">x</span>, min<span class="op">=</span><span class="fl">0</span>, max<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">x</span>,<span class="va">xt</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">10</span>, by<span class="op">=</span><span class="fl">0.25</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">xt</span> <span class="op">&lt;-</span> <span class="fu">Logit</span><span class="op">(</span><span class="va">x</span>, min<span class="op">=</span><span class="fl">0</span>, max<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">x</span>,<span class="va">xt</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           x         xt</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  0.00       -Inf</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  0.25 -3.6635616</span>
@@ -176,9 +181,9 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [39,]  9.50  2.9444390</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [40,]  9.75  3.6635616</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [41,] 10.00        Inf</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">LogitInv</span><span class="op">(</span><span class="va">xt</span>, min<span class="op">=</span><span class="fl">0</span>, max<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">xt</span>, <span class="va">y</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">LogitInv</span><span class="op">(</span><span class="va">xt</span>, min<span class="op">=</span><span class="fl">0</span>, max<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">xt</span>, <span class="va">y</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           x         xt     y</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  0.00       -Inf  0.00</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  0.25 -3.6635616  0.25</span>
@@ -221,7 +226,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [39,]  9.50  2.9444390  9.50</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [40,]  9.75  3.6635616  9.75</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [41,] 10.00        Inf 10.00</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -236,7 +241,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

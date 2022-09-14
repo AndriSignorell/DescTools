@@ -18,7 +18,7 @@ corresponding to columns to remove to reduce pair-wise correlations."><meta name
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -84,17 +84,20 @@ corresponding to columns to remove to reduce pair-wise correlations.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">FindCorr</span><span class="op">(</span><span class="va">x</span>, cutoff <span class="op">=</span> <span class="fl">.90</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">FindCorr</span><span class="op">(</span><span class="va">x</span>, cutoff <span class="op">=</span> <span class="fl">.90</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>A correlation matrix</p></dd>
-<dt>cutoff</dt>
+
+  <dt>cutoff</dt>
 <dd><p>A numeric value for the pair-wise absolute correlation cutoff</p></dd>
-<dt>verbose</dt>
+
+  <dt>verbose</dt>
 <dd><p>A boolean for printing the details</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -106,7 +109,9 @@ corresponding to columns to remove to reduce pair-wise correlations.</p>
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>A vector of indices denoting the columns to remove. If no correlations meet the criteria, <code>numeric(0)</code> is returned.</p>
+    
+
+<p>A vector of indices denoting the columns to remove. If no correlations meet the criteria, <code>numeric(0)</code> is returned.</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -122,17 +127,17 @@ corresponding to columns to remove to reduce pair-wise correlations.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">corrMatrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">corrMatrix</span><span class="op">[</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">corrMatrix</span><span class="op">[</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">.7</span></span>
-<span class="r-in"><span class="va">corrMatrix</span><span class="op">[</span><span class="fl">5</span>, <span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">corrMatrix</span><span class="op">[</span><span class="fl">3</span>, <span class="fl">5</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">.7</span></span>
-<span class="r-in"><span class="va">corrMatrix</span><span class="op">[</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">corrMatrix</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">4</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">.67</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">corrDF</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span>row <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, col <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">corrDF</span><span class="op">$</span><span class="va">correlation</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="va">corrMatrix</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="PlotCorr.html">PlotCorr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs</a></span><span class="op">(</span><span class="va">correlation</span> <span class="op">~</span> <span class="va">.</span>, <span class="va">corrDF</span><span class="op">)</span>, las<span class="op">=</span><span class="fl">1</span>, border<span class="op">=</span><span class="st">"grey"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">corrMatrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">corrMatrix</span><span class="op">[</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">corrMatrix</span><span class="op">[</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">.7</span></span></span>
+<span class="r-in"><span><span class="va">corrMatrix</span><span class="op">[</span><span class="fl">5</span>, <span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">corrMatrix</span><span class="op">[</span><span class="fl">3</span>, <span class="fl">5</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">.7</span></span></span>
+<span class="r-in"><span><span class="va">corrMatrix</span><span class="op">[</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">corrMatrix</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">4</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">.67</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">corrDF</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span>row <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, col <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">corrDF</span><span class="op">$</span><span class="va">correlation</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="va">corrMatrix</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="PlotCorr.html">PlotCorr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs</a></span><span class="op">(</span><span class="va">correlation</span> <span class="op">~</span> <span class="va">.</span>, <span class="va">corrDF</span><span class="op">)</span>, las<span class="op">=</span><span class="fl">1</span>, border<span class="op">=</span><span class="st">"grey"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="FindCorr-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">FindCorr</span><span class="op">(</span><span class="va">corrMatrix</span>, cutoff <span class="op">=</span> <span class="fl">.65</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">FindCorr</span><span class="op">(</span><span class="va">corrMatrix</span>, cutoff <span class="op">=</span> <span class="fl">.65</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Considering row	 3 column	 2 value	 0.7 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Flagging column	 3 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Considering row	 2 column	 5 value	 0 </span>
@@ -143,8 +148,8 @@ corresponding to columns to remove to reduce pair-wise correlations.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Considering row	 1 column	 4 value	 0.67 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Flagging column	 4 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3 4</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">FindCorr</span><span class="op">(</span><span class="va">corrMatrix</span>, cutoff <span class="op">=</span> <span class="fl">.99</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">FindCorr</span><span class="op">(</span><span class="va">corrMatrix</span>, cutoff <span class="op">=</span> <span class="fl">.99</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Considering row	 3 column	 2 value	 0.7 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Considering row	 3 column	 5 value	 0.7 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Considering row	 3 column	 1 value	 0 </span>
@@ -156,10 +161,10 @@ corresponding to columns to remove to reduce pair-wise correlations.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Considering row	 5 column	 4 value	 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Considering row	 1 column	 4 value	 0.67 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> integer(0)</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># d.pizza example</span></span>
-<span class="r-in"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">d.pizza</span>, <span class="va">as.numeric</span><span class="op">)</span><span class="op">)</span>, use<span class="op">=</span><span class="st">"pairwise.complete.obs"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">FindCorr</span><span class="op">(</span><span class="va">m</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># d.pizza example</span></span></span>
+<span class="r-in"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">d.pizza</span>, <span class="va">as.numeric</span><span class="op">)</span><span class="op">)</span>, use<span class="op">=</span><span class="st">"pairwise.complete.obs"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">FindCorr</span><span class="op">(</span><span class="va">m</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Considering row	 8 column	 3 value	 0.018 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Considering row	 8 column	 2 value	 0.028 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Considering row	 8 column	 1 value	 0.03 </span>
@@ -253,7 +258,7 @@ corresponding to columns to remove to reduce pair-wise correlations.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Considering row	 4 column	 15 value	 0.011 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Considering row	 10 column	 15 value	 0.012 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1]  3  2 13</span>
-<span class="r-in"><span class="va">m</span><span class="op">[</span>, <span class="fu">FindCorr</span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">]</span></span>
+<span class="r-in"><span><span class="va">m</span><span class="op">[</span>, <span class="fu">FindCorr</span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                        week         date wine_ordered</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> index           0.974192573  0.999028828  0.030600322</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> date            0.976198358  1.000000000  0.036036580</span>
@@ -285,7 +290,7 @@ corresponding to columns to remove to reduce pair-wise correlations.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

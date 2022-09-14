@@ -19,7 +19,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -86,9 +86,9 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Abind</span><span class="op">(</span><span class="va">...</span>, along <span class="op">=</span> <span class="va">N</span>, rev.along <span class="op">=</span> <span class="cn">NULL</span>, new.names <span class="op">=</span> <span class="cn">NULL</span>, force.array <span class="op">=</span> <span class="cn">TRUE</span>,
-      make.names <span class="op">=</span> <span class="cn">FALSE</span>, use.first.dimnames <span class="op">=</span> <span class="cn">FALSE</span>, hier.names <span class="op">=</span> <span class="cn">FALSE</span>,
-      use.dnns <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Abind</span><span class="op">(</span><span class="va">...</span>, along <span class="op">=</span> <span class="va">N</span>, rev.along <span class="op">=</span> <span class="cn">NULL</span>, new.names <span class="op">=</span> <span class="cn">NULL</span>, force.array <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      make.names <span class="op">=</span> <span class="cn">FALSE</span>, use.first.dimnames <span class="op">=</span> <span class="cn">FALSE</span>, hier.names <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>      use.dnns <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -102,6 +102,8 @@ joined.  Vectors are treated as having a dim attribute of length one.</p>
 <p>Alternatively, there can be one (and only one) list argument supplied,
 whose components are the objects to be bound together.  Names of the
 list components are treated in the same way as argument names.</p></dd>
+
+
 <dt>along</dt>
 <dd><p>The dimension along which to bind the arrays.
 The default is the last dimension, i.e., the maximum length of the dim
@@ -112,12 +114,16 @@ value less than 1, or a value greater than N (N is the maximum of the
 lengths of the dim attribute of the objects to be bound together), a new
 dimension is created in the result.  In these cases, the dimensions of
 all arguments must be identical.</p></dd>
+
+
 <dt>rev.along</dt>
 <dd><p>Alternate way to specify the dimension along which to bind the arrays:
 <code>along = N + 1 - rev.along</code>.  This is provided mainly to allow easy
 specification of <code>along = N + 1</code> (by supplying
 <code>rev.along=0</code>).  If both <code>along</code> and <code>rev.along</code> are
 supplied, the supplied value of <code>along</code> is ignored.</p></dd>
+
+
 <dt>new.names</dt>
 <dd><p>If new.names is a list, it is the first choice for the
 dimnames attribute of the result.  It should have the same
@@ -127,7 +133,8 @@ constructed in other ways.</p>
 <p>If <code>new.names</code> is a character vector, it is used for dimension
 names in the same way as argument names are used.  Zero
 length ("") names are ignored.</p></dd>
-<dt>force.array</dt>
+
+  <dt>force.array</dt>
 <dd><p>If <code>FALSE</code>, rbind or cbind are
 called when possible, i.e., when the arguments are all vectors, and
 along is not 1, or when the arguments are vectors or matrices or data
@@ -138,17 +145,22 @@ to guarantee that an array object is returned, supply the argument
 <code>force.array=TRUE</code>.  Note that the use of rbind or cbind introduces
 some subtle changes in the way default dimension names are constructed:
 see the examples below.</p></dd>
+
+
 <dt>make.names</dt>
 <dd><p>If <code>TRUE</code>, the last resort for dimnames for the along
 dimension will be the deparsed versions of anonymous
 arguments.  This can result in cumbersome names when
 arguments are expressions. The default is <code>FALSE</code>.</p></dd>
-<dt>use.first.dimnames</dt>
+
+
+  <dt>use.first.dimnames</dt>
 <dd><p>When dimension names are present on more than one
 argument, should dimension names for the result be take from
 the first available (the default is to take them from the
 last available, which is the same behavior as
 <code>rbind</code> and <code>cbind</code>.)</p></dd>
+
 <dt>hier.names</dt>
 <dd><p>If <code>TRUE</code>, dimension names on the concatenated dimension will be
   composed of the argument name and the dimension names of the objects
@@ -157,11 +169,13 @@ last available, which is the same behavior as
   also have values <code>"before"</code> or <code>"after"</code>; these determine
   the order in which the argument name and the dimension name are put
   together (<code>TRUE</code> has the same effect as <code>"before"</code>).</p></dd>
+
 <dt>use.dnns</dt>
 <dd><p>(default <code>FALSE</code>) Use names on dimensions, e.g.,
   so that <code>names(dimnames(x))</code> is non-empty.  When there are
   multiple possible sources for names of dimnames, the value of
   <code>use.first.dimnames</code> determines the result.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -196,18 +210,32 @@ unless <code>maken.ames=FALSE</code>.</p>
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>An array with a dim attribute calculated as follows.
-  Let <code>rMin=min(sapply(list(...), function(x) length(dim(x))))</code> and <br><code>rMax=max(sapply(list(...), function(x) length(dim(x))))</code> (where
+    
+
+
+<p>An array with a dim attribute calculated as follows.</p>
+
+
+<p>Let <code>rMin=min(sapply(list(...), function(x) length(dim(x))))</code> and <br></p>
+<p></p>
+<p><code>rMax=max(sapply(list(...), function(x) length(dim(x))))</code> (where
   the length of the dimensions of a vector are taken to be 1).  Then <code>rMax</code> should be
-  equal to or one greater than <code>rMin</code>.
-  If <code>along</code> refers to an existing dimension, then the length of
+  equal to or one greater than <code>rMin</code>.</p>
+
+
+<p>If <code>along</code> refers to an existing dimension, then the length of
   the dim attribute of the result is <code>rMax</code>.  If <code>along</code> does
-  not refer to an existing dimension, then <code>rMax</code> should equal
-<code>rMin</code> and the length of the dim attribute of the result will be <code>rMax+1</code>.
-<code>rbind</code> or <code>cbind</code> are
+  not refer to an existing dimension, then <code>rMax</code> should equal</p>
+<p></p>
+<p><code>rMin</code> and the length of the dim attribute of the result will be <code>rMax+1</code>.</p>
+
+
+<p><code>rbind</code> or <code>cbind</code> are
 called to compute the result if (a)
 <code>force.array=FALSE</code>; and (b) the result will be a
 two-dimensional object.</p>
+
+
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -230,70 +258,70 @@ sometimes consume more memory during evaluation.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Five different ways of binding together two matrices</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">+</span> <span class="fl">100</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu">Abind</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, along<span class="op">=</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span>     <span class="co"># binds on new dimension before first</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Five different ways of binding together two matrices</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">+</span> <span class="fl">100</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu">Abind</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, along<span class="op">=</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span>     <span class="co"># binds on new dimension before first</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2 3 4</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu">Abind</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, along<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>     <span class="co"># binds on first dimension</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu">Abind</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, along<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>     <span class="co"># binds on first dimension</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 6 4</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu">Abind</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, along<span class="op">=</span><span class="fl">1.5</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu">Abind</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, along<span class="op">=</span><span class="fl">1.5</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3 2 4</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu">Abind</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, along<span class="op">=</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu">Abind</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, along<span class="op">=</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3 8</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu">Abind</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, along<span class="op">=</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu">Abind</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, along<span class="op">=</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3 4 2</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu">Abind</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, rev.along<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="co"># binds on last dimension</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu">Abind</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, rev.along<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="co"># binds on last dimension</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3 8</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu">Abind</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, rev.along<span class="op">=</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="co"># binds on new dimension after last</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu">Abind</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, rev.along<span class="op">=</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="co"># binds on new dimension after last</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3 4 2</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Unlike cbind or rbind in that the default is to bind</span></span>
-<span class="r-in"><span class="co"># along the last dimension of the inputs, which for vectors</span></span>
-<span class="r-in"><span class="co"># means the result is a vector (because a vector is</span></span>
-<span class="r-in"><span class="co"># treated as an array with length(dim(x))==1).</span></span>
-<span class="r-in"><span class="fu">Abind</span><span class="op">(</span>x<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, y<span class="op">=</span><span class="fl">5</span><span class="op">:</span><span class="fl">8</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Unlike cbind or rbind in that the default is to bind</span></span></span>
+<span class="r-in"><span><span class="co"># along the last dimension of the inputs, which for vectors</span></span></span>
+<span class="r-in"><span><span class="co"># means the result is a vector (because a vector is</span></span></span>
+<span class="r-in"><span><span class="co"># treated as an array with length(dim(x))==1).</span></span></span>
+<span class="r-in"><span><span class="fu">Abind</span><span class="op">(</span>x<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, y<span class="op">=</span><span class="fl">5</span><span class="op">:</span><span class="fl">8</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> x1 x2 x3 x4 y1 y2 y3 y4 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  1  2  3  4  5  6  7  8 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Like cbind</span></span>
-<span class="r-in"><span class="fu">Abind</span><span class="op">(</span>x<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, y<span class="op">=</span><span class="fl">5</span><span class="op">:</span><span class="fl">8</span>, along<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Like cbind</span></span></span>
+<span class="r-in"><span><span class="fu">Abind</span><span class="op">(</span>x<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, y<span class="op">=</span><span class="fl">5</span><span class="op">:</span><span class="fl">8</span>, along<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      x y</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 1 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 2 6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 3 7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 4 8</span>
-<span class="r-in"><span class="fu">Abind</span><span class="op">(</span>x<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">5</span><span class="op">:</span><span class="fl">20</span>, nrow<span class="op">=</span><span class="fl">4</span><span class="op">)</span>, along<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">Abind</span><span class="op">(</span>x<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">5</span><span class="op">:</span><span class="fl">20</span>, nrow<span class="op">=</span><span class="fl">4</span><span class="op">)</span>, along<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      x           </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 1 5  9 13 17</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 2 6 10 14 18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 3 7 11 15 19</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 4 8 12 16 20</span>
-<span class="r-in"><span class="fu">Abind</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">5</span><span class="op">:</span><span class="fl">20</span>, nrow<span class="op">=</span><span class="fl">4</span><span class="op">)</span>, along<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">Abind</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">5</span><span class="op">:</span><span class="fl">20</span>, nrow<span class="op">=</span><span class="fl">4</span><span class="op">)</span>, along<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4] [,5]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1    5    9   13   17</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    2    6   10   14   18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    3    7   11   15   19</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,]    4    8   12   16   20</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Like rbind</span></span>
-<span class="r-in"><span class="fu">Abind</span><span class="op">(</span>x<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">5</span><span class="op">:</span><span class="fl">20</span>, nrow<span class="op">=</span><span class="fl">4</span><span class="op">)</span>, along<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Like rbind</span></span></span>
+<span class="r-in"><span><span class="fu">Abind</span><span class="op">(</span>x<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">5</span><span class="op">:</span><span class="fl">20</span>, nrow<span class="op">=</span><span class="fl">4</span><span class="op">)</span>, along<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [,1] [,2] [,3] [,4]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> x    1    2    3    4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      5    9   13   17</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      6   10   14   18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      7   11   15   19</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      8   12   16   20</span>
-<span class="r-in"><span class="fu">Abind</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">5</span><span class="op">:</span><span class="fl">20</span>, nrow<span class="op">=</span><span class="fl">4</span><span class="op">)</span>, along<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">Abind</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">5</span><span class="op">:</span><span class="fl">20</span>, nrow<span class="op">=</span><span class="fl">4</span><span class="op">)</span>, along<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1    2    3    4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    5    9   13   17</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    6   10   14   18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,]    7   11   15   19</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [5,]    8   12   16   20</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Create a 3-d array out of two matrices</span></span>
-<span class="r-in"><span class="fu">Abind</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">16</span>, nrow<span class="op">=</span><span class="fl">4</span><span class="op">)</span>, y<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">17</span><span class="op">:</span><span class="fl">32</span>, nrow<span class="op">=</span><span class="fl">4</span><span class="op">)</span>, along<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Create a 3-d array out of two matrices</span></span></span>
+<span class="r-in"><span><span class="fu">Abind</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">16</span>, nrow<span class="op">=</span><span class="fl">4</span><span class="op">)</span>, y<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">17</span><span class="op">:</span><span class="fl">32</span>, nrow<span class="op">=</span><span class="fl">4</span><span class="op">)</span>, along<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> , , x</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4]</span>
@@ -310,16 +338,16 @@ sometimes consume more memory during evaluation.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,]   19   23   27   31</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,]   20   24   28   32</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Use of hier.names</span></span>
-<span class="r-in"><span class="fu">Abind</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>a<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, b<span class="op">=</span><span class="fl">4</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>, y<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>a<span class="op">=</span><span class="fl">7</span><span class="op">:</span><span class="fl">9</span>, b<span class="op">=</span><span class="fl">10</span><span class="op">:</span><span class="fl">12</span><span class="op">)</span>, hier.names<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Use of hier.names</span></span></span>
+<span class="r-in"><span><span class="fu">Abind</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>a<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, b<span class="op">=</span><span class="fl">4</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>, y<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>a<span class="op">=</span><span class="fl">7</span><span class="op">:</span><span class="fl">9</span>, b<span class="op">=</span><span class="fl">10</span><span class="op">:</span><span class="fl">12</span><span class="op">)</span>, hier.names<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      x.a x.b y.a y.b</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]   1   4   7  10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,]   2   5   8  11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,]   3   6   9  12</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Use a list argument</span></span>
-<span class="r-in"><span class="fu">Abind</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">x</span>, y<span class="op">=</span><span class="va">x</span><span class="op">)</span>, along<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Use a list argument</span></span></span>
+<span class="r-in"><span><span class="fu">Abind</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">x</span>, y<span class="op">=</span><span class="va">x</span><span class="op">)</span>, along<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> , , x</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4]</span>
@@ -334,10 +362,10 @@ sometimes consume more memory during evaluation.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    2    5    8   11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    3    6    9   12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="co"># Use lapply(..., get) to get the objects</span></span>
-<span class="r-in"><span class="va">an</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'x'</span>, <span class="st">'y'</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">an</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">an</span></span>
-<span class="r-in"><span class="fu">Abind</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">an</span>, <span class="va">get</span><span class="op">)</span>, along<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Use lapply(..., get) to get the objects</span></span></span>
+<span class="r-in"><span><span class="va">an</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'x'</span>, <span class="st">'y'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">an</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">an</span></span></span>
+<span class="r-in"><span><span class="fu">Abind</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">an</span>, <span class="va">get</span><span class="op">)</span>, along<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in FUN(X[[i]], ...):</span> object 'x' not found</span>
 </code></pre></div>
     </div>
@@ -353,7 +381,7 @@ sometimes consume more memory during evaluation.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

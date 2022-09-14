@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">PseudoR2</span><span class="op">(</span><span class="va">x</span>, which <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">PseudoR2</span><span class="op">(</span><span class="va">x</span>, which <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -95,9 +95,11 @@
     <dl><dt>x</dt>
 <dd><p>the <code>glm</code>, <code>polr</code> or <code>multinom</code> model object to be evaluated.
     <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>which</dt>
+
+  <dt>which</dt>
 <dd><p>character, one out of <code>"McFadden"</code>, <code>"McFaddenAdj"</code>, <code>"CoxSnell"</code>,  <code>"Nagelkerke"</code>, <code>"AldrichNelson"</code>,
  <code>"VeallZimmermann"</code>,  <code>"Efron"</code>, <code>"McKelveyZavoina"</code>,  <code>"Tjur"</code>, <code>"all"</code>. Partial matching is supported.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -111,35 +113,57 @@
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>the value of the specific statistic. <code>AIC</code>, <code>LogLik</code>, <code>LogLikNull</code> and <code>G2</code> will only be reported with option <code>"all"</code>.
-<!-- %%  ~Describe the value returned --><!-- %%  If it is a LIST, use --><!-- %%  \item{comp1 }{Description of 'comp1'} --><!-- %%  \item{comp2 }{Description of 'comp2'} --><!-- %% ... --></p>
+    <p>the value of the specific statistic. <code>AIC</code>, <code>LogLik</code>, <code>LogLikNull</code> and <code>G2</code> will only be reported with option <code>"all"</code>.</p>
+<p></p>
+<p><!-- %%  ~Describe the value returned --></p>
+<p></p>
+<p><!-- %%  If it is a LIST, use --></p>
+<p></p>
+<p><!-- %%  \item{comp1 }{Description of 'comp1'} --></p>
+<p></p>
+<p><!-- %%  \item{comp2 }{Description of 'comp2'} --></p>
+<p></p>
+<p><!-- %% ... --></p>
 <dl><dt>McFadden</dt>
 <dd><p>McFadden pseudo-\(R^2\)</p></dd>
-<dt>McFaddenAdj</dt>
+
+  <dt>McFaddenAdj</dt>
 <dd><p>McFadden adjusted pseudo-\(R^2\)</p></dd>
-<dt>CoxSnell</dt>
+
+  <dt>CoxSnell</dt>
 <dd><p>Cox and Snell pseudo-\(R^2\) (also known as ML pseudo-\(R^2\))</p></dd>
-<dt>Nagelkerke</dt>
+
+  <dt>Nagelkerke</dt>
 <dd><p>Nagelkerke pseudo\(R^2\) (also known as CraggUhler \(R^2\))</p></dd>
-<dt>AldrichNelson</dt>
+
+  <dt>AldrichNelson</dt>
 <dd><p>AldrichNelson pseudo-\(R^2\)</p></dd>
-<dt>VeallZimmermann</dt>
+
+  <dt>VeallZimmermann</dt>
 <dd><p>VeallZimmermann pseudo-\(R^2\)</p></dd>
-<dt>McKelveyZavoina</dt>
+
+  <dt>McKelveyZavoina</dt>
 <dd><p>McKelvey and Zavoina pseudo-\(R^2\)</p></dd>
-<dt>Efron</dt>
+
+  <dt>Efron</dt>
 <dd><p>Efron pseudo-\(R^2\)</p></dd>
-<dt>Tjur</dt>
+
+  <dt>Tjur</dt>
 <dd><p>Tjur's pseudo-\(R^2\)</p></dd>
-<dt>AIC</dt>
+
+  <dt>AIC</dt>
 <dd><p>Akaike's information criterion</p></dd>
-<dt>LogLik</dt>
+
+  <dt>LogLik</dt>
 <dd><p>log-Likelihood for the fitted model (by maximum likelihood)</p></dd>
-<dt>LogLikNull</dt>
+
+  <dt>LogLikNull</dt>
 <dd><p>log-Likelihood for the null model. The null model will include the offset, and an intercept if there is one in the model.</p></dd>
-<dt>G2</dt>
+
+  <dt>G2</dt>
 <dd><p>differenz of the null deviance - model deviance</p></dd>
-</dl></div>
+
+  </dl></div>
     <div id="references">
     <h2>References</h2>
     
@@ -172,12 +196,12 @@ with contributions of Ben Mainwaring &lt;benjamin.mainwaring@yougov.com&gt; and 
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">r.glm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">Survived</span> <span class="op">~</span> <span class="va">.</span>, data<span class="op">=</span><span class="fu"><a href="Untable.html">Untable</a></span><span class="op">(</span><span class="va">Titanic</span><span class="op">)</span>, family<span class="op">=</span><span class="va">binomial</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">PseudoR2</span><span class="op">(</span><span class="va">r.glm</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">r.glm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">Survived</span> <span class="op">~</span> <span class="va">.</span>, data<span class="op">=</span><span class="fu"><a href="Untable.html">Untable</a></span><span class="op">(</span><span class="va">Titanic</span><span class="op">)</span>, family<span class="op">=</span><span class="va">binomial</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">PseudoR2</span><span class="op">(</span><span class="va">r.glm</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  McFadden </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.2019875 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">PseudoR2</span><span class="op">(</span><span class="va">r.glm</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"McFadden"</span>, <span class="st">"Nagel"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">PseudoR2</span><span class="op">(</span><span class="va">r.glm</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"McFadden"</span>, <span class="st">"Nagel"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   McFadden Nagelkerke </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  0.2019875  0.3135111 </span>
 </code></pre></div>
@@ -194,7 +218,7 @@ with contributions of Ben Mainwaring &lt;benjamin.mainwaring@yougov.com&gt; and 
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

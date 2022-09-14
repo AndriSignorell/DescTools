@@ -18,7 +18,7 @@ Simple wrapper to extract the value from the result of wilcox.test."><meta name=
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -84,21 +84,27 @@ Simple wrapper to extract the value from the result of <code><a href="https://rd
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">HodgesLehmann</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, conf.level <span class="op">=</span> <span class="cn">NA</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">HodgesLehmann</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, conf.level <span class="op">=</span> <span class="cn">NA</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>a numeric vector.</p></dd>
-<dt>y</dt>
+
+  <dt>y</dt>
 <dd><p>an optional numeric vector of data values: as with x non-finite values will be omitted.</p></dd>
-<dt>conf.level</dt>
+
+  
+   <dt>conf.level</dt>
 <dd><p>confidence level of.
 <!-- %%     ~~Describe \code{conf.level} here~~ --></p></dd>
-<dt>na.rm</dt>
+
+
+  <dt>na.rm</dt>
 <dd><p>logical. Should missing values be removed? Defaults to FALSE.
 <!-- %%     ~~Describe \code{na.rm} here~~ --></p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -109,7 +115,14 @@ Simple wrapper to extract the value from the result of <code><a href="https://rd
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>the Hodges-Lehmann estimator of location as a single numeric value if no confidence intervals are requested,<br>and otherwise a numeric vector with 3 elements for the estimate, the lower and the upper confidence interval</p>
+    
+
+<p>the Hodges-Lehmann estimator of location as a single numeric value if no confidence intervals are requested,<br></p>
+ 
+
+<p>and otherwise a numeric vector with 3 elements for the estimate, the lower and the upper confidence interval</p>
+
+
     </div>
     <div id="references">
     <h2>References</h2>
@@ -126,13 +139,13 @@ Simple wrapper to extract the value from the result of <code><a href="https://rd
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/TDist.html" class="external-link">rt</a></span><span class="op">(</span><span class="fl">100</span>, df <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">HodgesLehmann</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/TDist.html" class="external-link">rt</a></span><span class="op">(</span><span class="fl">100</span>, df <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">HodgesLehmann</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.04251537</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># same as</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/wilcox.test.html" class="external-link">wilcox.test</a></span><span class="op">(</span><span class="va">x</span>,  conf.int <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="va">estimate</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># same as</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/wilcox.test.html" class="external-link">wilcox.test</a></span><span class="op">(</span><span class="va">x</span>,  conf.int <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="va">estimate</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (pseudo)median </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    -0.04251537 </span>
 </code></pre></div>
@@ -149,7 +162,7 @@ Simple wrapper to extract the value from the result of <code><a href="https://rd
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

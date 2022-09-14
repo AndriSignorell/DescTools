@@ -19,7 +19,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -86,30 +86,38 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">UnirootAll</span><span class="op">(</span><span class="va">f</span>, <span class="va">interval</span>, lower <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">interval</span><span class="op">)</span>, upper <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">interval</span><span class="op">)</span>,
-            tol <span class="op">=</span> <span class="va">.Machine</span><span class="op">$</span><span class="va">double.eps</span><span class="op">^</span><span class="fl">0.5</span>, maxiter <span class="op">=</span> <span class="fl">1000</span>, n <span class="op">=</span> <span class="fl">100</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">UnirootAll</span><span class="op">(</span><span class="va">f</span>, <span class="va">interval</span>, lower <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">interval</span><span class="op">)</span>, upper <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">interval</span><span class="op">)</span>,</span>
+<span>            tol <span class="op">=</span> <span class="va">.Machine</span><span class="op">$</span><span class="va">double.eps</span><span class="op">^</span><span class="fl">0.5</span>, maxiter <span class="op">=</span> <span class="fl">1000</span>, n <span class="op">=</span> <span class="fl">100</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>f </dt>
 <dd><p>the function for which the root is sought.</p></dd>
-<dt>interval </dt>
+
+  <dt>interval </dt>
 <dd><p>a vector containing the end-points of the interval to
     be searched for the root.</p></dd>
-<dt>lower </dt>
+
+  <dt>lower </dt>
 <dd><p>the lower end point of the interval to be searched.</p></dd>
-<dt>upper </dt>
+
+  <dt>upper </dt>
 <dd><p>the upper end point of the interval to be searched.</p></dd>
-<dt>tol </dt>
+
+  <dt>tol </dt>
 <dd><p>the desired accuracy (convergence tolerance).</p></dd>
-<dt>maxiter </dt>
+
+  <dt>maxiter </dt>
 <dd><p>the maximum number of iterations.</p></dd>
-<dt>n </dt>
+
+  <dt>n </dt>
 <dd><p>number of subintervals in which the root is sought.</p></dd>
-<dt>... </dt>
+
+  <dt>... </dt>
 <dd><p>additional named or unnamed arguments to be passed to <code>f</code>
     (but beware of partial matching to other arguments).</p></dd>
+
 </dl></div>
     <div id="note">
     <h2>Note</h2>
@@ -117,7 +125,9 @@
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>a vector with the roots found in the interval</p>
+    
+
+<p>a vector with the roots found in the interval</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -153,50 +163,50 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## =======================================================================</span></span>
-<span class="r-in"><span class="co">##   Mathematical examples</span></span>
-<span class="r-in"><span class="co">## =======================================================================</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># a well-behaved case...</span></span>
-<span class="r-in"><span class="va">fun</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">cos</a></span><span class="op">(</span><span class="fl">2</span><span class="op">*</span><span class="va">x</span><span class="op">)</span><span class="op">^</span><span class="fl">3</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/curve.html" class="external-link">curve</a></span><span class="op">(</span><span class="fu">fun</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fl">0</span>, <span class="fl">10</span>,main <span class="op">=</span> <span class="st">"UnirootAll"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">All</span> <span class="op">&lt;-</span> <span class="fu">UnirootAll</span><span class="op">(</span><span class="va">fun</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">All</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">All</span><span class="op">)</span><span class="op">)</span>, pch <span class="op">=</span> <span class="fl">16</span>, cex <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## =======================================================================</span></span></span>
+<span class="r-in"><span><span class="co">##   Mathematical examples</span></span></span>
+<span class="r-in"><span><span class="co">## =======================================================================</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># a well-behaved case...</span></span></span>
+<span class="r-in"><span><span class="va">fun</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">cos</a></span><span class="op">(</span><span class="fl">2</span><span class="op">*</span><span class="va">x</span><span class="op">)</span><span class="op">^</span><span class="fl">3</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/curve.html" class="external-link">curve</a></span><span class="op">(</span><span class="fu">fun</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fl">0</span>, <span class="fl">10</span>,main <span class="op">=</span> <span class="st">"UnirootAll"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">All</span> <span class="op">&lt;-</span> <span class="fu">UnirootAll</span><span class="op">(</span><span class="va">fun</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">All</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">All</span><span class="op">)</span><span class="op">)</span>, pch <span class="op">=</span> <span class="fl">16</span>, cex <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="UnirootAll-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># a difficult case...</span></span>
-<span class="r-in"><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fl">1</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">cos</a></span><span class="op">(</span><span class="fl">1</span><span class="op">+</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">AA</span> <span class="op">&lt;-</span> <span class="fu">UnirootAll</span><span class="op">(</span><span class="va">f</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/curve.html" class="external-link">curve</a></span><span class="op">(</span><span class="fu">f</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="op">-</span><span class="fl">5</span>, <span class="fl">5</span>, n <span class="op">=</span> <span class="fl">500</span>, main <span class="op">=</span> <span class="st">"UnirootAll"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">AA</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">AA</span><span class="op">)</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"red"</span>, pch <span class="op">=</span> <span class="fl">16</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># a difficult case...</span></span></span>
+<span class="r-in"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fl">1</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">cos</a></span><span class="op">(</span><span class="fl">1</span><span class="op">+</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">AA</span> <span class="op">&lt;-</span> <span class="fu">UnirootAll</span><span class="op">(</span><span class="va">f</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/curve.html" class="external-link">curve</a></span><span class="op">(</span><span class="fu">f</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="op">-</span><span class="fl">5</span>, <span class="fl">5</span>, n <span class="op">=</span> <span class="fl">500</span>, main <span class="op">=</span> <span class="st">"UnirootAll"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">AA</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">AA</span><span class="op">)</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"red"</span>, pch <span class="op">=</span> <span class="fl">16</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="UnirootAll-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">f</span><span class="op">(</span><span class="va">AA</span><span class="op">)</span>  <span class="co"># !!!</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">f</span><span class="op">(</span><span class="va">AA</span><span class="op">)</span>  <span class="co"># !!!</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] -19783385  10048135 -17778378  17716401  19705646  21300284 -61531208</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [8] -52150718 -52150685 -61531329  21300313  19705621  17716401 -17778378</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [15]  10048135 -19783436</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## =======================================================================</span></span>
-<span class="r-in"><span class="co">## Vectorisation:</span></span>
-<span class="r-in"><span class="co">## =======================================================================</span></span>
-<span class="r-in"><span class="co"># from R-help Digest, Vol 130, Issue 27</span></span>
-<span class="r-in"><span class="co"># https://stat.ethz.ch/pipermail/r-help/2013-December/364799.html</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">integrand1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fl">1</span><span class="op">/</span><span class="va">x</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">dnorm</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">integrand2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fl">1</span><span class="op">/</span><span class="op">(</span><span class="fl">2</span><span class="op">*</span><span class="va">x</span><span class="op">-</span><span class="fl">50</span><span class="op">)</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">dnorm</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">integrand3</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">C</span><span class="op">)</span> <span class="fl">1</span><span class="op">/</span><span class="op">(</span><span class="va">x</span><span class="op">+</span><span class="va">C</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">res</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">C</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/stats/integrate.html" class="external-link">integrate</a></span><span class="op">(</span><span class="va">integrand1</span>, lower <span class="op">=</span> <span class="fl">1</span>, upper <span class="op">=</span> <span class="fl">50</span><span class="op">)</span><span class="op">$</span><span class="va">value</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/stats/integrate.html" class="external-link">integrate</a></span><span class="op">(</span><span class="va">integrand2</span>, lower <span class="op">=</span> <span class="fl">50</span>, upper <span class="op">=</span> <span class="fl">100</span><span class="op">)</span><span class="op">$</span><span class="va">value</span> <span class="op">-</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/stats/integrate.html" class="external-link">integrate</a></span><span class="op">(</span><span class="va">integrand3</span>, C <span class="op">=</span> <span class="va">C</span>, lower <span class="op">=</span> <span class="fl">1</span>, upper <span class="op">=</span> <span class="fl">100</span><span class="op">)</span><span class="op">$</span><span class="va">value</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># uniroot passes one value at a time to the function, so res can be used as such</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/uniroot.html" class="external-link">uniroot</a></span><span class="op">(</span><span class="va">res</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1000</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## =======================================================================</span></span></span>
+<span class="r-in"><span><span class="co">## Vectorisation:</span></span></span>
+<span class="r-in"><span><span class="co">## =======================================================================</span></span></span>
+<span class="r-in"><span><span class="co"># from R-help Digest, Vol 130, Issue 27</span></span></span>
+<span class="r-in"><span><span class="co"># https://stat.ethz.ch/pipermail/r-help/2013-December/364799.html</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">integrand1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fl">1</span><span class="op">/</span><span class="va">x</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">dnorm</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">integrand2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fl">1</span><span class="op">/</span><span class="op">(</span><span class="fl">2</span><span class="op">*</span><span class="va">x</span><span class="op">-</span><span class="fl">50</span><span class="op">)</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">dnorm</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">integrand3</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">C</span><span class="op">)</span> <span class="fl">1</span><span class="op">/</span><span class="op">(</span><span class="va">x</span><span class="op">+</span><span class="va">C</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">C</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/stats/integrate.html" class="external-link">integrate</a></span><span class="op">(</span><span class="va">integrand1</span>, lower <span class="op">=</span> <span class="fl">1</span>, upper <span class="op">=</span> <span class="fl">50</span><span class="op">)</span><span class="op">$</span><span class="va">value</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/stats/integrate.html" class="external-link">integrate</a></span><span class="op">(</span><span class="va">integrand2</span>, lower <span class="op">=</span> <span class="fl">50</span>, upper <span class="op">=</span> <span class="fl">100</span><span class="op">)</span><span class="op">$</span><span class="va">value</span> <span class="op">-</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/stats/integrate.html" class="external-link">integrate</a></span><span class="op">(</span><span class="va">integrand3</span>, C <span class="op">=</span> <span class="va">C</span>, lower <span class="op">=</span> <span class="fl">1</span>, upper <span class="op">=</span> <span class="fl">100</span><span class="op">)</span><span class="op">$</span><span class="va">value</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># uniroot passes one value at a time to the function, so res can be used as such</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/uniroot.html" class="external-link">uniroot</a></span><span class="op">(</span><span class="va">res</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1000</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $root</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 837</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -212,12 +222,12 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> $estim.prec</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.000061</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Need to vectorise the function to use UnirootAll:</span></span>
-<span class="r-in"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Vectorize.html" class="external-link">Vectorize</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">UnirootAll</span><span class="op">(</span><span class="va">res</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1000</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Need to vectorise the function to use UnirootAll:</span></span></span>
+<span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Vectorize.html" class="external-link">Vectorize</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">UnirootAll</span><span class="op">(</span><span class="va">res</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1000</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 837</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -232,7 +242,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

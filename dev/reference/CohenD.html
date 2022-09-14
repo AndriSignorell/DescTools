@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">CohenD</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, pooled <span class="op">=</span> <span class="cn">TRUE</span>, correct <span class="op">=</span> <span class="cn">FALSE</span>, conf.level <span class="op">=</span> <span class="cn">NA</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">CohenD</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, pooled <span class="op">=</span> <span class="cn">TRUE</span>, correct <span class="op">=</span> <span class="cn">FALSE</span>, conf.level <span class="op">=</span> <span class="cn">NA</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -95,31 +95,41 @@
     <dl><dt>x</dt>
 <dd><p>a (non-empty) numeric vector of data values.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>y</dt>
+
+  <dt>y</dt>
 <dd><p>a (non-empty) numeric vector of data values.
 <!-- %%     ~~Describe \code{y} here~~ --></p></dd>
-<dt>pooled</dt>
+
+  <dt>pooled</dt>
 <dd><p>logical, indicating whether compute pooled standard deviation or the whole sample standard deviation. Default is TRUE.
 <!-- %%     ~~Describe \code{pooled} here~~ --></p></dd>
-<dt>correct</dt>
+
+  <dt>correct</dt>
 <dd><p>logical, indicating whether to apply the Hedges correction. (Default: FALSE)
 <!-- %%     ~~Describe \code{correct} here~~ --></p></dd>
-<dt>conf.level</dt>
+
+  <dt>conf.level</dt>
 <dd><p>confidence level of the interval. Set this to NA, if no confidence intervals should be calculated. (This is the default) 
 <!-- %%     ~~Describe \code{conf.level} here~~ --></p></dd>
-<dt>na.rm</dt>
+
+ <dt>na.rm</dt>
 <dd><p>logical. Should missing values be removed? Defaults to FALSE.
 <!-- %%     ~~Describe \code{na.rm} here~~ --></p></dd>
+
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     <p>a numeric vector with 3 elements:</p>
 <dl><dt>d</dt>
 <dd><p>the effect size d</p></dd>
-<dt>lwr.ci</dt>
+
+  <dt>lwr.ci</dt>
 <dd><p>lower bound of the confidence interval</p></dd>
-<dt>upr.ci</dt>
+
+  <dt>upr.ci</dt>
 <dd><p>upper bound of the confidence interval</p></dd>
+
 </dl></div>
     <div id="references">
     <h2>References</h2>
@@ -141,15 +151,15 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">d.pizza</span><span class="op">$</span><span class="va">price</span><span class="op">[</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span><span class="op">==</span><span class="st">"Carter"</span><span class="op">]</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">d.pizza</span><span class="op">$</span><span class="va">price</span><span class="op">[</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span><span class="op">==</span><span class="st">"Miller"</span><span class="op">]</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">CohenD</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, conf.level<span class="op">=</span><span class="fl">0.95</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">d.pizza</span><span class="op">$</span><span class="va">price</span><span class="op">[</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span><span class="op">==</span><span class="st">"Carter"</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">d.pizza</span><span class="op">$</span><span class="va">price</span><span class="op">[</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span><span class="op">==</span><span class="st">"Miller"</span><span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">CohenD</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, conf.level<span class="op">=</span><span class="fl">0.95</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          d     lwr.ci     upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -0.2122779 -1.9835187  0.9750000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"magnitude")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "small"</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -164,7 +174,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

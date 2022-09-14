@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">SplitToCol</span><span class="op">(</span><span class="va">x</span>, split <span class="op">=</span> <span class="st">" "</span>, fixed <span class="op">=</span> <span class="cn">TRUE</span>, na.form <span class="op">=</span> <span class="st">""</span>, colnames <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">SplitToCol</span><span class="op">(</span><span class="va">x</span>, split <span class="op">=</span> <span class="st">" "</span>, fixed <span class="op">=</span> <span class="cn">TRUE</span>, na.form <span class="op">=</span> <span class="st">""</span>, colnames <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -95,26 +95,49 @@
     <dl><dt>x</dt>
 <dd><p>a data frame containing the string columns to be splitted.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>split</dt>
+
+  <dt>split</dt>
 <dd><p>character vector (or object which can be coerced to such)
     containing <a href="https://rdrr.io/r/base/regex.html" class="external-link">regular expression</a>(s) (unless <code>fixed = TRUE</code>)
     to use for splitting.  If empty matches occur, in particular if
     <code>split</code> has length 0, <code>x</code> is split into single characters.
     If <code>split</code> has length greater than 1, it is re-cycled along
     <code>x</code>.</p></dd>
-<dt>fixed</dt>
+
+  <dt>fixed</dt>
 <dd><p>logical.  If <code>TRUE</code> match <code>split</code> exactly, otherwise
     use regular expressions.  Has priority over <code>perl</code>.</p></dd>
-<dt>na.form</dt>
+
+  <dt>na.form</dt>
 <dd><p>character, string specifying how <code>NAs</code> should be specially formatted. Default is a blank <code>""</code>.</p></dd>
-<dt>colnames</dt>
+
+  <dt>colnames</dt>
 <dd><p>columnnames for the resulting data.frame. Will be recycled. Can easily be set to <code>""</code> if no columnnames should be set.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A data.frame with all the columns splitted
-A vector with the length of the number of columns of the data.frame containing the number of the found columns is returned as attribute namede <code>"ncols"</code>.
-<!-- %%  ~Describe the value returned --><!-- %%  If it is a LIST, use --><!-- %%  \item{comp1 }{Description of 'comp1'} --><!-- %%  \item{comp2 }{Description of 'comp2'} --><!-- %% ... --></p>
+    <p>A data.frame with all the columns splitted</p>
+
+
+<p>A vector with the length of the number of columns of the data.frame containing the number of the found columns is returned as attribute namede <code>"ncols"</code>.</p>
+
+
+<p><!-- %%  ~Describe the value returned --></p>
+
+
+<p><!-- %%  If it is a LIST, use --></p>
+
+
+<p><!-- %%  \item{comp1 }{Description of 'comp1'} --></p>
+
+
+<p><!-- %%  \item{comp2 }{Description of 'comp2'} --></p>
+
+
+<p><!-- %% ... --></p>
+
+
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -129,11 +152,11 @@ A vector with the length of the number of columns of the data.frame containing t
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">d.frm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>res1<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2 [-3,5] **"</span>, <span class="st">"5 [-2,6] ***"</span>, <span class="st">"9 [-3,1]"</span><span class="op">)</span>,</span>
-<span class="r-in">                    res2<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"5 [6,8] **"</span>, <span class="st">"7 [-2,9]"</span>, <span class="st">"4 [3,5] **"</span><span class="op">)</span>, </span>
-<span class="r-in">                    stringsAsFactors<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">SplitToCol</span><span class="op">(</span><span class="va">d.frm</span>, na.form<span class="op">=</span><span class="st">"-"</span>, colnames<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"coef"</span>, <span class="st">"ci"</span>, <span class="st">"pval"</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">d.frm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>res1<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2 [-3,5] **"</span>, <span class="st">"5 [-2,6] ***"</span>, <span class="st">"9 [-3,1]"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                    res2<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"5 [6,8] **"</span>, <span class="st">"7 [-2,9]"</span>, <span class="st">"4 [3,5] **"</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>                    stringsAsFactors<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">SplitToCol</span><span class="op">(</span><span class="va">d.frm</span>, na.form<span class="op">=</span><span class="st">"-"</span>, colnames<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"coef"</span>, <span class="st">"ci"</span>, <span class="st">"pval"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   coef     ci pval coef     ci pval</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    2 [-3,5]   **    5  [6,8]   **</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    5 [-2,6]  ***    7 [-2,9]    -</span>
@@ -152,7 +175,7 @@ A vector with the length of the number of columns of the data.frame containing t
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

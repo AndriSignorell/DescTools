@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,16 +87,16 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">SmoothSpline</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for default</span>
-<span class="fu">SmoothSpline</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, w <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">df</span>, spar <span class="op">=</span> <span class="cn">NULL</span>, cv <span class="op">=</span> <span class="cn">FALSE</span>,
-             all.knots <span class="op">=</span> <span class="cn">FALSE</span>, nknots <span class="op">=</span> <span class="va">.nknots.smspl</span>, keep.data <span class="op">=</span> <span class="cn">TRUE</span>,
-             df.offset <span class="op">=</span> <span class="fl">0</span>, penalty <span class="op">=</span> <span class="fl">1</span>, control.spar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-             tol <span class="op">=</span> <span class="fl">0.000001</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/stats/IQR.html" class="external-link">IQR</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for formula</span>
-<span class="fu">SmoothSpline</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">subset</span>, <span class="va">na.action</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">SmoothSpline</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">SmoothSpline</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, w <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">df</span>, spar <span class="op">=</span> <span class="cn">NULL</span>, cv <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>             all.knots <span class="op">=</span> <span class="cn">FALSE</span>, nknots <span class="op">=</span> <span class="va">.nknots.smspl</span>, keep.data <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>             df.offset <span class="op">=</span> <span class="fl">0</span>, penalty <span class="op">=</span> <span class="fl">1</span>, control.spar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>             tol <span class="op">=</span> <span class="fl">0.000001</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/stats/IQR.html" class="external-link">IQR</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for formula</span></span>
+<span><span class="fu">SmoothSpline</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">subset</span>, <span class="va">na.action</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -104,48 +104,60 @@
     <dl><dt>x</dt>
 <dd><p>a vector giving the values of the predictor variable, or a
  list or a two-column matrix specifying x and y.</p></dd>
-<dt>y</dt>
+
+ <dt>y</dt>
 <dd><p>responses. If <code>y</code> is missing or <code>NULL</code>, the responses
  are assumed to be specified by <code>x</code>, with <code>x</code> the index
  vector.</p></dd>
-<dt>w</dt>
+
+ <dt>w</dt>
 <dd><p>optional vector of weights of the same length as <code>x</code>;
  defaults to all 1.</p></dd>
-<dt>df</dt>
+
+ <dt>df</dt>
 <dd><p>the desired equivalent number of degrees of freedom (trace of
  the smoother matrix).</p></dd>
-<dt>spar</dt>
+
+ <dt>spar</dt>
 <dd><p>smoothing parameter, typically (but not necessarily) in
  \((0,1]\). The coefficient \(\lambda\) of the integral of the
  squared second derivative in the fit (penalized log likelihood)
  criterion is a monotone function of <code>spar</code>, see the details
  below.</p></dd>
-<dt>cv</dt>
+
+ <dt>cv</dt>
 <dd><p>ordinary (<code>TRUE</code>) or ‘generalized’ cross-validation
  (GCV) when <code>FALSE</code>; setting it to <code>NA</code> skips the evaluation
  of leverages and any score.</p></dd>
-<dt>all.knots</dt>
+
+ <dt>all.knots</dt>
 <dd><p>if <code>TRUE</code>, all distinct points in <code>x</code> are used as
  knots. If <code>FALSE</code> (default), a subset of <code>x[]</code> is used,
  specifically <code>x[j]</code> where the <code>nknots</code> indices are evenly
  spaced in <code>1:n</code>, see also the next argument <code>nknots</code>.</p></dd>
-<dt>nknots</dt>
+
+ <dt>nknots</dt>
 <dd><p>integer or <code><a href="https://rdrr.io/r/base/function.html" class="external-link">function</a></code> giving the number of
  knots to use when <code>all.knots = FALSE</code>. If a function (as by
  default), the number of knots is <code>nknots(nx)</code>. By default for
  \(n_x &gt; 49\) this is less than \(n_x\), the number
  of unique <code>x</code> values, see the Note.</p></dd>
-<dt>keep.data</dt>
+
+ <dt>keep.data</dt>
 <dd><p>logical specifying if the input data should be kept
  in the result. If <code>TRUE</code> (as per default), fitted values and
  residuals are available from the result.</p></dd>
-<dt>df.offset</dt>
+
+ <dt>df.offset</dt>
 <dd><p>allows the degrees of freedom to be increased by
  <code>df.offset</code> in the GCV criterion.</p></dd>
-<dt>penalty</dt>
+
+ <dt>penalty</dt>
 <dd><p>the coefficient of the penalty for degrees of freedom
  in the GCV criterion.</p></dd>
-<dt>control.spar</dt>
+
+
+ <dt>control.spar</dt>
 <dd><p>optional list with named components controlling the
  root finding when the smoothing parameter <code>spar</code> is computed,
  i.e., missing or <code>NULL</code>, see below.</p>
@@ -176,24 +188,37 @@
  
 </dl><p>Note that <code>spar</code> is only searched for in the interval
  \([low, high]\).</p></dd>
-<dt>tol</dt>
+
+
+ <dt>tol</dt>
 <dd><p>a tolerance for same-ness or uniqueness of the <code>x</code>
  values. The values are binned into bins of size <code>tol</code> and
  values which fall into the same bin are regarded as the same. Must
  be strictly positive (and finite).</p></dd>
-<dt>formula</dt>
+
+
+  <dt>formula</dt>
 <dd><p>a formula of the form <code>lhs ~ rhs</code> where <code>lhs</code> gives the data values and rhs the                 corresponding groups.</p></dd>
-<dt>data</dt>
+
+
+  <dt>data</dt>
 <dd><p>The data frame from which the formula should
             be evaluated.</p></dd>
-<dt>subset</dt>
+
+
+  <dt>subset</dt>
 <dd><p>an optional vector specifying a subset of observations to be used.</p></dd>
-<dt>na.action</dt>
+
+  <dt>na.action</dt>
 <dd><p>a function which indicates what should happen when the data contain NAs. Defaults to
          <code>getOption("na.action")</code>.</p></dd>
-<dt>...</dt>
+
+
+  <dt>...</dt>
 <dd><p>Other arguments to be passed to
         <code><a href="https://rdrr.io/r/stats/smooth.spline.html" class="external-link">smooth.spline</a></code>.</p></dd>
+
+
 </dl></div>
     <div id="author">
     <h2>Author</h2>
@@ -208,8 +233,8 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">temperature</span> <span class="op">~</span> <span class="va">delivery_min</span>, data<span class="op">=</span><span class="va">d.pizza</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="fu">SmoothSpline</span><span class="op">(</span><span class="va">temperature</span> <span class="op">~</span> <span class="va">delivery_min</span>, data<span class="op">=</span><span class="va">d.pizza</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">temperature</span> <span class="op">~</span> <span class="va">delivery_min</span>, data<span class="op">=</span><span class="va">d.pizza</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="fu">SmoothSpline</span><span class="op">(</span><span class="va">temperature</span> <span class="op">~</span> <span class="va">delivery_min</span>, data<span class="op">=</span><span class="va">d.pizza</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="SmoothSpline-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -225,7 +250,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -21,7 +21,7 @@ variable Y that is explained by the row variable X. The function has interfaces 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -89,8 +89,8 @@ variable Y that is explained by the row variable X. The function has interfaces 
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">UncertCoef</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, direction <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"symmetric"</span>, <span class="st">"row"</span>, <span class="st">"column"</span><span class="op">)</span>, 
-           conf.level <span class="op">=</span> <span class="cn">NA</span>, p.zero.correction <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">UncertCoef</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, direction <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"symmetric"</span>, <span class="st">"row"</span>, <span class="st">"column"</span><span class="op">)</span>, </span>
+<span>           conf.level <span class="op">=</span> <span class="cn">NA</span>, p.zero.correction <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -98,21 +98,27 @@ variable Y that is explained by the row variable X. The function has interfaces 
     <dl><dt>x</dt>
 <dd><p>a numeric vector, a factor, matrix or data frame. 
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>y</dt>
+
+  <dt>y</dt>
 <dd><p><code>NULL</code> (default) or a vector, an ordered factor, matrix or data frame with compatible dimensions to x. 
 <!-- %%     ~~Describe \code{y} here~~ --></p></dd>
-<dt>direction</dt>
+
+ <dt>direction</dt>
 <dd><p>direction of the calculation. Can be <code>"row"</code> (default) or <code>"column"</code>, where
   <code>"row"</code> calculates UncertCoef (R|C) ("column dependent").
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
+
 <dt>conf.level</dt>
 <dd><p>confidence level of the interval. If set to <code>NA</code> (which is the default) no confidence interval will be calculated. 
 <!-- %%     ~~Describe \code{conf.level} here~~ --></p></dd>
+
 <dt>p.zero.correction</dt>
 <dd><p>slightly nudge zero values so that their logarithm can be calculated <!-- %%     ~~Describe \code{conf.level} here~~ --></p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>further arguments are passed to the function <code><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></code>, allowing i.e. to set useNA. This refers only to the vector interface.
 <!-- %%     ~~Describe \code{\dots} here~~ --></p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -121,8 +127,25 @@ ranges from [0, 1]. <br><!-- %%  ~~ If necessary, more details than the descript
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>Either a single numeric value, if no confidence interval is required, <br>or a vector with 3 elements for estimate, lower and upper confidence intervall. 
-<!-- %%  ~Describe the value returned --><!-- %%  If it is a LIST, use --><!-- %%  \item{comp1 }{Description of 'comp1'} --><!-- %%  \item{comp2 }{Description of 'comp2'} --><!-- %% ... --></p>
+    <p>Either a single numeric value, if no confidence interval is required, <br></p>
+
+
+<p>or a vector with 3 elements for estimate, lower and upper confidence intervall. 
+<!-- %%  ~Describe the value returned --></p>
+
+
+<p><!-- %%  If it is a LIST, use --></p>
+
+
+<p><!-- %%  \item{comp1 }{Description of 'comp1'} --></p>
+
+
+<p><!-- %%  \item{comp2 }{Description of 'comp2'} --></p>
+
+
+<p><!-- %% ... --></p>
+
+
     </div>
     <div id="references">
     <h2>References</h2>
@@ -142,26 +165,26 @@ ranges from [0, 1]. <br><!-- %%  ~~ If necessary, more details than the descript
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># example from Goodman Kruskal (1954)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">as.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1768</span>,<span class="fl">946</span>,<span class="fl">115</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">807</span>,<span class="fl">1387</span>,<span class="fl">438</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">189</span>,<span class="fl">746</span>,<span class="fl">288</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">47</span>,<span class="fl">53</span>,<span class="fl">16</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"B"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">m</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># example from Goodman Kruskal (1954)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">as.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1768</span>,<span class="fl">946</span>,<span class="fl">115</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">807</span>,<span class="fl">1387</span>,<span class="fl">438</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">189</span>,<span class="fl">746</span>,<span class="fl">288</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">47</span>,<span class="fl">53</span>,<span class="fl">16</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"B"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">m</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      B 1  B 2  B 3  B 4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A 1 1768  807  189   47</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A 2  946 1387  746   53</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A 3  115  438  288   16</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># direction default is "symmetric"</span></span>
-<span class="r-in"><span class="fu">UncertCoef</span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># direction default is "symmetric"</span></span></span>
+<span class="r-in"><span><span class="fu">UncertCoef</span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.0799</span>
-<span class="r-in"><span class="fu">UncertCoef</span><span class="op">(</span><span class="va">m</span>, conf.level<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">UncertCoef</span><span class="op">(</span><span class="va">m</span>, conf.level<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     uc lwr.ci upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.0799 0.0713 0.0885 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">UncertCoef</span><span class="op">(</span><span class="va">m</span>, direction<span class="op">=</span><span class="st">"row"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">UncertCoef</span><span class="op">(</span><span class="va">m</span>, direction<span class="op">=</span><span class="st">"row"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.0851</span>
-<span class="r-in"><span class="fu">UncertCoef</span><span class="op">(</span><span class="va">m</span>, direction<span class="op">=</span><span class="st">"column"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">UncertCoef</span><span class="op">(</span><span class="va">m</span>, direction<span class="op">=</span><span class="st">"column"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.0753</span>
 </code></pre></div>
     </div>
@@ -177,7 +200,7 @@ ranges from [0, 1]. <br><!-- %%  ~~ If necessary, more details than the descript
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -18,7 +18,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -84,18 +84,22 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">HexToCol</span><span class="op">(</span><span class="va">hexstr</span>, method <span class="op">=</span> <span class="st">"rgb"</span>, metric <span class="op">=</span> <span class="st">"euclidean"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">HexToCol</span><span class="op">(</span><span class="va">hexstr</span>, method <span class="op">=</span> <span class="st">"rgb"</span>, metric <span class="op">=</span> <span class="st">"euclidean"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>hexstr</dt>
 <dd><p>a color or a vector of colors specified as hexadecimal string of the form "#RRGGBB" or "#RRGGBBAA"</p></dd>
-<dt>method</dt>
+
+  <dt>method</dt>
 <dd><p>character string specifying the color space to be used. Can be "rgb" (default) or "hsv".</p></dd>
-<dt>metric</dt>
+
+   <dt>metric</dt>
 <dd><p>character string specifying the metric to be used for calculating distances between the colors.
 Available options are "euclidean" (default) and "manhattan". Euclidean distances are root sum-of-squares of differences, and manhattan distances are the sum of absolute differences.</p></dd>
+
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -103,7 +107,9 @@ Available options are "euclidean" (default) and "manhattan". Euclidean distances
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>The colorname(s) of the closest match(es) (if more than one).</p>
+    
+
+<p>The colorname(s) of the closest match(es) (if more than one).</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -116,18 +122,18 @@ Available options are "euclidean" (default) and "manhattan". Euclidean distances
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="ColToHex.html">ColToHex</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lightblue"</span>, <span class="st">"salmon"</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="ColToHex.html">ColToHex</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lightblue"</span>, <span class="st">"salmon"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "#ADD8E6" "#FA8072"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">HexToCol</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#ADD8E6"</span>, <span class="st">"#FA1572"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">HexToCol</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#ADD8E6"</span>, <span class="st">"#FA1572"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "lightblue" "deeppink2"</span>
-<span class="r-in"><span class="fu">HexToCol</span><span class="op">(</span><span class="fu"><a href="Pal.html">Pal</a></span><span class="op">(</span><span class="st">"Helsana"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">HexToCol</span><span class="op">(</span><span class="fu"><a href="Pal.html">Pal</a></span><span class="op">(</span><span class="st">"Helsana"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "deeppink4"    "darkorange2"  "goldenrod1"   "navajowhite3" "hotpink3"    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "skyblue3"     "gold3"        "gray80"       "gray40"       "white"       </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="ColToRgb.html">ColToRgb</a></span><span class="op">(</span><span class="st">"darkmagenta"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x</span><span class="op">[</span><span class="fl">2</span>,<span class="op">]</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">[</span><span class="fl">2</span>,<span class="op">]</span> <span class="op">+</span> <span class="fl">155</span></span>
-<span class="r-in"><span class="fu"><a href="RgbToCol.html">RgbToCol</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="ColToRgb.html">ColToRgb</a></span><span class="op">(</span><span class="st">"darkmagenta"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span><span class="op">[</span><span class="fl">2</span>,<span class="op">]</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">[</span><span class="fl">2</span>,<span class="op">]</span> <span class="op">+</span> <span class="fl">155</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="RgbToCol.html">RgbToCol</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "gray57"</span>
 </code></pre></div>
     </div>
@@ -143,7 +149,7 @@ Available options are "euclidean" (default) and "manhattan". Euclidean distances
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -22,7 +22,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -90,7 +90,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">ColToHsv</span><span class="op">(</span><span class="va">col</span>, alpha <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ColToHsv</span><span class="op">(</span><span class="va">col</span>, alpha <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -100,9 +100,11 @@
   a hexadecimal string of the form "#rrggbb" or "#rrggbbaa", or an integer i meaning palette()[i]. 
   Non-string values are coerced to integer.</p>
 <p><!-- %%     ~~Describe \code{col} here~~ --></p></dd>
-<dt>alpha</dt>
+
+  <dt>alpha</dt>
 <dd><p>logical value indicating whether alpha channel (opacity) values should be returned.
 <!-- %%     ~~Describe \code{alpha} here~~ --></p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -116,8 +118,27 @@ Saturation is the amount of Hue mixed into the color.</p>
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>A matrix with a column for each color. The three rows of the matrix indicate hue, saturation and value and are named "h", "s", and "v" accordingly. 
-<!-- %%  ~Describe the value returned --><!-- %%  If it is a LIST, use --><!-- %%  \item{comp1 }{Description of 'comp1'} --><!-- %%  \item{comp2 }{Description of 'comp2'} --><!-- %% ... --></p>
+    
+
+<p>A matrix with a column for each color. The three rows of the matrix indicate hue, saturation and value and are named "h", "s", and "v" accordingly.</p>
+
+
+
+<p><!-- %%  ~Describe the value returned --></p>
+
+
+<p><!-- %%  If it is a LIST, use --></p>
+
+
+<p><!-- %%  \item{comp1 }{Description of 'comp1'} --></p>
+
+
+<p><!-- %%  \item{comp2 }{Description of 'comp2'} --></p>
+
+
+<p><!-- %% ... --></p>
+
+
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -130,18 +151,18 @@ Saturation is the amount of Hue mixed into the color.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">ColToHsv</span><span class="op">(</span><span class="st">"peachpuff"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">ColToHsv</span><span class="op">(</span><span class="st">"peachpuff"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         [,1]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> h 0.07857143</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> s 0.27450980</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> v 1.00000000</span>
-<span class="r-in"><span class="fu">ColToHsv</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>blu <span class="op">=</span> <span class="st">"royalblue"</span>, reddish <span class="op">=</span> <span class="st">"tomato"</span><span class="op">)</span><span class="op">)</span> <span class="co"># names kept</span></span>
+<span class="r-in"><span><span class="fu">ColToHsv</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>blu <span class="op">=</span> <span class="st">"royalblue"</span>, reddish <span class="op">=</span> <span class="st">"tomato"</span><span class="op">)</span><span class="op">)</span> <span class="co"># names kept</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         blu    reddish</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> h 0.6250000 0.02536232</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> s 0.7111111 0.72156863</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> v 0.8823529 1.00000000</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">ColToHsv</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">ColToHsv</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [,1]      [,2]      [,3]      [,4]      [,5]      [,6]      [,7]      [,8]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> h    0 0.9714286 0.3100775 0.5671769 0.5026455 0.8479381 0.1331878 0.0000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> s    0 0.6278027 0.6201923 0.8521739 0.8253275 0.9463415 0.9346939 0.0000000</span>
@@ -160,7 +181,7 @@ Saturation is the amount of Hue mixed into the color.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

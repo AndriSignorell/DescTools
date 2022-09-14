@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">SetNames</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">SetNames</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -95,14 +95,30 @@
     <dl><dt>x</dt>
 <dd><p>an object for which a names attribute will be meaningful
 <!-- %%     ~~Describe \code{object} here~~ --></p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>the names to be assigned to the object. This should be a character vector of names named <code>dimnames</code>, <code>rownames</code>, <code>colnames</code> or <code>names</code>. Setting <code>rownames=NULL</code> would remove existing rownames. All kind of names can be changed at the same time. Default would be <code>names</code>. Abbreviations are supported.
 <!-- %%     ~~Describe \code{nm} here~~ --></p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     <p>An object of the same sort as object with the new names assigned.
-<!-- %%  ~Describe the value returned --><!-- %%  If it is a LIST, use --><!-- %%  \item{comp1 }{Description of 'comp1'} --><!-- %%  \item{comp2 }{Description of 'comp2'} --><!-- %% ... --></p>
+<!-- %%  ~Describe the value returned --></p>
+
+
+<p><!-- %%  If it is a LIST, use --></p>
+
+
+<p><!-- %%  \item{comp1 }{Description of 'comp1'} --></p>
+
+
+<p><!-- %%  \item{comp2 }{Description of 'comp2'} --></p>
+
+
+<p><!-- %% ... --></p>
+
+
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -116,19 +132,19 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">SetNames</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, names<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">SetNames</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, names<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a b c d e </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 2 3 4 5 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># the default, if no argument names are provided, is "names"</span></span>
-<span class="r-in"><span class="fu">SetNames</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># the default, if no argument names are provided, is "names"</span></span></span>
+<span class="r-in"><span><span class="fu">SetNames</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a b c d e </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 2 3 4 5 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span>, <span class="va">d.pizza</span><span class="op">$</span><span class="va">wine_delivered</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># rownames and columnnames can be set at the same time</span></span>
-<span class="r-in"><span class="fu">SetNames</span><span class="op">(</span><span class="fu"><a href="BinomCI.html">BinomCI</a></span><span class="op">(</span><span class="va">tab</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">tab</span><span class="op">)</span><span class="op">)</span>, </span>
-<span class="r-in">         rownames<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">tab</span><span class="op">)</span>, colnames<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"perc"</span>, <span class="st">"lci"</span>, <span class="st">"uci"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span>, <span class="va">d.pizza</span><span class="op">$</span><span class="va">wine_delivered</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># rownames and columnnames can be set at the same time</span></span></span>
+<span class="r-in"><span><span class="fu">SetNames</span><span class="op">(</span><span class="fu"><a href="BinomCI.html">BinomCI</a></span><span class="op">(</span><span class="va">tab</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">tab</span><span class="op">)</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>         rownames<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">tab</span><span class="op">)</span>, colnames<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"perc"</span>, <span class="st">"lci"</span>, <span class="st">"uci"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                perc       lci       uci</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Butcher   0.9042553 0.8279588 0.9488080</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Carpenter 0.7925926 0.7402915 0.8366847</span>
@@ -137,9 +153,9 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hunter    0.9025974 0.8455167 0.9400818</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Miller    0.8720000 0.8021644 0.9196530</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Taylor    0.8557214 0.8004723 0.8976285</span>
-<span class="r-in">         </span>
-<span class="r-in"><span class="co"># can also be used to set the names to an empty string</span></span>
-<span class="r-in"><span class="fu">SetNames</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fl">6</span><span class="op">)</span>, rownames<span class="op">=</span><span class="st">""</span>, colnames<span class="op">=</span><span class="st">""</span><span class="op">)</span></span>
+<span class="r-in"><span>         </span></span>
+<span class="r-in"><span><span class="co"># can also be used to set the names to an empty string</span></span></span>
+<span class="r-in"><span><span class="fu">SetNames</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fl">6</span><span class="op">)</span>, rownames<span class="op">=</span><span class="st">""</span>, colnames<span class="op">=</span><span class="st">""</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  1 0 0 0 0 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  0 1 0 0 0 0</span>
@@ -147,13 +163,13 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>  0 0 0 1 0 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  0 0 0 0 1 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  0 0 0 0 0 1</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># setting dimnames works as well</span></span>
-<span class="r-in"><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu">SetNames</span><span class="op">(</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">as.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">84</span>,<span class="fl">43</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">92</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, </span>
-<span class="r-in">    dimnames<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span class="r-in">       dipstick<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"positive"</span>,<span class="st">"negative"</span><span class="op">)</span>,</span>
-<span class="r-in">       culture<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"positive"</span>,<span class="st">"negative"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># setting dimnames works as well</span></span></span>
+<span class="r-in"><span><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu">SetNames</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">as.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">84</span>,<span class="fl">43</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">92</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>    dimnames<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>       dipstick<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"positive"</span>,<span class="st">"negative"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>       culture<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"positive"</span>,<span class="st">"negative"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -168,7 +184,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

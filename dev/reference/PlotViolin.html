@@ -21,7 +21,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -90,65 +90,85 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">PlotViolin</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for default</span>
-<span class="fu">PlotViolin</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, horizontal <span class="op">=</span> <span class="cn">FALSE</span>, bw <span class="op">=</span> <span class="st">"SJ"</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span>, 
-           names <span class="op">=</span> <span class="cn">NULL</span>, args.boxplot <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> 
-
-<span class="co"># S3 method for formula</span>
-<span class="fu">PlotViolin</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">subset</span>, <span class="va">na.action</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">PlotViolin</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">PlotViolin</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, horizontal <span class="op">=</span> <span class="cn">FALSE</span>, bw <span class="op">=</span> <span class="st">"SJ"</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>           names <span class="op">=</span> <span class="cn">NULL</span>, args.boxplot <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="co"># S3 method for formula</span></span>
+<span><span class="fu">PlotViolin</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">subset</span>, <span class="va">na.action</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>Either a sequence of variable names, or a data frame, or a model formula</p></dd>
-<dt>horizontal</dt>
+
+  <dt>horizontal</dt>
 <dd><p>logical indicating if the densityplots should be horizontal; default <code>FALSE</code> means vertical arrangement.</p></dd>
-<dt>bw</dt>
+
+  <dt>bw</dt>
 <dd><p>the smoothing bandwidth (method) being used by <code><a href="https://rdrr.io/r/stats/density.html" class="external-link">density</a></code>. <br><code>bw</code> can also be a character string giving a rule to choose the bandwidth. See <code><a href="https://rdrr.io/r/stats/bandwidth.html" class="external-link">bw.nrd</a></code>. 
     The default, has been switched from <code>"nrd0"</code> to <code>"SJ"</code>, following the general recommendation in Venables &amp; Ripley (2002). <br>
     In case of a method, the average computed bandwidth is used.</p></dd>
-<dt>na.rm</dt>
+
+  <dt>na.rm</dt>
 <dd><p>logical, should NAs be omitted? The density-function can't do with missings. Defaults to <code>FALSE</code>.</p></dd>
-<dt>names</dt>
+
+  <dt>names</dt>
 <dd><p>a vector of names for the groups.</p></dd>
-<dt>formula</dt>
+
+  <dt>formula</dt>
 <dd><p>a formula, such as y ~ grp, where y is a numeric vector of data values to be split into groups according to the grouping variable grp (usually a factor).</p></dd>
-<dt>data</dt>
+
+  <dt>data</dt>
 <dd><p>a data.frame (or list) from which the variables in formula should be taken.</p></dd>
-<dt>subset</dt>
+
+  <dt>subset</dt>
 <dd><p>an optional vector specifying a subset of observations to be used for plotting.</p></dd>
-<dt>na.action</dt>
+
+  <dt>na.action</dt>
 <dd><p>a function which indicates what should happen when the data contain NAs. Defaults to <code>getOption("na.action")</code>.</p></dd>
+  
 <dt>...</dt>
 <dd><p>The dots are passed to <code><a href="https://rdrr.io/r/graphics/polygon.html" class="external-link">polygon</a></code>. Notably, you can set the color to red with <code>col="red"</code>, and a border color with <code>border="blue"</code></p></dd>
-<dt>args.boxplot</dt>
+
+  <dt>args.boxplot</dt>
 <dd><p>list of arguments for a boxplot to be superposed to the densityplot. By default (NULL) a 
   black boxplot will be drawn. Set this to <code>NA</code> to suppress the boxplot.</p></dd>
+
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>If a boxplot was drawn then the function returns a list with the following components:</p>
+    
+
+<p>If a boxplot was drawn then the function returns a list with the following components:</p>
 <dl><dt>stats</dt>
 <dd><p>a matrix, each column contains the extreme of the lower
     whisker, the lower hinge, the median, the upper hinge and the
     extreme of the upper whisker for one group/plot.  If all the inputs
     have the same class attribute, so will this component.</p></dd>
-<dt>n</dt>
+
+  <dt>n</dt>
 <dd><p>a vector with the number of observations in each group.</p></dd>
-<dt>conf</dt>
+
+  <dt>conf</dt>
 <dd><p>a matrix where each column contains the lower and upper
     extremes of the notch.</p></dd>
-<dt>out</dt>
+
+  <dt>out</dt>
 <dd><p>the values of any data points which lie beyond the
     extremes of the whiskers.</p></dd>
-<dt>group</dt>
+
+  <dt>group</dt>
 <dd><p>a vector of the same length as <code>out</code> whose elements
     indicate to which group the outlier belongs.</p></dd>
-<dt>names</dt>
+
+  <dt>names</dt>
 <dd><p>a vector of names for the groups.</p></dd>
+
 </dl></div>
     <div id="note">
     <h2>Note</h2>
@@ -171,43 +191,43 @@ arguments as <code><a href="https://rdrr.io/r/graphics/boxplot.html" class="exte
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># make a "violin"</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">50</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">PlotViolin</span><span class="op">(</span><span class="va">x</span>, col <span class="op">=</span> <span class="st">"brown"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># make a "violin"</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">50</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">PlotViolin</span><span class="op">(</span><span class="va">x</span>, col <span class="op">=</span> <span class="st">"brown"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="PlotViolin-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">30</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># make a quintet. Note also choice of bandwidth</span></span>
-<span class="r-in"><span class="fu">PlotViolin</span><span class="op">(</span><span class="va">x</span> <span class="op">~</span> <span class="va">f</span>, col <span class="op">=</span> <span class="fu"><a href="SetAlpha.html">SetAlpha</a></span><span class="op">(</span><span class="st">"steelblue"</span>,<span class="fl">0.3</span><span class="op">)</span>, bw <span class="op">=</span> <span class="st">"SJ"</span>, main<span class="op">=</span><span class="st">"Vertical"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># and the same, but in horizontal arrangement</span></span>
-<span class="r-in"><span class="fu">PlotViolin</span><span class="op">(</span><span class="va">x</span> <span class="op">~</span> <span class="va">f</span>, col <span class="op">=</span> <span class="fu"><a href="SetAlpha.html">SetAlpha</a></span><span class="op">(</span><span class="st">"steelblue"</span>,<span class="fl">0.3</span><span class="op">)</span>, bw <span class="op">=</span> <span class="st">"SJ"</span>, horizontal <span class="op">=</span> <span class="cn">TRUE</span>, </span>
-<span class="r-in">  las<span class="op">=</span><span class="fl">1</span>, main<span class="op">=</span><span class="st">"Horizontal"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">30</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># make a quintet. Note also choice of bandwidth</span></span></span>
+<span class="r-in"><span><span class="fu">PlotViolin</span><span class="op">(</span><span class="va">x</span> <span class="op">~</span> <span class="va">f</span>, col <span class="op">=</span> <span class="fu"><a href="SetAlpha.html">SetAlpha</a></span><span class="op">(</span><span class="st">"steelblue"</span>,<span class="fl">0.3</span><span class="op">)</span>, bw <span class="op">=</span> <span class="st">"SJ"</span>, main<span class="op">=</span><span class="st">"Vertical"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># and the same, but in horizontal arrangement</span></span></span>
+<span class="r-in"><span><span class="fu">PlotViolin</span><span class="op">(</span><span class="va">x</span> <span class="op">~</span> <span class="va">f</span>, col <span class="op">=</span> <span class="fu"><a href="SetAlpha.html">SetAlpha</a></span><span class="op">(</span><span class="st">"steelblue"</span>,<span class="fl">0.3</span><span class="op">)</span>, bw <span class="op">=</span> <span class="st">"SJ"</span>, horizontal <span class="op">=</span> <span class="cn">TRUE</span>, </span></span>
+<span class="r-in"><span>  las<span class="op">=</span><span class="fl">1</span>, main<span class="op">=</span><span class="st">"Horizontal"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="PlotViolin-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># example taken from boxplot</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">count</span> <span class="op">~</span> <span class="va">spray</span>, data <span class="op">=</span> <span class="va">InsectSprays</span>, col <span class="op">=</span> <span class="st">"lightgray"</span>, main<span class="op">=</span><span class="st">"Boxplot"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">PlotViolin</span><span class="op">(</span><span class="va">count</span> <span class="op">~</span> <span class="va">spray</span>, data <span class="op">=</span> <span class="va">InsectSprays</span>, col <span class="op">=</span> <span class="st">"lightgray"</span>, main<span class="op">=</span><span class="st">"Violinplot"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># example taken from boxplot</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">count</span> <span class="op">~</span> <span class="va">spray</span>, data <span class="op">=</span> <span class="va">InsectSprays</span>, col <span class="op">=</span> <span class="st">"lightgray"</span>, main<span class="op">=</span><span class="st">"Boxplot"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">PlotViolin</span><span class="op">(</span><span class="va">count</span> <span class="op">~</span> <span class="va">spray</span>, data <span class="op">=</span> <span class="va">InsectSprays</span>, col <span class="op">=</span> <span class="st">"lightgray"</span>, main<span class="op">=</span><span class="st">"Violinplot"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="PlotViolin-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># groupwise densityplots defined the same way as in boxplot</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">len</span> <span class="op">~</span> <span class="va">supp</span><span class="op">*</span><span class="va">dose</span>, data <span class="op">=</span> <span class="va">ToothGrowth</span>,</span>
-<span class="r-in">        main <span class="op">=</span> <span class="st">"Guinea Pigs' Tooth Growth"</span>,</span>
-<span class="r-in">        xlab <span class="op">=</span> <span class="st">"Vitamin C dose mg"</span>, ylab <span class="op">=</span> <span class="st">"tooth length"</span>,</span>
-<span class="r-in">        col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"yellow"</span>, <span class="st">"orange"</span><span class="op">)</span>, lty<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu">PlotViolin</span><span class="op">(</span><span class="va">len</span> <span class="op">~</span> <span class="va">supp</span><span class="op">*</span><span class="va">dose</span>, data <span class="op">=</span> <span class="va">ToothGrowth</span>,</span>
-<span class="r-in">           main <span class="op">=</span> <span class="st">"Guinea Pigs' Tooth Growth"</span>,</span>
-<span class="r-in">           xlab <span class="op">=</span> <span class="st">"Vitamin C dose mg"</span>, ylab <span class="op">=</span> <span class="st">"tooth length"</span>,</span>
-<span class="r-in">           col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"yellow"</span>, <span class="st">"orange"</span><span class="op">)</span>, lty<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="co"># use points, if the medians deserve special attention</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span>x<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, y<span class="op">=</span><span class="va">b</span><span class="op">$</span><span class="va">stats</span><span class="op">[</span><span class="fl">3</span>,<span class="op">]</span>, pch<span class="op">=</span><span class="fl">21</span>, bg<span class="op">=</span><span class="st">"white"</span>, col<span class="op">=</span><span class="st">"black"</span>, cex<span class="op">=</span><span class="fl">1.2</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># groupwise densityplots defined the same way as in boxplot</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">len</span> <span class="op">~</span> <span class="va">supp</span><span class="op">*</span><span class="va">dose</span>, data <span class="op">=</span> <span class="va">ToothGrowth</span>,</span></span>
+<span class="r-in"><span>        main <span class="op">=</span> <span class="st">"Guinea Pigs' Tooth Growth"</span>,</span></span>
+<span class="r-in"><span>        xlab <span class="op">=</span> <span class="st">"Vitamin C dose mg"</span>, ylab <span class="op">=</span> <span class="st">"tooth length"</span>,</span></span>
+<span class="r-in"><span>        col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"yellow"</span>, <span class="st">"orange"</span><span class="op">)</span>, lty<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu">PlotViolin</span><span class="op">(</span><span class="va">len</span> <span class="op">~</span> <span class="va">supp</span><span class="op">*</span><span class="va">dose</span>, data <span class="op">=</span> <span class="va">ToothGrowth</span>,</span></span>
+<span class="r-in"><span>           main <span class="op">=</span> <span class="st">"Guinea Pigs' Tooth Growth"</span>,</span></span>
+<span class="r-in"><span>           xlab <span class="op">=</span> <span class="st">"Vitamin C dose mg"</span>, ylab <span class="op">=</span> <span class="st">"tooth length"</span>,</span></span>
+<span class="r-in"><span>           col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"yellow"</span>, <span class="st">"orange"</span><span class="op">)</span>, lty<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># use points, if the medians deserve special attention</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span>x<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, y<span class="op">=</span><span class="va">b</span><span class="op">$</span><span class="va">stats</span><span class="op">[</span><span class="fl">3</span>,<span class="op">]</span>, pch<span class="op">=</span><span class="fl">21</span>, bg<span class="op">=</span><span class="st">"white"</span>, col<span class="op">=</span><span class="st">"black"</span>, cex<span class="op">=</span><span class="fl">1.2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="PlotViolin-4.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -223,7 +243,7 @@ arguments as <code><a href="https://rdrr.io/r/graphics/boxplot.html" class="exte
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

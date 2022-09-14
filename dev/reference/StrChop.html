@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">StrChop</span><span class="op">(</span><span class="va">x</span>, <span class="va">len</span>, <span class="va">pos</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">StrChop</span><span class="op">(</span><span class="va">x</span>, <span class="va">len</span>, <span class="va">pos</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -95,17 +95,22 @@
     <dl><dt>x</dt>
 <dd><p>the string to be cut in pieces.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>len</dt>
+
+  <dt>len</dt>
 <dd><p>a vector with the lengths of the pieces.</p></dd>
-<dt>pos</dt>
+
+  <dt>pos</dt>
 <dd><p>a vector of cutting positions. Will be ignored when <code>len</code> has been defined.</p></dd>
+
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
     <p>If length is going over the end of the string the last part will be returned, so if the rest of the string is needed, it's possible to simply enter a big number as last partlength.</p>
 <p><code>len</code> and <code>pos</code> can't be defined simultaneously, only alternatively.</p>
-<p>Typical usages are</p><div class="sourceCode"><pre><code><span class="fu"><a href="../reference/StrChop.html">StrChop</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">len</span><span class="op">)</span>
-<span class="fu"><a href="../reference/StrChop.html">StrChop</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">pos</span><span class="op">)</span></code></pre></div><p><!-- %%  ~~ If necessary, more details than the description above ~~ --></p>
+<p>Typical usages are</p><div class="sourceCode"><pre><code><span></span>
+<span><span class="fu"><a href="../reference/StrChop.html">StrChop</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">len</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/StrChop.html">StrChop</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">pos</span><span class="op">)</span></span></code></pre></div><p><!-- %%  ~~ If necessary, more details than the description above ~~ --></p>
     </div>
     <div id="value">
     <h2>Value</h2>
@@ -122,16 +127,16 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">letters</span>, collapse<span class="op">=</span><span class="st">""</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">StrChop</span><span class="op">(</span>x<span class="op">=</span><span class="va">x</span>, len <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">letters</span>, collapse<span class="op">=</span><span class="st">""</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">StrChop</span><span class="op">(</span>x<span class="op">=</span><span class="va">x</span>, len <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "abc"   "defgh" "ij"   </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># and with the rest integrated</span></span>
-<span class="r-in"><span class="fu">StrChop</span><span class="op">(</span>x<span class="op">=</span><span class="va">x</span>, len <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/nchar.html" class="external-link">nchar</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># and with the rest integrated</span></span></span>
+<span class="r-in"><span><span class="fu">StrChop</span><span class="op">(</span>x<span class="op">=</span><span class="va">x</span>, len <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/nchar.html" class="external-link">nchar</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "abc"              "defgh"            "ij"               "klmnopqrstuvwxyz"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># cutpoints at 5th and 10th position</span></span>
-<span class="r-in"><span class="fu">StrChop</span><span class="op">(</span>x<span class="op">=</span><span class="va">x</span>, pos<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># cutpoints at 5th and 10th position</span></span></span>
+<span class="r-in"><span><span class="fu">StrChop</span><span class="op">(</span>x<span class="op">=</span><span class="va">x</span>, pos<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "abcde"            "fghij"            "klmnopqrstuvwxyz"</span>
 </code></pre></div>
     </div>
@@ -147,7 +152,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -21,7 +21,7 @@ used to create the barplot.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -89,7 +89,7 @@ used to create the barplot.
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">ConnLines</span><span class="op">(</span><span class="va">...</span>, col <span class="op">=</span> <span class="fl">1</span>, lwd <span class="op">=</span> <span class="fl">1</span>, lty <span class="op">=</span> <span class="st">"solid"</span>, xalign <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mar"</span>,<span class="st">"mid"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ConnLines</span><span class="op">(</span><span class="va">...</span>, col <span class="op">=</span> <span class="fl">1</span>, lwd <span class="op">=</span> <span class="fl">1</span>, lty <span class="op">=</span> <span class="st">"solid"</span>, xalign <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mar"</span>,<span class="st">"mid"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -97,21 +97,29 @@ used to create the barplot.
     <dl><dt>...</dt>
 <dd><p>the arguments used to create the barplot. (The dots are sent directly to barplot).
 <!-- %%     ~~Describe \code{\dots} here~~ --></p></dd>
-<dt>col</dt>
+
+  <dt>col</dt>
 <dd><p>the line color of the connection lines. Defaults to black.
 <!-- %%     ~~Describe \code{lcol} here~~ --></p></dd>
-<dt>lwd</dt>
+
+  <dt>lwd</dt>
 <dd><p>the line width for the connection lines. Default is 1.
 <!-- %%     ~~Describe \code{lwd} here~~ --></p></dd>
-<dt>lty</dt>
+
+  <dt>lty</dt>
 <dd><p>the line type for the connection lines. Line types can either be specified as an integer
   (0=blank, 1=solid (default), 2=dashed, 3=dotted, 4=dotdash, 5=longdash, 6=twodash) or as one of the
   character strings <code>"blank"</code>, <code>"solid"</code>, <code>"dashed"</code>, <code>"dotted"</code>, <code>"dotdash"</code>, <code>"longdash"</code>, or <code>"twodash"</code>.
   Default is <code>"solid"</code>.</p></dd>
+
+
 <dt>xalign</dt>
 <dd><p>defines where the lines should be aligned to on the x-axis. Can be set
 either to the margins of the bars ("mar" which is the default) or to "mid". The latter will lead the connecting lines to the middle of the bars.</p></dd>
+
 </dl><p><!-- %%     ~~Describe \code{lty} here~~ --></p>
+
+
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -125,42 +133,42 @@ either to the margins of the bars ("mar" which is the default) or to "mid". The 
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">d.pizza</span>, <span class="va">driver</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Carpenter"</span>,<span class="st">"Miller"</span>,<span class="st">"Farmer"</span>,<span class="st">"Butcher"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">driver</span><span class="op">)</span>, <span class="fu"><a href="DateFunctions.html">Weekday</a></span><span class="op">(</span><span class="va">date</span>, <span class="st">"dd"</span>, stringsAsFactor<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="va">tab</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">d.pizza</span>, <span class="va">driver</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Carpenter"</span>,<span class="st">"Miller"</span>,<span class="st">"Farmer"</span>,<span class="st">"Butcher"</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">driver</span><span class="op">)</span>, <span class="fu"><a href="DateFunctions.html">Weekday</a></span><span class="op">(</span><span class="va">date</span>, <span class="st">"dd"</span>, stringsAsFactor<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tab</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             Mon Tue Wed Thu Fri Sat Sun</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Butcher     0   0   0   0   0  49  44</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Carpenter  45   0   0  57  60  46  57</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Farmer     11  14  27  26  12   9  13</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Miller      7   5   0  19  38  44  10</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="va">tab</span>, beside<span class="op">=</span><span class="cn">FALSE</span>, space<span class="op">=</span><span class="fl">1.2</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">ConnLines</span><span class="op">(</span><span class="va">tab</span>, beside<span class="op">=</span><span class="cn">FALSE</span>, space<span class="op">=</span><span class="fl">1.2</span>, lcol<span class="op">=</span><span class="st">"grey50"</span>, lwd<span class="op">=</span><span class="fl">1</span>, lty<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="va">tab</span>, beside<span class="op">=</span><span class="cn">FALSE</span>, space<span class="op">=</span><span class="fl">1.2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ConnLines</span><span class="op">(</span><span class="va">tab</span>, beside<span class="op">=</span><span class="cn">FALSE</span>, space<span class="op">=</span><span class="fl">1.2</span>, lcol<span class="op">=</span><span class="st">"grey50"</span>, lwd<span class="op">=</span><span class="fl">1</span>, lty<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ConnLines-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="va">tab</span>, beside<span class="op">=</span><span class="cn">FALSE</span>, space<span class="op">=</span><span class="fl">1.2</span>, horiz<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">ConnLines</span><span class="op">(</span><span class="va">tab</span>, beside<span class="op">=</span><span class="cn">FALSE</span>, space<span class="op">=</span><span class="fl">1.2</span>, horiz<span class="op">=</span><span class="cn">TRUE</span>, lcol<span class="op">=</span><span class="st">"grey50"</span>, lwd<span class="op">=</span><span class="fl">1</span>, lty<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="va">tab</span>, beside<span class="op">=</span><span class="cn">FALSE</span>, space<span class="op">=</span><span class="fl">1.2</span>, horiz<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ConnLines</span><span class="op">(</span><span class="va">tab</span>, beside<span class="op">=</span><span class="cn">FALSE</span>, space<span class="op">=</span><span class="fl">1.2</span>, horiz<span class="op">=</span><span class="cn">TRUE</span>, lcol<span class="op">=</span><span class="st">"grey50"</span>, lwd<span class="op">=</span><span class="fl">1</span>, lty<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ConnLines-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="Pal.html">Pal</a></span><span class="op">(</span><span class="st">"Helsana"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></span>
-<span class="r-in"><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="va">tab</span>, beside<span class="op">=</span><span class="cn">FALSE</span>, horiz<span class="op">=</span><span class="cn">FALSE</span>, col<span class="op">=</span><span class="va">cols</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">ConnLines</span><span class="op">(</span><span class="va">tab</span>, beside<span class="op">=</span><span class="cn">FALSE</span>, horiz<span class="op">=</span><span class="cn">FALSE</span>, lcol<span class="op">=</span><span class="st">"grey50"</span>, lwd<span class="op">=</span><span class="fl">1</span>, lty<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># set some labels</span></span>
-<span class="r-in"><span class="va">txt</span> <span class="op">&lt;-</span> <span class="va">tab</span></span>
-<span class="r-in"><span class="va">txt</span><span class="op">[</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span>pattern<span class="op">=</span><span class="st">"^0"</span>, <span class="st">""</span>, <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">tab</span><span class="op">)</span><span class="op">)</span>       <span class="co"># do not print 0s</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">b</span>, y<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fl">0</span>,<span class="va">tab</span><span class="op">)</span>, <span class="fl">2</span>, <span class="va">Midx</span><span class="op">)</span>, <span class="fl">2</span>, <span class="va">cumsum</span><span class="op">)</span><span class="op">)</span>, labels<span class="op">=</span><span class="va">txt</span>,</span>
-<span class="r-in">     col<span class="op">=</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="TextContrastColor.html">TextContrastColor</a></span><span class="op">(</span><span class="va">cols</span><span class="op">)</span>, each<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">tab</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">          nrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">tab</span><span class="op">)</span>, byrow<span class="op">=</span><span class="cn">FALSE</span> <span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="Pal.html">Pal</a></span><span class="op">(</span><span class="st">"Helsana"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="va">tab</span>, beside<span class="op">=</span><span class="cn">FALSE</span>, horiz<span class="op">=</span><span class="cn">FALSE</span>, col<span class="op">=</span><span class="va">cols</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ConnLines</span><span class="op">(</span><span class="va">tab</span>, beside<span class="op">=</span><span class="cn">FALSE</span>, horiz<span class="op">=</span><span class="cn">FALSE</span>, lcol<span class="op">=</span><span class="st">"grey50"</span>, lwd<span class="op">=</span><span class="fl">1</span>, lty<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># set some labels</span></span></span>
+<span class="r-in"><span><span class="va">txt</span> <span class="op">&lt;-</span> <span class="va">tab</span></span></span>
+<span class="r-in"><span><span class="va">txt</span><span class="op">[</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span>pattern<span class="op">=</span><span class="st">"^0"</span>, <span class="st">""</span>, <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">tab</span><span class="op">)</span><span class="op">)</span>       <span class="co"># do not print 0s</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">b</span>, y<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fl">0</span>,<span class="va">tab</span><span class="op">)</span>, <span class="fl">2</span>, <span class="va">Midx</span><span class="op">)</span>, <span class="fl">2</span>, <span class="va">cumsum</span><span class="op">)</span><span class="op">)</span>, labels<span class="op">=</span><span class="va">txt</span>,</span></span>
+<span class="r-in"><span>     col<span class="op">=</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="TextContrastColor.html">TextContrastColor</a></span><span class="op">(</span><span class="va">cols</span><span class="op">)</span>, each<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">tab</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>          nrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">tab</span><span class="op">)</span>, byrow<span class="op">=</span><span class="cn">FALSE</span> <span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ConnLines-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># align to the middle of the bars</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="va">tab</span>, beside<span class="op">=</span><span class="cn">FALSE</span>, space<span class="op">=</span><span class="fl">1.2</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">ConnLines</span><span class="op">(</span><span class="va">tab</span>, beside<span class="op">=</span><span class="cn">FALSE</span>, space<span class="op">=</span><span class="fl">1.2</span>, lcol<span class="op">=</span><span class="st">"grey50"</span>, lwd<span class="op">=</span><span class="fl">1</span>, lty<span class="op">=</span><span class="fl">2</span>, method<span class="op">=</span><span class="st">"mid"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># align to the middle of the bars</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="va">tab</span>, beside<span class="op">=</span><span class="cn">FALSE</span>, space<span class="op">=</span><span class="fl">1.2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ConnLines</span><span class="op">(</span><span class="va">tab</span>, beside<span class="op">=</span><span class="cn">FALSE</span>, space<span class="op">=</span><span class="fl">1.2</span>, lcol<span class="op">=</span><span class="st">"grey50"</span>, lwd<span class="op">=</span><span class="fl">1</span>, lty<span class="op">=</span><span class="fl">2</span>, method<span class="op">=</span><span class="st">"mid"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ConnLines-4.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -176,7 +184,7 @@ either to the margins of the bars ("mar" which is the default) or to "mid". The 
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

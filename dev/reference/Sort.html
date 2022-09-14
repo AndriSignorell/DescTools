@@ -21,7 +21,7 @@ Sort wraps the base sort function and adds an interface for sorting the rows of 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -88,36 +88,44 @@ Sort wraps the base sort function and adds an interface for sorting the rows of 
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Sort</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for default</span>
-<span class="fu">Sort</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for matrix</span>
-<span class="fu">Sort</span><span class="op">(</span><span class="va">x</span>, ord <span class="op">=</span> <span class="cn">NULL</span>, decreasing <span class="op">=</span> <span class="cn">FALSE</span>, na.last <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for table</span>
-<span class="fu">Sort</span><span class="op">(</span><span class="va">x</span>, ord <span class="op">=</span> <span class="cn">NULL</span>, decreasing <span class="op">=</span> <span class="cn">FALSE</span>, na.last <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for data.frame</span>
-<span class="fu">Sort</span><span class="op">(</span><span class="va">x</span>, ord <span class="op">=</span> <span class="cn">NULL</span>, decreasing <span class="op">=</span> <span class="cn">FALSE</span>,
-                factorsAsCharacter <span class="op">=</span> <span class="cn">TRUE</span>, na.last <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Sort</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">Sort</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for matrix</span></span>
+<span><span class="fu">Sort</span><span class="op">(</span><span class="va">x</span>, ord <span class="op">=</span> <span class="cn">NULL</span>, decreasing <span class="op">=</span> <span class="cn">FALSE</span>, na.last <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for table</span></span>
+<span><span class="fu">Sort</span><span class="op">(</span><span class="va">x</span>, ord <span class="op">=</span> <span class="cn">NULL</span>, decreasing <span class="op">=</span> <span class="cn">FALSE</span>, na.last <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for data.frame</span></span>
+<span><span class="fu">Sort</span><span class="op">(</span><span class="va">x</span>, ord <span class="op">=</span> <span class="cn">NULL</span>, decreasing <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>                factorsAsCharacter <span class="op">=</span> <span class="cn">TRUE</span>, na.last <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>a numeric, complex. character or logical vector, a factor, a table or a data.frame to be sorted.</p></dd>
-<dt>decreasing</dt>
+
+  <dt>decreasing</dt>
 <dd><p>logical. Should the sort be increasing or decreasing?</p></dd>
-</dl><p><!-- %\item{bycol}{data.frame only. A vector with the position or the names of columns to be sorted after.} --></p>
+
+  </dl><p><!-- %\item{bycol}{data.frame only. A vector with the position or the names of columns to be sorted after.} --></p>
 <dl><dt>factorsAsCharacter</dt>
 <dd><p>logical. Should factors be sorted by the alphabetic order of their labels or by the order or their levels.
      Default is <code>TRUE</code> (by labels).</p></dd>
-<dt>ord</dt>
+
+
+  <dt>ord</dt>
 <dd><p>vector of integers or columnames. Defines the columns in a table, in a matrix or in a data.frame to be sorted for. <br>
     0 means row.names, 1:n the columns and n+1 the marginal sum. See examples.</p></dd>
-<dt>na.last</dt>
+
+  <dt>na.last</dt>
 <dd><p>for controlling the treatment of <code>NAs</code>. If <code>TRUE</code>, missing values in the data are put last; if <code>FALSE</code>, they are put first; if <code>NA</code>, they are removed (see <code><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></code>.)</p></dd>
-<dt>...</dt>
+
+
+  <dt>...</dt>
 <dd><p>further arguments to be passed to or from methods.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -139,18 +147,18 @@ and usually confusing for unordered factors, whose levels may be defined in the 
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">d.frm</span> <span class="op">&lt;-</span> <span class="va">d.pizza</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"driver"</span>,<span class="st">"temperature"</span>,<span class="st">"delivery_min"</span><span class="op">)</span><span class="op">]</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">Sort</span><span class="op">(</span><span class="va">d.frm</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">d.frm</span> <span class="op">&lt;-</span> <span class="va">d.pizza</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"driver"</span>,<span class="st">"temperature"</span>,<span class="st">"delivery_min"</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">Sort</span><span class="op">(</span><span class="va">d.frm</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] Butcher Butcher Carter  Carter  Taylor  Taylor  Taylor  Taylor  Taylor </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [10] Taylor </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Levels: Butcher Carpenter Carter Farmer Hunter Miller Taylor</span>
-<span class="r-in"><span class="co"># Sort follows the levels by default</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">d.frm</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Sort follows the levels by default</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">d.frm</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Butcher"   "Carpenter" "Carter"    "Farmer"    "Hunter"    "Miller"   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [7] "Taylor"   </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">Sort</span><span class="op">(</span>x<span class="op">=</span><span class="va">d.frm</span>, ord<span class="op">=</span><span class="st">"driver"</span>, decreasing<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">Sort</span><span class="op">(</span>x<span class="op">=</span><span class="va">d.frm</span>, ord<span class="op">=</span><span class="st">"driver"</span>, decreasing<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     driver temperature delivery_min</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  Butcher        56.4         19.6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  Butcher        36.5         17.8</span>
@@ -162,8 +170,8 @@ and usually confusing for unordered factors, whose levels may be defined in the 
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7   Taylor        33.9         49.3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8   Taylor        54.8         25.6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9   Taylor        48.0         26.4</span>
-<span class="r-in"><span class="co"># set factorsAsCharacter = TRUE, if alphabetical order is required</span></span>
-<span class="r-in"><span class="fu">Sort</span><span class="op">(</span>x<span class="op">=</span><span class="va">d.frm</span>, ord<span class="op">=</span><span class="st">"driver"</span>, decreasing<span class="op">=</span><span class="cn">FALSE</span>, factorsAsCharacter<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># set factorsAsCharacter = TRUE, if alphabetical order is required</span></span></span>
+<span class="r-in"><span><span class="fu">Sort</span><span class="op">(</span>x<span class="op">=</span><span class="va">d.frm</span>, ord<span class="op">=</span><span class="st">"driver"</span>, decreasing<span class="op">=</span><span class="cn">FALSE</span>, factorsAsCharacter<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     driver temperature delivery_min</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  Butcher        56.4         19.6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  Butcher        36.5         17.8</span>
@@ -175,8 +183,8 @@ and usually confusing for unordered factors, whose levels may be defined in the 
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7   Taylor        33.9         49.3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8   Taylor        54.8         25.6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9   Taylor        48.0         26.4</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">Sort</span><span class="op">(</span>x<span class="op">=</span><span class="va">d.frm</span>, ord<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"driver"</span>,<span class="st">"delivery_min"</span><span class="op">)</span>, factorsAsCharacter <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">Sort</span><span class="op">(</span>x<span class="op">=</span><span class="va">d.frm</span>, ord<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"driver"</span>,<span class="st">"delivery_min"</span><span class="op">)</span>, factorsAsCharacter <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     driver temperature delivery_min</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  Butcher        36.5         17.8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  Butcher        56.4         19.6</span>
@@ -188,7 +196,7 @@ and usually confusing for unordered factors, whose levels may be defined in the 
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4   Taylor          NA         37.3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6   Taylor        27.0         48.7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7   Taylor        33.9         49.3</span>
-<span class="r-in"><span class="fu">Sort</span><span class="op">(</span>x<span class="op">=</span><span class="va">d.frm</span>, ord<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"driver"</span>,<span class="st">"delivery_min"</span><span class="op">)</span>, factorsAsCharacter <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">Sort</span><span class="op">(</span>x<span class="op">=</span><span class="va">d.frm</span>, ord<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"driver"</span>,<span class="st">"delivery_min"</span><span class="op">)</span>, factorsAsCharacter <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     driver temperature delivery_min</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  Butcher        36.5         17.8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  Butcher        56.4         19.6</span>
@@ -200,9 +208,9 @@ and usually confusing for unordered factors, whose levels may be defined in the 
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4   Taylor          NA         37.3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6   Taylor        27.0         48.7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7   Taylor        33.9         49.3</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">Sort</span><span class="op">(</span>x<span class="op">=</span><span class="va">d.frm</span>, ord<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"driver"</span>,<span class="st">"delivery_min"</span><span class="op">)</span>, decreasing<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span class="r-in">  factorsAsCharacter <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">Sort</span><span class="op">(</span>x<span class="op">=</span><span class="va">d.frm</span>, ord<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"driver"</span>,<span class="st">"delivery_min"</span><span class="op">)</span>, decreasing<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="cn">TRUE</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  factorsAsCharacter <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     driver temperature delivery_min</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  Butcher        56.4         19.6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  Butcher        36.5         17.8</span>
@@ -214,11 +222,11 @@ and usually confusing for unordered factors, whose levels may be defined in the 
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9   Taylor        48.0         26.4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8   Taylor        54.8         25.6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   Taylor        53.0         20.0</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Sorting tables</span></span>
-<span class="r-in"><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span>, <span class="va">d.pizza</span><span class="op">$</span><span class="va">area</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">Sort</span><span class="op">(</span>x<span class="op">=</span><span class="va">tab</span>, ord<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">2</span><span class="op">)</span>, decreasing<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Sorting tables</span></span></span>
+<span class="r-in"><span><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span>, <span class="va">d.pizza</span><span class="op">$</span><span class="va">area</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">Sort</span><span class="op">(</span>x<span class="op">=</span><span class="va">tab</span>, ord<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">2</span><span class="op">)</span>, decreasing<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             Brent Camden Westminster</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Taylor       42    142          20</span>
@@ -228,7 +236,7 @@ and usually confusing for unordered factors, whose levels may be defined in the 
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Carter      177     47           5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Carpenter    29     19         221</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Butcher      72      1          22</span>
-<span class="r-in"><span class="fu">Sort</span><span class="op">(</span>x<span class="op">=</span><span class="va">tab</span>, ord<span class="op">=</span><span class="fl">2</span>, decreasing<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">Sort</span><span class="op">(</span>x<span class="op">=</span><span class="va">tab</span>, ord<span class="op">=</span><span class="fl">2</span>, decreasing<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             Brent Camden Westminster</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Taylor       42    142          20</span>
@@ -238,9 +246,9 @@ and usually confusing for unordered factors, whose levels may be defined in the 
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Carpenter    29     19         221</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Hunter      128      4          24</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Butcher      72      1          22</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># partial matching ok:</span></span>
-<span class="r-in"><span class="fu">Sort</span><span class="op">(</span><span class="va">tab</span>, o<span class="op">=</span><span class="fl">1</span>, d<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># partial matching ok:</span></span></span>
+<span class="r-in"><span><span class="fu">Sort</span><span class="op">(</span><span class="va">tab</span>, o<span class="op">=</span><span class="fl">1</span>, d<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             Brent Camden Westminster</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Carter      177     47           5</span>
@@ -264,7 +272,7 @@ and usually confusing for unordered factors, whose levels may be defined in the 
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

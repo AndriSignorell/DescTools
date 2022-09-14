@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,11 +87,11 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Skew</span><span class="op">(</span><span class="va">x</span>, weights <span class="op">=</span> <span class="cn">NULL</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span>, method <span class="op">=</span> <span class="fl">3</span>, conf.level <span class="op">=</span> <span class="cn">NA</span>, 
-     ci.type <span class="op">=</span> <span class="st">"bca"</span>, R <span class="op">=</span> <span class="fl">1000</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">Kurt</span><span class="op">(</span><span class="va">x</span>, weights <span class="op">=</span> <span class="cn">NULL</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span>, method <span class="op">=</span> <span class="fl">3</span>, conf.level <span class="op">=</span> <span class="cn">NA</span>, 
-     ci.type <span class="op">=</span> <span class="st">"bca"</span>, R <span class="op">=</span> <span class="fl">1000</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Skew</span><span class="op">(</span><span class="va">x</span>, weights <span class="op">=</span> <span class="cn">NULL</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span>, method <span class="op">=</span> <span class="fl">3</span>, conf.level <span class="op">=</span> <span class="cn">NA</span>, </span>
+<span>     ci.type <span class="op">=</span> <span class="st">"bca"</span>, R <span class="op">=</span> <span class="fl">1000</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">Kurt</span><span class="op">(</span><span class="va">x</span>, weights <span class="op">=</span> <span class="cn">NULL</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span>, method <span class="op">=</span> <span class="fl">3</span>, conf.level <span class="op">=</span> <span class="cn">NA</span>, </span>
+<span>     ci.type <span class="op">=</span> <span class="st">"bca"</span>, R <span class="op">=</span> <span class="fl">1000</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -99,27 +99,37 @@
     <dl><dt>x</dt>
 <dd><p>a numeric vector. An object which is not a vector is coerced (if possible) by <code>as.vector</code>.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>weights</dt>
+
+  <dt>weights</dt>
 <dd><p>a numerical vector of weights the same length as <code>x</code> giving the weights to use for elements of <code>x</code>.</p></dd>
-<dt>na.rm</dt>
+
+
+  <dt>na.rm</dt>
 <dd><p>logical, indicating whether <code>NA</code> values should be stripped before the computation proceeds. Defaults to <code>FALSE</code>.
   <!-- %%     ~~Describe \code{na.rm} here~~ --></p></dd>
-<dt>method</dt>
+
+  <dt>method</dt>
 <dd><p>integer out of 1, 2 or 3 (default). See Details.
   <!-- %%     ~~Describe \code{na.rm} here~~ --></p></dd>
-<dt>conf.level</dt>
+
+ <dt>conf.level</dt>
 <dd><p>confidence level of the interval. If set to <code>NA</code> (which is the default) no confidence interval will be calculated. 
 <!-- %%     ~~Describe \code{conf.level} here~~ --></p></dd>
-<dt>ci.type</dt>
+
+  <dt>ci.type</dt>
 <dd><p>The type of confidence interval required. The value should be any subset 
  of the values <code>"classic"</code>, <code>"norm"</code>, <code>"basic"</code>, <code>"stud"</code>, <code>"perc"</code> or <code>"bca"</code>  (<code>"all"</code> 
  which would compute all five types of intervals, is not supported).</p></dd>
+
 <dt>R</dt>
 <dd><p>The number of bootstrap replicates. Usually this will be a single positive integer. For importance resampling, 
  some resamples may use one set of weights and others use a different set of weights. In this case <code>R</code> would be a vector 
  of integers where each component gives the number of resamples from each of the rows of weights.</p></dd>
+
 <dt>...</dt>
 <dd><p>the dots are passed to the function <code><a href="https://rdrr.io/pkg/boot/man/boot.html" class="external-link">boot</a></code>, when confidence intervalls are calculated.</p></dd>
+
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -137,17 +147,22 @@ They suggest using the bootstrap method. That's why the default method for the c
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>If <code>conf.level</code> is set to <code>NA</code> then the result will be</p>
+    
+
+<p>If <code>conf.level</code> is set to <code>NA</code> then the result will be</p>
 <dl><dt>a</dt>
 <dd><p>single numeric value</p></dd>
 </dl><p>and 
 if a <code>conf.level</code> is provided, a named numeric vector with 3 elements:</p>
 <dl><dt>skew, kurt</dt>
 <dd><p>the specific estimate, either skewness or kurtosis</p></dd>
-<dt>lwr.ci</dt>
+
+  <dt>lwr.ci</dt>
 <dd><p>lower bound of the confidence interval</p></dd>
-<dt>upr.ci</dt>
+
+  <dt>upr.ci</dt>
 <dd><p>upper bound of the confidence interval</p></dd>
+
 </dl></div>
     <div id="author">
     <h2>Author</h2>
@@ -166,17 +181,17 @@ if a <code>conf.level</code> is provided, a named numeric vector with 3 elements
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">Skew</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">price</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">Skew</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">price</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"):</span> "rskew" not available for .Call() for package "DescTools"</span>
-<span class="r-in"><span class="fu">Kurt</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">price</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">Kurt</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">price</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("rkurt", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"):</span> "rkurt" not available for .Call() for package "DescTools"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># use sapply to calculate skewness for a data.frame</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"temperature"</span>,<span class="st">"price"</span>,<span class="st">"delivery_min"</span><span class="op">)</span><span class="op">]</span>, <span class="va">Skew</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># use sapply to calculate skewness for a data.frame</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"temperature"</span>,<span class="st">"price"</span>,<span class="st">"delivery_min"</span><span class="op">)</span><span class="op">]</span>, <span class="va">Skew</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"):</span> "rskew" not available for .Call() for package "DescTools"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># or apply to do that columnwise with a matrix</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"temperature"</span>,<span class="st">"price"</span>,<span class="st">"delivery_min"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>, <span class="fl">2</span>, <span class="va">Skew</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># or apply to do that columnwise with a matrix</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"temperature"</span>,<span class="st">"price"</span>,<span class="st">"delivery_min"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>, <span class="fl">2</span>, <span class="va">Skew</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"):</span> "rskew" not available for .Call() for package "DescTools"</span>
 </code></pre></div>
     </div>
@@ -192,7 +207,7 @@ if a <code>conf.level</code> is provided, a named numeric vector with 3 elements
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

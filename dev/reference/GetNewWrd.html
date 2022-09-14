@@ -22,7 +22,7 @@ WrdKill ends a running MS-Word task.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -90,10 +90,10 @@ By means of this handle we can then control the word application. <br><code>WrdK
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">GetNewWrd</span><span class="op">(</span>visible <span class="op">=</span> <span class="cn">TRUE</span>, template <span class="op">=</span> <span class="st">"Normal"</span>, header <span class="op">=</span> <span class="cn">FALSE</span>,
-          main <span class="op">=</span> <span class="st">"Descriptive report"</span><span class="op">)</span>
-
-<span class="fu">WrdKill</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">GetNewWrd</span><span class="op">(</span>visible <span class="op">=</span> <span class="cn">TRUE</span>, template <span class="op">=</span> <span class="st">"Normal"</span>, header <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>          main <span class="op">=</span> <span class="st">"Descriptive report"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">WrdKill</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -101,22 +101,33 @@ By means of this handle we can then control the word application. <br><code>WrdK
     <dl><dt>visible</dt>
 <dd><p>logical, should Word made visible? Defaults to <code>TRUE</code>.
 <!-- %%     ~~Describe \code{visible} here~~ --></p></dd>
-<dt>template</dt>
+
+  <dt>template</dt>
 <dd><p>the name of the template to be used for creating a new document.
 <!-- %%     ~~Describe \code{template} here~~ --></p></dd>
-<dt>header</dt>
+
+  <dt>header</dt>
 <dd><p>logical, should a caption and a list of contents be inserted? Default is <code>FALSE</code>.
 <!-- %%     ~~Describe \code{header} here~~ --></p></dd>
-<dt>main</dt>
+
+  <dt>main</dt>
 <dd><p>the main title of the report
 <!-- %%     ~~Describe \code{main} here~~ --></p></dd>
-</dl><p><!-- % \item{ref}{the S object that is an external pointer containing the reference to the COM object} --><!-- % \item{className}{the name of the class that is "suggested" by the caller} --></p>
+
+</dl><p><!-- % \item{ref}{the S object that is an external pointer containing the reference to the COM object} --></p>
+
+
+<p><!-- % \item{className}{the name of the class that is "suggested" by the caller} --></p>
+
+
+
     </div>
     <div id="details">
     <h2>Details</h2>
     <p>The package <b>RDCOMClient</b> reveals the whole VBA-world of MS-Word. So generally speaking any VBA code can be run fully controlled by R. In practise, it might be a good idea to record a macro and rewrite the VB-code in R.<br></p>
-<p>Here's a list of some frequently used commands. Let's assume we have a handle to the application  and a handle to the current selection defined as:</p><div class="sourceCode"><pre><code><span class="va">wrd</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GetNewWrd.html">GetNewWrd</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">sel</span> <span class="op">&lt;-</span> <span class="va">wrd</span><span class="op">$</span><span class="fu">Selection</span><span class="op">(</span><span class="op">)</span></code></pre></div><p>Then we can access the most common properties as follows:</p><table class="table table"><tr><td>new document</td><td><code>wrd[["Documents"]]$Add(template, FALSE, 0)</code>, template is the templatename.</td></tr><tr><td>open document</td><td><code>wrd[["Documents"]]$Open(Filename="C:/MyPath/MyDocument.docx")</code>.</td></tr><tr><td>save document</td><td><code>wrd$ActiveDocument()$SaveAs2(FileName="P:/MyFile.docx")</code></td></tr><tr><td>quit word</td><td><code>wrd$quit()</code></td></tr><tr><td>kill word task</td><td><code>WrdKill</code> kills a running word task (which might not be ended with quit.)</td></tr><tr><td>normal text</td><td>Use <code><a href="ToWrd.html">ToWrd</a></code> which offers many arguments as fontname, size, color, alignment etc.</td></tr><tr><td></td><td><code>ToWrd("Lorem ipsum dolor sit amet, consetetur", </code></td></tr><tr><td></td><td><code>font=list(name="Arial", size=10, col=wdConst$wdColorRed)</code></td></tr><tr><td>simple text</td><td><code>sel$TypeText("sed diam nonumy eirmod tempor invidunt ut labore")</code></td></tr><tr><td>heading</td><td><code>WrdCaption("My Word-Story", index=1)</code></td></tr><tr><td>insert R output</td><td><code>ToWrd(capture.output(str(d.diamonds)))</code></td></tr><tr><td>pagebreak</td><td><code>sel$InsertBreak(wdConst$wdPageBreak)</code></td></tr><tr><td>sectionbreak</td><td><code>sel$InsertBreak(wdConst$wdSectionBreakContinuous)</code></td></tr><tr><td></td><td>(<code>wdSectionBreakNextPage</code>)</td></tr><tr><td>move cursor right</td><td><code>sel$MoveRight(Unit=wdConst$wdCharacter, Count=2, Extend=wdConst$wdExtend)</code></td></tr><tr><td>goto end</td><td><code>sel$EndKey(Unit=wdConst$wdStory)</code></td></tr><tr><td>pagesetup</td><td><code>sel[["PageSetup"]][["Bottommargin"]] &lt;- 4 * 72</code></td></tr><tr><td>orientation</td><td><code>sel[["PageSetup"]][["Orientation"]] &lt;- wdConst$wdOrientLandscape</code></td></tr><tr><td>add bookmark</td><td><code>wrd[["ActiveDocument"]][["Bookmarks"]]$Add("myBookmark")</code></td></tr><tr><td>goto bookmark</td><td><code>sel$GoTo(wdConst$wdGoToBookmark, 0, 0, "myBookmark")</code></td></tr><tr><td>update bookmark</td><td><code>WrdUpdateBookmark("myBookmark", "New text for my bookmark")</code></td></tr><tr><td>show document map</td><td><code> wrd[["ActiveWindow"]][["DocumentMap"]] &lt;- TRUE</code></td></tr><tr><td>create table</td><td><code><a href="WrdTable.html">WrdTable</a></code>() which allows to define the table's geometry</td></tr><tr><td>insert caption</td><td><code>sel$InsertCaption(Label="Abbildung", TitleAutoText="InsertCaption",</code></td></tr><tr><td></td><td><code>Title="My Title")</code></td></tr><tr><td>tables of figures</td><td><code>wrd$ActiveDocument()$TablesOfFigures()$Add(Range=sel$range(),</code></td></tr><tr><td></td><td><code>Caption="Figure")</code></td></tr><tr><td>insert header</td><td><code>wview &lt;- wrd[["ActiveWindow"]][["ActivePane"]][["View"]][["SeekView"]] </code></td></tr><tr><td></td><td><code>wview &lt;- ifelse(header, wdConst$wdSeekCurrentPageHeader, wdConst$wdSeekCurrentPageFooter) </code></td></tr><tr><td></td><td><code>ToWrd(x, ..., wrd=wrd) </code></td></tr></table><p><!-- %s \code{createCOMReference()} is just a wrapper for \code{RDCOMClient::createCOMReference}, as the function is not visible, if \bold{RDCOMClient} is only used by required namespace. --></p>
+<p>Here's a list of some frequently used commands. Let's assume we have a handle to the application  and a handle to the current selection defined as:</p><div class="sourceCode"><pre><code><span></span>
+<span><span class="va">wrd</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GetNewWrd.html">GetNewWrd</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">sel</span> <span class="op">&lt;-</span> <span class="va">wrd</span><span class="op">$</span><span class="fu">Selection</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p>Then we can access the most common properties as follows:</p><table class="table table"><tr><td>new document</td><td><code>wrd[["Documents"]]$Add(template, FALSE, 0)</code>, template is the templatename.</td></tr><tr><td>open document</td><td><code>wrd[["Documents"]]$Open(Filename="C:/MyPath/MyDocument.docx")</code>.</td></tr><tr><td>save document</td><td><code>wrd$ActiveDocument()$SaveAs2(FileName="P:/MyFile.docx")</code></td></tr><tr><td>quit word</td><td><code>wrd$quit()</code></td></tr><tr><td>kill word task</td><td><code>WrdKill</code> kills a running word task (which might not be ended with quit.)</td></tr><tr><td>normal text</td><td>Use <code><a href="ToWrd.html">ToWrd</a></code> which offers many arguments as fontname, size, color, alignment etc.</td></tr><tr><td></td><td><code>ToWrd("Lorem ipsum dolor sit amet, consetetur", </code></td></tr><tr><td></td><td><code>font=list(name="Arial", size=10, col=wdConst$wdColorRed)</code></td></tr><tr><td>simple text</td><td><code>sel$TypeText("sed diam nonumy eirmod tempor invidunt ut labore")</code></td></tr><tr><td>heading</td><td><code>WrdCaption("My Word-Story", index=1)</code></td></tr><tr><td>insert R output</td><td><code>ToWrd(capture.output(str(d.diamonds)))</code></td></tr><tr><td>pagebreak</td><td><code>sel$InsertBreak(wdConst$wdPageBreak)</code></td></tr><tr><td>sectionbreak</td><td><code>sel$InsertBreak(wdConst$wdSectionBreakContinuous)</code></td></tr><tr><td></td><td>(<code>wdSectionBreakNextPage</code>)</td></tr><tr><td>move cursor right</td><td><code>sel$MoveRight(Unit=wdConst$wdCharacter, Count=2, Extend=wdConst$wdExtend)</code></td></tr><tr><td>goto end</td><td><code>sel$EndKey(Unit=wdConst$wdStory)</code></td></tr><tr><td>pagesetup</td><td><code>sel[["PageSetup"]][["Bottommargin"]] &lt;- 4 * 72</code></td></tr><tr><td>orientation</td><td><code>sel[["PageSetup"]][["Orientation"]] &lt;- wdConst$wdOrientLandscape</code></td></tr><tr><td>add bookmark</td><td><code>wrd[["ActiveDocument"]][["Bookmarks"]]$Add("myBookmark")</code></td></tr><tr><td>goto bookmark</td><td><code>sel$GoTo(wdConst$wdGoToBookmark, 0, 0, "myBookmark")</code></td></tr><tr><td>update bookmark</td><td><code>WrdUpdateBookmark("myBookmark", "New text for my bookmark")</code></td></tr><tr><td>show document map</td><td><code> wrd[["ActiveWindow"]][["DocumentMap"]] &lt;- TRUE</code></td></tr><tr><td>create table</td><td><code><a href="WrdTable.html">WrdTable</a></code>() which allows to define the table's geometry</td></tr><tr><td>insert caption</td><td><code>sel$InsertCaption(Label="Abbildung", TitleAutoText="InsertCaption",</code></td></tr><tr><td></td><td><code>Title="My Title")</code></td></tr><tr><td>tables of figures</td><td><code>wrd$ActiveDocument()$TablesOfFigures()$Add(Range=sel$range(),</code></td></tr><tr><td></td><td><code>Caption="Figure")</code></td></tr><tr><td>insert header</td><td><code>wview &lt;- wrd[["ActiveWindow"]][["ActivePane"]][["View"]][["SeekView"]] </code></td></tr><tr><td></td><td><code>wview &lt;- ifelse(header, wdConst$wdSeekCurrentPageHeader, wdConst$wdSeekCurrentPageFooter) </code></td></tr><tr><td></td><td><code>ToWrd(x, ..., wrd=wrd) </code></td></tr></table><p><!-- %s \code{createCOMReference()} is just a wrapper for \code{RDCOMClient::createCOMReference}, as the function is not visible, if \bold{RDCOMClient} is only used by required namespace. --></p>
     </div>
     <div id="note">
     <h2>Note</h2>
@@ -126,7 +137,21 @@ By means of this handle we can then control the word application. <br><code>WrdK
     <div id="value">
     <h2>Value</h2>
     <p>a handle (pointer) to the created Word instance.
-<!-- %%  ~Describe the value returned --><!-- %%  If it is a LIST, use --><!-- %%  \item{comp1 }{Description of 'comp1'} --><!-- %%  \item{comp2 }{Description of 'comp2'} --><!-- %% ... --></p>
+<!-- %%  ~Describe the value returned --></p>
+
+
+<p><!-- %%  If it is a LIST, use --></p>
+
+
+<p><!-- %%  \item{comp1 }{Description of 'comp1'} --></p>
+
+
+<p><!-- %%  \item{comp2 }{Description of 'comp2'} --></p>
+
+
+<p><!-- %% ... --></p>
+
+
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -140,24 +165,24 @@ By means of this handle we can then control the word application. <br><code>WrdK
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span>  <span class="co"># Windows-specific example</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">wrd</span> <span class="op">&lt;-</span> <span class="fu">GetNewWrd</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="Desc.html">Desc</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, wrd<span class="op">=</span><span class="va">wrd</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span>  <span class="co"># Windows-specific example</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">wrd</span> <span class="op">&lt;-</span> <span class="fu">GetNewWrd</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="Desc.html">Desc</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, wrd<span class="op">=</span><span class="va">wrd</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in Desc(d.pizza[, 1:4], wrd = wrd):</span> object 'wrd' not found</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">wrd</span> <span class="op">&lt;-</span> <span class="fu">GetNewWrd</span><span class="op">(</span>header<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">wrd</span> <span class="op">&lt;-</span> <span class="fu">GetNewWrd</span><span class="op">(</span>header<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required namespace: RDCOMClient</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>RDCOMClient is unfortunately not available for Darwin systems (Windows-only).</span>
-<span class="r-in"><span class="fu"><a href="Desc.html">Desc</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, wrd<span class="op">=</span><span class="va">wrd</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="Desc.html">Desc</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, wrd<span class="op">=</span><span class="va">wrd</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x):</span> "_DescTools_n_pow_sum" not available for .Call() for package "DescTools"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># enumerate all bookmarks in active document</span></span>
-<span class="r-in"><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">wrd</span><span class="op">[[</span><span class="st">"ActiveDocument"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="st">"Bookmarks"</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="fu">count</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">wrd</span><span class="op">[[</span><span class="st">"ActiveDocument"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="st">"Bookmarks"</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="fu">Item</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">$</span><span class="fu">Name</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># enumerate all bookmarks in active document</span></span></span>
+<span class="r-in"><span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">wrd</span><span class="op">[[</span><span class="st">"ActiveDocument"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="st">"Bookmarks"</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="fu">count</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">wrd</span><span class="op">[[</span><span class="st">"ActiveDocument"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="st">"Bookmarks"</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="fu">Item</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">$</span><span class="fu">Name</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> attempt to apply non-function</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -172,7 +197,7 @@ By means of this handle we can then control the word application. <br><code>WrdK
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

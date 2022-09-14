@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">MultMerge</span><span class="op">(</span><span class="va">...</span>, all.x <span class="op">=</span> <span class="cn">TRUE</span>, all.y <span class="op">=</span> <span class="cn">TRUE</span>, by <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">MultMerge</span><span class="op">(</span><span class="va">...</span>, all.x <span class="op">=</span> <span class="cn">TRUE</span>, all.y <span class="op">=</span> <span class="cn">TRUE</span>, by <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -95,19 +95,37 @@
     <dl><dt>...</dt>
 <dd><p>data frames to be coerced to one.
 <!-- %%     ~~Describe \code{\dots} here~~ --></p></dd>
-<dt>all.x</dt>
+
+  <dt>all.x</dt>
 <dd><p>logical; if <code>TRUE</code>, then extra rows will be added to the output, one for each row in x that has no matching row in y. These rows will have <code>NA</code>s in those columns that are usually filled with values from y. The default is <code>FALSE</code>, so that only rows with data from both x and y are included in the output.
 <!-- %%     ~~Describe \code{all.x} here~~ --></p></dd>
-<dt>all.y</dt>
+
+  <dt>all.y</dt>
 <dd><p>logical; analogous to <code>all.x</code>.
 <!-- %%     ~~Describe \code{all.y} here~~ --></p></dd>
+
 <dt>by</dt>
 <dd><p>column used for merging, if this is not defined rownames will be used by default. The column must be included in all the provided data frames.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     <p>A data frame. The rows are sorted according to the appearance of previously unobserved rownames. So the rownames appearing in the first data frame are first, then the rownames in the second data frame, which have no corespondence in the first data frame and so on. The columns are the remaining columns in x1 and then those in x2 and then those in x3. The result has the row names resulting from the merge.
-<!-- %%  ~Describe the value returned --><!-- %%  If it is a LIST, use --><!-- %%  \item{comp1 }{Description of 'comp1'} --><!-- %%  \item{comp2 }{Description of 'comp2'} --><!-- %% ... --></p>
+<!-- %%  ~Describe the value returned --></p>
+
+
+<p><!-- %%  If it is a LIST, use --></p>
+
+
+<p><!-- %%  \item{comp1 }{Description of 'comp1'} --></p>
+
+
+<p><!-- %%  \item{comp2 }{Description of 'comp2'} --></p>
+
+
+<p><!-- %% ... --></p>
+
+
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -122,15 +140,15 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x1</span> <span class="op">&lt;-</span> <span class="fu"><a href="SetNames.html">SetNames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>v<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span>, w<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>, </span>
-<span class="r-in">               rownames<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>, <span class="st">"E"</span>, <span class="st">"F"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu"><a href="SetNames.html">SetNames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>v<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, ww<span class="op">=</span><span class="fl">11</span><span class="op">:</span><span class="fl">13</span><span class="op">)</span>, </span>
-<span class="r-in">               rownames<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x3</span> <span class="op">&lt;-</span> <span class="fu"><a href="SetNames.html">SetNames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>v<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">12</span><span class="op">:</span><span class="fl">16</span><span class="op">]</span>, wwww<span class="op">=</span><span class="fl">22</span><span class="op">:</span><span class="fl">26</span><span class="op">)</span>, </span>
-<span class="r-in">               rownames<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"C"</span>, <span class="st">"E"</span>, <span class="st">"G"</span>, <span class="st">"J"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># default is "merge by rownames" </span></span>
-<span class="r-in"><span class="fu">MultMerge</span><span class="op">(</span><span class="va">x1</span>, <span class="va">x2</span>, <span class="va">x3</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x1</span> <span class="op">&lt;-</span> <span class="fu"><a href="SetNames.html">SetNames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>v<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span>, w<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>               rownames<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>, <span class="st">"E"</span>, <span class="st">"F"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu"><a href="SetNames.html">SetNames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>v<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, ww<span class="op">=</span><span class="fl">11</span><span class="op">:</span><span class="fl">13</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>               rownames<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x3</span> <span class="op">&lt;-</span> <span class="fu"><a href="SetNames.html">SetNames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>v<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">12</span><span class="op">:</span><span class="fl">16</span><span class="op">]</span>, wwww<span class="op">=</span><span class="fl">22</span><span class="op">:</span><span class="fl">26</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>               rownames<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"C"</span>, <span class="st">"E"</span>, <span class="st">"G"</span>, <span class="st">"J"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># default is "merge by rownames" </span></span></span>
+<span class="r-in"><span><span class="fu">MultMerge</span><span class="op">(</span><span class="va">x1</span>, <span class="va">x2</span>, <span class="va">x3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      v  w  v.1 ww  v.2 wwww</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A    a  1 &lt;NA&gt; NA    l   22</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> B    b  2    a 11 &lt;NA&gt;   NA</span>
@@ -140,10 +158,10 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> F    f  6 &lt;NA&gt; NA &lt;NA&gt;   NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> G &lt;NA&gt; NA &lt;NA&gt; NA    o   25</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> J &lt;NA&gt; NA &lt;NA&gt; NA    p   26</span>
-<span class="r-in"><span class="co"># ... which does not really make sense here</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># merge by column v</span></span>
-<span class="r-in"><span class="fu">MultMerge</span><span class="op">(</span><span class="va">x1</span>, <span class="va">x2</span>, <span class="va">x3</span>, by<span class="op">=</span><span class="st">"v"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># ... which does not really make sense here</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># merge by column v</span></span></span>
+<span class="r-in"><span><span class="fu">MultMerge</span><span class="op">(</span><span class="va">x1</span>, <span class="va">x2</span>, <span class="va">x3</span>, by<span class="op">=</span><span class="st">"v"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    v  w ww wwww</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  a  1 11   NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  b  2 12   NA</span>
@@ -156,7 +174,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9  n NA NA   24</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10 o NA NA   25</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 11 p NA NA   26</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -171,7 +189,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

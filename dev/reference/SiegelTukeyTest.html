@@ -20,7 +20,7 @@ the two groups. SiegelTukeyRank returns the ranks, calculated after Siegel Tukey
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -88,57 +88,76 @@ the two groups. <code>SiegelTukeyRank</code> returns the ranks, calculated after
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">SiegelTukeyTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for default</span>
-<span class="fu">SiegelTukeyTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, adjust.median <span class="op">=</span> <span class="cn">FALSE</span>,
-                alternative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"less"</span>, <span class="st">"greater"</span><span class="op">)</span>,
-                mu <span class="op">=</span> <span class="fl">0</span>, exact <span class="op">=</span> <span class="cn">NULL</span>, correct <span class="op">=</span> <span class="cn">TRUE</span>, conf.int <span class="op">=</span> <span class="cn">FALSE</span>,
-                conf.level <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for formula</span>
-<span class="fu">SiegelTukeyTest</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">subset</span>, <span class="va">na.action</span>, <span class="va">...</span><span class="op">)</span>
-
-
-<span class="fu">SiegelTukeyRank</span><span class="op">(</span><span class="va">x</span>, <span class="va">g</span>, drop.median <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">SiegelTukeyTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">SiegelTukeyTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, adjust.median <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>                alternative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"less"</span>, <span class="st">"greater"</span><span class="op">)</span>,</span>
+<span>                mu <span class="op">=</span> <span class="fl">0</span>, exact <span class="op">=</span> <span class="cn">NULL</span>, correct <span class="op">=</span> <span class="cn">TRUE</span>, conf.int <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>                conf.level <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for formula</span></span>
+<span><span class="fu">SiegelTukeyTest</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">subset</span>, <span class="va">na.action</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="fu">SiegelTukeyRank</span><span class="op">(</span><span class="va">x</span>, <span class="va">g</span>, drop.median <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x, y</dt>
 <dd><p>numeric vector of data values. Non-finite (e.g. infinite or missing) values will be omitted.</p></dd>
+
 <dt>g</dt>
 <dd><p>a vector or factor object giving the group for the corresponding elements of x.</p></dd>
+
 <dt>adjust.median</dt>
 <dd><p>Should between-group differences in medians be leveled
     before performing the test? In certain cases, the Siegel-Tukey test is
     susceptible to median differences and may indicate significant differences
     in variability that, in reality, stem from differences in medians. Default is <code>FALSE</code>.</p></dd>
-<dt>alternative</dt>
+
+  <dt>alternative</dt>
 <dd><p>a character string specifying the alternative hypothesis, must be one of <code>"two.sided"</code> (default), <code>"greater"</code> or <code>"less"</code>. You can specify just the initial letter.</p></dd>
-<dt>mu</dt>
+
+  <dt>mu</dt>
 <dd><p>a number specifying an optional parameter used to form the null hypothesis. See Details.</p></dd>
-<dt>exact</dt>
+
+
+  <dt>exact</dt>
 <dd><p>a logical indicating whether an exact p-value should be computed. This is passed directly to <code><a href="https://rdrr.io/r/stats/wilcox.test.html" class="external-link">wilcox.test</a></code>.</p></dd>
-<dt>correct</dt>
+
+  <dt>correct</dt>
 <dd><p>a logical indicating whether to apply continuity correction in the normal approximation for the p-value.</p></dd>
-<dt>conf.int</dt>
+
+  <dt>conf.int</dt>
 <dd><p>a logical indicating whether a confidence interval should be computed.</p></dd>
-<dt>conf.level</dt>
+
+  <dt>conf.level</dt>
 <dd><p>confidence level of the interval.</p></dd>
-<dt>formula</dt>
+
+  <dt>formula</dt>
 <dd><p>a formula of the form <code>lhs ~ rhs</code> where <code>lhs</code> gives the data values and rhs the corresponding groups.</p></dd>
-<dt>data</dt>
+
+  <dt>data</dt>
 <dd><p>an optional matrix or data frame (or similar: see <code><a href="https://rdrr.io/r/stats/model.frame.html" class="external-link">model.frame</a></code>) containing the variables in the formula <code>formula</code>.
     By default the variables are taken from <code>environment(formula)</code>.</p></dd>
-<dt>subset</dt>
+
+  <dt>subset</dt>
 <dd><p>an optional vector specifying a subset of observations to be used.</p></dd>
-<dt>na.action</dt>
+
+  <dt>na.action</dt>
 <dd><p>a function which indicates what should happen when the data contain NAs. Defaults to <code>getOption("na.action")</code>.</p></dd>
+
+
+
 <dt>drop.median</dt>
 <dd><p>logical, defining whether the median of the combined samples should be left out, ensuring that there's an even number of elements (which is a requirement of the Siegel-Tukey test). Defaults to <code>TRUE</code>.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>further arguments to be passed to or from methods.</p></dd>
+
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -149,20 +168,28 @@ Consider also using <code><a href="https://rdrr.io/r/stats/mood.test.html" class
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list of class <code>htest</code>, containing the following components:</p>
+    
+
+<p>A list of class <code>htest</code>, containing the following components:</p>
 <dl><dt>statistic</dt>
 <dd><p>Siegel-Tukey test (Wilcoxon test on tie-adjusted Siegel-Tukey ranks, after the median adjustment if specified).</p></dd>
-<dt>p.value</dt>
+
+  <dt>p.value</dt>
 <dd><p>the p-value for the test</p></dd>
-<dt>null.value</dt>
+
+  <dt>null.value</dt>
 <dd><p>is the value of the median specified by the null hypothesis. This
                     equals the input argument <code>mu</code>.</p></dd>
-<dt>alternative</dt>
+
+  <dt>alternative</dt>
 <dd><p>a character string describing the alternative hypothesis.</p></dd>
-<dt>method</dt>
+
+  <dt>method</dt>
 <dd><p>the type of test applied</p></dd>
-<dt>data.name</dt>
+
+  <dt>data.name</dt>
 <dd><p>a character string giving the names of the data.</p></dd>
+
 </dl></div>
     <div id="references">
     <h2>References</h2>
@@ -183,10 +210,10 @@ published on: <a href="https://www.r-statistics.com/2010/02/siegel-tukey-a-non-p
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Duller, S. 183</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">13</span>, <span class="fl">29</span>, <span class="fl">30</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">17</span>, <span class="fl">18</span>, <span class="fl">24</span>, <span class="fl">25</span>, <span class="fl">26</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">SiegelTukeyTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Duller, S. 183</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">13</span>, <span class="fl">29</span>, <span class="fl">30</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">17</span>, <span class="fl">18</span>, <span class="fl">24</span>, <span class="fl">25</span>, <span class="fl">26</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">SiegelTukeyTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Siegel-Tukey-test for equal variability</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -194,7 +221,7 @@ published on: <a href="https://www.r-statistics.com/2010/02/siegel-tukey-a-non-p
 <span class="r-out co"><span class="r-pr">#&gt;</span> ST = 10, p-value = 0.009524</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: true ratio of scales is not equal to 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">SiegelTukeyTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, alternative<span class="op">=</span><span class="st">"greater"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">SiegelTukeyTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, alternative<span class="op">=</span><span class="st">"greater"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Siegel-Tukey-test for equal variability</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -202,11 +229,11 @@ published on: <a href="https://www.r-statistics.com/2010/02/siegel-tukey-a-non-p
 <span class="r-out co"><span class="r-pr">#&gt;</span> ST = 10, p-value = 0.004762</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: true ratio of scales is greater than 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Duller, S. 323</span></span>
-<span class="r-in"><span class="va">old</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">870</span>,<span class="fl">930</span>,<span class="fl">935</span>,<span class="fl">1045</span>,<span class="fl">1050</span>,<span class="fl">1052</span>,<span class="fl">1055</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">new</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">932</span>,<span class="fl">970</span>,<span class="fl">980</span>,<span class="fl">1001</span>,<span class="fl">1009</span>,<span class="fl">1030</span>,<span class="fl">1032</span>,<span class="fl">1040</span>,<span class="fl">1046</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">SiegelTukeyTest</span><span class="op">(</span><span class="va">old</span>, <span class="va">new</span>, alternative <span class="op">=</span> <span class="st">"greater"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Duller, S. 323</span></span></span>
+<span class="r-in"><span><span class="va">old</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">870</span>,<span class="fl">930</span>,<span class="fl">935</span>,<span class="fl">1045</span>,<span class="fl">1050</span>,<span class="fl">1052</span>,<span class="fl">1055</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">new</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">932</span>,<span class="fl">970</span>,<span class="fl">980</span>,<span class="fl">1001</span>,<span class="fl">1009</span>,<span class="fl">1030</span>,<span class="fl">1032</span>,<span class="fl">1040</span>,<span class="fl">1046</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">SiegelTukeyTest</span><span class="op">(</span><span class="va">old</span>, <span class="va">new</span>, alternative <span class="op">=</span> <span class="st">"greater"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Siegel-Tukey-test for equal variability</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -214,8 +241,8 @@ published on: <a href="https://www.r-statistics.com/2010/02/siegel-tukey-a-non-p
 <span class="r-out co"><span class="r-pr">#&gt;</span> ST = 34, p-value = 0.002622</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: true ratio of scales is greater than 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="co"># compare to the recommended alternatives</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/mood.test.html" class="external-link">mood.test</a></span><span class="op">(</span><span class="va">old</span>, <span class="va">new</span>, alternative<span class="op">=</span><span class="st">"greater"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># compare to the recommended alternatives</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/mood.test.html" class="external-link">mood.test</a></span><span class="op">(</span><span class="va">old</span>, <span class="va">new</span>, alternative<span class="op">=</span><span class="st">"greater"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Mood two-sample test of scale</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -223,7 +250,7 @@ published on: <a href="https://www.r-statistics.com/2010/02/siegel-tukey-a-non-p
 <span class="r-out co"><span class="r-pr">#&gt;</span> Z = 2.8666, p-value = 0.002075</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: greater</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/ansari.test.html" class="external-link">ansari.test</a></span><span class="op">(</span><span class="va">old</span>, <span class="va">new</span>, alternative<span class="op">=</span><span class="st">"greater"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/ansari.test.html" class="external-link">ansari.test</a></span><span class="op">(</span><span class="va">old</span>, <span class="va">new</span>, alternative<span class="op">=</span><span class="st">"greater"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Ansari-Bradley test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -231,11 +258,11 @@ published on: <a href="https://www.r-statistics.com/2010/02/siegel-tukey-a-non-p
 <span class="r-out co"><span class="r-pr">#&gt;</span> AB = 18, p-value = 0.001573</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: true ratio of scales is greater than 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Bortz, S. 250</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">26.3</span>,<span class="fl">26.5</span>,<span class="fl">26.8</span>,<span class="fl">27.0</span>,<span class="fl">27.0</span>,<span class="fl">27.2</span>,<span class="fl">27.3</span>,<span class="fl">27.3</span>,<span class="fl">27.4</span>,<span class="fl">27.5</span>,<span class="fl">27.6</span>,<span class="fl">27.8</span>,<span class="fl">27.9</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span></span>
-<span class="r-in"><span class="fu">SiegelTukeyTest</span><span class="op">(</span><span class="va">x</span> <span class="op">~</span> <span class="va">id</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Bortz, S. 250</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">26.3</span>,<span class="fl">26.5</span>,<span class="fl">26.8</span>,<span class="fl">27.0</span>,<span class="fl">27.0</span>,<span class="fl">27.2</span>,<span class="fl">27.3</span>,<span class="fl">27.3</span>,<span class="fl">27.4</span>,<span class="fl">27.5</span>,<span class="fl">27.6</span>,<span class="fl">27.8</span>,<span class="fl">27.9</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span></span></span>
+<span class="r-in"><span><span class="fu">SiegelTukeyTest</span><span class="op">(</span><span class="va">x</span> <span class="op">~</span> <span class="va">id</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot compute exact p-value with ties</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Siegel-Tukey-test for equal variability</span>
@@ -244,12 +271,12 @@ published on: <a href="https://www.r-statistics.com/2010/02/siegel-tukey-a-non-p
 <span class="r-out co"><span class="r-pr">#&gt;</span> ST = 35.5, p-value = 0.6842</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: true ratio of scales is not equal to 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Sachs, Angewandte Statistik, 12. Auflage, 2007, S. 314</span></span>
-<span class="r-in"><span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10.1</span>,<span class="fl">7.3</span>,<span class="fl">12.6</span>,<span class="fl">2.4</span>,<span class="fl">6.1</span>,<span class="fl">8.5</span>,<span class="fl">8.8</span>,<span class="fl">9.4</span>,<span class="fl">10.1</span>,<span class="fl">9.8</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">15.3</span>,<span class="fl">3.6</span>,<span class="fl">16.5</span>,<span class="fl">2.9</span>,<span class="fl">3.3</span>,<span class="fl">4.2</span>,<span class="fl">4.9</span>,<span class="fl">7.3</span>,<span class="fl">11.7</span>,<span class="fl">13.1</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">SiegelTukeyTest</span><span class="op">(</span><span class="va">A</span>, <span class="va">B</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Sachs, Angewandte Statistik, 12. Auflage, 2007, S. 314</span></span></span>
+<span class="r-in"><span><span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10.1</span>,<span class="fl">7.3</span>,<span class="fl">12.6</span>,<span class="fl">2.4</span>,<span class="fl">6.1</span>,<span class="fl">8.5</span>,<span class="fl">8.8</span>,<span class="fl">9.4</span>,<span class="fl">10.1</span>,<span class="fl">9.8</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">15.3</span>,<span class="fl">3.6</span>,<span class="fl">16.5</span>,<span class="fl">2.9</span>,<span class="fl">3.3</span>,<span class="fl">4.2</span>,<span class="fl">4.9</span>,<span class="fl">7.3</span>,<span class="fl">11.7</span>,<span class="fl">13.1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">SiegelTukeyTest</span><span class="op">(</span><span class="va">A</span>, <span class="va">B</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot compute exact p-value with ties</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Siegel-Tukey-test for equal variability</span>
@@ -258,13 +285,13 @@ published on: <a href="https://www.r-statistics.com/2010/02/siegel-tukey-a-non-p
 <span class="r-out co"><span class="r-pr">#&gt;</span> ST = 134.5, p-value = 0.02324</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: true ratio of scales is not equal to 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### 1</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">5</span>,<span class="fl">6</span>,<span class="fl">6</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">9</span>,<span class="fl">10</span>,<span class="fl">10</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">SiegelTukeyTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### 1</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">5</span>,<span class="fl">6</span>,<span class="fl">6</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">9</span>,<span class="fl">10</span>,<span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">SiegelTukeyTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot compute exact p-value with ties</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Siegel-Tukey-test for equal variability</span>
@@ -273,12 +300,12 @@ published on: <a href="https://www.r-statistics.com/2010/02/siegel-tukey-a-non-p
 <span class="r-out co"><span class="r-pr">#&gt;</span> ST = 57, p-value = 0.003601</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: true ratio of scales is not equal to 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### 2</span></span>
-<span class="r-in"><span class="co"># example for a non equal number of cases:</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">5</span>,<span class="fl">6</span>,<span class="fl">6</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">9</span>,<span class="fl">10</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">SiegelTukeyTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### 2</span></span></span>
+<span class="r-in"><span><span class="co"># example for a non equal number of cases:</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">5</span>,<span class="fl">6</span>,<span class="fl">6</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">9</span>,<span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">SiegelTukeyTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot compute exact p-value with ties</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Siegel-Tukey-test for equal variability</span>
@@ -287,11 +314,11 @@ published on: <a href="https://www.r-statistics.com/2010/02/siegel-tukey-a-non-p
 <span class="r-out co"><span class="r-pr">#&gt;</span> ST = 15, p-value = 0.01141</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: true ratio of scales is not equal to 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### 3</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">33</span>, <span class="fl">62</span>, <span class="fl">84</span>, <span class="fl">85</span>, <span class="fl">88</span>, <span class="fl">93</span>, <span class="fl">97</span>, <span class="fl">4</span>, <span class="fl">16</span>, <span class="fl">48</span>, <span class="fl">51</span>, <span class="fl">66</span>, <span class="fl">98</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">SiegelTukeyTest</span><span class="op">(</span><span class="va">x</span> <span class="op">~</span> <span class="va">id</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### 3</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">33</span>, <span class="fl">62</span>, <span class="fl">84</span>, <span class="fl">85</span>, <span class="fl">88</span>, <span class="fl">93</span>, <span class="fl">97</span>, <span class="fl">4</span>, <span class="fl">16</span>, <span class="fl">48</span>, <span class="fl">51</span>, <span class="fl">66</span>, <span class="fl">98</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">SiegelTukeyTest</span><span class="op">(</span><span class="va">x</span> <span class="op">~</span> <span class="va">id</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Siegel-Tukey-test for equal variability</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -299,11 +326,11 @@ published on: <a href="https://www.r-statistics.com/2010/02/siegel-tukey-a-non-p
 <span class="r-out co"><span class="r-pr">#&gt;</span> ST = 24, p-value = 0.202</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: true ratio of scales is not equal to 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### 4</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">177</span>,<span class="fl">200</span>,<span class="fl">227</span>,<span class="fl">230</span>,<span class="fl">232</span>,<span class="fl">268</span>,<span class="fl">272</span>,<span class="fl">297</span>,<span class="fl">47</span>,<span class="fl">105</span>,<span class="fl">126</span>,<span class="fl">142</span>,<span class="fl">158</span>,<span class="fl">172</span>,<span class="fl">197</span>,<span class="fl">220</span>,<span class="fl">225</span>,<span class="fl">230</span>,<span class="fl">262</span>,<span class="fl">270</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">8</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">12</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">SiegelTukeyTest</span><span class="op">(</span><span class="va">x</span> <span class="op">~</span> <span class="va">id</span>, adjust.median<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### 4</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">177</span>,<span class="fl">200</span>,<span class="fl">227</span>,<span class="fl">230</span>,<span class="fl">232</span>,<span class="fl">268</span>,<span class="fl">272</span>,<span class="fl">297</span>,<span class="fl">47</span>,<span class="fl">105</span>,<span class="fl">126</span>,<span class="fl">142</span>,<span class="fl">158</span>,<span class="fl">172</span>,<span class="fl">197</span>,<span class="fl">220</span>,<span class="fl">225</span>,<span class="fl">230</span>,<span class="fl">262</span>,<span class="fl">270</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">8</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">12</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">SiegelTukeyTest</span><span class="op">(</span><span class="va">x</span> <span class="op">~</span> <span class="va">id</span>, adjust.median<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Siegel-Tukey-test for equal variability</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -311,11 +338,11 @@ published on: <a href="https://www.r-statistics.com/2010/02/siegel-tukey-a-non-p
 <span class="r-out co"><span class="r-pr">#&gt;</span> ST = 106, p-value = 0.09788</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: true ratio of scales is not equal to 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### 5</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">33</span>,<span class="fl">62</span>,<span class="fl">84</span>,<span class="fl">85</span>,<span class="fl">88</span>,<span class="fl">93</span>,<span class="fl">97</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">16</span>,<span class="fl">48</span>,<span class="fl">51</span>,<span class="fl">66</span>,<span class="fl">98</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">SiegelTukeyTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### 5</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">33</span>,<span class="fl">62</span>,<span class="fl">84</span>,<span class="fl">85</span>,<span class="fl">88</span>,<span class="fl">93</span>,<span class="fl">97</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">16</span>,<span class="fl">48</span>,<span class="fl">51</span>,<span class="fl">66</span>,<span class="fl">98</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">SiegelTukeyTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Siegel-Tukey-test for equal variability</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -323,11 +350,11 @@ published on: <a href="https://www.r-statistics.com/2010/02/siegel-tukey-a-non-p
 <span class="r-out co"><span class="r-pr">#&gt;</span> ST = 24, p-value = 0.202</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: true ratio of scales is not equal to 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### 6</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">5</span>,<span class="fl">6</span>,<span class="fl">6</span>,<span class="fl">9</span>,<span class="fl">10</span>,<span class="fl">10</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">SiegelTukeyTest</span><span class="op">(</span><span class="va">x</span> <span class="op">~</span> <span class="va">id</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### 6</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">5</span>,<span class="fl">6</span>,<span class="fl">6</span>,<span class="fl">9</span>,<span class="fl">10</span>,<span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">SiegelTukeyTest</span><span class="op">(</span><span class="va">x</span> <span class="op">~</span> <span class="va">id</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot compute exact p-value with ties</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Siegel-Tukey-test for equal variability</span>
@@ -336,11 +363,11 @@ published on: <a href="https://www.r-statistics.com/2010/02/siegel-tukey-a-non-p
 <span class="r-out co"><span class="r-pr">#&gt;</span> ST = 21, p-value = 0.003601</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: true ratio of scales is not equal to 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### 7</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">85</span>,<span class="fl">106</span>,<span class="fl">96</span>, <span class="fl">105</span>, <span class="fl">104</span>, <span class="fl">108</span>, <span class="fl">86</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">SiegelTukeyTest</span><span class="op">(</span><span class="va">x</span> <span class="op">~</span> <span class="va">id</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### 7</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">85</span>,<span class="fl">106</span>,<span class="fl">96</span>, <span class="fl">105</span>, <span class="fl">104</span>, <span class="fl">108</span>, <span class="fl">86</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">SiegelTukeyTest</span><span class="op">(</span><span class="va">x</span> <span class="op">~</span> <span class="va">id</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Siegel-Tukey-test for equal variability</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -362,7 +389,7 @@ published on: <a href="https://www.r-statistics.com/2010/02/siegel-tukey-a-non-p
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

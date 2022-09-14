@@ -19,7 +19,7 @@ and the Noether (1957) procedure. Koopman results are found iteratively for most
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -86,36 +86,47 @@ and the Noether (1957) procedure. Koopman results are found iteratively for most
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">BinomRatioCI</span><span class="op">(</span><span class="va">x1</span>, <span class="va">n1</span>, <span class="va">x2</span>, <span class="va">n2</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span>, 
-             sides <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"left"</span>, <span class="st">"right"</span><span class="op">)</span>, 
-             method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"katz.log"</span>, <span class="st">"adj.log"</span>, <span class="st">"bailey"</span>, <span class="st">"koopman"</span>, <span class="st">"noether"</span>, 
-                        <span class="st">"sinh-1"</span>, <span class="st">"boot"</span><span class="op">)</span>,
-             tol <span class="op">=</span> <span class="va">.Machine</span><span class="op">$</span><span class="va">double.eps</span><span class="op">^</span><span class="fl">0.25</span>, R <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">BinomRatioCI</span><span class="op">(</span><span class="va">x1</span>, <span class="va">n1</span>, <span class="va">x2</span>, <span class="va">n2</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span>, </span>
+<span>             sides <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"left"</span>, <span class="st">"right"</span><span class="op">)</span>, </span>
+<span>             method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"katz.log"</span>, <span class="st">"adj.log"</span>, <span class="st">"bailey"</span>, <span class="st">"koopman"</span>, <span class="st">"noether"</span>, </span>
+<span>                        <span class="st">"sinh-1"</span>, <span class="st">"boot"</span><span class="op">)</span>,</span>
+<span>             tol <span class="op">=</span> <span class="va">.Machine</span><span class="op">$</span><span class="va">double.eps</span><span class="op">^</span><span class="fl">0.25</span>, R <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x1</dt>
 <dd><p>number of successes for the ratio numerator.</p></dd>
-<dt>n1</dt>
+
+  <dt>n1</dt>
 <dd><p>number of trials for the ratio numerator.</p></dd>
-<dt>x2</dt>
+
+  <dt>x2</dt>
 <dd><p>number of successes for the ratio denominator.</p></dd>
-<dt>n2</dt>
+
+  <dt>n2</dt>
 <dd><p>number of successes for the ratio denominator.</p></dd>
-<dt>conf.level</dt>
+
+
+  <dt>conf.level</dt>
 <dd><p>confidence level, defaults to 0.95.</p></dd>
-<dt>sides</dt>
+
+  <dt>sides</dt>
 <dd><p>a character string specifying the side of the confidence interval, must be one of <code>"two.sided"</code> (default),
 <code>"left"</code> or <code>"right"</code>. You can specify just the initial letter. <code>"left"</code> would be analogue to a hypothesis of
 <code>"greater"</code> in a <code>t.test</code>.</p></dd>
-<dt>method</dt>
+
+
+  <dt>method</dt>
 <dd><p>confidence interval method, one of <code>"katz.log"</code> (default), <code>"adj.log"</code>, <code>"bailey"</code>,  
 <code>"boot"</code>, <code>"koopman"</code>, <code>"noether"</code> or <code>"sinh-1"</code>. Can be abbreviated.</p></dd>
+
 <dt>tol</dt>
 <dd><p>The desired accuracy (convergence tolerance) for the iterative root finding procedure when finding Koopman intevals. The default is taken to be the smallest positive floating-point number of the workstation implementing the function, raised to the 0.25 power, and will normally be approximately 0.0001.</p></dd>
+
 <dt>R</dt>
 <dd><p>If method <code>"boot"</code> is chosen, the number of bootstrap iterations.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -133,14 +144,17 @@ Adjusted-log</td><td>\(\hat{\theta}_{Ai}\times\) exp\((\pm z_1-\alpha /2\hat{\si
 Bailey</td><td>\(\hat{\theta} _i\left[\frac{1\pm z_1-\left( \alpha /2 \right)\left( \hat{\pi}_{1i}'/y_{1i}+\hat{\pi}_{2i}'/y_{2i}-z_1-\left(\alpha/2 \right)^2\hat{\pi} _{1i}'\hat{\pi}_{2i}'/9y_{1i}y_{2i} \right)^{1/2}/3}{1-z_{1-\left(\alpha/2 \right)^2}\hat{\pi} _{2i}'/9y_{2i}} \right]^3\),</td></tr><tr><td></td><td>where \(\hat{\pi_{1i}}'\) = 1 - \(\hat{\pi}_{1i}\), and \(\hat{\pi}_{2i}'\) = 1 - \(\hat{\pi}_{2i}\).</td></tr><tr><td></td><td></td></tr><tr><td><!-- % Inv sin -->
 Inv. hyperbolic sine</td><td>\(\ln({{\hat{\theta }}_{i}})\pm \left[ 2sin{{h}^{-1}}\left( \frac{{{z}_{(1-\alpha /2)}}}{2}\sqrt{\frac{1}{{{y}_{1i}}}-\frac{1}{{{n}_{1}}}+\frac{1}{{{y}_{2i}}}-\frac{1}{{{n}_{2}}}} \right) \right]\),</td></tr><tr><td></td><td></td></tr><tr><td><!-- % Koopman -->
 Koopman</td><td>Find \(X^2(\theta_0)\) = \(\chi _1^2(1 - \alpha)\), where</td></tr><tr><td></td><td>\({{\tilde{\pi }}_{1i}}=\frac{{{\theta }_{0}}({{n}_{1}}+{{y}_{2i}})+{{y}_{1i}}+{{n}_{2}}-{{[{{\{{{\theta }_{0}}({{n}_{1}}+{{y}_{2i}})+{{y}_{1i}}+
-{{n}_{2}}\}}^{2}}-4{{\theta }_{0}}({{n}_{1}}+{{n}_{2}})({{y}_{1i}}+{{y}_{2i}})]}^{0.5}}}{2({{n}_{1}}+{{n}_{2}})}\),</td></tr><tr><td></td><td>\({{\tilde{\pi }}_{2i}}=\frac{{{{\tilde{\pi }}}_{1i}}}{{{\theta }_{0}}}$, and ${{X}^{2}}({{\theta}_{0}})=\frac{{{\left( {{y}_{1i}}-{{n}_{1}}{{{\tilde{\pi }}}_{1i}} \right)}^{2}}}
+{{n}_{2}}\}}^{2}}-4{{\theta }_{0}}({{n}_{1}}+{{n}_{2}})({{y}_{1i}}+{{y}_{2i}})]}^{0.5}}}{2({{n}_{1}}+{{n}_{2}})}\),</td></tr><tr><td></td><td>\({{\tilde{\pi }}_{2i}}=\frac{{{{\tilde{\pi }}}_{1i}}}{{{\theta }_{0}}}, and {{X}^{2}}({{\theta}_{0}})=\frac{{{\left( {{y}_{1i}}-{{n}_{1}}{{{\tilde{\pi }}}_{1i}} \right)}^{2}}}
 {{{n}_{1}}{{{\tilde{\pi }}}_{1i}}(1-{{{\tilde{\pi }}}_{1i}})}\left\{ 1+\frac{{{n}_{1}}({{\theta}_{0}}-{{{\tilde{\pi }}}_{1i}})}{{{n}_{2}}(1-{\tilde{\pi}_{1i}})} \right\}\).</td></tr><tr><td></td><td></td></tr><tr><td><!-- %% Noether -->
 Noether</td><td>\(\hat{\theta}_i\pm z_1-\alpha/2\hat{\sigma}_N\),</td></tr><tr><td></td><td>where \(\hat{\sigma }_{N}^{2}=\hat{\theta }_{i}^{2}\left( \frac{1}{{{y}_{1i}}}-\frac{1}{{{n}_{1}}}+\frac{1}{{{y}_{2i}}}-\frac{1}{{{n}_{2}}} \right)\).</td></tr></table><p>Exception handling strategies are generally necessary in the cases \(x_1\) = 0, \(n_1\) = \(x_1\), \(x_2\) = 0, and \(n_2\) = \(x_2\) (see Aho and Bowyer, in review).</p>
 <p>The bootstrap method currently employs percentile confidence intervals.</p>
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>A matrix with 3 columns containing the estimate, the lower and the upper confidence intervall.</p>
+    
+
+<p>A matrix with 3 columns containing the estimate, the lower and the upper confidence intervall.</p>
+<p></p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -166,12 +180,12 @@ binomial variate.  <em>Biometrika</em> 73(2): 425-435.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># From Koopman (1984)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">BinomRatioCI</span><span class="op">(</span>x1 <span class="op">=</span> <span class="fl">36</span>, n1 <span class="op">=</span> <span class="fl">40</span>, x2 <span class="op">=</span> <span class="fl">16</span>, n2 <span class="op">=</span> <span class="fl">80</span>, method <span class="op">=</span> <span class="st">"katz"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># From Koopman (1984)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">BinomRatioCI</span><span class="op">(</span>x1 <span class="op">=</span> <span class="fl">36</span>, n1 <span class="op">=</span> <span class="fl">40</span>, x2 <span class="op">=</span> <span class="fl">16</span>, n2 <span class="op">=</span> <span class="fl">80</span>, method <span class="op">=</span> <span class="st">"katz"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      est  lwr.ci   upr.ci</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;NA&gt; 4.5 2.86855 7.059315</span>
-<span class="r-in"><span class="fu">BinomRatioCI</span><span class="op">(</span>x1 <span class="op">=</span> <span class="fl">36</span>, n1 <span class="op">=</span> <span class="fl">40</span>, x2 <span class="op">=</span> <span class="fl">16</span>, n2 <span class="op">=</span> <span class="fl">80</span>, method <span class="op">=</span> <span class="st">"koop"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">BinomRatioCI</span><span class="op">(</span>x1 <span class="op">=</span> <span class="fl">36</span>, n1 <span class="op">=</span> <span class="fl">40</span>, x2 <span class="op">=</span> <span class="fl">16</span>, n2 <span class="op">=</span> <span class="fl">80</span>, method <span class="op">=</span> <span class="st">"koop"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      est   lwr.ci   upr.ci</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;NA&gt; 4.5 2.939581 7.152209</span>
 </code></pre></div>
@@ -188,7 +202,7 @@ binomial variate.  <em>Biometrika</em> 73(2): 425-435.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

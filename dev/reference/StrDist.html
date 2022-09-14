@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -82,25 +82,32 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">StrDist</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, method <span class="op">=</span> <span class="st">"levenshtein"</span>, mismatch <span class="op">=</span> <span class="fl">1</span>, gap <span class="op">=</span> <span class="fl">1</span>, ignore.case <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">StrDist</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, method <span class="op">=</span> <span class="st">"levenshtein"</span>, mismatch <span class="op">=</span> <span class="fl">1</span>, gap <span class="op">=</span> <span class="fl">1</span>, ignore.case <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>character vector, first string.</p></dd>
-<dt>y</dt>
+
+  <dt>y</dt>
 <dd><p>character vector, second string.</p></dd>
-<dt>method</dt>
+
+  <dt>method</dt>
 <dd><p>character, name of the distance method. This must be
         <code>"levenshtein"</code>, <code>"normlevenshtein"</code> or <code>"hamming"</code>. Default is <code>"levenshtein"</code>, the classical
         Levenshtein distance.</p></dd>
-<dt>mismatch</dt>
+
+  <dt>mismatch</dt>
 <dd><p>numeric, distance value for a mismatch between symbols.</p></dd>
-<dt>gap</dt>
+
+  <dt>gap</dt>
 <dd><p>numeric, distance value for inserting a gap.</p></dd>
-<dt>ignore.case</dt>
+
+  <dt>ignore.case</dt>
 <dd><p>if <code>FALSE</code> (default), the distance measure will be case sensitive and if <code>TRUE</code>, case is ignored.</p></dd>
+
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -121,7 +128,8 @@ $$lnd = 1 - \frac{ld}{max(length(x), length(y))}$$</p>
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>StrDist</code> returns an object of class <code>"dist"</code>; cf. <code><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></code>.</p>
+    <p></p>
+<p><code>StrDist</code> returns an object of class <code>"dist"</code>; cf. <code><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></code>.</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -144,14 +152,14 @@ $$lnd = 1 - \frac{ld}{max(length(x), length(y))}$$</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"GACGGATTATG"</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="st">"GATCGGAATAG"</span></span>
-<span class="r-in"><span class="co">## Levenshtein distance</span></span>
-<span class="r-in"><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu">StrDist</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">d</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"GACGGATTATG"</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="st">"GATCGGAATAG"</span></span></span>
+<span class="r-in"><span><span class="co">## Levenshtein distance</span></span></span>
+<span class="r-in"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu">StrDist</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">d</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             GACGGATTATG</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GATCGGAATAG           3</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">d</span>, <span class="st">"ScoringMatrix"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">d</span>, <span class="st">"ScoringMatrix"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     gap  G A T C G G A A T  A  G</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> gap   0  1 2 3 4 5 6 7 8 9 10 11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> G     1  0 1 2 3 4 5 6 7 8  9 10</span>
@@ -165,7 +173,7 @@ $$lnd = 1 - \frac{ld}{max(length(x), length(y))}$$</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A     9  8 7 6 6 6 5 4 3 3  2  3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> T    10  9 8 7 7 7 6 5 4 3  3  3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> G    11 10 9 8 8 7 7 6 5 4  4  3</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">d</span>, <span class="st">"TraceBackMatrix"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">d</span>, <span class="st">"TraceBackMatrix"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     gap     G     A     T      C        G      G     A     A      T   A     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> gap "start" "i"   "i"   "i"    "i"      "i"    "i"   "i"   "i"    "i" "i"   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> G   "d"     "m"   "i"   "i"    "i"      "m/i"  "m/i" "i"   "i"    "i" "i"   </span>
@@ -192,9 +200,9 @@ $$lnd = 1 - \frac{ld}{max(length(x), length(y))}$$</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A   "i"   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> T   "mm"  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> G   "m"   </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Hamming distance</span></span>
-<span class="r-in"><span class="fu">StrDist</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, method<span class="op">=</span><span class="st">"hamming"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Hamming distance</span></span></span>
+<span class="r-in"><span><span class="fu">StrDist</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, method<span class="op">=</span><span class="st">"hamming"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             GACGGATTATG</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GATCGGAATAG           7</span>
 </code></pre></div>
@@ -211,7 +219,7 @@ $$lnd = 1 - \frac{ld}{max(length(x), length(y))}$$</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

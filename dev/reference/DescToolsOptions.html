@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -82,17 +82,21 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">DescToolsOptions</span><span class="op">(</span><span class="va">...</span>, default <span class="op">=</span> <span class="cn">NULL</span>, reset <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">DescToolsOptions</span><span class="op">(</span><span class="va">...</span>, default <span class="op">=</span> <span class="cn">NULL</span>, reset <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>...</dt>
 <dd><p>any options can be defined, using <code>name = value</code>. However, only the ones below are used by DescTools functions.</p></dd>
-<dt>default</dt>
+
+  <dt>default</dt>
 <dd><p>if the specified option is not set in the options list, this value is returned. This facilitates retrieving an option and checking whether it is set and setting it separately if not.</p></dd>
-<dt>reset</dt>
+
+
+ <dt>reset</dt>
 <dd><p>logical. If this is set to <code>TRUE</code>, the options will be overwritten with their default values. Other arguments will be ignored in this case. Default is <code>FALSE</code>.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -138,33 +142,39 @@ To set a new value use the same rationale as with the R options:  <code>DescTool
 
 
 
-</dl><p>Calling <code>DescToolsOptions(reset=TRUE)</code> will reset the options to these defaults:</p><div class="sourceCode"><pre><code><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>DescTools <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-  col       <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>hblue<span class="op">=</span><span class="st">"#8296C4"</span>, hred<span class="op">=</span><span class="st">"#9A0941"</span>, horange<span class="op">=</span><span class="st">"#F08100"</span><span class="op">)</span>,
-  digits    <span class="op">=</span> <span class="fl">3</span>,
-  fixedfont <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/structure.html" class="external-link">structure</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Consolas"</span>, size <span class="op">=</span> <span class="fl">7</span><span class="op">)</span>, class <span class="op">=</span> <span class="st">"font"</span><span class="op">)</span>,
-  fmt       <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>abs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/structure.html" class="external-link">structure</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">0</span>, big.mark <span class="op">=</span> <span class="st">"'"</span><span class="op">)</span>,
-                     name <span class="op">=</span> <span class="st">"abs"</span>, label <span class="op">=</span> <span class="st">"Number format for counts"</span>, default <span class="op">=</span> <span class="cn">TRUE</span>,
-                     class <span class="op">=</span> <span class="st">"fmt"</span><span class="op">)</span>,
-                   per <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/structure.html" class="external-link">structure</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">1</span>, fmt <span class="op">=</span> <span class="st">"%"</span><span class="op">)</span>,
-                     name <span class="op">=</span> <span class="st">"per"</span>, label <span class="op">=</span> <span class="st">"Percentage number format"</span>, default <span class="op">=</span> <span class="cn">TRUE</span>,
-                     class <span class="op">=</span> <span class="st">"fmt"</span><span class="op">)</span>,
-                   num <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/structure.html" class="external-link">structure</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">3</span>, big.mark <span class="op">=</span> <span class="st">"'"</span><span class="op">)</span>,
-                     name <span class="op">=</span> <span class="st">"num"</span>, label <span class="op">=</span> <span class="st">"Number format for floats"</span>, default <span class="op">=</span> <span class="cn">TRUE</span>,
-                     class <span class="op">=</span> <span class="st">"fmt"</span><span class="op">)</span>
-              <span class="op">)</span>,
-  footnote  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"'"</span>, <span class="st">"\""</span>, <span class="st">"\"\""</span><span class="op">)</span>,
-  lang      <span class="op">=</span> <span class="st">"engl"</span>,
-  plotit    <span class="op">=</span> <span class="cn">TRUE</span>,
-  stamp     <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">gettextf</a></span><span class="op">(</span><span class="st">"%s/%s"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"USERNAME"</span><span class="op">)</span>,
-                                  <span class="fu"><a href="../reference/Format.html">Format</a></span><span class="op">(</span><span class="fu"><a href="../reference/DateFunctions.html">Today</a></span><span class="op">(</span><span class="op">)</span>, fmt <span class="op">=</span> <span class="st">"yyyy-mm-dd"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="op">)</span><span class="op">)</span></code></pre></div>
+</dl><p>Calling <code>DescToolsOptions(reset=TRUE)</code> will reset the options to these defaults:</p><div class="sourceCode"><pre><code><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>DescTools <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  col       <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>hblue<span class="op">=</span><span class="st">"#8296C4"</span>, hred<span class="op">=</span><span class="st">"#9A0941"</span>, horange<span class="op">=</span><span class="st">"#F08100"</span><span class="op">)</span>,</span>
+<span>  digits    <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  fixedfont <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/structure.html" class="external-link">structure</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Consolas"</span>, size <span class="op">=</span> <span class="fl">7</span><span class="op">)</span>, class <span class="op">=</span> <span class="st">"font"</span><span class="op">)</span>,</span>
+<span>  fmt       <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>abs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/structure.html" class="external-link">structure</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">0</span>, big.mark <span class="op">=</span> <span class="st">"'"</span><span class="op">)</span>,</span>
+<span>                     name <span class="op">=</span> <span class="st">"abs"</span>, label <span class="op">=</span> <span class="st">"Number format for counts"</span>, default <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                     class <span class="op">=</span> <span class="st">"fmt"</span><span class="op">)</span>,</span>
+<span>                   per <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/structure.html" class="external-link">structure</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">1</span>, fmt <span class="op">=</span> <span class="st">"%"</span><span class="op">)</span>,</span>
+<span>                     name <span class="op">=</span> <span class="st">"per"</span>, label <span class="op">=</span> <span class="st">"Percentage number format"</span>, default <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                     class <span class="op">=</span> <span class="st">"fmt"</span><span class="op">)</span>,</span>
+<span>                   num <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/structure.html" class="external-link">structure</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">3</span>, big.mark <span class="op">=</span> <span class="st">"'"</span><span class="op">)</span>,</span>
+<span>                     name <span class="op">=</span> <span class="st">"num"</span>, label <span class="op">=</span> <span class="st">"Number format for floats"</span>, default <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                     class <span class="op">=</span> <span class="st">"fmt"</span><span class="op">)</span></span>
+<span>              <span class="op">)</span>,</span>
+<span>  footnote  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"'"</span>, <span class="st">"\""</span>, <span class="st">"\"\""</span><span class="op">)</span>,</span>
+<span>  lang      <span class="op">=</span> <span class="st">"engl"</span>,</span>
+<span>  plotit    <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  stamp     <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">gettextf</a></span><span class="op">(</span><span class="st">"%s/%s"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"USERNAME"</span><span class="op">)</span>,</span>
+<span>                                  <span class="fu"><a href="../reference/Format.html">Format</a></span><span class="op">(</span><span class="fu"><a href="../reference/DateFunctions.html">Today</a></span><span class="op">(</span><span class="op">)</span>, fmt <span class="op">=</span> <span class="st">"yyyy-mm-dd"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 
 <p>This code can as well be copied and pasted to the users' <code>RProfile</code> file, in order to have the options permanently available.</p>
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>For a given vector of strings the current value set for option <code>x</code>, or <code>NULL</code> if the option is unset.
-If called with no arguments, returns all option settings in a list. Otherwise, it changes the named settings and invisibly returns their previous values.</p>
+    
+
+
+<p>For a given vector of strings the current value set for option <code>x</code>, or <code>NULL</code> if the option is unset.</p>
+
+
+<p>If called with no arguments, returns all option settings in a list. Otherwise, it changes the named settings and invisibly returns their previous values.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -177,42 +187,42 @@ If called with no arguments, returns all option settings in a list. Otherwise, i
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">DescToolsOptions</span><span class="op">(</span><span class="st">"plotit"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">DescToolsOptions</span><span class="op">(</span><span class="st">"plotit"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"default")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Get all options, defaults are attributed as such</span></span>
-<span class="r-in"><span class="fu">DescToolsOptions</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># get some options</span></span>
-<span class="r-in"><span class="fu">DescToolsOptions</span><span class="op">(</span><span class="st">"plotit"</span>, <span class="st">"lang"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># get some potentially undefined option, while taking a user default and</span></span>
-<span class="r-in"><span class="co"># overriding system defaults</span></span>
-<span class="r-in"><span class="fu">DescToolsOptions</span><span class="op">(</span><span class="st">"stamp"</span>, default<span class="op">=</span><span class="st">"Condor, 2016"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># get an undefined option, should return default</span></span>
-<span class="r-in"><span class="fu">DescToolsOptions</span><span class="op">(</span><span class="st">"stampede"</span>, default<span class="op">=</span><span class="st">"Condor, 2016"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># set options, while getting the old values</span></span>
-<span class="r-in"><span class="va">opt</span> <span class="op">&lt;-</span> <span class="fu">DescToolsOptions</span><span class="op">(</span>plotit<span class="op">=</span><span class="fl">789</span>, lang<span class="op">=</span><span class="st">"portugues"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">DescToolsOptions</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># output the old values</span></span>
-<span class="r-in"><span class="va">opt</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># just a single argument</span></span>
-<span class="r-in"><span class="fu">DescToolsOptions</span><span class="op">(</span>digits<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># reset the old values</span></span>
-<span class="r-in"><span class="fu">DescToolsOptions</span><span class="op">(</span><span class="va">opt</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">DescToolsOptions</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># reset factory defaults</span></span>
-<span class="r-in"><span class="fu">DescToolsOptions</span><span class="op">(</span>reset<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Get all options, defaults are attributed as such</span></span></span>
+<span class="r-in"><span><span class="fu">DescToolsOptions</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># get some options</span></span></span>
+<span class="r-in"><span><span class="fu">DescToolsOptions</span><span class="op">(</span><span class="st">"plotit"</span>, <span class="st">"lang"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># get some potentially undefined option, while taking a user default and</span></span></span>
+<span class="r-in"><span><span class="co"># overriding system defaults</span></span></span>
+<span class="r-in"><span><span class="fu">DescToolsOptions</span><span class="op">(</span><span class="st">"stamp"</span>, default<span class="op">=</span><span class="st">"Condor, 2016"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># get an undefined option, should return default</span></span></span>
+<span class="r-in"><span><span class="fu">DescToolsOptions</span><span class="op">(</span><span class="st">"stampede"</span>, default<span class="op">=</span><span class="st">"Condor, 2016"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># set options, while getting the old values</span></span></span>
+<span class="r-in"><span><span class="va">opt</span> <span class="op">&lt;-</span> <span class="fu">DescToolsOptions</span><span class="op">(</span>plotit<span class="op">=</span><span class="fl">789</span>, lang<span class="op">=</span><span class="st">"portugues"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">DescToolsOptions</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># output the old values</span></span></span>
+<span class="r-in"><span><span class="va">opt</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># just a single argument</span></span></span>
+<span class="r-in"><span><span class="fu">DescToolsOptions</span><span class="op">(</span>digits<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># reset the old values</span></span></span>
+<span class="r-in"><span><span class="fu">DescToolsOptions</span><span class="op">(</span><span class="va">opt</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">DescToolsOptions</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># reset factory defaults</span></span></span>
+<span class="r-in"><span><span class="fu">DescToolsOptions</span><span class="op">(</span>reset<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -227,7 +237,7 @@ If called with no arguments, returns all option settings in a list. Otherwise, i
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

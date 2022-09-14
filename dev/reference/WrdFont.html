@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,8 +87,8 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">WrdFont</span><span class="op">(</span>wrd <span class="op">=</span> <span class="fu"><a href="DescToolsOptions.html">DescToolsOptions</a></span><span class="op">(</span><span class="st">"lastWord"</span><span class="op">)</span><span class="op">)</span>
-<span class="fu">WrdFont</span><span class="op">(</span><span class="va">wrd</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">WrdFont</span><span class="op">(</span>wrd <span class="op">=</span> <span class="fu"><a href="DescToolsOptions.html">DescToolsOptions</a></span><span class="op">(</span><span class="st">"lastWord"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">WrdFont</span><span class="op">(</span><span class="va">wrd</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -96,10 +96,13 @@
     <dl><dt>value</dt>
 <dd><p>the font to be used to the output. This should be defined as a list containing fontname, fontsize, bold and italic flags:<br><code>list(name="Arial", size=10, bold=FALSE, italic=TRUE, color=wdConst$wdColorBlack)</code>.
 <!-- %%     ~~Describe \code{font} here~~ --></p></dd>
-<dt>wrd</dt>
+
+  <dt>wrd</dt>
 <dd><p>the pointer to a word instance. Can be a new one, created by <code><a href="GetNewWrd.html">GetNewWrd()</a></code>
   or an existing one, created by <code><a href="GetCurrWrd.html">GetCurrWrd()</a></code>.
   Default is the last created pointer stored in <code>DescToolsOptions("lastWord")</code>.</p></dd>
+
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -108,17 +111,25 @@ The defined colors can be listed with <code>grep("wdColor", names(wdConst), val=
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>a list of the attributes of the font in the current cursor position:</p>
+    
+
+<p>a list of the attributes of the font in the current cursor position:</p>
 <dl><dt>name</dt>
 <dd><p>the fontname</p></dd>
-<dt>size</dt>
+
+  <dt>size</dt>
 <dd><p>the fontsize</p></dd>
-<dt>bold</dt>
+
+  <dt>bold</dt>
 <dd><p>bold</p></dd>
-<dt>italic</dt>
+
+  <dt>italic</dt>
 <dd><p>italic</p></dd>
-<dt>color</dt>
+
+  <dt>color</dt>
 <dd><p>the fontcolor</p></dd>
+
+
 </dl></div>
     <div id="author">
     <h2>Author</h2>
@@ -131,16 +142,16 @@ The defined colors can be listed with <code>grep("wdColor", names(wdConst), val=
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span>  <span class="co"># Windows-specific example</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">wrd</span> <span class="op">&lt;-</span> <span class="fu"><a href="GetNewWrd.html">GetNewWrd</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">24</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu"><a href="ToWrd.html">ToWrd</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">gettextf</a></span><span class="op">(</span><span class="st">"This is Arial size %s \n"</span>, <span class="va">i</span><span class="op">)</span>, font<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name<span class="op">=</span><span class="st">"Arial"</span>, size<span class="op">=</span><span class="va">i</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span>  <span class="co"># Windows-specific example</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">wrd</span> <span class="op">&lt;-</span> <span class="fu"><a href="GetNewWrd.html">GetNewWrd</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">24</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="ToWrd.html">ToWrd</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">gettextf</a></span><span class="op">(</span><span class="st">"This is Arial size %s \n"</span>, <span class="va">i</span><span class="op">)</span>, font<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name<span class="op">=</span><span class="st">"Arial"</span>, size<span class="op">=</span><span class="va">i</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in wrd[["Selection"]]$InsertAfter(paste(x, collapse = "\n")):</span> attempt to apply non-function</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">24</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu"><a href="ToWrd.html">ToWrd</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">gettextf</a></span><span class="op">(</span><span class="st">"This is Times size %s \n"</span>, <span class="va">i</span><span class="op">)</span>, font<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name<span class="op">=</span><span class="st">"Times"</span>, size<span class="op">=</span><span class="va">i</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">24</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="ToWrd.html">ToWrd</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">gettextf</a></span><span class="op">(</span><span class="st">"This is Times size %s \n"</span>, <span class="va">i</span><span class="op">)</span>, font<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name<span class="op">=</span><span class="st">"Times"</span>, size<span class="op">=</span><span class="va">i</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in wrd[["Selection"]]$InsertAfter(paste(x, collapse = "\n")):</span> attempt to apply non-function</span>
 </code></pre></div>
     </div>
@@ -156,7 +167,7 @@ The defined colors can be listed with <code>grep("wdColor", names(wdConst), val=
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

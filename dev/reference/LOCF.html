@@ -21,7 +21,7 @@ LOCF() replaces NAs with the most recent non-NA prior to it."><meta name="robots
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -89,14 +89,14 @@ that variable for each individual regardless of when it occurred.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">LOCF</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-
-<span class="co"># S3 method for default</span>
-<span class="fu">LOCF</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="co"># S3 method for data.frame</span>
-<span class="fu">LOCF</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="co"># S3 method for matrix</span>
-<span class="fu">LOCF</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">LOCF</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">LOCF</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for data.frame</span></span>
+<span><span class="fu">LOCF</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for matrix</span></span>
+<span><span class="fu">LOCF</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -104,6 +104,7 @@ that variable for each individual regardless of when it occurred.</p>
     <dl><dt>x</dt>
 <dd><p>a vector, a data.frame or a matrix containing NAs.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -127,12 +128,12 @@ the variability.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">d.frm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span class="r-in">  tag<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mo"</span>, <span class="st">"di"</span>, <span class="st">"mi"</span>, <span class="st">"do"</span>, <span class="st">"fr"</span>, <span class="st">"sa"</span>, <span class="st">"so"</span><span class="op">)</span>, <span class="fl">4</span><span class="op">)</span></span>
-<span class="r-in">, val<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="cn">NA</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span>, <span class="fl">4</span><span class="op">)</span> <span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">d.frm</span><span class="op">$</span><span class="va">locf</span> <span class="op">&lt;-</span> <span class="fu">LOCF</span><span class="op">(</span> <span class="va">d.frm</span><span class="op">$</span><span class="va">val</span> <span class="op">)</span></span>
-<span class="r-in"><span class="va">d.frm</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">d.frm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  tag<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mo"</span>, <span class="st">"di"</span>, <span class="st">"mi"</span>, <span class="st">"do"</span>, <span class="st">"fr"</span>, <span class="st">"sa"</span>, <span class="st">"so"</span><span class="op">)</span>, <span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span>, val<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="cn">NA</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span>, <span class="fl">4</span><span class="op">)</span> <span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">d.frm</span><span class="op">$</span><span class="va">locf</span> <span class="op">&lt;-</span> <span class="fu">LOCF</span><span class="op">(</span> <span class="va">d.frm</span><span class="op">$</span><span class="va">val</span> <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">d.frm</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    tag       val      locf</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   mo 0.3191548 0.3191548</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   di 0.2087307 0.2087307</span>
@@ -176,7 +177,7 @@ the variability.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

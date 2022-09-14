@@ -18,7 +18,7 @@ Scores from both groups are pooled and converted to ranks, and the test statisti
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -84,35 +84,44 @@ Scores from both groups are pooled and converted to ranks, and the test statisti
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">MosesTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for default</span>
-<span class="fu">MosesTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, extreme <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for formula</span>
-<span class="fu">MosesTest</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">subset</span>, <span class="va">na.action</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">MosesTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">MosesTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, extreme <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for formula</span></span>
+<span><span class="fu">MosesTest</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">subset</span>, <span class="va">na.action</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>numeric vector of data values. <code>x</code> will be treated as control group. Non-finite (e.g. infinite or missing) values will be omitted.</p></dd>
-<dt>y</dt>
+
+  <dt>y</dt>
 <dd><p>numeric vector of data values. <code>y</code> will be treated as experiment group. Non-finite (e.g. infinite or missing) values will be omitted.</p></dd>
-<dt>formula</dt>
+
+  <dt>formula</dt>
 <dd><p>a formula of the form <code>lhs ~ rhs</code> where <code>lhs</code> gives the data values and rhs the corresponding groups.</p></dd>
-<dt>data</dt>
+
+  <dt>data</dt>
 <dd><p>an optional matrix or data frame (or similar: see <code><a href="https://rdrr.io/r/stats/model.frame.html" class="external-link">model.frame</a></code>) containing the variables in the formula <code>formula</code>.
     By default the variables are taken from <code>environment(formula)</code>.</p></dd>
-<dt>subset</dt>
+
+  <dt>subset</dt>
 <dd><p>an optional vector specifying a subset of observations to be used.</p></dd>
-<dt>na.action</dt>
+
+  <dt>na.action</dt>
 <dd><p>a function which indicates what should happen when the data contain <code>NA</code>s. Defaults to <code>getOption("na.action")</code>.</p></dd>
+
 <dt>extreme</dt>
 <dd><p>integer, defines the number of extreme values to be dropped from the control group before calculating the
 span. Default (<code>NULL</code>) is the integer part of <code>0.05 * length(x)</code> or <code>1</code>, whichever is greater. If extreme is too large, it will be cut down to <code>floor(length(x)-2)/2</code>.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>further arguments to be passed to or from methods.</p></dd>
+
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -123,15 +132,21 @@ from which the sample with the larger range was drawn.</p>
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list with class “htest” containing the following components:</p>
+    
+
+<p>A list with class “htest” containing the following components:</p>
 <dl><dt>statistic</dt>
 <dd><p>the value of the Moses Test statistic.</p></dd>
-<dt>p.value</dt>
+
+  <dt>p.value</dt>
 <dd><p>the p-value for the test.</p></dd>
-<dt>method</dt>
+
+  <dt>method</dt>
 <dd><p>the character string “Moses Test of Extreme Reactions”.</p></dd>
-<dt>data.name</dt>
+
+  <dt>data.name</dt>
 <dd><p>a character string giving the name(s) of the data.</p></dd>
+
 </dl></div>
     <div id="references">
     <h2>References</h2>
@@ -148,10 +163,10 @@ from which the sample with the larger range was drawn.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.80</span>, <span class="fl">0.83</span>, <span class="fl">1.89</span>, <span class="fl">1.04</span>, <span class="fl">1.45</span>, <span class="fl">1.38</span>, <span class="fl">1.91</span>, <span class="fl">1.64</span>, <span class="fl">0.73</span>, <span class="fl">1.46</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.15</span>, <span class="fl">0.88</span>, <span class="fl">0.90</span>, <span class="fl">0.74</span>, <span class="fl">1.21</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">MosesTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.80</span>, <span class="fl">0.83</span>, <span class="fl">1.89</span>, <span class="fl">1.04</span>, <span class="fl">1.45</span>, <span class="fl">1.38</span>, <span class="fl">1.91</span>, <span class="fl">1.64</span>, <span class="fl">0.73</span>, <span class="fl">1.46</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.15</span>, <span class="fl">0.88</span>, <span class="fl">0.90</span>, <span class="fl">0.74</span>, <span class="fl">1.21</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">MosesTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Moses Test of Extreme Reactions</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -159,13 +174,13 @@ from which the sample with the larger range was drawn.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> S = 12, p-value = 0.8462</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: extreme values are more likely in x than in y</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1479</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span>, <span class="fl">10</span>, replace<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">5</span><span class="op">:</span><span class="fl">25</span>, <span class="fl">6</span>, replace<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">MosesTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1479</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span>, <span class="fl">10</span>, replace<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">5</span><span class="op">:</span><span class="fl">25</span>, <span class="fl">6</span>, replace<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">MosesTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Moses Test of Extreme Reactions</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -187,7 +202,7 @@ from which the sample with the larger range was drawn.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

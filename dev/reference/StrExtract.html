@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,9 +87,9 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">StrExtract</span><span class="op">(</span><span class="va">x</span>, <span class="va">pattern</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">StrExtractBetween</span><span class="op">(</span><span class="va">x</span>, <span class="va">left</span>, <span class="va">right</span>, greedy <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">StrExtract</span><span class="op">(</span><span class="va">x</span>, <span class="va">pattern</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">StrExtractBetween</span><span class="op">(</span><span class="va">x</span>, <span class="va">left</span>, <span class="va">right</span>, greedy <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -97,17 +97,23 @@
     <dl><dt>x</dt>
 <dd><p>a character vector where matches are sought, or an object which can be coerced by <code>as.character</code> to a character vector.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>pattern</dt>
+
+  <dt>pattern</dt>
 <dd><p>character string containing a regular expression (or character string for <code>fixed = TRUE</code>) to be matched in the given character vector. Coerced by <code><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></code> to a character string if possible. If a character vector of length 2 or more is supplied, the first element is used with a warning. Missing values are not allowed.
 <!-- %%     ~~Describe \code{pattern} here~~ --></p></dd>
+
 <dt>left</dt>
 <dd><p>left character(s) limiting the string to be extracted</p></dd>
+
 <dt>right</dt>
 <dd><p>right character(s) limiting the string to be extracted</p></dd>
+
 <dt>greedy</dt>
 <dd><p>logical, determines whether the first found match for <code>right</code> should be used (<code>FALSE</code>, default) or the last (<code>TRUE</code>).</p></dd>
+
 <dt>...</dt>
 <dd><p>the dots are passed to the the internally used function <code><a href="https://rdrr.io/r/base/grep.html" class="external-link">regexpr</a>()</code>, which allows to use e.g. Perl-like regular expressions.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -117,7 +123,21 @@
     <div id="value">
     <h2>Value</h2>
     <p>A character vector.
-<!-- %%  ~Describe the value returned --><!-- %%  If it is a LIST, use --><!-- %%  \item{comp1 }{Description of 'comp1'} --><!-- %%  \item{comp2 }{Description of 'comp2'} --><!-- %% ... --></p>
+<!-- %%  ~Describe the value returned --></p>
+
+
+<p><!-- %%  If it is a LIST, use --></p>
+
+
+<p><!-- %%  \item{comp1 }{Description of 'comp1'} --></p>
+
+
+<p><!-- %%  \item{comp2 }{Description of 'comp2'} --></p>
+
+
+<p><!-- %% ... --></p>
+
+
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -132,20 +152,20 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">txt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"G1:E001"</span>, <span class="st">"No points here"</span>, <span class="st">"G2:E002"</span>, <span class="st">"G3:E003"</span>, <span class="cn">NA</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># extract everything after the :</span></span>
-<span class="r-in"><span class="fu">StrExtract</span><span class="op">(</span>x<span class="op">=</span><span class="va">txt</span>, pattern<span class="op">=</span><span class="st">":.*"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">txt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"G1:E001"</span>, <span class="st">"No points here"</span>, <span class="st">"G2:E002"</span>, <span class="st">"G3:E003"</span>, <span class="cn">NA</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># extract everything after the :</span></span></span>
+<span class="r-in"><span><span class="fu">StrExtract</span><span class="op">(</span>x<span class="op">=</span><span class="va">txt</span>, pattern<span class="op">=</span><span class="st">":.*"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] ":E001" NA      ":E002" ":E003" NA     </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># extract everything between "left" and "right"</span></span>
-<span class="r-in"><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"yBS (23A) 890"</span>, <span class="st">"l 89Z) 890.?/"</span>, <span class="st">"WS (55X) 8(90)"</span>, <span class="st">"123 abc"</span>, <span class="st">"none"</span>, <span class="cn">NA</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># everything enclosed by spaces</span></span>
-<span class="r-in"><span class="fu">StrExtractBetween</span><span class="op">(</span><span class="va">z</span>, <span class="st">" "</span>, <span class="st">" "</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># extract everything between "left" and "right"</span></span></span>
+<span class="r-in"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"yBS (23A) 890"</span>, <span class="st">"l 89Z) 890.?/"</span>, <span class="st">"WS (55X) 8(90)"</span>, <span class="st">"123 abc"</span>, <span class="st">"none"</span>, <span class="cn">NA</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># everything enclosed by spaces</span></span></span>
+<span class="r-in"><span><span class="fu">StrExtractBetween</span><span class="op">(</span><span class="va">z</span>, <span class="st">" "</span>, <span class="st">" "</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "(23A)" "89Z)"  "(55X)" NA      NA      NA     </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># note to escape special characters</span></span>
-<span class="r-in"><span class="fu">StrExtractBetween</span><span class="op">(</span><span class="va">z</span>, <span class="st">"\\("</span>, <span class="st">"\\)"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># note to escape special characters</span></span></span>
+<span class="r-in"><span><span class="fu">StrExtractBetween</span><span class="op">(</span><span class="va">z</span>, <span class="st">"\\("</span>, <span class="st">"\\)"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "23A" NA    "55X" NA    NA    NA   </span>
 </code></pre></div>
     </div>
@@ -161,7 +181,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

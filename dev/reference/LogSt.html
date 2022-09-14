@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,9 +87,9 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">LogSt</span><span class="op">(</span><span class="va">x</span>, base <span class="op">=</span> <span class="fl">10</span>, calib <span class="op">=</span> <span class="va">x</span>, threshold <span class="op">=</span> <span class="cn">NULL</span>, mult <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-
-<span class="fu">LogStInv</span><span class="op">(</span><span class="va">x</span>, base <span class="op">=</span> <span class="cn">NULL</span>, threshold <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">LogSt</span><span class="op">(</span><span class="va">x</span>, base <span class="op">=</span> <span class="fl">10</span>, calib <span class="op">=</span> <span class="va">x</span>, threshold <span class="op">=</span> <span class="cn">NULL</span>, mult <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">LogStInv</span><span class="op">(</span><span class="va">x</span>, base <span class="op">=</span> <span class="cn">NULL</span>, threshold <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -97,20 +97,26 @@
     <dl><dt>x</dt>
 <dd><p>a vector or matrix of data, which is to be transformed
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>base</dt>
+
+  <dt>base</dt>
 <dd><p>a positive or complex number: the base with respect to which logarithms are computed. Defaults to 10. Use=exp(1) for natural log.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>calib</dt>
+
+
+  <dt>calib</dt>
 <dd><p>a vector or matrix of data used to calibrate the transformation(s), i.e., to determine
 the constant \(c\) needed
 <!-- %%     ~~Describe \code{calib} here~~ --></p></dd>
-<dt>threshold</dt>
+
+  <dt>threshold</dt>
 <dd><p>constant \(c\) that determines the transformation. The inverse function <code>LogStInv</code> will
   look for an attribute named <code>"threshold"</code> if the argument is set to <code>NULL</code>.
 <!-- %%     ~~Describe \code{threshold} here~~ --></p></dd>
-<dt>mult</dt>
+
+  <dt>mult</dt>
 <dd><p>a tuning constant affecting the transformation of small values, see <code>Details</code>.
 <!-- %%     ~~Describe \code{mult} here~~ --></p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -133,9 +139,9 @@ The rationale is, that, for lognormal data, this constant identifies 2 percent o
 Beyond this limit, the transformation continues linear with the derivative of the log curve at this point. <br></p>
 <p>Another idea for choosing the threshold \(c\) was: median(x) / (median(x)/quantile(x, 0.25))^2.9)<br><br>
 The function chooses \(log_{10}\) rather than natural logs by default because they can be backtransformed relatively easily in mind.</p>
-<p>A generalized log (see: Rocke 2003) can be calculated in order to stabilize the variance as:</p><div class="sourceCode"><pre><code><span class="kw">function</span> <span class="op">(</span><span class="va">x</span>, <span class="va">a</span><span class="op">)</span> <span class="op">{</span>
- <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">a</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<p>A generalized log (see: Rocke 2003) can be calculated in order to stabilize the variance as:</p><div class="sourceCode"><pre><code><span><span class="kw">function</span> <span class="op">(</span><span class="va">x</span>, <span class="va">a</span><span class="op">)</span> <span class="op">{</span></span>
+<span> <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">a</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 
     </div>
     <div id="value">
@@ -157,16 +163,16 @@ The function chooses \(log_{10}\) rather than natural logs by default because th
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">dd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0.1</span><span class="op">)</span>, <span class="fl">5</span> <span class="op">*</span> <span class="fl">10</span><span class="op">^</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">0</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="va">dd</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">r.dl</span> <span class="op">&lt;-</span> <span class="fu">LogSt</span><span class="op">(</span><span class="va">dd</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dd</span>, <span class="va">r.dl</span>, type<span class="op">=</span><span class="st">"l"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>v<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">r.dl</span>, <span class="st">"threshold"</span><span class="op">)</span>, lty<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">dd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0.1</span><span class="op">)</span>, <span class="fl">5</span> <span class="op">*</span> <span class="fl">10</span><span class="op">^</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">0</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="va">dd</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">r.dl</span> <span class="op">&lt;-</span> <span class="fu">LogSt</span><span class="op">(</span><span class="va">dd</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dd</span>, <span class="va">r.dl</span>, type<span class="op">=</span><span class="st">"l"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>v<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">r.dl</span>, <span class="st">"threshold"</span><span class="op">)</span>, lty<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="LogSt-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html" class="external-link">rchisq</a></span><span class="op">(</span>df<span class="op">=</span><span class="fl">3</span>, n<span class="op">=</span><span class="fl">100</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># should give 0 (or at least something small):</span></span>
-<span class="r-in"><span class="fu">LogStInv</span><span class="op">(</span><span class="fu">LogSt</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="va">x</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html" class="external-link">rchisq</a></span><span class="op">(</span>df<span class="op">=</span><span class="fl">3</span>, n<span class="op">=</span><span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># should give 0 (or at least something small):</span></span></span>
+<span class="r-in"><span><span class="fu">LogStInv</span><span class="op">(</span><span class="fu">LogSt</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="va">x</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1]  4.440892e-16  0.000000e+00  0.000000e+00  0.000000e+00  0.000000e+00</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [6]  0.000000e+00 -1.776357e-15  0.000000e+00  0.000000e+00  0.000000e+00</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [11]  0.000000e+00  0.000000e+00  8.881784e-16  0.000000e+00  0.000000e+00</span>
@@ -201,7 +207,7 @@ The function chooses \(log_{10}\) rather than natural logs by default because th
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

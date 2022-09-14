@@ -18,7 +18,7 @@ as.Date("2013-01-31") + 1 month will be "2013-02-28". If number n is negative, t
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -84,7 +84,7 @@ as.Date("2013-01-31") + 1 month will be "2013-02-28". If number n is negative, t
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">AddMonths</span><span class="op">(</span><span class="va">x</span>, <span class="va">n</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">AddMonths</span><span class="op">(</span><span class="va">x</span>, <span class="va">n</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -93,12 +93,15 @@ as.Date("2013-01-31") + 1 month will be "2013-02-28". If number n is negative, t
 <dd><p>a Date object (or something which can be coerced by <code><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></code>(x, ...) to such an object)
   to which a number of months has to be added.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>n</dt>
+
+  <dt>n</dt>
 <dd><p>the number of months to be added. If n is negative the months will be subtracted.
 <!-- %%     ~~Describe \code{n} here~~ --></p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>the dots are passed to <code><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></code>, e.g. for supplying <code>origin</code>.
 <!-- %%     ~~Describe \code{ceiling} here~~ --></p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -124,28 +127,28 @@ as.Date("2013-01-31") + 1 month will be "2013-02-28". If number n is negative, t
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># characters will be coerced to Date</span></span>
-<span class="r-in"><span class="fu">AddMonths</span><span class="op">(</span><span class="st">"2013-01-31"</span>, <span class="fl">1</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># characters will be coerced to Date</span></span></span>
+<span class="r-in"><span><span class="fu">AddMonths</span><span class="op">(</span><span class="st">"2013-01-31"</span>, <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2013-02-28"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># negative n</span></span>
-<span class="r-in"><span class="fu">AddMonths</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2013-03-31"</span><span class="op">)</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># negative n</span></span></span>
+<span class="r-in"><span><span class="fu">AddMonths</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2013-03-31"</span><span class="op">)</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2013-02-28"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Arguments will be recycled</span></span>
-<span class="r-in"><span class="co"># (with warning if the longer is not a multiple of length of shorter)</span></span>
-<span class="r-in"><span class="fu">AddMonths</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2013-01-31"</span>, <span class="st">"2013-03-31"</span>, <span class="st">"2013-10-31"</span>, <span class="st">"2013-12-31"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Arguments will be recycled</span></span></span>
+<span class="r-in"><span><span class="co"># (with warning if the longer is not a multiple of length of shorter)</span></span></span>
+<span class="r-in"><span><span class="fu">AddMonths</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2013-01-31"</span>, <span class="st">"2013-03-31"</span>, <span class="st">"2013-10-31"</span>, <span class="st">"2013-12-31"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2013-02-28" "2013-02-28" "2013-11-30" "2013-11-30"</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2015-01-31"</span>, <span class="st">"2015-08-31"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">AddMonths</span><span class="op">(</span><span class="va">x</span>, <span class="va">n</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2015-01-31"</span>, <span class="st">"2015-08-31"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">AddMonths</span><span class="op">(</span><span class="va">x</span>, <span class="va">n</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2015-02-28" "2015-11-30"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># mind the origin if x supplied as numeric ...</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">AddMonths</span><span class="op">(</span><span class="va">x</span>, <span class="va">n</span>, origin<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"1970-01-01"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># mind the origin if x supplied as numeric ...</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">AddMonths</span><span class="op">(</span><span class="va">x</span>, <span class="va">n</span>, origin<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"1970-01-01"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2015-02-28" "2015-11-30"</span>
 </code></pre></div>
     </div>
@@ -161,7 +164,7 @@ as.Date("2013-01-31") + 1 month will be "2013-02-28". If number n is negative, t
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

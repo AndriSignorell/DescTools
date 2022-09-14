@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,10 +87,10 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">LehmacherTest</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
-
-<span class="co"># S3 method for mtest</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="fl">4L</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">LehmacherTest</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for mtest</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="fl">4L</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -98,13 +98,17 @@
     <dl><dt>x</dt>
 <dd><p>either a two-dimensional contingency table in matrix form, or a factor object.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>y</dt>
+
+  <dt>y</dt>
 <dd><p>a factor object; ignored if x is a matrix.
 <!-- %%     ~~Describe \code{y} here~~ --></p></dd>
+
 <dt>digits</dt>
 <dd><p>a non-null value for digits specifies the minimum number of significant digits to be printed in values. See details in <code><a href="https://rdrr.io/r/base/print.default.html" class="external-link">print.default</a></code>.</p></dd>
+
 <dt>...</dt>
 <dd><p>further arguments to be passed to or from other methods. They are ignored in this function.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -114,21 +118,44 @@
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list with class <code>"mtest"</code> containing the following components:</p>
+    
+
+<p>A list with class <code>"mtest"</code> containing the following components:</p>
 <dl><dt>statistic</dt>
 <dd><p>a vector with the value of the test statistics.</p></dd>
-<dt>parameter</dt>
+
+  <dt>parameter</dt>
 <dd><p>the degrees of freedom, which is always 1 in LehmacherTest.</p></dd>
-<dt>p.value</dt>
+
+  <dt>p.value</dt>
 <dd><p>a vector with the p-values of the single tests.</p></dd>
-<dt>p.value.corr</dt>
+
+  <dt>p.value.corr</dt>
 <dd><p>a vector with the "hochberg" adjusted p-values of the single tests. (See <code><a href="https://rdrr.io/r/stats/p.adjust.html" class="external-link">p.adjust</a></code>)</p></dd>
-<dt>method</dt>
+
+  <dt>method</dt>
 <dd><p>a character string indicating what type of test was
     performed.</p></dd>
-<dt>data.name</dt>
+ 
+  <dt>data.name</dt>
 <dd><p>a character string giving the name of the data.</p></dd>
-</dl><p><!-- %%  ~Describe the value returned --><!-- %%  If it is a LIST, use --><!-- %%  \item{comp1 }{Description of 'comp1'} --><!-- %%  \item{comp2 }{Description of 'comp2'} --><!-- %% ... --></p>
+
+
+</dl><p><!-- %%  ~Describe the value returned --></p>
+
+
+<p><!-- %%  If it is a LIST, use --></p>
+
+
+<p><!-- %%  \item{comp1 }{Description of 'comp1'} --></p>
+
+
+<p><!-- %%  \item{comp2 }{Description of 'comp2'} --></p>
+
+
+<p><!-- %% ... --></p>
+
+
     </div>
     <div id="references">
     <h2>References</h2>
@@ -149,12 +176,12 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">400</span>,<span class="fl">40</span>,<span class="fl">20</span>,<span class="fl">10</span>, </span>
-<span class="r-in">              <span class="fl">50</span>,<span class="fl">300</span>,<span class="fl">60</span>,<span class="fl">20</span>, </span>
-<span class="r-in">              <span class="fl">10</span>,<span class="fl">40</span>,<span class="fl">120</span>,<span class="fl">5</span>, </span>
-<span class="r-in">              <span class="fl">5</span>,<span class="fl">90</span>,<span class="fl">50</span>,<span class="fl">80</span><span class="op">)</span>, nrow<span class="op">=</span><span class="fl">4</span>, byrow<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in">              </span>
-<span class="r-in"><span class="fu">LehmacherTest</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">400</span>,<span class="fl">40</span>,<span class="fl">20</span>,<span class="fl">10</span>, </span></span>
+<span class="r-in"><span>              <span class="fl">50</span>,<span class="fl">300</span>,<span class="fl">60</span>,<span class="fl">20</span>, </span></span>
+<span class="r-in"><span>              <span class="fl">10</span>,<span class="fl">40</span>,<span class="fl">120</span>,<span class="fl">5</span>, </span></span>
+<span class="r-in"><span>              <span class="fl">5</span>,<span class="fl">90</span>,<span class="fl">50</span>,<span class="fl">80</span><span class="op">)</span>, nrow<span class="op">=</span><span class="fl">4</span>, byrow<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>              </span></span>
+<span class="r-in"><span><span class="fu">LehmacherTest</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Lehmacher-Test on Marginal Homogeneity</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -182,7 +209,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

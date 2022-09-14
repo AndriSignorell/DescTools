@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -82,42 +82,53 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">JonckheereTerpstraTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for default</span>
-<span class="fu">JonckheereTerpstraTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">g</span>, alternative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"increasing"</span>, <span class="st">"decreasing"</span><span class="op">)</span>, 
-                       nperm <span class="op">=</span> <span class="cn">NULL</span>, exact <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for formula</span>
-<span class="fu">JonckheereTerpstraTest</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">subset</span>, <span class="va">na.action</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">JonckheereTerpstraTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">JonckheereTerpstraTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">g</span>, alternative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"increasing"</span>, <span class="st">"decreasing"</span><span class="op">)</span>, </span>
+<span>                       nperm <span class="op">=</span> <span class="cn">NULL</span>, exact <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for formula</span></span>
+<span><span class="fu">JonckheereTerpstraTest</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">subset</span>, <span class="va">na.action</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>a numeric vector of data values, or a list of numeric data vectors.</p></dd>
-<dt>g</dt>
+
+  <dt>g</dt>
 <dd><p>a vector or factor object giving the group for the corresponding elements of x. Ignored if x is a list.</p></dd>
-<dt>alternative</dt>
+
+  
+  <dt>alternative</dt>
 <dd><p>means are monotonic (<code>two.sided</code>), <code>increasing</code>, or
     <code>decreasing</code></p></dd>
-<dt>nperm</dt>
+
+  <dt>nperm</dt>
 <dd><p>number of permutations for the reference distribution.
     The default is <code>NULL</code> in which case the permutation p-value is not
     computed. It's recommended to set <code>nperm</code> to 1000 or higher if permutation p-value is desired.</p></dd>
-<dt>formula</dt>
+
+  <dt>formula</dt>
 <dd><p>a formula of the form <code>lhs ~ rhs</code> where <code>lhs</code> gives the data values and rhs the corresponding groups.</p></dd>
-<dt>data</dt>
+  
+  <dt>data</dt>
 <dd><p>an optional matrix or data frame (or similar: see <code><a href="https://rdrr.io/r/stats/model.frame.html" class="external-link">model.frame</a></code>) containing the variables in the formula <code>formula</code>. 
     By default the variables are taken from <code>environment(formula)</code>.</p></dd>
-<dt>subset</dt>
+  
+  <dt>subset</dt>
 <dd><p>an optional vector specifying a subset of observations to be used.</p></dd>
-<dt>na.action</dt>
+  
+  <dt>na.action</dt>
 <dd><p>a function which indicates what should happen when the data contain NAs. Defaults to <code>getOption("na.action")</code>.</p></dd>
-<dt>exact</dt>
+  
+  <dt>exact</dt>
 <dd><p>logical, defining if the exact test should be calculated. If left to <code>NULL</code>, the function uses the exact test up to a samplesize of 100 and falls back to normal approximation for larger samples. The exact procedure can not be applied to samples containing ties.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>further argument to be passed to methods.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -155,16 +166,16 @@ integrated here without logical changes. Some argument checks and a formula inte
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1234</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">ordered</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0.3</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">JonckheereTerpstraTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">g</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1234</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">ordered</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0.3</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">JonckheereTerpstraTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">g</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Fortran("jtpdf", as.integer(mxsum), pdf = double(mxsum), as.integer(ng),     as.integer(cgsize), double(mxsum), double(mxsum)):</span> Fortran symbol name "jtpdf" not in load table</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="co"># tied data</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">JonckheereTerpstraTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">g</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="co"># tied data</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">JonckheereTerpstraTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">g</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sample size &gt; 100 or data with ties </span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span>  p-value based on normal approximation. Specify nperm for permutation p-value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -174,7 +185,7 @@ integrated here without logical changes. Some argument checks and a formula inte
 <span class="r-out co"><span class="r-pr">#&gt;</span> JT = 639, p-value = 0.01741</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: two.sided</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">JonckheereTerpstraTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">g</span>, nperm<span class="op">=</span><span class="fl">5000</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">JonckheereTerpstraTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">g</span>, nperm<span class="op">=</span><span class="fl">5000</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sample size &gt; 100 or data with ties </span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span>  p-value based on normal approximation. Specify nperm for permutation p-value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -184,23 +195,23 @@ integrated here without logical changes. Some argument checks and a formula inte
 <span class="r-out co"><span class="r-pr">#&gt;</span> JT = 639, p-value = 0.0136</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: two.sided</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Duller, S. 222</span></span>
-<span class="r-in"><span class="va">coffee</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span class="r-in">  c_4<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">447</span>,<span class="fl">396</span>,<span class="fl">383</span>,<span class="fl">410</span><span class="op">)</span>,</span>
-<span class="r-in">  c_2<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">438</span>,<span class="fl">521</span>,<span class="fl">468</span>,<span class="fl">391</span>,<span class="fl">504</span>,<span class="fl">472</span><span class="op">)</span>,</span>
-<span class="r-in">  c_0<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">513</span>,<span class="fl">543</span>,<span class="fl">506</span>,<span class="fl">489</span>,<span class="fl">407</span><span class="op">)</span><span class="op">)</span>  </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># the list interface:</span></span>
-<span class="r-in"><span class="fu">JonckheereTerpstraTest</span><span class="op">(</span><span class="va">coffee</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Duller, S. 222</span></span></span>
+<span class="r-in"><span><span class="va">coffee</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  c_4<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">447</span>,<span class="fl">396</span>,<span class="fl">383</span>,<span class="fl">410</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  c_2<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">438</span>,<span class="fl">521</span>,<span class="fl">468</span>,<span class="fl">391</span>,<span class="fl">504</span>,<span class="fl">472</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  c_0<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">513</span>,<span class="fl">543</span>,<span class="fl">506</span>,<span class="fl">489</span>,<span class="fl">407</span><span class="op">)</span><span class="op">)</span>  </span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># the list interface:</span></span></span>
+<span class="r-in"><span><span class="fu">JonckheereTerpstraTest</span><span class="op">(</span><span class="va">coffee</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Fortran("jtpdf", as.integer(mxsum), pdf = double(mxsum), as.integer(ng),     as.integer(cgsize), double(mxsum), double(mxsum)):</span> Fortran symbol name "jtpdf" not in load table</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># the formula interface</span></span>
-<span class="r-in"><span class="va">breaking</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span class="r-in">  speed<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>,<span class="fl">25</span>,<span class="fl">25</span>,<span class="fl">25</span>,<span class="fl">25</span>,<span class="fl">30</span>,<span class="fl">30</span>,<span class="fl">30</span>,<span class="fl">35</span>,<span class="fl">35</span><span class="op">)</span>,</span>
-<span class="r-in">  distance<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">48</span>,<span class="fl">33</span>,<span class="fl">59</span>,<span class="fl">48</span>,<span class="fl">56</span>,<span class="fl">60</span>,<span class="fl">101</span>,<span class="fl">67</span>,<span class="fl">85</span>,<span class="fl">107</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">JonckheereTerpstraTest</span><span class="op">(</span><span class="va">distance</span> <span class="op">~</span> <span class="va">speed</span>, <span class="va">breaking</span>, alternative<span class="op">=</span><span class="st">"increasing"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># the formula interface</span></span></span>
+<span class="r-in"><span><span class="va">breaking</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  speed<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>,<span class="fl">25</span>,<span class="fl">25</span>,<span class="fl">25</span>,<span class="fl">25</span>,<span class="fl">30</span>,<span class="fl">30</span>,<span class="fl">30</span>,<span class="fl">35</span>,<span class="fl">35</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  distance<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">48</span>,<span class="fl">33</span>,<span class="fl">59</span>,<span class="fl">48</span>,<span class="fl">56</span>,<span class="fl">60</span>,<span class="fl">101</span>,<span class="fl">67</span>,<span class="fl">85</span>,<span class="fl">107</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">JonckheereTerpstraTest</span><span class="op">(</span><span class="va">distance</span> <span class="op">~</span> <span class="va">speed</span>, <span class="va">breaking</span>, alternative<span class="op">=</span><span class="st">"increasing"</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sample size &gt; 100 or data with ties </span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span>  p-value based on normal approximation. Specify nperm for permutation p-value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -210,7 +221,7 @@ integrated here without logical changes. Some argument checks and a formula inte
 <span class="r-out co"><span class="r-pr">#&gt;</span> JT = 32.5, p-value = 0.002263</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: increasing</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -225,7 +236,7 @@ integrated here without logical changes. Some argument checks and a formula inte
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

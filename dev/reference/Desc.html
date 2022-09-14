@@ -23,7 +23,7 @@ A 2-dimensional table will be described with it's relative frequencies, a short 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -93,63 +93,63 @@ A 2-dimensional table will be described with it's relative frequencies, a short 
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Desc</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, main <span class="op">=</span> <span class="cn">NULL</span>, plotit <span class="op">=</span> <span class="cn">NULL</span>, wrd <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
-
-<span class="co"># S3 method for default</span>
-<span class="fu">Desc</span><span class="op">(</span><span class="va">x</span>, main <span class="op">=</span> <span class="cn">NULL</span>, maxrows <span class="op">=</span> <span class="cn">NULL</span>, ord <span class="op">=</span> <span class="cn">NULL</span>,
-     conf.level <span class="op">=</span> <span class="fl">0.95</span>, verbose <span class="op">=</span> <span class="fl">2</span>, rfrq <span class="op">=</span> <span class="st">"111"</span>, margins <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>,
-     dprobs <span class="op">=</span> <span class="cn">NULL</span>, mprobs <span class="op">=</span> <span class="cn">NULL</span>, plotit <span class="op">=</span> <span class="cn">NULL</span>, sep <span class="op">=</span> <span class="cn">NULL</span>, digits <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for data.frame</span>
-<span class="fu">Desc</span><span class="op">(</span><span class="va">x</span>, main <span class="op">=</span> <span class="cn">NULL</span>, plotit <span class="op">=</span> <span class="cn">NULL</span>, enum <span class="op">=</span> <span class="cn">TRUE</span>, sep <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for list</span>
-<span class="fu">Desc</span><span class="op">(</span><span class="va">x</span>, main <span class="op">=</span> <span class="cn">NULL</span>, plotit <span class="op">=</span> <span class="cn">NULL</span>, enum <span class="op">=</span> <span class="cn">TRUE</span>, sep <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for numeric</span>
-<span class="fu">Desc</span><span class="op">(</span><span class="va">x</span>, main <span class="op">=</span> <span class="cn">NULL</span>, maxrows <span class="op">=</span> <span class="cn">NULL</span>, plotit <span class="op">=</span> <span class="cn">NULL</span>,
-     sep <span class="op">=</span> <span class="cn">NULL</span>, digits <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for integer</span>
-<span class="fu">Desc</span><span class="op">(</span><span class="va">x</span>, main <span class="op">=</span> <span class="cn">NULL</span>, maxrows <span class="op">=</span> <span class="cn">NULL</span>, plotit <span class="op">=</span> <span class="cn">NULL</span>,
-     sep <span class="op">=</span> <span class="cn">NULL</span>, digits <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for factor</span>
-<span class="fu">Desc</span><span class="op">(</span><span class="va">x</span>, main <span class="op">=</span> <span class="cn">NULL</span>, maxrows <span class="op">=</span> <span class="cn">NULL</span>, ord <span class="op">=</span> <span class="cn">NULL</span>, plotit <span class="op">=</span> <span class="cn">NULL</span>,
-     sep <span class="op">=</span> <span class="cn">NULL</span>, digits <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for ordered</span>
-<span class="fu">Desc</span><span class="op">(</span><span class="va">x</span>, main <span class="op">=</span> <span class="cn">NULL</span>, maxrows <span class="op">=</span> <span class="cn">NULL</span>, ord <span class="op">=</span> <span class="cn">NULL</span>, plotit <span class="op">=</span> <span class="cn">NULL</span>,
-     sep <span class="op">=</span> <span class="cn">NULL</span>, digits <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for character</span>
-<span class="fu">Desc</span><span class="op">(</span><span class="va">x</span>, main <span class="op">=</span> <span class="cn">NULL</span>, maxrows <span class="op">=</span> <span class="cn">NULL</span>, ord <span class="op">=</span> <span class="cn">NULL</span>, plotit <span class="op">=</span> <span class="cn">NULL</span>,
-     sep <span class="op">=</span> <span class="cn">NULL</span>, digits <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for logical</span>
-<span class="fu">Desc</span><span class="op">(</span><span class="va">x</span>, main <span class="op">=</span> <span class="cn">NULL</span>, ord <span class="op">=</span> <span class="cn">NULL</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span>, plotit <span class="op">=</span> <span class="cn">NULL</span>,
-     sep <span class="op">=</span> <span class="cn">NULL</span>, digits <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for Date</span>
-<span class="fu">Desc</span><span class="op">(</span><span class="va">x</span>, main <span class="op">=</span> <span class="cn">NULL</span>, dprobs <span class="op">=</span> <span class="cn">NULL</span>, mprobs <span class="op">=</span> <span class="cn">NULL</span>, plotit <span class="op">=</span> <span class="cn">NULL</span>,
-     sep <span class="op">=</span> <span class="cn">NULL</span>, digits <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for table</span>
-<span class="fu">Desc</span><span class="op">(</span><span class="va">x</span>, main <span class="op">=</span> <span class="cn">NULL</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span>, verbose <span class="op">=</span> <span class="fl">2</span>,
-     rfrq <span class="op">=</span> <span class="st">"111"</span>, margins <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, plotit <span class="op">=</span> <span class="cn">NULL</span>, sep <span class="op">=</span> <span class="cn">NULL</span>, digits <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-
-
-<span class="co"># S3 method for formula</span>
-<span class="fu">Desc</span><span class="op">(</span><span class="va">formula</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">subset</span>, main <span class="op">=</span> <span class="cn">NULL</span>,
-     plotit <span class="op">=</span> <span class="cn">NULL</span>, digits <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-
-
-<span class="co"># S3 method for Desc</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="cn">NULL</span>, plotit <span class="op">=</span> <span class="cn">NULL</span>, nolabel <span class="op">=</span> <span class="cn">FALSE</span>,
-      sep <span class="op">=</span> <span class="cn">NULL</span>, nomain <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for Desc</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, main <span class="op">=</span> <span class="cn">NULL</span>,  <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Desc</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, main <span class="op">=</span> <span class="cn">NULL</span>, plotit <span class="op">=</span> <span class="cn">NULL</span>, wrd <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">Desc</span><span class="op">(</span><span class="va">x</span>, main <span class="op">=</span> <span class="cn">NULL</span>, maxrows <span class="op">=</span> <span class="cn">NULL</span>, ord <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>     conf.level <span class="op">=</span> <span class="fl">0.95</span>, verbose <span class="op">=</span> <span class="fl">2</span>, rfrq <span class="op">=</span> <span class="st">"111"</span>, margins <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>,</span>
+<span>     dprobs <span class="op">=</span> <span class="cn">NULL</span>, mprobs <span class="op">=</span> <span class="cn">NULL</span>, plotit <span class="op">=</span> <span class="cn">NULL</span>, sep <span class="op">=</span> <span class="cn">NULL</span>, digits <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for data.frame</span></span>
+<span><span class="fu">Desc</span><span class="op">(</span><span class="va">x</span>, main <span class="op">=</span> <span class="cn">NULL</span>, plotit <span class="op">=</span> <span class="cn">NULL</span>, enum <span class="op">=</span> <span class="cn">TRUE</span>, sep <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for list</span></span>
+<span><span class="fu">Desc</span><span class="op">(</span><span class="va">x</span>, main <span class="op">=</span> <span class="cn">NULL</span>, plotit <span class="op">=</span> <span class="cn">NULL</span>, enum <span class="op">=</span> <span class="cn">TRUE</span>, sep <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for numeric</span></span>
+<span><span class="fu">Desc</span><span class="op">(</span><span class="va">x</span>, main <span class="op">=</span> <span class="cn">NULL</span>, maxrows <span class="op">=</span> <span class="cn">NULL</span>, plotit <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>     sep <span class="op">=</span> <span class="cn">NULL</span>, digits <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for integer</span></span>
+<span><span class="fu">Desc</span><span class="op">(</span><span class="va">x</span>, main <span class="op">=</span> <span class="cn">NULL</span>, maxrows <span class="op">=</span> <span class="cn">NULL</span>, plotit <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>     sep <span class="op">=</span> <span class="cn">NULL</span>, digits <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for factor</span></span>
+<span><span class="fu">Desc</span><span class="op">(</span><span class="va">x</span>, main <span class="op">=</span> <span class="cn">NULL</span>, maxrows <span class="op">=</span> <span class="cn">NULL</span>, ord <span class="op">=</span> <span class="cn">NULL</span>, plotit <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>     sep <span class="op">=</span> <span class="cn">NULL</span>, digits <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for ordered</span></span>
+<span><span class="fu">Desc</span><span class="op">(</span><span class="va">x</span>, main <span class="op">=</span> <span class="cn">NULL</span>, maxrows <span class="op">=</span> <span class="cn">NULL</span>, ord <span class="op">=</span> <span class="cn">NULL</span>, plotit <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>     sep <span class="op">=</span> <span class="cn">NULL</span>, digits <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for character</span></span>
+<span><span class="fu">Desc</span><span class="op">(</span><span class="va">x</span>, main <span class="op">=</span> <span class="cn">NULL</span>, maxrows <span class="op">=</span> <span class="cn">NULL</span>, ord <span class="op">=</span> <span class="cn">NULL</span>, plotit <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>     sep <span class="op">=</span> <span class="cn">NULL</span>, digits <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for logical</span></span>
+<span><span class="fu">Desc</span><span class="op">(</span><span class="va">x</span>, main <span class="op">=</span> <span class="cn">NULL</span>, ord <span class="op">=</span> <span class="cn">NULL</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span>, plotit <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>     sep <span class="op">=</span> <span class="cn">NULL</span>, digits <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for Date</span></span>
+<span><span class="fu">Desc</span><span class="op">(</span><span class="va">x</span>, main <span class="op">=</span> <span class="cn">NULL</span>, dprobs <span class="op">=</span> <span class="cn">NULL</span>, mprobs <span class="op">=</span> <span class="cn">NULL</span>, plotit <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>     sep <span class="op">=</span> <span class="cn">NULL</span>, digits <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for table</span></span>
+<span><span class="fu">Desc</span><span class="op">(</span><span class="va">x</span>, main <span class="op">=</span> <span class="cn">NULL</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span>, verbose <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>     rfrq <span class="op">=</span> <span class="st">"111"</span>, margins <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, plotit <span class="op">=</span> <span class="cn">NULL</span>, sep <span class="op">=</span> <span class="cn">NULL</span>, digits <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># S3 method for formula</span></span>
+<span><span class="fu">Desc</span><span class="op">(</span><span class="va">formula</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">subset</span>, main <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>     plotit <span class="op">=</span> <span class="cn">NULL</span>, digits <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># S3 method for Desc</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="cn">NULL</span>, plotit <span class="op">=</span> <span class="cn">NULL</span>, nolabel <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>      sep <span class="op">=</span> <span class="cn">NULL</span>, nomain <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for Desc</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, main <span class="op">=</span> <span class="cn">NULL</span>,  <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -157,65 +157,104 @@ A 2-dimensional table will be described with it's relative frequencies, a short 
     <dl><dt>x</dt>
 <dd><p>the object to be described. This can be a data.frame, a list, a table or a vector of the classes: numeric, integer, factor,
     ordered factor, logical.</p></dd>
-<dt>main</dt>
+
+
+  <dt>main</dt>
 <dd><p>a character vector, containing the main title(s).If this is left to <code>NULL</code>, the title will be composed as: variablename (class(es)),
     resp. number - variablename (class(es)) if the <code>enum</code> option is set to TRUE.
     Use <code>NA</code> if no caption should be printed at all.</p></dd>
+
+
 <dt>wrd</dt>
 <dd><p>the pointer to a running MS Word instance, as created by <code><a href="GetNewWrd.html">GetNewWrd()</a></code> (for a new one)
   or by <code><a href="GetCurrWrd.html">GetCurrWrd()</a></code> for an existing one.
   All output will then be redirected there. Default is <code>NULL</code>, which will report all results to the console.</p></dd>
+
+
 <dt>digits</dt>
 <dd><p>integer. With how many digits shoud the relative frequencies be formatted? Default can be set by <code>DescToolsOptions(digits=x)</code>.</p></dd>
+
+
 <dt>maxrows</dt>
 <dd><p>numeric; defines the maximum number of rows in a frequency table to be reported. For factors with many levels it is often not interesting to see
   all of them. Default is set to 12 most frequent ones (resp. the first ones if <code>ord</code> is set to <code>"levels"</code> or <code>"names"</code>).<br>
   For a numeric argument x <code>maxrows</code> is the minimum number of unique values needed for a numeric variable to be treated as continous. If left to its default <code>NULL</code>, x will be regarded as continuos if it has more than 12 single values. In this case the list of extreme values will be displayed and the frequency table else.<br>
   If <code>maxrows</code> is &lt; 1 it will be interpreted as percentage. In this case just as many rows, as the <code>maxrows%</code> most frequent levels will be shown. Say, if maxrows is set to <code>0.8</code>, then the number of rows is fixed so, that the highest cumulative relative frequency is the first one going beyond 0.8.</p>
 <p>Setting <code>maxrows</code> to <code>Inf</code> will unconditionally report all values and also produce a plot with type "h" instead of a histogram.</p></dd>
+
+
+
 <dt>ord</dt>
 <dd><p>character out of <code>"name"</code> (alphabetical order), <code>"level"</code>, <code>"asc"</code> (by frequencies ascending), <code>"desc"</code> (by freqencies descending) defining the order for a frequency table as used for factors, numerics with few unique values and logicals.
 Factors (and character vectors) are by default orderd by their descending frequencies, ordered factors by their natural order.</p></dd>
+
+
 <dt>rfrq</dt>
 <dd><p>a string with 3 characters, each of them being <code>1</code> or <code>0</code>, defining which percentages should be reported. The first position is interpreted as total
 percentages, the second as row percentages and the third as column percentages.
 "<code>011</code>" hence produces a table output with row and column percentages. If set to <code>NULL</code> <code>rfrq</code> is defined in
 dependency of <code>verbose</code> (<code>verbose = 1</code> sets <code>rfrq</code> to <code>"000"</code> and else to <code>"111"</code>, latter meaning all percentages will be reported.) <br> Applies only to tables and is ignored else.
 <!-- %%     ~~Describe \code{rfrq} here~~ --></p></dd>
+
 <dt>margins</dt>
 <dd><p>a vector, consisting out of 1 and/or 2. Defines the margin sums to be included.
 Row margins are reported if margins is set to 1. Set it to 2 for column margins and c(1,2) for both. <br>
 Default is <code>NULL</code> (none).<br> Applies only to tables and is ignored else.</p></dd>
+
+
+
 <dt>verbose</dt>
 <dd><p>integer out of <code>c(2, 1, 3)</code> defining the verbosity of the reported results. 2 (default) means medium, 1 less and 3 extensive results. <br> Applies only to tables and is ignored else.</p></dd>
+
 <dt>conf.level</dt>
 <dd><p>confidence level of the interval. If set to <code>NA</code> no confidence interval will be calculated. Default is 0.95.</p></dd>
+
+
 <dt>dprobs, mprobs</dt>
 <dd><p>a vector with the probabilities for the Chi-Square test for days, resp. months, when describing a <code>Date</code> variable.
   If this is left to <code>NULL</code> (default) then a uniform distribution
 will be used for days and a monthdays distribution in a non leap year (p = c(31/365, 28/365, 31/365, ...)) for the months. <br> Applies only to <code>Dates</code> and is ignored else.</p></dd>
+
+
+
+
 <dt>enum</dt>
 <dd><p>logical, determining if in data.frames and lists a sequential number should be included in the main title. Default is TRUE. The reason for this option is, that if a Word report with enumerated headings is created, the numbers may be redundant or inconsistent.</p></dd>
+
+
 <dt>plotit</dt>
 <dd><p>boolean. Should a plot be created? The plot type will be chosen according to the classes of variables (roughly following a
                                                                                                                      numeric-numeric, numeric-categorical, categorical-categorical logic).  Default can be defined by option <code>plotit</code>,
   if it does not exist then it's set to <code>FALSE</code>.</p></dd>
+
 <dt>sep</dt>
 <dd><p>character. The separator for the title. By default a line of <code>"-"</code> for the current width of the screen
     <code>(options("width"))</code> will be used.</p></dd>
-<dt>nolabel</dt>
+
+
+
+    <dt>nolabel</dt>
 <dd><p>logical, defining if labels (defined as attribute with the name <code>label</code>, as done by <code>Label</code>) should be plotted.
     <!-- %%     ~~Describe \code{main} here~~ --></p></dd>
-<dt>formula</dt>
+
+    <dt>formula</dt>
 <dd><p>a formula of the form <code>lhs ~ rhs</code> where <code>lhs</code> gives the data values and rhs the corresponding groups.</p></dd>
-<dt>data</dt>
+
+
+    <dt>data</dt>
 <dd><p>an optional matrix or data frame containing the variables in the formula <code>formula</code>.
     By default the variables are taken from <code>environment(formula)</code>.</p></dd>
-<dt>subset</dt>
+
+
+    <dt>subset</dt>
 <dd><p>an optional vector specifying a subset of observations to be used.</p></dd>
+
+
 <dt>nomain</dt>
 <dd><p>logical, determines if the main title of the output is printed or not, default is <code>TRUE</code>.</p></dd>
-<dt>...</dt>
+
+
+    <dt>...</dt>
 <dd><p>further arguments to be passed to or from other methods.
     For the internal default method these can include:</p><dl><dt>p</dt>
 <dd><p>a vector of probabilities of the same length of <code>x</code>. An error is given if any entry of <code>p</code> is negative. This argument will be passed on to <code><a href="https://rdrr.io/r/stats/chisq.test.html" class="external-link">chisq.test</a></code>. Default is <code>rep(1/length(x), length(x))</code>.</p></dd>
@@ -230,6 +269,7 @@ will be used for days and a monthdays distribution in a non leap year (p = c(31/
 
     
 </dl><p></p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -270,40 +310,58 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list containing the following components:</p>
+    
+
+<p>A list containing the following components:</p>
 <dl><dt>length</dt>
 <dd><p>the length of the vector (n + NAs).</p></dd>
-<dt>n</dt>
+
+  <dt>n</dt>
 <dd><p>the valid entries (NAs are excluded)</p></dd>
-<dt>NAs</dt>
+
+  <dt>NAs</dt>
 <dd><p>number of NAs</p></dd>
-<dt>unique</dt>
+
+  <dt>unique</dt>
 <dd><p>number of unique values.</p></dd>
-<dt>0s</dt>
+
+  <dt>0s</dt>
 <dd><p>number of zeros</p></dd>
-<dt>mean</dt>
+
+  <dt>mean</dt>
 <dd><p>arithmetic mean</p></dd>
-<dt>MeanSE</dt>
+
+  <dt>MeanSE</dt>
 <dd><p>standard error of the mean, as calculated by <code><a href="MeanSE.html">MeanSE</a></code>.</p></dd>
-<dt>quant</dt>
+
+  <dt>quant</dt>
 <dd><p>a table of quantiles, as calculated by
     <code><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a>(x, probs = c(.05,.10,.25,.5,.75,.9,.95), na.rm = TRUE)</code>.</p></dd>
-<dt>sd</dt>
+
+  <dt>sd</dt>
 <dd><p>standard deviation</p></dd>
-<dt>vcoef</dt>
+
+  <dt>vcoef</dt>
 <dd><p>coefficient of variation: <code>mean(x)</code> / <code>sd(x)</code></p></dd>
-<dt>mad</dt>
+
+  <dt>mad</dt>
 <dd><p>median absolute deviation (<code><a href="https://rdrr.io/r/stats/mad.html" class="external-link">mad</a></code>)</p></dd>
-<dt>IQR</dt>
+
+  <dt>IQR</dt>
 <dd><p>interquartile range</p></dd>
-<dt>skew</dt>
+
+  <dt>skew</dt>
 <dd><p>skewness, as calculated by <code><a href="Skew.html">Skew</a></code>.</p></dd>
-<dt>kurt</dt>
+
+  <dt>kurt</dt>
 <dd><p>kurtosis, as calculated by <code><a href="Skew.html">Kurt</a></code>.</p></dd>
-<dt>highlow</dt>
+
+  <dt>highlow</dt>
 <dd><p>the lowest and the highest values, reported with their frequencies in brackets, if &gt; 1.</p></dd>
-<dt>frq</dt>
+
+  <dt>frq</dt>
 <dd><p>a data.frame of absolute and relative frequencies given by <code><a href="Freq.html">Freq</a></code> if maxlevels &gt; unique values in the vector.</p></dd>
+
 </dl></div>
     <div id="author">
     <h2>Author</h2>
@@ -318,12 +376,12 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">opt</span> <span class="op">&lt;-</span> <span class="fu"><a href="DescToolsOptions.html">DescToolsOptions</a></span><span class="op">(</span><span class="op">)</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># implemented classes:</span></span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">wrongpizza</span><span class="op">)</span>               <span class="co"># logical</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">opt</span> <span class="op">&lt;-</span> <span class="fu"><a href="DescToolsOptions.html">DescToolsOptions</a></span><span class="op">(</span><span class="op">)</span> </span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># implemented classes:</span></span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">wrongpizza</span><span class="op">)</span>               <span class="co"># logical</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------------------------------------------------ </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">d.pizza$wrongpizza (logical - dichotomous)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> d.pizza$wrongpizza (logical - dichotomous)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   length      n    NAs unique</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    1'209  1'205      4      2</span>
@@ -333,12 +391,12 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 <span class="r-out co"><span class="r-pr">#&gt;</span> FALSE  1'122  93.1%   91.5%   94.4%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> TRUE      83   6.9%    5.6%    8.5%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #808080;">' 95%-CI (Wilson)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ' 95%-CI (Wilson)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-plt img"><img src="Desc-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span><span class="op">)</span>                   <span class="co"># factor</span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span><span class="op">)</span>                   <span class="co"># factor</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------------------------------------------------ </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">d.pizza$driver (factor)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> d.pizza$driver (factor)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   length      n    NAs unique levels  dupes</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    1'209  1'204      5      7      7      y</span>
@@ -354,9 +412,9 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7    Butcher    96   8.0%    1'204   100.0%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-plt img"><img src="Desc-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">quality</span><span class="op">)</span>                  <span class="co"># ordered factor</span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">quality</span><span class="op">)</span>                  <span class="co"># ordered factor</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------------------------------------------------ </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">d.pizza$quality (ordered, factor)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> d.pizza$quality (ordered, factor)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   length      n    NAs unique levels  dupes</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    1'209  1'008    201      3      3      y</span>
@@ -368,9 +426,9 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3    high   496  49.2%    1'008   100.0%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-plt img"><img src="Desc-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span><span class="op">)</span><span class="op">)</span>     <span class="co"># character</span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span><span class="op">)</span><span class="op">)</span>     <span class="co"># character</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------------------------------------------------ </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">as.character(d.pizza$driver) (character)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> as.character(d.pizza$driver) (character)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   length      n    NAs unique levels  dupes</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    1'209  1'204      5      7      7      y</span>
@@ -386,19 +444,19 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7    Butcher    96   8.0%    1'204   100.0%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-plt img"><img src="Desc-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">week</span><span class="op">)</span>                     <span class="co"># integer</span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">week</span><span class="op">)</span>                     <span class="co"># integer</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x):</span> "_DescTools_n_pow_sum" not available for .Call() for package "DescTools"</span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">delivery_min</span><span class="op">)</span>             <span class="co"># numeric</span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">delivery_min</span><span class="op">)</span>             <span class="co"># numeric</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x):</span> "_DescTools_n_pow_sum" not available for .Call() for package "DescTools"</span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">date</span><span class="op">)</span>                     <span class="co"># Date</span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">date</span><span class="op">)</span>                     <span class="co"># Date</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("_DescTools_bottom_n", PACKAGE = "DescTools", x, k):</span> "_DescTools_bottom_n" not available for .Call() for package "DescTools"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x):</span> "_DescTools_n_pow_sum" not available for .Call() for package "DescTools"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">wrongpizza</span>, main<span class="op">=</span><span class="st">"The wrong pizza delivered"</span>, digits<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">wrongpizza</span>, main<span class="op">=</span><span class="st">"The wrong pizza delivered"</span>, digits<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------------------------------------------------ </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">The wrong pizza delivered</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> The wrong pizza delivered</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   length      n    NAs unique</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    1'209  1'205      4      2</span>
@@ -408,13 +466,13 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 <span class="r-out co"><span class="r-pr">#&gt;</span> FALSE  1'122  93.11203%  91.54086%  94.40921%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> TRUE      83   6.88797%   5.59079%   8.45914%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #808080;">' 95%-CI (Wilson)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ' 95%-CI (Wilson)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-plt img"><img src="Desc-5.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">area</span><span class="op">)</span><span class="op">)</span>                                    <span class="co"># 1-dim table</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">area</span><span class="op">)</span><span class="op">)</span>                                    <span class="co"># 1-dim table</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------------------------------------------------ </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">table(d.pizza$area) (table)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> table(d.pizza$area) (table)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Summary: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> n: 1'199, rows: 3</span>
@@ -428,9 +486,9 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  Westminster   381  31.8%    1'199   100.0%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-plt img"><img src="Desc-6.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">area</span>, <span class="va">d.pizza</span><span class="op">$</span><span class="va">operator</span><span class="op">)</span><span class="op">)</span>                  <span class="co"># 2-dim table</span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">area</span>, <span class="va">d.pizza</span><span class="op">$</span><span class="va">operator</span><span class="op">)</span><span class="op">)</span>                  <span class="co"># 2-dim table</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------------------------------------------------ </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">table(d.pizza$area, d.pizza$operator) (table)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> table(d.pizza$area, d.pizza$operator) (table)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Summary: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> n: 1'191, rows: 3, columns: 3</span>
@@ -471,9 +529,9 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-plt img"><img src="Desc-7.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">area</span>, <span class="va">d.pizza</span><span class="op">$</span><span class="va">operator</span>, <span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span><span class="op">)</span><span class="op">)</span>  <span class="co"># n-dim table</span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">area</span>, <span class="va">d.pizza</span><span class="op">$</span><span class="va">operator</span>, <span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span><span class="op">)</span><span class="op">)</span>  <span class="co"># n-dim table</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------------------------------------------------ </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">table(d.pizza$area, d.pizza$operator, d.pizza$driver) (table)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> table(d.pizza$area, d.pizza$operator, d.pizza$driver) (table)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Summary: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> n: 1'186, 3-dim table: 3 x 3 x 7</span>
@@ -497,13 +555,13 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 <span class="r-out co"><span class="r-pr">#&gt;</span>             Rhonda        57       124     61     50     45     47     58 442</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-plt img"><img src="Desc-8.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># expressions</span></span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># expressions</span></span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x):</span> "_DescTools_n_pow_sum" not available for .Call() for package "DescTools"</span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span> <span class="op">&gt;</span> <span class="fl">45</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span> <span class="op">&gt;</span> <span class="fl">45</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------------------------------------------------ </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">d.pizza$temperature &gt; 45 (logical - dichotomous)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> d.pizza$temperature &gt; 45 (logical - dichotomous)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   length      n    NAs unique</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    1'209  1'170     39      2</span>
@@ -513,36 +571,36 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 <span class="r-out co"><span class="r-pr">#&gt;</span> FALSE   369  31.5%   28.9%   34.3%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> TRUE    801  68.5%   65.7%   71.1%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #808080;">' 95%-CI (Wilson)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ' 95%-CI (Wilson)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-plt img"><img src="Desc-9.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># supported labels</span></span>
-<span class="r-in"><span class="fu"><a href="Label.html">Label</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"This is the temperature in degrees Celsius</span>
-<span class="r-in">measured at the time when the pizza is delivered to the client."</span></span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># supported labels</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="Label.html">Label</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"This is the temperature in degrees Celsius</span></span></span>
+<span class="r-in"><span><span class="st">measured at the time when the pizza is delivered to the client."</span></span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x):</span> "_DescTools_n_pow_sum" not available for .Call() for package "DescTools"</span>
-<span class="r-in"><span class="co"># try as well:      Desc(d.pizza$temperature, wrd=GetNewWrd())</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu">Desc</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># try as well:      Desc(d.pizza$temperature, wrd=GetNewWrd())</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu">Desc</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x):</span> "_DescTools_n_pow_sum" not available for .Call() for package "DescTools"</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">z</span>, digits<span class="op">=</span><span class="fl">1</span>, plotit<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">z</span>, digits<span class="op">=</span><span class="fl">1</span>, plotit<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in print(z, digits = 1, plotit = FALSE):</span> object 'z' not found</span>
-<span class="r-in"><span class="co"># plot (additional arguments are passed on to the underlying plot function)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">z</span>, main<span class="op">=</span><span class="st">"The pizza's temperature in Celsius"</span>, args.hist<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>breaks<span class="op">=</span><span class="fl">50</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># plot (additional arguments are passed on to the underlying plot function)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">z</span>, main<span class="op">=</span><span class="st">"The pizza's temperature in Celsius"</span>, args.hist<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>breaks<span class="op">=</span><span class="fl">50</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in plot(z, main = "The pizza's temperature in Celsius", args.hist = list(breaks = 50)):</span> object 'z' not found</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># formula interface for single variables</span></span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="op">~</span> <span class="va">uptake</span> <span class="op">+</span> <span class="va">Type</span>, data <span class="op">=</span> <span class="va">CO2</span>, plotit <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># formula interface for single variables</span></span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="op">~</span> <span class="va">uptake</span> <span class="op">+</span> <span class="va">Type</span>, data <span class="op">=</span> <span class="va">CO2</span>, plotit <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x):</span> "_DescTools_n_pow_sum" not available for .Call() for package "DescTools"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># bivariate</span></span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="va">price</span> <span class="op">~</span> <span class="va">operator</span>, data<span class="op">=</span><span class="va">d.pizza</span><span class="op">)</span>                  <span class="co"># numeric ~ factor</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># bivariate</span></span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="va">price</span> <span class="op">~</span> <span class="va">operator</span>, data<span class="op">=</span><span class="va">d.pizza</span><span class="op">)</span>                  <span class="co"># numeric ~ factor</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"):</span> "rskew" not available for .Call() for package "DescTools"</span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="va">driver</span> <span class="op">~</span> <span class="va">operator</span>, data<span class="op">=</span><span class="va">d.pizza</span><span class="op">)</span>                 <span class="co"># factor ~ factor</span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="va">driver</span> <span class="op">~</span> <span class="va">operator</span>, data<span class="op">=</span><span class="va">d.pizza</span><span class="op">)</span>                 <span class="co"># factor ~ factor</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------------------------------------------------ </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">driver ~ operator (d.pizza)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> driver ~ operator (d.pizza)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Summary: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> n: 1'196, rows: 7, columns: 3</span>
@@ -604,9 +662,9 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-plt img"><img src="Desc-10.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="va">driver</span> <span class="op">~</span> <span class="va">area</span> <span class="op">+</span> <span class="va">operator</span>, data<span class="op">=</span><span class="va">d.pizza</span><span class="op">)</span>          <span class="co"># factor ~ several factors</span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="va">driver</span> <span class="op">~</span> <span class="va">area</span> <span class="op">+</span> <span class="va">operator</span>, data<span class="op">=</span><span class="va">d.pizza</span><span class="op">)</span>          <span class="co"># factor ~ several factors</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------------------------------------------------ </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">driver ~ area (d.pizza)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> driver ~ area (d.pizza)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Summary: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> n: 1'194, rows: 7, columns: 3</span>
@@ -669,7 +727,7 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-plt img"><img src="Desc-11.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------------------------------------------------ </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">driver ~ operator (d.pizza)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> driver ~ operator (d.pizza)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Summary: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> n: 1'196, rows: 7, columns: 3</span>
@@ -731,9 +789,9 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-plt img"><img src="Desc-12.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="va">driver</span> <span class="op">+</span> <span class="va">area</span> <span class="op">~</span> <span class="va">operator</span>, data<span class="op">=</span><span class="va">d.pizza</span><span class="op">)</span>          <span class="co"># several factors ~ factor</span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="va">driver</span> <span class="op">+</span> <span class="va">area</span> <span class="op">~</span> <span class="va">operator</span>, data<span class="op">=</span><span class="va">d.pizza</span><span class="op">)</span>          <span class="co"># several factors ~ factor</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------------------------------------------------ </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">driver ~ operator (d.pizza)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> driver ~ operator (d.pizza)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Summary: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> n: 1'196, rows: 7, columns: 3</span>
@@ -795,7 +853,7 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------------------------------------------------ </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">area ~ operator (d.pizza)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> area ~ operator (d.pizza)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Summary: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> n: 1'191, rows: 3, columns: 3</span>
@@ -837,12 +895,12 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-plt img"><img src="Desc-13.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="va">driver</span> <span class="op">~</span> <span class="va">week</span>, data<span class="op">=</span><span class="va">d.pizza</span><span class="op">)</span>                     <span class="co"># factor ~ integer</span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="va">driver</span> <span class="op">~</span> <span class="va">week</span>, data<span class="op">=</span><span class="va">d.pizza</span><span class="op">)</span>                     <span class="co"># factor ~ integer</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"):</span> "rskew" not available for .Call() for package "DescTools"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="va">driver</span> <span class="op">~</span> <span class="va">operator</span>, data<span class="op">=</span><span class="va">d.pizza</span>, rfrq<span class="op">=</span><span class="st">"111"</span><span class="op">)</span>   <span class="co"># alle rel. frequencies</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="va">driver</span> <span class="op">~</span> <span class="va">operator</span>, data<span class="op">=</span><span class="va">d.pizza</span>, rfrq<span class="op">=</span><span class="st">"111"</span><span class="op">)</span>   <span class="co"># alle rel. frequencies</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------------------------------------------------ </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">driver ~ operator (d.pizza)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> driver ~ operator (d.pizza)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Summary: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> n: 1'196, rows: 7, columns: 3</span>
@@ -904,10 +962,10 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-plt img"><img src="Desc-14.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="va">driver</span> <span class="op">~</span> <span class="va">operator</span>, data<span class="op">=</span><span class="va">d.pizza</span>, rfrq<span class="op">=</span><span class="st">"000"</span>,</span>
-<span class="r-in">     verbose<span class="op">=</span><span class="fl">3</span><span class="op">)</span>                                  <span class="co"># no rel. frequencies</span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="va">driver</span> <span class="op">~</span> <span class="va">operator</span>, data<span class="op">=</span><span class="va">d.pizza</span>, rfrq<span class="op">=</span><span class="st">"000"</span>,</span></span>
+<span class="r-in"><span>     verbose<span class="op">=</span><span class="fl">3</span><span class="op">)</span>                                  <span class="co"># no rel. frequencies</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------------------------------------------------ </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">driver ~ operator (d.pizza)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> driver ~ operator (d.pizza)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Summary: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> n: 1'196, rows: 7, columns: 3</span>
@@ -951,13 +1009,13 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 <span class="r-out co"><span class="r-pr">#&gt;</span> Taylor           99      45       58   202</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Sum             363     388      445 1'196</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #808080;">----------</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #808080;">' 95% conf. level</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ' 95% conf. level</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="va">price</span> <span class="op">~</span> <span class="va">delivery_min</span>, data<span class="op">=</span><span class="va">d.pizza</span><span class="op">)</span>              <span class="co"># numeric ~ numeric</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="va">price</span> <span class="op">~</span> <span class="va">delivery_min</span>, data<span class="op">=</span><span class="va">d.pizza</span><span class="op">)</span>              <span class="co"># numeric ~ numeric</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------------------------------------------------ </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">price ~ delivery_min (d.pizza)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> price ~ delivery_min (d.pizza)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Summary: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> n pairs: 1'209, valid: 1'197 (99.0%), missings: 12 (1.0%)</span>
@@ -968,52 +1026,52 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 <span class="r-out co"><span class="r-pr">#&gt;</span> Kendall corr. : 0.054</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-plt img"><img src="Desc-15.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="va">price</span> <span class="op">+</span> <span class="va">delivery_min</span> <span class="op">~</span> <span class="va">operator</span> <span class="op">+</span> <span class="va">driver</span> <span class="op">+</span> <span class="va">wrongpizza</span>,</span>
-<span class="r-in">     data<span class="op">=</span><span class="va">d.pizza</span>, digits<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">0</span>,<span class="fl">3</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span> <span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="va">price</span> <span class="op">+</span> <span class="va">delivery_min</span> <span class="op">~</span> <span class="va">operator</span> <span class="op">+</span> <span class="va">driver</span> <span class="op">+</span> <span class="va">wrongpizza</span>,</span></span>
+<span class="r-in"><span>     data<span class="op">=</span><span class="va">d.pizza</span>, digits<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">0</span>,<span class="fl">3</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span> <span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"):</span> "rskew" not available for .Call() for package "DescTools"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="va">week</span> <span class="op">~</span> <span class="va">driver</span>, data<span class="op">=</span><span class="va">d.pizza</span>, digits<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">0</span>,<span class="fl">3</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span>   <span class="co"># define digits</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="va">week</span> <span class="op">~</span> <span class="va">driver</span>, data<span class="op">=</span><span class="va">d.pizza</span>, digits<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">0</span>,<span class="fl">3</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span>   <span class="co"># define digits</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"):</span> "rskew" not available for .Call() for package "DescTools"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="va">delivery_min</span> <span class="op">+</span> <span class="va">weekday</span> <span class="op">~</span> <span class="va">driver</span>, data<span class="op">=</span><span class="va">d.pizza</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="va">delivery_min</span> <span class="op">+</span> <span class="va">weekday</span> <span class="op">~</span> <span class="va">driver</span>, data<span class="op">=</span><span class="va">d.pizza</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"):</span> "rskew" not available for .Call() for package "DescTools"</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># without defining data-parameter</span></span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">delivery_min</span> <span class="op">~</span> <span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># without defining data-parameter</span></span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">delivery_min</span> <span class="op">~</span> <span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"):</span> "rskew" not available for .Call() for package "DescTools"</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># with functions and interactions</span></span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">price</span><span class="op">)</span> <span class="op">~</span> <span class="va">operator</span> <span class="op">:</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">wrongpizza</span><span class="op">)</span>, data<span class="op">=</span><span class="va">d.pizza</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># with functions and interactions</span></span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">price</span><span class="op">)</span> <span class="op">~</span> <span class="va">operator</span> <span class="op">:</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">wrongpizza</span><span class="op">)</span>, data<span class="op">=</span><span class="va">d.pizza</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"):</span> "rskew" not available for .Call() for package "DescTools"</span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">price</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut</a></span><span class="op">(</span><span class="va">delivery_min</span>, breaks<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">90</span>,<span class="fl">10</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">     data<span class="op">=</span><span class="va">d.pizza</span>, digits<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">0</span>,<span class="fl">3</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">price</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut</a></span><span class="op">(</span><span class="va">delivery_min</span>, breaks<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">90</span>,<span class="fl">10</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>     data<span class="op">=</span><span class="va">d.pizza</span>, digits<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">0</span>,<span class="fl">3</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"):</span> "rskew" not available for .Call() for package "DescTools"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># response versus all the rest</span></span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="va">driver</span> <span class="op">~</span> <span class="va">.</span>, data<span class="op">=</span><span class="va">d.pizza</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"temperature"</span>,<span class="st">"wine_delivered"</span>,<span class="st">"area"</span>,<span class="st">"driver"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># response versus all the rest</span></span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="va">driver</span> <span class="op">~</span> <span class="va">.</span>, data<span class="op">=</span><span class="va">d.pizza</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"temperature"</span>,<span class="st">"wine_delivered"</span>,<span class="st">"area"</span>,<span class="st">"driver"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"):</span> "rskew" not available for .Call() for package "DescTools"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># all the rest versus response</span></span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="va">.</span> <span class="op">~</span> <span class="va">driver</span>, data<span class="op">=</span><span class="va">d.pizza</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"temperature"</span>,<span class="st">"wine_delivered"</span>,<span class="st">"area"</span>,<span class="st">"driver"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># all the rest versus response</span></span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="va">.</span> <span class="op">~</span> <span class="va">driver</span>, data<span class="op">=</span><span class="va">d.pizza</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"temperature"</span>,<span class="st">"wine_delivered"</span>,<span class="st">"area"</span>,<span class="st">"driver"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"):</span> "rskew" not available for .Call() for package "DescTools"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># pairwise Descriptions</span></span>
-<span class="r-in"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="CombPairs.html">CombPairs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"area"</span>,<span class="st">"count"</span>,<span class="st">"operator"</span>,<span class="st">"driver"</span>,<span class="st">"temperature"</span>,<span class="st">"wrongpizza"</span>,<span class="st">"quality"</span><span class="op">)</span>, <span class="op">)</span></span>
-<span class="r-in"><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">Desc</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">gettextf</a></span><span class="op">(</span><span class="st">"%s ~ %s"</span>, <span class="va">p</span><span class="op">$</span><span class="va">X1</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, <span class="va">p</span><span class="op">$</span><span class="va">X2</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>, data<span class="op">=</span><span class="va">d.pizza</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># pairwise Descriptions</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="CombPairs.html">CombPairs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"area"</span>,<span class="st">"count"</span>,<span class="st">"operator"</span>,<span class="st">"driver"</span>,<span class="st">"temperature"</span>,<span class="st">"wrongpizza"</span>,<span class="st">"quality"</span><span class="op">)</span>, <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">Desc</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">gettextf</a></span><span class="op">(</span><span class="st">"%s ~ %s"</span>, <span class="va">p</span><span class="op">$</span><span class="va">X1</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, <span class="va">p</span><span class="op">$</span><span class="va">X2</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>, data<span class="op">=</span><span class="va">d.pizza</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"):</span> "rskew" not available for .Call() for package "DescTools"</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># get more flexibility, create the table first</span></span>
-<span class="r-in"><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">as.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">HairEyeColor</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, <span class="va">sum</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">tab</span> <span class="op">&lt;-</span> <span class="va">tab</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Brown"</span>,<span class="st">"Hazel"</span>,<span class="st">"Green"</span>,<span class="st">"Blue"</span><span class="op">)</span><span class="op">]</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># display only absolute values, row and columnwise percentages</span></span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="va">tab</span>, row.vars<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span>, rfrq<span class="op">=</span><span class="st">"011"</span>, plotit<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># get more flexibility, create the table first</span></span></span>
+<span class="r-in"><span><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">as.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">HairEyeColor</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, <span class="va">sum</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tab</span> <span class="op">&lt;-</span> <span class="va">tab</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Brown"</span>,<span class="st">"Hazel"</span>,<span class="st">"Green"</span>,<span class="st">"Blue"</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># display only absolute values, row and columnwise percentages</span></span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="va">tab</span>, row.vars<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span>, rfrq<span class="op">=</span><span class="st">"011"</span>, plotit<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------------------------------------------------ </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">tab (table)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> tab (table)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Summary: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> n: 592, rows: 4, columns: 4</span>
@@ -1051,16 +1109,16 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Sum         .       .       .      .     .</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># do the plot by hand, while setting the colours for the mosaics</span></span>
-<span class="r-in"><span class="va">cols1</span> <span class="op">&lt;-</span> <span class="fu"><a href="SetAlpha.html">SetAlpha</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sienna4"</span>, <span class="st">"burlywood"</span>, <span class="st">"chartreuse3"</span>, <span class="st">"slategray1"</span><span class="op">)</span>, <span class="fl">0.6</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">cols2</span> <span class="op">&lt;-</span> <span class="fu"><a href="SetAlpha.html">SetAlpha</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"moccasin"</span>, <span class="st">"salmon1"</span>, <span class="st">"wheat3"</span>, <span class="st">"gray32"</span><span class="op">)</span>, <span class="fl">0.8</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">Desc</span><span class="op">(</span><span class="va">tab</span><span class="op">)</span>, col1<span class="op">=</span><span class="va">cols1</span>, col2<span class="op">=</span><span class="va">cols2</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># do the plot by hand, while setting the colours for the mosaics</span></span></span>
+<span class="r-in"><span><span class="va">cols1</span> <span class="op">&lt;-</span> <span class="fu"><a href="SetAlpha.html">SetAlpha</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sienna4"</span>, <span class="st">"burlywood"</span>, <span class="st">"chartreuse3"</span>, <span class="st">"slategray1"</span><span class="op">)</span>, <span class="fl">0.6</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">cols2</span> <span class="op">&lt;-</span> <span class="fu"><a href="SetAlpha.html">SetAlpha</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"moccasin"</span>, <span class="st">"salmon1"</span>, <span class="st">"wheat3"</span>, <span class="st">"gray32"</span><span class="op">)</span>, <span class="fl">0.8</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">Desc</span><span class="op">(</span><span class="va">tab</span><span class="op">)</span>, col1<span class="op">=</span><span class="va">cols1</span>, col2<span class="op">=</span><span class="va">cols2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="Desc-16.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># use global format options for presentation</span></span>
-<span class="r-in"><span class="fu"><a href="Format.html">Fmt</a></span><span class="op">(</span>abs<span class="op">=</span><span class="fu"><a href="Format.html">as.fmt</a></span><span class="op">(</span>digits<span class="op">=</span><span class="fl">0</span>, big.mark<span class="op">=</span><span class="st">""</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># use global format options for presentation</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="Format.html">Fmt</a></span><span class="op">(</span>abs<span class="op">=</span><span class="fu"><a href="Format.html">as.fmt</a></span><span class="op">(</span>digits<span class="op">=</span><span class="fl">0</span>, big.mark<span class="op">=</span><span class="st">""</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $abs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Description:   Number format for counts</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Definition:    digits=0, big.mark="'"</span>
@@ -1076,7 +1134,7 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Definition:    digits=3, big.mark="'"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Example:       314'159.265</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu"><a href="Format.html">Fmt</a></span><span class="op">(</span>per<span class="op">=</span><span class="fu"><a href="Format.html">as.fmt</a></span><span class="op">(</span>digits<span class="op">=</span><span class="fl">2</span>, fmt<span class="op">=</span><span class="st">"%"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="Format.html">Fmt</a></span><span class="op">(</span>per<span class="op">=</span><span class="fu"><a href="Format.html">as.fmt</a></span><span class="op">(</span>digits<span class="op">=</span><span class="fl">2</span>, fmt<span class="op">=</span><span class="st">"%"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $abs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Description:   Number format</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Definition:    digits=0, big.mark=''</span>
@@ -1092,9 +1150,9 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Definition:    digits=0, big.mark="'"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Example:       314'159</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="va">area</span> <span class="op">~</span> <span class="va">driver</span>, <span class="va">d.pizza</span>, plotit<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="va">area</span> <span class="op">~</span> <span class="va">driver</span>, <span class="va">d.pizza</span>, plotit<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------------------------------------------------ </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">area ~ driver (d.pizza)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> area ~ driver (d.pizza)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Summary: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> n: 1194, rows: 3, columns: 7</span>
@@ -1159,8 +1217,8 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 <span class="r-out co"><span class="r-pr">#&gt;</span>               p.col         .       .</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="Format.html">Fmt</a></span><span class="op">(</span>abs<span class="op">=</span><span class="fu"><a href="Format.html">as.fmt</a></span><span class="op">(</span>digits<span class="op">=</span><span class="fl">0</span>, big.mark<span class="op">=</span><span class="st">"'"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="Format.html">Fmt</a></span><span class="op">(</span>abs<span class="op">=</span><span class="fu"><a href="Format.html">as.fmt</a></span><span class="op">(</span>digits<span class="op">=</span><span class="fl">0</span>, big.mark<span class="op">=</span><span class="st">"'"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $abs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Description:   Number format</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Definition:    digits=0, big.mark=''</span>
@@ -1176,7 +1234,7 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Definition:    digits=0, big.mark="'"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Example:       314'159</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu"><a href="Format.html">Fmt</a></span><span class="op">(</span>per<span class="op">=</span><span class="fu"><a href="Format.html">as.fmt</a></span><span class="op">(</span>digits<span class="op">=</span><span class="fl">3</span>, ldigits<span class="op">=</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="Format.html">Fmt</a></span><span class="op">(</span>per<span class="op">=</span><span class="fu"><a href="Format.html">as.fmt</a></span><span class="op">(</span>digits<span class="op">=</span><span class="fl">3</span>, ldigits<span class="op">=</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $abs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Description:   Number format</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Definition:    digits=0, big.mark="'"</span>
@@ -1192,9 +1250,9 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Definition:    digits=0, big.mark="'"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Example:       314'159</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="va">area</span> <span class="op">~</span> <span class="va">driver</span>, <span class="va">d.pizza</span>, plotit<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="va">area</span> <span class="op">~</span> <span class="va">driver</span>, <span class="va">d.pizza</span>, plotit<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------------------------------------------------ </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">area ~ driver (d.pizza)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> area ~ driver (d.pizza)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Summary: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> n: 1'194, rows: 3, columns: 7</span>
@@ -1259,41 +1317,41 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 <span class="r-out co"><span class="r-pr">#&gt;</span>               p.col         .     .</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># plot arguments can be fixed in detail</span></span>
-<span class="r-in"><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu">Desc</span><span class="op">(</span><span class="fu"><a href="BoxCox.html">BoxCox</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span>, lambda <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># plot arguments can be fixed in detail</span></span></span>
+<span class="r-in"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu">Desc</span><span class="op">(</span><span class="fu"><a href="BoxCox.html">BoxCox</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span>, lambda <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x):</span> "_DescTools_n_pow_sum" not available for .Call() for package "DescTools"</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">z</span>, mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2.1</span>, <span class="fl">4.1</span>, <span class="fl">2.1</span><span class="op">)</span>, args.rug<span class="op">=</span><span class="cn">TRUE</span>, args.hist<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>breaks<span class="op">=</span><span class="fl">50</span><span class="op">)</span>,</span>
-<span class="r-in">     args.dens<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>from<span class="op">=</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">z</span>, mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2.1</span>, <span class="fl">4.1</span>, <span class="fl">2.1</span><span class="op">)</span>, args.rug<span class="op">=</span><span class="cn">TRUE</span>, args.hist<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>breaks<span class="op">=</span><span class="fl">50</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>     args.dens<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>from<span class="op">=</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in plot(z, mar = c(0, 2.1, 4.1, 2.1), args.rug = TRUE, args.hist = list(breaks = 50),     args.dens = list(from = 0)):</span> object 'z' not found</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># The default description for count variables can be inappropriate,</span></span>
-<span class="r-in"><span class="co"># the density curve does not represent the variable well.</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1972</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">rpois</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">500</span>, lambda <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># The default description for count variables can be inappropriate,</span></span></span>
+<span class="r-in"><span><span class="co"># the density curve does not represent the variable well.</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1972</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">rpois</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">500</span>, lambda <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x):</span> "_DescTools_n_pow_sum" not available for .Call() for package "DescTools"</span>
-<span class="r-in"><span class="co"># but setting maxrows to Inf gives a better plot</span></span>
-<span class="r-in"><span class="fu">Desc</span><span class="op">(</span><span class="va">x</span>, maxrows <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># but setting maxrows to Inf gives a better plot</span></span></span>
+<span class="r-in"><span><span class="fu">Desc</span><span class="op">(</span><span class="va">x</span>, maxrows <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x):</span> "_DescTools_n_pow_sum" not available for .Call() for package "DescTools"</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Output into word document (Windows-specific example) -----------------------</span></span>
-<span class="r-in"><span class="co"># by simply setting wrd=GetNewWrd()</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="co"># create a new word instance and insert title and contents</span></span>
-<span class="r-in">  <span class="va">wrd</span> <span class="op">&lt;-</span> <span class="fu"><a href="GetNewWrd.html">GetNewWrd</a></span><span class="op">(</span>header<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="co"># let's have a subset</span></span>
-<span class="r-in">  <span class="va">d.sub</span> <span class="op">&lt;-</span> <span class="va">d.pizza</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"driver"</span>, <span class="st">"date"</span>, <span class="st">"operator"</span>, <span class="st">"price"</span>, <span class="st">"wrongpizza"</span><span class="op">)</span><span class="op">]</span></span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="co"># do just the univariate analysis</span></span>
-<span class="r-in">  <span class="fu">Desc</span><span class="op">(</span><span class="va">d.sub</span>, wrd<span class="op">=</span><span class="va">wrd</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="DescToolsOptions.html">DescToolsOptions</a></span><span class="op">(</span><span class="va">opt</span><span class="op">)</span> </span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Output into word document (Windows-specific example) -----------------------</span></span></span>
+<span class="r-in"><span><span class="co"># by simply setting wrd=GetNewWrd()</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="co"># create a new word instance and insert title and contents</span></span></span>
+<span class="r-in"><span>  <span class="va">wrd</span> <span class="op">&lt;-</span> <span class="fu"><a href="GetNewWrd.html">GetNewWrd</a></span><span class="op">(</span>header<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="co"># let's have a subset</span></span></span>
+<span class="r-in"><span>  <span class="va">d.sub</span> <span class="op">&lt;-</span> <span class="va">d.pizza</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"driver"</span>, <span class="st">"date"</span>, <span class="st">"operator"</span>, <span class="st">"price"</span>, <span class="st">"wrongpizza"</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="co"># do just the univariate analysis</span></span></span>
+<span class="r-in"><span>  <span class="fu">Desc</span><span class="op">(</span><span class="va">d.sub</span>, wrd<span class="op">=</span><span class="va">wrd</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="DescToolsOptions.html">DescToolsOptions</a></span><span class="op">(</span><span class="va">opt</span><span class="op">)</span> </span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -1308,7 +1366,7 @@ However <code>DescWrd</code> takes some more specific arguments concerning the W
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

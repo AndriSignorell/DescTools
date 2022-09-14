@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -82,8 +82,8 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">MultinomCI</span><span class="op">(</span><span class="va">x</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span>, sides <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"left"</span>, <span class="st">"right"</span><span class="op">)</span>,
-           method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sisonglaz"</span>, <span class="st">"cplus1"</span>, <span class="st">"goodman"</span>, <span class="st">"wald"</span>, <span class="st">"waldcc"</span>, <span class="st">"wilson"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">MultinomCI</span><span class="op">(</span><span class="va">x</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span>, sides <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"left"</span>, <span class="st">"right"</span><span class="op">)</span>,</span>
+<span>           method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sisonglaz"</span>, <span class="st">"cplus1"</span>, <span class="st">"goodman"</span>, <span class="st">"wald"</span>, <span class="st">"waldcc"</span>, <span class="st">"wilson"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="author">
@@ -98,16 +98,24 @@ Department of Computer Science and Artificial Intelligence, University of Granad
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>A vector of positive integers representing the number of occurrences of each class. The total number of samples equals the sum of such elements.</p></dd>
-<dt>conf.level</dt>
+
+  <dt>conf.level</dt>
 <dd><p>confidence level, defaults to 0.95.</p></dd>
+
+
 <dt>sides</dt>
 <dd><p>a character string specifying the side of the confidence interval, must be one of <code>"two.sided"</code> (default),
 <code>"left"</code> or <code>"right"</code>. You can specify just the initial letter. <code>"left"</code> would be analogue to a hypothesis of
 <code>"greater"</code> in a <code>t.test</code>.</p></dd>
-<dt>method</dt>
+
+
+  <dt>method</dt>
 <dd><p>character string specifing which method to use; can be one out of
   <code>"sisonglaz"</code>, <code>"cplus1"</code>, <code>"goodman"</code>,  <code>"wald"</code>,  <code>"waldcc"</code>, <code>"wilson"</code>.
   Method can be abbreviated. See details. Defaults to <code>"sisonglaz"</code>.</p></dd>
+
+
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -118,14 +126,22 @@ Some approaches for the confidence intervals can potentially yield negative resu
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>A matrix with 3 columns:</p>
+    
+
+<p>A matrix with 3 columns:</p>
 <dl><dt>est</dt>
 <dd><p>estimate</p></dd>
-<dt>lwr.ci</dt>
+
+  <dt>lwr.ci</dt>
 <dd><p>lower bound of the confidence interval</p></dd>
-<dt>upr.ci</dt>
+
+  <dt>upr.ci</dt>
 <dd><p>upper bound of the confidence interval</p></dd>
+
+
 </dl><p>The number of rows correspond to the dimension of x.</p>
+
+
     </div>
     <div id="references">
     <h2>References</h2>
@@ -144,61 +160,61 @@ Proportions <em>Technometrics</em>, 7, 247-254.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Multinomial distribution with 3 classes, from which a sample of 79 elements</span></span>
-<span class="r-in"><span class="co"># were drawn: 23 of them belong to the first class, 12 to the</span></span>
-<span class="r-in"><span class="co"># second class and 44 to the third class. Punctual estimations</span></span>
-<span class="r-in"><span class="co"># of the probabilities from this sample would be 23/79, 12/79</span></span>
-<span class="r-in"><span class="co"># and 44/79 but we want to build 95% simultaneous confidence intervals</span></span>
-<span class="r-in"><span class="co"># for the true probabilities</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">MultinomCI</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">23</span>, <span class="fl">12</span>, <span class="fl">44</span><span class="op">)</span>, conf.level<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Multinomial distribution with 3 classes, from which a sample of 79 elements</span></span></span>
+<span class="r-in"><span><span class="co"># were drawn: 23 of them belong to the first class, 12 to the</span></span></span>
+<span class="r-in"><span><span class="co"># second class and 44 to the third class. Punctual estimations</span></span></span>
+<span class="r-in"><span><span class="co"># of the probabilities from this sample would be 23/79, 12/79</span></span></span>
+<span class="r-in"><span><span class="co"># and 44/79 but we want to build 95% simultaneous confidence intervals</span></span></span>
+<span class="r-in"><span><span class="co"># for the true probabilities</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">MultinomCI</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">23</span>, <span class="fl">12</span>, <span class="fl">44</span><span class="op">)</span>, conf.level<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            est     lwr.ci    upr.ci</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.2911392 0.18987342 0.4104183</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.1518987 0.05063291 0.2711778</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.5569620 0.45569620 0.6762410</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">35</span>, <span class="fl">74</span>, <span class="fl">22</span>, <span class="fl">69</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">MultinomCI</span><span class="op">(</span><span class="va">x</span>, method<span class="op">=</span><span class="st">"goodman"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">35</span>, <span class="fl">74</span>, <span class="fl">22</span>, <span class="fl">69</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">MultinomCI</span><span class="op">(</span><span class="va">x</span>, method<span class="op">=</span><span class="st">"goodman"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        est     lwr.ci    upr.ci</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.175 0.11253215 0.2619106</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.370 0.28113643 0.4686407</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.110 0.06224338 0.1870880</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 0.345 0.25846198 0.4431954</span>
-<span class="r-in"><span class="fu">MultinomCI</span><span class="op">(</span><span class="va">x</span>, method<span class="op">=</span><span class="st">"sisonglaz"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">MultinomCI</span><span class="op">(</span><span class="va">x</span>, method<span class="op">=</span><span class="st">"sisonglaz"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        est lwr.ci    upr.ci</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.175  0.105 0.2512563</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.370  0.300 0.4462563</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.110  0.040 0.1862563</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 0.345  0.275 0.4212563</span>
-<span class="r-in"><span class="fu">MultinomCI</span><span class="op">(</span><span class="va">x</span>, method<span class="op">=</span><span class="st">"cplus1"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">MultinomCI</span><span class="op">(</span><span class="va">x</span>, method<span class="op">=</span><span class="st">"cplus1"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        est lwr.ci upr.ci</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.175  0.100  0.250</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.370  0.295  0.445</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.110  0.035  0.185</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 0.345  0.270  0.420</span>
-<span class="r-in"><span class="fu">MultinomCI</span><span class="op">(</span><span class="va">x</span>, method<span class="op">=</span><span class="st">"wald"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">MultinomCI</span><span class="op">(</span><span class="va">x</span>, method<span class="op">=</span><span class="st">"wald"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        est     lwr.ci    upr.ci</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.175 0.12234021 0.2276598</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.370 0.30308797 0.4369120</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.110 0.06663649 0.1533635</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 0.345 0.27911853 0.4108815</span>
-<span class="r-in"><span class="fu">MultinomCI</span><span class="op">(</span><span class="va">x</span>, method<span class="op">=</span><span class="st">"waldcc"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">MultinomCI</span><span class="op">(</span><span class="va">x</span>, method<span class="op">=</span><span class="st">"waldcc"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        est     lwr.ci    upr.ci</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.175 0.11984021 0.2301598</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.370 0.30058797 0.4394120</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.110 0.06413649 0.1558635</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 0.345 0.27661853 0.4133815</span>
-<span class="r-in"><span class="fu">MultinomCI</span><span class="op">(</span><span class="va">x</span>, method<span class="op">=</span><span class="st">"wilson"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">MultinomCI</span><span class="op">(</span><span class="va">x</span>, method<span class="op">=</span><span class="st">"wilson"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        est     lwr.ci    upr.ci</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.175 0.12860515 0.2336443</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.370 0.30612608 0.4387737</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.110 0.07377244 0.1609269</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 0.345 0.28259794 0.4132441</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># compare to</span></span>
-<span class="r-in"><span class="fu"><a href="BinomCI.html">BinomCI</a></span><span class="op">(</span><span class="va">x</span>, n<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># compare to</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="BinomCI.html">BinomCI</a></span><span class="op">(</span><span class="va">x</span>, n<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       est     lwr.ci    upr.ci</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> x.1 0.175 0.12860515 0.2336443</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> x.2 0.370 0.30612608 0.4387737</span>
@@ -218,7 +234,7 @@ Proportions <em>Technometrics</em>, 7, 247-254.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -82,14 +82,14 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">LeveneTest</span><span class="op">(</span><span class="va">y</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for formula</span>
-<span class="fu">LeveneTest</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for lm</span>
-<span class="fu">LeveneTest</span><span class="op">(</span><span class="va">y</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for default</span>
-<span class="fu">LeveneTest</span><span class="op">(</span><span class="va">y</span>, <span class="va">group</span>, center<span class="op">=</span><span class="va">median</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">LeveneTest</span><span class="op">(</span><span class="va">y</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for formula</span></span>
+<span><span class="fu">LeveneTest</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for lm</span></span>
+<span><span class="fu">LeveneTest</span><span class="op">(</span><span class="va">y</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">LeveneTest</span><span class="op">(</span><span class="va">y</span>, <span class="va">group</span>, center<span class="op">=</span><span class="va">median</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -99,29 +99,40 @@
   <code>formula</code> object. If <code>y</code> is a linear-model object or a formula,
   the variables on the right-hand-side of the model must all be factors and
   must be completely crossed.</p></dd>
-<dt>group</dt>
+
+  <dt>group</dt>
 <dd><p>factor defining groups.</p></dd>
-<dt>center</dt>
+
+  <dt>center</dt>
 <dd><p>The name of a function to compute the center of each group;
   	<code>mean</code> gives the original Levene's test; the default, <code>median</code>,
   	provides a more robust test (Brown-Forsythe-Test).</p></dd>
-<dt>formula</dt>
+
+
+  <dt>formula</dt>
 <dd><p>a formula of the form <code>lhs ~ rhs</code> where <code>lhs</code>
     gives the data values and <code>rhs</code> the corresponding groups.</p></dd>
-<dt>data</dt>
+
+  <dt>data</dt>
 <dd><p>an optional matrix or data frame (or similar: see
     <code><a href="https://rdrr.io/r/stats/model.frame.html" class="external-link">model.frame</a></code>) containing the variables in the
     formula <code>formula</code>.  By default the variables are taken from
     <code>environment(formula)</code>.</p></dd>
-<dt>...</dt>
+
+
+
+  <dt>...</dt>
 <dd><p>arguments to be passed down, e.g., <code>data</code> for the
   	<code>formula</code> and <code>lm</code> methods; can also be used to pass arguments to
   	the function given by <code>center</code> (e.g., <code>center=mean</code> and
   	<code>trim=0.1</code> specify the 10% trimmed mean).</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>returns an object meant to be printed showing the results of the test.</p>
+    
+
+<p>returns an object meant to be printed showing the results of the test.</p>
     </div>
     <div id="note">
     <h2>Note</h2>
@@ -157,39 +168,39 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## example from ansari.test:</span></span>
-<span class="r-in"><span class="co">## Hollander &amp; Wolfe (1973, p. 86f):</span></span>
-<span class="r-in"><span class="co">## Serum iron determination using Hyland control sera</span></span>
-<span class="r-in"><span class="va">ramsay</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">111</span>, <span class="fl">107</span>, <span class="fl">100</span>, <span class="fl">99</span>, <span class="fl">102</span>, <span class="fl">106</span>, <span class="fl">109</span>, <span class="fl">108</span>, <span class="fl">104</span>, <span class="fl">99</span>,</span>
-<span class="r-in">            <span class="fl">101</span>, <span class="fl">96</span>, <span class="fl">97</span>, <span class="fl">102</span>, <span class="fl">107</span>, <span class="fl">113</span>, <span class="fl">116</span>, <span class="fl">113</span>, <span class="fl">110</span>, <span class="fl">98</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">jung.parekh</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">107</span>, <span class="fl">108</span>, <span class="fl">106</span>, <span class="fl">98</span>, <span class="fl">105</span>, <span class="fl">103</span>, <span class="fl">110</span>, <span class="fl">105</span>, <span class="fl">104</span>,</span>
-<span class="r-in">            <span class="fl">100</span>, <span class="fl">96</span>, <span class="fl">108</span>, <span class="fl">103</span>, <span class="fl">104</span>, <span class="fl">114</span>, <span class="fl">114</span>, <span class="fl">113</span>, <span class="fl">108</span>, <span class="fl">106</span>, <span class="fl">99</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">LeveneTest</span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">ramsay</span>, <span class="va">jung.parekh</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"ramsay"</span>,<span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">ramsay</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"jung.parekh"</span>,<span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">jung.parekh</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## example from ansari.test:</span></span></span>
+<span class="r-in"><span><span class="co">## Hollander &amp; Wolfe (1973, p. 86f):</span></span></span>
+<span class="r-in"><span><span class="co">## Serum iron determination using Hyland control sera</span></span></span>
+<span class="r-in"><span><span class="va">ramsay</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">111</span>, <span class="fl">107</span>, <span class="fl">100</span>, <span class="fl">99</span>, <span class="fl">102</span>, <span class="fl">106</span>, <span class="fl">109</span>, <span class="fl">108</span>, <span class="fl">104</span>, <span class="fl">99</span>,</span></span>
+<span class="r-in"><span>            <span class="fl">101</span>, <span class="fl">96</span>, <span class="fl">97</span>, <span class="fl">102</span>, <span class="fl">107</span>, <span class="fl">113</span>, <span class="fl">116</span>, <span class="fl">113</span>, <span class="fl">110</span>, <span class="fl">98</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">jung.parekh</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">107</span>, <span class="fl">108</span>, <span class="fl">106</span>, <span class="fl">98</span>, <span class="fl">105</span>, <span class="fl">103</span>, <span class="fl">110</span>, <span class="fl">105</span>, <span class="fl">104</span>,</span></span>
+<span class="r-in"><span>            <span class="fl">100</span>, <span class="fl">96</span>, <span class="fl">108</span>, <span class="fl">103</span>, <span class="fl">104</span>, <span class="fl">114</span>, <span class="fl">114</span>, <span class="fl">113</span>, <span class="fl">108</span>, <span class="fl">106</span>, <span class="fl">99</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">LeveneTest</span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">ramsay</span>, <span class="va">jung.parekh</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"ramsay"</span>,<span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">ramsay</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"jung.parekh"</span>,<span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">jung.parekh</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Levene's Test for Homogeneity of Variance (center = median)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       Df F value Pr(&gt;F)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> group  1  1.7865 0.1893</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       38               </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">LeveneTest</span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>,<span class="st">"B"</span><span class="op">)</span>,each<span class="op">=</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">LeveneTest</span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>,<span class="st">"B"</span><span class="op">)</span>,each<span class="op">=</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Levene's Test for Homogeneity of Variance (center = median)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       Df F value Pr(&gt;F)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> group  1  0.1475 0.7055</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       18               </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co"># original example from package car</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">Moore</span>, <span class="fu">LeveneTest</span><span class="op">(</span><span class="va">conformity</span>, <span class="va">fcategory</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">Moore</span>, <span class="fu">LeveneTest</span><span class="op">(</span><span class="va">conformity</span>, <span class="fu"><a href="https://rdrr.io/r/base/interaction.html" class="external-link">interaction</a></span><span class="op">(</span><span class="va">fcategory</span>, <span class="va">partner.status</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">LeveneTest</span><span class="op">(</span><span class="va">conformity</span> <span class="op">~</span> <span class="va">fcategory</span> <span class="op">*</span> <span class="va">partner.status</span>, data <span class="op">=</span> <span class="va">Moore</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">LeveneTest</span><span class="op">(</span><span class="va">conformity</span> <span class="op">~</span> <span class="va">fcategory</span> <span class="op">*</span> <span class="va">partner.status</span>, data <span class="op">=</span> <span class="va">Moore</span>, center <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">LeveneTest</span><span class="op">(</span><span class="va">conformity</span> <span class="op">~</span> <span class="va">fcategory</span> <span class="op">*</span> <span class="va">partner.status</span>, data <span class="op">=</span> <span class="va">Moore</span>, center <span class="op">=</span> <span class="va">mean</span>, trim <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">LeveneTest</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">conformity</span> <span class="op">~</span> <span class="va">fcategory</span><span class="op">*</span><span class="va">partner.status</span>, data <span class="op">=</span> <span class="va">Moore</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># original example from package car</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">Moore</span>, <span class="fu">LeveneTest</span><span class="op">(</span><span class="va">conformity</span>, <span class="va">fcategory</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">Moore</span>, <span class="fu">LeveneTest</span><span class="op">(</span><span class="va">conformity</span>, <span class="fu"><a href="https://rdrr.io/r/base/interaction.html" class="external-link">interaction</a></span><span class="op">(</span><span class="va">fcategory</span>, <span class="va">partner.status</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">LeveneTest</span><span class="op">(</span><span class="va">conformity</span> <span class="op">~</span> <span class="va">fcategory</span> <span class="op">*</span> <span class="va">partner.status</span>, data <span class="op">=</span> <span class="va">Moore</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">LeveneTest</span><span class="op">(</span><span class="va">conformity</span> <span class="op">~</span> <span class="va">fcategory</span> <span class="op">*</span> <span class="va">partner.status</span>, data <span class="op">=</span> <span class="va">Moore</span>, center <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">LeveneTest</span><span class="op">(</span><span class="va">conformity</span> <span class="op">~</span> <span class="va">fcategory</span> <span class="op">*</span> <span class="va">partner.status</span>, data <span class="op">=</span> <span class="va">Moore</span>, center <span class="op">=</span> <span class="va">mean</span>, trim <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">LeveneTest</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">conformity</span> <span class="op">~</span> <span class="va">fcategory</span><span class="op">*</span><span class="va">partner.status</span>, data <span class="op">=</span> <span class="va">Moore</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -204,7 +215,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

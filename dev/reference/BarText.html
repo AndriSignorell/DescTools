@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,10 +87,10 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">BarText</span><span class="op">(</span><span class="va">height</span>, <span class="va">b</span>, labels <span class="op">=</span> <span class="va">height</span>, beside <span class="op">=</span> <span class="cn">FALSE</span>, horiz <span class="op">=</span> <span class="cn">FALSE</span>,
-        cex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"cex"</span><span class="op">)</span>, adj <span class="op">=</span> <span class="cn">NULL</span>, 
-        pos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"topout"</span>, <span class="st">"topin"</span>, <span class="st">"mid"</span>, <span class="st">"bottomin"</span>, <span class="st">"bottomout"</span><span class="op">)</span>, 
-        offset <span class="op">=</span> <span class="fl">0</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">BarText</span><span class="op">(</span><span class="va">height</span>, <span class="va">b</span>, labels <span class="op">=</span> <span class="va">height</span>, beside <span class="op">=</span> <span class="cn">FALSE</span>, horiz <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>        cex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"cex"</span><span class="op">)</span>, adj <span class="op">=</span> <span class="cn">NULL</span>, </span>
+<span>        pos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"topout"</span>, <span class="st">"topin"</span>, <span class="st">"mid"</span>, <span class="st">"bottomin"</span>, <span class="st">"bottomout"</span><span class="op">)</span>, </span>
+<span>        offset <span class="op">=</span> <span class="fl">0</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -98,30 +98,43 @@
     <dl><dt>height</dt>
 <dd><p>either a vector or matrix of values describing the bars which make up the plot exactly as used for creating the barplot.
 <!-- %%     ~~Describe \code{height} here~~ --></p></dd>
-<dt>b</dt>
+
+  <dt>b</dt>
 <dd><p>the returned mid points as returned by <code>b &lt;- barplot(...)</code>.
 <!-- %%     ~~Describe \code{b} here~~ --></p></dd>
-<dt>labels</dt>
+
+  <dt>labels</dt>
 <dd><p>the labels to be placed on the bars.
 <!-- %%     ~~Describe \code{labels} here~~ --></p></dd>
-<dt>beside</dt>
+
+  <dt>beside</dt>
 <dd><p>a logical value. If FALSE, the columns of height are portrayed as stacked bars, and if TRUE the columns are portrayed as juxtaposed bars.
 <!-- %%     ~~Describe \code{beside} here~~ --></p></dd>
-<dt>horiz</dt>
+
+  <dt>horiz</dt>
 <dd><p>a logical value. If FALSE, the bars are drawn vertically with the first bar to the left. If TRUE, the bars are drawn horizontally with the first at the bottom.
 <!-- %%     ~~Describe \code{horiz} here~~ --></p></dd>
+
 <dt>cex</dt>
 <dd><p>numeric character expansion factor; multiplied by <code><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></code><code>("cex")</code> yields the final character size. <code>NULL</code> and <code>NA</code> are equivalent to <code>1.0</code>.</p></dd>
+
 <dt>adj</dt>
 <dd><p>one or two values in [0, 1] which specify the x (and optionally y) adjustment of the labels. On most devices values outside that interval will also work.</p></dd>
+
+
 <dt>pos</dt>
 <dd><p>one of <code>"topout"</code>, <code>"topin"</code>, <code>"mid"</code>, <code>"bottomin"</code>, <code>"bottomout"</code>, 
 defining if the labels should be placed on top of the bars (inside or outside) or at the bottom of the bars (inside or outside).</p></dd>
+
+
 <dt>offset</dt>
 <dd><p>a vector indicating how much the bars should be shifted relative to the x axis.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>the dots are passed to the <code><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></code>.
 <!-- %%     ~~Describe \code{\dots} here~~ --></p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -145,42 +158,42 @@ defining if the labels should be placed on top of the bars (inside or outside) o
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># simple vector</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">453</span>, <span class="fl">44</span>, <span class="fl">56</span>, <span class="fl">34</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">BarText</span><span class="op">(</span><span class="va">x</span>, <span class="va">b</span>, <span class="va">x</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># simple vector</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">453</span>, <span class="fl">44</span>, <span class="fl">56</span>, <span class="fl">34</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">BarText</span><span class="op">(</span><span class="va">x</span>, <span class="va">b</span>, <span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="BarText-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># more complicated</span></span>
-<span class="r-in"><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="va">VADeaths</span>, horiz <span class="op">=</span> <span class="cn">FALSE</span>, col<span class="op">=</span><span class="va">hblue</span>, beside <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">BarText</span><span class="op">(</span><span class="va">VADeaths</span>, b<span class="op">=</span><span class="va">b</span>, horiz <span class="op">=</span> <span class="cn">FALSE</span>, beside <span class="op">=</span> <span class="cn">TRUE</span>, cex<span class="op">=</span><span class="fl">0.8</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">BarText</span><span class="op">(</span><span class="va">VADeaths</span>, b<span class="op">=</span><span class="va">b</span>, horiz <span class="op">=</span> <span class="cn">FALSE</span>, beside <span class="op">=</span> <span class="cn">TRUE</span>, cex<span class="op">=</span><span class="fl">0.8</span>, pos<span class="op">=</span><span class="st">"bottomin"</span>,</span>
-<span class="r-in">        col<span class="op">=</span><span class="st">"white"</span>, font<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># more complicated</span></span></span>
+<span class="r-in"><span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="va">VADeaths</span>, horiz <span class="op">=</span> <span class="cn">FALSE</span>, col<span class="op">=</span><span class="va">hblue</span>, beside <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">BarText</span><span class="op">(</span><span class="va">VADeaths</span>, b<span class="op">=</span><span class="va">b</span>, horiz <span class="op">=</span> <span class="cn">FALSE</span>, beside <span class="op">=</span> <span class="cn">TRUE</span>, cex<span class="op">=</span><span class="fl">0.8</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">BarText</span><span class="op">(</span><span class="va">VADeaths</span>, b<span class="op">=</span><span class="va">b</span>, horiz <span class="op">=</span> <span class="cn">FALSE</span>, beside <span class="op">=</span> <span class="cn">TRUE</span>, cex<span class="op">=</span><span class="fl">0.8</span>, pos<span class="op">=</span><span class="st">"bottomin"</span>,</span></span>
+<span class="r-in"><span>        col<span class="op">=</span><span class="st">"white"</span>, font<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="BarText-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="va">VADeaths</span>, horiz <span class="op">=</span> <span class="cn">TRUE</span>, col<span class="op">=</span><span class="va">hblue</span>, beside <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">BarText</span><span class="op">(</span><span class="va">VADeaths</span>, b<span class="op">=</span><span class="va">b</span>, horiz <span class="op">=</span> <span class="cn">TRUE</span>, beside <span class="op">=</span> <span class="cn">TRUE</span>, cex<span class="op">=</span><span class="fl">0.8</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="va">VADeaths</span>, horiz <span class="op">=</span> <span class="cn">TRUE</span>, col<span class="op">=</span><span class="va">hblue</span>, beside <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">BarText</span><span class="op">(</span><span class="va">VADeaths</span>, b<span class="op">=</span><span class="va">b</span>, horiz <span class="op">=</span> <span class="cn">TRUE</span>, beside <span class="op">=</span> <span class="cn">TRUE</span>, cex<span class="op">=</span><span class="fl">0.8</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="BarText-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="va">VADeaths</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">BarText</span><span class="op">(</span><span class="va">VADeaths</span>, b<span class="op">=</span><span class="va">b</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="va">VADeaths</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">BarText</span><span class="op">(</span><span class="va">VADeaths</span>, b<span class="op">=</span><span class="va">b</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="BarText-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="va">VADeaths</span>, horiz <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">BarText</span><span class="op">(</span><span class="va">VADeaths</span>, b<span class="op">=</span><span class="va">b</span>, horiz <span class="op">=</span> <span class="cn">TRUE</span>, col<span class="op">=</span><span class="st">"red"</span>, cex<span class="op">=</span><span class="fl">1.5</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="va">VADeaths</span>, horiz <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">BarText</span><span class="op">(</span><span class="va">VADeaths</span>, b<span class="op">=</span><span class="va">b</span>, horiz <span class="op">=</span> <span class="cn">TRUE</span>, col<span class="op">=</span><span class="st">"red"</span>, cex<span class="op">=</span><span class="fl">1.5</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="BarText-5.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># position of the text</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">off</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">4</span>, <span class="fl">1</span>, <span class="fl">20</span>, <span class="op">-</span><span class="fl">15</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw">for</span><span class="op">(</span><span class="va">pos</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/eval.html" class="external-link">eval</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/formals.html" class="external-link">formals</a></span><span class="op">(</span><span class="va">BarText</span><span class="op">)</span><span class="op">$</span><span class="va">pos</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="va">x</span>, offset<span class="op">=</span><span class="va">off</span>, </span>
-<span class="r-in">  main<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">gettextf</a></span><span class="op">(</span><span class="st">"Textposition pos = '%s'"</span>, <span class="va">pos</span><span class="op">)</span>, horiz<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>h<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu">BarText</span><span class="op">(</span><span class="va">x</span>, <span class="va">b</span>, <span class="va">x</span>, offset <span class="op">=</span> <span class="va">off</span>, pos<span class="op">=</span><span class="va">pos</span>, cex<span class="op">=</span><span class="fl">1.5</span>, horiz<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># position of the text</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">off</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">4</span>, <span class="fl">1</span>, <span class="fl">20</span>, <span class="op">-</span><span class="fl">15</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">for</span><span class="op">(</span><span class="va">pos</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/eval.html" class="external-link">eval</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/formals.html" class="external-link">formals</a></span><span class="op">(</span><span class="va">BarText</span><span class="op">)</span><span class="op">$</span><span class="va">pos</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="va">x</span>, offset<span class="op">=</span><span class="va">off</span>, </span></span>
+<span class="r-in"><span>  main<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">gettextf</a></span><span class="op">(</span><span class="st">"Textposition pos = '%s'"</span>, <span class="va">pos</span><span class="op">)</span>, horiz<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>h<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">BarText</span><span class="op">(</span><span class="va">x</span>, <span class="va">b</span>, <span class="va">x</span>, offset <span class="op">=</span> <span class="va">off</span>, pos<span class="op">=</span><span class="va">pos</span>, cex<span class="op">=</span><span class="fl">1.5</span>, horiz<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-plt img"><img src="BarText-6.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -196,7 +209,7 @@ defining if the labels should be placed on top of the bars (inside or outside) o
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

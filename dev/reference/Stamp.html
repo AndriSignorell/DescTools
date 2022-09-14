@@ -19,7 +19,7 @@ text to the stamp."><meta name="robots" content="noindex"><!-- mathjax --><scrip
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -86,22 +86,25 @@ text to the stamp.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Stamp</span><span class="op">(</span>txt <span class="op">=</span> <span class="cn">NULL</span>, las <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"las"</span><span class="op">)</span>, cex <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Stamp</span><span class="op">(</span>txt <span class="op">=</span> <span class="cn">NULL</span>, las <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"las"</span><span class="op">)</span>, cex <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>txt</dt>
 <dd><p>an optional single text string. If it is not given, the function will look for a defined option named <code>stamp</code>. If not found the current date will be taken as text. If the stamp option is defined as expression the function will evaluate it. This can be used to define dynamic texts.</p></dd>
-<dt>las</dt>
+
+  <dt>las</dt>
 <dd><p>numeric in 1,3, defining direction of the text. 1 means horizontal, 3 vertical. Default is taken from <code>par("las")</code>.</p></dd>
-<dt>cex</dt>
+
+  <dt>cex</dt>
 <dd><p>numeric <b>c</b>haracter <b>ex</b>pansion factor; multiplied by <code>par("cex")</code> yields the final character size. Defaults to 0.6.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
-    <p>The text can be freely defined as option. If user and date should be included by default, the following option using an expression will help:</p><div class="sourceCode"><pre><code><span class="fu"><a href="../reference/DescToolsOptions.html">DescToolsOptions</a></span><span class="op">(</span>stamp<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">gettextf</a></span><span class="op">(</span><span class="st">'%s/%s'</span>,
-          <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">'USERNAME'</span><span class="op">)</span>, <span class="fu"><a href="../reference/Format.html">Format</a></span><span class="op">(</span><span class="fu"><a href="../reference/DateFunctions.html">Today</a></span><span class="op">(</span><span class="op">)</span>, fmt<span class="op">=</span><span class="st">'yyyy-mm-dd'</span><span class="op">)</span> <span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+    <p>The text can be freely defined as option. If user and date should be included by default, the following option using an expression will help:</p><div class="sourceCode"><pre><code><span><span class="fu"><a href="../reference/DescToolsOptions.html">DescToolsOptions</a></span><span class="op">(</span>stamp<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">gettextf</a></span><span class="op">(</span><span class="st">'%s/%s'</span>,</span>
+<span>          <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">'USERNAME'</span><span class="op">)</span>, <span class="fu"><a href="../reference/Format.html">Format</a></span><span class="op">(</span><span class="fu"><a href="../reference/DateFunctions.html">Today</a></span><span class="op">(</span><span class="op">)</span>, fmt<span class="op">=</span><span class="st">'yyyy-mm-dd'</span><span class="op">)</span> <span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 
 <p>For <span style="R">R</span> results may not be satisfactory if <code>par(mfrow=)</code> is in effect.</p>
     </div>
@@ -117,8 +120,8 @@ with some amendments by Andri Signorell &lt;andri@signorell.net&gt;</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">Stamp</span><span class="op">(</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">Stamp</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="Stamp-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -134,7 +137,7 @@ with some amendments by Andri Signorell &lt;andri@signorell.net&gt;</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

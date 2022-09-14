@@ -23,7 +23,7 @@ Kuhn-Tucker conditions."><meta name="robots" content="noindex"><!-- mathjax --><
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -93,7 +93,7 @@ Kuhn-Tucker conditions.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">DivCoefMax</span><span class="op">(</span><span class="va">dis</span>, <span class="va">epsilon</span>, <span class="va">comment</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">DivCoefMax</span><span class="op">(</span><span class="va">dis</span>, <span class="va">epsilon</span>, <span class="va">comment</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -101,19 +101,25 @@ Kuhn-Tucker conditions.</p>
     <dl><dt>dis</dt>
 <dd><p>an object of class <code>dist</code> containing distances 
   or dissimilarities among elements.</p></dd>
-<dt>epsilon</dt>
+
+  <dt>epsilon</dt>
 <dd><p>a tolerance threshold : a frequency is non null 
   if it is higher than epsilon.</p></dd>
-<dt>comment</dt>
+
+  <dt>comment</dt>
 <dd><p>a logical value indicating whether or not 
   comments on the optimization technique should be printed.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Returns a list</p>
+    
+
+<p>Returns a list</p>
 <dl><dt>value</dt>
 <dd><p>the maximal value of Rao's diversity coefficient.</p></dd>
-<dt>vectors</dt>
+
+  <dt>vectors</dt>
 <dd><p>a data frame containing four frequency 
   distributions : sim is a simple distribution which is equal 
   to \(\frac{D1}{1^tD1}\), pro is equal to 
@@ -121,6 +127,7 @@ Kuhn-Tucker conditions.</p>
   eigenvector of the matrix containing the squared dissimilarities 
   among the elements, met is equal to \(z^2\), num is a frequency 
   vector maximizing Rao's diversity coefficient.</p></dd>
+
 </dl></div>
     <div id="references">
     <h2>References</h2>
@@ -147,43 +154,43 @@ Sandrine Pavoine &lt;pavoine@biomserv.univ-lyon1.fr&gt;</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="va">par.safe</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">mar</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">elec88</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Departments of France.</span></span>
-<span class="r-in"><span class="fu">area.plot</span><span class="op">(</span><span class="va">elec88</span><span class="op">$</span><span class="va">area</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Dissimilarity matrix.</span></span>
-<span class="r-in"><span class="va">d0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">elec88</span><span class="op">$</span><span class="va">xy</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Frequency distribution maximizing spatial diversity in France</span></span>
-<span class="r-in"><span class="co"># according to Rao's quadratic entropy.</span></span>
-<span class="r-in"><span class="va">France.m</span> <span class="op">&lt;-</span> <span class="fu">DivCoefMax</span><span class="op">(</span><span class="va">d0</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">w0</span> <span class="op">&lt;-</span> <span class="va">France.m</span><span class="op">$</span><span class="va">vectors</span><span class="op">$</span><span class="va">num</span></span>
-<span class="r-in"><span class="va">v0</span> <span class="op">&lt;-</span> <span class="va">France.m</span><span class="op">$</span><span class="va">value</span></span>
-<span class="r-in"><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">94</span><span class="op">)</span> <span class="op">[</span><span class="va">w0</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">]</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Smallest circle including all the 94 departments.</span></span>
-<span class="r-in"><span class="co"># The squared radius of that circle is the maximal value of the</span></span>
-<span class="r-in"><span class="co"># spatial diversity.</span></span>
-<span class="r-in"><span class="va">w1</span> <span class="op">=</span> <span class="va">elec88</span><span class="op">$</span><span class="va">xy</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fl">28</span>, <span class="fl">66</span><span class="op">)</span>, <span class="op">]</span></span>
-<span class="r-in"><span class="va">w.c</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">w1</span> <span class="op">*</span> <span class="va">w0</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fl">28</span>, <span class="fl">66</span><span class="op">)</span><span class="op">]</span>, <span class="fl">2</span>, <span class="va">sum</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/symbols.html" class="external-link">symbols</a></span><span class="op">(</span><span class="va">w.c</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">w.c</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, circles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">v0</span><span class="op">)</span>, inc <span class="op">=</span> <span class="cn">FALSE</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">s.value</span><span class="op">(</span><span class="va">elec88</span><span class="op">$</span><span class="va">xy</span>, <span class="va">w0</span>, add.plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="va">par.safe</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Maximisation of Rao's diversity coefficient</span></span>
-<span class="r-in"><span class="co"># with ultrametric dissimilarities.</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">microsatt</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mic.genet</span> <span class="op">&lt;-</span> <span class="fu">count2genet</span><span class="op">(</span><span class="va">microsatt</span><span class="op">$</span><span class="va">tab</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mic.dist</span> <span class="op">&lt;-</span> <span class="fu">dist.genet</span><span class="op">(</span><span class="va">mic.genet</span>, <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mic.phylog</span> <span class="op">&lt;-</span> <span class="fu">hclust2phylog</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></span><span class="op">(</span><span class="va">mic.dist</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">plot.phylog</span><span class="op">(</span><span class="va">mic.phylog</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mic.maxpond</span> <span class="op">&lt;-</span> <span class="fu">DivCoefMax</span><span class="op">(</span><span class="va">mic.phylog</span><span class="op">$</span><span class="va">Wdist</span><span class="op">)</span><span class="op">$</span><span class="va">vectors</span><span class="op">$</span><span class="va">num</span></span>
-<span class="r-in"><span class="fu">dotchart.phylog</span><span class="op">(</span><span class="va">mic.phylog</span>, <span class="va">mic.maxpond</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="va">par.safe</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">mar</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">elec88</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Departments of France.</span></span></span>
+<span class="r-in"><span><span class="fu">area.plot</span><span class="op">(</span><span class="va">elec88</span><span class="op">$</span><span class="va">area</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Dissimilarity matrix.</span></span></span>
+<span class="r-in"><span><span class="va">d0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">elec88</span><span class="op">$</span><span class="va">xy</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Frequency distribution maximizing spatial diversity in France</span></span></span>
+<span class="r-in"><span><span class="co"># according to Rao's quadratic entropy.</span></span></span>
+<span class="r-in"><span><span class="va">France.m</span> <span class="op">&lt;-</span> <span class="fu">DivCoefMax</span><span class="op">(</span><span class="va">d0</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">w0</span> <span class="op">&lt;-</span> <span class="va">France.m</span><span class="op">$</span><span class="va">vectors</span><span class="op">$</span><span class="va">num</span></span></span>
+<span class="r-in"><span><span class="va">v0</span> <span class="op">&lt;-</span> <span class="va">France.m</span><span class="op">$</span><span class="va">value</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">94</span><span class="op">)</span> <span class="op">[</span><span class="va">w0</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Smallest circle including all the 94 departments.</span></span></span>
+<span class="r-in"><span><span class="co"># The squared radius of that circle is the maximal value of the</span></span></span>
+<span class="r-in"><span><span class="co"># spatial diversity.</span></span></span>
+<span class="r-in"><span><span class="va">w1</span> <span class="op">=</span> <span class="va">elec88</span><span class="op">$</span><span class="va">xy</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fl">28</span>, <span class="fl">66</span><span class="op">)</span>, <span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">w.c</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">w1</span> <span class="op">*</span> <span class="va">w0</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fl">28</span>, <span class="fl">66</span><span class="op">)</span><span class="op">]</span>, <span class="fl">2</span>, <span class="va">sum</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/symbols.html" class="external-link">symbols</a></span><span class="op">(</span><span class="va">w.c</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">w.c</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, circles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">v0</span><span class="op">)</span>, inc <span class="op">=</span> <span class="cn">FALSE</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">s.value</span><span class="op">(</span><span class="va">elec88</span><span class="op">$</span><span class="va">xy</span>, <span class="va">w0</span>, add.plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="va">par.safe</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Maximisation of Rao's diversity coefficient</span></span></span>
+<span class="r-in"><span><span class="co"># with ultrametric dissimilarities.</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">microsatt</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mic.genet</span> <span class="op">&lt;-</span> <span class="fu">count2genet</span><span class="op">(</span><span class="va">microsatt</span><span class="op">$</span><span class="va">tab</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mic.dist</span> <span class="op">&lt;-</span> <span class="fu">dist.genet</span><span class="op">(</span><span class="va">mic.genet</span>, <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mic.phylog</span> <span class="op">&lt;-</span> <span class="fu">hclust2phylog</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></span><span class="op">(</span><span class="va">mic.dist</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">plot.phylog</span><span class="op">(</span><span class="va">mic.phylog</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mic.maxpond</span> <span class="op">&lt;-</span> <span class="fu">DivCoefMax</span><span class="op">(</span><span class="va">mic.phylog</span><span class="op">$</span><span class="va">Wdist</span><span class="op">)</span><span class="op">$</span><span class="va">vectors</span><span class="op">$</span><span class="va">num</span></span></span>
+<span class="r-in"><span><span class="fu">dotchart.phylog</span><span class="op">(</span><span class="va">mic.phylog</span>, <span class="va">mic.maxpond</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -198,7 +205,7 @@ Sandrine Pavoine &lt;pavoine@biomserv.univ-lyon1.fr&gt;</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

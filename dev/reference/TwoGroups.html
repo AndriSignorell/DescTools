@@ -21,7 +21,7 @@ This description makes sense, for example, if the age distribution of a collecti
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -89,8 +89,8 @@ This description makes sense, for example, if the age distribution of a collecti
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">TwoGroups</span><span class="op">(</span><span class="va">x</span>, <span class="va">g</span>, test <span class="op">=</span> <span class="va">t.test</span>, main <span class="op">=</span> <span class="cn">NULL</span>,
-          font.txt <span class="op">=</span> <span class="cn">NULL</span>, font.desc <span class="op">=</span> <span class="cn">NULL</span>, wrd <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">TwoGroups</span><span class="op">(</span><span class="va">x</span>, <span class="va">g</span>, test <span class="op">=</span> <span class="va">t.test</span>, main <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>          font.txt <span class="op">=</span> <span class="cn">NULL</span>, font.desc <span class="op">=</span> <span class="cn">NULL</span>, wrd <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -98,31 +98,53 @@ This description makes sense, for example, if the age distribution of a collecti
     <dl><dt>x</dt>
 <dd><p>the numeric variable to describe.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>g</dt>
+
+  <dt>g</dt>
 <dd><p>the grouping factor (preferably with two levels.)
 <!-- %%     ~~Describe \code{g} here~~ --></p></dd>
-<dt>test</dt>
+
+  <dt>test</dt>
 <dd><p>the test to be applied, default is <code><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a>()</code>.
 <!-- %%     ~~Describe \code{test} here~~ --></p></dd>
-<dt>main</dt>
+
+  <dt>main</dt>
 <dd><p>the main title.
 <!-- %%     ~~Describe \code{main} here~~ --></p></dd>
-<dt>font.txt</dt>
+
+  <dt>font.txt</dt>
 <dd><p>the font chosen for the introducing text, when sending the output to Word.
 <!-- %%     ~~Describe \code{font.txt} here~~ --></p></dd>
-<dt>font.desc</dt>
+
+  <dt>font.desc</dt>
 <dd><p>the font chosen for the description, when sending the output to Word.
 <!-- %%     ~~Describe \code{font.desc} here~~ --></p></dd>
-<dt>wrd</dt>
+
+  <dt>wrd</dt>
 <dd><p>the pointer to a running MS Word instance, as created by GetNewWrd() (for a new one) or by GetCurrWrd() for an existing one. Default is <code>NULL</code>, which will report all results to the console.
 <!-- %%     ~~Describe \code{wrd} here~~ --></p></dd>
+
 <dt>...</dt>
 <dd><p>the dots are sent to the internally used function <code><a href="Phrase.html">Phrase</a>()</code>. They can be used to choose the language (<code>lang</code>) or provide variable name (<code>xname</code>).</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     <p>list with the results calculated by the used functions
-<!-- %%  ~Describe the value returned --><!-- %%  If it is a LIST, use --><!-- %%  \item{comp1 }{Description of 'comp1'} --><!-- %%  \item{comp2 }{Description of 'comp2'} --><!-- %% ... --></p>
+<!-- %%  ~Describe the value returned --></p>
+
+
+<p><!-- %%  If it is a LIST, use --></p>
+
+
+<p><!-- %%  \item{comp1 }{Description of 'comp1'} --></p>
+
+
+<p><!-- %%  \item{comp2 }{Description of 'comp2'} --></p>
+
+
+<p><!-- %% ... --></p>
+
+
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -137,18 +159,18 @@ This description makes sense, for example, if the age distribution of a collecti
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span></span>
-<span class="r-in"><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">rabate</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># we can change the colors for the plot by setting the DescToolsOptions</span></span>
-<span class="r-in"><span class="fu"><a href="DescToolsOptions.html">DescToolsOptions</a></span><span class="op">(</span>col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">horange</span>, <span class="va">hgreen</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">TwoGroups</span><span class="op">(</span><span class="va">x</span>, <span class="va">g</span>, main<span class="op">=</span><span class="st">"Temperature ~ Rebate"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span></span></span>
+<span class="r-in"><span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">rabate</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># we can change the colors for the plot by setting the DescToolsOptions</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="DescToolsOptions.html">DescToolsOptions</a></span><span class="op">(</span>col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">horange</span>, <span class="va">hgreen</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">TwoGroups</span><span class="op">(</span><span class="va">x</span>, <span class="va">g</span>, main<span class="op">=</span><span class="st">"Temperature ~ Rebate"</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"):</span> "rskew" not available for .Call() for package "DescTools"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># for an output to Word simply define the wrd argument</span></span>
-<span class="r-in"><span class="co"># wrd &lt;- GetNewWrd()</span></span>
-<span class="r-in"><span class="co"># TwoGroups(x, g, font.desc=list(name="Consolas", size=8),</span></span>
-<span class="r-in"><span class="co">#           main="Temperature ~ Rebate", wrd=wrd)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># for an output to Word simply define the wrd argument</span></span></span>
+<span class="r-in"><span><span class="co"># wrd &lt;- GetNewWrd()</span></span></span>
+<span class="r-in"><span><span class="co"># TwoGroups(x, g, font.desc=list(name="Consolas", size=8),</span></span></span>
+<span class="r-in"><span><span class="co">#           main="Temperature ~ Rebate", wrd=wrd)</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -163,7 +185,7 @@ This description makes sense, for example, if the age distribution of a collecti
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

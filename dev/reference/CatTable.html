@@ -21,7 +21,7 @@ repeated after every new break.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -89,7 +89,7 @@ repeated after every new break.
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">CatTable</span><span class="op">(</span><span class="va">tab</span>, <span class="va">wcol</span>, <span class="va">nrepchars</span>, width <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"width"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">CatTable</span><span class="op">(</span><span class="va">tab</span>, <span class="va">wcol</span>, <span class="va">nrepchars</span>, width <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"width"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -97,17 +97,21 @@ repeated after every new break.
     <dl><dt>tab</dt>
 <dd><p>the rows of a table to be printed, pasted together in one string with constant columnwidth.
 <!-- %%     ~~Describe \code{tab} here~~ --></p></dd>
-<dt>wcol</dt>
+
+  <dt>wcol</dt>
 <dd><p>integer, the width of the columns. All columns must have the same width.
 <!-- %%     ~~Describe \code{wcol} here~~ --></p></dd>
-<dt>nrepchars</dt>
+
+  <dt>nrepchars</dt>
 <dd><p>integer, the number of characters to be repeated with every break. This 
   is typically the maximum width of the rowlabels.
 <!-- %%     ~~Describe \code{nrepchars} here~~ --></p></dd>
-<dt>width</dt>
+
+  <dt>width</dt>
 <dd><p>integer, the width of the whole table. Default is the width of the current command window 
   (<code>getOption("width")</code>).
 <!-- %%     ~~Describe \code{width} here~~ --></p></dd>
+
 </dl></div>
     <div id="author">
     <h2>Author</h2>
@@ -122,21 +126,21 @@ repeated after every new break.
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>scipen<span class="op">=</span><span class="fl">8</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># used in bivariate description functions</span></span>
-<span class="r-in"><span class="fu"><a href="Desc.html">Desc</a></span><span class="op">(</span><span class="va">temperature</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut</a></span><span class="op">(</span><span class="va">delivery_min</span>, breaks<span class="op">=</span><span class="fl">40</span><span class="op">)</span>, data<span class="op">=</span><span class="va">d.pizza</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>scipen<span class="op">=</span><span class="fl">8</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># used in bivariate description functions</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="Desc.html">Desc</a></span><span class="op">(</span><span class="va">temperature</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut</a></span><span class="op">(</span><span class="va">delivery_min</span>, breaks<span class="op">=</span><span class="fl">40</span><span class="op">)</span>, data<span class="op">=</span><span class="va">d.pizza</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"):</span> "rskew" not available for .Call() for package "DescTools"</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">txt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> </span>
-<span class="r-in">   <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">letters</span>, <span class="fl">500</span>, replace<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>, collapse<span class="op">=</span><span class="st">""</span><span class="op">)</span></span>
-<span class="r-in"> , <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">letters</span>, <span class="fl">500</span>, replace<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>, collapse<span class="op">=</span><span class="st">""</span><span class="op">)</span></span>
-<span class="r-in"> , <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">letters</span>, <span class="fl">500</span>, replace<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>, collapse<span class="op">=</span><span class="st">""</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="va">txt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"aaa"</span>,<span class="st">"bbb"</span>,<span class="st">"ccc"</span><span class="op">)</span>, <span class="va">txt</span>, sep<span class="op">=</span><span class="st">""</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">CatTable</span><span class="op">(</span><span class="va">txt</span>, nrepchars<span class="op">=</span><span class="fl">3</span>, wcol<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">txt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> </span></span>
+<span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">letters</span>, <span class="fl">500</span>, replace<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>, collapse<span class="op">=</span><span class="st">""</span><span class="op">)</span></span></span>
+<span class="r-in"><span> , <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">letters</span>, <span class="fl">500</span>, replace<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>, collapse<span class="op">=</span><span class="st">""</span><span class="op">)</span></span></span>
+<span class="r-in"><span> , <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">letters</span>, <span class="fl">500</span>, replace<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>, collapse<span class="op">=</span><span class="st">""</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">txt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"aaa"</span>,<span class="st">"bbb"</span>,<span class="st">"ccc"</span><span class="op">)</span>, <span class="va">txt</span>, sep<span class="op">=</span><span class="st">""</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">CatTable</span><span class="op">(</span><span class="va">txt</span>, nrepchars<span class="op">=</span><span class="fl">3</span>, wcol<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> aaaaumjvmhrwbxfyunfeknittaaofujbkyrlkseybfbewmzteiwfovtibkxlxesgtfeodwmbjdrtjb</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> bbbnsejzsvejfvkflazpcaeiibpaxydxbgstpncdwdvujcbiyyrcywkvvwkafpksvbrtbxygavitcw</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> cccrxhgwkexjxndsaemqxvditfybvglhggzfhpvvmrpkaucrwfutnotsqnsgztbvnttdtklnkuwfqx</span>
@@ -175,7 +179,7 @@ repeated after every new break.
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

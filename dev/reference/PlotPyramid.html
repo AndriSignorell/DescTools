@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,56 +87,75 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">PlotPyramid</span><span class="op">(</span><span class="va">lx</span>, rx <span class="op">=</span> <span class="cn">NA</span>, ylab <span class="op">=</span> <span class="st">""</span>, ylab.x <span class="op">=</span> <span class="fl">0</span>,
-            col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red"</span>, <span class="st">"blue"</span><span class="op">)</span>, border <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"fg"</span><span class="op">)</span>,
-            main <span class="op">=</span> <span class="st">""</span>, lxlab <span class="op">=</span> <span class="st">""</span>, rxlab <span class="op">=</span> <span class="st">""</span>,
-            xlim <span class="op">=</span> <span class="cn">NULL</span>, gapwidth <span class="op">=</span> <span class="cn">NULL</span>,
-            xaxt <span class="op">=</span> <span class="cn">TRUE</span>, args.grid <span class="op">=</span> <span class="cn">NULL</span>, cex.axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"cex.axis"</span><span class="op">)</span>,
-            cex.lab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"cex.axis"</span><span class="op">)</span>, cex.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"cex.axis"</span><span class="op">)</span>,
-            adj <span class="op">=</span> <span class="fl">0.5</span>, rev <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">PlotPyramid</span><span class="op">(</span><span class="va">lx</span>, rx <span class="op">=</span> <span class="cn">NA</span>, ylab <span class="op">=</span> <span class="st">""</span>, ylab.x <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>            col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red"</span>, <span class="st">"blue"</span><span class="op">)</span>, border <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"fg"</span><span class="op">)</span>,</span>
+<span>            main <span class="op">=</span> <span class="st">""</span>, lxlab <span class="op">=</span> <span class="st">""</span>, rxlab <span class="op">=</span> <span class="st">""</span>,</span>
+<span>            xlim <span class="op">=</span> <span class="cn">NULL</span>, gapwidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>            xaxt <span class="op">=</span> <span class="cn">TRUE</span>, args.grid <span class="op">=</span> <span class="cn">NULL</span>, cex.axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"cex.axis"</span><span class="op">)</span>,</span>
+<span>            cex.lab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"cex.axis"</span><span class="op">)</span>, cex.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"cex.axis"</span><span class="op">)</span>,</span>
+<span>            adj <span class="op">=</span> <span class="fl">0.5</span>, rev <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>lx</dt>
 <dd><p>either a vector or matrix of values describing the bars which make up the plot. If lx is a vector, it will be used to construct the left barplot. If lx is a matrix the first column will be plotted to the left side and the second to the right side. Other columsn are ignored.</p></dd>
-<dt>rx</dt>
+
+  <dt>rx</dt>
 <dd><p>a vector with the values used to build the right barplot. lx and rx should be of equal length.</p></dd>
-<dt>ylab</dt>
+
+  <dt>ylab</dt>
 <dd><p>a vector of names to be plotted either in the middle or at the left side of the plot. If this argument is omitted, then the names are taken from the names attribute of lx if this is a vector.</p></dd>
-<dt>ylab.x</dt>
+
+  <dt>ylab.x</dt>
 <dd><p>the x-position of the y-labels.</p></dd>
-<dt>col</dt>
+
+  <dt>col</dt>
 <dd><p>the color(s) of the bars. If there are more than one the colors will be recycled.</p></dd>
-<dt>border</dt>
+
+  <dt>border</dt>
 <dd><p>the border color of the bars. Set this to <code>NA</code> if no border is to be plotted.</p></dd>
-<dt>main</dt>
+
+  <dt>main</dt>
 <dd><p>overall title for the plot.</p></dd>
-<dt>lxlab</dt>
+
+  <dt>lxlab</dt>
 <dd><p>a label for the left x axis.</p></dd>
-<dt>rxlab</dt>
+
+  <dt>rxlab</dt>
 <dd><p>a label for the right x axis.</p></dd>
-<dt>xlim</dt>
+
+  <dt>xlim</dt>
 <dd><p>limits for the x axis. The first value will determine the limit on the left, the second the one on the right.</p></dd>
-<dt>gapwidth</dt>
+
+  <dt>gapwidth</dt>
 <dd><p>the width of a gap in the middle of the plot. If set to 0, no gap will be plotted. Default is NULL
   which will make the gap as wide, as it is necessary to plot the longest ylab.</p></dd>
-<dt>xaxt</dt>
+
+  <dt>xaxt</dt>
 <dd><p>a character which specifies the x axis type. Specifying "n" suppresses plotting of the axis.</p></dd>
-<dt>args.grid</dt>
+
+  <dt>args.grid</dt>
 <dd><p>list of additional arguments for the grid. Set this argument to <code>NA</code> if no grid should be drawn.</p></dd>
-<dt>cex.axis</dt>
+
+  <dt>cex.axis</dt>
 <dd><p>expansion factor for numeric axis labels.</p></dd>
-<dt>cex.lab</dt>
+
+  <dt>cex.lab</dt>
 <dd><p>expansion factor for numeric variable labels.</p></dd>
-<dt>cex.names</dt>
+
+  <dt>cex.names</dt>
 <dd><p>expansion factor for y labels (names).</p></dd>
-<dt>adj</dt>
+
+  <dt>adj</dt>
 <dd><p>one or two values in [0, 1] which specify the x (and optionally y) adjustment of the labels.</p></dd>
-<dt>rev</dt>
+
+  <dt>rev</dt>
 <dd><p>logical, if set to <code>TRUE</code> the order of data series and names will be reversed.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>the dots are passed to the <code><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></code> function.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -159,52 +178,52 @@ The plot type can also be used to display other types of opposed bar charts with
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">d.sda</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span class="r-in">  kt_x <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ZH"</span>,<span class="st">"BL"</span>,<span class="st">"ZG"</span>,<span class="st">"SG"</span>,<span class="st">"LU"</span>,<span class="st">"AR"</span>,<span class="st">"SO"</span>,<span class="st">"GL"</span>,<span class="st">"SZ"</span>,</span>
-<span class="r-in">            <span class="st">"NW"</span>,<span class="st">"TG"</span>,<span class="st">"UR"</span>,<span class="st">"AI"</span>,<span class="st">"OW"</span>,<span class="st">"GR"</span>,<span class="st">"BE"</span>,<span class="st">"SH"</span>,<span class="st">"AG"</span>,</span>
-<span class="r-in">            <span class="st">"BS"</span>,<span class="st">"FR"</span>,<span class="st">"GE"</span>,<span class="st">"JU"</span>,<span class="st">"NE"</span>,<span class="st">"TI"</span>,<span class="st">"VD"</span>,<span class="st">"VS"</span><span class="op">)</span>,</span>
-<span class="r-in">  apo_n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">18</span>,<span class="fl">16</span>,<span class="fl">13</span>,<span class="fl">11</span>,<span class="fl">9</span>,<span class="fl">12</span>,<span class="fl">11</span>,<span class="fl">8</span>,<span class="fl">9</span>,<span class="fl">8</span>,<span class="fl">11</span>,<span class="fl">9</span>,<span class="fl">7</span>,<span class="fl">9</span>,<span class="fl">24</span>,<span class="fl">19</span>,</span>
-<span class="r-in">            <span class="fl">19</span>,<span class="fl">20</span>,<span class="fl">43</span>,<span class="fl">27</span>,<span class="fl">41</span>,<span class="fl">31</span>,<span class="fl">37</span>,<span class="fl">62</span>,<span class="fl">38</span>,<span class="fl">39</span><span class="op">)</span>,</span>
-<span class="r-in">  sda_n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">235</span>,<span class="fl">209</span>,<span class="fl">200</span>,<span class="fl">169</span>,<span class="fl">166</span>,<span class="fl">164</span>,<span class="fl">162</span>,<span class="fl">146</span>,<span class="fl">128</span>,<span class="fl">127</span>,</span>
-<span class="r-in">            <span class="fl">125</span>,<span class="fl">121</span>,<span class="fl">121</span>,<span class="fl">110</span>,<span class="fl">48</span>,<span class="fl">34</span>,<span class="fl">33</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">PlotPyramid</span><span class="op">(</span>lx<span class="op">=</span><span class="va">d.sda</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"apo_n"</span>,<span class="st">"sda_n"</span><span class="op">)</span><span class="op">]</span>, ylab<span class="op">=</span><span class="va">d.sda</span><span class="op">$</span><span class="va">kt_x</span>,</span>
-<span class="r-in">            col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lightslategray"</span>, <span class="st">"orange2"</span><span class="op">)</span>, border <span class="op">=</span> <span class="cn">NA</span>, ylab.x<span class="op">=</span><span class="fl">0</span>,</span>
-<span class="r-in">            xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">110</span>,<span class="fl">250</span><span class="op">)</span>,</span>
-<span class="r-in">            gapwidth <span class="op">=</span> <span class="cn">NULL</span>, cex.lab <span class="op">=</span> <span class="fl">0.8</span>, cex.axis<span class="op">=</span><span class="fl">0.8</span>, xaxt <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span class="r-in">            lxlab<span class="op">=</span><span class="st">"Drugstores"</span>, rxlab<span class="op">=</span><span class="st">"General practitioners"</span>,</span>
-<span class="r-in">            main<span class="op">=</span><span class="st">"Density of general practitioners and drugstores in CH (2010)"</span>,</span>
-<span class="r-in">            space<span class="op">=</span><span class="fl">0.5</span>, args.grid<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>lty<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">d.sda</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  kt_x <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ZH"</span>,<span class="st">"BL"</span>,<span class="st">"ZG"</span>,<span class="st">"SG"</span>,<span class="st">"LU"</span>,<span class="st">"AR"</span>,<span class="st">"SO"</span>,<span class="st">"GL"</span>,<span class="st">"SZ"</span>,</span></span>
+<span class="r-in"><span>            <span class="st">"NW"</span>,<span class="st">"TG"</span>,<span class="st">"UR"</span>,<span class="st">"AI"</span>,<span class="st">"OW"</span>,<span class="st">"GR"</span>,<span class="st">"BE"</span>,<span class="st">"SH"</span>,<span class="st">"AG"</span>,</span></span>
+<span class="r-in"><span>            <span class="st">"BS"</span>,<span class="st">"FR"</span>,<span class="st">"GE"</span>,<span class="st">"JU"</span>,<span class="st">"NE"</span>,<span class="st">"TI"</span>,<span class="st">"VD"</span>,<span class="st">"VS"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  apo_n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">18</span>,<span class="fl">16</span>,<span class="fl">13</span>,<span class="fl">11</span>,<span class="fl">9</span>,<span class="fl">12</span>,<span class="fl">11</span>,<span class="fl">8</span>,<span class="fl">9</span>,<span class="fl">8</span>,<span class="fl">11</span>,<span class="fl">9</span>,<span class="fl">7</span>,<span class="fl">9</span>,<span class="fl">24</span>,<span class="fl">19</span>,</span></span>
+<span class="r-in"><span>            <span class="fl">19</span>,<span class="fl">20</span>,<span class="fl">43</span>,<span class="fl">27</span>,<span class="fl">41</span>,<span class="fl">31</span>,<span class="fl">37</span>,<span class="fl">62</span>,<span class="fl">38</span>,<span class="fl">39</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  sda_n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">235</span>,<span class="fl">209</span>,<span class="fl">200</span>,<span class="fl">169</span>,<span class="fl">166</span>,<span class="fl">164</span>,<span class="fl">162</span>,<span class="fl">146</span>,<span class="fl">128</span>,<span class="fl">127</span>,</span></span>
+<span class="r-in"><span>            <span class="fl">125</span>,<span class="fl">121</span>,<span class="fl">121</span>,<span class="fl">110</span>,<span class="fl">48</span>,<span class="fl">34</span>,<span class="fl">33</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">PlotPyramid</span><span class="op">(</span>lx<span class="op">=</span><span class="va">d.sda</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"apo_n"</span>,<span class="st">"sda_n"</span><span class="op">)</span><span class="op">]</span>, ylab<span class="op">=</span><span class="va">d.sda</span><span class="op">$</span><span class="va">kt_x</span>,</span></span>
+<span class="r-in"><span>            col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lightslategray"</span>, <span class="st">"orange2"</span><span class="op">)</span>, border <span class="op">=</span> <span class="cn">NA</span>, ylab.x<span class="op">=</span><span class="fl">0</span>,</span></span>
+<span class="r-in"><span>            xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">110</span>,<span class="fl">250</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>            gapwidth <span class="op">=</span> <span class="cn">NULL</span>, cex.lab <span class="op">=</span> <span class="fl">0.8</span>, cex.axis<span class="op">=</span><span class="fl">0.8</span>, xaxt <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>            lxlab<span class="op">=</span><span class="st">"Drugstores"</span>, rxlab<span class="op">=</span><span class="st">"General practitioners"</span>,</span></span>
+<span class="r-in"><span>            main<span class="op">=</span><span class="st">"Density of general practitioners and drugstores in CH (2010)"</span>,</span></span>
+<span class="r-in"><span>            space<span class="op">=</span><span class="fl">0.5</span>, args.grid<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>lty<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="PlotPyramid-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">m.pop</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3.2</span>,<span class="fl">3.5</span>,<span class="fl">3.6</span>,<span class="fl">3.6</span>,<span class="fl">3.5</span>,<span class="fl">3.5</span>,<span class="fl">3.9</span>,<span class="fl">3.7</span>,<span class="fl">3.9</span>,<span class="fl">3.5</span>,</span>
-<span class="r-in">         <span class="fl">3.2</span>,<span class="fl">2.8</span>,<span class="fl">2.2</span>,<span class="fl">1.8</span>,<span class="fl">1.5</span>,<span class="fl">1.3</span>,<span class="fl">0.7</span>,<span class="fl">0.4</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">f.pop</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3.2</span>,<span class="fl">3.4</span>,<span class="fl">3.5</span>,<span class="fl">3.5</span>,<span class="fl">3.5</span>,<span class="fl">3.7</span>,<span class="fl">4</span>,<span class="fl">3.8</span>,<span class="fl">3.9</span>,<span class="fl">3.6</span>,<span class="fl">3.2</span>,</span>
-<span class="r-in">         <span class="fl">2.5</span>,<span class="fl">2</span>,<span class="fl">1.7</span>,<span class="fl">1.5</span>,<span class="fl">1.3</span>,<span class="fl">1</span>,<span class="fl">0.8</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">age</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"0-4"</span>,<span class="st">"5-9"</span>,<span class="st">"10-14"</span>,<span class="st">"15-19"</span>,<span class="st">"20-24"</span>,<span class="st">"25-29"</span>,</span>
-<span class="r-in">         <span class="st">"30-34"</span>,<span class="st">"35-39"</span>,<span class="st">"40-44"</span>,<span class="st">"45-49"</span>,<span class="st">"50-54"</span>,</span>
-<span class="r-in">         <span class="st">"55-59"</span>,<span class="st">"60-64"</span>,<span class="st">"65-69"</span>,<span class="st">"70-74"</span>,<span class="st">"75-79"</span>,<span class="st">"80-44"</span>,<span class="st">"85+"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">PlotPyramid</span><span class="op">(</span><span class="va">m.pop</span>, <span class="va">f.pop</span>,</span>
-<span class="r-in">            ylab <span class="op">=</span> <span class="va">age</span>, space <span class="op">=</span> <span class="fl">0</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cornflowerblue"</span>, <span class="st">"indianred"</span><span class="op">)</span>,</span>
-<span class="r-in">            main<span class="op">=</span><span class="st">"Age distribution at baseline of HELP study"</span>,</span>
-<span class="r-in">            lxlab<span class="op">=</span><span class="st">"male"</span>, rxlab<span class="op">=</span><span class="st">"female"</span> <span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">PlotPyramid</span><span class="op">(</span><span class="va">m.pop</span>, <span class="va">f.pop</span>,</span>
-<span class="r-in">            ylab <span class="op">=</span> <span class="va">age</span>, space <span class="op">=</span> <span class="fl">0</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cornflowerblue"</span>, <span class="st">"indianred"</span><span class="op">)</span>,</span>
-<span class="r-in">            xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">)</span>,</span>
-<span class="r-in">            main<span class="op">=</span><span class="st">"Age distribution at baseline of HELP study"</span>,</span>
-<span class="r-in">            lxlab<span class="op">=</span><span class="st">"male"</span>, rxlab<span class="op">=</span><span class="st">"female"</span>, gapwidth<span class="op">=</span><span class="fl">0</span>, ylab.x<span class="op">=</span><span class="op">-</span><span class="fl">5</span> <span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">PlotPyramid</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">2</span>,<span class="fl">0.5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">6</span>,<span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span>,</span>
-<span class="r-in">            ylab <span class="op">=</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>, space <span class="op">=</span> <span class="fl">0.3</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">rainbow</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>, each<span class="op">=</span><span class="fl">2</span><span class="op">)</span>,</span>
-<span class="r-in">            xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>,<span class="fl">10</span><span class="op">)</span>, args.grid<span class="op">=</span><span class="cn">NA</span>, cex.names<span class="op">=</span><span class="fl">1.5</span>, adj<span class="op">=</span><span class="fl">1</span>,</span>
-<span class="r-in">            lxlab<span class="op">=</span><span class="st">"Group A"</span>, rxlab<span class="op">=</span><span class="st">"Group B"</span>, gapwidth<span class="op">=</span><span class="fl">0</span>, ylab.x<span class="op">=</span><span class="op">-</span><span class="fl">8</span>, xaxt<span class="op">=</span><span class="st">"n"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">m.pop</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3.2</span>,<span class="fl">3.5</span>,<span class="fl">3.6</span>,<span class="fl">3.6</span>,<span class="fl">3.5</span>,<span class="fl">3.5</span>,<span class="fl">3.9</span>,<span class="fl">3.7</span>,<span class="fl">3.9</span>,<span class="fl">3.5</span>,</span></span>
+<span class="r-in"><span>         <span class="fl">3.2</span>,<span class="fl">2.8</span>,<span class="fl">2.2</span>,<span class="fl">1.8</span>,<span class="fl">1.5</span>,<span class="fl">1.3</span>,<span class="fl">0.7</span>,<span class="fl">0.4</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">f.pop</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3.2</span>,<span class="fl">3.4</span>,<span class="fl">3.5</span>,<span class="fl">3.5</span>,<span class="fl">3.5</span>,<span class="fl">3.7</span>,<span class="fl">4</span>,<span class="fl">3.8</span>,<span class="fl">3.9</span>,<span class="fl">3.6</span>,<span class="fl">3.2</span>,</span></span>
+<span class="r-in"><span>         <span class="fl">2.5</span>,<span class="fl">2</span>,<span class="fl">1.7</span>,<span class="fl">1.5</span>,<span class="fl">1.3</span>,<span class="fl">1</span>,<span class="fl">0.8</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">age</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"0-4"</span>,<span class="st">"5-9"</span>,<span class="st">"10-14"</span>,<span class="st">"15-19"</span>,<span class="st">"20-24"</span>,<span class="st">"25-29"</span>,</span></span>
+<span class="r-in"><span>         <span class="st">"30-34"</span>,<span class="st">"35-39"</span>,<span class="st">"40-44"</span>,<span class="st">"45-49"</span>,<span class="st">"50-54"</span>,</span></span>
+<span class="r-in"><span>         <span class="st">"55-59"</span>,<span class="st">"60-64"</span>,<span class="st">"65-69"</span>,<span class="st">"70-74"</span>,<span class="st">"75-79"</span>,<span class="st">"80-44"</span>,<span class="st">"85+"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">PlotPyramid</span><span class="op">(</span><span class="va">m.pop</span>, <span class="va">f.pop</span>,</span></span>
+<span class="r-in"><span>            ylab <span class="op">=</span> <span class="va">age</span>, space <span class="op">=</span> <span class="fl">0</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cornflowerblue"</span>, <span class="st">"indianred"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>            main<span class="op">=</span><span class="st">"Age distribution at baseline of HELP study"</span>,</span></span>
+<span class="r-in"><span>            lxlab<span class="op">=</span><span class="st">"male"</span>, rxlab<span class="op">=</span><span class="st">"female"</span> <span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">PlotPyramid</span><span class="op">(</span><span class="va">m.pop</span>, <span class="va">f.pop</span>,</span></span>
+<span class="r-in"><span>            ylab <span class="op">=</span> <span class="va">age</span>, space <span class="op">=</span> <span class="fl">0</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cornflowerblue"</span>, <span class="st">"indianred"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>            xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>            main<span class="op">=</span><span class="st">"Age distribution at baseline of HELP study"</span>,</span></span>
+<span class="r-in"><span>            lxlab<span class="op">=</span><span class="st">"male"</span>, rxlab<span class="op">=</span><span class="st">"female"</span>, gapwidth<span class="op">=</span><span class="fl">0</span>, ylab.x<span class="op">=</span><span class="op">-</span><span class="fl">5</span> <span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">PlotPyramid</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">2</span>,<span class="fl">0.5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">6</span>,<span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>            ylab <span class="op">=</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>, space <span class="op">=</span> <span class="fl">0.3</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">rainbow</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>, each<span class="op">=</span><span class="fl">2</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>            xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>,<span class="fl">10</span><span class="op">)</span>, args.grid<span class="op">=</span><span class="cn">NA</span>, cex.names<span class="op">=</span><span class="fl">1.5</span>, adj<span class="op">=</span><span class="fl">1</span>,</span></span>
+<span class="r-in"><span>            lxlab<span class="op">=</span><span class="st">"Group A"</span>, rxlab<span class="op">=</span><span class="st">"Group B"</span>, gapwidth<span class="op">=</span><span class="fl">0</span>, ylab.x<span class="op">=</span><span class="op">-</span><span class="fl">8</span>, xaxt<span class="op">=</span><span class="st">"n"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="PlotPyramid-2.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -220,7 +239,7 @@ The plot type can also be used to display other types of opposed bar charts with
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

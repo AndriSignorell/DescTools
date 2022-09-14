@@ -18,7 +18,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -84,7 +84,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">WrdCaption</span><span class="op">(</span><span class="va">x</span>, index <span class="op">=</span> <span class="fl">1</span>, wrd <span class="op">=</span> <span class="fu"><a href="DescToolsOptions.html">DescToolsOptions</a></span><span class="op">(</span><span class="st">"lastWord"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">WrdCaption</span><span class="op">(</span><span class="va">x</span>, index <span class="op">=</span> <span class="fl">1</span>, wrd <span class="op">=</span> <span class="fu"><a href="DescToolsOptions.html">DescToolsOptions</a></span><span class="op">(</span><span class="st">"lastWord"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -92,13 +92,16 @@
     <dl><dt>x</dt>
 <dd><p>the text of the caption.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>index</dt>
+
+  <dt>index</dt>
 <dd><p>integer from 1 to 9, defining the number of the heading style.
 <!-- %%     ~~Describe \code{lvl} here~~ --></p></dd>
-<dt>wrd</dt>
+
+  <dt>wrd</dt>
 <dd><p>the pointer to a word instance. Can be a new one, created by <code><a href="GetNewWrd.html">GetNewWrd()</a></code>
   or an existing one, created by <code><a href="GetCurrWrd.html">GetCurrWrd()</a></code>.
   Default is the last created pointer stored in <code>DescToolsOptions("lastWord")</code>.</p></dd>
+
 </dl></div>
     <div id="author">
     <h2>Author</h2>
@@ -113,19 +116,19 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span>  <span class="co"># Windows-specific example</span></span>
-<span class="r-in"><span class="va">wrd</span> <span class="op">&lt;-</span> <span class="fu"><a href="GetNewWrd.html">GetNewWrd</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># insert a title in level 1</span></span>
-<span class="r-in"><span class="fu">WrdCaption</span><span class="op">(</span><span class="st">"My First Caption level 1"</span>, index<span class="op">=</span><span class="fl">1</span>, wrd<span class="op">=</span><span class="va">wrd</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span>  <span class="co"># Windows-specific example</span></span></span>
+<span class="r-in"><span><span class="va">wrd</span> <span class="op">&lt;-</span> <span class="fu"><a href="GetNewWrd.html">GetNewWrd</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># insert a title in level 1</span></span></span>
+<span class="r-in"><span><span class="fu">WrdCaption</span><span class="op">(</span><span class="st">"My First Caption level 1"</span>, index<span class="op">=</span><span class="fl">1</span>, wrd<span class="op">=</span><span class="va">wrd</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in wrd[["Selection"]]$InsertAfter(paste(x, collapse = "\n")):</span> attempt to apply non-function</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># works as well for several levels</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu">WrdCaption</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">gettextf</a></span><span class="op">(</span><span class="st">"My First Caption level %s"</span>,<span class="va">i</span><span class="op">)</span>, index<span class="op">=</span><span class="va">i</span>, wrd<span class="op">=</span><span class="va">wrd</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># works as well for several levels</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">WrdCaption</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">gettextf</a></span><span class="op">(</span><span class="st">"My First Caption level %s"</span>,<span class="va">i</span><span class="op">)</span>, index<span class="op">=</span><span class="va">i</span>, wrd<span class="op">=</span><span class="va">wrd</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in wrd[["Selection"]]$InsertAfter(paste(x, collapse = "\n")):</span> attempt to apply non-function</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -140,7 +143,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,8 +87,8 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Hmean</span><span class="op">(</span><span class="va">x</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"classic"</span>, <span class="st">"boot"</span><span class="op">)</span>, conf.level <span class="op">=</span> <span class="cn">NA</span>,
-      sides <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>,<span class="st">"left"</span>,<span class="st">"right"</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Hmean</span><span class="op">(</span><span class="va">x</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"classic"</span>, <span class="st">"boot"</span><span class="op">)</span>, conf.level <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>      sides <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>,<span class="st">"left"</span>,<span class="st">"right"</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -96,21 +96,30 @@
     <dl><dt>x</dt>
 <dd><p>a positive numeric vector. An object which is not a vector is coerced (if possible) by as.vector.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>method</dt>
+
+  <dt>method</dt>
 <dd><p>a vector of character strings representing the type of intervals required. The value should be any subset of the values <code>"classic"</code>, <code>"boot"</code>.
   See <code><a href="https://rdrr.io/pkg/boot/man/boot.ci.html" class="external-link">boot.ci</a></code>.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>conf.level</dt>
+
+  <dt>conf.level</dt>
 <dd><p>confidence level of the interval. Default is <code>NA</code>.
 <!-- %%     ~~Describe \code{conf.level} here~~ --></p></dd>
+
 <dt>sides</dt>
 <dd><p>a character string specifying the side of the confidence interval, must be one of <code>"two.sided"</code> (default), <code>"left"</code> or <code>"right"</code>. You can specify just the initial letter. <code>"left"</code> would be analogue to a hypothesis of <code>"greater"</code> in a <code>t.test</code>.</p></dd>
-<dt>na.rm</dt>
+
+
+
+  <dt>na.rm</dt>
 <dd><p>logical, indicating whether <code>NA</code> values should be stripped before the computation proceeds. Defaults to <code>FALSE</code>.
 <!-- %%     ~~Describe \code{na.rm} here~~ --></p></dd>
-<dt>...</dt>
+
+ <dt>...</dt>
 <dd><p>further arguments are passed to the <code><a href="https://rdrr.io/pkg/boot/man/boot.html" class="external-link">boot</a></code> function. Supported arguments are <code>type</code> (<code>"norm"</code>, <code>"basic"</code>, <code>"stud"</code>, <code>"perc"</code>, <code>"bca"</code>), <code>parallel</code> and the number of bootstrap replicates <code>R</code>. If not defined those will be set to their defaults, being <code>"basic"</code> for <code>type</code>,  option <code>"boot.parallel"</code> (and if that is not set, <code>"no"</code>) for <code>parallel</code>
  and <code>999</code> for <code>R</code>.<!-- %%     ~~Describe \code{x} here~~ --></p></dd>
+
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -123,7 +132,9 @@ If the lower bound of the confidence interval is not greater than zero, then the
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>a numeric value.</p>
+    
+
+<p>a numeric value.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -141,17 +152,17 @@ If the lower bound of the confidence interval is not greater than zero, then the
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">Hmean</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1810853</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">m</span>, <span class="fl">2</span>, <span class="va">Hmean</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3311389 0.1654159 0.2626549 0.0539215 0.1732587</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span>, <span class="va">Hmean</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        V1        V2        V3        V4        V5 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.3311389 0.1654159 0.2626549 0.0539215 0.1732587 </span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">Hmean</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4855755</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">m</span>, <span class="fl">2</span>, <span class="va">Hmean</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.11292682 0.07200177 0.29216737 0.31211292 0.09864608</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span>, <span class="va">Hmean</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         V1         V2         V3         V4         V5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.11292682 0.07200177 0.29216737 0.31211292 0.09864608 </span>
 </code></pre></div>
     </div>
   </div>
@@ -166,7 +177,7 @@ If the lower bound of the confidence interval is not greater than zero, then the
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

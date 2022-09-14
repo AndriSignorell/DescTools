@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,16 +87,16 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">CoefVar</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for lm</span>
-<span class="fu">CoefVar</span><span class="op">(</span><span class="va">x</span>, unbiased <span class="op">=</span> <span class="cn">FALSE</span>, conf.level <span class="op">=</span> <span class="cn">NA</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for aov</span>
-<span class="fu">CoefVar</span><span class="op">(</span><span class="va">x</span>, unbiased <span class="op">=</span> <span class="cn">FALSE</span>, conf.level <span class="op">=</span> <span class="cn">NA</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for default</span>
-<span class="fu">CoefVar</span><span class="op">(</span><span class="va">x</span>, weights <span class="op">=</span> <span class="cn">NULL</span>, unbiased <span class="op">=</span> <span class="cn">FALSE</span>, conf.level <span class="op">=</span> <span class="cn">NA</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">CoefVar</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for lm</span></span>
+<span><span class="fu">CoefVar</span><span class="op">(</span><span class="va">x</span>, unbiased <span class="op">=</span> <span class="cn">FALSE</span>, conf.level <span class="op">=</span> <span class="cn">NA</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for aov</span></span>
+<span><span class="fu">CoefVar</span><span class="op">(</span><span class="va">x</span>, unbiased <span class="op">=</span> <span class="cn">FALSE</span>, conf.level <span class="op">=</span> <span class="cn">NA</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">CoefVar</span><span class="op">(</span><span class="va">x</span>, weights <span class="op">=</span> <span class="cn">NULL</span>, unbiased <span class="op">=</span> <span class="cn">FALSE</span>, conf.level <span class="op">=</span> <span class="cn">NA</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -104,19 +104,26 @@
     <dl><dt>x</dt>
 <dd><p>a (non-empty) numeric vector of data values.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>weights</dt>
+
+  <dt>weights</dt>
 <dd><p>a numerical vector of weights the same length as <code>x</code> giving the weights to use for elements of <code>x</code>.</p></dd>
-<dt>unbiased</dt>
+
+
+  <dt>unbiased</dt>
 <dd><p>logical value determining, if a bias correction should be used (see. details). Default is FALSE. <!-- %% Reference??? -->
 <!-- %%     ~~Describe \code{unbiased} here~~ --></p></dd>
-<dt>conf.level</dt>
+
+  <dt>conf.level</dt>
 <dd><p>confidence level of the interval.
 <!-- %%     ~~Describe \code{conf.level} here~~ --></p></dd>
-<dt>na.rm</dt>
+
+  <dt>na.rm</dt>
 <dd><p>logical. Should missing values be removed? Defaults to FALSE.
 <!-- %%     ~~Describe \code{na.rm} here~~ --></p></dd>
+
 <dt>...</dt>
 <dd><p>further arguments (not used here).</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -126,13 +133,19 @@ the coefficient of variation  is corrected as:   $$ CV_{korr} = CV \cdot \left( 
     <div id="value">
     <h2>Value</h2>
     <p>if no confidence intervals are requested:
-the estimate as numeric value (without any name)<br><br>else a named numeric vector with 3 elements</p>
+the estimate as numeric value (without any name)<br><br></p>
+
+
+<p>else a named numeric vector with 3 elements</p>
 <dl><dt>est</dt>
 <dd><p>estimate</p></dd>
+
 <dt>lwr.ci</dt>
 <dd><p>lower confidence interval</p></dd>
+
 <dt>upr.ci</dt>
 <dd><p>upper confidence interval</p></dd>
+
 </dl></div>
     <div id="references">
     <h2>References</h2>
@@ -157,19 +170,19 @@ Michael Smithson &lt;michael.smithson@anu.edu.au&gt; (noncentral-t)
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">15</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">CoefVar</span><span class="op">(</span><span class="va">x</span>, conf.level<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">15</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">CoefVar</span><span class="op">(</span><span class="va">x</span>, conf.level<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>full precision may not have been achieved in 'pnt{final}'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       est    low.ci    upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.5092566 0.4351644 0.6151409 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#       est    low.ci    upr.ci</span></span>
-<span class="r-in"><span class="co"># 0.5092566 0.4351644 0.6151409</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Coefficient of variation for a linear model</span></span>
-<span class="r-in"><span class="va">r.lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">Fertility</span> <span class="op">~</span> <span class="va">.</span>, <span class="va">swiss</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">CoefVar</span><span class="op">(</span><span class="va">r.lm</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#       est    low.ci    upr.ci</span></span></span>
+<span class="r-in"><span><span class="co"># 0.5092566 0.4351644 0.6151409</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Coefficient of variation for a linear model</span></span></span>
+<span class="r-in"><span><span class="va">r.lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">Fertility</span> <span class="op">~</span> <span class="va">.</span>, <span class="va">swiss</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">CoefVar</span><span class="op">(</span><span class="va">r.lm</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1021544</span>
 </code></pre></div>
     </div>
@@ -185,7 +198,7 @@ Michael Smithson &lt;michael.smithson@anu.edu.au&gt; (noncentral-t)
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

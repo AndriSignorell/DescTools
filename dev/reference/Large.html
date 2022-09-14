@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,10 +87,10 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Small</span><span class="op">(</span><span class="va">x</span>, k <span class="op">=</span> <span class="fl">5</span>, unique <span class="op">=</span> <span class="cn">FALSE</span>, na.last <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>
-<span class="fu">Large</span><span class="op">(</span><span class="va">x</span>, k <span class="op">=</span> <span class="fl">5</span>, unique <span class="op">=</span> <span class="cn">FALSE</span>, na.last <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>
-
-<span class="fu">HighLow</span><span class="op">(</span><span class="va">x</span>, nlow <span class="op">=</span> <span class="fl">5</span>, nhigh <span class="op">=</span> <span class="va">nlow</span>, na.last <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Small</span><span class="op">(</span><span class="va">x</span>, k <span class="op">=</span> <span class="fl">5</span>, unique <span class="op">=</span> <span class="cn">FALSE</span>, na.last <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
+<span><span class="fu">Large</span><span class="op">(</span><span class="va">x</span>, k <span class="op">=</span> <span class="fl">5</span>, unique <span class="op">=</span> <span class="cn">FALSE</span>, na.last <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">HighLow</span><span class="op">(</span><span class="va">x</span>, nlow <span class="op">=</span> <span class="fl">5</span>, nhigh <span class="op">=</span> <span class="va">nlow</span>, na.last <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -98,20 +98,28 @@
     <dl><dt>x</dt>
 <dd><p>a <code>numeric</code> vector
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>k</dt>
+
+  <dt>k</dt>
 <dd><p>an integer &gt;0 defining how many extreme values should be returned. Default is <code>k = 5</code>. If <code>k &gt; length(x)</code>, all values will be returned.
 <!-- %%     ~~Describe \code{k} here~~ --></p></dd>
-<dt>unique</dt>
+
+  <dt>unique</dt>
 <dd><p>logical, defining if unique values should be considered or not. If this is set to <code>TRUE</code>, a list with the <code>k</code> extreme values and their frequencies is returned. Default is <code>FALSE</code> (as unique is a rather expensive function).
 <!-- %%     ~~Describe \code{unique} here~~ --></p></dd>
+
 <dt>na.last</dt>
 <dd><p>for controlling the treatment of <code>NA</code>s.
     If <code>TRUE</code>, missing values in the data are put last; if
     <code>FALSE</code>, they are put first; if <code>NA</code>, they are removed.</p></dd>
-<dt>nlow</dt>
+
+
+  <dt>nlow</dt>
 <dd><p>a single integer. The number of the smallest elements of a vector to be printed. Defaults to 5.</p></dd>
-<dt>nhigh</dt>
+
+  <dt>nhigh</dt>
 <dd><p>a single integer. The number of the greatest elements of a vector to be printed. Defaults to the number of <code>nlow</code>.</p></dd>
+
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -123,7 +131,10 @@ This is in essence a printing routine for the highest and the lowest values of x
     <div id="value">
     <h2>Value</h2>
     <p>if <code>unique</code> is set to <code>FALSE</code>: a vector with the k most extreme values,
-<br>else: a list, containing the k most extreme values and their frequencies.</p>
+<br></p>
+
+
+<p>else: a list, containing the k most extreme values and their frequencies.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -142,23 +153,23 @@ C++ parts by Nathan Russell and Romain Francois</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">1000</span>, rep<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">Large</span><span class="op">(</span><span class="va">x</span>, <span class="fl">3</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">1000</span>, rep<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">Large</span><span class="op">(</span><span class="va">x</span>, <span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("_DescTools_top_i", PACKAGE = "DescTools", x, k):</span> "_DescTools_top_i" not available for .Call() for package "DescTools"</span>
-<span class="r-in"><span class="fu">Large</span><span class="op">(</span><span class="va">x</span>, k<span class="op">=</span><span class="fl">3</span>, unique<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">Large</span><span class="op">(</span><span class="va">x</span>, k<span class="op">=</span><span class="fl">3</span>, unique<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("_DescTools_top_n", PACKAGE = "DescTools", x, k):</span> "_DescTools_top_n" not available for .Call() for package "DescTools"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># works fine up to x ~ 1e6</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1000000</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">Small</span><span class="op">(</span><span class="va">x</span>, <span class="fl">3</span>, unique<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># works fine up to x ~ 1e6</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1000000</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">Small</span><span class="op">(</span><span class="va">x</span>, <span class="fl">3</span>, unique<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("_DescTools_bottom_n", PACKAGE = "DescTools", x, k):</span> "_DescTools_bottom_n" not available for .Call() for package "DescTools"</span>
-<span class="r-in"><span class="fu">Small</span><span class="op">(</span><span class="va">x</span>, <span class="fl">3</span>, unique<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">Small</span><span class="op">(</span><span class="va">x</span>, <span class="fl">3</span>, unique<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("_DescTools_bottom_i", PACKAGE = "DescTools", x, k):</span> "_DescTools_bottom_i" not available for .Call() for package "DescTools"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Both ends</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu">HighLow</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span>, na.last<span class="op">=</span><span class="cn">NA</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Both ends</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu">HighLow</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span>, na.last<span class="op">=</span><span class="cn">NA</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("_DescTools_bottom_n", PACKAGE = "DescTools", x, k):</span> "_DescTools_bottom_n" not available for .Call() for package "DescTools"</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -173,7 +184,7 @@ C++ parts by Nathan Russell and Romain Francois</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

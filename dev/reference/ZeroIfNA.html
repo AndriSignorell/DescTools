@@ -21,7 +21,7 @@ BlankIfNA() and NAIfBlank() do the same, but for character vectors.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -89,14 +89,14 @@ BlankIfNA() and NAIfBlank() do the same, but for character vectors.
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">ZeroIfNA</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="fu">NAIfZero</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="fu">NAIf</span><span class="op">(</span><span class="va">x</span>, <span class="va">what</span><span class="op">)</span>
-
-<span class="fu">BlankIfNA</span><span class="op">(</span><span class="va">x</span>, blank<span class="op">=</span><span class="st">""</span><span class="op">)</span>
-<span class="fu">NAIfBlank</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-
-<span class="fu">Impute</span><span class="op">(</span><span class="va">x</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ZeroIfNA</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="fu">NAIfZero</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="fu">NAIf</span><span class="op">(</span><span class="va">x</span>, <span class="va">what</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">BlankIfNA</span><span class="op">(</span><span class="va">x</span>, blank<span class="op">=</span><span class="st">""</span><span class="op">)</span></span>
+<span><span class="fu">NAIfBlank</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">Impute</span><span class="op">(</span><span class="va">x</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -104,20 +104,38 @@ BlankIfNA() and NAIfBlank() do the same, but for character vectors.
     <dl><dt>x</dt>
 <dd><p>the vector x, whose NAs should be overwritten with 0s.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>blank</dt>
+
+  <dt>blank</dt>
 <dd><p>a character to be used for "blank". Default is an empty string ("").
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
+
 <dt>what</dt>
 <dd><p>a vector of elements to be set to <code>NA</code> in <code>x</code>.</p></dd>
-<dt>FUN</dt>
+
+  <dt>FUN</dt>
 <dd><p>the name of a function to be used as imputation. Can as well be a self defined function or a constant value.
   Default is <code><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></code>.</p>
 <p><!-- %%     ~~Describe \code{na.rm} here~~ --></p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     <p>the edited vector x
-<!-- %%  ~Describe the value returned --><!-- %%  If it is a LIST, use --><!-- %%  \item{comp1 }{Description of 'comp1'} --><!-- %%  \item{comp2 }{Description of 'comp2'} --><!-- %% ... --></p>
+<!-- %%  ~Describe the value returned --></p>
+
+
+<p><!-- %%  If it is a LIST, use --></p>
+
+
+<p><!-- %%  \item{comp1 }{Description of 'comp1'} --></p>
+
+
+<p><!-- %%  \item{comp2 }{Description of 'comp2'} --></p>
+
+
+<p><!-- %% ... --></p>
+
+
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -132,28 +150,28 @@ BlankIfNA() and NAIfBlank() do the same, but for character vectors.
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">8</span>, <span class="cn">NA</span>, <span class="fl">9</span>, <span class="cn">NA</span>, <span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">ZeroIfNA</span><span class="op">(</span><span class="va">z</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">8</span>, <span class="cn">NA</span>, <span class="fl">9</span>, <span class="cn">NA</span>, <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">ZeroIfNA</span><span class="op">(</span><span class="va">z</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8 0 9 0 3</span>
-<span class="r-in"><span class="co"># [1] 8 0 9 0 3</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># set 8 and 9 to NA</span></span>
-<span class="r-in"><span class="fu">NAIf</span><span class="op">(</span><span class="fu">ZeroIfNA</span><span class="op">(</span><span class="va">z</span><span class="op">)</span>, what<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">8</span>, <span class="fl">9</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># [1] 8 0 9 0 3</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># set 8 and 9 to NA</span></span></span>
+<span class="r-in"><span><span class="fu">NAIf</span><span class="op">(</span><span class="fu">ZeroIfNA</span><span class="op">(</span><span class="va">z</span><span class="op">)</span>, what<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">8</span>, <span class="fl">9</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA  0 NA  0  3</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">Impute</span><span class="op">(</span><span class="va">z</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">Impute</span><span class="op">(</span><span class="va">z</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8 8 9 8 3</span>
-<span class="r-in"><span class="co"># [1] 8 8 9 8 3</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="cn">NA</span>, <span class="st">""</span>, <span class="cn">NA</span>, <span class="st">"k"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">BlankIfNA</span><span class="op">(</span><span class="va">z</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># [1] 8 8 9 8 3</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="cn">NA</span>, <span class="st">""</span>, <span class="cn">NA</span>, <span class="st">"k"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">BlankIfNA</span><span class="op">(</span><span class="va">z</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "a" ""  ""  ""  "k"</span>
-<span class="r-in"><span class="co"># [1] "a" "" "" "" "k"</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span><span class="co"># [1] "a" "" "" "" "k"</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -168,7 +186,7 @@ BlankIfNA() and NAIfBlank() do the same, but for character vectors.
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

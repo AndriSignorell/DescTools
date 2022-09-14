@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,8 +87,8 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">SetAttr</span><span class="op">(</span><span class="va">x</span>, <span class="va">attr</span>, <span class="va">attr_val</span><span class="op">)</span>
-<span class="fu">StripAttr</span><span class="op">(</span><span class="va">x</span>, attr_names <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">SetAttr</span><span class="op">(</span><span class="va">x</span>, <span class="va">attr</span>, <span class="va">attr_val</span><span class="op">)</span></span>
+<span><span class="fu">StripAttr</span><span class="op">(</span><span class="va">x</span>, attr_names <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -96,18 +96,38 @@
     <dl><dt>x</dt>
 <dd><p>the object whose attributes should be removed or to which an attribute should be added.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
+
 <dt>attr</dt>
 <dd><p>name of a new attribute</p></dd>
+
+
 <dt>attr_val</dt>
 <dd><p>value for the new attribute <code>attr</code></p></dd>
-<dt>attr_names</dt>
+
+
+  <dt>attr_names</dt>
 <dd><p>a vector with attribute names, which will be removed. Leaving the default to <code>NULL</code> will cause all the attributes to be deleted.
 <!-- %%     ~~Describe \code{attr_names} here~~ --></p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     <p>the object <code>x</code> without the attributes contained in attr_names
-<!-- %%  ~Describe the value returned --><!-- %%  If it is a LIST, use --><!-- %%  \item{comp1 }{Description of 'comp1'} --><!-- %%  \item{comp2 }{Description of 'comp2'} --><!-- %% ... --></p>
+<!-- %%  ~Describe the value returned --></p>
+
+
+<p><!-- %%  If it is a LIST, use --></p>
+
+
+<p><!-- %%  \item{comp1 }{Description of 'comp1'} --></p>
+
+
+<p><!-- %%  \item{comp2 }{Description of 'comp2'} --></p>
+
+
+<p><!-- %% ... --></p>
+
+
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -122,20 +142,20 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">SetAttr</span><span class="op">(</span><span class="va">x</span>, </span>
-<span class="r-in">             attr<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"some_attr"</span>, <span class="st">"other_attr"</span><span class="op">)</span>,</span>
-<span class="r-in">             attr_val<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"First attribute"</span>, <span class="st">"Second attribute"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># strip only single</span></span>
-<span class="r-in"><span class="fu">StripAttr</span><span class="op">(</span><span class="va">x</span>, <span class="st">"other_attr"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">SetAttr</span><span class="op">(</span><span class="va">x</span>, </span></span>
+<span class="r-in"><span>             attr<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"some_attr"</span>, <span class="st">"other_attr"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>             attr_val<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"First attribute"</span>, <span class="st">"Second attribute"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># strip only single</span></span></span>
+<span class="r-in"><span><span class="fu">StripAttr</span><span class="op">(</span><span class="va">x</span>, <span class="st">"other_attr"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0.24328759 0.30786605 0.75004037 0.55682973 0.03600083 0.20518696</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [7] 0.47469498 0.59731519 0.34923963 0.43360660</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"some_attr")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "First attribute"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># strip all attributes</span></span>
-<span class="r-in"><span class="fu">StripAttr</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># strip all attributes</span></span></span>
+<span class="r-in"><span><span class="fu">StripAttr</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0.24328759 0.30786605 0.75004037 0.55682973 0.03600083 0.20518696</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [7] 0.47469498 0.59731519 0.34923963 0.43360660</span>
 </code></pre></div>
@@ -152,7 +172,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

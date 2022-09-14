@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,11 +87,11 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Label</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="fu">Label</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span>
-
-<span class="fu">Unit</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="fu">Unit</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Label</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="fu">Label</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="fu">Unit</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="fu">Unit</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -99,9 +99,11 @@
     <dl><dt>x</dt>
 <dd><p>any object
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>value</dt>
+
+  <dt>value</dt>
 <dd><p>a single string describing the object
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -110,7 +112,9 @@ It can be deleted by setting the label to <code>NULL</code>.</p>
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>Label</code> and <code>Unit</code> return the label attribute of x, if any; otherwise, NULL.</p>
+    
+
+<p><code>Label</code> and <code>Unit</code> return the label attribute of x, if any; otherwise, NULL.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -124,12 +128,12 @@ It can be deleted by setting the label to <code>NULL</code>.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># add a descriptive label to a variable</span></span>
-<span class="r-in"><span class="fu">Label</span><span class="op">(</span><span class="va">d.diamonds</span><span class="op">$</span><span class="va">colour</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"The rating scale applied to diamonds ranges from colorless</span>
-<span class="r-in">to yellow, as any other color is extremely rare."</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># technically just appending the text as attribute to the variable</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">d.diamonds</span><span class="op">$</span><span class="va">colour</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># add a descriptive label to a variable</span></span></span>
+<span class="r-in"><span><span class="fu">Label</span><span class="op">(</span><span class="va">d.diamonds</span><span class="op">$</span><span class="va">colour</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"The rating scale applied to diamonds ranges from colorless</span></span></span>
+<span class="r-in"><span><span class="st">to yellow, as any other color is extremely rare."</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># technically just appending the text as attribute to the variable</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">d.diamonds</span><span class="op">$</span><span class="va">colour</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $levels</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "D" "E" "F" "G" "H" "I" "J" "K" "L"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -139,11 +143,11 @@ It can be deleted by setting the label to <code>NULL</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $label</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "The rating scale applied to diamonds ranges from colorless\nto yellow, as any other color is extremely rare."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># label is supported while describing data</span></span>
-<span class="r-in"><span class="fu"><a href="Desc.html">Desc</a></span><span class="op">(</span><span class="va">d.diamonds</span><span class="op">$</span><span class="va">colour</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># label is supported while describing data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="Desc.html">Desc</a></span><span class="op">(</span><span class="va">d.diamonds</span><span class="op">$</span><span class="va">colour</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------------------------------------------------ </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">d.diamonds$colour (factor)</span> :</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> d.diamonds$colour (factor) :</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   The rating scale applied to diamonds ranges from colorless to yellow,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   as any other color is extremely rare.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -164,17 +168,17 @@ It can be deleted by setting the label to <code>NULL</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9      L    12   2.7%      440   100.0%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-plt img"><img src="Label-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># The label can be deleted by setting it to NULL</span></span>
-<span class="r-in"><span class="fu">Label</span><span class="op">(</span><span class="va">d.diamonds</span><span class="op">$</span><span class="va">colour</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Labelling the columns of a data.frame is best done with a loop</span></span>
-<span class="r-in"><span class="co"># (all so far seen *apply aproaches lead to more complicated code...)</span></span>
-<span class="r-in"><span class="va">lbl</span> <span class="op">&lt;-</span>  <span class="fu"><a href="RndPairs.html">RndWord</a></span><span class="op">(</span><span class="fl">16</span>, <span class="fl">7</span><span class="op">)</span></span>
-<span class="r-in"><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">lbl</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu">Label</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">[</span>, <span class="va">i</span><span class="op">]</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">lbl</span><span class="op">[</span><span class="va">i</span><span class="op">]</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="Str.html">Str</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># The label can be deleted by setting it to NULL</span></span></span>
+<span class="r-in"><span><span class="fu">Label</span><span class="op">(</span><span class="va">d.diamonds</span><span class="op">$</span><span class="va">colour</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Labelling the columns of a data.frame is best done with a loop</span></span></span>
+<span class="r-in"><span><span class="co"># (all so far seen *apply aproaches lead to more complicated code...)</span></span></span>
+<span class="r-in"><span><span class="va">lbl</span> <span class="op">&lt;-</span>  <span class="fu"><a href="RndPairs.html">RndWord</a></span><span class="op">(</span><span class="fl">16</span>, <span class="fl">7</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">lbl</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">Label</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">[</span>, <span class="va">i</span><span class="op">]</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">lbl</span><span class="op">[</span><span class="va">i</span><span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="Str.html">Str</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	1209 obs. of  16 variables:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   1 $ index         : int  1 2 3 4 5 6 7 8 9 10 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "label")= chr "YUBIWKE"</span>
@@ -221,7 +225,7 @@ It can be deleted by setting the label to <code>NULL</code>.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,28 +87,37 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">QuantileCI</span><span class="op">(</span><span class="va">x</span>, probs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">.25</span><span class="op">)</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span>, 
-           sides <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"left"</span>, <span class="st">"right"</span><span class="op">)</span>,
-           na.rm <span class="op">=</span> <span class="cn">FALSE</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"exact"</span>, <span class="st">"boot"</span><span class="op">)</span>, R <span class="op">=</span> <span class="fl">999</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">QuantileCI</span><span class="op">(</span><span class="va">x</span>, probs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">.25</span><span class="op">)</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span>, </span>
+<span>           sides <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"left"</span>, <span class="st">"right"</span><span class="op">)</span>,</span>
+<span>           na.rm <span class="op">=</span> <span class="cn">FALSE</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"exact"</span>, <span class="st">"boot"</span><span class="op">)</span>, R <span class="op">=</span> <span class="fl">999</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>a (non-empty) numeric vector of data values.</p></dd>
+
 <dt>probs</dt>
 <dd><p>numeric vector of probabilities with values in <em>[0,1]</em>. (Values up to <code>2e-14</code> outside that range are accepted and moved to the nearby endpoint.)</p></dd>
-<dt>conf.level</dt>
+
+  <dt>conf.level</dt>
 <dd><p>confidence level of the interval</p></dd>
+
 <dt>sides</dt>
 <dd><p>a character string specifying the side of the confidence interval, must be one of <code>"two.sided"</code> (default), <code>"left"</code> or <code>"right"</code> (abbreviations allowed). <br><code>"left"</code> would be analogue to a <code>"greater"</code> hypothesis in a <code>t.test</code>.</p></dd>
-<dt>na.rm</dt>
+
+
+  <dt>na.rm</dt>
 <dd><p>logical. Should missing values be removed? Defaults to <code>FALSE</code>.</p></dd>
-<dt>method</dt>
+
+  <dt>method</dt>
 <dd><p>defining the type of interval that should be calculated (one out of <code>"exact"</code>, <code>"boot"</code>). Default is <code>"exact"</code>. See Details.</p></dd>
+
+
 <dt>R</dt>
 <dd><p>The number of bootstrap replicates. Usually this will be a single positive integer. See
 <code><a href="https://rdrr.io/pkg/boot/man/boot.ci.html" class="external-link">boot.ci</a></code> for details.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -122,12 +131,36 @@ The boot confidence interval type is calculated by means of <code><a href="https
 a numeric vector with 3 elements:</p>
 <dl><dt>est</dt>
 <dd><p>est</p></dd>
-<dt>lwr.ci</dt>
+
+  <dt>lwr.ci</dt>
 <dd><p>lower bound of the confidence interval</p></dd>
-<dt>upr.ci</dt>
+
+  <dt>upr.ci</dt>
 <dd><p>upper bound of the confidence interval</p></dd>
-</dl><p>or, if probs was a vector, a matrix with 3 columns consisting of estimate, lower ci, upper ci
-<code>est, lwr.ci, upr.ci</code><!-- %%  ~Describe the value returned --><!-- %%  If it is a LIST, use --><!-- %%  \item{comp1 }{Description of 'comp1'} --><!-- %%  \item{comp2 }{Description of 'comp2'} --><!-- %% ... --></p>
+
+  
+</dl><p>or, if probs was a vector, a matrix with 3 columns consisting of estimate, lower ci, upper ci</p>
+<p></p>
+<p><code>est, lwr.ci, upr.ci</code></p>
+
+
+
+
+<p><!-- %%  ~Describe the value returned --></p>
+
+
+<p><!-- %%  If it is a LIST, use --></p>
+
+
+<p><!-- %%  \item{comp1 }{Description of 'comp1'} --></p>
+
+
+<p><!-- %%  \item{comp2 }{Description of 'comp2'} --></p>
+
+
+<p><!-- %% ... --></p>
+
+
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -142,13 +175,13 @@ a numeric vector with 3 elements:</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">QuantileCI</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">price</span>, probs<span class="op">=</span><span class="fl">0.25</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">QuantileCI</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">price</span>, probs<span class="op">=</span><span class="fl">0.25</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    est lwr.ci upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  30.98  29.98  33.98 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"conf.level")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9502599</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">QuantileCI</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">price</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">QuantileCI</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">price</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          est   lwr.ci upr.ci</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0%     8.792       NA  8.792</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 25%   30.980  29.9800 33.980</span>
@@ -157,7 +190,7 @@ a numeric vector with 3 elements:</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 100% 134.334 124.4340     NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"conf.level")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.0000000 0.9502599 0.9503030 0.9502599 1.0000000</span>
-<span class="r-in"><span class="fu">QuantileCI</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">price</span>, conf.level<span class="op">=</span><span class="fl">0.99</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">QuantileCI</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">price</span>, conf.level<span class="op">=</span><span class="fl">0.99</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          est  lwr.ci upr.ci</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0%     8.792      NA  8.792</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 25%   30.980  29.980 35.176</span>
@@ -166,9 +199,9 @@ a numeric vector with 3 elements:</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 100% 134.334 124.434     NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"conf.level")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.0000000 0.9901407 0.9902694 0.9901407 1.0000000</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># multiple probs</span></span>
-<span class="r-in"><span class="fu">QuantileCI</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, method<span class="op">=</span><span class="st">"exact"</span> , probs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.75</span>, <span class="fl">.80</span>, <span class="fl">0.95</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># multiple probs</span></span></span>
+<span class="r-in"><span><span class="fu">QuantileCI</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, method<span class="op">=</span><span class="st">"exact"</span> , probs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.75</span>, <span class="fl">.80</span>, <span class="fl">0.95</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       est lwr.ci upr.ci</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 25% 25.75     17     34</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 75% 75.25     67     84</span>
@@ -176,7 +209,7 @@ a numeric vector with 3 elements:</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 95% 95.05     90     99</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"conf.level")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9512948 0.9512948 0.9532735 0.9514464</span>
-<span class="r-in"><span class="fu">QuantileCI</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, method<span class="op">=</span><span class="st">"boot"</span> , probs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.75</span>, <span class="fl">.80</span>, <span class="fl">0.95</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">QuantileCI</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, method<span class="op">=</span><span class="st">"boot"</span> , probs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.75</span>, <span class="fl">.80</span>, <span class="fl">0.95</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       est lwr.ci upr.ci</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 25% 25.75  16.25  34.00</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 75% 75.25  67.50  85.25</span>
@@ -196,7 +229,7 @@ a numeric vector with 3 elements:</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -82,13 +82,13 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Mean</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for Freq</span>
-<span class="fu">Mean</span><span class="op">(</span><span class="va">x</span>, <span class="va">breaks</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for default</span>
-<span class="fu">Mean</span><span class="op">(</span><span class="va">x</span>, weights <span class="op">=</span> <span class="cn">NULL</span>, trim <span class="op">=</span> <span class="fl">0</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Mean</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for Freq</span></span>
+<span><span class="fu">Mean</span><span class="op">(</span><span class="va">x</span>, <span class="va">breaks</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">Mean</span><span class="op">(</span><span class="va">x</span>, weights <span class="op">=</span> <span class="cn">NULL</span>, trim <span class="op">=</span> <span class="fl">0</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -98,30 +98,41 @@
     numeric/logical vectors and <a href="https://rdrr.io/r/base/Dates.html" class="external-link">date</a>,
     <a href="https://rdrr.io/r/base/DateTimeClasses.html" class="external-link">date-time</a> and <a href="https://rdrr.io/r/base/difftime.html" class="external-link">time interval</a> objects.  Complex vectors
     are allowed for <code>trim = 0</code>, only.</p></dd>
-<dt>weights</dt>
+
+  <dt>weights</dt>
 <dd><p>a numerical vector of weights the same length as <code>x</code> giving the weights to use for elements of <code>x</code>.</p></dd>
-<dt>trim</dt>
+
+  <dt>trim</dt>
 <dd><p>the fraction (0 to 0.5) of observations to be
     trimmed from each end of <code>x</code> before the mean is computed.
     Values of trim outside that range are taken as the nearest endpoint.</p></dd>
-<dt>breaks</dt>
+
+  <dt>breaks</dt>
 <dd><p>breaks for calculating the mean for classified data as composed by <code><a href="Freq.html">Freq</a></code>.</p></dd>
-<dt>na.rm</dt>
+
+  <dt>na.rm</dt>
 <dd><p>a logical value indicating whether <code>NA</code>
     values should be stripped before the computation proceeds.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>further arguments passed to or from other methods.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>If <code>trim</code> is zero (the default), the arithmetic mean of the
+    
+
+<p>If <code>trim</code> is zero (the default), the arithmetic mean of the
   values in <code>x</code> is computed, as a numeric or complex vector of
   length one.  If <code>x</code> is not logical (coerced to numeric), numeric
-  (including integer) or complex, <code>NA_real_</code> is returned, with a warning.
-  If <code>trim</code> is non-zero, a symmetrically trimmed mean is computed
+  (including integer) or complex, <code>NA_real_</code> is returned, with a warning.</p>
+
+
+<p>If <code>trim</code> is non-zero, a symmetrically trimmed mean is computed
   with a fraction of <code>trim</code> observations deleted from each end
-  before the mean is computed.
-<code>trim</code> and <code>weights</code> can't be used together at the same time.</p>
+  before the mean is computed.</p>
+<p></p>
+<p><code>trim</code> and <code>weights</code> can't be used together at the same time.</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -137,9 +148,9 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in">  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">50</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">xm</span> <span class="op">&lt;-</span> <span class="fu">Mean</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">xm</span>, <span class="fu">Mean</span><span class="op">(</span><span class="va">x</span>, trim <span class="op">=</span> <span class="fl">0.10</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">50</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">xm</span> <span class="op">&lt;-</span> <span class="fu">Mean</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">xm</span>, <span class="fu">Mean</span><span class="op">(</span><span class="va">x</span>, trim <span class="op">=</span> <span class="fl">0.10</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8.75 5.50</span>
 </code></pre></div>
     </div>
@@ -155,7 +166,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

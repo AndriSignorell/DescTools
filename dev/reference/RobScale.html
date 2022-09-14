@@ -21,7 +21,7 @@ and mad instead of mean and sd.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -89,7 +89,7 @@ and <code><a href="https://rdrr.io/r/stats/mad.html" class="external-link">mad</
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">RobScale</span><span class="op">(</span><span class="va">x</span>, center <span class="op">=</span> <span class="cn">TRUE</span>, scale <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">RobScale</span><span class="op">(</span><span class="va">x</span>, center <span class="op">=</span> <span class="cn">TRUE</span>, scale <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -97,21 +97,28 @@ and <code><a href="https://rdrr.io/r/stats/mad.html" class="external-link">mad</
     <dl><dt>x</dt>
 <dd><p>a numeric matrix(like object).</p>
 <p><!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>center</dt>
+
+  <dt>center</dt>
 <dd><p>a logical value defining whether x should be centered by the median. 
    Centering is done by subtracting the column medians (omitting NAs) of x from their corresponding columns.
    If center is FALSE, no centering is done.
 <!-- %%     ~~Describe \code{center} here~~ --></p></dd>
-<dt>scale</dt>
+
+  <dt>scale</dt>
 <dd><p>a logical value defining whether x should be scaled by the mad.
   Scaling is done by dividing the (centered) columns of x by their mad. 
   If scale is FALSE, no scaling is done.</p>
 <p><!-- %%     ~~Describe \code{scale} here~~ --></p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>the centered, scaled matrix. 
+    
+
+<p>the centered, scaled matrix. 
 The numeric centering and scalings used (if any) are returned as attributes "scaled:center" and "scaled:scale"</p>
+
+
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -124,9 +131,9 @@ The numeric centering and scalings used (if any) are returned as attributes "sca
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, y<span class="op">=</span><span class="fu">RobScale</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">100</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, y<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/scale.html" class="external-link">scale</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, col<span class="op">=</span><span class="st">"red"</span> <span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, y<span class="op">=</span><span class="fu">RobScale</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">100</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, y<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/scale.html" class="external-link">scale</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, col<span class="op">=</span><span class="st">"red"</span> <span class="op">)</span></span></span>
 <span class="r-plt img"><img src="RobScale-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -142,7 +149,7 @@ The numeric centering and scalings used (if any) are returned as attributes "sca
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

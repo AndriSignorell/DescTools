@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Lambda</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, direction <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"symmetric"</span>, <span class="st">"row"</span>, <span class="st">"column"</span><span class="op">)</span>, conf.level <span class="op">=</span> <span class="cn">NA</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Lambda</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, direction <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"symmetric"</span>, <span class="st">"row"</span>, <span class="st">"column"</span><span class="op">)</span>, conf.level <span class="op">=</span> <span class="cn">NA</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -95,19 +95,24 @@
     <dl><dt>x</dt>
 <dd><p>a numeric vector, a matrix or a table.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>y</dt>
+
+  <dt>y</dt>
 <dd><p><code>NULL</code> (default) or a vector with compatible dimensions to x. If y is provided, <code>table(x, y, ...)</code> is calculated.
 <!-- %%     ~~Describe \code{y} here~~ --></p></dd>
-<dt>direction</dt>
+
+ <dt>direction</dt>
 <dd><p>type of lambda. Can be one out of <code>"symmetric"</code> (default), <code>"row"</code>, <code>"column"</code> (abbreviations are allowed).
   If direction is set to <code>"row"</code> then Lambda(R|C) (column dependent) will be reported. See details.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>conf.level</dt>
+
+  <dt>conf.level</dt>
 <dd><p>confidence level for the returned confidence interval, restricted to lie between 0 and 1.
 <!-- %%     ~~Describe \code{conf.level} here~~ --></p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>further arguments are passed to the function <code><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></code>, allowing i.e. to set <br><code>useNA = c("no", "ifany", "always")</code>.
 <!-- %%     ~~Describe \code{\dots} here~~ --></p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -121,13 +126,19 @@ Data can be passed to the function either as matrix or data.frame in <code>x</co
     <div id="value">
     <h2>Value</h2>
     <p>if no confidence intervals are requested:
-the estimate as numeric value<br><br>else a named numeric vector with 3 elements</p>
+the estimate as numeric value<br><br></p>
+
+
+<p>else a named numeric vector with 3 elements</p>
 <dl><dt>lambda</dt>
 <dd><p>estimate</p></dd>
+
 <dt>lwr.ci</dt>
 <dd><p>lower confidence interval</p></dd>
+
 <dt>upr.ci</dt>
 <dd><p>upper confidence interval</p></dd>
+
 </dl></div>
     <div id="references">
     <h2>References</h2>
@@ -151,25 +162,25 @@ http://www.nssl.noaa.gov/users/brooks/public_html/feda/papers/goodmankruskal1.pd
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># example from Goodman Kruskal (1954)</span></span>
-<span class="r-in"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">as.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1768</span>,<span class="fl">946</span>,<span class="fl">115</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">807</span>,<span class="fl">1387</span>,<span class="fl">438</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">189</span>,<span class="fl">746</span>,<span class="fl">288</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">47</span>,<span class="fl">53</span>,<span class="fl">16</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"B"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">m</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># example from Goodman Kruskal (1954)</span></span></span>
+<span class="r-in"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">as.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1768</span>,<span class="fl">946</span>,<span class="fl">115</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">807</span>,<span class="fl">1387</span>,<span class="fl">438</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">189</span>,<span class="fl">746</span>,<span class="fl">288</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">47</span>,<span class="fl">53</span>,<span class="fl">16</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"B"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">m</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      B 1  B 2  B 3  B 4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A 1 1768  807  189   47</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A 2  946 1387  746   53</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A 3  115  438  288   16</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># direction default is "symmetric"</span></span>
-<span class="r-in"><span class="fu">Lambda</span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># direction default is "symmetric"</span></span></span>
+<span class="r-in"><span><span class="fu">Lambda</span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2076188</span>
-<span class="r-in"><span class="fu">Lambda</span><span class="op">(</span><span class="va">m</span>, conf.level<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">Lambda</span><span class="op">(</span><span class="va">m</span>, conf.level<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    lambda    lwr.ci    upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.2076188 0.1871747 0.2280629 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">Lambda</span><span class="op">(</span><span class="va">m</span>, direction<span class="op">=</span><span class="st">"row"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">Lambda</span><span class="op">(</span><span class="va">m</span>, direction<span class="op">=</span><span class="st">"row"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2241003</span>
-<span class="r-in"><span class="fu">Lambda</span><span class="op">(</span><span class="va">m</span>, direction<span class="op">=</span><span class="st">"column"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">Lambda</span><span class="op">(</span><span class="va">m</span>, direction<span class="op">=</span><span class="st">"column"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1923949</span>
 </code></pre></div>
     </div>
@@ -185,7 +196,7 @@ http://www.nssl.noaa.gov/users/brooks/public_html/feda/papers/goodmankruskal1.pd
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -21,7 +21,7 @@ association for ordinal factors in a two-way table. The function has interfaces 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -89,7 +89,7 @@ association for ordinal factors in a two-way table. The function has interfaces 
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">SomersDelta</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, direction <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"row"</span>, <span class="st">"column"</span><span class="op">)</span>, conf.level <span class="op">=</span> <span class="cn">NA</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">SomersDelta</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, direction <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"row"</span>, <span class="st">"column"</span><span class="op">)</span>, conf.level <span class="op">=</span> <span class="cn">NA</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -97,19 +97,24 @@ association for ordinal factors in a two-way table. The function has interfaces 
     <dl><dt>x</dt>
 <dd><p>a numeric vector or a table. A matrix will be treated as table.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>y</dt>
+
+  <dt>y</dt>
 <dd><p>NULL (default) or a vector with compatible dimensions to <code>x</code>. If y is provided, <code>table(x, y, ...)</code> is calculated.
 <!-- %%     ~~Describe \code{y} here~~ --></p></dd>
-<dt>direction</dt>
+
+ <dt>direction</dt>
 <dd><p>direction of the calculation. Can be <code>"row"</code> (default) or <code>"column"</code>, where
   <code>"row"</code> calculates Somers' D (R | C) ("column dependent").
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
+
 <dt>conf.level</dt>
 <dd><p>confidence level of the interval. If set to <code>NA</code> (which is the default) no confidence interval will be calculated.
 <!-- %%     ~~Describe \code{conf.level} here~~ --></p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>further arguments are passed to the function <code><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></code>, allowing i.e. to set useNA. This refers only to the vector interface.
 <!-- %%     ~~Describe \code{\dots} here~~ --></p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -125,8 +130,27 @@ where P equals twice the number of concordances and Q twice the number of discor
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>a single numeric value if no confidence intervals are requested<br>and otherwise a numeric vector with 3 elements for the estimate, the lower and the upper confidence interval
-<!-- %%  ~Describe the value returned --><!-- %%  If it is a LIST, use --><!-- %%  \item{comp1 }{Description of 'comp1'} --><!-- %%  \item{comp2 }{Description of 'comp2'} --><!-- %% ... --></p>
+    
+
+<p>a single numeric value if no confidence intervals are requested<br></p>
+
+
+<p>and otherwise a numeric vector with 3 elements for the estimate, the lower and the upper confidence interval
+<!-- %%  ~Describe the value returned --></p>
+
+
+<p><!-- %%  If it is a LIST, use --></p>
+
+
+<p><!-- %%  \item{comp1 }{Description of 'comp1'} --></p>
+
+
+<p><!-- %%  \item{comp2 }{Description of 'comp2'} --></p>
+
+
+<p><!-- %% ... --></p>
+
+
     </div>
     <div id="references">
     <h2>References</h2>
@@ -158,18 +182,18 @@ Other association measures: <br><code><a href="KendallTauA.html">KendallTauA</a>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># example in:</span></span>
-<span class="r-in"><span class="co"># http://support.sas.com/documentation/cdl/en/statugfreq/63124/PDF/default/statugfreq.pdf</span></span>
-<span class="r-in"><span class="co"># pp. S. 1821</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">as.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">26</span>,<span class="fl">26</span>,<span class="fl">23</span>,<span class="fl">18</span>,<span class="fl">9</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span>,<span class="fl">7</span>,<span class="fl">9</span>,<span class="fl">14</span>,<span class="fl">23</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Somers' D C|R</span></span>
-<span class="r-in"><span class="fu">SomersDelta</span><span class="op">(</span><span class="va">tab</span>, direction<span class="op">=</span><span class="st">"column"</span>, conf.level<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># example in:</span></span></span>
+<span class="r-in"><span><span class="co"># http://support.sas.com/documentation/cdl/en/statugfreq/63124/PDF/default/statugfreq.pdf</span></span></span>
+<span class="r-in"><span><span class="co"># pp. S. 1821</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">as.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">26</span>,<span class="fl">26</span>,<span class="fl">23</span>,<span class="fl">18</span>,<span class="fl">9</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span>,<span class="fl">7</span>,<span class="fl">9</span>,<span class="fl">14</span>,<span class="fl">23</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Somers' D C|R</span></span></span>
+<span class="r-in"><span><span class="fu">SomersDelta</span><span class="op">(</span><span class="va">tab</span>, direction<span class="op">=</span><span class="st">"column"</span>, conf.level<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    somers    lwr.ci    upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.4426720 0.2785571 0.6067869 </span>
-<span class="r-in"><span class="co"># Somers' D R|C</span></span>
-<span class="r-in"><span class="fu">SomersDelta</span><span class="op">(</span><span class="va">tab</span>, direction<span class="op">=</span><span class="st">"row"</span>, conf.level<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Somers' D R|C</span></span></span>
+<span class="r-in"><span><span class="fu">SomersDelta</span><span class="op">(</span><span class="va">tab</span>, direction<span class="op">=</span><span class="st">"row"</span>, conf.level<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    somers    lwr.ci    upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.2569444 0.1592938 0.3545951 </span>
 </code></pre></div>
@@ -186,7 +210,7 @@ Other association measures: <br><code><a href="KendallTauA.html">KendallTauA</a>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

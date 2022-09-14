@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,12 +87,12 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">OPR</span><span class="op">(</span><span class="va">K</span>, D <span class="op">=</span> <span class="cn">NULL</span>, log <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="fu">NPV</span><span class="op">(</span><span class="va">i</span>, <span class="va">cf</span>, t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span>along <span class="op">=</span> <span class="va">cf</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span>
-<span class="fu">IRR</span><span class="op">(</span><span class="va">cf</span>, t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span>along <span class="op">=</span> <span class="va">cf</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span>, interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1.5</span>, <span class="fl">1.5</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">NPVFixBond</span><span class="op">(</span><span class="va">i</span>, <span class="va">Co</span>, <span class="va">RV</span>, <span class="va">n</span><span class="op">)</span>
-<span class="fu">YTM</span><span class="op">(</span><span class="va">Co</span>, <span class="va">PP</span>, <span class="va">RV</span>, <span class="va">n</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">OPR</span><span class="op">(</span><span class="va">K</span>, D <span class="op">=</span> <span class="cn">NULL</span>, log <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu">NPV</span><span class="op">(</span><span class="va">i</span>, <span class="va">cf</span>, t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span>along <span class="op">=</span> <span class="va">cf</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="fu">IRR</span><span class="op">(</span><span class="va">cf</span>, t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span>along <span class="op">=</span> <span class="va">cf</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span>, interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1.5</span>, <span class="fl">1.5</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">NPVFixBond</span><span class="op">(</span><span class="va">i</span>, <span class="va">Co</span>, <span class="va">RV</span>, <span class="va">n</span><span class="op">)</span></span>
+<span><span class="fu">YTM</span><span class="op">(</span><span class="va">Co</span>, <span class="va">PP</span>, <span class="va">RV</span>, <span class="va">n</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -100,36 +100,64 @@
     <dl><dt>i</dt>
 <dd><p>the interest rate
 <!-- %%     ~~Describe \code{i} here~~ --></p></dd>
-<dt>cf</dt>
+
+  <dt>cf</dt>
 <dd><p>numeric vector with the payments
 <!-- %%     ~~Describe \code{cf} here~~ --></p></dd>
-<dt>t</dt>
+
+  <dt>t</dt>
 <dd><p>periods
 <!-- %%     ~~Describe \code{t} here~~ --></p></dd>
-<dt>K</dt>
+
+  <dt>K</dt>
 <dd><p>the capital at time t</p></dd>
-<dt>D</dt>
+
+  <dt>D</dt>
 <dd><p>dividend at time t</p></dd>
-<dt>log</dt>
+
+  <dt>log</dt>
 <dd><p>logical, determining if the simple returns (default) or log returns are to be calculated.</p></dd>
+
 <dt>interval</dt>
 <dd><p>a vector containing the end-points of the interval to
     be searched for the root in the function <code>IRR</code>.</p></dd>
-<dt>Co</dt>
+
+
+   <dt>Co</dt>
 <dd><p>coupon payments of a fixed-rate bond</p></dd>
-<dt>PP</dt>
+
+   <dt>PP</dt>
 <dd><p>purchase price for a fixed-rate bond</p></dd>
-<dt>RV</dt>
+
+   <dt>RV</dt>
 <dd><p>redemption value</p></dd>
-<dt>n</dt>
+
+   <dt>n</dt>
 <dd><p>the term of the bond, total number of periods</p></dd>
+
 <dt>...</dt>
 <dd><p>the dots are passed to the <code><a href="UnirootAll.html">UnirootAll</a></code> function in <code>IRR</code></p></dd>
+
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     <p>a numeric value
-<!-- %%  ~Describe the value returned --><!-- %%  If it is a LIST, use --><!-- %%  \item{comp1 }{Description of 'comp1'} --><!-- %%  \item{comp2 }{Description of 'comp2'} --><!-- %% ... --></p>
+<!-- %%  ~Describe the value returned --></p>
+
+
+<p><!-- %%  If it is a LIST, use --></p>
+
+
+<p><!-- %%  \item{comp1 }{Description of 'comp1'} --></p>
+
+
+<p><!-- %%  \item{comp2 }{Description of 'comp2'} --></p>
+
+
+<p><!-- %% ... --></p>
+
+
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -149,17 +177,17 @@ $$r_t = \frac{D_t+K_t-K_t-1}{K_t-1}$$</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># one root</span></span>
-<span class="r-in"><span class="fu">IRR</span><span class="op">(</span><span class="va">cf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">900</span>, <span class="op">-</span><span class="fl">250</span><span class="op">+</span><span class="fl">450</span><span class="op">-</span><span class="fl">90</span>, <span class="fl">460</span><span class="op">-</span><span class="fl">100</span>, <span class="fl">500</span><span class="op">-</span><span class="fl">120</span>, <span class="fl">550</span><span class="op">-</span><span class="fl">140</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># one root</span></span></span>
+<span class="r-in"><span><span class="fu">IRR</span><span class="op">(</span><span class="va">cf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">900</span>, <span class="op">-</span><span class="fl">250</span><span class="op">+</span><span class="fl">450</span><span class="op">-</span><span class="fl">90</span>, <span class="fl">460</span><span class="op">-</span><span class="fl">100</span>, <span class="fl">500</span><span class="op">-</span><span class="fl">120</span>, <span class="fl">550</span><span class="op">-</span><span class="fl">140</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1272989</span>
-<span class="r-in"><span class="co"># several IRR solutions</span></span>
-<span class="r-in"><span class="fu">IRR</span><span class="op">(</span>cf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">100</span>, <span class="fl">500</span>, <span class="op">-</span><span class="fl">600</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># several IRR solutions</span></span></span>
+<span class="r-in"><span><span class="fu">IRR</span><span class="op">(</span>cf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">100</span>, <span class="fl">500</span>, <span class="op">-</span><span class="fl">600</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
-<span class="r-in"><span class="co"># no solution</span></span>
-<span class="r-in"><span class="fu">IRR</span><span class="op">(</span>cf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">100</span>, <span class="fl">400</span>, <span class="op">-</span><span class="fl">600</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># no solution</span></span></span>
+<span class="r-in"><span><span class="fu">IRR</span><span class="op">(</span>cf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">100</span>, <span class="fl">400</span>, <span class="op">-</span><span class="fl">600</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> numeric(0)</span>
-<span class="r-in"><span class="co"># negative and huge solution</span></span>
-<span class="r-in"><span class="fu">IRR</span><span class="op">(</span>cf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">100</span>, <span class="fl">1000</span>, <span class="op">-</span><span class="fl">600</span><span class="op">)</span>, interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1.5</span>, <span class="fl">1000</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># negative and huge solution</span></span></span>
+<span class="r-in"><span><span class="fu">IRR</span><span class="op">(</span>cf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">100</span>, <span class="fl">1000</span>, <span class="op">-</span><span class="fl">600</span><span class="op">)</span>, interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1.5</span>, <span class="fl">1000</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> numeric(0)</span>
 </code></pre></div>
     </div>
@@ -175,7 +203,7 @@ $$r_t = \frac{D_t+K_t-K_t-1}{K_t-1}$$</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

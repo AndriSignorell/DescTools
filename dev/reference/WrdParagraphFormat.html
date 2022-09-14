@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,8 +87,8 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">WrdParagraphFormat</span><span class="op">(</span>wrd <span class="op">=</span> <span class="fu"><a href="DescToolsOptions.html">DescToolsOptions</a></span><span class="op">(</span><span class="st">"lastWord"</span><span class="op">)</span><span class="op">)</span>
-<span class="fu">WrdParagraphFormat</span><span class="op">(</span><span class="va">wrd</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">WrdParagraphFormat</span><span class="op">(</span>wrd <span class="op">=</span> <span class="fu"><a href="DescToolsOptions.html">DescToolsOptions</a></span><span class="op">(</span><span class="st">"lastWord"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">WrdParagraphFormat</span><span class="op">(</span><span class="va">wrd</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -103,56 +103,83 @@
   The possible values of the arguments are found in the Word constants with the respective name. <br> The alignment for example can be set to <code>wdAlignParagraphLeft</code>, <code>wdAlignParagraphRight</code>, <code>wdAlignParagraphCenter</code> and so on.
   <br> Left alignment with indentation would be set as:<br><code>list(Alignment=wdConst$wdAlignParagraphLeft, LeftIndent=42.55)</code>.
 <!-- %%     ~~Describe \code{font} here~~ --></p></dd>
-<dt>wrd</dt>
+
+  <dt>wrd</dt>
 <dd><p>the pointer to a word instance. Can be a new one, created by <code><a href="GetNewWrd.html">GetNewWrd()</a></code>
   or an existing one, created by <code><a href="GetCurrWrd.html">GetCurrWrd()</a></code>.
   Default is the last created pointer stored in <code>DescToolsOptions("lastWord")</code>.</p></dd>
+
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>an object with the class <code>paragraph</code>, basically a list with the attributes of the paragraph in the current cursor position:</p>
+    
+
+<p>an object with the class <code>paragraph</code>, basically a list with the attributes of the paragraph in the current cursor position:</p>
 <dl><dt>LeftIndent</dt>
 <dd><p>left indentation in (in points) for the specified paragraphs.</p></dd>
-<dt>RightIndent</dt>
+
+  <dt>RightIndent</dt>
 <dd><p>right indent (in points) for the specified paragraphs.</p></dd>
-<dt>SpaceBefore</dt>
+
+  <dt>SpaceBefore</dt>
 <dd><p>spacing (in points) before the specified paragraphs.</p></dd>
-<dt>SpaceBeforeAuto</dt>
+
+  <dt>SpaceBeforeAuto</dt>
 <dd><p><code>TRUE</code> if Microsoft Word automatically sets the amount of spacing before the specified paragraphs.</p></dd>
-<dt>SpaceAfter</dt>
+
+  <dt>SpaceAfter</dt>
 <dd><p>amount of spacing (in points) after the specified paragraph or text column.</p></dd>
-<dt>SpaceAfterAuto</dt>
+
+    <dt>SpaceAfterAuto</dt>
 <dd><p><code>TRUE</code> if Microsoft Word automatically sets the amount of spacing after the specified paragraphs.</p></dd>
-<dt>LineSpacingRule</dt>
+
+  <dt>LineSpacingRule</dt>
 <dd><p>line spacing for the specified paragraph formatting. Use <code>wdLineSpaceSingle</code>, <code>wdLineSpace1pt5</code>, or <code>wdLineSpaceDouble</code> to set the line spacing to one of these values. To set the line spacing to an exact number of points or to a multiple number of lines, you must also set the <code>LineSpacing</code> property.</p></dd>
-<dt>Alignment</dt>
+
+  <dt>Alignment</dt>
 <dd><p><code>WdParagraphAlignment</code> constant that represents the alignment for the specified paragraphs.</p></dd>
-<dt>WidowControl</dt>
+
+  <dt>WidowControl</dt>
 <dd><p><code>TRUE</code> if the first and last lines in the specified paragraph remain on the same page as the rest of the paragraph when Word repaginates the document. Can be <code>TRUE</code>, <code>FALSE</code> or <code>wdUndefined</code>.</p></dd>
-<dt>KeepWithNext</dt>
+
+  <dt>KeepWithNext</dt>
 <dd><p><code>TRUE</code> if the specified paragraph remains on the same page as the paragraph that follows it when Microsoft Word repaginates the document. Read/write Long.</p></dd>
-<dt>KeepTogether</dt>
+
+  <dt>KeepTogether</dt>
 <dd><p><code>TRUE</code> if all lines in the specified paragraphs remain on the same page when Microsoft Word repaginates the document.</p></dd>
-<dt>PageBreakBefore</dt>
+
+  <dt>PageBreakBefore</dt>
 <dd><p><code>TRUE</code> if a page break is forced before the specified paragraphs. Can be <code>TRUE</code>, <code>FALSE</code>, or <code>wdUndefined</code>.</p></dd>
-<dt>NoLineNumber</dt>
+
+  <dt>NoLineNumber</dt>
 <dd><p><code>TRUE</code> if line numbers are repressed for the specified paragraphs. Can be <code>TRUE</code>, <code>FALSE</code>, or <code>wdUndefined</code>.</p></dd>
-<dt>Hyphenation</dt>
+
+  <dt>Hyphenation</dt>
 <dd><p><code>TRUE</code> if the specified paragraphs are included in automatic hyphenation. <code>FALSE</code> if the specified paragraphs are to be excluded from automatic hyphenation.</p></dd>
-<dt>FirstLineIndent</dt>
+
+  <dt>FirstLineIndent</dt>
 <dd><p>value (in points) for a first line or hanging indent. Use a positive value to set a first-line indent, and use a negative value to set a hanging indent.</p></dd>
-<dt>OutlineLevel</dt>
+
+  <dt>OutlineLevel</dt>
 <dd><p>outline level for the specified paragraphs.</p></dd>
-<dt>CharacterUnitLeftIndent</dt>
+
+  <dt>CharacterUnitLeftIndent</dt>
 <dd><p>left indent value (in characters) for the specified paragraphs.</p></dd>
-<dt>CharacterUnitRightIndent</dt>
+
+  <dt>CharacterUnitRightIndent</dt>
 <dd><p>right indent value (in characters) for the specified paragraphs.</p></dd>
-<dt>LineUnitBefore</dt>
+
+  <dt>LineUnitBefore</dt>
 <dd><p>amount of spacing (in gridlines) before the specified paragraphs.</p></dd>
-<dt>LineUnitAfter</dt>
+
+  <dt>LineUnitAfter</dt>
 <dd><p>amount of spacing (in gridlines) after the specified paragraphs.</p></dd>
-<dt>MirrorIndents</dt>
+
+  <dt>MirrorIndents</dt>
 <dd><p>Long that represents whether left and right indents are the same width. Can be <code>TRUE</code>, <code>FALSE</code>, or <code>wdUndefined</code>.</p></dd>
+
+
 </dl></div>
     <div id="author">
     <h2>Author</h2>
@@ -165,21 +192,21 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co"># Windows-specific example</span></span>
-<span class="r-in"><span class="va">wrd</span> <span class="op">&lt;-</span> <span class="fu"><a href="GetNewWrd.html">GetNewWrd</a></span><span class="op">(</span><span class="op">)</span>  <span class="co"># get the handle to a new word instance</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">WrdParagraphFormat</span><span class="op">(</span>wrd<span class="op">=</span><span class="va">wrd</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Alignment<span class="op">=</span><span class="va">wdConst</span><span class="op">$</span><span class="va">wdAlignParagraphLeft</span>,</span>
-<span class="r-in">                                    LeftIndent<span class="op">=</span><span class="fl">42.55</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="ToWrd.html">ToWrd</a></span><span class="op">(</span><span class="st">"Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy</span>
-<span class="r-in">eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</span>
-<span class="r-in">At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd</span>
-<span class="r-in">gubergren, no sea takimata sanctus est.\n"</span>, wrd<span class="op">=</span><span class="va">wrd</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># reset</span></span>
-<span class="r-in"><span class="fu">WrdParagraphFormat</span><span class="op">(</span>wrd<span class="op">=</span><span class="va">wrd</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>LeftIndent<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># Windows-specific example</span></span></span>
+<span class="r-in"><span><span class="va">wrd</span> <span class="op">&lt;-</span> <span class="fu"><a href="GetNewWrd.html">GetNewWrd</a></span><span class="op">(</span><span class="op">)</span>  <span class="co"># get the handle to a new word instance</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">WrdParagraphFormat</span><span class="op">(</span>wrd<span class="op">=</span><span class="va">wrd</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Alignment<span class="op">=</span><span class="va">wdConst</span><span class="op">$</span><span class="va">wdAlignParagraphLeft</span>,</span></span>
+<span class="r-in"><span>                                    LeftIndent<span class="op">=</span><span class="fl">42.55</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="ToWrd.html">ToWrd</a></span><span class="op">(</span><span class="st">"Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy</span></span></span>
+<span class="r-in"><span><span class="st">eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</span></span></span>
+<span class="r-in"><span><span class="st">At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd</span></span></span>
+<span class="r-in"><span><span class="st">gubergren, no sea takimata sanctus est.\n"</span>, wrd<span class="op">=</span><span class="va">wrd</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># reset</span></span></span>
+<span class="r-in"><span><span class="fu">WrdParagraphFormat</span><span class="op">(</span>wrd<span class="op">=</span><span class="va">wrd</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>LeftIndent<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -194,7 +221,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

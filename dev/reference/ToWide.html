@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,8 +87,8 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">ToLong</span><span class="op">(</span><span class="va">x</span>, varnames <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
-<span class="fu">ToWide</span><span class="op">(</span><span class="va">x</span>, <span class="va">g</span>, by <span class="op">=</span> <span class="cn">NULL</span>, varnames <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ToLong</span><span class="op">(</span><span class="va">x</span>, varnames <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="fu">ToWide</span><span class="op">(</span><span class="va">x</span>, <span class="va">g</span>, by <span class="op">=</span> <span class="cn">NULL</span>, varnames <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -96,15 +96,19 @@
     <dl><dt>x</dt>
 <dd><p>the vector to be reshaped
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>g</dt>
+
+  <dt>g</dt>
 <dd><p>the grouping vector to be used for the new columns. The resulting <code>data.frame</code> will return one column per grouplevel.
 <!-- %%     ~~Describe \code{g} here~~ --></p></dd>
-<dt>by</dt>
+
+  <dt>by</dt>
 <dd><p>a vector to be used to merge the pieces of <code>x</code>. If this is left to <code>NULL</code> the pieces will be merged by rownames in the order they are supplied.
 <!-- %%     ~~Describe \code{g} here~~ --></p></dd>
-<dt>varnames</dt>
+
+  <dt>varnames</dt>
 <dd><p>the variable names if not the grouping levels should be used.
 <!-- %%     ~~Describe \code{varnames} here~~ --></p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -115,7 +119,21 @@
     <div id="value">
     <h2>Value</h2>
     <p>the reshaped object
-<!-- %%  ~Describe the value returned --><!-- %%  If it is a LIST, use --><!-- %%  \item{comp1 }{Description of 'comp1'} --><!-- %%  \item{comp2 }{Description of 'comp2'} --><!-- %% ... --></p>
+<!-- %%  ~Describe the value returned --></p>
+
+
+<p><!-- %%  If it is a LIST, use --></p>
+
+
+<p><!-- %%  \item{comp1 }{Description of 'comp1'} --></p>
+
+
+<p><!-- %%  \item{comp2 }{Description of 'comp2'} --></p>
+
+
+<p><!-- %% ... --></p>
+
+
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -130,14 +148,14 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">d.x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span>header<span class="op">=</span><span class="cn">TRUE</span>, text<span class="op">=</span><span class="st">"</span>
-<span class="r-in">AA BB CC DD EE FF GG</span>
-<span class="r-in">7.9 18.1 13.3 6.2 9.3 8.3 10.6</span>
-<span class="r-in">9.8 14.0 13.6 7.9 2.9 9.1 13.0</span>
-<span class="r-in">6.4 17.4 16.0 10.9 8.6 11.7 17.5</span>
-<span class="r-in">"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">ToLong</span><span class="op">(</span><span class="va">d.x</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">d.x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span>header<span class="op">=</span><span class="cn">TRUE</span>, text<span class="op">=</span><span class="st">"</span></span></span>
+<span class="r-in"><span><span class="st">AA BB CC DD EE FF GG</span></span></span>
+<span class="r-in"><span><span class="st">7.9 18.1 13.3 6.2 9.3 8.3 10.6</span></span></span>
+<span class="r-in"><span><span class="st">9.8 14.0 13.6 7.9 2.9 9.1 13.0</span></span></span>
+<span class="r-in"><span><span class="st">6.4 17.4 16.0 10.9 8.6 11.7 17.5</span></span></span>
+<span class="r-in"><span><span class="st">"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">ToLong</span><span class="op">(</span><span class="va">d.x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      grp    x</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1.AA  AA  7.9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2.AA  AA  9.8</span>
@@ -160,9 +178,9 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1.GG  GG 10.6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2.GG  GG 13.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3.GG  GG 17.5</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># ToWide by row numbers (by = NULL)</span></span>
-<span class="r-in"><span class="fu">ToWide</span><span class="op">(</span><span class="va">PlantGrowth</span><span class="op">$</span><span class="va">weight</span>, <span class="va">PlantGrowth</span><span class="op">$</span><span class="va">group</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># ToWide by row numbers (by = NULL)</span></span></span>
+<span class="r-in"><span><span class="fu">ToWide</span><span class="op">(</span><span class="va">PlantGrowth</span><span class="op">$</span><span class="va">weight</span>, <span class="va">PlantGrowth</span><span class="op">$</span><span class="va">group</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    ctrl trt1 trt2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  4.17 4.81 6.31</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  5.33 4.32 5.26</span>
@@ -174,11 +192,11 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8  4.61 3.83 4.92</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9  5.17 6.03 6.15</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10 4.53 4.89 5.80</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># To wide aligned by key</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">41</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">PlantGrowth</span><span class="op">$</span><span class="va">nr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">10</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">10</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">PlantGrowth</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># To wide aligned by key</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">41</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">PlantGrowth</span><span class="op">$</span><span class="va">nr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">10</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">10</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">PlantGrowth</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   weight group nr</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   4.17  ctrl  8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   5.58  ctrl  3</span>
@@ -186,8 +204,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4   6.11  ctrl 12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5   4.50  ctrl  2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6   4.61  ctrl 10</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">ToWide</span><span class="op">(</span><span class="va">PlantGrowth</span><span class="op">$</span><span class="va">weight</span>, <span class="va">PlantGrowth</span><span class="op">$</span><span class="va">group</span>, by<span class="op">=</span><span class="va">PlantGrowth</span><span class="op">$</span><span class="va">nr</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">ToWide</span><span class="op">(</span><span class="va">PlantGrowth</span><span class="op">$</span><span class="va">weight</span>, <span class="va">PlantGrowth</span><span class="op">$</span><span class="va">group</span>, by<span class="op">=</span><span class="va">PlantGrowth</span><span class="op">$</span><span class="va">nr</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    by ctrl trt1 trt2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   1   NA 4.89 5.80</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   2 4.50 4.17 5.12</span>
@@ -215,7 +233,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -22,7 +22,7 @@ The function has interfaces for a table (matrix) and for single vectors.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -91,7 +91,7 @@ The function has interfaces for a table (matrix) and for single vectors.
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">KendallTauA</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, direction <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"row"</span>, <span class="st">"column"</span><span class="op">)</span>, conf.level <span class="op">=</span> <span class="cn">NA</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">KendallTauA</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, direction <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"row"</span>, <span class="st">"column"</span><span class="op">)</span>, conf.level <span class="op">=</span> <span class="cn">NA</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -99,19 +99,24 @@ The function has interfaces for a table (matrix) and for single vectors.
     <dl><dt>x</dt>
 <dd><p>a numeric vector or a table. A matrix will be treated as table.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>y</dt>
+
+  <dt>y</dt>
 <dd><p>NULL (default) or a vector with compatible dimensions to <code>x</code>. If y is provided, <code>table(x, y, ...)</code> is calculated.
 <!-- %%     ~~Describe \code{y} here~~ --></p></dd>
-<dt>direction</dt>
+
+ <dt>direction</dt>
 <dd><p>direction of the calculation. Can be <code>"row"</code> (default) or <code>"column"</code>, where
   <code>"row"</code> calculates Kendall's tau-a (R|C) ("column dependent").
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
+
 <dt>conf.level</dt>
 <dd><p>confidence level of the interval. If set to <code>NA</code> (which is the default) no confidence interval will be calculated.
 <!-- %%     ~~Describe \code{conf.level} here~~ --></p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>further arguments are passed to the function <code><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></code>, allowing i.e. to set useNA. This refers only to the vector interface.
 <!-- %%     ~~Describe \code{\dots} here~~ --></p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -124,7 +129,12 @@ where P equals twice the number of concordances and Q twice the number of discor
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>a single numeric value if no confidence intervals are requested,<br>and otherwise a numeric vector with 3 elements for the estimate, the lower and the upper confidence interval</p>
+    
+
+<p>a single numeric value if no confidence intervals are requested,<br></p>
+
+
+<p>and otherwise a numeric vector with 3 elements for the estimate, the lower and the upper confidence interval</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -147,38 +157,38 @@ Other association measures: <br><code><a href="https://rdrr.io/r/stats/cor.html"
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co"># example in:</span></span>
-<span class="r-in"><span class="co"># http://support.sas.com/documentation/cdl/en/statugfreq/63124/PDF/default/statugfreq.pdf</span></span>
-<span class="r-in"><span class="co"># pp. S. 1821</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">as.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">26</span>,<span class="fl">26</span>,<span class="fl">23</span>,<span class="fl">18</span>,<span class="fl">9</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span>,<span class="fl">7</span>,<span class="fl">9</span>,<span class="fl">14</span>,<span class="fl">23</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Kendall's tau-a C|R</span></span>
-<span class="r-in"><span class="fu">KendallTauA</span><span class="op">(</span><span class="va">tab</span>, direction<span class="op">=</span><span class="st">"column"</span>, conf.level<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># example in:</span></span></span>
+<span class="r-in"><span><span class="co"># http://support.sas.com/documentation/cdl/en/statugfreq/63124/PDF/default/statugfreq.pdf</span></span></span>
+<span class="r-in"><span><span class="co"># pp. S. 1821</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">as.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">26</span>,<span class="fl">26</span>,<span class="fl">23</span>,<span class="fl">18</span>,<span class="fl">9</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span>,<span class="fl">7</span>,<span class="fl">9</span>,<span class="fl">14</span>,<span class="fl">23</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Kendall's tau-a C|R</span></span></span>
+<span class="r-in"><span><span class="fu">KendallTauA</span><span class="op">(</span><span class="va">tab</span>, direction<span class="op">=</span><span class="st">"column"</span>, conf.level<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     tau_a    lwr.ci    upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.2068323 0.1771300 0.2365346 </span>
-<span class="r-in"><span class="co"># Kendall's tau-a R|C</span></span>
-<span class="r-in"><span class="fu">KendallTauA</span><span class="op">(</span><span class="va">tab</span>, direction<span class="op">=</span><span class="st">"row"</span>, conf.level<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Kendall's tau-a R|C</span></span></span>
+<span class="r-in"><span><span class="fu">KendallTauA</span><span class="op">(</span><span class="va">tab</span>, direction<span class="op">=</span><span class="st">"row"</span>, conf.level<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     tau_a    lwr.ci    upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.2068323 0.1771300 0.2365346 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># http://support.sas.com/documentation/cdl/en/statugfreq/63124/PDF/default/statugfreq.pdf</span></span>
-<span class="r-in"><span class="co"># pp. 1814 (143)</span></span>
-<span class="r-in"><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">as.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">11</span>,<span class="fl">2</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">6</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">KendallTauA</span><span class="op">(</span><span class="va">tab</span>, direction<span class="op">=</span><span class="st">"row"</span>, conf.level<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># http://support.sas.com/documentation/cdl/en/statugfreq/63124/PDF/default/statugfreq.pdf</span></span></span>
+<span class="r-in"><span><span class="co"># pp. 1814 (143)</span></span></span>
+<span class="r-in"><span><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">as.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">11</span>,<span class="fl">2</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">6</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">KendallTauA</span><span class="op">(</span><span class="va">tab</span>, direction<span class="op">=</span><span class="st">"row"</span>, conf.level<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      tau_a     lwr.ci     upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.22924901 0.07441035 0.38408768 </span>
-<span class="r-in"><span class="fu">KendallTauA</span><span class="op">(</span><span class="va">tab</span>, direction<span class="op">=</span><span class="st">"column"</span>, conf.level<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">KendallTauA</span><span class="op">(</span><span class="va">tab</span>, direction<span class="op">=</span><span class="st">"column"</span>, conf.level<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      tau_a     lwr.ci     upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.22924901 0.07441035 0.38408768 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Liebetrau, pp. 52</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">5</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="ConDisPairs.html">ConDisPairs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Liebetrau, pp. 52</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">5</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="ConDisPairs.html">ConDisPairs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $pi.c</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4] [,5]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    6    5    3    2    0</span>
@@ -201,7 +211,7 @@ Other association measures: <br><code><a href="https://rdrr.io/r/stats/cor.html"
 <span class="r-out co"><span class="r-pr">#&gt;</span> $D</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">KendallTauA</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, conf.level<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">KendallTauA</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, conf.level<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     tau_a    lwr.ci    upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.5357143 0.1324073 0.9390213 </span>
 </code></pre></div>
@@ -218,7 +228,7 @@ Other association measures: <br><code><a href="https://rdrr.io/r/stats/cor.html"
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

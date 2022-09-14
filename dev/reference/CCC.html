@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -82,22 +82,28 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">CCC</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, ci <span class="op">=</span> <span class="st">"z-transform"</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">CCC</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, ci <span class="op">=</span> <span class="st">"z-transform"</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>a vector, representing the first set of measurements.</p></dd>
-<dt>y</dt>
+
+  <dt>y</dt>
 <dd><p>a vector, representing the second set of measurements.</p></dd>
-<dt>ci</dt>
+
+  <dt>ci</dt>
 <dd><p>a character string, indicating the method to be used. Options are <code>z-transform</code> or <code>asymptotic</code>.</p></dd>
-<dt>conf.level</dt>
+
+  <dt>conf.level</dt>
 <dd><p>magnitude of the returned confidence interval. Must be a single number between 0 and 1.</p></dd>
-<dt>na.rm</dt>
+
+    <dt>na.rm</dt>
 <dd><p>logical, indicating whether <code>NA</code> values should be stripped before the computation proceeds. If set to <code>TRUE</code> only the complete cases of the ratings will be used. Defaults to <code>FALSE</code>.
   <!-- %%     ~~Describe \code{na.rm} here~~ --></p></dd>
+
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -106,18 +112,27 @@
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list containing the following:</p>
+    
+
+<p>A list containing the following:</p>
 <dl><dt>rho.c</dt>
 <dd><p>the concordance correlation coefficient.</p></dd>
-<dt>s.shift</dt>
+
+  <dt>s.shift</dt>
 <dd><p>the scale shift.</p></dd>
-<dt>l.shift</dt>
+
+  <dt>l.shift</dt>
 <dd><p>the location shift.</p></dd>
-<dt>C.b</dt>
+
+  <dt>C.b</dt>
 <dd><p>a bias correction factor that measures how far the best-fit line deviates from a line at 45 degrees. No deviation from the 45 degree line occurs when C.b = 1. See Lin (1989, page 258).</p></dd>
-<dt>blalt</dt>
+
+  <dt>blalt</dt>
 <dd><p>a data frame with two columns: <code>mean</code> the mean of each pair of measurements, <code>delta</code> vector <code>y</code> minus vector <code>x</code>.</p></dd>
+
 </dl><p><!-- %%  \item{nmissing}{a count of the number of measurement pairs ignored due to missingness.} --></p>
+
+
     </div>
     <div id="references">
     <h2>References</h2>
@@ -144,55 +159,55 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## Concordance correlation plot:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">1234</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">method1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">method2</span> <span class="op">&lt;-</span> <span class="va">method1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Introduce some missing values:</span></span>
-<span class="r-in"><span class="va">method1</span><span class="op">[</span><span class="fl">50</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
-<span class="r-in"><span class="va">method2</span><span class="op">[</span><span class="fl">75</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">tmp.ccc</span> <span class="op">&lt;-</span> <span class="fu">CCC</span><span class="op">(</span><span class="va">method1</span>, <span class="va">method2</span>, ci <span class="op">=</span> <span class="st">"z-transform"</span>,</span>
-<span class="r-in">   conf.level <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">lab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"CCC: "</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">tmp.ccc</span><span class="op">$</span><span class="va">rho.c</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, <span class="st">" (95% CI "</span>, </span>
-<span class="r-in">   <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">tmp.ccc</span><span class="op">$</span><span class="va">rho.c</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, <span class="st">" - "</span>,</span>
-<span class="r-in">   <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">tmp.ccc</span><span class="op">$</span><span class="va">rho.c</span><span class="op">[</span>,<span class="fl">3</span><span class="op">]</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, <span class="st">")"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">method2</span> <span class="op">~</span> <span class="va">method1</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>pty <span class="op">=</span> <span class="st">"s"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">method1</span>, <span class="va">method2</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">5</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">5</span><span class="op">)</span>, xlab <span class="op">=</span> <span class="st">"Method 1"</span>, </span>
-<span class="r-in">   ylab <span class="op">=</span> <span class="st">"Method 2"</span>, pch <span class="op">=</span> <span class="fl">16</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">0</span>, b <span class="op">=</span> <span class="fl">1</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span><span class="va">z</span>, lty <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"topleft"</span>, legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Line of perfect concordance"</span>, </span>
-<span class="r-in">   <span class="st">"Reduced major axis"</span><span class="op">)</span>, lty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">1</span><span class="op">)</span>, lwd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, bty <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1.55</span>, y <span class="op">=</span> <span class="fl">3.8</span>, labels <span class="op">=</span> <span class="va">lab</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## Concordance correlation plot:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">1234</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">method1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">method2</span> <span class="op">&lt;-</span> <span class="va">method1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Introduce some missing values:</span></span></span>
+<span class="r-in"><span><span class="va">method1</span><span class="op">[</span><span class="fl">50</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span></span>
+<span class="r-in"><span><span class="va">method2</span><span class="op">[</span><span class="fl">75</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">tmp.ccc</span> <span class="op">&lt;-</span> <span class="fu">CCC</span><span class="op">(</span><span class="va">method1</span>, <span class="va">method2</span>, ci <span class="op">=</span> <span class="st">"z-transform"</span>,</span></span>
+<span class="r-in"><span>   conf.level <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">lab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"CCC: "</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">tmp.ccc</span><span class="op">$</span><span class="va">rho.c</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, <span class="st">" (95% CI "</span>, </span></span>
+<span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">tmp.ccc</span><span class="op">$</span><span class="va">rho.c</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, <span class="st">" - "</span>,</span></span>
+<span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">tmp.ccc</span><span class="op">$</span><span class="va">rho.c</span><span class="op">[</span>,<span class="fl">3</span><span class="op">]</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, <span class="st">")"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">method2</span> <span class="op">~</span> <span class="va">method1</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>pty <span class="op">=</span> <span class="st">"s"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">method1</span>, <span class="va">method2</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">5</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">5</span><span class="op">)</span>, xlab <span class="op">=</span> <span class="st">"Method 1"</span>, </span></span>
+<span class="r-in"><span>   ylab <span class="op">=</span> <span class="st">"Method 2"</span>, pch <span class="op">=</span> <span class="fl">16</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">0</span>, b <span class="op">=</span> <span class="fl">1</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span><span class="va">z</span>, lty <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"topleft"</span>, legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Line of perfect concordance"</span>, </span></span>
+<span class="r-in"><span>   <span class="st">"Reduced major axis"</span><span class="op">)</span>, lty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">1</span><span class="op">)</span>, lwd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, bty <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1.55</span>, y <span class="op">=</span> <span class="fl">3.8</span>, labels <span class="op">=</span> <span class="va">lab</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="CCC-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Bland and Altman plot (Figure 2 from Bland and Altman 1986):</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">494</span>,<span class="fl">395</span>,<span class="fl">516</span>,<span class="fl">434</span>,<span class="fl">476</span>,<span class="fl">557</span>,<span class="fl">413</span>,<span class="fl">442</span>,<span class="fl">650</span>,<span class="fl">433</span>,<span class="fl">417</span>,<span class="fl">656</span>,<span class="fl">267</span>,</span>
-<span class="r-in">   <span class="fl">478</span>,<span class="fl">178</span>,<span class="fl">423</span>,<span class="fl">427</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">512</span>,<span class="fl">430</span>,<span class="fl">520</span>,<span class="fl">428</span>,<span class="fl">500</span>,<span class="fl">600</span>,<span class="fl">364</span>,<span class="fl">380</span>,<span class="fl">658</span>,<span class="fl">445</span>,<span class="fl">432</span>,<span class="fl">626</span>,<span class="fl">260</span>,</span>
-<span class="r-in">   <span class="fl">477</span>,<span class="fl">259</span>,<span class="fl">350</span>,<span class="fl">451</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">tmp.ccc</span> <span class="op">&lt;-</span> <span class="fu">CCC</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, ci <span class="op">=</span> <span class="st">"z-transform"</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">tmp.mean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">tmp.ccc</span><span class="op">$</span><span class="va">blalt</span><span class="op">$</span><span class="va">delta</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">tmp.sd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">var</a></span><span class="op">(</span><span class="va">tmp.ccc</span><span class="op">$</span><span class="va">blalt</span><span class="op">$</span><span class="va">delta</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tmp.ccc</span><span class="op">$</span><span class="va">blalt</span><span class="op">$</span><span class="va">mean</span>, <span class="va">tmp.ccc</span><span class="op">$</span><span class="va">blalt</span><span class="op">$</span><span class="va">delta</span>, pch <span class="op">=</span> <span class="fl">16</span>, </span>
-<span class="r-in">   xlab <span class="op">=</span> <span class="st">"Average PEFR by two meters (L/min)"</span>, </span>
-<span class="r-in">   ylab <span class="op">=</span> <span class="st">"Difference in PEFR (L/min)"</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">800</span><span class="op">)</span>, </span>
-<span class="r-in">   ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">140</span>,<span class="fl">140</span><span class="op">)</span><span class="op">)</span> </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="va">tmp.mean</span>, lty <span class="op">=</span> <span class="fl">1</span>, col <span class="op">=</span> <span class="st">"gray"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="va">tmp.mean</span> <span class="op">-</span> <span class="op">(</span><span class="fl">2</span> <span class="op">*</span> <span class="va">tmp.sd</span><span class="op">)</span>, lty <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">"gray"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="va">tmp.mean</span> <span class="op">+</span> <span class="op">(</span><span class="fl">2</span> <span class="op">*</span> <span class="va">tmp.sd</span><span class="op">)</span>, lty <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">"gray"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"topleft"</span>, legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Mean difference"</span>, </span>
-<span class="r-in">   <span class="st">"Mean difference +/ 2SD"</span><span class="op">)</span>, lty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, bty <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span>, y <span class="op">=</span> <span class="fl">125</span>, legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Difference"</span><span class="op">)</span>, pch <span class="op">=</span> <span class="fl">16</span>, </span>
-<span class="r-in">    bty <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Bland and Altman plot (Figure 2 from Bland and Altman 1986):</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">494</span>,<span class="fl">395</span>,<span class="fl">516</span>,<span class="fl">434</span>,<span class="fl">476</span>,<span class="fl">557</span>,<span class="fl">413</span>,<span class="fl">442</span>,<span class="fl">650</span>,<span class="fl">433</span>,<span class="fl">417</span>,<span class="fl">656</span>,<span class="fl">267</span>,</span></span>
+<span class="r-in"><span>   <span class="fl">478</span>,<span class="fl">178</span>,<span class="fl">423</span>,<span class="fl">427</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">512</span>,<span class="fl">430</span>,<span class="fl">520</span>,<span class="fl">428</span>,<span class="fl">500</span>,<span class="fl">600</span>,<span class="fl">364</span>,<span class="fl">380</span>,<span class="fl">658</span>,<span class="fl">445</span>,<span class="fl">432</span>,<span class="fl">626</span>,<span class="fl">260</span>,</span></span>
+<span class="r-in"><span>   <span class="fl">477</span>,<span class="fl">259</span>,<span class="fl">350</span>,<span class="fl">451</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">tmp.ccc</span> <span class="op">&lt;-</span> <span class="fu">CCC</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, ci <span class="op">=</span> <span class="st">"z-transform"</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tmp.mean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">tmp.ccc</span><span class="op">$</span><span class="va">blalt</span><span class="op">$</span><span class="va">delta</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tmp.sd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">var</a></span><span class="op">(</span><span class="va">tmp.ccc</span><span class="op">$</span><span class="va">blalt</span><span class="op">$</span><span class="va">delta</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tmp.ccc</span><span class="op">$</span><span class="va">blalt</span><span class="op">$</span><span class="va">mean</span>, <span class="va">tmp.ccc</span><span class="op">$</span><span class="va">blalt</span><span class="op">$</span><span class="va">delta</span>, pch <span class="op">=</span> <span class="fl">16</span>, </span></span>
+<span class="r-in"><span>   xlab <span class="op">=</span> <span class="st">"Average PEFR by two meters (L/min)"</span>, </span></span>
+<span class="r-in"><span>   ylab <span class="op">=</span> <span class="st">"Difference in PEFR (L/min)"</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">800</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>   ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">140</span>,<span class="fl">140</span><span class="op">)</span><span class="op">)</span> </span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="va">tmp.mean</span>, lty <span class="op">=</span> <span class="fl">1</span>, col <span class="op">=</span> <span class="st">"gray"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="va">tmp.mean</span> <span class="op">-</span> <span class="op">(</span><span class="fl">2</span> <span class="op">*</span> <span class="va">tmp.sd</span><span class="op">)</span>, lty <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">"gray"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="va">tmp.mean</span> <span class="op">+</span> <span class="op">(</span><span class="fl">2</span> <span class="op">*</span> <span class="va">tmp.sd</span><span class="op">)</span>, lty <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">"gray"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"topleft"</span>, legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Mean difference"</span>, </span></span>
+<span class="r-in"><span>   <span class="st">"Mean difference +/ 2SD"</span><span class="op">)</span>, lty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, bty <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span>, y <span class="op">=</span> <span class="fl">125</span>, legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Difference"</span><span class="op">)</span>, pch <span class="op">=</span> <span class="fl">16</span>, </span></span>
+<span class="r-in"><span>    bty <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="CCC-2.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -208,7 +223,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

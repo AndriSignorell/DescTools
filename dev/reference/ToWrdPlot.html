@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,10 +87,10 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">ToWrdPlot</span><span class="op">(</span><span class="va">plotcode</span>, width <span class="op">=</span> <span class="cn">NULL</span>, height <span class="op">=</span> <span class="cn">NULL</span>, scale <span class="op">=</span> <span class="fl">100</span>,
-          pointsize <span class="op">=</span> <span class="fl">12</span>, res <span class="op">=</span> <span class="fl">300</span>, crop <span class="op">=</span> <span class="fl">0</span>, title <span class="op">=</span> <span class="cn">NULL</span>,  
-          wrd <span class="op">=</span> <span class="fu"><a href="DescToolsOptions.html">DescToolsOptions</a></span><span class="op">(</span><span class="st">"lastWord"</span><span class="op">)</span>, 
-          bookmark <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">gettextf</a></span><span class="op">(</span><span class="st">"bmp%s"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1</span>, min <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">*</span> <span class="fl">1e+09</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ToWrdPlot</span><span class="op">(</span><span class="va">plotcode</span>, width <span class="op">=</span> <span class="cn">NULL</span>, height <span class="op">=</span> <span class="cn">NULL</span>, scale <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>          pointsize <span class="op">=</span> <span class="fl">12</span>, res <span class="op">=</span> <span class="fl">300</span>, crop <span class="op">=</span> <span class="fl">0</span>, title <span class="op">=</span> <span class="cn">NULL</span>,  </span>
+<span>          wrd <span class="op">=</span> <span class="fu"><a href="DescToolsOptions.html">DescToolsOptions</a></span><span class="op">(</span><span class="st">"lastWord"</span><span class="op">)</span>, </span>
+<span>          bookmark <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">gettextf</a></span><span class="op">(</span><span class="st">"bmp%s"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1</span>, min <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">*</span> <span class="fl">1e+09</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -98,34 +98,45 @@
     <dl><dt>plotcode</dt>
 <dd><p>code chunk needed for producing the plot
 <!-- %%     ~~Describe \code{plotcode} here~~ --></p></dd>
-<dt>bookmark</dt>
+
+  <dt>bookmark</dt>
 <dd><p>character, the name of the bookmark
 <!-- %%     ~~Describe \code{bm} here~~ --></p></dd>
-<dt>width</dt>
+
+  <dt>width</dt>
 <dd><p>the width in cm of the plot in the Word document (default 15)
 <!-- %%     ~~Describe \code{width} here~~ --></p></dd>
-<dt>height</dt>
+
+  <dt>height</dt>
 <dd><p>the height in cm of the plot in the Word document (default 9.3)
 <!-- %%     ~~Describe \code{height} here~~ --></p></dd>
-<dt>scale</dt>
+
+  <dt>scale</dt>
 <dd><p>the scale of the plot (default 100) 
 <!-- %%     ~~Describe \code{scale} here~~ --></p></dd>
-<dt>pointsize</dt>
+
+ <dt>pointsize</dt>
 <dd><p>the default pointsize of plotted text, interpreted as big points (1/72 inch) at <code>res</code> ppi. (default is 12) 
 <!-- %%     ~~Describe \code{scale} here~~ --></p></dd>
-<dt>res</dt>
+
+  <dt>res</dt>
 <dd><p>the resolution for the graphic (default 300)
 <!-- %%     ~~Describe \code{res} here~~ --></p></dd>
-<dt>crop</dt>
+
+  <dt>crop</dt>
 <dd><p>a vector of 4 elements, the crop factor for all 4 sides of a picture in cm (default all 0)
 <!-- %%     ~~Describe \code{res} here~~ --></p></dd>
-<dt>title</dt>
+
+  <dt>title</dt>
 <dd><p>character, the title of the plot to be inserted in the word document</p></dd>
-<dt>wrd</dt>
+
+ <dt>wrd</dt>
 <dd><p>the pointer to a word instance. Can be a new one, created by <code><a href="GetNewWrd.html">GetNewWrd()</a></code>
   or an existing one, created by <code><a href="GetCurrWrd.html">GetCurrWrd()</a></code>.
   Default is the last created pointer stored in <code>DescToolsOptions("lastWord")</code>.
 <!-- %%     ~~Describe \code{wrd} here~~ --></p></dd>
+
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -137,12 +148,19 @@ The present function evaluates some given plot code chunk using a tiff device an
     <div id="value">
     <h2>Value</h2>
     <p>a list
-<!-- %%  ~Describe the value returned --><!-- %%  If it is a LIST, use --></p>
+<!-- %%  ~Describe the value returned --></p>
+
+
+<p><!-- %%  If it is a LIST, use --></p>
 <dl><dt>plot_hwnd </dt>
 <dd><p>a windows handle to the inserted plot</p></dd>
+
 <dt>bookmark</dt>
 <dd><p>a windows handle to the bookmark</p></dd>
+
 </dl><p><!-- %% ... --></p>
+
+
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -157,18 +175,18 @@ The present function evaluates some given plot code chunk using a tiff device an
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co"># we can't get this through the CRAN test - run it with copy/paste to console</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">wrd</span> <span class="op">&lt;-</span> <span class="fu"><a href="GetNewWrd.html">GetNewWrd</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">bm</span> <span class="op">&lt;-</span> <span class="fu"><a href="ToWrdB.html">ToWrdB</a></span><span class="op">(</span><span class="st">"This is text to be possibly replaced later."</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># get the automatically created name of the bookmark</span></span>
-<span class="r-in"><span class="va">bm</span><span class="op">$</span><span class="fu">name</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="WrdBookmark.html">WrdGoto</a></span><span class="op">(</span><span class="va">bm</span><span class="op">$</span><span class="fu">name</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">UpdateBookmark</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># we can't get this through the CRAN test - run it with copy/paste to console</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">wrd</span> <span class="op">&lt;-</span> <span class="fu"><a href="GetNewWrd.html">GetNewWrd</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">bm</span> <span class="op">&lt;-</span> <span class="fu"><a href="ToWrdB.html">ToWrdB</a></span><span class="op">(</span><span class="st">"This is text to be possibly replaced later."</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># get the automatically created name of the bookmark</span></span></span>
+<span class="r-in"><span><span class="va">bm</span><span class="op">$</span><span class="fu">name</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="WrdBookmark.html">WrdGoto</a></span><span class="op">(</span><span class="va">bm</span><span class="op">$</span><span class="fu">name</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">UpdateBookmark</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -183,7 +201,7 @@ The present function evaluates some given plot code chunk using a tiff device an
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

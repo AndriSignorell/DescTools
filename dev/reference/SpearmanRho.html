@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,9 +87,9 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">SpearmanRho</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, use <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"everything"</span>, <span class="st">"all.obs"</span>, <span class="st">"complete.obs"</span>, 
-            <span class="st">"na.or.complete"</span>,<span class="st">"pairwise.complete.obs"</span><span class="op">)</span>, 
-            conf.level <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">SpearmanRho</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, use <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"everything"</span>, <span class="st">"all.obs"</span>, <span class="st">"complete.obs"</span>, </span>
+<span>            <span class="st">"na.or.complete"</span>,<span class="st">"pairwise.complete.obs"</span><span class="op">)</span>, </span>
+<span>            conf.level <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -97,17 +97,21 @@
     <dl><dt>x</dt>
 <dd><p>a numeric vector, an ordered factor, matrix or data frame. An ordered factor will be coerced to numeric.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>y</dt>
+
+  <dt>y</dt>
 <dd><p><code>NULL</code> (default) or a vector, an ordered factor, matrix or data frame with compatible dimensions to x. 
   An ordered factor will be coerced to numeric.
 <!-- %%     ~~Describe \code{y} here~~ --></p></dd>
+
 <dt>use</dt>
 <dd><p>an optional character string giving a method for computing covariances in the presence of missing values. 
 This must be (an abbreviation of) one of the strings <code>"everything"</code>, <code>"all.obs"</code>, <code>"complete.obs"</code>, 
 <code>"na.or.complete"</code>, or <code>"pairwise.complete.obs"</code>.</p></dd>
-<dt>conf.level</dt>
+
+  <dt>conf.level</dt>
 <dd><p>confidence level of the interval. If set to <code>NA</code> (which is the default) no confidence interval will be calculated. 
 <!-- %%     ~~Describe \code{conf.level} here~~ --></p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -118,8 +122,27 @@ The confidence intervals are calculated via z-Transformation.<br></p>
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>Either a single numeric value, if no confidence interval is required, <br>or a vector with 3 elements for estimate, lower and upper confidence intervall. 
-<!-- %%  ~Describe the value returned --><!-- %%  If it is a LIST, use --><!-- %%  \item{comp1 }{Description of 'comp1'} --><!-- %%  \item{comp2 }{Description of 'comp2'} --><!-- %% ... --></p>
+    
+
+<p>Either a single numeric value, if no confidence interval is required, <br></p>
+
+
+<p>or a vector with 3 elements for estimate, lower and upper confidence intervall. 
+<!-- %%  ~Describe the value returned --></p>
+
+
+<p><!-- %%  If it is a LIST, use --></p>
+
+
+<p><!-- %%  \item{comp1 }{Description of 'comp1'} --></p>
+
+
+<p><!-- %%  \item{comp2 }{Description of 'comp2'} --></p>
+
+
+<p><!-- %% ... --></p>
+
+
     </div>
     <div id="references">
     <h2>References</h2>
@@ -139,24 +162,24 @@ The confidence intervals are calculated via z-Transformation.<br></p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">pain</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">as.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">26</span>,  <span class="fl">6</span>, <span class="fl">26</span>, <span class="fl">7</span>, <span class="fl">23</span>, </span>
-<span class="r-in">                           <span class="fl">9</span>, <span class="fl">18</span>, <span class="fl">14</span>, <span class="fl">9</span>, <span class="fl">23</span><span class="op">)</span>, </span>
-<span class="r-in">                           ncol<span class="op">=</span><span class="fl">5</span>, byrow<span class="op">=</span><span class="cn">TRUE</span>, </span>
-<span class="r-in">        dimnames<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>adverse<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"no"</span>, <span class="st">"yes"</span><span class="op">)</span>, dose<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">SpearmanRho</span><span class="op">(</span><span class="va">pain</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">pain</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">as.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">26</span>,  <span class="fl">6</span>, <span class="fl">26</span>, <span class="fl">7</span>, <span class="fl">23</span>, </span></span>
+<span class="r-in"><span>                           <span class="fl">9</span>, <span class="fl">18</span>, <span class="fl">14</span>, <span class="fl">9</span>, <span class="fl">23</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>                           ncol<span class="op">=</span><span class="fl">5</span>, byrow<span class="op">=</span><span class="cn">TRUE</span>, </span></span>
+<span class="r-in"><span>        dimnames<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>adverse<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"no"</span>, <span class="st">"yes"</span><span class="op">)</span>, dose<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">SpearmanRho</span><span class="op">(</span><span class="va">pain</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.10208</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">SpearmanRho</span><span class="op">(</span><span class="va">pain</span>, conf.level<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">SpearmanRho</span><span class="op">(</span><span class="va">pain</span>, conf.level<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         rho      lwr.ci      upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  0.10208002 -0.05343858  0.25276393 </span>
-<span class="r-in">  </span>
-<span class="r-in"><span class="co"># must be the same as</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="fu"><a href="Untable.html">Untable</a></span><span class="op">(</span><span class="va">pain</span><span class="op">)</span>, </span>
-<span class="r-in">     <span class="fu">SpearmanRho</span><span class="op">(</span><span class="va">adverse</span>, <span class="va">dose</span>, conf.level<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span>  </span></span>
+<span class="r-in"><span><span class="co"># must be the same as</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="fu"><a href="Untable.html">Untable</a></span><span class="op">(</span><span class="va">pain</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>     <span class="fu">SpearmanRho</span><span class="op">(</span><span class="va">adverse</span>, <span class="va">dose</span>, conf.level<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         rho      lwr.ci      upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  0.10208002 -0.05343858  0.25276393 </span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -171,7 +194,7 @@ The confidence intervals are calculated via z-Transformation.<br></p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

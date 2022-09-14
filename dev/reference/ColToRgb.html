@@ -22,7 +22,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -90,7 +90,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">ColToRgb</span><span class="op">(</span><span class="va">col</span>, alpha <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ColToRgb</span><span class="op">(</span><span class="va">col</span>, alpha <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -100,9 +100,11 @@
   a hexadecimal string of the form "#rrggbb" or "#rrggbbaa", or an integer i meaning palette()[i].
   Non-string values are coerced to integer.</p>
 <p><!-- %%     ~~Describe \code{col} here~~ --></p></dd>
-<dt>alpha</dt>
+
+  <dt>alpha</dt>
 <dd><p>logical value indicating whether alpha channel (opacity) values should be returned.
 <!-- %%     ~~Describe \code{alpha} here~~ --></p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -111,9 +113,27 @@
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>A matrix with a column for each color. The three rows of the matrix indicate red, green and blue value and are named "red", "green", and "blue" accordingly.
-The matrix might have a 4th row if an alpha channel is requested.
-<!-- %%  ~Describe the value returned --><!-- %%  If it is a LIST, use --><!-- %%  \item{comp1 }{Description of 'comp1'} --><!-- %%  \item{comp2 }{Description of 'comp2'} --><!-- %% ... --></p>
+    
+
+<p>A matrix with a column for each color. The three rows of the matrix indicate red, green and blue value and are named "red", "green", and "blue" accordingly.
+The matrix might have a 4th row if an alpha channel is requested.</p>
+
+
+<p><!-- %%  ~Describe the value returned --></p>
+
+
+<p><!-- %%  If it is a LIST, use --></p>
+
+
+<p><!-- %%  \item{comp1 }{Description of 'comp1'} --></p>
+
+
+<p><!-- %%  \item{comp2 }{Description of 'comp2'} --></p>
+
+
+<p><!-- %% ... --></p>
+
+
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -128,18 +148,18 @@ The matrix might have a 4th row if an alpha channel is requested.
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">ColToRgb</span><span class="op">(</span><span class="st">"peachpuff"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">ColToRgb</span><span class="op">(</span><span class="st">"peachpuff"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> red    255</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> green  218</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> blue   185</span>
-<span class="r-in"><span class="fu">ColToRgb</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>blu <span class="op">=</span> <span class="st">"royalblue"</span>, reddish <span class="op">=</span> <span class="st">"tomato"</span><span class="op">)</span><span class="op">)</span> <span class="co"># names kept</span></span>
+<span class="r-in"><span><span class="fu">ColToRgb</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>blu <span class="op">=</span> <span class="st">"royalblue"</span>, reddish <span class="op">=</span> <span class="st">"tomato"</span><span class="op">)</span><span class="op">)</span> <span class="co"># names kept</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       blu reddish</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> red    65     255</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> green 105      99</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> blue  225      71</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">ColToRgb</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">ColToRgb</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> red      0  223   97   34   40  205  245  158</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> green    0   83  208  151  226   11  199  158</span>
@@ -158,7 +178,7 @@ The matrix might have a 4th row if an alpha channel is requested.
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

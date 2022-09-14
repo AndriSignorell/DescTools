@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -88,37 +88,44 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Cov</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, use <span class="op">=</span> <span class="st">"everything"</span>,
-    method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"pearson"</span>, <span class="st">"kendall"</span>, <span class="st">"spearman"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu">Cor</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, use <span class="op">=</span> <span class="st">"everything"</span>,
-    method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"pearson"</span>, <span class="st">"kendall"</span>, <span class="st">"spearman"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Cov</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, use <span class="op">=</span> <span class="st">"everything"</span>,</span>
+<span>    method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"pearson"</span>, <span class="st">"kendall"</span>, <span class="st">"spearman"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">Cor</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, use <span class="op">=</span> <span class="st">"everything"</span>,</span>
+<span>    method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"pearson"</span>, <span class="st">"kendall"</span>, <span class="st">"spearman"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>a numeric vector, matrix or data frame.</p></dd>
-<dt>y</dt>
+
+  <dt>y</dt>
 <dd><p><code>NULL</code> (default) or a vector, matrix or data frame with
     compatible dimensions to <code>x</code>.   The default is equivalent to
     <code>y = x</code> (but more efficient).</p></dd>
-<dt>use</dt>
+
+
+  <dt>use</dt>
 <dd><p>an optional character string giving a
     method for computing covariances in the presence
     of missing values.  This must be (an abbreviation of) one of the strings
     <code>"everything"</code>, <code>"all.obs"</code>, <code>"complete.obs"</code>,
     <code>"na.or.complete"</code>, or <code>"pairwise.complete.obs"</code>.</p></dd>
-<dt>method</dt>
+
+  <dt>method</dt>
 <dd><p>a character string indicating which correlation
     coefficient (or covariance) is to be computed.  One of
     <code>"pearson"</code> (default), <code>"kendall"</code>, or <code>"spearman"</code>:
     can be abbreviated.</p></dd>
+
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>For <code>r &lt;- Cor(*, use = "all.obs")</code>, it is now guaranteed that
-<code>all(abs(r) &lt;= 1)</code>.</p>
+    <p>For <code>r &lt;- Cor(*, use = "all.obs")</code>, it is now guaranteed that</p>
+<p></p>
+<p><code>all(abs(r) &lt;= 1)</code>.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -196,12 +203,12 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## Two simple vectors</span></span>
-<span class="r-in"><span class="fu">Cor</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">11</span><span class="op">)</span> <span class="co"># == 1</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## Two simple vectors</span></span></span>
+<span class="r-in"><span><span class="fu">Cor</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">11</span><span class="op">)</span> <span class="co"># == 1</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Correlation Matrix of Multivariate sample:</span></span>
-<span class="r-in"><span class="op">(</span><span class="va">Cl</span> <span class="op">&lt;-</span> <span class="fu">Cor</span><span class="op">(</span><span class="va">longley</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Correlation Matrix of Multivariate sample:</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">Cl</span> <span class="op">&lt;-</span> <span class="fu">Cor</span><span class="op">(</span><span class="va">longley</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              GNP.deflator       GNP Unemployed Armed.Forces Population</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GNP.deflator    1.0000000 0.9915892  0.6206334    0.4647442  0.9791634</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GNP             0.9915892 1.0000000  0.6042609    0.4464368  0.9910901</span>
@@ -218,8 +225,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Population   0.9939528 0.9603906</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Year         1.0000000 0.9713295</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Employed     0.9713295 1.0000000</span>
-<span class="r-in"><span class="co">## Graphical Correlation Matrix:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/symnum.html" class="external-link">symnum</a></span><span class="op">(</span><span class="va">Cl</span><span class="op">)</span> <span class="co"># highly correlated</span></span>
+<span class="r-in"><span><span class="co">## Graphical Correlation Matrix:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/symnum.html" class="external-link">symnum</a></span><span class="op">(</span><span class="va">Cl</span><span class="op">)</span> <span class="co"># highly correlated</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              GNP. GNP U A P Y E</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GNP.deflator 1                 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GNP          B    1            </span>
@@ -230,9 +237,9 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Employed     B    B   . . B B 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"legend")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0 ‘ ’ 0.3 ‘.’ 0.6 ‘,’ 0.8 ‘+’ 0.9 ‘*’ 0.95 ‘B’ 1</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Spearman's rho  and  Kendall's tau</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/symnum.html" class="external-link">symnum</a></span><span class="op">(</span><span class="va">clS</span> <span class="op">&lt;-</span> <span class="fu">Cor</span><span class="op">(</span><span class="va">longley</span>, method <span class="op">=</span> <span class="st">"spearman"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Spearman's rho  and  Kendall's tau</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/symnum.html" class="external-link">symnum</a></span><span class="op">(</span><span class="va">clS</span> <span class="op">&lt;-</span> <span class="fu">Cor</span><span class="op">(</span><span class="va">longley</span>, method <span class="op">=</span> <span class="st">"spearman"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              GNP. GNP U A P Y E</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GNP.deflator 1                 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GNP          B    1            </span>
@@ -243,7 +250,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Employed     B    B   .   B B 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"legend")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0 ‘ ’ 0.3 ‘.’ 0.6 ‘,’ 0.8 ‘+’ 0.9 ‘*’ 0.95 ‘B’ 1</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/symnum.html" class="external-link">symnum</a></span><span class="op">(</span><span class="va">clK</span> <span class="op">&lt;-</span> <span class="fu">Cor</span><span class="op">(</span><span class="va">longley</span>, method <span class="op">=</span> <span class="st">"kendall"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/symnum.html" class="external-link">symnum</a></span><span class="op">(</span><span class="va">clK</span> <span class="op">&lt;-</span> <span class="fu">Cor</span><span class="op">(</span><span class="va">longley</span>, method <span class="op">=</span> <span class="st">"kendall"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              GNP. GNP U A P Y E</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GNP.deflator 1                 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GNP          B    1            </span>
@@ -254,28 +261,28 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Employed     *    *   .   + + 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"legend")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0 ‘ ’ 0.3 ‘.’ 0.6 ‘,’ 0.8 ‘+’ 0.9 ‘*’ 0.95 ‘B’ 1</span>
-<span class="r-in"><span class="co">## How much do they differ?</span></span>
-<span class="r-in"><span class="va">i</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lower.tri.html" class="external-link">lower.tri</a></span><span class="op">(</span><span class="va">Cl</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">Cor</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>P <span class="op">=</span> <span class="va">Cl</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, S <span class="op">=</span> <span class="va">clS</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, K <span class="op">=</span> <span class="va">clK</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## How much do they differ?</span></span></span>
+<span class="r-in"><span><span class="va">i</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lower.tri.html" class="external-link">lower.tri</a></span><span class="op">(</span><span class="va">Cl</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">Cor</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>P <span class="op">=</span> <span class="va">Cl</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, S <span class="op">=</span> <span class="va">clS</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, K <span class="op">=</span> <span class="va">clK</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           P         S         K</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> P 1.0000000 0.9802390 0.9572562</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> S 0.9802390 1.0000000 0.9742171</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> K 0.9572562 0.9742171 1.0000000</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##--- Missing value treatment:</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">C1</span> <span class="op">&lt;-</span> <span class="fu">Cov</span><span class="op">(</span><span class="va">swiss</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/eigen.html" class="external-link">eigen</a></span><span class="op">(</span><span class="va">C1</span>, only.values <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="va">values</span><span class="op">)</span> <span class="co"># 6.19        1921</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##--- Missing value treatment:</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">C1</span> <span class="op">&lt;-</span> <span class="fu">Cov</span><span class="op">(</span><span class="va">swiss</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/eigen.html" class="external-link">eigen</a></span><span class="op">(</span><span class="va">C1</span>, only.values <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="va">values</span><span class="op">)</span> <span class="co"># 6.19        1921</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1]    6.191249 1921.562488</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## swM := "swiss" with  3 "missing"s :</span></span>
-<span class="r-in"><span class="va">swM</span> <span class="op">&lt;-</span> <span class="va">swiss</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">swM</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/abbreviate.html" class="external-link">abbreviate</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">swiss</span><span class="op">)</span>, min<span class="op">=</span><span class="fl">6</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">swM</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">swM</span><span class="op">[</span><span class="fl">7</span>,<span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">swM</span><span class="op">[</span><span class="fl">25</span>,<span class="fl">5</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span> <span class="co"># create 3 "missing"</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Consider all 5 "use" cases :</span></span>
-<span class="r-in"><span class="op">(</span><span class="va">C.</span> <span class="op">&lt;-</span> <span class="fu">Cov</span><span class="op">(</span><span class="va">swM</span><span class="op">)</span><span class="op">)</span> <span class="co"># use="everything"  quite a few NA's in cov.matrix</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## swM := "swiss" with  3 "missing"s :</span></span></span>
+<span class="r-in"><span><span class="va">swM</span> <span class="op">&lt;-</span> <span class="va">swiss</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">swM</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/abbreviate.html" class="external-link">abbreviate</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">swiss</span><span class="op">)</span>, min<span class="op">=</span><span class="fl">6</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">swM</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">swM</span><span class="op">[</span><span class="fl">7</span>,<span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">swM</span><span class="op">[</span><span class="fl">25</span>,<span class="fl">5</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span> <span class="co"># create 3 "missing"</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Consider all 5 "use" cases :</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">C.</span> <span class="op">&lt;-</span> <span class="fu">Cov</span><span class="op">(</span><span class="va">swM</span><span class="op">)</span><span class="op">)</span> <span class="co"># use="everything"  quite a few NA's in cov.matrix</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           Frtlty Agrclt Exmntn     Eductn Cathlc    Infn.M</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frtlty 156.04250     NA     NA -79.729510     NA 15.156193</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Agrclt        NA     NA     NA         NA     NA        NA</span>
@@ -283,18 +290,18 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Eductn -79.72951     NA     NA  92.456059     NA -2.781684</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Cathlc        NA     NA     NA         NA     NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Infn.M  15.15619     NA     NA  -2.781684     NA  8.483802</span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu">Cov</span><span class="op">(</span><span class="va">swM</span>, use <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span><span class="op">)</span> <span class="co"># Error: missing obs...</span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu">Cov</span><span class="op">(</span><span class="va">swM</span>, use <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span><span class="op">)</span> <span class="co"># Error: missing obs...</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Error in Cov(swM, use = "all") : missing observations in cov/cor</span>
-<span class="r-in"><span class="va">C2</span> <span class="op">&lt;-</span> <span class="fu">Cov</span><span class="op">(</span><span class="va">swM</span>, use <span class="op">=</span> <span class="st">"complete"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">C2</span>, <span class="fu">Cov</span><span class="op">(</span><span class="va">swM</span>, use <span class="op">=</span> <span class="st">"na.or.complete"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/eigen.html" class="external-link">eigen</a></span><span class="op">(</span><span class="va">C2</span>, only.values <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="va">values</span><span class="op">)</span> <span class="co"># 6.46   1930</span></span>
+<span class="r-in"><span><span class="va">C2</span> <span class="op">&lt;-</span> <span class="fu">Cov</span><span class="op">(</span><span class="va">swM</span>, use <span class="op">=</span> <span class="st">"complete"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">C2</span>, <span class="fu">Cov</span><span class="op">(</span><span class="va">swM</span>, use <span class="op">=</span> <span class="st">"na.or.complete"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/eigen.html" class="external-link">eigen</a></span><span class="op">(</span><span class="va">C2</span>, only.values <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="va">values</span><span class="op">)</span> <span class="co"># 6.46   1930</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1]    6.462385 1930.505982</span>
-<span class="r-in"><span class="va">C3</span> <span class="op">&lt;-</span> <span class="fu">Cov</span><span class="op">(</span><span class="va">swM</span>, use <span class="op">=</span> <span class="st">"pairwise"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/eigen.html" class="external-link">eigen</a></span><span class="op">(</span><span class="va">C3</span>, only.values <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="va">values</span><span class="op">)</span> <span class="co"># 6.19   1938</span></span>
+<span class="r-in"><span><span class="va">C3</span> <span class="op">&lt;-</span> <span class="fu">Cov</span><span class="op">(</span><span class="va">swM</span>, use <span class="op">=</span> <span class="st">"pairwise"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/eigen.html" class="external-link">eigen</a></span><span class="op">(</span><span class="va">C3</span>, only.values <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="va">values</span><span class="op">)</span> <span class="co"># 6.19   1938</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1]    6.194469 1938.033663</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Kendall's tau doesn't change much:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/symnum.html" class="external-link">symnum</a></span><span class="op">(</span><span class="va">Rc</span> <span class="op">&lt;-</span> <span class="fu">Cor</span><span class="op">(</span><span class="va">swM</span>, method <span class="op">=</span> <span class="st">"kendall"</span>, use <span class="op">=</span> <span class="st">"complete"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Kendall's tau doesn't change much:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/symnum.html" class="external-link">symnum</a></span><span class="op">(</span><span class="va">Rc</span> <span class="op">&lt;-</span> <span class="fu">Cor</span><span class="op">(</span><span class="va">swM</span>, method <span class="op">=</span> <span class="st">"kendall"</span>, use <span class="op">=</span> <span class="st">"complete"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        F A Ex Ed C I</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frtlty 1            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Agrclt   1          </span>
@@ -304,7 +311,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Infn.M             1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"legend")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0 ‘ ’ 0.3 ‘.’ 0.6 ‘,’ 0.8 ‘+’ 0.9 ‘*’ 0.95 ‘B’ 1</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/symnum.html" class="external-link">symnum</a></span><span class="op">(</span><span class="va">Rp</span> <span class="op">&lt;-</span> <span class="fu">Cor</span><span class="op">(</span><span class="va">swM</span>, method <span class="op">=</span> <span class="st">"kendall"</span>, use <span class="op">=</span> <span class="st">"pairwise"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/symnum.html" class="external-link">symnum</a></span><span class="op">(</span><span class="va">Rp</span> <span class="op">&lt;-</span> <span class="fu">Cor</span><span class="op">(</span><span class="va">swM</span>, method <span class="op">=</span> <span class="st">"kendall"</span>, use <span class="op">=</span> <span class="st">"pairwise"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        F A Ex Ed C I</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frtlty 1            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Agrclt   1          </span>
@@ -314,7 +321,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Infn.M .           1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"legend")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0 ‘ ’ 0.3 ‘.’ 0.6 ‘,’ 0.8 ‘+’ 0.9 ‘*’ 0.95 ‘B’ 1</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/symnum.html" class="external-link">symnum</a></span><span class="op">(</span><span class="va">R.</span> <span class="op">&lt;-</span> <span class="fu">Cor</span><span class="op">(</span><span class="va">swiss</span>, method <span class="op">=</span> <span class="st">"kendall"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/symnum.html" class="external-link">symnum</a></span><span class="op">(</span><span class="va">R.</span> <span class="op">&lt;-</span> <span class="fu">Cor</span><span class="op">(</span><span class="va">swiss</span>, method <span class="op">=</span> <span class="st">"kendall"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                  F A Ex Ed C I</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fertility        1            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Agriculture        1          </span>
@@ -324,21 +331,21 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Infant.Mortality .           1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"legend")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0 ‘ ’ 0.3 ‘.’ 0.6 ‘,’ 0.8 ‘+’ 0.9 ‘*’ 0.95 ‘B’ 1</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## "pairwise" is closer componentwise,</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">Rp</span><span class="op">/</span><span class="va">R.</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## "pairwise" is closer componentwise,</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">Rp</span><span class="op">/</span><span class="va">R.</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.00000 0.00000 0.04481 0.09573 0.15214 0.53941 </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">Rc</span><span class="op">/</span><span class="va">R.</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">Rc</span><span class="op">/</span><span class="va">R.</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.00000 0.02021 0.08482 0.50675 0.16192 7.08509 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## but "complete" is closer in Eigen space:</span></span>
-<span class="r-in"><span class="va">EV</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/eigen.html" class="external-link">eigen</a></span><span class="op">(</span><span class="va">m</span>, only.values<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="va">values</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fu">EV</span><span class="op">(</span><span class="va">Rp</span><span class="op">)</span><span class="op">/</span><span class="fu">EV</span><span class="op">(</span><span class="va">R.</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fu">EV</span><span class="op">(</span><span class="va">Rc</span><span class="op">)</span><span class="op">/</span><span class="fu">EV</span><span class="op">(</span><span class="va">R.</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## but "complete" is closer in Eigen space:</span></span></span>
+<span class="r-in"><span><span class="va">EV</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/eigen.html" class="external-link">eigen</a></span><span class="op">(</span><span class="va">m</span>, only.values<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="va">values</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fu">EV</span><span class="op">(</span><span class="va">Rp</span><span class="op">)</span><span class="op">/</span><span class="fu">EV</span><span class="op">(</span><span class="va">R.</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fu">EV</span><span class="op">(</span><span class="va">Rc</span><span class="op">)</span><span class="op">/</span><span class="fu">EV</span><span class="op">(</span><span class="va">R.</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  0.8942  1.1464  1.2452  1.3732  1.3722  2.3265 </span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -353,7 +360,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

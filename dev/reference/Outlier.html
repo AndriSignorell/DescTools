@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -82,19 +82,25 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Outlier</span><span class="op">(</span><span class="va">x</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"boxplot"</span>, <span class="st">"hampel"</span><span class="op">)</span>, value <span class="op">=</span> <span class="cn">TRUE</span>,na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Outlier</span><span class="op">(</span><span class="va">x</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"boxplot"</span>, <span class="st">"hampel"</span><span class="op">)</span>, value <span class="op">=</span> <span class="cn">TRUE</span>,na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>a (non-empty) numeric vector of data values.</p></dd>
-<dt>method</dt>
+
+  <dt>method</dt>
 <dd><p>the method to be used. So far Tukey's boxplot and Hampel's rule are implemented.</p></dd>
-<dt>value</dt>
+
+  
+  <dt>value</dt>
 <dd><p>logical. If <code>FALSE</code>, a vector containing the (integer) indices of the outliers is returned, and if <code>TRUE</code> (default), a vector containing the matching elements themselves is returned.</p></dd>
-<dt>na.rm</dt>
+
+
+  <dt>na.rm</dt>
 <dd><p>logical. Should missing values be removed? Defaults to <code>FALSE</code>.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -103,7 +109,10 @@
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>the values of x lying outside the whiskers in a boxplot <br>or the indices of them</p>
+    <p>the values of x lying outside the whiskers in a boxplot <br></p>
+
+
+<p>or the indices of them</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -120,21 +129,21 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">Outlier</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">Outlier</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 20.00 20.45 22.20 20.35 22.10 21.30 21.00 21.60 21.70 21.80 22.20 22.50</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [13] 20.40 21.90 19.40 20.20 19.30 20.20 22.40</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># it's the same as the result from boxplot</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span><span class="op">[</span><span class="fu">Outlier</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span>, value<span class="op">=</span><span class="cn">FALSE</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># it's the same as the result from boxplot</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span><span class="op">[</span><span class="fu">Outlier</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span>, value<span class="op">=</span><span class="cn">FALSE</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 19.30 19.40 20.00 20.20 20.20 20.35 20.40 20.45 21.00 21.30 21.60 21.70</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [13] 21.80 21.90 22.10 22.20 22.20 22.40 22.50</span>
-<span class="r-in"><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span>, plot<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="va">b</span><span class="op">$</span><span class="va">out</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span>, plot<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="va">b</span><span class="op">$</span><span class="va">out</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 19.30 19.40 20.00 20.20 20.20 20.35 20.40 20.45 21.00 21.30 21.60 21.70</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [13] 21.80 21.90 22.10 22.20 22.20 22.40 22.50</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># nice to find the corresponding rows</span></span>
-<span class="r-in"><span class="va">d.pizza</span><span class="op">[</span><span class="fu">Outlier</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span>, value<span class="op">=</span><span class="cn">FALSE</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>, <span class="op">]</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># nice to find the corresponding rows</span></span></span>
+<span class="r-in"><span><span class="va">d.pizza</span><span class="op">[</span><span class="fu">Outlier</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span>, value<span class="op">=</span><span class="cn">FALSE</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>, <span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      index       date week weekday        area count rabate   price operator</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 20      20 2014-03-01    9       6 Westminster     1  FALSE  11.990   Rhonda</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 41      41 2014-03-01    9       6       Brent     2  FALSE  24.980   Rhonda</span>
@@ -195,14 +204,14 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1077     low</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1101  medium</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1104     low</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># compare to Hampel's rule</span></span>
-<span class="r-in"><span class="fu">Outlier</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span>, method<span class="op">=</span><span class="st">"hampel"</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># compare to Hampel's rule</span></span></span>
+<span class="r-in"><span><span class="fu">Outlier</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span>, method<span class="op">=</span><span class="st">"hampel"</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("between_num_", as.numeric(x), as.numeric(rng[1L]), as.numeric(rng[2L]),     PACKAGE = "DescTools"):</span> "between_num_" not available for .Call() for package "DescTools"</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># outliers for the each driver</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/tapply.html" class="external-link">tapply</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span>, <span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span>, <span class="va">Outlier</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># outliers for the each driver</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/tapply.html" class="external-link">tapply</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span>, <span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span>, <span class="va">Outlier</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Butcher</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 26.3 22.2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -224,9 +233,9 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Taylor</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> numeric(0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># the same as:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">temperature</span> <span class="op">~</span> <span class="va">driver</span>, <span class="va">d.pizza</span><span class="op">)</span><span class="op">$</span><span class="va">out</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># the same as:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">temperature</span> <span class="op">~</span> <span class="va">driver</span>, <span class="va">d.pizza</span><span class="op">)</span><span class="op">$</span><span class="va">out</span></span></span>
 <span class="r-plt img"><img src="Outlier-1.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 26.30 22.20 27.00 26.60 26.45 24.00 26.70 25.20 26.35 28.80 25.85 26.95</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [13] 25.55 26.70 22.20 25.95 26.70 20.20 28.80 20.00 25.85 26.15 29.10 30.40</span>
@@ -245,7 +254,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,8 +87,8 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">PlotConDens</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, col <span class="op">=</span> <span class="cn">NULL</span>, lwd <span class="op">=</span> <span class="fl">2</span>, lty <span class="op">=</span> <span class="fl">1</span>, xlim <span class="op">=</span> <span class="cn">NULL</span>, rev <span class="op">=</span> <span class="cn">TRUE</span>, 
-            args.dens <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">PlotConDens</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, col <span class="op">=</span> <span class="cn">NULL</span>, lwd <span class="op">=</span> <span class="fl">2</span>, lty <span class="op">=</span> <span class="fl">1</span>, xlim <span class="op">=</span> <span class="cn">NULL</span>, rev <span class="op">=</span> <span class="cn">TRUE</span>, </span>
+<span>            args.dens <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -96,30 +96,39 @@
     <dl><dt>formula</dt>
 <dd><p>a <code>"formula"</code> of type <code>y ~ x | g</code> with a single dependent <code>factor</code>, a single numerical explanatory variable and a grouping <code>factor</code> g.
 <!-- %%     ~~Describe \code{formula} here~~ --></p></dd>
-<dt>data</dt>
+
+  <dt>data</dt>
 <dd><p>a data frame containing values for any variables in the formula. By default the environment where <code>PlotConDens</code> was called from is used.
 <!-- %%     ~~Describe \code{data} here~~ --></p></dd>
-<dt>col</dt>
+
+  <dt>col</dt>
 <dd><p>a vector of colors to be used to plot the lines. If too short, the values are recycled.
 <!-- %%     ~~Describe \code{col} here~~ --></p></dd>
-<dt>lwd</dt>
+
+  <dt>lwd</dt>
 <dd><p>a vector of linewidths to be used to plot the lines. If too short, the values are recycled.
 <!-- %%     ~~Describe \code{lwd} here~~ --></p></dd>
-<dt>lty</dt>
+
+  <dt>lty</dt>
 <dd><p>a vector of linetypes to be used to plot the lines. If too short, the values are recycled.
 <!-- %%     ~~Describe \code{lty} here~~ --></p></dd>
-<dt>xlim</dt>
+
+  <dt>xlim</dt>
 <dd><p>the range for the x axis.
 <!-- %%     ~~Describe \code{xlim} here~~ --></p></dd>
-<dt>rev</dt>
+
+  <dt>rev</dt>
 <dd><p>logical, should the values of the response variable be reversed? Default is <code>TRUE</code>.
 <!-- %%     ~~Describe \code{rev} here~~ --></p></dd>
-<dt>args.dens</dt>
+
+  <dt>args.dens</dt>
 <dd><p>additional arguments for the densitiy curves.
 <!-- %%     ~~Describe \code{args.dens} here~~ --></p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>the dots are passed on to <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code>.
 <!-- %%     ~~Describe \code{\dots} here~~ --></p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -129,7 +138,21 @@
     <div id="value">
     <h2>Value</h2>
     <p>the functions for the curves
-<!-- %%  ~Describe the value returned --><!-- %%  If it is a LIST, use --><!-- %%  \item{comp1 }{Description of 'comp1'} --><!-- %%  \item{comp2 }{Description of 'comp2'} --><!-- %% ... --></p>
+<!-- %%  ~Describe the value returned --></p>
+
+
+<p><!-- %%  If it is a LIST, use --></p>
+
+
+<p><!-- %%  \item{comp1 }{Description of 'comp1'} --></p>
+
+
+<p><!-- %%  \item{comp2 }{Description of 'comp2'} --></p>
+
+
+<p><!-- %% ... --></p>
+
+
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -144,10 +167,10 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Pima.tr2</span>, package<span class="op">=</span><span class="st">"MASS"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">PlotConDens</span> <span class="op">(</span><span class="va">type</span> <span class="op">~</span> <span class="va">age</span> <span class="op">|</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="op">(</span><span class="va">npreg</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span><span class="op">*</span><span class="fl">1L</span><span class="op">)</span>, </span>
-<span class="r-in">             data<span class="op">=</span><span class="va">Pima.tr2</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">hblue</span>, <span class="va">hred</span><span class="op">)</span>, rev<span class="op">=</span><span class="cn">FALSE</span>, </span>
-<span class="r-in">             panel.first<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/substitute.html" class="external-link">quote</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/graphics/grid.html" class="external-link">grid</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Pima.tr2</span>, package<span class="op">=</span><span class="st">"MASS"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">PlotConDens</span> <span class="op">(</span><span class="va">type</span> <span class="op">~</span> <span class="va">age</span> <span class="op">|</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="op">(</span><span class="va">npreg</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span><span class="op">*</span><span class="fl">1L</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>             data<span class="op">=</span><span class="va">Pima.tr2</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">hblue</span>, <span class="va">hred</span><span class="op">)</span>, rev<span class="op">=</span><span class="cn">FALSE</span>, </span></span>
+<span class="r-in"><span>             panel.first<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/substitute.html" class="external-link">quote</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/graphics/grid.html" class="external-link">grid</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="PlotConDens-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -163,7 +186,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

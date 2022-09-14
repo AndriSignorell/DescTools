@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,13 +87,13 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">BoxedText</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for default</span>
-<span class="fu">BoxedText</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, adj <span class="op">=</span> <span class="cn">NULL</span>, pos <span class="op">=</span> <span class="cn">NULL</span>, offset <span class="op">=</span> <span class="fl">0.5</span>, 
-          vfont <span class="op">=</span> <span class="cn">NULL</span>, cex <span class="op">=</span> <span class="fl">1</span>, txt.col <span class="op">=</span> <span class="cn">NULL</span>, font <span class="op">=</span> <span class="cn">NULL</span>, srt <span class="op">=</span> <span class="fl">0</span>, 
-          xpad <span class="op">=</span> <span class="fl">0.2</span>, ypad <span class="op">=</span> <span class="fl">0.2</span>, density <span class="op">=</span> <span class="cn">NULL</span>, angle <span class="op">=</span> <span class="fl">45</span>, col <span class="op">=</span> <span class="st">"white"</span>, 
-          border <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"fg"</span><span class="op">)</span>, lty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"lty"</span><span class="op">)</span>, lwd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"lwd"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">BoxedText</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">BoxedText</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, adj <span class="op">=</span> <span class="cn">NULL</span>, pos <span class="op">=</span> <span class="cn">NULL</span>, offset <span class="op">=</span> <span class="fl">0.5</span>, </span>
+<span>          vfont <span class="op">=</span> <span class="cn">NULL</span>, cex <span class="op">=</span> <span class="fl">1</span>, txt.col <span class="op">=</span> <span class="cn">NULL</span>, font <span class="op">=</span> <span class="cn">NULL</span>, srt <span class="op">=</span> <span class="fl">0</span>, </span>
+<span>          xpad <span class="op">=</span> <span class="fl">0.2</span>, ypad <span class="op">=</span> <span class="fl">0.2</span>, density <span class="op">=</span> <span class="cn">NULL</span>, angle <span class="op">=</span> <span class="fl">45</span>, col <span class="op">=</span> <span class="st">"white"</span>, </span>
+<span>          border <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"fg"</span><span class="op">)</span>, lty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"lty"</span><span class="op">)</span>, lwd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"lwd"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -101,64 +101,81 @@
     <dl><dt>x, y</dt>
 <dd><p>numeric vectors of coordinates where the text labels should be written. If the length of x and y differs, the shorter one is recycled.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>labels</dt>
+
+  <dt>labels</dt>
 <dd><p>a character vector or expression specifying the text to be written. 
   An attempt is made to coerce other language objects (names and calls) to expressions, and vectors and other 
   classed objects to character vectors by as.character. If labels is longer than x and y, the coordinates are recycled to the length of labels.
 <!-- %%     ~~Describe \code{labels} here~~ --></p></dd>
-<dt>adj</dt>
+
+  <dt>adj</dt>
 <dd><p>The value of adj determines the way in which text strings are justified. 
   A value of 0 produces left-justified text, 0.5 (the default) centered text and 1 right-justified text. 
   (Any value in [0, 1] is allowed, and on most devices values outside that interval will also work.) 
   Note that the adj argument of text also allows adj = c(x, y) for different adjustment in x- and y- directions.</p>
 <p><!-- %%     ~~Describe \code{adj} here~~ --></p></dd>
-<dt>pos</dt>
+
+  <dt>pos</dt>
 <dd><p>a position specifier for the text. If specified this overrides any adj value given. Values of 1, 2, 3 and 4, respectively indicate positions below, to the left of, above and to the right of the specified coordinates.
 <!-- %%     ~~Describe \code{pos} here~~ --></p></dd>
-<dt>offset</dt>
+
+  <dt>offset</dt>
 <dd><p>when pos is specified, this value gives the offset of the label from the specified coordinate in fractions of a character width.
 <!-- %%     ~~Describe \code{offset} here~~ --></p></dd>
-<dt>vfont</dt>
+
+  <dt>vfont</dt>
 <dd><p><code>NULL</code> for the current font family, or a character vector of length 2 for Hershey vector fonts. The first element of the vector 
    selects a typeface and the second element selects a style. Ignored if labels is an expression.
 <!-- %%     ~~Describe \code{vfont} here~~ --></p></dd>
-<dt>cex</dt>
+
+  <dt>cex</dt>
 <dd><p>numeric character expansion factor; multiplied by <code>par("cex")</code> yields the final character size. <code>NULL</code> and <code>NA</code> are equivalent to 1.0.
 <!-- %%     ~~Describe \code{cex} here~~ --></p></dd>
-<dt>txt.col, font</dt>
+
+  <dt>txt.col, font</dt>
 <dd><p>the color and (if vfont = NULL) font to be used, possibly vectors. These default to the values of the global graphical parameters in <code><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par()</a></code>.
 <!-- %%     ~~Describe \code{txt.col} here~~ --></p></dd>
-<dt>srt</dt>
+
+  <dt>srt</dt>
 <dd><p>The string rotation in degrees. 
 <!-- %%     ~~Describe \code{srt} here~~ --></p></dd>
-<dt>xpad, ypad</dt>
+
+  <dt>xpad, ypad</dt>
 <dd><p>The proportion of the rectangles to the extent of the text within.
 <!-- %%     ~~Describe \code{xpad} here~~ --></p></dd>
-<dt>density</dt>
+
+  <dt>density</dt>
 <dd><p>the density of shading lines, in lines per inch. The default value of <code>NULL</code> means that no shading lines are drawn. 
   A zero value of density means no shading lines whereas negative values (and NA) suppress shading (and so allow color filling).
 <!-- %%     ~~Describe \code{density} here~~ --></p></dd>
-<dt>angle</dt>
+
+  <dt>angle</dt>
 <dd><p>angle (in degrees) of the shading lines.
 <!-- %%     ~~Describe \code{angle} here~~ --></p></dd>
-<dt>col</dt>
+
+  <dt>col</dt>
 <dd><p>color(s) to fill or shade the rectangle(s) with. The default <code>NA</code> (or also NULL) means do not fill, 
   i.e., draw transparent rectangles, unless density is specified.
 <!-- %%     ~~Describe \code{col} here~~ --></p></dd>
-<dt>border</dt>
+
+  <dt>border</dt>
 <dd><p>color for rectangle border(s). The default is <code>par("fg")</code>. Use <code>border = NA</code> to omit borders 
   (this is the default). 
   If there are shading lines, <code>border = TRUE</code> means use the same colour for the border as for the shading lines.
 <!-- %%     ~~Describe \code{border} here~~ --></p></dd>
-<dt>lty</dt>
+
+  <dt>lty</dt>
 <dd><p>line type for borders and shading; defaults to <code>"solid"</code>.
 <!-- %%     ~~Describe \code{lty} here~~ --></p></dd>
-<dt>lwd</dt>
+
+  <dt>lwd</dt>
 <dd><p>line width for borders and shading. Note that the use of <code>lwd = 0</code> (as in the examples) is device-dependent.
 <!-- %%     ~~Describe \code{lwd} here~~ --></p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>additional arguments are passed to the text function.
 <!-- %%     ~~Describe \code{\dots} here~~ --></p></dd>
+
 </dl></div>
     <div id="author">
     <h2>Author</h2>
@@ -173,10 +190,10 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="Canvas.html">Canvas</a></span><span class="op">(</span>xpd<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">BoxedText</span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, adj<span class="op">=</span><span class="fl">0</span>, label<span class="op">=</span><span class="st">"This is boxed text"</span>, srt<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">360</span>,<span class="fl">20</span><span class="op">)</span>, xpad<span class="op">=</span><span class="fl">.3</span>, ypad<span class="op">=</span><span class="fl">.3</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>, pch<span class="op">=</span><span class="fl">15</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="Canvas.html">Canvas</a></span><span class="op">(</span>xpd<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">BoxedText</span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, adj<span class="op">=</span><span class="fl">0</span>, label<span class="op">=</span><span class="st">"This is boxed text"</span>, srt<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">360</span>,<span class="fl">20</span><span class="op">)</span>, xpad<span class="op">=</span><span class="fl">.3</span>, ypad<span class="op">=</span><span class="fl">.3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>, pch<span class="op">=</span><span class="fl">15</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="BoxedText-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -192,7 +209,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

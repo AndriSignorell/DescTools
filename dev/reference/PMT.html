@@ -22,7 +22,7 @@ PPMT what portion of a period payment is going towards principal in a particular
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -91,10 +91,10 @@ PPMT what portion of a period payment is going towards principal in a particular
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">PMT</span><span class="op">(</span><span class="va">rate</span>, <span class="va">nper</span>, <span class="va">pv</span>, fv <span class="op">=</span> <span class="fl">0</span>, type <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
-<span class="fu">IPMT</span><span class="op">(</span><span class="va">rate</span>, <span class="va">per</span>, <span class="va">nper</span>, <span class="va">pv</span>, fv <span class="op">=</span> <span class="fl">0</span>, type <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
-<span class="fu">PPMT</span><span class="op">(</span><span class="va">rate</span>, <span class="va">per</span>, <span class="va">nper</span>, <span class="va">pv</span>, fv <span class="op">=</span> <span class="fl">0</span>, type <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
-<span class="fu">RBAL</span><span class="op">(</span><span class="va">rate</span>, <span class="va">per</span>, <span class="va">nper</span>, <span class="va">pv</span>, fv <span class="op">=</span> <span class="fl">0</span>, type <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">PMT</span><span class="op">(</span><span class="va">rate</span>, <span class="va">nper</span>, <span class="va">pv</span>, fv <span class="op">=</span> <span class="fl">0</span>, type <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="fu">IPMT</span><span class="op">(</span><span class="va">rate</span>, <span class="va">per</span>, <span class="va">nper</span>, <span class="va">pv</span>, fv <span class="op">=</span> <span class="fl">0</span>, type <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="fu">PPMT</span><span class="op">(</span><span class="va">rate</span>, <span class="va">per</span>, <span class="va">nper</span>, <span class="va">pv</span>, fv <span class="op">=</span> <span class="fl">0</span>, type <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="fu">RBAL</span><span class="op">(</span><span class="va">rate</span>, <span class="va">per</span>, <span class="va">nper</span>, <span class="va">pv</span>, fv <span class="op">=</span> <span class="fl">0</span>, type <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -102,21 +102,27 @@ PPMT what portion of a period payment is going towards principal in a particular
     <dl><dt>rate</dt>
 <dd><p>specifies the interest rate.
 <!-- %%     ~~Describe \code{rate} here~~ --></p></dd>
-<dt>per</dt>
+
+  <dt>per</dt>
 <dd><p>specifies the period of the payment to be applied to interest or to principal.
 <!-- %%     ~~Describe \code{nper} here~~ --></p></dd>
-<dt>nper</dt>
+
+  <dt>nper</dt>
 <dd><p>specifies the number of payment periods.
 <!-- %%     ~~Describe \code{nper} here~~ --></p></dd>
-<dt>pv</dt>
+
+  <dt>pv</dt>
 <dd><p>specifies the present value or the lump-sum amount that a series of future payments is worth currently. <code>pv</code> can be 0 if a positive <code>fv</code> argument is included.
 <!-- %%     ~~Describe \code{pv} here~~ --></p></dd>
-<dt>fv</dt>
+
+  <dt>fv</dt>
 <dd><p>specifies the future value or a cash balance that you want to attain after the last payment is made. Default is 0.
 <!-- %%     ~~Describe \code{fv} here~~ --></p></dd>
-<dt>type</dt>
+
+  <dt>type</dt>
 <dd><p>specifies the number 0 or 1 and indicates when payments are due. Default is 0.
 <!-- %%     ~~Describe \code{type} here~~ --></p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -135,34 +141,34 @@ PPMT what portion of a period payment is going towards principal in a particular
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># original principal:    20'000</span></span>
-<span class="r-in"><span class="co"># loan term (years):     5</span></span>
-<span class="r-in"><span class="co"># annual interest rate:  8%</span></span>
-<span class="r-in"><span class="co"># annual payment:        -4'156.847</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># simple amortization schedule</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span></span>
-<span class="r-in">  year      <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,</span>
-<span class="r-in">  payment   <span class="op">=</span> <span class="fu">PMT</span><span class="op">(</span>rate<span class="op">=</span><span class="fl">0.08</span>, nper<span class="op">=</span><span class="fl">5</span>, pv<span class="op">=</span><span class="fl">20000</span>, fv<span class="op">=</span><span class="op">-</span><span class="fl">5000</span>, type<span class="op">=</span><span class="fl">0</span><span class="op">)</span>,</span>
-<span class="r-in">  interest  <span class="op">=</span> <span class="fu">IPMT</span><span class="op">(</span>rate<span class="op">=</span><span class="fl">0.08</span>, per<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, nper<span class="op">=</span><span class="fl">5</span>, pv<span class="op">=</span><span class="fl">20000</span>, fv<span class="op">=</span><span class="op">-</span><span class="fl">5000</span>, type<span class="op">=</span><span class="fl">0</span><span class="op">)</span>,</span>
-<span class="r-in">  principal <span class="op">=</span> <span class="fu">PPMT</span><span class="op">(</span>rate<span class="op">=</span><span class="fl">0.08</span>, per<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, nper<span class="op">=</span><span class="fl">5</span>, pv<span class="op">=</span><span class="fl">20000</span>, fv<span class="op">=</span><span class="op">-</span><span class="fl">5000</span>, type<span class="op">=</span><span class="fl">0</span><span class="op">)</span>,</span>
-<span class="r-in">  balance   <span class="op">=</span> <span class="fu">RBAL</span><span class="op">(</span>rate<span class="op">=</span><span class="fl">0.08</span>, per<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, nper<span class="op">=</span><span class="fl">5</span>, pv<span class="op">=</span><span class="fl">20000</span>, fv<span class="op">=</span><span class="op">-</span><span class="fl">5000</span>, type<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># original principal:    20'000</span></span></span>
+<span class="r-in"><span><span class="co"># loan term (years):     5</span></span></span>
+<span class="r-in"><span><span class="co"># annual interest rate:  8%</span></span></span>
+<span class="r-in"><span><span class="co"># annual payment:        -4'156.847</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># simple amortization schedule</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  year      <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,</span></span>
+<span class="r-in"><span>  payment   <span class="op">=</span> <span class="fu">PMT</span><span class="op">(</span>rate<span class="op">=</span><span class="fl">0.08</span>, nper<span class="op">=</span><span class="fl">5</span>, pv<span class="op">=</span><span class="fl">20000</span>, fv<span class="op">=</span><span class="op">-</span><span class="fl">5000</span>, type<span class="op">=</span><span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  interest  <span class="op">=</span> <span class="fu">IPMT</span><span class="op">(</span>rate<span class="op">=</span><span class="fl">0.08</span>, per<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, nper<span class="op">=</span><span class="fl">5</span>, pv<span class="op">=</span><span class="fl">20000</span>, fv<span class="op">=</span><span class="op">-</span><span class="fl">5000</span>, type<span class="op">=</span><span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  principal <span class="op">=</span> <span class="fu">PPMT</span><span class="op">(</span>rate<span class="op">=</span><span class="fl">0.08</span>, per<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, nper<span class="op">=</span><span class="fl">5</span>, pv<span class="op">=</span><span class="fl">20000</span>, fv<span class="op">=</span><span class="op">-</span><span class="fl">5000</span>, type<span class="op">=</span><span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  balance   <span class="op">=</span> <span class="fu">RBAL</span><span class="op">(</span>rate<span class="op">=</span><span class="fl">0.08</span>, per<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, nper<span class="op">=</span><span class="fl">5</span>, pv<span class="op">=</span><span class="fl">20000</span>, fv<span class="op">=</span><span class="op">-</span><span class="fl">5000</span>, type<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      year   payment   interest principal   balance</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1 -4156.847 -1600.0000 -2556.847 17443.153</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    2 -4156.847 -1395.4523 -2761.395 14681.759</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    3 -4156.847 -1174.5407 -2982.306 11699.452</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,]    4 -4156.847  -935.9562 -3220.891  8478.562</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [5,]    5 -4156.847  -678.2849 -3478.562  5000.000</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#     year   payment   interest principal   balance</span></span>
-<span class="r-in"><span class="co"># [1,]    1 -4156.847 -1600.0000 -2556.847 17443.153</span></span>
-<span class="r-in"><span class="co"># [2,]    2 -4156.847 -1395.4523 -2761.395 14681.759</span></span>
-<span class="r-in"><span class="co"># [3,]    3 -4156.847 -1174.5407 -2982.306 11699.452</span></span>
-<span class="r-in"><span class="co"># [4,]    4 -4156.847  -935.9562 -3220.891  8478.562</span></span>
-<span class="r-in"><span class="co"># [5,]    5 -4156.847  -678.2849 -3478.562  5000.000</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#     year   payment   interest principal   balance</span></span></span>
+<span class="r-in"><span><span class="co"># [1,]    1 -4156.847 -1600.0000 -2556.847 17443.153</span></span></span>
+<span class="r-in"><span><span class="co"># [2,]    2 -4156.847 -1395.4523 -2761.395 14681.759</span></span></span>
+<span class="r-in"><span><span class="co"># [3,]    3 -4156.847 -1174.5407 -2982.306 11699.452</span></span></span>
+<span class="r-in"><span><span class="co"># [4,]    4 -4156.847  -935.9562 -3220.891  8478.562</span></span></span>
+<span class="r-in"><span><span class="co"># [5,]    5 -4156.847  -678.2849 -3478.562  5000.000</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -177,7 +183,7 @@ PPMT what portion of a period payment is going towards principal in a particular
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

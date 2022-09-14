@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -82,44 +82,60 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Strata</span><span class="op">(</span><span class="va">x</span>, stratanames <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">size</span>,
-       method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"srswor"</span>, <span class="st">"srswr"</span>, <span class="st">"poisson"</span>, <span class="st">"systematic"</span><span class="op">)</span>,
-       <span class="va">pik</span>, description <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Strata</span><span class="op">(</span><span class="va">x</span>, stratanames <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">size</span>,</span>
+<span>       method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"srswor"</span>, <span class="st">"srswr"</span>, <span class="st">"poisson"</span>, <span class="st">"systematic"</span><span class="op">)</span>,</span>
+<span>       <span class="va">pik</span>, description <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>a data frame or a matrix; its number of rows is n, the population size.</p></dd>
+
+
 <dt>stratanames</dt>
 <dd><p>vector of stratification variables.</p></dd>
+
+
 <dt>size</dt>
 <dd><p>vector of stratum sample sizes (in the order in which the strata are given in the input
 data set).</p></dd>
+
+
 <dt>method</dt>
 <dd><p>method to select units; implemented are: a) simple random
 sampling without replacement (<code>"srswor"</code>), b) simple random sampling with replacement (<code>"srswr"</code>),
 c) Poisson sampling (<code>"poisson"</code>), d) systematic sampling (<code>"systematic"</code>) (default is <code>"srswor"</code>).</p></dd>
+
+
 <dt>pik</dt>
 <dd><p>vector of inclusion probabilities or auxiliary information used to compute them;
 this argument is only used for unequal probability sampling (Poisson and systematic). If an
 auxiliary information is provided, the function uses the inclusionprobabilities function for
 computing these probabilities. If the method is "srswr" and the sample size is larger than
 the population size, this vector is normalized to one.</p></dd>
+
+
 <dt>description</dt>
 <dd><p>a message is printed if its value is TRUE; the message gives the number
 of selected units and the number of the units in the population.
 By default, the value is FALSE.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The function produces an object, which contains the following information:</p>
+    
+
+<p>The function produces an object, which contains the following information:</p>
 <dl><dt>id</dt>
 <dd><p>the identifier of the selected units.</p></dd>
+
 <dt>stratum</dt>
 <dd><p>the unit stratum.</p></dd>
+
 <dt>prob</dt>
 <dd><p>the final unit inclusion probability.</p></dd>
+
 </dl></div>
     <div id="author">
     <h2>Author</h2>
@@ -133,41 +149,41 @@ By default, the value is FALSE.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Example from An and Watts (New SAS procedures for Analysis of Sample Survey Data)</span></span>
-<span class="r-in"><span class="co"># generates artificial data (a 235X3 matrix with 3 columns: state, region, income).</span></span>
-<span class="r-in"><span class="co"># the variable "state" has 2 categories ('nc' and 'sc').</span></span>
-<span class="r-in"><span class="co"># the variable "region" has 3 categories (1, 2 and 3).</span></span>
-<span class="r-in"><span class="co"># the sampling frame is stratified by region within state.</span></span>
-<span class="r-in"><span class="co"># the income variable is randomly generated</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"nc"</span>,<span class="fl">165</span><span class="op">)</span>, <span class="fl">165</span>, <span class="fl">1</span>, byrow<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span class="r-in">           <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"sc"</span>, <span class="fl">70</span><span class="op">)</span>, <span class="fl">70</span>, <span class="fl">1</span>, byrow<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind.data.frame</a></span><span class="op">(</span><span class="va">m</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">100</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">50</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">15</span><span class="op">)</span>,</span>
-<span class="r-in">                      <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">30</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">40</span><span class="op">)</span><span class="op">)</span>, <span class="fl">1000</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">235</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"state"</span>, <span class="st">"region"</span>, <span class="st">"income"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># computes the population stratum sizes</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">m</span><span class="op">$</span><span class="va">region</span>, <span class="va">m</span><span class="op">$</span><span class="va">state</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Example from An and Watts (New SAS procedures for Analysis of Sample Survey Data)</span></span></span>
+<span class="r-in"><span><span class="co"># generates artificial data (a 235X3 matrix with 3 columns: state, region, income).</span></span></span>
+<span class="r-in"><span><span class="co"># the variable "state" has 2 categories ('nc' and 'sc').</span></span></span>
+<span class="r-in"><span><span class="co"># the variable "region" has 3 categories (1, 2 and 3).</span></span></span>
+<span class="r-in"><span><span class="co"># the sampling frame is stratified by region within state.</span></span></span>
+<span class="r-in"><span><span class="co"># the income variable is randomly generated</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"nc"</span>,<span class="fl">165</span><span class="op">)</span>, <span class="fl">165</span>, <span class="fl">1</span>, byrow<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>           <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"sc"</span>, <span class="fl">70</span><span class="op">)</span>, <span class="fl">70</span>, <span class="fl">1</span>, byrow<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind.data.frame</a></span><span class="op">(</span><span class="va">m</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">100</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">50</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">15</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                      <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">30</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">40</span><span class="op">)</span><span class="op">)</span>, <span class="fl">1000</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">235</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"state"</span>, <span class="st">"region"</span>, <span class="st">"income"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># computes the population stratum sizes</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">m</span><span class="op">$</span><span class="va">region</span>, <span class="va">m</span><span class="op">$</span><span class="va">state</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      nc  sc</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   1 100  30</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   2  50  40</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   3  15   0</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># not run</span></span>
-<span class="r-in"><span class="co">#     nc  sc</span></span>
-<span class="r-in"><span class="co">#  1 100  30</span></span>
-<span class="r-in"><span class="co">#  2  50  40</span></span>
-<span class="r-in"><span class="co">#  3  15   0</span></span>
-<span class="r-in"><span class="co"># there are 5 cells with non-zero values</span></span>
-<span class="r-in"><span class="co"># one draws 5 samples (1 sample in each stratum)</span></span>
-<span class="r-in"><span class="co"># the sample stratum sizes are 10,5,10,4,6, respectively</span></span>
-<span class="r-in"><span class="co"># the method is 'srswor' (equal probability, without replacement)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu">Strata</span><span class="op">(</span><span class="va">m</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"region"</span>, <span class="st">"state"</span><span class="op">)</span>, size<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">4</span>, <span class="fl">6</span><span class="op">)</span>, method<span class="op">=</span><span class="st">"srswor"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># extracts the observed data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>income<span class="op">=</span><span class="va">m</span><span class="op">[</span><span class="va">s</span><span class="op">$</span><span class="va">id</span>, <span class="st">"income"</span><span class="op">]</span>, <span class="va">s</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># not run</span></span></span>
+<span class="r-in"><span><span class="co">#     nc  sc</span></span></span>
+<span class="r-in"><span><span class="co">#  1 100  30</span></span></span>
+<span class="r-in"><span><span class="co">#  2  50  40</span></span></span>
+<span class="r-in"><span><span class="co">#  3  15   0</span></span></span>
+<span class="r-in"><span><span class="co"># there are 5 cells with non-zero values</span></span></span>
+<span class="r-in"><span><span class="co"># one draws 5 samples (1 sample in each stratum)</span></span></span>
+<span class="r-in"><span><span class="co"># the sample stratum sizes are 10,5,10,4,6, respectively</span></span></span>
+<span class="r-in"><span><span class="co"># the method is 'srswor' (equal probability, without replacement)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu">Strata</span><span class="op">(</span><span class="va">m</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"region"</span>, <span class="st">"state"</span><span class="op">)</span>, size<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">4</span>, <span class="fl">6</span><span class="op">)</span>, method<span class="op">=</span><span class="st">"srswor"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># extracts the observed data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>income<span class="op">=</span><span class="va">m</span><span class="op">[</span><span class="va">s</span><span class="op">$</span><span class="va">id</span>, <span class="st">"income"</span><span class="op">]</span>, <span class="va">s</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          income state region  income.1 stratum size  id</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1.65  866.10058    nc      1 866.10058       1   10  65</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1.93  592.34629    nc      1 592.34629       1   10  93</span>
@@ -204,24 +220,24 @@ By default, the value is FALSE.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5.217 822.34924    sc      2 822.34924       5    6 217</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5.229 369.66882    sc      2 369.66882       5    6 229</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5.208 152.05055    sc      2 152.05055       5    6 208</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># see the result using a contigency table</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">s</span><span class="op">$</span><span class="va">region</span>, <span class="va">s</span><span class="op">$</span><span class="va">state</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># see the result using a contigency table</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">s</span><span class="op">$</span><span class="va">region</span>, <span class="va">s</span><span class="op">$</span><span class="va">state</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     nc sc</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   1 10  4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   2  5  6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   3 10  0</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># The same data as in Example 1</span></span>
-<span class="r-in"><span class="co"># the method is 'systematic' (unequal probability, without replacement)</span></span>
-<span class="r-in"><span class="co"># the selection probabilities are computed using the variable 'income'</span></span>
-<span class="r-in"><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu">Strata</span><span class="op">(</span><span class="va">m</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"region"</span>, <span class="st">"state"</span><span class="op">)</span>, size<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">4</span>, <span class="fl">6</span><span class="op">)</span>,</span>
-<span class="r-in">            method<span class="op">=</span><span class="st">"systematic"</span>, pik<span class="op">=</span><span class="va">m</span><span class="op">$</span><span class="va">income</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># extracts the observed data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>income<span class="op">=</span><span class="va">m</span><span class="op">[</span><span class="va">s</span><span class="op">$</span><span class="va">id</span>, <span class="st">"income"</span><span class="op">]</span>, <span class="va">s</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># The same data as in Example 1</span></span></span>
+<span class="r-in"><span><span class="co"># the method is 'systematic' (unequal probability, without replacement)</span></span></span>
+<span class="r-in"><span><span class="co"># the selection probabilities are computed using the variable 'income'</span></span></span>
+<span class="r-in"><span><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu">Strata</span><span class="op">(</span><span class="va">m</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"region"</span>, <span class="st">"state"</span><span class="op">)</span>, size<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">4</span>, <span class="fl">6</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>            method<span class="op">=</span><span class="st">"systematic"</span>, pik<span class="op">=</span><span class="va">m</span><span class="op">$</span><span class="va">income</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># extracts the observed data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>income<span class="op">=</span><span class="va">m</span><span class="op">[</span><span class="va">s</span><span class="op">$</span><span class="va">id</span>, <span class="st">"income"</span><span class="op">]</span>, <span class="va">s</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          income state region  income.1 stratum size  id</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1.9   322.88584    nc      1 322.88584       1   10   9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1.29  286.04175    nc      1 286.04175       1   10  29</span>
@@ -258,9 +274,9 @@ By default, the value is FALSE.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5.198 483.59321    sc      2 483.59321       5    6 198</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5.224 771.66254    sc      2 771.66254       5    6 224</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5.205 192.33168    sc      2 192.33168       5    6 205</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># see the result using a contigency table</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">s</span><span class="op">$</span><span class="va">region</span>, <span class="va">s</span><span class="op">$</span><span class="va">state</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># see the result using a contigency table</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">s</span><span class="op">$</span><span class="va">region</span>, <span class="va">s</span><span class="op">$</span><span class="va">state</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     nc sc</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   1 10  4</span>
@@ -280,7 +296,7 @@ By default, the value is FALSE.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,9 +87,9 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">SampleTwins</span><span class="op">(</span><span class="va">x</span>, stratanames <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">twins</span>, 
-            method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"srswor"</span>, <span class="st">"srswr"</span>, <span class="st">"poisson"</span>, <span class="st">"systematic"</span><span class="op">)</span>, 
-            <span class="va">pik</span>, description <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">SampleTwins</span><span class="op">(</span><span class="va">x</span>, stratanames <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">twins</span>, </span>
+<span>            method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"srswor"</span>, <span class="st">"srswr"</span>, <span class="st">"poisson"</span>, <span class="st">"systematic"</span><span class="op">)</span>, </span>
+<span>            <span class="va">pik</span>, description <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -97,37 +97,50 @@
     <dl><dt>x</dt>
 <dd><p>the data to draw the sample from
 <!-- %%     ~~Describe \code{data} here~~ --></p></dd>
-<dt>stratanames</dt>
+
+  <dt>stratanames</dt>
 <dd><p>the stratanames to use
 <!-- %%     ~~Describe \code{stratanames} here~~ --></p></dd>
-<dt>twins</dt>
+
+  <dt>twins</dt>
 <dd><p>the twin sample
 <!-- %%     ~~Describe \code{twins} here~~ --></p></dd>
+
 <dt>method</dt>
 <dd><p>method to select units; the following methods are implemented: simple random 
 sampling without replacement (srswor), simple random sampling with replacement (srswr), 
 Poisson sampling (poisson), systematic sampling (systematic); if "method" is missing, 
 the default method is "srswor". See <code><a href="Strata.html">Strata</a></code>.</p></dd>
+
+
 <dt>pik</dt>
 <dd><p>vector of inclusion probabilities or auxiliary information used to compute them; 
 this argument is only used for unequal probability sampling (Poisson and systematic). If an
 auxiliary information is provided, the function uses the inclusionprobabilities function for
 computing these probabilities. If the method is "srswr" and the sample size is larger than
 the population size, this vector is normalized to one.</p></dd>
+
+
 <dt>description</dt>
 <dd><p>a message is printed if its value is TRUE; the message gives the number 
 of selected units and the number of the units in the population. 
 By default, the value is FALSE.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The function produces an object, which contains the following information:</p>
+     
+
+<p>The function produces an object, which contains the following information:</p>
 <dl><dt>id</dt>
 <dd><p>the identifier of the selected units.</p></dd>
+
 <dt>stratum</dt>
 <dd><p>the unit stratum.</p></dd>
+
 <dt>prob</dt>
 <dd><p>the final unit inclusion probability.</p></dd>
+
 </dl></div>
     <div id="author">
     <h2>Author</h2>
@@ -142,21 +155,21 @@ By default, the value is FALSE.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"nc"</span>,<span class="fl">165</span><span class="op">)</span>, <span class="fl">165</span>, <span class="fl">1</span>, byrow<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>, </span>
-<span class="r-in">           <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"sc"</span>, <span class="fl">70</span><span class="op">)</span>, <span class="fl">70</span>, <span class="fl">1</span>, byrow<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind.data.frame</a></span><span class="op">(</span><span class="va">m</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">100</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">50</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">15</span><span class="op">)</span>, </span>
-<span class="r-in">                           <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">30</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">40</span><span class="op">)</span><span class="op">)</span>, <span class="fl">1000</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">235</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"state"</span>,<span class="st">"region"</span>,<span class="st">"income"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># this would be our sample to be reproduced by a twin sample</span></span>
-<span class="r-in"><span class="va">d.smp</span> <span class="op">&lt;-</span> <span class="va">m</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span>, size<span class="op">=</span><span class="fl">10</span>, replace<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>,<span class="op">]</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># draw the sample</span></span>
-<span class="r-in"><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu">SampleTwins</span><span class="op">(</span>x <span class="op">=</span> <span class="va">m</span>, stratanames<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"state"</span>,<span class="st">"region"</span><span class="op">)</span>, twins <span class="op">=</span> <span class="va">d.smp</span>, method<span class="op">=</span><span class="st">"srswor"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"nc"</span>,<span class="fl">165</span><span class="op">)</span>, <span class="fl">165</span>, <span class="fl">1</span>, byrow<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>           <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"sc"</span>, <span class="fl">70</span><span class="op">)</span>, <span class="fl">70</span>, <span class="fl">1</span>, byrow<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind.data.frame</a></span><span class="op">(</span><span class="va">m</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">100</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">50</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">15</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>                           <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">30</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">40</span><span class="op">)</span><span class="op">)</span>, <span class="fl">1000</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">235</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"state"</span>,<span class="st">"region"</span>,<span class="st">"income"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># this would be our sample to be reproduced by a twin sample</span></span></span>
+<span class="r-in"><span><span class="va">d.smp</span> <span class="op">&lt;-</span> <span class="va">m</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span>, size<span class="op">=</span><span class="fl">10</span>, replace<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>,<span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># draw the sample</span></span></span>
+<span class="r-in"><span><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu">SampleTwins</span><span class="op">(</span>x <span class="op">=</span> <span class="va">m</span>, stratanames<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"state"</span>,<span class="st">"region"</span><span class="op">)</span>, twins <span class="op">=</span> <span class="va">d.smp</span>, method<span class="op">=</span><span class="st">"srswor"</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Could not find a twin for all records. Enlighten the restrictions!</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">d.twin</span> <span class="op">&lt;-</span> <span class="va">m</span><span class="op">[</span><span class="va">s</span><span class="op">$</span><span class="va">id</span>,<span class="op">]</span></span>
-<span class="r-in"><span class="va">d.twin</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">d.twin</span> <span class="op">&lt;-</span> <span class="va">m</span><span class="op">[</span><span class="va">s</span><span class="op">$</span><span class="va">id</span>,<span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">d.twin</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     state region     income</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 186    sc      1  71.904097</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 173    sc      1 648.818124</span>
@@ -182,7 +195,7 @@ By default, the value is FALSE.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

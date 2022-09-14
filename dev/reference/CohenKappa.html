@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -92,8 +92,8 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">CohenKappa</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Unweighted"</span>, <span class="st">"Equal-Spacing"</span>, <span class="st">"Fleiss-Cohen"</span><span class="op">)</span>,
-           conf.level <span class="op">=</span> <span class="cn">NA</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">CohenKappa</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Unweighted"</span>, <span class="st">"Equal-Spacing"</span>, <span class="st">"Fleiss-Cohen"</span><span class="op">)</span>,</span>
+<span>           conf.level <span class="op">=</span> <span class="cn">NA</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -101,19 +101,25 @@
     <dl><dt>x</dt>
 <dd><p>can either be a numeric vector or a confusion matrix. In the latter case x must be a square matrix.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>y</dt>
+
+ <dt>y</dt>
 <dd><p>NULL (default) or a vector with compatible dimensions to <code>x</code>. If <code>y</code> is provided, <code>table(x, y, ...)</code> is calculated. In order to get a square matrix, <code>x</code> and <code>y</code> are
  coerced to factors with synchronized levels. (Note, that the vector interface can not be used together with weights.)
 <!-- %%     ~~Describe \code{y} here~~ --></p></dd>
-<dt>weights</dt>
+
+  <dt>weights</dt>
 <dd><p>either one out of <code>"Unweighted"</code> (default), <code>"Equal-Spacing"</code>, <code>"Fleiss-Cohen"</code>, which will calculate the weights accordingly, or a user-specified matrix having the same dimensions as x containing the weights for each cell.</p>
 <p><!-- %%     ~~Describe \code{weights} here~~ --></p></dd>
+
 <dt>conf.level</dt>
 <dd><p>confidence level of the interval. If set to <code>NA</code> (which is the default) no confidence intervals will be calculated.
 <!-- %%     ~~Describe \code{conf.level} here~~ --></p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>further arguments are passed to the function <code><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></code>, allowing i.e. to set <code>useNA</code>. This refers only to the vector interface.
 <!-- %%     ~~Describe \code{\dots} here~~ --></p></dd>
+
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -128,13 +134,19 @@ The vector interface <code>(x, y)</code> is only supported for the calculation o
     <div id="value">
     <h2>Value</h2>
     <p>if no confidence intervals are requested:
-the estimate as numeric value<br><br>else a named numeric vector with 3 elements</p>
+the estimate as numeric value<br><br></p>
+
+
+<p>else a named numeric vector with 3 elements</p>
 <dl><dt>kappa</dt>
 <dd><p>estimate</p></dd>
+
 <dt>lwr.ci</dt>
 <dd><p>lower confidence interval</p></dd>
+
 <dt>upr.ci</dt>
 <dd><p>upper confidence interval</p></dd>
+
 </dl></div>
     <div id="references">
     <h2>References</h2>
@@ -156,32 +168,32 @@ of Scoring EEG Sleep Recordings <em>American Journal of EEG Technology</em>, 11,
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># from Bortz et. al (1990) Verteilungsfreie Methoden in der Biostatistik, Springer, pp. 459</span></span>
-<span class="r-in"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">53</span>,  <span class="fl">5</span>, <span class="fl">2</span>,</span>
-<span class="r-in">              <span class="fl">11</span>, <span class="fl">14</span>, <span class="fl">5</span>,</span>
-<span class="r-in">               <span class="fl">1</span>,  <span class="fl">6</span>, <span class="fl">3</span><span class="op">)</span>, nrow<span class="op">=</span><span class="fl">3</span>, byrow<span class="op">=</span><span class="cn">TRUE</span>,</span>
-<span class="r-in">            dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>rater1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"V"</span>,<span class="st">"N"</span>,<span class="st">"P"</span><span class="op">)</span>, rater2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"V"</span>,<span class="st">"N"</span>,<span class="st">"P"</span><span class="op">)</span><span class="op">)</span> <span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># confusion matrix interface</span></span>
-<span class="r-in"><span class="fu">CohenKappa</span><span class="op">(</span><span class="va">m</span>, weight<span class="op">=</span><span class="st">"Unweighted"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># from Bortz et. al (1990) Verteilungsfreie Methoden in der Biostatistik, Springer, pp. 459</span></span></span>
+<span class="r-in"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">53</span>,  <span class="fl">5</span>, <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>              <span class="fl">11</span>, <span class="fl">14</span>, <span class="fl">5</span>,</span></span>
+<span class="r-in"><span>               <span class="fl">1</span>,  <span class="fl">6</span>, <span class="fl">3</span><span class="op">)</span>, nrow<span class="op">=</span><span class="fl">3</span>, byrow<span class="op">=</span><span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>            dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>rater1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"V"</span>,<span class="st">"N"</span>,<span class="st">"P"</span><span class="op">)</span>, rater2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"V"</span>,<span class="st">"N"</span>,<span class="st">"P"</span><span class="op">)</span><span class="op">)</span> <span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># confusion matrix interface</span></span></span>
+<span class="r-in"><span><span class="fu">CohenKappa</span><span class="op">(</span><span class="va">m</span>, weight<span class="op">=</span><span class="st">"Unweighted"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4285714</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># vector interface</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="Untable.html">Untable</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">CohenKappa</span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">rater1</span>, <span class="va">x</span><span class="op">$</span><span class="va">rater2</span>, weight<span class="op">=</span><span class="st">"Unweighted"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># vector interface</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="Untable.html">Untable</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">CohenKappa</span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">rater1</span>, <span class="va">x</span><span class="op">$</span><span class="va">rater2</span>, weight<span class="op">=</span><span class="st">"Unweighted"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4285714</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># pairwise Kappa</span></span>
-<span class="r-in"><span class="va">rating</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span class="r-in">  rtr1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">5</span>,<span class="fl">2</span>, <span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">5</span>, <span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">2</span>, <span class="fl">3</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">1</span>, <span class="fl">5</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">1</span>, <span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">5</span><span class="op">)</span>,</span>
-<span class="r-in">  rtr2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">2</span>, <span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">5</span>, <span class="fl">4</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">2</span>, <span class="fl">3</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>, <span class="fl">5</span>,<span class="fl">4</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">4</span>, <span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">5</span><span class="op">)</span>,</span>
-<span class="r-in">  rtr3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">2</span>, <span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span>, <span class="fl">4</span>,<span class="fl">4</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">4</span>, <span class="fl">3</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">3</span>, <span class="fl">5</span>,<span class="fl">4</span>,<span class="fl">4</span>,<span class="fl">4</span>,<span class="fl">4</span>, <span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">3</span>,<span class="fl">5</span><span class="op">)</span>,</span>
-<span class="r-in">  rtr4 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">4</span>, <span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span>, <span class="fl">4</span>,<span class="fl">4</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">4</span>, <span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">5</span>, <span class="fl">5</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">4</span>,<span class="fl">4</span>, <span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">3</span>,<span class="fl">5</span><span class="op">)</span>,</span>
-<span class="r-in">  rtr5 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">4</span>, <span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span>, <span class="fl">4</span>,<span class="fl">4</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">4</span>, <span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">5</span>, <span class="fl">5</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">4</span>,<span class="fl">4</span>, <span class="fl">2</span>,<span class="fl">5</span>,<span class="fl">4</span>,<span class="fl">3</span>,<span class="fl">5</span><span class="op">)</span>,</span>
-<span class="r-in">  rtr6 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">5</span>,<span class="fl">5</span>,<span class="fl">4</span>, <span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">4</span>,<span class="fl">4</span>,<span class="fl">5</span>, <span class="fl">4</span>,<span class="fl">4</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span>, <span class="fl">5</span>,<span class="fl">5</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">5</span>, <span class="fl">5</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">4</span>,<span class="fl">5</span>, <span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">4</span>,<span class="fl">3</span>,<span class="fl">5</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="PairApply.html">PairApply</a></span><span class="op">(</span><span class="va">rating</span>, FUN<span class="op">=</span><span class="va">CohenKappa</span>, symmetric<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># pairwise Kappa</span></span></span>
+<span class="r-in"><span><span class="va">rating</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  rtr1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">5</span>,<span class="fl">2</span>, <span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">5</span>, <span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">2</span>, <span class="fl">3</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">1</span>, <span class="fl">5</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">1</span>, <span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">5</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  rtr2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">2</span>, <span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">5</span>, <span class="fl">4</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">2</span>, <span class="fl">3</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>, <span class="fl">5</span>,<span class="fl">4</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">4</span>, <span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">5</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  rtr3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">2</span>, <span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span>, <span class="fl">4</span>,<span class="fl">4</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">4</span>, <span class="fl">3</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">3</span>, <span class="fl">5</span>,<span class="fl">4</span>,<span class="fl">4</span>,<span class="fl">4</span>,<span class="fl">4</span>, <span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">3</span>,<span class="fl">5</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  rtr4 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">4</span>, <span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span>, <span class="fl">4</span>,<span class="fl">4</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">4</span>, <span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">5</span>, <span class="fl">5</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">4</span>,<span class="fl">4</span>, <span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">3</span>,<span class="fl">5</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  rtr5 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">4</span>, <span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span>, <span class="fl">4</span>,<span class="fl">4</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">4</span>, <span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">5</span>, <span class="fl">5</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">4</span>,<span class="fl">4</span>, <span class="fl">2</span>,<span class="fl">5</span>,<span class="fl">4</span>,<span class="fl">3</span>,<span class="fl">5</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  rtr6 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">5</span>,<span class="fl">5</span>,<span class="fl">4</span>, <span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">4</span>,<span class="fl">4</span>,<span class="fl">5</span>, <span class="fl">4</span>,<span class="fl">4</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span>, <span class="fl">5</span>,<span class="fl">5</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">5</span>, <span class="fl">5</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">4</span>,<span class="fl">5</span>, <span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">4</span>,<span class="fl">3</span>,<span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="PairApply.html">PairApply</a></span><span class="op">(</span><span class="va">rating</span>, FUN<span class="op">=</span><span class="va">CohenKappa</span>, symmetric<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            rtr1      rtr2      rtr3      rtr4      rtr5       rtr6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rtr1 1.00000000 0.6511628 0.3838254 0.2583436 0.1881919 0.08088235</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rtr2 0.65116279 1.0000000 0.6311475 0.4392523 0.3633952 0.17105263</span>
@@ -189,21 +201,21 @@ of Scoring EEG Sleep Recordings <em>American Journal of EEG Technology</em>, 11,
 <span class="r-out co"><span class="r-pr">#&gt;</span> rtr4 0.25834363 0.4392523 0.7260274 1.0000000 0.8569157 0.51923077</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rtr5 0.18819188 0.3633952 0.6401799 0.8569157 1.0000000 0.64824121</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rtr6 0.08088235 0.1710526 0.3333333 0.5192308 0.6482412 1.00000000</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Weighted Kappa</span></span>
-<span class="r-in"><span class="va">cats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"&lt;10%"</span>, <span class="st">"11-20%"</span>, <span class="st">"21-30%"</span>, <span class="st">"31-40%"</span>, <span class="st">"41-50%"</span>, <span class="st">"&gt;50%"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">8</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">2</span>, <span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">5</span>,<span class="fl">0</span>, <span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">6</span>,<span class="fl">11</span>,<span class="fl">2</span>,<span class="fl">1</span>,</span>
-<span class="r-in">              <span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">5</span>,<span class="fl">4</span>,<span class="fl">3</span>,<span class="fl">3</span>, <span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">5</span>,<span class="fl">2</span>, <span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">4</span><span class="op">)</span>, nrow<span class="op">=</span><span class="fl">6</span>, byrow<span class="op">=</span><span class="cn">TRUE</span>,</span>
-<span class="r-in">            dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>rater1 <span class="op">=</span> <span class="va">cats</span>, rater2 <span class="op">=</span> <span class="va">cats</span><span class="op">)</span> <span class="op">)</span></span>
-<span class="r-in"><span class="fu">CohenKappa</span><span class="op">(</span><span class="va">m</span>, weight<span class="op">=</span><span class="st">"Equal-Spacing"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Weighted Kappa</span></span></span>
+<span class="r-in"><span><span class="va">cats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"&lt;10%"</span>, <span class="st">"11-20%"</span>, <span class="st">"21-30%"</span>, <span class="st">"31-40%"</span>, <span class="st">"41-50%"</span>, <span class="st">"&gt;50%"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">8</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">2</span>, <span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">5</span>,<span class="fl">0</span>, <span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">6</span>,<span class="fl">11</span>,<span class="fl">2</span>,<span class="fl">1</span>,</span></span>
+<span class="r-in"><span>              <span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">5</span>,<span class="fl">4</span>,<span class="fl">3</span>,<span class="fl">3</span>, <span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">5</span>,<span class="fl">2</span>, <span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">4</span><span class="op">)</span>, nrow<span class="op">=</span><span class="fl">6</span>, byrow<span class="op">=</span><span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>            dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>rater1 <span class="op">=</span> <span class="va">cats</span>, rater2 <span class="op">=</span> <span class="va">cats</span><span class="op">)</span> <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">CohenKappa</span><span class="op">(</span><span class="va">m</span>, weight<span class="op">=</span><span class="st">"Equal-Spacing"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3156685</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># supply an explicit weight matrix</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># supply an explicit weight matrix</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 6</span>
-<span class="r-in"><span class="op">(</span><span class="va">wm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/outer.html" class="external-link">outer</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">        <span class="fl">1</span> <span class="op">-</span> <span class="op">(</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">x</span><span class="op">-</span><span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">}</span> <span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">wm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/outer.html" class="external-link">outer</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>        <span class="fl">1</span> <span class="op">-</span> <span class="op">(</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">x</span><span class="op">-</span><span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">}</span> <span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4] [,5] [,6]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.0  0.8  0.6  0.4  0.2  0.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.8  1.0  0.8  0.6  0.4  0.2</span>
@@ -211,26 +223,26 @@ of Scoring EEG Sleep Recordings <em>American Journal of EEG Technology</em>, 11,
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,]  0.4  0.6  0.8  1.0  0.8  0.6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [5,]  0.2  0.4  0.6  0.8  1.0  0.8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [6,]  0.0  0.2  0.4  0.6  0.8  1.0</span>
-<span class="r-in"><span class="fu">CohenKappa</span><span class="op">(</span><span class="va">m</span>, weight<span class="op">=</span><span class="va">wm</span>, conf.level<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">CohenKappa</span><span class="op">(</span><span class="va">m</span>, weight<span class="op">=</span><span class="va">wm</span>, conf.level<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     kappa    lwr.ci    upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.3156685 0.1968117 0.4345252 </span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># however, Fleiss, Cohen and Everitt weight similarities</span></span>
-<span class="r-in"><span class="va">fleiss</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="fl">106</span>, <span class="fl">10</span>,  <span class="fl">4</span>,</span>
-<span class="r-in">  <span class="fl">22</span>,  <span class="fl">28</span>, <span class="fl">10</span>,</span>
-<span class="r-in">   <span class="fl">2</span>,  <span class="fl">12</span>,  <span class="fl">6</span></span>
-<span class="r-in">  <span class="op">)</span>, ncol<span class="op">=</span><span class="fl">3</span>, byrow<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#Fleiss weights the similarities</span></span>
-<span class="r-in"><span class="va">weights</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span class="r-in"> <span class="fl">1.0000</span>, <span class="fl">0.0000</span>, <span class="fl">0.4444</span>,</span>
-<span class="r-in"> <span class="fl">0.0000</span>, <span class="fl">1.0000</span>, <span class="fl">0.6666</span>,</span>
-<span class="r-in"> <span class="fl">0.4444</span>, <span class="fl">0.6666</span>, <span class="fl">1.0000</span></span>
-<span class="r-in"> <span class="op">)</span>, ncol<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">CohenKappa</span><span class="op">(</span><span class="va">fleiss</span>, <span class="va">weights</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># however, Fleiss, Cohen and Everitt weight similarities</span></span></span>
+<span class="r-in"><span><span class="va">fleiss</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fl">106</span>, <span class="fl">10</span>,  <span class="fl">4</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">22</span>,  <span class="fl">28</span>, <span class="fl">10</span>,</span></span>
+<span class="r-in"><span>   <span class="fl">2</span>,  <span class="fl">12</span>,  <span class="fl">6</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span>, ncol<span class="op">=</span><span class="fl">3</span>, byrow<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#Fleiss weights the similarities</span></span></span>
+<span class="r-in"><span><span class="va">weights</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span> <span class="fl">1.0000</span>, <span class="fl">0.0000</span>, <span class="fl">0.4444</span>,</span></span>
+<span class="r-in"><span> <span class="fl">0.0000</span>, <span class="fl">1.0000</span>, <span class="fl">0.6666</span>,</span></span>
+<span class="r-in"><span> <span class="fl">0.4444</span>, <span class="fl">0.6666</span>, <span class="fl">1.0000</span></span></span>
+<span class="r-in"><span> <span class="op">)</span>, ncol<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">CohenKappa</span><span class="op">(</span><span class="va">fleiss</span>, <span class="va">weights</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
 </code></pre></div>
     </div>
@@ -246,7 +258,7 @@ of Scoring EEG Sleep Recordings <em>American Journal of EEG Technology</em>, 11,
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

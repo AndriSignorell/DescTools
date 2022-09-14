@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,30 +87,39 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">BinomDiffCI</span><span class="op">(</span><span class="va">x1</span>, <span class="va">n1</span>, <span class="va">x2</span>, <span class="va">n2</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span>, sides <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>,<span class="st">"left"</span>,<span class="st">"right"</span><span class="op">)</span>,
-            method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ac"</span>, <span class="st">"wald"</span>, <span class="st">"waldcc"</span>, <span class="st">"score"</span>, <span class="st">"scorecc"</span>, <span class="st">"mn"</span>,
-                       <span class="st">"mee"</span>, <span class="st">"blj"</span>, <span class="st">"ha"</span>, <span class="st">"hal"</span>, <span class="st">"jp"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">BinomDiffCI</span><span class="op">(</span><span class="va">x1</span>, <span class="va">n1</span>, <span class="va">x2</span>, <span class="va">n2</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span>, sides <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>,<span class="st">"left"</span>,<span class="st">"right"</span><span class="op">)</span>,</span>
+<span>            method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ac"</span>, <span class="st">"wald"</span>, <span class="st">"waldcc"</span>, <span class="st">"score"</span>, <span class="st">"scorecc"</span>, <span class="st">"mn"</span>,</span>
+<span>                       <span class="st">"mee"</span>, <span class="st">"blj"</span>, <span class="st">"ha"</span>, <span class="st">"hal"</span>, <span class="st">"jp"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x1</dt>
 <dd><p>number of successes for the first group.</p></dd>
-<dt>n1</dt>
+
+  <dt>n1</dt>
 <dd><p>number of trials for the first group.</p></dd>
-<dt>x2</dt>
+
+  <dt>x2</dt>
 <dd><p>number of successes for the second group.</p></dd>
-<dt>n2</dt>
+
+  <dt>n2</dt>
 <dd><p>number of trials for the second group.</p></dd>
-<dt>conf.level</dt>
+
+  <dt>conf.level</dt>
 <dd><p>confidence level, defaults to 0.95.</p></dd>
-<dt>sides</dt>
+
+  <dt>sides</dt>
 <dd><p>a character string specifying the side of the confidence interval, must be one of <code>"two.sided"</code> (default),
 <code>"left"</code> or <code>"right"</code>. You can specify just the initial letter. <code>"left"</code> would be analogue to a hypothesis of
 <code>"greater"</code> in a <code>t.test</code>.</p></dd>
-<dt>method</dt>
+
+
+
+  <dt>method</dt>
 <dd><p>one of <code>"wald"</code>, <code>"waldcc"</code>, <code>"ac"</code>, <code>"score"</code>, <code>"scorecc"</code>, <code>"mn"</code>, <code>"mee"</code>, <code>"blj"</code>, <code>"ha"</code>, <code>"hal"</code>, <code>"jp"</code>.
 <!-- %%     ~~Describe \code{method} here~~ --></p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -136,7 +145,10 @@ the <b>Jeffreys-Perks</b> (code <code>"jp"</code>).</p>
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>A matrix with 3 columns containing the estimate, the lower and the upper confidence intervall.</p>
+    
+
+<p>A matrix with 3 columns containing the estimate, the lower and the upper confidence intervall.</p>
+<p></p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -164,10 +176,10 @@ the <b>Jeffreys-Perks</b> (code <code>"jp"</code>).</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x1</span> <span class="op">&lt;-</span> <span class="fl">56</span>; <span class="va">n1</span> <span class="op">&lt;-</span> <span class="fl">70</span>; <span class="va">x2</span> <span class="op">&lt;-</span> <span class="fl">48</span>; <span class="va">n2</span> <span class="op">&lt;-</span> <span class="fl">80</span></span>
-<span class="r-in"><span class="va">xci</span> <span class="op">&lt;-</span> <span class="fu">BinomDiffCI</span><span class="op">(</span><span class="va">x1</span>, <span class="va">n1</span>, <span class="va">x2</span>, <span class="va">n2</span>, method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wald"</span>, <span class="st">"waldcc"</span>, <span class="st">"ac"</span>, <span class="st">"score"</span>,</span>
-<span class="r-in">            <span class="st">"scorecc"</span>, <span class="st">"mn"</span>, <span class="st">"mee"</span>, <span class="st">"blj"</span>, <span class="st">"ha"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="Format.html">Format</a></span><span class="op">(</span><span class="va">xci</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span>, digits<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x1</span> <span class="op">&lt;-</span> <span class="fl">56</span>; <span class="va">n1</span> <span class="op">&lt;-</span> <span class="fl">70</span>; <span class="va">x2</span> <span class="op">&lt;-</span> <span class="fl">48</span>; <span class="va">n2</span> <span class="op">&lt;-</span> <span class="fl">80</span></span></span>
+<span class="r-in"><span><span class="va">xci</span> <span class="op">&lt;-</span> <span class="fu">BinomDiffCI</span><span class="op">(</span><span class="va">x1</span>, <span class="va">n1</span>, <span class="va">x2</span>, <span class="va">n2</span>, method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wald"</span>, <span class="st">"waldcc"</span>, <span class="st">"ac"</span>, <span class="st">"score"</span>,</span></span>
+<span class="r-in"><span>            <span class="st">"scorecc"</span>, <span class="st">"mn"</span>, <span class="st">"mee"</span>, <span class="st">"blj"</span>, <span class="st">"ha"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="Format.html">Format</a></span><span class="op">(</span><span class="va">xci</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span>, digits<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         lwr.ci upr.ci</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> wald    0.0575 0.3425</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> waldcc  0.0441 0.3559</span>
@@ -180,11 +192,11 @@ the <b>Jeffreys-Perks</b> (code <code>"jp"</code>).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ha      0.0494 0.3506</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] matrix  array</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">x1</span> <span class="op">&lt;-</span> <span class="fl">9</span>; <span class="va">n1</span> <span class="op">&lt;-</span> <span class="fl">10</span>; <span class="va">x2</span> <span class="op">&lt;-</span> <span class="fl">3</span>; <span class="va">n2</span> <span class="op">&lt;-</span> <span class="fl">10</span></span>
-<span class="r-in"><span class="va">yci</span> <span class="op">&lt;-</span> <span class="fu">BinomDiffCI</span><span class="op">(</span><span class="va">x1</span>, <span class="va">n1</span>, <span class="va">x2</span>, <span class="va">n2</span>, method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wald"</span>, <span class="st">"waldcc"</span>, <span class="st">"ac"</span>, <span class="st">"score"</span>,</span>
-<span class="r-in">            <span class="st">"scorecc"</span>, <span class="st">"mn"</span>, <span class="st">"mee"</span>, <span class="st">"blj"</span>, <span class="st">"ha"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="Format.html">Format</a></span><span class="op">(</span><span class="va">yci</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span>, digits<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">x1</span> <span class="op">&lt;-</span> <span class="fl">9</span>; <span class="va">n1</span> <span class="op">&lt;-</span> <span class="fl">10</span>; <span class="va">x2</span> <span class="op">&lt;-</span> <span class="fl">3</span>; <span class="va">n2</span> <span class="op">&lt;-</span> <span class="fl">10</span></span></span>
+<span class="r-in"><span><span class="va">yci</span> <span class="op">&lt;-</span> <span class="fu">BinomDiffCI</span><span class="op">(</span><span class="va">x1</span>, <span class="va">n1</span>, <span class="va">x2</span>, <span class="va">n2</span>, method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wald"</span>, <span class="st">"waldcc"</span>, <span class="st">"ac"</span>, <span class="st">"score"</span>,</span></span>
+<span class="r-in"><span>            <span class="st">"scorecc"</span>, <span class="st">"mn"</span>, <span class="st">"mee"</span>, <span class="st">"blj"</span>, <span class="st">"ha"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="Format.html">Format</a></span><span class="op">(</span><span class="va">yci</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span>, digits<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         lwr.ci upr.ci</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> wald    0.2605 0.9395</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> waldcc  0.1605 1.0000</span>
@@ -197,17 +209,17 @@ the <b>Jeffreys-Perks</b> (code <code>"jp"</code>).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ha      0.1922 1.0000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] matrix  array</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># https://www.lexjansen.com/wuss/2016/127_Final_Paper_PDF.pdf, page 9</span></span>
-<span class="r-in"><span class="fu"><a href="SetNames.html">SetNames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="fu">BinomDiffCI</span><span class="op">(</span><span class="fl">56</span>, <span class="fl">70</span>, <span class="fl">48</span>, <span class="fl">80</span>, </span>
-<span class="r-in">              method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wald"</span>, <span class="st">"waldcc"</span>, <span class="st">"hal"</span>, </span>
-<span class="r-in">                       <span class="st">"jp"</span>, <span class="st">"mee"</span>,</span>
-<span class="r-in">                       <span class="st">"mn"</span>, <span class="st">"score"</span>, <span class="st">"scorecc"</span>, </span>
-<span class="r-in">                       <span class="st">"ha"</span>, <span class="st">"ac"</span>, <span class="st">"blj"</span><span class="op">)</span><span class="op">)</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">4</span><span class="op">)</span>,</span>
-<span class="r-in">  rownames<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1. Wald, no CC"</span>, <span class="st">"2. Wald, CC"</span>, <span class="st">"3. Haldane"</span>, <span class="st">"4. Jeffreys-Perks"</span>,</span>
-<span class="r-in">             <span class="st">"5. Mee"</span>, <span class="st">"6. Miettinen-Nurminen"</span>, <span class="st">"10. Score, no CC"</span>, <span class="st">"11. Score, CC"</span>,</span>
-<span class="r-in">             <span class="st">"12. Hauck-Andersen"</span>, <span class="st">"13. Agresti-Caffo"</span>, <span class="st">"16. Brown-Li"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># https://www.lexjansen.com/wuss/2016/127_Final_Paper_PDF.pdf, page 9</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="SetNames.html">SetNames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu">BinomDiffCI</span><span class="op">(</span><span class="fl">56</span>, <span class="fl">70</span>, <span class="fl">48</span>, <span class="fl">80</span>, </span></span>
+<span class="r-in"><span>              method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wald"</span>, <span class="st">"waldcc"</span>, <span class="st">"hal"</span>, </span></span>
+<span class="r-in"><span>                       <span class="st">"jp"</span>, <span class="st">"mee"</span>,</span></span>
+<span class="r-in"><span>                       <span class="st">"mn"</span>, <span class="st">"score"</span>, <span class="st">"scorecc"</span>, </span></span>
+<span class="r-in"><span>                       <span class="st">"ha"</span>, <span class="st">"ac"</span>, <span class="st">"blj"</span><span class="op">)</span><span class="op">)</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">4</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  rownames<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1. Wald, no CC"</span>, <span class="st">"2. Wald, CC"</span>, <span class="st">"3. Haldane"</span>, <span class="st">"4. Jeffreys-Perks"</span>,</span></span>
+<span class="r-in"><span>             <span class="st">"5. Mee"</span>, <span class="st">"6. Miettinen-Nurminen"</span>, <span class="st">"10. Score, no CC"</span>, <span class="st">"11. Score, CC"</span>,</span></span>
+<span class="r-in"><span>             <span class="st">"12. Hauck-Andersen"</span>, <span class="st">"13. Agresti-Caffo"</span>, <span class="st">"16. Brown-Li"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                       lwr.ci upr.ci</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1. Wald, no CC        0.0575 0.3425</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2. Wald, CC           0.0441 0.3559</span>
@@ -220,7 +232,7 @@ the <b>Jeffreys-Perks</b> (code <code>"jp"</code>).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12. Hauck-Andersen    0.0494 0.3506</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 13. Agresti-Caffo     0.0525 0.3358</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 16. Brown-Li          0.0540 0.3400</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -235,7 +247,7 @@ the <b>Jeffreys-Perks</b> (code <code>"jp"</code>).</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -18,7 +18,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -84,27 +84,32 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">ZTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for default</span>
-<span class="fu">ZTest</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, alternative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"less"</span>, <span class="st">"greater"</span><span class="op">)</span>,
-      paired <span class="op">=</span> <span class="cn">FALSE</span>, mu <span class="op">=</span> <span class="fl">0</span>, <span class="va">sd_pop</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">...</span> <span class="op">)</span>
-
-<span class="co"># S3 method for formula</span>
-<span class="fu">ZTest</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">subset</span>, <span class="va">na.action</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ZTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">ZTest</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, alternative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"less"</span>, <span class="st">"greater"</span><span class="op">)</span>,</span>
+<span>      paired <span class="op">=</span> <span class="cn">FALSE</span>, mu <span class="op">=</span> <span class="fl">0</span>, <span class="va">sd_pop</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">...</span> <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for formula</span></span>
+<span><span class="fu">ZTest</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">subset</span>, <span class="va">na.action</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>numeric vector of data values. Non-finite (e.g. infinite or missing) values will be omitted.</p></dd>
-<dt>y</dt>
+
+  <dt>y</dt>
 <dd><p>an optional numeric vector of data values: as with x non-finite values will be omitted.</p></dd>
-<dt>mu</dt>
+
+  <dt>mu</dt>
 <dd><p>a number specifying the hypothesized mean of the population.</p></dd>
-<dt>sd_pop</dt>
+
+  <dt>sd_pop</dt>
 <dd><p>a number specifying the known standard deviation of the population.</p></dd>
-<dt>alternative</dt>
+
+
+  <dt>alternative</dt>
 <dd><p>a character string specifying the alternative
     hypothesis, must be one of <code>"two.sided"</code> (default),
     <code>"greater"</code> or <code>"less"</code>.  You can specify just the initial
@@ -112,22 +117,33 @@
   one-sample tests, <code>alternative</code> refers to the true
   mean of the parent population in relation to the hypothesized
   value of the mean.</p></dd>
-<dt>paired</dt>
+
+
+  <dt>paired</dt>
 <dd><p>a logical indicating whether you want a paired z-test.</p></dd>
-<dt>conf.level</dt>
+
+  <dt>conf.level</dt>
 <dd><p>confidence level for the interval computation.</p></dd>
-<dt>formula</dt>
+
+    <dt>formula</dt>
 <dd><p>a formula of the form <code>lhs ~ rhs</code> where <code>lhs</code> gives the data values and <code>rhs</code>
     a factor with two levels giving the corresponding groups.</p></dd>
-<dt>data</dt>
+
+
+  <dt>data</dt>
 <dd><p>an optional matrix or data frame (or similar: see <code><a href="https://rdrr.io/r/stats/model.frame.html" class="external-link">model.frame</a></code>) containing the variables in the formula <code>formula</code>.
     By default the variables are taken from <code>environment(formula)</code>.</p></dd>
-<dt>subset</dt>
+
+  <dt>subset</dt>
 <dd><p>an optional vector specifying a subset of observations to be used.</p></dd>
-<dt>na.action</dt>
+
+  <dt>na.action</dt>
 <dd><p>a function which indicates what should happen when the data contain <code>NA</code>s. Defaults to <code>getOption("na.action")</code>.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>further arguments to be passed to or from methods.</p></dd>
+
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -146,23 +162,34 @@
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list with class "<code>htest</code>" containing the following components:</p>
+    
+
+<p>A list with class "<code>htest</code>" containing the following components:</p>
 <dl><dt>statistic</dt>
 <dd><p>the value of the z-statistic.</p></dd>
-<dt>p.value</dt>
+
+  <dt>p.value</dt>
 <dd><p>the p-value for the test</p></dd>
-<dt>conf.int</dt>
+
+  <dt>conf.int</dt>
 <dd><p>a confidence interval for the mean appropriate to the specified alternative hypothesis.</p></dd>
-<dt>estimate</dt>
+
+  <dt>estimate</dt>
 <dd><p>the estimated mean or difference in means depending on whether it was a one-sample test or a two-sample test.</p></dd>
-<dt>null.value</dt>
+
+  <dt>null.value</dt>
 <dd><p>the specified hypothesized value of the mean or mean difference depending on whether it was a one-sample test or a two-sample test.</p></dd>
-<dt>alternative</dt>
+
+  <dt>alternative</dt>
 <dd><p>a character string describing the alternative hypothesis.</p></dd>
-<dt>method</dt>
+
+  <dt>method</dt>
 <dd><p>a character string indicating what type of test was performed.</p></dd>
-<dt>data.name</dt>
+
+  <dt>data.name</dt>
 <dd><p>a character string giving the name(s) of the data.</p></dd>
+
+
 </dl></div>
     <div id="references">
     <h2>References</h2>
@@ -180,8 +207,8 @@ documentation partly from Greg Snow &lt;greg.snow@imail.org&gt;</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">25</span>, <span class="fl">100</span>, <span class="fl">5</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">ZTest</span><span class="op">(</span><span class="va">x</span>, mu<span class="op">=</span><span class="fl">99</span>, sd_pop<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">25</span>, <span class="fl">100</span>, <span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ZTest</span><span class="op">(</span><span class="va">x</span>, mu<span class="op">=</span><span class="fl">99</span>, sd_pop<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	One Sample z-test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -194,9 +221,9 @@ documentation partly from Greg Snow &lt;greg.snow@imail.org&gt;</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mean of x </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      97.1 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># the classic interface</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">sleep</span>, <span class="fu">ZTest</span><span class="op">(</span><span class="va">extra</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span>, <span class="va">extra</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">2</span><span class="op">]</span>, sd_pop<span class="op">=</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># the classic interface</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">sleep</span>, <span class="fu">ZTest</span><span class="op">(</span><span class="va">extra</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span>, <span class="va">extra</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">2</span><span class="op">]</span>, sd_pop<span class="op">=</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Two Sample z-test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -209,9 +236,9 @@ documentation partly from Greg Snow &lt;greg.snow@imail.org&gt;</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mean of x mean of y </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      0.75      2.33 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># the formula interface</span></span>
-<span class="r-in"><span class="fu">ZTest</span><span class="op">(</span><span class="va">extra</span> <span class="op">~</span> <span class="va">group</span>, data <span class="op">=</span> <span class="va">sleep</span>, sd_pop<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># the formula interface</span></span></span>
+<span class="r-in"><span><span class="fu">ZTest</span><span class="op">(</span><span class="va">extra</span> <span class="op">~</span> <span class="va">group</span>, data <span class="op">=</span> <span class="va">sleep</span>, sd_pop<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Two Sample z-test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -224,13 +251,13 @@ documentation partly from Greg Snow &lt;greg.snow@imail.org&gt;</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mean in group 1 mean in group 2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            0.75            2.33 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Stahel (2002), pp. 186, 196</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">d.tyres</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>A<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">44.5</span>,<span class="fl">55</span>,<span class="fl">52.5</span>,<span class="fl">50.2</span>,<span class="fl">45.3</span>,<span class="fl">46.1</span>,<span class="fl">52.1</span>,<span class="fl">50.5</span>,<span class="fl">50.6</span>,<span class="fl">49.2</span><span class="op">)</span>,</span>
-<span class="r-in">                      B<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">44.9</span>,<span class="fl">54.8</span>,<span class="fl">55.6</span>,<span class="fl">55.2</span>,<span class="fl">55.6</span>,<span class="fl">47.7</span>,<span class="fl">53</span>,<span class="fl">49.1</span>,<span class="fl">52.3</span>,<span class="fl">50.7</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">d.tyres</span>, <span class="fu">ZTest</span><span class="op">(</span><span class="va">A</span>, <span class="va">B</span>, sd_pop<span class="op">=</span><span class="fl">3</span>, paired<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Stahel (2002), pp. 186, 196</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">d.tyres</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>A<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">44.5</span>,<span class="fl">55</span>,<span class="fl">52.5</span>,<span class="fl">50.2</span>,<span class="fl">45.3</span>,<span class="fl">46.1</span>,<span class="fl">52.1</span>,<span class="fl">50.5</span>,<span class="fl">50.6</span>,<span class="fl">49.2</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                      B<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">44.9</span>,<span class="fl">54.8</span>,<span class="fl">55.6</span>,<span class="fl">55.2</span>,<span class="fl">55.6</span>,<span class="fl">47.7</span>,<span class="fl">53</span>,<span class="fl">49.1</span>,<span class="fl">52.3</span>,<span class="fl">50.7</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">d.tyres</span>, <span class="fu">ZTest</span><span class="op">(</span><span class="va">A</span>, <span class="va">B</span>, sd_pop<span class="op">=</span><span class="fl">3</span>, paired<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Paired z-test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -243,11 +270,11 @@ documentation partly from Greg Snow &lt;greg.snow@imail.org&gt;</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mean of the differences </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                   -2.29 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">d.oxen</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>ext<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.7</span>,<span class="fl">2.7</span>,<span class="fl">1.1</span>,<span class="fl">3.0</span>,<span class="fl">1.9</span>,<span class="fl">3.0</span>,<span class="fl">3.8</span>,<span class="fl">3.8</span>,<span class="fl">0.3</span>,<span class="fl">1.9</span>,<span class="fl">1.9</span><span class="op">)</span>,</span>
-<span class="r-in">                     int<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6.5</span>,<span class="fl">5.4</span>,<span class="fl">8.1</span>,<span class="fl">3.5</span>,<span class="fl">0.5</span>,<span class="fl">3.8</span>,<span class="fl">6.8</span>,<span class="fl">4.9</span>,<span class="fl">9.5</span>,<span class="fl">6.2</span>,<span class="fl">4.1</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">d.oxen</span>, <span class="fu">ZTest</span><span class="op">(</span><span class="va">int</span>, <span class="va">ext</span>, sd_pop<span class="op">=</span><span class="fl">1.8</span>, paired<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">d.oxen</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>ext<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.7</span>,<span class="fl">2.7</span>,<span class="fl">1.1</span>,<span class="fl">3.0</span>,<span class="fl">1.9</span>,<span class="fl">3.0</span>,<span class="fl">3.8</span>,<span class="fl">3.8</span>,<span class="fl">0.3</span>,<span class="fl">1.9</span>,<span class="fl">1.9</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                     int<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6.5</span>,<span class="fl">5.4</span>,<span class="fl">8.1</span>,<span class="fl">3.5</span>,<span class="fl">0.5</span>,<span class="fl">3.8</span>,<span class="fl">6.8</span>,<span class="fl">4.9</span>,<span class="fl">9.5</span>,<span class="fl">6.2</span>,<span class="fl">4.1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">d.oxen</span>, <span class="fu">ZTest</span><span class="op">(</span><span class="va">int</span>, <span class="va">ext</span>, sd_pop<span class="op">=</span><span class="fl">1.8</span>, paired<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Two Sample z-test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -274,7 +301,7 @@ documentation partly from Greg Snow &lt;greg.snow@imail.org&gt;</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

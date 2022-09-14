@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,8 +87,8 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">WrdFormatCells</span><span class="op">(</span><span class="va">wtab</span>, <span class="va">rstart</span>, <span class="va">rend</span>, col <span class="op">=</span> <span class="cn">NULL</span>, bg <span class="op">=</span> <span class="cn">NULL</span>,
-               font <span class="op">=</span> <span class="cn">NULL</span>, border <span class="op">=</span> <span class="cn">NULL</span>, align <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">WrdFormatCells</span><span class="op">(</span><span class="va">wtab</span>, <span class="va">rstart</span>, <span class="va">rend</span>, col <span class="op">=</span> <span class="cn">NULL</span>, bg <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>               font <span class="op">=</span> <span class="cn">NULL</span>, border <span class="op">=</span> <span class="cn">NULL</span>, align <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -96,30 +96,39 @@
     <dl><dt>wtab</dt>
 <dd><p>a handle to the word table as returned i.g. by  <code><a href="WrdTable.html">WrdTable</a></code>
 <!-- %%     ~~Describe \code{wtab} here~~ --></p></dd>
-<dt>rstart</dt>
+
+  <dt>rstart</dt>
 <dd><p>the left/upper cell of the cell range
 <!-- %%     ~~Describe \code{rstart} here~~ --></p></dd>
-<dt>rend</dt>
+
+  <dt>rend</dt>
 <dd><p>the right/lower cell of the cell range
 <!-- %%     ~~Describe \code{rend} here~~ --></p></dd>
-<dt>col</dt>
+
+  <dt>col</dt>
 <dd><p>the foreground colour
 <!-- %%     ~~Describe \code{rend} here~~ --></p></dd>
-<dt>bg</dt>
+
+  <dt>bg</dt>
 <dd><p>the background colour
 <!-- %%     ~~Describe \code{rend} here~~ --></p></dd>
-<dt>font</dt>
+
+  <dt>font</dt>
 <dd><p>the font to be used to the output. This should be defined as a list containing fontname, fontsize, bold and italic flags:<br><code>list(name="Arial", size=10, bold=FALSE, italic=TRUE, color=wdConst$wdColorBlack)</code>.
 <!-- %%     ~~Describe \code{rend} here~~ --></p></dd>
-<dt>border</dt>
+
+  <dt>border</dt>
 <dd><p>the border of the cell range, defined as a list containing arguments for
   border, linestyle, linewidth and color. <code>border</code> is a vector containing the parts of the border defined by the Word constants <code>wdConst$wdBorder...</code>,  being
   $wdBorderBottom, $wdBorderLeft, $wdBorderTop, $wdBorderRight, $wdBorderHorizontal,
 $wdBorderVertical, $wdBorderDiagonalUp, $wdBorderDiagonalDown. linestyle, linewidth and color will be recycled to the required dimension.
 <!-- %%     ~~Describe \code{rend} here~~ --></p></dd>
-<dt>align</dt>
+
+  <dt>align</dt>
 <dd><p>a character out of <code>"l"</code>, <code>"c"</code>, <code>"r"</code> setting the horizontal alignment of the cell range.
 <!-- %%     ~~Describe \code{rend} here~~ --></p></dd>
+
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -129,7 +138,21 @@ $wdBorderVertical, $wdBorderDiagonalUp, $wdBorderDiagonalDown. linestyle, linewi
     <div id="value">
     <h2>Value</h2>
     <p>a handle to the range.
-<!-- %%  ~Describe the value returned --><!-- %%  If it is a LIST, use --><!-- %%  \item{comp1 }{Description of 'comp1'} --><!-- %%  \item{comp2 }{Description of 'comp2'} --><!-- %% ... --></p>
+<!-- %%  ~Describe the value returned --></p>
+
+
+<p><!-- %%  If it is a LIST, use --></p>
+
+
+<p><!-- %%  \item{comp1 }{Description of 'comp1'} --></p>
+
+
+<p><!-- %%  \item{comp2 }{Description of 'comp2'} --></p>
+
+
+<p><!-- %% ... --></p>
+
+
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -144,24 +167,24 @@ $wdBorderVertical, $wdBorderDiagonalUp, $wdBorderDiagonalDown. linestyle, linewi
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span>    <span class="co"># Windows-specific example</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">12</span><span class="op">)</span><span class="op">*</span><span class="fl">100</span>, nrow<span class="op">=</span><span class="fl">4</span>,</span>
-<span class="r-in">            dimnames<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Variable"</span>,<span class="st">"Value"</span>,<span class="st">"Remark"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">wrd</span> <span class="op">&lt;-</span> <span class="fu"><a href="GetNewWrd.html">GetNewWrd</a></span><span class="op">(</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span>    <span class="co"># Windows-specific example</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">12</span><span class="op">)</span><span class="op">*</span><span class="fl">100</span>, nrow<span class="op">=</span><span class="fl">4</span>,</span></span>
+<span class="r-in"><span>            dimnames<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Variable"</span>,<span class="st">"Value"</span>,<span class="st">"Remark"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">wrd</span> <span class="op">&lt;-</span> <span class="fu"><a href="GetNewWrd.html">GetNewWrd</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required namespace: RDCOMClient</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>RDCOMClient is unfortunately not available for Darwin systems (Windows-only).</span>
-<span class="r-in"><span class="va">wt</span> <span class="op">&lt;-</span> <span class="fu"><a href="ToWrd.html">ToWrd</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">wt</span> <span class="op">&lt;-</span> <span class="fu"><a href="ToWrd.html">ToWrd</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in ToWrd(m):</span> object 'm' not found</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">WrdFormatCells</span><span class="op">(</span><span class="va">wt</span>, rstart<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">1</span><span class="op">)</span>, rend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">3</span><span class="op">)</span>,</span>
-<span class="r-in">               bg<span class="op">=</span><span class="va">wdConst</span><span class="op">$</span><span class="va">wdColorGold</span>, font<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name<span class="op">=</span><span class="st">"Arial Narrow"</span>, bold<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span class="r-in">               align<span class="op">=</span><span class="st">"c"</span>, border<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color<span class="op">=</span><span class="va">wdConst</span><span class="op">$</span><span class="va">wdColorTeal</span>,</span>
-<span class="r-in">                                      linewidth<span class="op">=</span><span class="va">wdConst</span><span class="op">$</span><span class="va">wdLineWidth300pt</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">WrdFormatCells</span><span class="op">(</span><span class="va">wt</span>, rstart<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">1</span><span class="op">)</span>, rend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">3</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>               bg<span class="op">=</span><span class="va">wdConst</span><span class="op">$</span><span class="va">wdColorGold</span>, font<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name<span class="op">=</span><span class="st">"Arial Narrow"</span>, bold<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>               align<span class="op">=</span><span class="st">"c"</span>, border<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color<span class="op">=</span><span class="va">wdConst</span><span class="op">$</span><span class="va">wdColorTeal</span>,</span></span>
+<span class="r-in"><span>                                      linewidth<span class="op">=</span><span class="va">wdConst</span><span class="op">$</span><span class="va">wdLineWidth300pt</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in WrdCellRange(wtab, rstart, rend):</span> object 'wt' not found</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -176,7 +199,7 @@ $wdBorderVertical, $wdBorderDiagonalUp, $wdBorderDiagonalDown. linestyle, linewi
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

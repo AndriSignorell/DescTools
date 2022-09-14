@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -82,31 +82,38 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for factor</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html" class="external-link">reorder</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">X</span>, <span class="va">FUN</span>, <span class="va">...</span>, 
-        order <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">is.ordered</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="va">new.order</span>, sort <span class="op">=</span> <span class="va">SortMixed</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for factor</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html" class="external-link">reorder</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">X</span>, <span class="va">FUN</span>, <span class="va">...</span>, </span>
+<span>        order <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">is.ordered</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="va">new.order</span>, sort <span class="op">=</span> <span class="va">SortMixed</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>factor</p></dd>
-<dt>X</dt>
+
+  <dt>X</dt>
 <dd><p>auxillary data vector</p></dd>
-<dt>FUN</dt>
+
+  <dt>FUN</dt>
 <dd><p>function to be applied to subsets of <code>X</code> determined by
     <code>x</code>, to determine factor order</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>optional parameters to <code>FUN</code></p></dd>
-<dt>order</dt>
+
+  <dt>order</dt>
 <dd><p>logical value indicating whether the returned
     object should be an <code><a href="https://rdrr.io/r/base/factor.html" class="external-link">ordered</a></code> factor</p></dd>
-<dt>new.order</dt>
+
+  <dt>new.order</dt>
 <dd><p>a vector of indexes or a vector of label names giving
     the order of the new factor levels</p></dd>
-<dt>sort</dt>
+
+  <dt>sort</dt>
 <dd><p>function to use to sort the factor level names, used only
     when <code>new.order</code> is missing</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -132,7 +139,9 @@
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>A new factor with reordered levels</p>
+    
+
+<p>A new factor with reordered levels</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -145,39 +154,39 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Create a 4 level example factor</span></span>
-<span class="r-in"><span class="va">trt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"PLACEBO"</span>, <span class="st">"300 MG"</span>, <span class="st">"600 MG"</span>, <span class="st">"1200 MG"</span><span class="op">)</span>,</span>
-<span class="r-in">              <span class="fl">100</span>, replace<span class="op">=</span><span class="cn">TRUE</span> <span class="op">)</span> <span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">trt</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Create a 4 level example factor</span></span></span>
+<span class="r-in"><span><span class="va">trt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"PLACEBO"</span>, <span class="st">"300 MG"</span>, <span class="st">"600 MG"</span>, <span class="st">"1200 MG"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              <span class="fl">100</span>, replace<span class="op">=</span><span class="cn">TRUE</span> <span class="op">)</span> <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">trt</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1200 MG  300 MG  600 MG PLACEBO </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      22      31      22      25 </span>
-<span class="r-in"><span class="co"># Note that the levels are not in a meaningful order.</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Change the order to something useful</span></span>
-<span class="r-in"><span class="co"># default "mixedsort" ordering</span></span>
-<span class="r-in"><span class="va">trt2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html" class="external-link">reorder</a></span><span class="op">(</span><span class="va">trt</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">trt2</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Note that the levels are not in a meaningful order.</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Change the order to something useful</span></span></span>
+<span class="r-in"><span><span class="co"># default "mixedsort" ordering</span></span></span>
+<span class="r-in"><span><span class="va">trt2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html" class="external-link">reorder</a></span><span class="op">(</span><span class="va">trt</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">trt2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  300 MG  600 MG 1200 MG PLACEBO </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      31      22      22      25 </span>
-<span class="r-in"><span class="co"># using indexes:</span></span>
-<span class="r-in"><span class="va">trt3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html" class="external-link">reorder</a></span><span class="op">(</span><span class="va">trt</span>, new.order<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">trt3</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># using indexes:</span></span></span>
+<span class="r-in"><span><span class="va">trt3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html" class="external-link">reorder</a></span><span class="op">(</span><span class="va">trt</span>, new.order<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">trt3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PLACEBO  300 MG  600 MG 1200 MG </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      25      31      22      22 </span>
-<span class="r-in"><span class="co"># using label names:</span></span>
-<span class="r-in"><span class="va">trt4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html" class="external-link">reorder</a></span><span class="op">(</span><span class="va">trt</span>, new.order<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"PLACEBO"</span>, <span class="st">"300 MG"</span>, <span class="st">"600 MG"</span>, <span class="st">"1200 MG"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">trt4</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># using label names:</span></span></span>
+<span class="r-in"><span><span class="va">trt4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html" class="external-link">reorder</a></span><span class="op">(</span><span class="va">trt</span>, new.order<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"PLACEBO"</span>, <span class="st">"300 MG"</span>, <span class="st">"600 MG"</span>, <span class="st">"1200 MG"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">trt4</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PLACEBO  300 MG  600 MG 1200 MG </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      25      31      22      22 </span>
-<span class="r-in"><span class="co"># using frequency</span></span>
-<span class="r-in"><span class="va">trt5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html" class="external-link">reorder</a></span><span class="op">(</span><span class="va">trt</span>, X<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">trt</span><span class="op">)</span>, FUN<span class="op">=</span><span class="va">length</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">trt5</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># using frequency</span></span></span>
+<span class="r-in"><span><span class="va">trt5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html" class="external-link">reorder</a></span><span class="op">(</span><span class="va">trt</span>, X<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">trt</span><span class="op">)</span>, FUN<span class="op">=</span><span class="va">length</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">trt5</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1200 MG  600 MG PLACEBO  300 MG </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      22      22      25      31 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># drop out the '300 MG' level</span></span>
-<span class="r-in"><span class="va">trt6</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html" class="external-link">reorder</a></span><span class="op">(</span><span class="va">trt</span>, new.order<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"PLACEBO"</span>, <span class="st">"600 MG"</span>, <span class="st">"1200 MG"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">trt6</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># drop out the '300 MG' level</span></span></span>
+<span class="r-in"><span><span class="va">trt6</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html" class="external-link">reorder</a></span><span class="op">(</span><span class="va">trt</span>, new.order<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"PLACEBO"</span>, <span class="st">"600 MG"</span>, <span class="st">"1200 MG"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">trt6</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PLACEBO  600 MG 1200 MG    NA's </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      25      22      22      31 </span>
 </code></pre></div>
@@ -194,7 +203,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -82,46 +82,58 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">TTestA</span><span class="op">(</span><span class="va">mx</span>, <span class="va">sx</span>, <span class="va">nx</span>, my <span class="op">=</span> <span class="cn">NULL</span>, sy <span class="op">=</span> <span class="cn">NULL</span>, ny <span class="op">=</span> <span class="cn">NULL</span>,
-       alternative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"less"</span>, <span class="st">"greater"</span><span class="op">)</span>,
-       mu <span class="op">=</span> <span class="fl">0</span>, paired <span class="op">=</span> <span class="cn">FALSE</span>, var.equal <span class="op">=</span> <span class="cn">FALSE</span>,
-       conf.level <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">TTestA</span><span class="op">(</span><span class="va">mx</span>, <span class="va">sx</span>, <span class="va">nx</span>, my <span class="op">=</span> <span class="cn">NULL</span>, sy <span class="op">=</span> <span class="cn">NULL</span>, ny <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>       alternative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"less"</span>, <span class="st">"greater"</span><span class="op">)</span>,</span>
+<span>       mu <span class="op">=</span> <span class="fl">0</span>, paired <span class="op">=</span> <span class="cn">FALSE</span>, var.equal <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>       conf.level <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>mx</dt>
 <dd><p>a single number representing the sample mean of x.</p></dd>
-<dt>my</dt>
+
+  <dt>my</dt>
 <dd><p>an optional single number representing the sample mean of y.</p></dd>
-<dt>sx</dt>
+
+  <dt>sx</dt>
 <dd><p>a single number representing the sample standard deviation of x.</p></dd>
-<dt>sy</dt>
+
+  <dt>sy</dt>
 <dd><p>an optional single number representing the sample standard deviation of y.</p></dd>
-<dt>nx</dt>
+
+  <dt>nx</dt>
 <dd><p>a single number representing the sample size of x.</p></dd>
-<dt>ny</dt>
+
+  <dt>ny</dt>
 <dd><p>an optional single number representing the sample size of y.</p></dd>
-<dt>alternative</dt>
+
+  <dt>alternative</dt>
 <dd><p>a character string specifying the alternative
   hypothesis, must be one of <code>"two.sided"</code> (default),
   <code>"greater"</code> or <code>"less"</code>.  You can specify just the initial
   letter.</p></dd>
-<dt>mu</dt>
+
+  <dt>mu</dt>
 <dd><p>a number indicating the true value of the mean (or
   difference in means if you are performing a two sample test).</p></dd>
-<dt>paired</dt>
+
+  <dt>paired</dt>
 <dd><p>paired = <code>TRUE</code> is not supported here and only present for consistency of arguments. Use the one-sample-test for the differences instead.</p></dd>
-<dt>var.equal</dt>
+
+  <dt>var.equal</dt>
 <dd><p>a logical variable indicating whether to treat the
   two variances as being equal. If <code>TRUE</code> then the pooled
   variance is used to estimate the variance otherwise the Welch
   (or Satterthwaite) approximation to the degrees of freedom is used.</p></dd>
-<dt>conf.level</dt>
+
+  <dt>conf.level</dt>
 <dd><p>confidence level of the interval.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>further arguments to be passed to or from methods.</p></dd>
-</dl></div>
+
+  </dl></div>
     <div id="details">
     <h2>Details</h2>
     <p><code>alternative = "greater"</code> is the alternative that <code>x</code> has a
@@ -137,32 +149,43 @@
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list with class <code>"htest"</code> containing the following components:</p>
+    
+
+<p>A list with class <code>"htest"</code> containing the following components:</p>
 <dl><dt>statistic</dt>
 <dd><p>the value of the t-statistic.</p></dd>
-<dt>parameter</dt>
+
+  <dt>parameter</dt>
 <dd><p>the degrees of freedom for the t-statistic.</p></dd>
-<dt>p.value</dt>
+
+  <dt>p.value</dt>
 <dd><p>the p-value for the test.</p></dd>
-<dt>conf.int</dt>
+
+  <dt>conf.int</dt>
 <dd><p>a confidence interval for the mean appropriate to the
   specified alternative hypothesis.</p></dd>
-<dt>estimate</dt>
+
+  <dt>estimate</dt>
 <dd><p>the estimated mean or difference in means depending on
   whether it was a one-sample test or a two-sample test.</p></dd>
-<dt>null.value</dt>
+
+  <dt>null.value</dt>
 <dd><p>the specified hypothesized value of the mean or mean
   difference depending on whether it was a one-sample test or a
   two-sample test.</p></dd>
-<dt>alternative</dt>
+
+  <dt>alternative</dt>
 <dd><p>a character string describing the alternative
   hypothesis.</p></dd>
-<dt>method</dt>
+
+  <dt>method</dt>
 <dd><p>a character string indicating what type of t-test was
   performed.</p></dd>
-<dt>data.name</dt>
+
+  <dt>data.name</dt>
 <dd><p>a character string giving the name(s) of the data.</p></dd>
-</dl></div>
+
+  </dl></div>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p><code><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></code></p></div>
@@ -170,13 +193,13 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## Classical example: Student's sleep data</span></span>
-<span class="r-in"><span class="va">mx</span> <span class="op">&lt;-</span> <span class="fl">0.75</span></span>
-<span class="r-in"><span class="va">my</span> <span class="op">&lt;-</span> <span class="fl">2.33</span></span>
-<span class="r-in"><span class="va">sx</span> <span class="op">&lt;-</span> <span class="fl">1.789010</span></span>
-<span class="r-in"><span class="va">sy</span> <span class="op">&lt;-</span> <span class="fl">2.002249</span></span>
-<span class="r-in"><span class="va">nx</span> <span class="op">&lt;-</span> <span class="va">ny</span> <span class="op">&lt;-</span> <span class="fl">10</span></span>
-<span class="r-in"><span class="fu">TTestA</span><span class="op">(</span>mx<span class="op">=</span><span class="va">mx</span>, my<span class="op">=</span><span class="va">my</span>, sx<span class="op">=</span><span class="va">sx</span>, sy<span class="op">=</span><span class="va">sy</span>, nx<span class="op">=</span><span class="va">nx</span>, ny<span class="op">=</span><span class="va">ny</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## Classical example: Student's sleep data</span></span></span>
+<span class="r-in"><span><span class="va">mx</span> <span class="op">&lt;-</span> <span class="fl">0.75</span></span></span>
+<span class="r-in"><span><span class="va">my</span> <span class="op">&lt;-</span> <span class="fl">2.33</span></span></span>
+<span class="r-in"><span><span class="va">sx</span> <span class="op">&lt;-</span> <span class="fl">1.789010</span></span></span>
+<span class="r-in"><span><span class="va">sy</span> <span class="op">&lt;-</span> <span class="fl">2.002249</span></span></span>
+<span class="r-in"><span><span class="va">nx</span> <span class="op">&lt;-</span> <span class="va">ny</span> <span class="op">&lt;-</span> <span class="fl">10</span></span></span>
+<span class="r-in"><span><span class="fu">TTestA</span><span class="op">(</span>mx<span class="op">=</span><span class="va">mx</span>, my<span class="op">=</span><span class="va">my</span>, sx<span class="op">=</span><span class="va">sx</span>, sy<span class="op">=</span><span class="va">sy</span>, nx<span class="op">=</span><span class="va">nx</span>, ny<span class="op">=</span><span class="va">ny</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Welch Two Sample t-test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -189,9 +212,9 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> mean of x mean of y </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      0.75      2.33 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># compare to</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">sleep</span>, <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">extra</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span>, <span class="va">extra</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># compare to</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">sleep</span>, <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">extra</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span>, <span class="va">extra</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Welch Two Sample t-test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -204,12 +227,12 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> mean of x mean of y </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      0.75      2.33 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># use the one sample test for the differences instead of paired=TRUE option</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">sleep</span>, <span class="va">extra</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">sleep</span>, <span class="va">extra</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">TTestA</span><span class="op">(</span>mx<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">-</span><span class="va">y</span><span class="op">)</span>, sx<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html" class="external-link">sd</a></span><span class="op">(</span><span class="va">x</span><span class="op">-</span><span class="va">y</span><span class="op">)</span>, nx<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">-</span><span class="va">y</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># use the one sample test for the differences instead of paired=TRUE option</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">sleep</span>, <span class="va">extra</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">sleep</span>, <span class="va">extra</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">TTestA</span><span class="op">(</span>mx<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">-</span><span class="va">y</span><span class="op">)</span>, sx<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html" class="external-link">sd</a></span><span class="op">(</span><span class="va">x</span><span class="op">-</span><span class="va">y</span><span class="op">)</span>, nx<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">-</span><span class="va">y</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	One Sample t-test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -222,9 +245,9 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> mean of x </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     -1.58 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># compared to </span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, paired <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># compared to </span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, paired <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Paired t-test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -251,7 +274,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

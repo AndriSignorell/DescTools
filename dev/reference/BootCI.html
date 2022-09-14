@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,41 +87,67 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">BootCI</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">FUN</span>, <span class="va">...</span>, bci.method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"norm"</span>, <span class="st">"basic"</span>, <span class="st">"stud"</span>, <span class="st">"perc"</span>, <span class="st">"bca"</span><span class="op">)</span>,
-       conf.level <span class="op">=</span> <span class="fl">0.95</span>, sides <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"left"</span>, <span class="st">"right"</span><span class="op">)</span>, R <span class="op">=</span> <span class="fl">999</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">BootCI</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">FUN</span>, <span class="va">...</span>, bci.method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"norm"</span>, <span class="st">"basic"</span>, <span class="st">"stud"</span>, <span class="st">"perc"</span>, <span class="st">"bca"</span><span class="op">)</span>,</span>
+<span>       conf.level <span class="op">=</span> <span class="fl">0.95</span>, sides <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"left"</span>, <span class="st">"right"</span><span class="op">)</span>, R <span class="op">=</span> <span class="fl">999</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>a (non-empty) numeric vector of data values.</p></dd>
-<dt>y</dt>
+
+
+    <dt>y</dt>
 <dd><p>NULL (default) or a vector with compatible dimensions to <code>x</code>, when a bivariate statistic is used.</p></dd>
-<dt>FUN</dt>
+
+
+  <dt>FUN</dt>
 <dd><p>the function to be used</p></dd>
-<dt>bci.method</dt>
+
+
+
+    <dt>bci.method</dt>
 <dd><p>A vector of character strings representing the type of intervals required. The value should be any subset of the values <code>"norm"</code>, <code>"basic"</code>, <code>"stud"</code>, <code>"perc"</code>, <code>"bca"</code>, as it is passed on as <code>method</code> to <code>boot.ci</code>.</p></dd>
-<dt>conf.level</dt>
+
+  <dt>conf.level</dt>
 <dd><p>confidence level of the interval.</p></dd>
+
 <dt>sides</dt>
 <dd><p>a character string specifying the side of the confidence interval, must be one of <code>"two.sided"</code> (default), <code>"left"</code> or <code>"right"</code>. You can specify just the initial letter. <code>"left"</code> would be analogue to a hypothesis of <code>"greater"</code> in a <code>t.test</code>.</p></dd>
-<dt>...</dt>
+
+
+  <dt>...</dt>
 <dd><p>further arguments are passed to the function <code>FUN</code>.</p></dd>
+
+
 <dt>R</dt>
 <dd><p>The number of bootstrap replicates. Usually this will be a single positive integer. For importance resampling,
  some resamples may use one set of weights and others use a different set of weights. In this case <code>R</code> would be a vector
  of integers where each component gives the number of resamples from each of the rows of weights.</p></dd>
-</dl><p><!-- %% \item{sd}{the standard deviation of x. If provided it's interpreted as sd of the population and the normal %% quantiles will be used for constructing the confidence intervals. If left to \code{NULL} (default) the --><!-- %% sample \code{sd(x)} will be calculated and used in combination with the t-distribution.} --></p>
+
+
+</dl><p><!-- %% \item{sd}{the standard deviation of x. If provided it's interpreted as sd of the population and the normal %% quantiles will be used for constructing the confidence intervals. If left to \code{NULL} (default) the --></p>
+
+
+<p><!-- %% sample \code{sd(x)} will be calculated and used in combination with the t-distribution.} --></p>
+
+
+
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>a named numeric vector with 3 elements:</p>
+    
+
+<p>a named numeric vector with 3 elements:</p>
 <dl><dt>&lt;FUN&gt;</dt>
 <dd><p>the specific estimate, as calculated by <code>FUN</code></p></dd>
-<dt>lwr.ci</dt>
+
+  <dt>lwr.ci</dt>
 <dd><p>lower bound of the confidence interval</p></dd>
-<dt>upr.ci</dt>
+
+  <dt>upr.ci</dt>
 <dd><p>upper bound of the confidence interval</p></dd>
+
 </dl></div>
     <div id="author">
     <h2>Author</h2>
@@ -135,23 +161,23 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1984</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">BootCI</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span>, FUN<span class="op">=</span><span class="va">mean</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>, bci.method<span class="op">=</span><span class="st">"basic"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1984</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">BootCI</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span>, FUN<span class="op">=</span><span class="va">mean</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>, bci.method<span class="op">=</span><span class="st">"basic"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     mean   lwr.ci   upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 47.93667 47.37436 48.49182 </span>
-<span class="r-in"><span class="fu">BootCI</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span>, FUN<span class="op">=</span><span class="va">mean</span>, trim<span class="op">=</span><span class="fl">0.1</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>, bci.method<span class="op">=</span><span class="st">"basic"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">BootCI</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span>, FUN<span class="op">=</span><span class="va">mean</span>, trim<span class="op">=</span><span class="fl">0.1</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>, bci.method<span class="op">=</span><span class="st">"basic"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     mean   lwr.ci   upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 48.98024 48.39139 49.58832 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">BootCI</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span>, FUN<span class="op">=</span><span class="va">Skew</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>, bci.method<span class="op">=</span><span class="st">"basic"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">BootCI</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span>, FUN<span class="op">=</span><span class="va">Skew</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>, bci.method<span class="op">=</span><span class="st">"basic"</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"):</span> "rskew" not available for .Call() for package "DescTools"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">BootCI</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">operator</span>, <span class="va">d.pizza</span><span class="op">$</span><span class="va">area</span>, FUN<span class="op">=</span><span class="va">CramerV</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">BootCI</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">operator</span>, <span class="va">d.pizza</span><span class="op">$</span><span class="va">area</span>, FUN<span class="op">=</span><span class="va">CramerV</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    CramerV     lwr.ci     upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.08670047 0.04138136 0.11738513 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">spearman</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>,<span class="va">y</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, method<span class="op">=</span><span class="st">"spearman"</span>, use<span class="op">=</span><span class="st">"p"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">BootCI</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span>, <span class="va">d.pizza</span><span class="op">$</span><span class="va">delivery_min</span>, FUN<span class="op">=</span><span class="va">spearman</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">spearman</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>,<span class="va">y</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, method<span class="op">=</span><span class="st">"spearman"</span>, use<span class="op">=</span><span class="st">"p"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">BootCI</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span>, <span class="va">d.pizza</span><span class="op">$</span><span class="va">delivery_min</span>, FUN<span class="op">=</span><span class="va">spearman</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   spearman     lwr.ci     upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -0.5734425 -0.6181943 -0.5275981 </span>
 </code></pre></div>
@@ -168,7 +194,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

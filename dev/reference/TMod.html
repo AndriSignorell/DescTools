@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,44 +87,55 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">TMod</span><span class="op">(</span><span class="va">...</span>, FUN <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
-
-<span class="fu">ModSummary</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for lm</span>
-<span class="fu">ModSummary</span><span class="op">(</span><span class="va">x</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for glm</span>
-<span class="fu">ModSummary</span><span class="op">(</span><span class="va">x</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span>, use.profile <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for TMod</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, terms <span class="op">=</span> <span class="cn">NULL</span>, intercept <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for TMod</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="fl">3</span>, na.form <span class="op">=</span> <span class="st">"-"</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">TMod</span><span class="op">(</span><span class="va">...</span>, FUN <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ModSummary</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for lm</span></span>
+<span><span class="fu">ModSummary</span><span class="op">(</span><span class="va">x</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for glm</span></span>
+<span><span class="fu">ModSummary</span><span class="op">(</span><span class="va">x</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span>, use.profile <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for TMod</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, terms <span class="op">=</span> <span class="cn">NULL</span>, intercept <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for TMod</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="fl">3</span>, na.form <span class="op">=</span> <span class="st">"-"</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>a (general) linear model object.</p></dd>
+
 <dt>...</dt>
 <dd><p>a list of (general) linear models.</p></dd>
+
 <dt>conf.level</dt>
 <dd><p>the level for the confidence intervals.</p></dd>
+
 <dt>FUN</dt>
 <dd><p>function with arguments <code>est</code>, <code>se</code>, <code>tval</code>, <code>pval</code>, <code>lci</code>, <code>uci</code> to display the coefficients. The default function will display the coefficient and significance stars for the p-values.</p></dd>
+
 <dt>terms</dt>
 <dd><p>a vector with the terms of the model formula to be plotted. By default this will be all of them.</p></dd>
+
 <dt>use.profile</dt>
 <dd><p>logical. Defines if profile approach should be used, which normally is a good choice for small datasets. Calculating profile can however take ages for large datasets and not be necessary there. So we can fallback to normal confidence intervals.</p></dd>
+
+
 <dt>intercept</dt>
 <dd><p>logical, defining whether the intercept should be plotted (default is <code>FALSE</code>).</p></dd>
-<dt>digits</dt>
+
+  <dt>digits</dt>
 <dd><p>integer, the desired (fixed) number of digits after the decimal point. Unlike <code><a href="https://rdrr.io/r/base/formatc.html" class="external-link">formatC</a></code> you will always get this number of digits even if the last digit is 0.
 <!-- %%     ~~Describe \code{digits} here~~ --></p></dd>
-<dt>na.form</dt>
+
+
+  <dt>na.form</dt>
 <dd><p>character, string specifying how <code>NA</code>s should be specially formatted.
   If set to <code>NULL</code> (default) no special action will be taken.
 <!-- %%     ~~Describe \code{pad} here~~ --></p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -134,7 +145,21 @@
     <div id="value">
     <h2>Value</h2>
     <p>character table
-<!-- %%  ~Describe the value returned --><!-- %%  If it is a LIST, use --><!-- %%  \item{comp1 }{Description of 'comp1'} --><!-- %%  \item{comp2 }{Description of 'comp2'} --><!-- %% ... --></p>
+<!-- %%  ~Describe the value returned --></p>
+
+
+<p><!-- %%  If it is a LIST, use --></p>
+
+
+<p><!-- %%  \item{comp1 }{Description of 'comp1'} --></p>
+
+
+<p><!-- %%  \item{comp2 }{Description of 'comp2'} --></p>
+
+
+<p><!-- %% ... --></p>
+
+
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -149,14 +174,14 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">r.full</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">Fertility</span> <span class="op">~</span> <span class="va">.</span> , <span class="va">swiss</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">r.nox</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">Fertility</span> <span class="op">~</span> <span class="va">.</span> <span class="op">-</span><span class="va">Examination</span> <span class="op">-</span> <span class="va">Catholic</span>, <span class="va">swiss</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">r.grp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">Fertility</span> <span class="op">~</span> <span class="va">.</span> <span class="op">-</span><span class="va">Education</span> <span class="op">-</span> <span class="va">Catholic</span> <span class="op">+</span> <span class="fu"><a href="CutQ.html">CutQ</a></span><span class="op">(</span><span class="va">Catholic</span><span class="op">)</span>, <span class="va">swiss</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">r.gam</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">Fertility</span> <span class="op">~</span> <span class="va">.</span> , <span class="va">swiss</span>, family<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">Gamma</a></span><span class="op">(</span>link<span class="op">=</span><span class="st">"identity"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">r.gama</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">Fertility</span> <span class="op">~</span> <span class="va">.</span><span class="op">-</span> <span class="va">Agriculture</span> , <span class="va">swiss</span>, family<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">Gamma</a></span><span class="op">(</span>link<span class="op">=</span><span class="st">"identity"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">r.gaml</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">Fertility</span> <span class="op">~</span> <span class="va">.</span> , <span class="va">swiss</span>, family<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">Gamma</a></span><span class="op">(</span>link<span class="op">=</span><span class="st">"log"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">TMod</span><span class="op">(</span><span class="va">r.full</span>, <span class="va">r.nox</span>, <span class="va">r.grp</span>, <span class="va">r.gam</span>, <span class="va">r.gama</span>, <span class="va">r.gaml</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">r.full</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">Fertility</span> <span class="op">~</span> <span class="va">.</span> , <span class="va">swiss</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">r.nox</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">Fertility</span> <span class="op">~</span> <span class="va">.</span> <span class="op">-</span><span class="va">Examination</span> <span class="op">-</span> <span class="va">Catholic</span>, <span class="va">swiss</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">r.grp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">Fertility</span> <span class="op">~</span> <span class="va">.</span> <span class="op">-</span><span class="va">Education</span> <span class="op">-</span> <span class="va">Catholic</span> <span class="op">+</span> <span class="fu"><a href="CutQ.html">CutQ</a></span><span class="op">(</span><span class="va">Catholic</span><span class="op">)</span>, <span class="va">swiss</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">r.gam</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">Fertility</span> <span class="op">~</span> <span class="va">.</span> , <span class="va">swiss</span>, family<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">Gamma</a></span><span class="op">(</span>link<span class="op">=</span><span class="st">"identity"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">r.gama</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">Fertility</span> <span class="op">~</span> <span class="va">.</span><span class="op">-</span> <span class="va">Agriculture</span> , <span class="va">swiss</span>, family<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">Gamma</a></span><span class="op">(</span>link<span class="op">=</span><span class="st">"identity"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">r.gaml</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">Fertility</span> <span class="op">~</span> <span class="va">.</span> , <span class="va">swiss</span>, family<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">Gamma</a></span><span class="op">(</span>link<span class="op">=</span><span class="st">"log"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">TMod</span><span class="op">(</span><span class="va">r.full</span>, <span class="va">r.nox</span>, <span class="va">r.grp</span>, <span class="va">r.gam</span>, <span class="va">r.gama</span>, <span class="va">r.gaml</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Waiting for profiling to be done...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Waiting for profiling to be done...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Waiting for profiling to be done...</span>
@@ -230,15 +255,15 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 32    0.119        0.127    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 33    0.688        0.718    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 34    0.687        0.718    </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># display confidence intervals</span></span>
-<span class="r-in"><span class="fu">TMod</span><span class="op">(</span><span class="va">r.full</span>, <span class="va">r.nox</span>, <span class="va">r.gam</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">est</span>, <span class="va">se</span>, <span class="va">tval</span>, <span class="va">pval</span>, <span class="va">lci</span>, <span class="va">uci</span><span class="op">)</span><span class="op">{</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">gettextf</a></span><span class="op">(</span><span class="st">"%s [%s, %s]"</span>,</span>
-<span class="r-in">           <span class="fu"><a href="Format.html">Format</a></span><span class="op">(</span><span class="va">est</span>, fmt<span class="op">=</span><span class="fu"><a href="Format.html">Fmt</a></span><span class="op">(</span><span class="st">"num"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">           <span class="fu"><a href="Format.html">Format</a></span><span class="op">(</span><span class="va">lci</span>, digits<span class="op">=</span><span class="fl">3</span><span class="op">)</span>,</span>
-<span class="r-in">           <span class="fu"><a href="Format.html">Format</a></span><span class="op">(</span><span class="va">uci</span>, digits<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in">           <span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># display confidence intervals</span></span></span>
+<span class="r-in"><span><span class="fu">TMod</span><span class="op">(</span><span class="va">r.full</span>, <span class="va">r.nox</span>, <span class="va">r.gam</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">est</span>, <span class="va">se</span>, <span class="va">tval</span>, <span class="va">pval</span>, <span class="va">lci</span>, <span class="va">uci</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">gettextf</a></span><span class="op">(</span><span class="st">"%s [%s, %s]"</span>,</span></span>
+<span class="r-in"><span>           <span class="fu"><a href="Format.html">Format</a></span><span class="op">(</span><span class="va">est</span>, fmt<span class="op">=</span><span class="fu"><a href="Format.html">Fmt</a></span><span class="op">(</span><span class="st">"num"</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>           <span class="fu"><a href="Format.html">Format</a></span><span class="op">(</span><span class="va">lci</span>, digits<span class="op">=</span><span class="fl">3</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>           <span class="fu"><a href="Format.html">Format</a></span><span class="op">(</span><span class="va">uci</span>, digits<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span>           <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Waiting for profiling to be done...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                coef               r.full                    r.nox    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1       (Intercept)   66.915 [45.294, 88.54]   51.101 [28.928, 73.27]</span>
@@ -304,49 +329,49 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 29    0.131                </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 30    0.727                </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 31    0.727                </span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># cbind interface is not supported!!</span></span>
-<span class="r-in"><span class="co"># d.titanic &lt;- reshape(as.data.frame(Titanic),</span></span>
-<span class="r-in"><span class="co">#                       idvar = c("Class","Sex","Age"),</span></span>
-<span class="r-in"><span class="co">#                       timevar="Survived",</span></span>
-<span class="r-in"><span class="co">#                       direction = "wide")</span></span>
-<span class="r-in"><span class="co">#</span></span>
-<span class="r-in"><span class="co"># r.glm0 &lt;- glm(cbind(Freq.Yes, Freq.No) ~ 1, data=d.titanic, family="binomial")</span></span>
-<span class="r-in"><span class="co"># r.glm1 &lt;- glm(cbind(Freq.Yes, Freq.No) ~ Class, data=d.titanic, family="binomial")</span></span>
-<span class="r-in"><span class="co"># r.glm2 &lt;- glm(cbind(Freq.Yes, Freq.No) ~ ., data=d.titanic, family="binomial")</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">d.titanic</span> <span class="op">&lt;-</span> <span class="fu"><a href="Untable.html">Untable</a></span><span class="op">(</span><span class="va">Titanic</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">r.glm0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">Survived</span> <span class="op">~</span> <span class="fl">1</span>, data<span class="op">=</span><span class="va">d.titanic</span>, family<span class="op">=</span><span class="st">"binomial"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">r.glm1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">Survived</span> <span class="op">~</span> <span class="va">Class</span>, data<span class="op">=</span><span class="va">d.titanic</span>, family<span class="op">=</span><span class="st">"binomial"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">r.glm2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">Survived</span> <span class="op">~</span> <span class="va">.</span>, data<span class="op">=</span><span class="va">d.titanic</span>, family<span class="op">=</span><span class="st">"binomial"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">TMod</span><span class="op">(</span><span class="va">r.glm0</span>, <span class="va">r.glm1</span>, <span class="va">r.glm2</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># cbind interface is not supported!!</span></span></span>
+<span class="r-in"><span><span class="co"># d.titanic &lt;- reshape(as.data.frame(Titanic),</span></span></span>
+<span class="r-in"><span><span class="co">#                       idvar = c("Class","Sex","Age"),</span></span></span>
+<span class="r-in"><span><span class="co">#                       timevar="Survived",</span></span></span>
+<span class="r-in"><span><span class="co">#                       direction = "wide")</span></span></span>
+<span class="r-in"><span><span class="co">#</span></span></span>
+<span class="r-in"><span><span class="co"># r.glm0 &lt;- glm(cbind(Freq.Yes, Freq.No) ~ 1, data=d.titanic, family="binomial")</span></span></span>
+<span class="r-in"><span><span class="co"># r.glm1 &lt;- glm(cbind(Freq.Yes, Freq.No) ~ Class, data=d.titanic, family="binomial")</span></span></span>
+<span class="r-in"><span><span class="co"># r.glm2 &lt;- glm(cbind(Freq.Yes, Freq.No) ~ ., data=d.titanic, family="binomial")</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">d.titanic</span> <span class="op">&lt;-</span> <span class="fu"><a href="Untable.html">Untable</a></span><span class="op">(</span><span class="va">Titanic</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">r.glm0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">Survived</span> <span class="op">~</span> <span class="fl">1</span>, data<span class="op">=</span><span class="va">d.titanic</span>, family<span class="op">=</span><span class="st">"binomial"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">r.glm1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">Survived</span> <span class="op">~</span> <span class="va">Class</span>, data<span class="op">=</span><span class="va">d.titanic</span>, family<span class="op">=</span><span class="st">"binomial"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">r.glm2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">Survived</span> <span class="op">~</span> <span class="va">.</span>, data<span class="op">=</span><span class="va">d.titanic</span>, family<span class="op">=</span><span class="st">"binomial"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">TMod</span><span class="op">(</span><span class="va">r.glm0</span>, <span class="va">r.glm1</span>, <span class="va">r.glm2</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Waiting for profiling to be done...</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("conc", PACKAGE = "DescTools", y[ord, ], as.double(wts[ord]),     as.integer(idx), as.integer(n2)):</span> "conc" not available for .Call() for package "DescTools"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># plot OddsRatios</span></span>
-<span class="r-in"><span class="va">d.pima</span> <span class="op">&lt;-</span> <span class="fu">MASS</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/MASS/man/Pima.tr.html" class="external-link">Pima.tr2</a></span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">r.a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">type</span> <span class="op">~</span> <span class="va">npreg</span> <span class="op">+</span> <span class="va">bp</span> <span class="op">+</span> <span class="va">skin</span> <span class="op">+</span> <span class="va">bmi</span> <span class="op">+</span> <span class="va">ped</span> <span class="op">+</span> <span class="va">age</span>, data<span class="op">=</span><span class="va">d.pima</span>, family<span class="op">=</span><span class="va">binomial</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">r.b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">type</span> <span class="op">~</span> <span class="va">npreg</span> <span class="op">+</span> <span class="va">glu</span> <span class="op">+</span> <span class="va">bp</span> <span class="op">+</span> <span class="va">skin</span>, data<span class="op">=</span><span class="va">d.pima</span>, family<span class="op">=</span><span class="va">binomial</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">r.c</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">type</span> <span class="op">~</span> <span class="va">npreg</span> <span class="op">+</span> <span class="va">age</span>, data<span class="op">=</span><span class="va">d.pima</span>, family<span class="op">=</span><span class="va">binomial</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">or.a</span> <span class="op">&lt;-</span> <span class="fu"><a href="OddsRatio.html">OddsRatio</a></span><span class="op">(</span><span class="va">r.a</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># plot OddsRatios</span></span></span>
+<span class="r-in"><span><span class="va">d.pima</span> <span class="op">&lt;-</span> <span class="fu">MASS</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/MASS/man/Pima.tr.html" class="external-link">Pima.tr2</a></span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">r.a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">type</span> <span class="op">~</span> <span class="va">npreg</span> <span class="op">+</span> <span class="va">bp</span> <span class="op">+</span> <span class="va">skin</span> <span class="op">+</span> <span class="va">bmi</span> <span class="op">+</span> <span class="va">ped</span> <span class="op">+</span> <span class="va">age</span>, data<span class="op">=</span><span class="va">d.pima</span>, family<span class="op">=</span><span class="va">binomial</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">r.b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">type</span> <span class="op">~</span> <span class="va">npreg</span> <span class="op">+</span> <span class="va">glu</span> <span class="op">+</span> <span class="va">bp</span> <span class="op">+</span> <span class="va">skin</span>, data<span class="op">=</span><span class="va">d.pima</span>, family<span class="op">=</span><span class="va">binomial</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">r.c</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">type</span> <span class="op">~</span> <span class="va">npreg</span> <span class="op">+</span> <span class="va">age</span>, data<span class="op">=</span><span class="va">d.pima</span>, family<span class="op">=</span><span class="va">binomial</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">or.a</span> <span class="op">&lt;-</span> <span class="fu"><a href="OddsRatio.html">OddsRatio</a></span><span class="op">(</span><span class="va">r.a</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Waiting for profiling to be done...</span>
-<span class="r-in"><span class="va">or.b</span> <span class="op">&lt;-</span> <span class="fu"><a href="OddsRatio.html">OddsRatio</a></span><span class="op">(</span><span class="va">r.b</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">or.b</span> <span class="op">&lt;-</span> <span class="fu"><a href="OddsRatio.html">OddsRatio</a></span><span class="op">(</span><span class="va">r.b</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Waiting for profiling to be done...</span>
-<span class="r-in"><span class="va">or.c</span> <span class="op">&lt;-</span> <span class="fu"><a href="OddsRatio.html">OddsRatio</a></span><span class="op">(</span><span class="va">r.c</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">or.c</span> <span class="op">&lt;-</span> <span class="fu"><a href="OddsRatio.html">OddsRatio</a></span><span class="op">(</span><span class="va">r.c</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Waiting for profiling to be done...</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create the model table</span></span>
-<span class="r-in"><span class="va">tm</span> <span class="op">&lt;-</span> <span class="fu">TMod</span><span class="op">(</span>m_A<span class="op">=</span><span class="va">or.a</span>, m_B<span class="op">=</span><span class="va">or.b</span>, m_C<span class="op">=</span><span class="va">or.c</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># .. and plotit</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tm</span>, main<span class="op">=</span><span class="st">"ORs for Models A, B, C"</span>, intercept<span class="op">=</span><span class="cn">FALSE</span>,</span>
-<span class="r-in">     pch<span class="op">=</span><span class="fl">15</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">hred</span>, <span class="va">hblue</span>, <span class="va">horange</span><span class="op">)</span>, </span>
-<span class="r-in">     panel.first<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>v<span class="op">=</span><span class="fl">1</span>, col<span class="op">=</span><span class="st">"grey30"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create the model table</span></span></span>
+<span class="r-in"><span><span class="va">tm</span> <span class="op">&lt;-</span> <span class="fu">TMod</span><span class="op">(</span>m_A<span class="op">=</span><span class="va">or.a</span>, m_B<span class="op">=</span><span class="va">or.b</span>, m_C<span class="op">=</span><span class="va">or.c</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># .. and plotit</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tm</span>, main<span class="op">=</span><span class="st">"ORs for Models A, B, C"</span>, intercept<span class="op">=</span><span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>     pch<span class="op">=</span><span class="fl">15</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">hred</span>, <span class="va">hblue</span>, <span class="va">horange</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>     panel.first<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>v<span class="op">=</span><span class="fl">1</span>, col<span class="op">=</span><span class="st">"grey30"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="TMod-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -362,7 +387,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

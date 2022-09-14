@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Midx</span><span class="op">(</span><span class="va">x</span>, incl.zero <span class="op">=</span> <span class="cn">FALSE</span>, cumulate <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Midx</span><span class="op">(</span><span class="va">x</span>, incl.zero <span class="op">=</span> <span class="cn">FALSE</span>, cumulate <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -95,15 +95,32 @@
     <dl><dt>x</dt>
 <dd><p>the numeric vector
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>incl.zero</dt>
+
+  <dt>incl.zero</dt>
 <dd><p>should zero be appended to x before proceeding? If <code>TRUE</code> the first value will be one half of the first value of x. Default is FALSE.</p></dd>
-<dt>cumulate</dt>
+
+  <dt>cumulate</dt>
 <dd><p>should the result be calculated as cumulative sum? Default is FALSE.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     <p>numeric vector with the calculated midpoins
-<!-- %%  ~Describe the value returned --><!-- %%  If it is a LIST, use --><!-- %%  \item{comp1 }{Description of 'comp1'} --><!-- %%  \item{comp2 }{Description of 'comp2'} --><!-- %% ... --></p>
+<!-- %%  ~Describe the value returned --></p>
+
+
+<p><!-- %%  If it is a LIST, use --></p>
+
+
+<p><!-- %%  \item{comp1 }{Description of 'comp1'} --></p>
+
+
+<p><!-- %%  \item{comp2 }{Description of 'comp2'} --></p>
+
+
+<p><!-- %% ... --></p>
+
+
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -117,24 +134,24 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">6</span>, <span class="fl">7</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">Midx</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">6</span>, <span class="fl">7</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">Midx</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2.0 4.5 6.5</span>
-<span class="r-in"><span class="fu">Midx</span><span class="op">(</span><span class="va">x</span>, incl.zero <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">Midx</span><span class="op">(</span><span class="va">x</span>, incl.zero <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5 2.0 4.5 6.5</span>
-<span class="r-in"><span class="fu">Midx</span><span class="op">(</span><span class="va">x</span>, incl.zero <span class="op">=</span> <span class="cn">TRUE</span>, cumulate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">Midx</span><span class="op">(</span><span class="va">x</span>, incl.zero <span class="op">=</span> <span class="cn">TRUE</span>, cumulate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.5  2.5  7.0 13.5</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># an alternative to</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="MoveAvg.html">MoveAvg</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">x</span><span class="op">)</span>, order <span class="op">=</span> <span class="fl">2</span>, align <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span>, n <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># an alternative to</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="MoveAvg.html">MoveAvg</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">x</span><span class="op">)</span>, order <span class="op">=</span> <span class="fl">2</span>, align <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span>, n <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5 2.0 4.5 6.5</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">401</span>,<span class="fl">216</span>,<span class="fl">221</span>,<span class="fl">254</span>,<span class="fl">259</span>,<span class="fl">169</span><span class="op">)</span>, nrow<span class="op">=</span><span class="fl">2</span>, byrow<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="va">tab</span>, beside <span class="op">=</span> <span class="cn">FALSE</span>, horiz<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">tab</span>, <span class="fl">2</span>, <span class="va">Midx</span>, incl.zero<span class="op">=</span><span class="cn">TRUE</span>, cumulate<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">tab</span>, x<span class="op">=</span><span class="va">x</span>, y<span class="op">=</span><span class="va">b</span>, col<span class="op">=</span><span class="st">"red"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">401</span>,<span class="fl">216</span>,<span class="fl">221</span>,<span class="fl">254</span>,<span class="fl">259</span>,<span class="fl">169</span><span class="op">)</span>, nrow<span class="op">=</span><span class="fl">2</span>, byrow<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="va">tab</span>, beside <span class="op">=</span> <span class="cn">FALSE</span>, horiz<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">tab</span>, <span class="fl">2</span>, <span class="va">Midx</span>, incl.zero<span class="op">=</span><span class="cn">TRUE</span>, cumulate<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">tab</span>, x<span class="op">=</span><span class="va">x</span>, y<span class="op">=</span><span class="va">b</span>, col<span class="op">=</span><span class="st">"red"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="Midx-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -150,7 +167,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

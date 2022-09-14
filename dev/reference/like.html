@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,9 +87,9 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="va">x</span> <span class="op">%like%</span> <span class="va">pattern</span>
-
-<span class="va">x</span> <span class="op">%like any%</span> <span class="va">pattern</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="va">x</span> <span class="op">%like%</span> <span class="va">pattern</span></span>
+<span></span>
+<span><span class="va">x</span> <span class="op">%like any%</span> <span class="va">pattern</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -97,9 +97,11 @@
     <dl><dt>x</dt>
 <dd><p>a vector, typically of character or factor type
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>pattern</dt>
+
+  <dt>pattern</dt>
 <dd><p>simple character string to be matched in the given character vector.
 <!-- %%     ~~Describe \code{pattern} here~~ --></p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -108,7 +110,24 @@
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>a vector (numeric, character, factor), matching the mode of <code>x</code><!-- %%  ~Describe the value returned --><!-- %%  If it is a LIST, use --><!-- %%  \item{comp1 }{Description of 'comp1'} --><!-- %%  \item{comp2 }{Description of 'comp2'} --><!-- %% ... --></p>
+    <p>a vector (numeric, character, factor), matching the mode of <code>x</code></p>
+
+
+<p><!-- %%  ~Describe the value returned --></p>
+
+
+<p><!-- %%  If it is a LIST, use --></p>
+
+
+<p><!-- %%  \item{comp1 }{Description of 'comp1'} --></p>
+
+
+<p><!-- %%  \item{comp2 }{Description of 'comp2'} --></p>
+
+
+<p><!-- %% ... --></p>
+
+
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -123,28 +142,28 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># find names ending on "or"</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">)</span> <span class="op">%like%</span> <span class="st">"%or"</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># find names ending on "or"</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">)</span> <span class="op">%like%</span> <span class="st">"%or"</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [13] FALSE FALSE FALSE FALSE</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># find names starting with "d"</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">)</span> <span class="op">%like%</span> <span class="st">"d%"</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># find names starting with "d"</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">)</span> <span class="op">%like%</span> <span class="st">"d%"</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [13] FALSE FALSE FALSE FALSE</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># ... containing er?</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">)</span> <span class="op">%like%</span> <span class="st">"%er%"</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># ... containing er?</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">)</span> <span class="op">%like%</span> <span class="st">"%er%"</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [13]  TRUE  TRUE FALSE FALSE</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># and combined, search for a name containing "un", ending on "or"</span></span>
-<span class="r-in"><span class="co"># or beginning with "F"</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span><span class="op">)</span> <span class="op">%like any%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"%un%"</span>, <span class="st">"%or"</span>, <span class="st">"F%"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># and combined, search for a name containing "un", ending on "or"</span></span></span>
+<span class="r-in"><span><span class="co"># or beginning with "F"</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span><span class="op">)</span> <span class="op">%like any%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"%un%"</span>, <span class="st">"%or"</span>, <span class="st">"F%"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE FALSE FALSE  TRUE  TRUE FALSE  TRUE</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># the positions on the vector</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/match.html" class="external-link">match</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">)</span> <span class="op">%like%</span> <span class="st">"%er%"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># the positions on the vector</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/match.html" class="external-link">match</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">)</span> <span class="op">%like%</span> <span class="st">"%er%"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA</span>
 </code></pre></div>
     </div>
@@ -160,7 +179,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

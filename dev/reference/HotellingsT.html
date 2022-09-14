@@ -19,7 +19,7 @@ Hotelling's T2 test is the multivariate generlisation of the Student's t test. A
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -86,38 +86,49 @@ Hotelling's T2 test is the multivariate generlisation of the Student's t test. A
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">HotellingsT2Test</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for default</span>
-<span class="fu">HotellingsT2Test</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, mu <span class="op">=</span> <span class="cn">NULL</span>, test <span class="op">=</span> <span class="st">"f"</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for formula</span>
-<span class="fu">HotellingsT2Test</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">subset</span>, <span class="va">na.action</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">HotellingsT2Test</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">HotellingsT2Test</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, mu <span class="op">=</span> <span class="cn">NULL</span>, test <span class="op">=</span> <span class="st">"f"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for formula</span></span>
+<span><span class="fu">HotellingsT2Test</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">subset</span>, <span class="va">na.action</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>a numeric data frame or matrix.</p></dd>
-<dt>y</dt>
+
+  <dt>y</dt>
 <dd><p>an optional numeric data frame or matrix for the two sample test. If <code>NULL</code> a one sample test is performed.</p></dd>
-<dt>mu</dt>
+
+  <dt>mu</dt>
 <dd><p>a vector indicating the hypothesized value of the mean (or difference
           in means if a two sample test is performed). <code>NULL</code> represents origin or no difference between the groups.</p></dd>
-<dt>test</dt>
+
+  <dt>test</dt>
 <dd><p>if <code>"f"</code>, the decision is based on the F-distribution, if <code>"chi"</code> a chi-squared approximation is used.</p></dd>
-<dt>formula</dt>
+
+  <dt>formula</dt>
 <dd><p>a formula of the form <code>x ~ g</code> where <code>x</code> is a numeric matrix giving  the data values and <code>g</code> a factor
     with two levels giving the corresponding groups.</p></dd>
-<dt>data</dt>
+
+  <dt>data</dt>
 <dd><p>an optional matrix or data frame (or similar: see <code><a href="https://rdrr.io/r/stats/model.frame.html" class="external-link">model.frame</a></code>) containing the variables in the formula <code>formula</code>.
     By default the variables are taken from <code>environment(formula)</code>.</p></dd>
-<dt>subset</dt>
+
+  <dt>subset</dt>
 <dd><p>an optional vector specifying a subset of observations to be used.</p></dd>
-<dt>na.action</dt>
+
+  <dt>na.action</dt>
 <dd><p>a function which indicates what should happen when the data contain NAs. Defaults to <code>getOption("na.action")</code>.</p></dd>
-<dt>...</dt>
+
+
+  <dt>...</dt>
 <dd><p>further arguments to be passed to or from methods.</p></dd>
+
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -132,23 +143,33 @@ Hotelling's T2 test is the multivariate generlisation of the Student's t test. A
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list with class 'htest' containing the following components:</p>
+    
+
+<p>A list with class 'htest' containing the following components:</p>
 <dl><dt>statistic </dt>
 <dd><p>the value of the T2-statistic. (That is the scaled value of the statistic that has an
                     F distribution or a chisquare distribution depending on the value of <code>test</code>).</p></dd>
-<dt>parameter</dt>
+
+  <dt>parameter</dt>
 <dd><p>the degrees of freedom for the T2-statistic.</p></dd>
-<dt>p.value</dt>
+
+  <dt>p.value</dt>
 <dd><p>the p-value for the test.</p></dd>
-<dt>null.value</dt>
+
+  <dt>null.value</dt>
 <dd><p>the specified hypothesized value of the mean or mean difference
    depending on whether it was a one-sample test or a two-sample test.</p></dd>
-<dt>alternative</dt>
+
+  <dt>alternative</dt>
 <dd><p>a character string with the value 'two.sided'.</p></dd>
-<dt>method</dt>
+
+  <dt>method</dt>
 <dd><p>a character string indicating what type of test was performed.</p></dd>
-<dt>data.name</dt>
+
+  <dt>data.name</dt>
 <dd><p>a character string giving the name of the data (and grouping vector).</p></dd>
+
+
 </dl></div>
     <div id="references">
     <h2>References</h2>
@@ -164,13 +185,13 @@ multivariate analysis</em>, New Jersey: Wiley.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">math.teach</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span class="r-in">  teacher <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">  satis   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">6</span>, <span class="fl">6</span>, <span class="fl">5</span>, <span class="fl">5</span>, <span class="fl">4</span><span class="op">)</span>,</span>
-<span class="r-in">  know    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">7</span>, <span class="fl">2</span>, <span class="fl">6</span>, <span class="fl">8</span>, <span class="fl">8</span>, <span class="fl">10</span>, <span class="fl">10</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">math.teach</span>,</span>
-<span class="r-in">  <span class="fu">HotellingsT2Test</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">satis</span>, <span class="va">know</span><span class="op">)</span> <span class="op">~</span> <span class="va">teacher</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">math.teach</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  teacher <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  satis   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">6</span>, <span class="fl">6</span>, <span class="fl">5</span>, <span class="fl">5</span>, <span class="fl">4</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  know    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">7</span>, <span class="fl">2</span>, <span class="fl">6</span>, <span class="fl">8</span>, <span class="fl">8</span>, <span class="fl">10</span>, <span class="fl">10</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">math.teach</span>,</span></span>
+<span class="r-in"><span>  <span class="fu">HotellingsT2Test</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">satis</span>, <span class="va">know</span><span class="op">)</span> <span class="op">~</span> <span class="va">teacher</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Hotelling's two sample T2-test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -192,7 +213,7 @@ multivariate analysis</em>, New Jersey: Wiley.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

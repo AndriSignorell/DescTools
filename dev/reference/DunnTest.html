@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -82,20 +82,20 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">DunnTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for default</span>
-<span class="fu">DunnTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">g</span>,
-         method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"holm"</span>, <span class="st">"hochberg"</span>, <span class="st">"hommel"</span>, <span class="st">"bonferroni"</span>, <span class="st">"BH"</span>,
-                    <span class="st">"BY"</span>, <span class="st">"fdr"</span>, <span class="st">"none"</span><span class="op">)</span>,
-         alternative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"less"</span>, <span class="st">"greater"</span><span class="op">)</span>,
-         out.list <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for formula</span>
-<span class="fu">DunnTest</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">subset</span>, <span class="va">na.action</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for DunnTest</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"digits"</span>, <span class="fl">3</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">DunnTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">DunnTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">g</span>,</span>
+<span>         method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"holm"</span>, <span class="st">"hochberg"</span>, <span class="st">"hommel"</span>, <span class="st">"bonferroni"</span>, <span class="st">"BH"</span>,</span>
+<span>                    <span class="st">"BY"</span>, <span class="st">"fdr"</span>, <span class="st">"none"</span><span class="op">)</span>,</span>
+<span>         alternative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"less"</span>, <span class="st">"greater"</span><span class="op">)</span>,</span>
+<span>         out.list <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for formula</span></span>
+<span><span class="fu">DunnTest</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">subset</span>, <span class="va">na.action</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for DunnTest</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"digits"</span>, <span class="fl">3</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -103,35 +103,47 @@
     <dl><dt>x</dt>
 <dd><p>a numeric vector of data values, or a list of numeric data
     vectors.</p></dd>
-<dt>g</dt>
+
+  <dt>g</dt>
 <dd><p>a vector or factor object giving the group for the
     corresponding elements of <code>x</code>.  Ignored if <code>x</code> is a
     list.</p></dd>
-<dt>method</dt>
+
+  <dt>method</dt>
 <dd><p>the method for adjusting p-values for multiple comparisons. The function is calling <code><a href="https://rdrr.io/r/stats/p.adjust.html" class="external-link">p.adjust</a></code> and this parameter is directly passed through.</p></dd>
-<dt>alternative</dt>
+
+  <dt>alternative</dt>
 <dd><p>a character string specifying the alternative hypothesis, must be one of <code>"two.sided"</code> (default), <code>"greater"</code> or <code>"less"</code>. You can specify just the initial letter.</p></dd>
-<dt>out.list</dt>
+
+  <dt>out.list</dt>
 <dd><p>logical, indicating if the results should be printed in list mode or as a square matrix. Default is list (TRUE).</p></dd>
-<dt>formula</dt>
+
+  <dt>formula</dt>
 <dd><p>a formula of the form <code>lhs ~ rhs</code> where <code>lhs</code>
     gives the data values and <code>rhs</code> the corresponding groups.</p></dd>
-<dt>data</dt>
+
+  <dt>data</dt>
 <dd><p>an optional matrix or data frame (or similar: see
     <code><a href="https://rdrr.io/r/stats/model.frame.html" class="external-link">model.frame</a></code>) containing the variables in the
     formula <code>formula</code>.  By default the variables are taken from
     <code>environment(formula)</code>.</p></dd>
-<dt>subset</dt>
+
+  <dt>subset</dt>
 <dd><p>an optional vector specifying a subset of observations
     to be used.</p></dd>
-<dt>na.action</dt>
+
+  <dt>na.action</dt>
 <dd><p>a function which indicates what should happen when
     the data contain <code>NA</code>s.  Defaults to
     <code>getOption("na.action")</code>.</p></dd>
-<dt>digits</dt>
+
+  <dt>digits</dt>
 <dd><p>controls the number of fixed digits to print.</p></dd>
-<dt>...</dt>
+
+
+  <dt>...</dt>
 <dd><p>further arguments to be passed to or from methods.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -148,9 +160,12 @@ Dunn's test is constructed in part by summing jointly ranked data. The rank sum 
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list with class <code>"DunnTest"</code> containing the following components:</p>
+    
+
+<p>A list with class <code>"DunnTest"</code> containing the following components:</p>
 <dl><dt>res</dt>
 <dd><p>an array containing the mean rank differencens and the according p-values</p></dd>
+
 </dl></div>
     <div id="author">
     <h2>Author</h2>
@@ -168,14 +183,14 @@ Dunn's test is constructed in part by summing jointly ranked data. The rank sum 
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## Hollander &amp; Wolfe (1973), 116.</span></span>
-<span class="r-in"><span class="co">## Mucociliary efficiency from the rate of removal of dust in normal</span></span>
-<span class="r-in"><span class="co">##  subjects, subjects with obstructive airway disease, and subjects</span></span>
-<span class="r-in"><span class="co">##  with asbestosis.</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.9</span>, <span class="fl">3.0</span>, <span class="fl">2.5</span>, <span class="fl">2.6</span>, <span class="fl">3.2</span><span class="op">)</span> <span class="co"># normal subjects</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3.8</span>, <span class="fl">2.7</span>, <span class="fl">4.0</span>, <span class="fl">2.4</span><span class="op">)</span>      <span class="co"># with obstructive airway disease</span></span>
-<span class="r-in"><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.8</span>, <span class="fl">3.4</span>, <span class="fl">3.7</span>, <span class="fl">2.2</span>, <span class="fl">2.0</span><span class="op">)</span> <span class="co"># with asbestosis</span></span>
-<span class="r-in"><span class="fu">DunnTest</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## Hollander &amp; Wolfe (1973), 116.</span></span></span>
+<span class="r-in"><span><span class="co">## Mucociliary efficiency from the rate of removal of dust in normal</span></span></span>
+<span class="r-in"><span><span class="co">##  subjects, subjects with obstructive airway disease, and subjects</span></span></span>
+<span class="r-in"><span><span class="co">##  with asbestosis.</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.9</span>, <span class="fl">3.0</span>, <span class="fl">2.5</span>, <span class="fl">2.6</span>, <span class="fl">3.2</span><span class="op">)</span> <span class="co"># normal subjects</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3.8</span>, <span class="fl">2.7</span>, <span class="fl">4.0</span>, <span class="fl">2.4</span><span class="op">)</span>      <span class="co"># with obstructive airway disease</span></span></span>
+<span class="r-in"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.8</span>, <span class="fl">3.4</span>, <span class="fl">3.7</span>, <span class="fl">2.2</span>, <span class="fl">2.0</span><span class="op">)</span> <span class="co"># with asbestosis</span></span></span>
+<span class="r-in"><span><span class="fu">DunnTest</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Dunn's test of multiple comparisons using rank sums : holm  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -186,25 +201,25 @@ Dunn's test is constructed in part by summing jointly ranked data. The rank sum 
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Equivalently,</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">            labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Normal subjects"</span>,</span>
-<span class="r-in">                       <span class="st">"Subjects with obstructive airway disease"</span>,</span>
-<span class="r-in">                       <span class="st">"Subjects with asbestosis"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># do the kruskal.test first</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/kruskal.test.html" class="external-link">kruskal.test</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">g</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Equivalently,</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>            labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Normal subjects"</span>,</span></span>
+<span class="r-in"><span>                       <span class="st">"Subjects with obstructive airway disease"</span>,</span></span>
+<span class="r-in"><span>                       <span class="st">"Subjects with asbestosis"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># do the kruskal.test first</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/kruskal.test.html" class="external-link">kruskal.test</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">g</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Kruskal-Wallis rank sum test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  x and g</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Kruskal-Wallis chi-squared = 0.77143, df = 2, p-value = 0.68</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># ...and the pairwise test afterwards</span></span>
-<span class="r-in"><span class="fu">DunnTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">g</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># ...and the pairwise test afterwards</span></span></span>
+<span class="r-in"><span><span class="fu">DunnTest</span><span class="op">(</span><span class="va">x</span>, <span class="va">g</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Dunn's test of multiple comparisons using rank sums : holm  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -219,11 +234,11 @@ Dunn's test is constructed in part by summing jointly ranked data. The rank sum 
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Formula interface.</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">Ozone</span> <span class="op">~</span> <span class="va">Month</span>, data <span class="op">=</span> <span class="va">airquality</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Formula interface.</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">Ozone</span> <span class="op">~</span> <span class="va">Month</span>, data <span class="op">=</span> <span class="va">airquality</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="DunnTest-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu">DunnTest</span><span class="op">(</span><span class="va">Ozone</span> <span class="op">~</span> <span class="va">Month</span>, data <span class="op">=</span> <span class="va">airquality</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">DunnTest</span><span class="op">(</span><span class="va">Ozone</span> <span class="op">~</span> <span class="va">Month</span>, data <span class="op">=</span> <span class="va">airquality</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Dunn's test of multiple comparisons using rank sums : holm  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -255,7 +270,7 @@ Dunn's test is constructed in part by summing jointly ranked data. The rank sum 
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

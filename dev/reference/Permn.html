@@ -21,7 +21,7 @@ The values can be numeric values, characters or factors. CombN computes the numb
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -89,10 +89,10 @@ The values can be numeric values, characters or factors. <code>CombN</code> comp
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Permn</span><span class="op">(</span><span class="va">x</span>, sort <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="fu">CombN</span><span class="op">(</span><span class="va">n</span>, <span class="va">m</span>, repl <span class="op">=</span> <span class="cn">FALSE</span>, ord <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="fu">CombSet</span><span class="op">(</span><span class="va">x</span>, <span class="va">m</span>, repl <span class="op">=</span> <span class="cn">FALSE</span>, ord <span class="op">=</span> <span class="cn">FALSE</span>, as.list <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Permn</span><span class="op">(</span><span class="va">x</span>, sort <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">CombN</span><span class="op">(</span><span class="va">n</span>, <span class="va">m</span>, repl <span class="op">=</span> <span class="cn">FALSE</span>, ord <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu">CombSet</span><span class="op">(</span><span class="va">x</span>, <span class="va">m</span>, repl <span class="op">=</span> <span class="cn">FALSE</span>, ord <span class="op">=</span> <span class="cn">FALSE</span>, as.list <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -100,19 +100,27 @@ The values can be numeric values, characters or factors. <code>CombN</code> comp
     <dl><dt>x</dt>
 <dd><p>a vector of numeric values or characters. Characters need not be unique.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>n</dt>
+
+  <dt>n</dt>
 <dd><p>number of elements from which to choose.</p></dd>
-<dt>m</dt>
+
+  <dt>m</dt>
 <dd><p>number of elements to choose. For <code>CombSet</code> can <code>m</code> be a numeric vector too.</p></dd>
-<dt>repl</dt>
+
+  <dt>repl</dt>
 <dd><p>logical. Should repetition of the same element be allowed? Defaults to FALSE</p></dd>
-<dt>ord</dt>
+
+  <dt>ord</dt>
 <dd><p>logical. Does the order matter? Default is FALSE.</p></dd>
-<dt>sort</dt>
+
+
+  <dt>sort</dt>
 <dd><p>logical, defining if the result set should be sorted. Default is FALSE.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
+
 <dt>as.list</dt>
 <dd><p>logical, defining if the results should be returned in a flat list, say every sample is a single element of the resulting list. Default is FALSE.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -121,7 +129,18 @@ automatically be filtered for unique sets, if the same element is given twice or
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>a matrix with all possible permutations or combinations of the values in x for <code>Permn</code> and <code>CombSet</code><br>if m contains more than one element the result will be a list of matrices or a flat list if <code>as.list</code> is set to <code>TRUE</code><br>an integer value for <code>CombN</code></p>
+    <p>a matrix with all possible permutations or combinations of the values in x for <code>Permn</code> and <code>CombSet</code><br></p>
+
+
+<p>if m contains more than one element the result will be a list of matrices or a flat list if <code>as.list</code> is set to <code>TRUE</code></p>
+
+
+<p><br></p>
+
+
+<p>an integer value for <code>CombN</code></p>
+
+
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -136,7 +155,7 @@ automatically be filtered for unique sets, if the same element is given twice or
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">Permn</span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">Permn</span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       [,1] [,2] [,3] [,4]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] "b"  "c"  "d"  "e" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [2,] "c"  "b"  "d"  "e" </span>
@@ -162,7 +181,7 @@ automatically be filtered for unique sets, if the same element is given twice or
 <span class="r-out co"><span class="r-pr">#&gt;</span> [22,] "e"  "b"  "d"  "c" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [23,] "e"  "d"  "b"  "c" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [24,] "e"  "d"  "c"  "b" </span>
-<span class="r-in"><span class="fu">Permn</span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">Permn</span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       [,1] [,2] [,3] [,4]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]    2    3    4    5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]    3    2    4    5</span>
@@ -188,9 +207,9 @@ automatically be filtered for unique sets, if the same element is given twice or
 <span class="r-out co"><span class="r-pr">#&gt;</span> [22,]    5    2    4    3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [23,]    5    4    2    3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [24,]    5    4    3    2</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># containing the same element more than once</span></span>
-<span class="r-in"><span class="fu">Permn</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"a"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># containing the same element more than once</span></span></span>
+<span class="r-in"><span><span class="fu">Permn</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"a"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       [,1] [,2] [,3] [,4]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] "a"  "b"  "c"  "a" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [2,] "b"  "a"  "c"  "a" </span>
@@ -204,15 +223,15 @@ automatically be filtered for unique sets, if the same element is given twice or
 <span class="r-out co"><span class="r-pr">#&gt;</span> [10,] "b"  "a"  "a"  "c" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [11,] "a"  "a"  "b"  "c" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [12,] "a"  "a"  "c"  "b" </span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># only combinations of 2, but in every possible order</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></span>
-<span class="r-in"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fl">2</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># the samples</span></span>
-<span class="r-in"><span class="fu">CombSet</span><span class="op">(</span><span class="va">x</span>, <span class="va">m</span>, repl<span class="op">=</span><span class="cn">TRUE</span>, ord<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># only combinations of 2, but in every possible order</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fl">2</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># the samples</span></span></span>
+<span class="r-in"><span><span class="fu">CombSet</span><span class="op">(</span><span class="va">x</span>, <span class="va">m</span>, repl<span class="op">=</span><span class="cn">TRUE</span>, ord<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] "a"  "a" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [2,] "a"  "b" </span>
@@ -224,7 +243,7 @@ automatically be filtered for unique sets, if the same element is given twice or
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] "c"  "c" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] "c"  "d" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [10,] "d"  "d" </span>
-<span class="r-in"><span class="fu">CombSet</span><span class="op">(</span><span class="va">x</span>, <span class="va">m</span>, repl<span class="op">=</span><span class="cn">TRUE</span>, ord<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">CombSet</span><span class="op">(</span><span class="va">x</span>, <span class="va">m</span>, repl<span class="op">=</span><span class="cn">TRUE</span>, ord<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] "a"  "a" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [2,] "b"  "a" </span>
@@ -242,7 +261,7 @@ automatically be filtered for unique sets, if the same element is given twice or
 <span class="r-out co"><span class="r-pr">#&gt;</span> [14,] "b"  "d" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [15,] "c"  "d" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [16,] "d"  "d" </span>
-<span class="r-in"><span class="fu">CombSet</span><span class="op">(</span><span class="va">x</span>, <span class="va">m</span>, repl<span class="op">=</span><span class="cn">FALSE</span>, ord<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">CombSet</span><span class="op">(</span><span class="va">x</span>, <span class="va">m</span>, repl<span class="op">=</span><span class="cn">FALSE</span>, ord<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] "a"  "b" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [2,] "b"  "a" </span>
@@ -256,7 +275,7 @@ automatically be filtered for unique sets, if the same element is given twice or
 <span class="r-out co"><span class="r-pr">#&gt;</span> [10,] "d"  "b" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [11,] "c"  "d" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [12,] "d"  "c" </span>
-<span class="r-in"><span class="fu">CombSet</span><span class="op">(</span><span class="va">x</span>, <span class="va">m</span>, repl<span class="op">=</span><span class="cn">FALSE</span>, ord<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">CombSet</span><span class="op">(</span><span class="va">x</span>, <span class="va">m</span>, repl<span class="op">=</span><span class="cn">FALSE</span>, ord<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] "a"  "b" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] "a"  "c" </span>
@@ -264,20 +283,20 @@ automatically be filtered for unique sets, if the same element is given twice or
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] "b"  "c" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [5,] "b"  "d" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [6,] "c"  "d" </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># the number of the samples</span></span>
-<span class="r-in"><span class="fu">CombN</span><span class="op">(</span><span class="va">n</span>, <span class="va">m</span>, repl<span class="op">=</span><span class="cn">TRUE</span>, ord<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># the number of the samples</span></span></span>
+<span class="r-in"><span><span class="fu">CombN</span><span class="op">(</span><span class="va">n</span>, <span class="va">m</span>, repl<span class="op">=</span><span class="cn">TRUE</span>, ord<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 10</span>
-<span class="r-in"><span class="fu">CombN</span><span class="op">(</span><span class="va">n</span>, <span class="va">m</span>, repl<span class="op">=</span><span class="cn">TRUE</span>, ord<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">CombN</span><span class="op">(</span><span class="va">n</span>, <span class="va">m</span>, repl<span class="op">=</span><span class="cn">TRUE</span>, ord<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 16</span>
-<span class="r-in"><span class="fu">CombN</span><span class="op">(</span><span class="va">n</span>, <span class="va">m</span>, repl<span class="op">=</span><span class="cn">FALSE</span>, ord<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">CombN</span><span class="op">(</span><span class="va">n</span>, <span class="va">m</span>, repl<span class="op">=</span><span class="cn">FALSE</span>, ord<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 12</span>
-<span class="r-in"><span class="fu">CombN</span><span class="op">(</span><span class="va">n</span>, <span class="va">m</span>, repl<span class="op">=</span><span class="cn">FALSE</span>, ord<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">CombN</span><span class="op">(</span><span class="va">n</span>, <span class="va">m</span>, repl<span class="op">=</span><span class="cn">FALSE</span>, ord<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 6</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># build all subsets of length 1, 3 and 5 and return a flat list</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
-<span class="r-in"><span class="fu">CombSet</span><span class="op">(</span>x<span class="op">=</span><span class="va">x</span>, m<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span>, as.list<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># build all subsets of length 1, 3 and 5 and return a flat list</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="fu">CombSet</span><span class="op">(</span>x<span class="op">=</span><span class="va">x</span>, m<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span>, as.list<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "a"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -326,7 +345,7 @@ automatically be filtered for unique sets, if the same element is given twice or
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[16]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "a" "b" "c" "d" "e"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -341,7 +360,7 @@ automatically be filtered for unique sets, if the same element is given twice or
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

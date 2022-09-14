@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">SplitPath</span><span class="op">(</span><span class="va">path</span>, last.is.file <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">SplitPath</span><span class="op">(</span><span class="va">path</span>, last.is.file <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -95,24 +95,34 @@
     <dl><dt>path</dt>
 <dd><p>a path
 <!-- %%     ~~Describe \code{path} here~~ --></p></dd>
-<dt>last.is.file</dt>
+
+  <dt>last.is.file</dt>
 <dd><p>logical, determining if the basename should be interpreted as filename or as last directory. If set to <code>NULL</code> (default), the last entry will be interpreted if the last character is either \ or / and as filename else.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list, containing the following components:</p>
+    
+
+<p>A list, containing the following components:</p>
 <dl><dt>normpath</dt>
 <dd><p>the normalized path as returned by <code><a href="https://rdrr.io/r/base/normalizePath.html" class="external-link">normalizePath</a></code></p></dd>
-<dt>drive</dt>
+
+  <dt>drive</dt>
 <dd><p>the drive if the OS is Windows, <code>NA</code> else</p></dd>
-<dt>dirname</dt>
+                  
+  <dt>dirname</dt>
 <dd><p>the path without directory and without filename</p></dd>
-<dt>fullfilename</dt>
+
+  <dt>fullfilename</dt>
 <dd><p>the filename including extension</p></dd>
-<dt>filename</dt>
+
+  <dt>filename</dt>
 <dd><p>the filename without extension</p></dd>
-<dt>extension</dt>
+
+  <dt>extension</dt>
 <dd><p>the file extension</p></dd>
+
 </dl></div>
     <div id="author">
     <h2>Author</h2>
@@ -127,13 +137,13 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span>  <span class="co"># Windows-specific example</span></span>
-<span class="r-in"><span class="va">path</span> <span class="op">&lt;-</span> <span class="st">"C:/Documents/Projects/Import/eyestudy.dta"</span></span>
-<span class="r-in"><span class="fu">SplitPath</span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span>  <span class="co"># Windows-specific example</span></span></span>
+<span class="r-in"><span><span class="va">path</span> <span class="op">&lt;-</span> <span class="st">"C:/Documents/Projects/Import/eyestudy.dta"</span></span></span>
+<span class="r-in"><span><span class="fu">SplitPath</span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in is.factor(x):</span> object 'path' not found</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">path</span> <span class="op">&lt;-</span> <span class="st">"C:/Documents/Projects/Import/"</span></span>
-<span class="r-in"><span class="fu">SplitPath</span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">path</span> <span class="op">&lt;-</span> <span class="st">"C:/Documents/Projects/Import/"</span></span></span>
+<span class="r-in"><span><span class="fu">SplitPath</span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $normpath</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "C:/Documents/Projects/Import/"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -155,9 +165,9 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> $extension</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">path</span> <span class="op">&lt;-</span> <span class="st">"C:/Documents/Projects/Import"</span></span>
-<span class="r-in"><span class="fu">SplitPath</span><span class="op">(</span><span class="va">path</span><span class="op">)</span>  <span class="co"># last entry will be taken as filename</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">path</span> <span class="op">&lt;-</span> <span class="st">"C:/Documents/Projects/Import"</span></span></span>
+<span class="r-in"><span><span class="fu">SplitPath</span><span class="op">(</span><span class="va">path</span><span class="op">)</span>  <span class="co"># last entry will be taken as filename</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $normpath</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "C:/Documents/Projects/Import"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -179,7 +189,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> $extension</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">SplitPath</span><span class="op">(</span><span class="va">path</span>, last.is.file<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">SplitPath</span><span class="op">(</span><span class="va">path</span>, last.is.file<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $normpath</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "C:/Documents/Projects/Import"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -201,7 +211,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> $extension</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -216,7 +226,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

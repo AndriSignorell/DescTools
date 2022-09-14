@@ -22,7 +22,7 @@ and SYD returns the sum-of-years' digits depreciation.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -91,9 +91,9 @@ and <code>SYD</code> returns the sum-of-years' digits depreciation.
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">SLN</span><span class="op">(</span><span class="va">cost</span>, <span class="va">salvage</span>, <span class="va">life</span><span class="op">)</span>
-<span class="fu">DB</span><span class="op">(</span><span class="va">cost</span>, <span class="va">salvage</span>, <span class="va">life</span>, period <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="va">life</span><span class="op">)</span>
-<span class="fu">SYD</span><span class="op">(</span><span class="va">cost</span>, <span class="va">salvage</span>, <span class="va">life</span>, period <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="va">life</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">SLN</span><span class="op">(</span><span class="va">cost</span>, <span class="va">salvage</span>, <span class="va">life</span><span class="op">)</span></span>
+<span><span class="fu">DB</span><span class="op">(</span><span class="va">cost</span>, <span class="va">salvage</span>, <span class="va">life</span>, period <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="va">life</span><span class="op">)</span></span>
+<span><span class="fu">SYD</span><span class="op">(</span><span class="va">cost</span>, <span class="va">salvage</span>, <span class="va">life</span>, period <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="va">life</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -101,19 +101,37 @@ and <code>SYD</code> returns the sum-of-years' digits depreciation.
     <dl><dt>cost</dt>
 <dd><p>initial cost of the asset.
 <!-- %%     ~~Describe \code{cost} here~~ --></p></dd>
-<dt>salvage</dt>
+
+  <dt>salvage</dt>
 <dd><p>value at the end of the depreciation (sometimes called the salvage value of the asset).
 <!-- %%     ~~Describe \code{salvage} here~~ --></p></dd>
-<dt>life</dt>
+
+  <dt>life</dt>
 <dd><p>number of periods over which the asset is depreciated (sometimes called the useful life of the asset).
 <!-- %%     ~~Describe \code{life} here~~ --></p></dd>
+
 <dt>period</dt>
 <dd><p>period for which you want to calculate the depreciation. Period must use the same units as life.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     <p>val
-<!-- %%  ~Describe the value returned --><!-- %%  If it is a LIST, use --><!-- %%  \item{comp1 }{Description of 'comp1'} --><!-- %%  \item{comp2 }{Description of 'comp2'} --><!-- %% ... --></p>
+<!-- %%  ~Describe the value returned --></p>
+
+
+<p><!-- %%  If it is a LIST, use --></p>
+
+
+<p><!-- %%  \item{comp1 }{Description of 'comp1'} --></p>
+
+
+<p><!-- %%  \item{comp2 }{Description of 'comp2'} --></p>
+
+
+<p><!-- %% ... --></p>
+
+
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -127,16 +145,16 @@ and <code>SYD</code> returns the sum-of-years' digits depreciation.
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># depreciation allowance for each year</span></span>
-<span class="r-in"><span class="fu">SLN</span><span class="op">(</span>cost <span class="op">=</span> <span class="fl">50000</span>, salvage <span class="op">=</span> <span class="fl">10000</span>, life <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># depreciation allowance for each year</span></span></span>
+<span class="r-in"><span><span class="fu">SLN</span><span class="op">(</span>cost <span class="op">=</span> <span class="fl">50000</span>, salvage <span class="op">=</span> <span class="fl">10000</span>, life <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8000</span>
-<span class="r-in"><span class="fu">DB</span><span class="op">(</span>cost <span class="op">=</span> <span class="fl">50000</span>, salvage <span class="op">=</span> <span class="fl">10000</span>, life <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">DB</span><span class="op">(</span>cost <span class="op">=</span> <span class="fl">50000</span>, salvage <span class="op">=</span> <span class="fl">10000</span>, life <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 13761.017  9973.705  7228.739  5239.243  3797.297</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fl">50000</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html" class="external-link">cumsum</a></span><span class="op">(</span><span class="fu">SYD</span><span class="op">(</span>cost <span class="op">=</span> <span class="fl">50000</span>, salvage <span class="op">=</span> <span class="fl">10000</span>, life <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fl">50000</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html" class="external-link">cumsum</a></span><span class="op">(</span><span class="fu">SYD</span><span class="op">(</span>cost <span class="op">=</span> <span class="fl">50000</span>, salvage <span class="op">=</span> <span class="fl">10000</span>, life <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 50000.00 36666.67 26000.00 18000.00 12666.67 10000.00</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -151,7 +169,7 @@ and <code>SYD</code> returns the sum-of-years' digits depreciation.
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,8 +87,8 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Gini</span><span class="op">(</span><span class="va">x</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>, unbiased <span class="op">=</span> <span class="cn">TRUE</span>,
-     conf.level <span class="op">=</span> <span class="cn">NA</span>, R <span class="op">=</span> <span class="fl">1000</span>, type <span class="op">=</span> <span class="st">"bca"</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Gini</span><span class="op">(</span><span class="va">x</span>, weights <span class="op">=</span> <span class="cn">NULL</span>, unbiased <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>     conf.level <span class="op">=</span> <span class="cn">NA</span>, R <span class="op">=</span> <span class="fl">10000</span>, type <span class="op">=</span> <span class="st">"bca"</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -96,33 +96,40 @@
     <dl><dt>x</dt>
 <dd><p>a vector containing at least non-negative elements. The result will be <code>NA</code>, if x contains negative elements.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>n</dt>
-<dd><p>a vector of frequencies (weights), must be same length as x.
+
+  <dt>weights</dt>
+<dd><p>a numerical vector of weights the same length as <code>x</code> giving the weights to use for elements of <code>x</code>.
 <!-- %%     ~~Describe \code{n} here~~ --></p></dd>
-<dt>unbiased</dt>
+
+  <dt>unbiased</dt>
 <dd><p>logical. In order for G to be an unbiased estimate of the true population value,
    calculated gini is multiplied by \(n/(n-1)\). Default is TRUE. (See Dixon, 1987)
 <!-- %%     ~~Describe \code{unbiased} here~~ --></p></dd>
-<dt>conf.level</dt>
+
+  <dt>conf.level</dt>
 <dd><p>confidence level for the confidence interval, restricted to lie between 0 and 1.
   If set to <code>TRUE</code> the bootstrap confidence intervals are calculated.
   If set to <code>NA</code> (default) no confidence intervals are returned.</p>
 <p><!-- %%     ~~Describe \code{conf.level} here~~ --></p></dd>
-<dt>R</dt>
+
+  <dt>R</dt>
 <dd><p>number of bootstrap replicates. Usually this will be a single positive integer.
   For importance resampling, some resamples may use one set of weights and others use a different set of weights. In this case R would be a vector of
   integers where each component gives the number of resamples from each of the rows of weights.<br>
   This is ignored if no confidence intervals are to be calculated.</p>
 <p><!-- %%     ~~Describe \code{R} here~~ --></p></dd>
-<dt>type</dt>
+
+  <dt>type</dt>
 <dd><p>character string representing the type of interval required.
   The value should be one out of the c(<code>"norm"</code>,<code>"basic"</code>, <code>"stud"</code>,
   <code>"perc"</code> or <code>"bca"</code>).<br>
   This argument is ignored if no confidence intervals are to be calculated.
 <!-- %%     ~~Describe \code{type} here~~ --></p></dd>
-<dt>na.rm</dt>
+
+  <dt>na.rm</dt>
 <dd><p>logical. Should missing values be removed? Defaults to FALSE.
 <!-- %%     ~~Describe \code{na.rm} here~~ --></p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -139,17 +146,22 @@ this produces values very closed to conventional bias corrected intervals.<br>
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>If <code>conf.level</code> is set to <code>NA</code> then the result will be</p>
+    
+
+<p>If <code>conf.level</code> is set to <code>NA</code> then the result will be</p>
 <dl><dt>a</dt>
 <dd><p>single numeric value</p></dd>
 </dl><p>and
 if a <code>conf.level</code> is provided, a named numeric vector with 3 elements:</p>
 <dl><dt>gini</dt>
 <dd><p>Gini coefficient</p></dd>
-<dt>lwr.ci</dt>
+
+  <dt>lwr.ci</dt>
 <dd><p>lower bound of the confidence interval</p></dd>
-<dt>upr.ci</dt>
+
+  <dt>upr.ci</dt>
 <dd><p>upper bound of the confidence interval</p></dd>
+
 </dl></div>
     <div id="references">
     <h2>References</h2>
@@ -178,36 +190,36 @@ The bootstrap method. <em>Journal of the American Statistical Association</em> 9
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># generate vector (of incomes)</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">541</span>, <span class="fl">1463</span>, <span class="fl">2445</span>, <span class="fl">3438</span>, <span class="fl">4437</span>, <span class="fl">5401</span>, <span class="fl">6392</span>, <span class="fl">8304</span>, <span class="fl">11904</span>, <span class="fl">22261</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># compute Gini coefficient</span></span>
-<span class="r-in"><span class="fu">Gini</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># generate vector (of incomes)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">541</span>, <span class="fl">1463</span>, <span class="fl">2445</span>, <span class="fl">3438</span>, <span class="fl">4437</span>, <span class="fl">5401</span>, <span class="fl">6392</span>, <span class="fl">8304</span>, <span class="fl">11904</span>, <span class="fl">22261</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># compute Gini coefficient</span></span></span>
+<span class="r-in"><span><span class="fu">Gini</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5134346</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># working with weights</span></span>
-<span class="r-in"><span class="va">fl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.5</span>, <span class="fl">7.5</span>, <span class="fl">15</span>, <span class="fl">35</span>, <span class="fl">75</span>, <span class="fl">150</span><span class="op">)</span>    <span class="co"># midpoints of classes</span></span>
-<span class="r-in"><span class="va">n</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">25</span>, <span class="fl">13</span>, <span class="fl">10</span>, <span class="fl">5</span>, <span class="fl">5</span>, <span class="fl">2</span><span class="op">)</span>          <span class="co"># frequencies</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># with confidence intervals</span></span>
-<span class="r-in"><span class="fu">Gini</span><span class="op">(</span><span class="va">fl</span>, <span class="va">n</span>, conf.level<span class="op">=</span><span class="fl">0.95</span>, unbiased<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># working with weights</span></span></span>
+<span class="r-in"><span><span class="va">fl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.5</span>, <span class="fl">7.5</span>, <span class="fl">15</span>, <span class="fl">35</span>, <span class="fl">75</span>, <span class="fl">150</span><span class="op">)</span>    <span class="co"># midpoints of classes</span></span></span>
+<span class="r-in"><span><span class="va">n</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">25</span>, <span class="fl">13</span>, <span class="fl">10</span>, <span class="fl">5</span>, <span class="fl">5</span>, <span class="fl">2</span><span class="op">)</span>          <span class="co"># frequencies</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># with confidence intervals</span></span></span>
+<span class="r-in"><span><span class="fu">Gini</span><span class="op">(</span>x<span class="op">=</span><span class="va">fl</span>, weights<span class="op">=</span><span class="va">n</span>, conf.level<span class="op">=</span><span class="fl">0.95</span>, unbiased<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      gini    lwr.ci    upr.ci </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.6566810 0.5968962 0.7197727 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># some special cases</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">10</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="Lc.html">Lc</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.6566810 0.4979260 0.7677293 </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># some special cases</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">10</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="Lc.html">Lc</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="Gini-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">Gini</span><span class="op">(</span><span class="va">x</span>, unbiased<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">Gini</span><span class="op">(</span><span class="va">x</span>, unbiased<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># the same with weights</span></span>
-<span class="r-in"><span class="fu">Gini</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">0</span><span class="op">)</span>, n<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span>, unbiased<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># the same with weights</span></span></span>
+<span class="r-in"><span><span class="fu">Gini</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">0</span><span class="op">)</span>, weights<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span>, unbiased<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># perfect balance</span></span>
-<span class="r-in"><span class="fu">Gini</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">10</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># perfect balance</span></span></span>
+<span class="r-in"><span><span class="fu">Gini</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">10</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
 </code></pre></div>
     </div>
@@ -223,7 +235,7 @@ The bootstrap method. <em>Journal of the American Statistical Association</em> 9
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

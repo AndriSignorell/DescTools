@@ -20,7 +20,7 @@ Yule's Q and Y and Tschuprow's T of x, if x is a table. If both, x and y are giv
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,32 +87,38 @@ Yule's Q and Y and Tschuprow's T of <code>x</code>, if <code>x</code> is a table
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Phi</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-<span class="fu">ContCoef</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, correct <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span>
-<span class="fu">CramerV</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, conf.level <span class="op">=</span> <span class="cn">NA</span>,
-        method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ncchisq"</span>, <span class="st">"ncchisqadj"</span>, <span class="st">"fisher"</span>, <span class="st">"fisheradj"</span><span class="op">)</span>, 
-        correct <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">YuleQ</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-<span class="fu">YuleY</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-<span class="fu">TschuprowT</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, correct <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Phi</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">ContCoef</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, correct <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">CramerV</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, conf.level <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>        method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ncchisq"</span>, <span class="st">"ncchisqadj"</span>, <span class="st">"fisher"</span>, <span class="st">"fisheradj"</span><span class="op">)</span>, </span>
+<span>        correct <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">YuleQ</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">YuleY</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">TschuprowT</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, correct <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>can be a numeric vector, a matrix or a table.</p></dd>
-<dt>y</dt>
+
+  <dt>y</dt>
 <dd><p>NULL (default) or a vector with compatible dimensions to <code>x</code>. If y is provided, <code>table(x, y, ...)</code> is calculated.</p></dd>
-<dt>conf.level</dt>
+
+  <dt>conf.level</dt>
 <dd><p>confidence level of the interval. This is only implemented for Cramer's V. If set to <code>NA</code> (which is the       default) no confidence interval will be calculated. <br>
   See examples for calculating bootstrap intervals.</p></dd>
+
 <dt>method</dt>
 <dd><p>string defining the method to calculate confidence intervals for Cramer's V. One out of <code>"ncchisq"</code> (using noncentral chisquare), <code>"ncchisqadj"</code>, <code>"fisher"</code> (using fisher z transformation), <code>"fisheradj"</code> (using fisher z transformation and bias correction). Default is <code>"ncchisq"</code>.</p></dd>
-<dt>correct</dt>
+
+  <dt>correct</dt>
 <dd><p>logical. Applying to <code>ContCoef</code> this indicates, whether the Sakoda's adjusted Pearson's C should be returned. For <code>CramerV()</code> and <code>TschuprowT()</code> it defines, whether a bias correction should be applied or not. Default is <code>FALSE</code>.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>further arguments are passed to the function <code><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></code>, allowing i.e. to set <code>useNA</code>.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -130,7 +136,12 @@ The minimum value for all is 0 under statistical independence.</p>
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>a single numeric value if no confidence intervals are requested,<br>and otherwise a numeric vector with 3 elements for the estimate, the lower and the upper confidence interval</p>
+    
+
+<p>a single numeric value if no confidence intervals are requested,<br></p>
+
+
+<p>and otherwise a numeric vector with 3 elements for the estimate, the lower and the upper confidence interval</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -157,68 +168,68 @@ Michael Smithson &lt;michael.smithson@anu.edu.au&gt;  (confidence intervals for 
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span>, <span class="va">d.pizza</span><span class="op">$</span><span class="va">wine_delivered</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">Phi</span><span class="op">(</span><span class="va">tab</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span>, <span class="va">d.pizza</span><span class="op">$</span><span class="va">wine_delivered</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">Phi</span><span class="op">(</span><span class="va">tab</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1328222</span>
-<span class="r-in"><span class="fu">ContCoef</span><span class="op">(</span><span class="va">tab</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">ContCoef</span><span class="op">(</span><span class="va">tab</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1316659</span>
-<span class="r-in"><span class="fu">CramerV</span><span class="op">(</span><span class="va">tab</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">CramerV</span><span class="op">(</span><span class="va">tab</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1328222</span>
-<span class="r-in"><span class="fu">TschuprowT</span><span class="op">(</span><span class="va">tab</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">TschuprowT</span><span class="op">(</span><span class="va">tab</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.08486583</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># just x and y</span></span>
-<span class="r-in"><span class="fu">CramerV</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span>, <span class="va">d.pizza</span><span class="op">$</span><span class="va">wine_delivered</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># just x and y</span></span></span>
+<span class="r-in"><span><span class="fu">CramerV</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span>, <span class="va">d.pizza</span><span class="op">$</span><span class="va">wine_delivered</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1328222</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># data.frame</span></span>
-<span class="r-in"><span class="fu"><a href="PairApply.html">PairApply</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"driver"</span>,<span class="st">"operator"</span>,<span class="st">"area"</span><span class="op">)</span><span class="op">]</span>, <span class="va">CramerV</span>, symmetric <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># data.frame</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="PairApply.html">PairApply</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"driver"</span>,<span class="st">"operator"</span>,<span class="st">"area"</span><span class="op">)</span><span class="op">]</span>, <span class="va">CramerV</span>, symmetric <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             driver   operator       area</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> driver   1.0000000 0.23585686 0.65018461</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> operator 0.2358569 1.00000000 0.08670047</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> area     0.6501846 0.08670047 1.00000000</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># useNA is passed to table</span></span>
-<span class="r-in"><span class="fu"><a href="PairApply.html">PairApply</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"driver"</span>,<span class="st">"operator"</span>,<span class="st">"area"</span><span class="op">)</span><span class="op">]</span>, <span class="va">CramerV</span>,</span>
-<span class="r-in">          useNA<span class="op">=</span><span class="st">"ifany"</span>, symmetric <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># useNA is passed to table</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="PairApply.html">PairApply</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"driver"</span>,<span class="st">"operator"</span>,<span class="st">"area"</span><span class="op">)</span><span class="op">]</span>, <span class="va">CramerV</span>,</span></span>
+<span class="r-in"><span>          useNA<span class="op">=</span><span class="st">"ifany"</span>, symmetric <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             driver   operator       area</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> driver   1.0000000 0.20253639 0.53066544</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> operator 0.2025364 1.00000000 0.07847762</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> area     0.5306654 0.07847762 1.00000000</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">d.frm</span> <span class="op">&lt;-</span> <span class="va">d.pizza</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"driver"</span>,<span class="st">"operator"</span>,<span class="st">"area"</span><span class="op">)</span><span class="op">]</span></span>
-<span class="r-in"><span class="fu"><a href="PairApply.html">PairApply</a></span><span class="op">(</span><span class="va">d.frm</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/stats/complete.cases.html" class="external-link">complete.cases</a></span><span class="op">(</span><span class="va">d.frm</span><span class="op">)</span>,<span class="op">]</span>, <span class="va">CramerV</span>, symmetric <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">d.frm</span> <span class="op">&lt;-</span> <span class="va">d.pizza</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"driver"</span>,<span class="st">"operator"</span>,<span class="st">"area"</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="PairApply.html">PairApply</a></span><span class="op">(</span><span class="va">d.frm</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/stats/complete.cases.html" class="external-link">complete.cases</a></span><span class="op">(</span><span class="va">d.frm</span><span class="op">)</span>,<span class="op">]</span>, <span class="va">CramerV</span>, symmetric <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             driver  operator      area</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> driver   1.0000000 0.2345141 0.6504665</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> operator 0.2345141 1.0000000 0.0869935</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> area     0.6504665 0.0869935 1.0000000</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">as.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">1</span>,<span class="fl">7</span><span class="op">)</span>, nrow<span class="op">=</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">YuleQ</span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">as.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">1</span>,<span class="fl">7</span><span class="op">)</span>, nrow<span class="op">=</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">YuleQ</span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5555556</span>
-<span class="r-in"><span class="fu">YuleY</span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">YuleY</span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.303337</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Bootstrap confidence intervals for Cramer's V</span></span>
-<span class="r-in"><span class="co"># http://support.sas.com/documentation/cdl/en/statugfreq/63124/PDF/default/statugfreq.pdf, p. 1821</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">as.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">26</span>,<span class="fl">26</span>,<span class="fl">23</span>,<span class="fl">18</span>, <span class="fl">9</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> <span class="fl">6</span>, <span class="fl">7</span>, <span class="fl">9</span>,<span class="fl">14</span>,<span class="fl">23</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">d.frm</span> <span class="op">&lt;-</span> <span class="fu"><a href="Untable.html">Untable</a></span><span class="op">(</span><span class="va">tab</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1000</span></span>
-<span class="r-in"><span class="va">idx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">d.frm</span><span class="op">)</span>, size<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">d.frm</span><span class="op">)</span> <span class="op">*</span> <span class="va">n</span>, replace<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>, ncol<span class="op">=</span><span class="va">n</span>, byrow<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">idx</span>, <span class="fl">2</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">CramerV</span><span class="op">(</span><span class="va">d.frm</span><span class="op">[</span><span class="va">x</span>,<span class="fl">1</span><span class="op">]</span>, <span class="va">d.frm</span><span class="op">[</span><span class="va">x</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">v</span>, probs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.025</span>,<span class="fl">0.975</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Bootstrap confidence intervals for Cramer's V</span></span></span>
+<span class="r-in"><span><span class="co"># http://support.sas.com/documentation/cdl/en/statugfreq/63124/PDF/default/statugfreq.pdf, p. 1821</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">as.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">26</span>,<span class="fl">26</span>,<span class="fl">23</span>,<span class="fl">18</span>, <span class="fl">9</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> <span class="fl">6</span>, <span class="fl">7</span>, <span class="fl">9</span>,<span class="fl">14</span>,<span class="fl">23</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">d.frm</span> <span class="op">&lt;-</span> <span class="fu"><a href="Untable.html">Untable</a></span><span class="op">(</span><span class="va">tab</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1000</span></span></span>
+<span class="r-in"><span><span class="va">idx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">d.frm</span><span class="op">)</span>, size<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">d.frm</span><span class="op">)</span> <span class="op">*</span> <span class="va">n</span>, replace<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>, ncol<span class="op">=</span><span class="va">n</span>, byrow<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">idx</span>, <span class="fl">2</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">CramerV</span><span class="op">(</span><span class="va">d.frm</span><span class="op">[</span><span class="va">x</span>,<span class="fl">1</span><span class="op">]</span>, <span class="va">d.frm</span><span class="op">[</span><span class="va">x</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">v</span>, probs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.025</span>,<span class="fl">0.975</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      2.5%     97.5% </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.2814951 0.5600137 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># compare this to the analytical ones</span></span>
-<span class="r-in"><span class="fu">CramerV</span><span class="op">(</span><span class="va">tab</span>, conf.level<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># compare this to the analytical ones</span></span></span>
+<span class="r-in"><span><span class="fu">CramerV</span><span class="op">(</span><span class="va">tab</span>, conf.level<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Cramer V    lwr.ci    upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.4064888 0.2211672 0.5410622 </span>
 </code></pre></div>
@@ -235,7 +246,7 @@ Michael Smithson &lt;michael.smithson@anu.edu.au&gt;  (confidence intervals for 
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

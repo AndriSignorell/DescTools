@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -82,19 +82,23 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">StrCap</span><span class="op">(</span><span class="va">x</span>, method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"first"</span>, <span class="st">"word"</span>, <span class="st">"title"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">StrCap</span><span class="op">(</span><span class="va">x</span>, method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"first"</span>, <span class="st">"word"</span>, <span class="st">"title"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>string to be capitalized.</p></dd>
-<dt>method</dt>
+
+  <dt>method</dt>
 <dd><p>one out of <code>"first"</code> (default), <code>"word"</code>, <code>"title"</code>. <code>"first"</code> will only capitalize the first character of a string. <code>"word"</code> will capitalize all found words and <code>"title"</code> will also capitalize wordwise, but leave out: a, an, the, at, by, for, in, of, on, to, up, and, as, but, s, or and nor.)</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Returns a vector of charaters with the first letter capitalized</p>
+    
+
+<p>Returns a vector of charaters with the first letter capitalized</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -103,31 +107,31 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># capitalize first character</span></span>
-<span class="r-in"><span class="fu">StrCap</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Hello"</span>, <span class="st">"bob"</span>, <span class="st">"daN"</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># capitalize first character</span></span></span>
+<span class="r-in"><span><span class="fu">StrCap</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Hello"</span>, <span class="st">"bob"</span>, <span class="st">"daN"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Hello" "Bob"   "DaN"  </span>
-<span class="r-in"><span class="co"># but not all...</span></span>
-<span class="r-in"><span class="fu">StrCap</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Hello bob, how are you?"</span>, <span class="st">"And you, DANIEL?"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># but not all...</span></span></span>
+<span class="r-in"><span><span class="fu">StrCap</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Hello bob, how are you?"</span>, <span class="st">"And you, DANIEL?"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Hello bob, how are you?" "And you, DANIEL?"       </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># wordwise</span></span>
-<span class="r-in"><span class="fu">StrCap</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Capitalize all words in titles of publications and documents"</span>,</span>
-<span class="r-in">              <span class="st">"but Up and UP, not all and all"</span>, <span class="cn">NA</span><span class="op">)</span>, method<span class="op">=</span><span class="st">"word"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># wordwise</span></span></span>
+<span class="r-in"><span><span class="fu">StrCap</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Capitalize all words in titles of publications and documents"</span>,</span></span>
+<span class="r-in"><span>              <span class="st">"but Up and UP, not all and all"</span>, <span class="cn">NA</span><span class="op">)</span>, method<span class="op">=</span><span class="st">"word"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Capitalize All Words In Titles Of Publications And Documents"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2] "But Up And UP Not All And All"                               </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3] NA                                                            </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># wordwise omitting the ones listed above</span></span>
-<span class="r-in"><span class="fu">StrCap</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Capitalize all words in titles of publications and documents"</span>,</span>
-<span class="r-in">         <span class="st">"but Up and UP, not all and all"</span>, <span class="cn">NA</span><span class="op">)</span>, method<span class="op">=</span><span class="st">"title"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># wordwise omitting the ones listed above</span></span></span>
+<span class="r-in"><span><span class="fu">StrCap</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Capitalize all words in titles of publications and documents"</span>,</span></span>
+<span class="r-in"><span>         <span class="st">"but Up and UP, not all and all"</span>, <span class="cn">NA</span><span class="op">)</span>, method<span class="op">=</span><span class="st">"title"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Capitalize All Words in Titles of Publications and Documents"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2] "but up and up, Not All and All"                              </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3] NA                                                            </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># do not touch non alphabetic characters</span></span>
-<span class="r-in"><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Lorem ipsum dolor"</span>, <span class="st">"-- sit amet"</span>, <span class="st">"consectetur --"</span>, <span class="st">" adipiscing elit "</span>,</span>
-<span class="r-in">       <span class="st">"sed,.--(do) / +-*eiusmod"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">StrCap</span><span class="op">(</span><span class="va">z</span>, method<span class="op">=</span><span class="st">"title"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># do not touch non alphabetic characters</span></span></span>
+<span class="r-in"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Lorem ipsum dolor"</span>, <span class="st">"-- sit amet"</span>, <span class="st">"consectetur --"</span>, <span class="st">" adipiscing elit "</span>,</span></span>
+<span class="r-in"><span>       <span class="st">"sed,.--(do) / +-*eiusmod"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">StrCap</span><span class="op">(</span><span class="va">z</span>, method<span class="op">=</span><span class="st">"title"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Lorem Ipsum Dolor"        "-- Sit Amet"             </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3] "Consectetur --"           " Adipiscing Elit "       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [5] "Sed,.--(Do) / +-*Eiusmod"</span>
@@ -145,7 +149,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

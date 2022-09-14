@@ -18,7 +18,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -93,15 +93,41 @@
     <dl><dt>x</dt>
 <dd><p>a numeric vector or matrix. <code>x</code> and <code>y</code> can also
   both be factors.</p></dd>
-<dt>y</dt>
+
+  <dt>y</dt>
 <dd><p>a numeric vector; ignored if <code>x</code> is a matrix.  If
   <code>x</code> is a factor, <code>y</code> should be a factor of the same length.</p></dd>
-<dt>correct</dt>
+
+  <dt>correct</dt>
 <dd><p>one out of <code>"none"</code> (default), <code>"williams"</code>, <code>"yates"</code> . See Details.</p></dd>
-<dt>p</dt>
+
+  <dt>p</dt>
 <dd><p>a vector of probabilities of the same length of <code>x</code>.
   An error is given if any entry of <code>p</code> is negative.</p></dd>
-</dl><p><!-- %  \item{rescale.p}{a logical scalar; if \code{TRUE} then \code{p} is rescaled --><!-- %  (if necessary) to sum to 1.  If \code{rescale.p} is FALSE, and --><!-- %  \code{p} does not sum to 1, an error is given.} --><!-- %  \item{simulate.p.value}{a logical indicating whether to compute --><!-- %  p-values by Monte Carlo simulation.} --><!-- %  \item{B}{an integer specifying the number of replicates used in the --><!-- %  Monte Carlo test.} --></p>
+
+
+</dl><p><!-- %  \item{rescale.p}{a logical scalar; if \code{TRUE} then \code{p} is rescaled --></p>
+
+
+<p><!-- %  (if necessary) to sum to 1.  If \code{rescale.p} is FALSE, and --></p>
+
+
+<p><!-- %  \code{p} does not sum to 1, an error is given.} --></p>
+
+
+
+<p><!-- %  \item{simulate.p.value}{a logical indicating whether to compute --></p>
+
+
+<p><!-- %  p-values by Monte Carlo simulation.} --></p>
+
+
+
+<p><!-- %  \item{B}{an integer specifying the number of replicates used in the --></p>
+
+
+<p><!-- %  Monte Carlo test.} --></p>
+<p></p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -145,27 +171,36 @@
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list with class <code>"htest"</code> containing the following
+    
+
+<p>A list with class <code>"htest"</code> containing the following
   components:</p>
 <dl><dt>statistic</dt>
 <dd><p>the value the chi-squared test statistic.</p></dd>
-<dt>parameter</dt>
+
+  <dt>parameter</dt>
 <dd><p>the degrees of freedom of the approximate
   chi-squared distribution of the test statistic, <code>NA</code> if the
   p-value is computed by Monte Carlo simulation.</p></dd>
-<dt>p.value</dt>
+
+  <dt>p.value</dt>
 <dd><p>the p-value for the test.</p></dd>
-<dt>method</dt>
+
+  <dt>method</dt>
 <dd><p>a character string indicating the type of test
   performed, and whether Monte Carlo simulation or continuity
   correction was used.</p></dd>
-<dt>data.name</dt>
+
+  <dt>data.name</dt>
 <dd><p>a character string giving the name(s) of the data.</p></dd>
-<dt>observed</dt>
+
+  <dt>observed</dt>
 <dd><p>the observed counts.</p></dd>
-<dt>expected</dt>
+
+  <dt>expected</dt>
 <dd><p>the expected counts under the null hypothesis.</p></dd>
-</dl></div>
+
+  </dl></div>
     <div id="author">
     <h2>Author</h2>
     <p>Pete Hurd &lt;phurd@ualberta.ca&gt;</p>
@@ -195,74 +230,74 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co">## From Agresti(2007) p.39</span></span>
-<span class="r-in"><span class="va">M</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">as.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">762</span>, <span class="fl">327</span>, <span class="fl">468</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">484</span>,<span class="fl">239</span>,<span class="fl">477</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">M</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>gender<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"M"</span>,<span class="st">"F"</span><span class="op">)</span>,</span>
-<span class="r-in">                    party<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Democrat"</span>,<span class="st">"Independent"</span>, <span class="st">"Republican"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="op">(</span><span class="va">Xsq</span> <span class="op">&lt;-</span> <span class="fu">GTest</span><span class="op">(</span><span class="va">M</span><span class="op">)</span><span class="op">)</span>   <span class="co"># Prints test summary</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## From Agresti(2007) p.39</span></span></span>
+<span class="r-in"><span><span class="va">M</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">as.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">762</span>, <span class="fl">327</span>, <span class="fl">468</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">484</span>,<span class="fl">239</span>,<span class="fl">477</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">M</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>gender<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"M"</span>,<span class="st">"F"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                    party<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Democrat"</span>,<span class="st">"Independent"</span>, <span class="st">"Republican"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">Xsq</span> <span class="op">&lt;-</span> <span class="fu">GTest</span><span class="op">(</span><span class="va">M</span><span class="op">)</span><span class="op">)</span>   <span class="co"># Prints test summary</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Log likelihood ratio (G-test) test of independence without correction</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  M</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> G = 30.017, X-squared df = 2, p-value = 0.0000003034</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">Xsq</span><span class="op">$</span><span class="va">observed</span>        <span class="co"># observed counts (same as M)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">Xsq</span><span class="op">$</span><span class="va">observed</span>        <span class="co"># observed counts (same as M)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       party</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> gender Democrat Independent Republican</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      M      762         327        468</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      F      484         239        477</span>
-<span class="r-in"><span class="va">Xsq</span><span class="op">$</span><span class="va">expected</span>        <span class="co"># expected counts under the null</span></span>
+<span class="r-in"><span><span class="va">Xsq</span><span class="op">$</span><span class="va">expected</span>        <span class="co"># expected counts under the null</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Democrat Independent Republican</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> M 703.6714    319.6453   533.6834</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> F 542.3286    246.3547   411.3166</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Testing for population probabilities</span></span>
-<span class="r-in"><span class="co">## Case A. Tabulated data</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">20</span>, B <span class="op">=</span> <span class="fl">15</span>, C <span class="op">=</span> <span class="fl">25</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">GTest</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Testing for population probabilities</span></span></span>
+<span class="r-in"><span><span class="co">## Case A. Tabulated data</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">20</span>, B <span class="op">=</span> <span class="fl">15</span>, C <span class="op">=</span> <span class="fl">25</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">GTest</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Log likelihood ratio (G-test) goodness of fit test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  x</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> G = 2.5267, X-squared df = 2, p-value = 0.2827</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">GTest</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">as.table</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>             <span class="co"># the same</span></span>
+<span class="r-in"><span><span class="fu">GTest</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">as.table</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>             <span class="co"># the same</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Log likelihood ratio (G-test) goodness of fit test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  as.table(x)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> G = 2.5267, X-squared df = 2, p-value = 0.2827</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">89</span>,<span class="fl">37</span>,<span class="fl">30</span>,<span class="fl">28</span>,<span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">40</span>,<span class="fl">20</span>,<span class="fl">20</span>,<span class="fl">15</span>,<span class="fl">5</span><span class="op">)</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span></span>
-<span class="r-in"><span class="fu">GTest</span><span class="op">(</span><span class="va">x</span>, p <span class="op">=</span> <span class="va">p</span><span class="op">)</span>                <span class="co"># gives an error</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">89</span>,<span class="fl">37</span>,<span class="fl">30</span>,<span class="fl">28</span>,<span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">40</span>,<span class="fl">20</span>,<span class="fl">20</span>,<span class="fl">15</span>,<span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="fu">GTest</span><span class="op">(</span><span class="va">x</span>, p <span class="op">=</span> <span class="va">p</span><span class="op">)</span>                <span class="co"># gives an error</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Log likelihood ratio (G-test) goodness of fit test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  x</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> G = -1700.5, X-squared df = 4, p-value = 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="co"># works</span></span>
-<span class="r-in"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.40</span>,<span class="fl">0.20</span>,<span class="fl">0.20</span>,<span class="fl">0.19</span>,<span class="fl">0.01</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Expected count in category 5</span></span>
-<span class="r-in"><span class="co"># is 1.86 &lt; 5 ==&gt; chi square approx.</span></span>
-<span class="r-in"><span class="fu">GTest</span><span class="op">(</span><span class="va">x</span>, p <span class="op">=</span> <span class="va">p</span><span class="op">)</span>                <span class="co">#         maybe doubtful, but is ok!</span></span>
+<span class="r-in"><span><span class="co"># works</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.40</span>,<span class="fl">0.20</span>,<span class="fl">0.20</span>,<span class="fl">0.19</span>,<span class="fl">0.01</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Expected count in category 5</span></span></span>
+<span class="r-in"><span><span class="co"># is 1.86 &lt; 5 ==&gt; chi square approx.</span></span></span>
+<span class="r-in"><span><span class="fu">GTest</span><span class="op">(</span><span class="va">x</span>, p <span class="op">=</span> <span class="va">p</span><span class="op">)</span>                <span class="co">#         maybe doubtful, but is ok!</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Log likelihood ratio (G-test) goodness of fit test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  x</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> G = 5.8414, X-squared df = 4, p-value = 0.2113</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Case B. Raw data</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">trunc</a></span><span class="op">(</span><span class="fl">5</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">GTest</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>                <span class="co"># NOT 'GTest(x)'!</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Case B. Raw data</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">trunc</a></span><span class="op">(</span><span class="fl">5</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">GTest</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>                <span class="co"># NOT 'GTest(x)'!</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Log likelihood ratio (G-test) goodness of fit test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -283,7 +318,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

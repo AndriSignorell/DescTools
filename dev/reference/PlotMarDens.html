@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,45 +87,59 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">PlotMarDens</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, grp <span class="op">=</span> <span class="fl">1</span>, xlim <span class="op">=</span> <span class="cn">NULL</span>, ylim <span class="op">=</span> <span class="cn">NULL</span>,
-            col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">rainbow</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nlevels.html" class="external-link">nlevels</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">grp</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,
-            mardens <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span>,<span class="st">"x"</span>,<span class="st">"y"</span><span class="op">)</span>, pch <span class="op">=</span> <span class="fl">1</span>, pch.cex <span class="op">=</span> <span class="fl">1</span>,
-            main <span class="op">=</span> <span class="st">""</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span>, args.legend <span class="op">=</span> <span class="cn">NULL</span>,
-            args.dens <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">PlotMarDens</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, grp <span class="op">=</span> <span class="fl">1</span>, xlim <span class="op">=</span> <span class="cn">NULL</span>, ylim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>            col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">rainbow</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nlevels.html" class="external-link">nlevels</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">grp</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>            mardens <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span>,<span class="st">"x"</span>,<span class="st">"y"</span><span class="op">)</span>, pch <span class="op">=</span> <span class="fl">1</span>, pch.cex <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>            main <span class="op">=</span> <span class="st">""</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span>, args.legend <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>            args.dens <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>numeric vector of x values.</p></dd>
-<dt>y</dt>
+
+  <dt>y</dt>
 <dd><p>numeric vector of y values (of same length as x).</p></dd>
-<dt>grp</dt>
+
+  <dt>grp</dt>
 <dd><p>grouping variable(s), typically factor(s), all of the same length as x.</p></dd>
-<dt>xlim</dt>
+
+  <dt>xlim</dt>
 <dd><p>the x limits of the plot.</p></dd>
-<dt>ylim</dt>
+
+  <dt>ylim</dt>
 <dd><p>the y limits of the plot.</p></dd>
-<dt>col</dt>
+
+  <dt>col</dt>
 <dd><p>the colors for lines and points. Uses <code><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">rainbow()</a></code> colors by default.</p></dd>
-<dt>mardens</dt>
+
+ <dt>mardens</dt>
 <dd><p>which marginal densities to plot. Can be set to either just x or y, or both (<code>"all"</code>, latter being the default).</p></dd>
-<dt>pch</dt>
+
+  <dt>pch</dt>
 <dd><p>a vector of plotting characters or symbols.</p></dd>
-<dt>pch.cex</dt>
+
+  <dt>pch.cex</dt>
 <dd><p>magnification to be used for plotting characters relative to the current setting of cex.</p></dd>
-<dt>main</dt>
+
+  <dt>main</dt>
 <dd><p>a main title for the plot, see also <a href="https://rdrr.io/r/graphics/title.html" class="external-link">title</a>.</p></dd>
-<dt>na.rm</dt>
+
+  <dt>na.rm</dt>
 <dd><p>logical, should NAs be omitted? Defaults to <code>FALSE</code>.</p></dd>
-<dt>args.legend</dt>
+
+   <dt>args.legend</dt>
 <dd><p>list of additional arguments for the legend. <code>args.legend</code> set to <code>NA</code> prevents a legend from being drawn.</p></dd>
-<dt>args.dens</dt>
+
+  <dt>args.dens</dt>
 <dd><p>list of additional arguments to be passed to <code>density</code>.
   Use <code>args.dens = NA</code> if no density curve should be drawn. The defaults are taken from <code><a href="https://rdrr.io/r/stats/density.html" class="external-link">density</a></code>.
 <!-- %%     ~~Describe \code{args.dens} here~~ --></p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>further arguments are passed to the function <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code>.</p></dd>
+
 </dl></div>
     <div id="author">
     <h2>Author</h2>
@@ -138,28 +152,28 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># best seen with: x11(7.5, 4.7)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># just one variable with marginal densities</span></span>
-<span class="r-in"><span class="fu">PlotMarDens</span><span class="op">(</span> y<span class="op">=</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span>, x<span class="op">=</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">delivery_min</span>, grp<span class="op">=</span><span class="fl">1</span></span>
-<span class="r-in">             , xlab<span class="op">=</span><span class="st">"delivery_min"</span>, ylab<span class="op">=</span><span class="st">"temperature"</span>, col<span class="op">=</span><span class="fu"><a href="SetAlpha.html">SetAlpha</a></span><span class="op">(</span><span class="st">"brown"</span>, <span class="fl">0.4</span><span class="op">)</span></span>
-<span class="r-in">             , pch<span class="op">=</span><span class="fl">15</span>, lwd<span class="op">=</span><span class="fl">3</span></span>
-<span class="r-in">             , panel.first<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/grid.html" class="external-link">grid</a></span><span class="op">(</span><span class="op">)</span>, args.legend<span class="op">=</span><span class="cn">NA</span></span>
-<span class="r-in">             , main<span class="op">=</span><span class="st">"Temp ~ delivery"</span></span>
-<span class="r-in"><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># best seen with: x11(7.5, 4.7)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># just one variable with marginal densities</span></span></span>
+<span class="r-in"><span><span class="fu">PlotMarDens</span><span class="op">(</span> y<span class="op">=</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span>, x<span class="op">=</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">delivery_min</span>, grp<span class="op">=</span><span class="fl">1</span></span></span>
+<span class="r-in"><span>             , xlab<span class="op">=</span><span class="st">"delivery_min"</span>, ylab<span class="op">=</span><span class="st">"temperature"</span>, col<span class="op">=</span><span class="fu"><a href="SetAlpha.html">SetAlpha</a></span><span class="op">(</span><span class="st">"brown"</span>, <span class="fl">0.4</span><span class="op">)</span></span></span>
+<span class="r-in"><span>             , pch<span class="op">=</span><span class="fl">15</span>, lwd<span class="op">=</span><span class="fl">3</span></span></span>
+<span class="r-in"><span>             , panel.first<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/grid.html" class="external-link">grid</a></span><span class="op">(</span><span class="op">)</span>, args.legend<span class="op">=</span><span class="cn">NA</span></span></span>
+<span class="r-in"><span>             , main<span class="op">=</span><span class="st">"Temp ~ delivery"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>argument 1 does not name a graphical parameter</span>
 <span class="r-plt img"><img src="PlotMarDens-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># use a group variable</span></span>
-<span class="r-in"><span class="fu">PlotMarDens</span><span class="op">(</span> y<span class="op">=</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span>, x<span class="op">=</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">delivery_min</span>, grp<span class="op">=</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">area</span></span>
-<span class="r-in">  , xlab<span class="op">=</span><span class="st">"delivery_min"</span>, ylab<span class="op">=</span><span class="st">"temperature"</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"brown"</span>,<span class="st">"orange"</span>,<span class="st">"lightsteelblue"</span><span class="op">)</span></span>
-<span class="r-in">  , panel.first<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/graphics/grid.html" class="external-link">grid</a></span><span class="op">(</span><span class="op">)</span> <span class="op">)</span></span>
-<span class="r-in">  , main <span class="op">=</span> <span class="st">"temperature ~ delivery_min | area"</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># use a group variable</span></span></span>
+<span class="r-in"><span><span class="fu">PlotMarDens</span><span class="op">(</span> y<span class="op">=</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span>, x<span class="op">=</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">delivery_min</span>, grp<span class="op">=</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">area</span></span></span>
+<span class="r-in"><span>  , xlab<span class="op">=</span><span class="st">"delivery_min"</span>, ylab<span class="op">=</span><span class="st">"temperature"</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"brown"</span>,<span class="st">"orange"</span>,<span class="st">"lightsteelblue"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  , panel.first<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/graphics/grid.html" class="external-link">grid</a></span><span class="op">(</span><span class="op">)</span> <span class="op">)</span></span></span>
+<span class="r-in"><span>  , main <span class="op">=</span> <span class="st">"temperature ~ delivery_min | area"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>argument 1 does not name a graphical parameter</span>
 <span class="r-plt img"><img src="PlotMarDens-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># reset layout</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># reset layout</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -174,7 +188,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

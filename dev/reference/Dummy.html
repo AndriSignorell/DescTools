@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,8 +87,8 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Dummy</span><span class="op">(</span><span class="va">x</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"treatment"</span>, <span class="st">"sum"</span>, <span class="st">"helmert"</span>, <span class="st">"poly"</span>, <span class="st">"full"</span><span class="op">)</span>,
-      base <span class="op">=</span> <span class="fl">1</span>, levels <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Dummy</span><span class="op">(</span><span class="va">x</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"treatment"</span>, <span class="st">"sum"</span>, <span class="st">"helmert"</span>, <span class="st">"poly"</span>, <span class="st">"full"</span><span class="op">)</span>,</span>
+<span>      base <span class="op">=</span> <span class="fl">1</span>, levels <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -96,19 +96,23 @@
     <dl><dt>x</dt>
 <dd><p>factor or vector of classes for cases.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>method</dt>
+
+  <dt>method</dt>
 <dd><p>defines the method of the contrasts being formed. Can be one
   out of <code>"treatment"</code>, <code>"sum"</code>, <code>"helmert"</code>, <code>"poly"</code>, <code>"full"</code>,
   whereas <code>"treatment"</code> is the default one. Abbreviations are accepted.<br>
   The option <code>"full"</code> returns a full set of class indicators, say a dummy factor for <b>each</b> level of x.
   Note that this would be redundant for <code><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a>()</code> and friends!
 <!-- %%     ~~Describe \code{method} here~~ --></p></dd>
-<dt>base</dt>
+
+  <dt>base</dt>
 <dd><p>an integer specifying which group is considered the baseline group.</p></dd>
-<dt>levels</dt>
+
+  <dt>levels</dt>
 <dd><p>an optional vector of the values (as character strings) that <code>x</code> might have taken.
   The default is the unique set of values taken by as.character(x), sorted into increasing order of x.<br>
   This is directly passed on to <code><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></code>.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -117,8 +121,10 @@
     <div id="value">
     <h2>Value</h2>
     <p>a matrix with the dummy codes.
-The number of rows correspond to the number of elements in <code>x</code> and the number of columns to the number of its levels - 1, respectively to the number of levels given as argument -1.
-When <code>method = "full"</code> is chosen the number of columns will correspond to the number of levels.</p>
+The number of rows correspond to the number of elements in <code>x</code> and the number of columns to the number of its levels - 1, respectively to the number of levels given as argument -1.</p>
+
+
+<p>When <code>method = "full"</code> is chosen the number of columns will correspond to the number of levels.</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -135,8 +141,8 @@ When <code>method = "full"</code> is chosen the number of columns will correspon
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red"</span>,<span class="st">"blue"</span>,<span class="st">"green"</span>,<span class="st">"blue"</span>,<span class="st">"green"</span>,<span class="st">"red"</span>,<span class="st">"red"</span>,<span class="st">"blue"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">Dummy</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red"</span>,<span class="st">"blue"</span>,<span class="st">"green"</span>,<span class="st">"blue"</span>,<span class="st">"green"</span>,<span class="st">"red"</span>,<span class="st">"red"</span>,<span class="st">"blue"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">Dummy</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   green red</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1     0   1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2     0   0</span>
@@ -148,7 +154,7 @@ When <code>method = "full"</code> is chosen the number of columns will correspon
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8     0   0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"base")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "blue"</span>
-<span class="r-in"><span class="fu">Dummy</span><span class="op">(</span><span class="va">x</span>, base<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">Dummy</span><span class="op">(</span><span class="va">x</span>, base<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   blue red</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    0   1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    1   0</span>
@@ -160,8 +166,8 @@ When <code>method = "full"</code> is chosen the number of columns will correspon
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8    1   0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"base")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "green"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">Dummy</span><span class="op">(</span><span class="va">x</span>, method<span class="op">=</span><span class="st">"sum"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">Dummy</span><span class="op">(</span><span class="va">x</span>, method<span class="op">=</span><span class="st">"sum"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   green red</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    -1  -1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2     1   0</span>
@@ -173,11 +179,11 @@ When <code>method = "full"</code> is chosen the number of columns will correspon
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8     1   0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"base")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "blue"</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Max"</span>,<span class="st">"Max"</span>,<span class="st">"Max"</span>,<span class="st">"Max"</span>,<span class="st">"Max"</span>,<span class="st">"Bill"</span>,<span class="st">"Bill"</span>,<span class="st">"Bill"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">Dummy</span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Max"</span>,<span class="st">"Max"</span>,<span class="st">"Max"</span>,<span class="st">"Max"</span>,<span class="st">"Max"</span>,<span class="st">"Bill"</span>,<span class="st">"Bill"</span>,<span class="st">"Bill"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">Dummy</span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Max</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   1</span>
@@ -189,7 +195,7 @@ When <code>method = "full"</code> is chosen the number of columns will correspon
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8   0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"base")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Bill"</span>
-<span class="r-in"><span class="fu">Dummy</span><span class="op">(</span><span class="va">y</span>, base<span class="op">=</span><span class="st">"Max"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">Dummy</span><span class="op">(</span><span class="va">y</span>, base<span class="op">=</span><span class="st">"Max"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Bill</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    0</span>
@@ -201,8 +207,8 @@ When <code>method = "full"</code> is chosen the number of columns will correspon
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8    1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"base")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Max"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">Dummy</span><span class="op">(</span><span class="va">y</span>, base<span class="op">=</span><span class="st">"Max"</span>, method<span class="op">=</span><span class="st">"full"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">Dummy</span><span class="op">(</span><span class="va">y</span>, base<span class="op">=</span><span class="st">"Max"</span>, method<span class="op">=</span><span class="st">"full"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Bill Max</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    0   1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    0   1</span>
@@ -214,11 +220,11 @@ When <code>method = "full"</code> is chosen the number of columns will correspon
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8    1   0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"base")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># "Undummy" (revert the dummy coding)</span></span>
-<span class="r-in"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu">Dummy</span><span class="op">(</span><span class="va">y</span>, method<span class="op">=</span><span class="st">"full"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">m</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># "Undummy" (revert the dummy coding)</span></span></span>
+<span class="r-in"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu">Dummy</span><span class="op">(</span><span class="va">y</span>, method<span class="op">=</span><span class="st">"full"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">m</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Bill Max</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    0   1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    0   1</span>
@@ -230,15 +236,15 @@ When <code>method = "full"</code> is chosen the number of columns will correspon
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8    1   0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"base")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
-<span class="r-in"><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">m</span>, <span class="fl">1</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">[</span><span class="va">x</span><span class="op">==</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">z</span></span>
+<span class="r-in"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">m</span>, <span class="fl">1</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">[</span><span class="va">x</span><span class="op">==</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">z</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      1      2      3      4      5      6      7      8 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  "Max"  "Max"  "Max"  "Max"  "Max" "Bill" "Bill" "Bill" </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">y</span>, <span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">y</span>, <span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu">Dummy</span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">m</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu">Dummy</span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">m</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Max</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   1</span>
@@ -250,8 +256,8 @@ When <code>method = "full"</code> is chosen the number of columns will correspon
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8   0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"base")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Bill"</span>
-<span class="r-in"><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">m</span>, <span class="fl">1</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">==</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">m</span>,<span class="st">"base"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">[</span><span class="va">x</span><span class="op">==</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">z</span></span>
+<span class="r-in"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">m</span>, <span class="fl">1</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">==</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">m</span>,<span class="st">"base"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">[</span><span class="va">x</span><span class="op">==</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">z</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      1      2      3      4      5      6      7      8 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  "Max"  "Max"  "Max"  "Max"  "Max" "Bill" "Bill" "Bill" </span>
 </code></pre></div>
@@ -268,7 +274,7 @@ When <code>method = "full"</code> is chosen the number of columns will correspon
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

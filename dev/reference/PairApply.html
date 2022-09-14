@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">PairApply</span><span class="op">(</span><span class="va">x</span>, FUN <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span>, symmetric <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">PairApply</span><span class="op">(</span><span class="va">x</span>, FUN <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span>, symmetric <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -95,16 +95,20 @@
     <dl><dt>x</dt>
 <dd><p>a list, a data.frame or a matrix with columns to be processed pairwise.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>FUN</dt>
+
+   <dt>FUN</dt>
 <dd><p>a function to be calculated. It is assumed, that the first 2 arguments denominate x and y.
 <!-- %%     ~~Describe \code{FUN} here~~ --></p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>the dots are passed to FUN.
 <!-- %%     ~~Describe \code{\dots} here~~ --></p></dd>
+
 <dt>symmetric</dt>
 <dd><p>logical. Does the function yield the same result for FUN(x, y) and FUN(y, x)? <br>
  If <code>TRUE</code> just the lower triangular matrix is calculated and transposed. Default is FALSE.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -118,7 +122,21 @@
     <div id="value">
     <h2>Value</h2>
     <p>a matrix with the results of FUN.
-<!-- %%  ~Describe the value returned --><!-- %%  If it is a LIST, use --><!-- %%  \item{comp1 }{Description of 'comp1'} --><!-- %%  \item{comp2 }{Description of 'comp2'} --><!-- %% ... --></p>
+<!-- %%  ~Describe the value returned --></p>
+
+
+<p><!-- %%  If it is a LIST, use --></p>
+
+
+<p><!-- %%  \item{comp1 }{Description of 'comp1'} --></p>
+
+
+<p><!-- %%  \item{comp2 }{Description of 'comp2'} --></p>
+
+
+<p><!-- %% ... --></p>
+
+
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -128,60 +146,60 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">PairApply</span><span class="op">(</span><span class="va">d.diamonds</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"colour"</span>,<span class="st">"clarity"</span>,<span class="st">"cut"</span>,<span class="st">"polish"</span><span class="op">)</span><span class="op">]</span>, FUN <span class="op">=</span> <span class="va">CramerV</span>, </span>
-<span class="r-in">          symmetric<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">PairApply</span><span class="op">(</span><span class="va">d.diamonds</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"colour"</span>,<span class="st">"clarity"</span>,<span class="st">"cut"</span>,<span class="st">"polish"</span><span class="op">)</span><span class="op">]</span>, FUN <span class="op">=</span> <span class="va">CramerV</span>, </span></span>
+<span class="r-in"><span>          symmetric<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            colour   clarity       cut    polish</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> colour  1.0000000 0.2385027 0.1716311 0.1749971</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> clarity 0.2385027 1.0000000 0.2726831 0.2842774</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> cut     0.1716311 0.2726831 1.0000000 0.2196234</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> polish  0.1749971 0.2842774 0.2196234 1.0000000</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># user defined functions are ok as well</span></span>
-<span class="r-in"><span class="fu">PairApply</span><span class="op">(</span><span class="va">d.diamonds</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"clarity"</span>,<span class="st">"cut"</span>,<span class="st">"polish"</span>,<span class="st">"symmetry"</span><span class="op">)</span><span class="op">]</span>, </span>
-<span class="r-in">  FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>,<span class="va">y</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/wilcox.test.html" class="external-link">wilcox.test</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">p.value</span>, symmetric<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># user defined functions are ok as well</span></span></span>
+<span class="r-in"><span><span class="fu">PairApply</span><span class="op">(</span><span class="va">d.diamonds</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"clarity"</span>,<span class="st">"cut"</span>,<span class="st">"polish"</span>,<span class="st">"symmetry"</span><span class="op">)</span><span class="op">]</span>, </span></span>
+<span class="r-in"><span>  FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>,<span class="va">y</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/wilcox.test.html" class="external-link">wilcox.test</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">p.value</span>, symmetric<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               clarity          cut       polish     symmetry</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> clarity  1.000000e+00 1.528415e-12 1.381603e-37 1.420752e-40</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> cut      1.528415e-12 1.000000e+00 1.702690e-18 2.090998e-21</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> polish   1.381603e-37 1.702690e-18 1.000000e+00 2.307068e-01</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> symmetry 1.420752e-40 2.090998e-21 2.307068e-01 1.000000e+00</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># asymetric measure</span></span>
-<span class="r-in"><span class="fu">PairApply</span><span class="op">(</span><span class="va">d.diamonds</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"colour"</span>, <span class="st">"clarity"</span>, <span class="st">"cut"</span>, <span class="st">"polish"</span><span class="op">)</span><span class="op">]</span>, </span>
-<span class="r-in">  FUN <span class="op">=</span> <span class="va">Lambda</span>, direction <span class="op">=</span> <span class="st">"row"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># asymetric measure</span></span></span>
+<span class="r-in"><span><span class="fu">PairApply</span><span class="op">(</span><span class="va">d.diamonds</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"colour"</span>, <span class="st">"clarity"</span>, <span class="st">"cut"</span>, <span class="st">"polish"</span><span class="op">)</span><span class="op">]</span>, </span></span>
+<span class="r-in"><span>  FUN <span class="op">=</span> <span class="va">Lambda</span>, direction <span class="op">=</span> <span class="st">"row"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             colour    clarity        cut     polish</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> colour  1.00000000 0.10526316 0.03047091 0.03878116</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> clarity 0.11111111 1.00000000 0.10802469 0.08333333</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> cut     0.02405498 0.05154639 1.00000000 0.04810997</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> polish  0.06779661 0.18644068 0.10593220 1.00000000</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># ... compare to:</span></span>
-<span class="r-in"><span class="fu"><a href="Lambda.html">Lambda</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">d.diamonds</span><span class="op">$</span><span class="va">colour</span>, y<span class="op">=</span><span class="va">d.diamonds</span><span class="op">$</span><span class="va">clarity</span>, direction<span class="op">=</span><span class="st">"row"</span><span class="op">)</span>  </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># ... compare to:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="Lambda.html">Lambda</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">d.diamonds</span><span class="op">$</span><span class="va">colour</span>, y<span class="op">=</span><span class="va">d.diamonds</span><span class="op">$</span><span class="va">clarity</span>, direction<span class="op">=</span><span class="st">"row"</span><span class="op">)</span>  </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1052632</span>
-<span class="r-in"><span class="fu"><a href="Lambda.html">Lambda</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">d.diamonds</span><span class="op">$</span><span class="va">colour</span>, y<span class="op">=</span><span class="va">d.diamonds</span><span class="op">$</span><span class="va">clarity</span>, direction<span class="op">=</span><span class="st">"column"</span><span class="op">)</span>  </span>
+<span class="r-in"><span><span class="fu"><a href="Lambda.html">Lambda</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">d.diamonds</span><span class="op">$</span><span class="va">colour</span>, y<span class="op">=</span><span class="va">d.diamonds</span><span class="op">$</span><span class="va">clarity</span>, direction<span class="op">=</span><span class="st">"column"</span><span class="op">)</span>  </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1111111</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># the data.frame</span></span>
-<span class="r-in"><span class="va">dfrm</span> <span class="op">&lt;-</span> <span class="va">d.diamonds</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"colour"</span>,<span class="st">"clarity"</span>,<span class="st">"cut"</span>,<span class="st">"polish"</span><span class="op">)</span><span class="op">]</span></span>
-<span class="r-in"><span class="fu">PairApply</span><span class="op">(</span><span class="va">dfrm</span>, FUN <span class="op">=</span> <span class="va">CramerV</span>, symmetric<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># the data.frame</span></span></span>
+<span class="r-in"><span><span class="va">dfrm</span> <span class="op">&lt;-</span> <span class="va">d.diamonds</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"colour"</span>,<span class="st">"clarity"</span>,<span class="st">"cut"</span>,<span class="st">"polish"</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="fu">PairApply</span><span class="op">(</span><span class="va">dfrm</span>, FUN <span class="op">=</span> <span class="va">CramerV</span>, symmetric<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            colour   clarity       cut    polish</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> colour  1.0000000 0.2385027 0.1716311 0.1749971</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> clarity 0.2385027 1.0000000 0.2726831 0.2842774</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> cut     0.1716311 0.2726831 1.0000000 0.2196234</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> polish  0.1749971 0.2842774 0.2196234 1.0000000</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># the same as matrix (columnwise)</span></span>
-<span class="r-in"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">dfrm</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">PairApply</span><span class="op">(</span><span class="va">m</span>, FUN <span class="op">=</span> <span class="va">CramerV</span>, symmetric<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># the same as matrix (columnwise)</span></span></span>
+<span class="r-in"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">dfrm</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">PairApply</span><span class="op">(</span><span class="va">m</span>, FUN <span class="op">=</span> <span class="va">CramerV</span>, symmetric<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            colour   clarity       cut    polish</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> colour  1.0000000 0.2385027 0.1716311 0.1749971</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> clarity 0.2385027 1.0000000 0.2726831 0.2842774</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> cut     0.1716311 0.2726831 1.0000000 0.2196234</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> polish  0.1749971 0.2842774 0.2196234 1.0000000</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># ... and the list interface</span></span>
-<span class="r-in"><span class="va">lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">dfrm</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">PairApply</span><span class="op">(</span><span class="va">lst</span>, FUN <span class="op">=</span> <span class="va">CramerV</span>, symmetric<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># ... and the list interface</span></span></span>
+<span class="r-in"><span><span class="va">lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">dfrm</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">PairApply</span><span class="op">(</span><span class="va">lst</span>, FUN <span class="op">=</span> <span class="va">CramerV</span>, symmetric<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            colour   clarity       cut    polish</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> colour  1.0000000 0.2385027 0.1716311 0.1749971</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> clarity 0.2385027 1.0000000 0.2726831 0.2842774</span>
@@ -201,7 +219,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

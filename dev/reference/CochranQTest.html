@@ -18,7 +18,7 @@ binary response variable and paired data."><meta name="robots" content="noindex"
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -84,33 +84,41 @@ binary response variable and paired data.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">CochranQTest</span><span class="op">(</span><span class="va">y</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for default</span>
-<span class="fu">CochranQTest</span><span class="op">(</span><span class="va">y</span>, <span class="va">groups</span>, <span class="va">blocks</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for formula</span>
-<span class="fu">CochranQTest</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">subset</span>, <span class="va">na.action</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">CochranQTest</span><span class="op">(</span><span class="va">y</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">CochranQTest</span><span class="op">(</span><span class="va">y</span>, <span class="va">groups</span>, <span class="va">blocks</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for formula</span></span>
+<span><span class="fu">CochranQTest</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">subset</span>, <span class="va">na.action</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>y</dt>
 <dd><p>either a numeric vector of data values, or a data matrix.</p></dd>
-<dt>groups</dt>
+
+  <dt>groups</dt>
 <dd><p>a vector giving the group for the corresponding elements of y if this is a vector; ignored if y is a matrix. If not a factor object, it is coerced to one.</p></dd>
-<dt>blocks</dt>
+
+  <dt>blocks</dt>
 <dd><p>a vector giving the block for the corresponding elements of y if this is a vector; ignored if y is a matrix. If not a factor object, it is coerced to one.</p></dd>
-<dt>formula</dt>
+
+  <dt>formula</dt>
 <dd><p>a formula of the form <code>y ~ groups | blocks</code>.</p></dd>
-<dt>data</dt>
+
+  <dt>data</dt>
 <dd><p>an optional matrix or data frame (or similar: see <code><a href="https://rdrr.io/r/stats/model.frame.html" class="external-link">model.frame</a></code>) containing the variables in the formula. By default the variables are taken from <code>environment(formula)</code>.</p></dd>
-<dt>subset</dt>
+
+  <dt>subset</dt>
 <dd><p>an optional vector specifying a subset of observations to be used.</p></dd>
-<dt>na.action</dt>
+
+  <dt>na.action</dt>
 <dd><p>a function which indicates what should happen when the data contain <code>NA</code>s. Defaults to <code>getOption("na.action")</code>.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>further arguments to be passed to or from methods.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -123,17 +131,25 @@ binary observation in y for each combination of levels of groups and blocks) whe
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list with class <code>htest</code> containing the following components:</p>
+    
+
+
+<p>A list with class <code>htest</code> containing the following components:</p>
 <dl><dt>statistic</dt>
 <dd><p>the value of Cochran's chi-squared statistic.</p></dd>
+
 <dt>parameter</dt>
 <dd><p>the degrees of freedom of the approximate chi-squared distribution of the test statistic.</p></dd>
+
 <dt>p.value</dt>
 <dd><p>the p-value of the test.</p></dd>
+
 <dt>method</dt>
 <dd><p>the character string "Cochran's Q-Test".</p></dd>
+
 <dt>data.name</dt>
 <dd><p>a character string giving the names of the data.</p></dd>
+
 </dl></div>
     <div id="references">
     <h2>References</h2>
@@ -146,37 +162,37 @@ binary observation in y for each combination of levels of groups and blocks) whe
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># example in: </span></span>
-<span class="r-in"><span class="co"># http://support.sas.com/documentation/cdl/en/statugfreq/63124/PDF/default/statugfreq.pdf</span></span>
-<span class="r-in"><span class="co"># pp. S. 1824</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># use expand.grid, xtabs and Untable to create the dataset</span></span>
-<span class="r-in"><span class="va">d.frm</span> <span class="op">&lt;-</span> <span class="fu"><a href="Untable.html">Untable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">6</span>,<span class="fl">16</span>,<span class="fl">4</span>,<span class="fl">4</span>,<span class="fl">6</span><span class="op">)</span> <span class="op">~</span> <span class="va">.</span>, </span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"F"</span>,<span class="st">"U"</span><span class="op">)</span><span class="op">)</span>, times<span class="op">=</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, </span>
-<span class="r-in">    colnames <span class="op">=</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># rearrange to long shape    </span></span>
-<span class="r-in"><span class="va">d.long</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/reshape.html" class="external-link">reshape</a></span><span class="op">(</span><span class="va">d.frm</span>, varying<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, times<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">d.frm</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span><span class="op">]</span>, </span>
-<span class="r-in">                  v.names<span class="op">=</span><span class="st">"resp"</span>, direction<span class="op">=</span><span class="st">"long"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># after having done the hard work of data organisation, performing the test is a piece of cake....</span></span>
-<span class="r-in"><span class="fu">CochranQTest</span><span class="op">(</span><span class="va">resp</span> <span class="op">~</span> <span class="va">time</span> <span class="op">|</span> <span class="va">id</span>, data<span class="op">=</span><span class="va">d.long</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># example in: </span></span></span>
+<span class="r-in"><span><span class="co"># http://support.sas.com/documentation/cdl/en/statugfreq/63124/PDF/default/statugfreq.pdf</span></span></span>
+<span class="r-in"><span><span class="co"># pp. S. 1824</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># use expand.grid, xtabs and Untable to create the dataset</span></span></span>
+<span class="r-in"><span><span class="va">d.frm</span> <span class="op">&lt;-</span> <span class="fu"><a href="Untable.html">Untable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">6</span>,<span class="fl">16</span>,<span class="fl">4</span>,<span class="fl">4</span>,<span class="fl">6</span><span class="op">)</span> <span class="op">~</span> <span class="va">.</span>, </span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"F"</span>,<span class="st">"U"</span><span class="op">)</span><span class="op">)</span>, times<span class="op">=</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>    colnames <span class="op">=</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># rearrange to long shape    </span></span></span>
+<span class="r-in"><span><span class="va">d.long</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/reshape.html" class="external-link">reshape</a></span><span class="op">(</span><span class="va">d.frm</span>, varying<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, times<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">d.frm</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span><span class="op">]</span>, </span></span>
+<span class="r-in"><span>                  v.names<span class="op">=</span><span class="st">"resp"</span>, direction<span class="op">=</span><span class="st">"long"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># after having done the hard work of data organisation, performing the test is a piece of cake....</span></span></span>
+<span class="r-in"><span><span class="fu">CochranQTest</span><span class="op">(</span><span class="va">resp</span> <span class="op">~</span> <span class="va">time</span> <span class="op">|</span> <span class="va">id</span>, data<span class="op">=</span><span class="va">d.long</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Cochran's Q test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  resp and time and id</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Q = 8.4706, df = 2, p-value = 0.01448</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># and let's perform a post hoc analysis using mcnemar's test</span></span>
-<span class="r-in"><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/split.html" class="external-link">split</a></span><span class="op">(</span><span class="va">d.long</span>, f<span class="op">=</span><span class="va">d.long</span><span class="op">$</span><span class="va">time</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/pairwise.table.html" class="external-link">pairwise.table</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">i</span>, <span class="va">j</span><span class="op">)</span> <span class="op">{</span> </span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/stats/mcnemar.test.html" class="external-link">mcnemar.test</a></span><span class="op">(</span><span class="va">z</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">resp</span>, <span class="va">z</span><span class="op">[[</span><span class="va">j</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">resp</span>, correct<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">$</span><span class="va">p.value</span></span>
-<span class="r-in">  <span class="op">}</span>, </span>
-<span class="r-in">  level.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span>, </span>
-<span class="r-in">  p.adjust.method <span class="op">=</span> <span class="st">"fdr"</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># and let's perform a post hoc analysis using mcnemar's test</span></span></span>
+<span class="r-in"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/split.html" class="external-link">split</a></span><span class="op">(</span><span class="va">d.long</span>, f<span class="op">=</span><span class="va">d.long</span><span class="op">$</span><span class="va">time</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/pairwise.table.html" class="external-link">pairwise.table</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">i</span>, <span class="va">j</span><span class="op">)</span> <span class="op">{</span> </span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/stats/mcnemar.test.html" class="external-link">mcnemar.test</a></span><span class="op">(</span><span class="va">z</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">resp</span>, <span class="va">z</span><span class="op">[[</span><span class="va">j</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">resp</span>, correct<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">$</span><span class="va">p.value</span></span></span>
+<span class="r-in"><span>  <span class="op">}</span>, </span></span>
+<span class="r-in"><span>  level.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>  p.adjust.method <span class="op">=</span> <span class="st">"fdr"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           A         B</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> B 1.0000000        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> C 0.0350133 0.0350133</span>
@@ -194,7 +210,7 @@ binary observation in y for each combination of levels of groups and blocks) whe
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

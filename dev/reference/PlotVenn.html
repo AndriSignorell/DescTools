@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">PlotVenn</span><span class="op">(</span><span class="va">x</span>, col <span class="op">=</span> <span class="st">"transparent"</span>, plotit <span class="op">=</span> <span class="cn">TRUE</span>, labels <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">PlotVenn</span><span class="op">(</span><span class="va">x</span>, col <span class="op">=</span> <span class="st">"transparent"</span>, plotit <span class="op">=</span> <span class="cn">TRUE</span>, labels <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -95,13 +95,17 @@
     <dl><dt>x</dt>
 <dd><p>the list with the sets to be analysed. Those can be factors or something coercable to a factor.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>col</dt>
+
+  <dt>col</dt>
 <dd><p>the colors for the sets on the plot.
 <!-- %%     ~~Describe \code{col} here~~ --></p></dd>
-<dt>plotit</dt>
+
+  <dt>plotit</dt>
 <dd><p>logical. Should a plot be produced or just the results be calculated.</p></dd>
-<dt>labels</dt>
+
+  <dt>labels</dt>
 <dd><p>special labels for the plot. By default the names of the list x will be used. If those are missing, the LETTERS A..E will be chosen. Set this argument to NA, if no labels at all should be plotted.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -113,6 +117,8 @@
     <p>a list with 2 elements, the first contains a table with the observed frequencies in the given sets.
 The second returns a data.frame with the xy coordinates for the labels in the venn diagram, the specific combination of factors and 
 the frequency in that intersection area. The latter can be 0 as well.</p>
+
+
     </div>
     <div id="references">
     <h2>References</h2>
@@ -129,16 +135,16 @@ the frequency in that intersection area. The latter can be 0 as well.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">element</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">LETTERS</span>, <span class="fl">5</span>, replace<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>, collapse<span class="op">=</span><span class="st">""</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">replicate</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fu">element</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">GroupA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">group</span>, <span class="fl">400</span>, replace<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">GroupB</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">group</span>, <span class="fl">750</span>, replace<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">GroupC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">group</span>, <span class="fl">250</span>, replace<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">GroupD</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">group</span>, <span class="fl">300</span>, replace<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">GroupA</span>, <span class="va">GroupB</span>, <span class="va">GroupC</span>, <span class="va">GroupD</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">element</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">LETTERS</span>, <span class="fl">5</span>, replace<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>, collapse<span class="op">=</span><span class="st">""</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">replicate</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fu">element</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">GroupA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">group</span>, <span class="fl">400</span>, replace<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">GroupB</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">group</span>, <span class="fl">750</span>, replace<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">GroupC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">group</span>, <span class="fl">250</span>, replace<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">GroupD</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">group</span>, <span class="fl">300</span>, replace<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">GroupA</span>, <span class="va">GroupB</span>, <span class="va">GroupC</span>, <span class="va">GroupD</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1] "ELKTV" "ITZVT" "XYALF" "JONUQ" "VSMBB" "ACWEP" "XQTOY" "WRNVF" "OLEST"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [10] "DGSCZ" "UJAAX" "HDBZT" "NXUBB" "LSURO" "ZNTRA" "HBHBP" "BEOKV" "SZSXV"</span>
@@ -338,8 +344,8 @@ the frequency in that intersection area. The latter can be 0 as well.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [289] "KRBSF" "GCUBJ" "CACXU" "VTNHJ" "SPSHU" "EBMAY" "XOKVH" "ZGNXA" "RFURG"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [298] "FEPGE" "LVBWH" "ENAKQ"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">PlotVenn</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">GroupA</span>, <span class="va">GroupB</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">PlotVenn</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">GroupA</span>, <span class="va">GroupB</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="PlotVenn-1.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   A  AB   B </span>
@@ -351,7 +357,7 @@ the frequency in that intersection area. The latter can be 0 as well.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  3 0   B 439    B</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  0 0  AB 311   AB</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">PlotVenn</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Set_1<span class="op">=</span><span class="va">GroupA</span>, Set_2<span class="op">=</span><span class="va">GroupB</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">PlotVenn</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Set_1<span class="op">=</span><span class="va">GroupA</span>, Set_2<span class="op">=</span><span class="va">GroupB</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="PlotVenn-2.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      Set_1 Set_1Set_2      Set_2 </span>
@@ -363,7 +369,7 @@ the frequency in that intersection area. The latter can be 0 as well.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  3 0   B 439    B</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  0 0  AB 311   AB</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">PlotVenn</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">GroupA</span>, <span class="va">GroupB</span><span class="op">)</span>, labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"English"</span>,<span class="st">"Spanish"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">PlotVenn</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">GroupA</span>, <span class="va">GroupB</span><span class="op">)</span>, labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"English"</span>,<span class="st">"Spanish"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="PlotVenn-3.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   A  AB   B </span>
@@ -375,8 +381,8 @@ the frequency in that intersection area. The latter can be 0 as well.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  3 0   B 439    B</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  0 0  AB 311   AB</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">PlotVenn</span><span class="op">(</span>x<span class="op">=</span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">PlotVenn</span><span class="op">(</span>x<span class="op">=</span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="PlotVenn-4.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   A  AB ABC  AC   B  BC   C </span>
@@ -392,7 +398,7 @@ the frequency in that intersection area. The latter can be 0 as well.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6  1.00 -1.75  AC  25   AC</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7  0.00  0.00 ABC  78  ABC</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">PlotVenn</span><span class="op">(</span>x<span class="op">=</span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, col<span class="op">=</span><span class="fu"><a href="SetAlpha.html">SetAlpha</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"blue"</span>,<span class="st">"red"</span>,<span class="st">"yellow"</span>,<span class="st">"green"</span>,<span class="st">"lightblue"</span><span class="op">)</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">PlotVenn</span><span class="op">(</span>x<span class="op">=</span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, col<span class="op">=</span><span class="fu"><a href="SetAlpha.html">SetAlpha</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"blue"</span>,<span class="st">"red"</span>,<span class="st">"yellow"</span>,<span class="st">"green"</span>,<span class="st">"lightblue"</span><span class="op">)</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="PlotVenn-5.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    A   AB  ABC ABCD  ABD   AC  ACD   AD    B   BC  BCD   BD    C   CD    D </span>
@@ -416,10 +422,10 @@ the frequency in that intersection area. The latter can be 0 as well.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 14  2.7  0.8  BCD  33  BCD</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 15  0.0  3.4   BC  68   BC</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">r.venn</span> <span class="op">&lt;-</span> <span class="fu">PlotVenn</span><span class="op">(</span>x<span class="op">=</span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>, col<span class="op">=</span><span class="fu"><a href="SetAlpha.html">SetAlpha</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"blue"</span>,<span class="st">"red"</span>,<span class="st">"yellow"</span>,<span class="st">"green"</span>,<span class="st">"lightblue"</span><span class="op">)</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">r.venn</span> <span class="op">&lt;-</span> <span class="fu">PlotVenn</span><span class="op">(</span>x<span class="op">=</span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>, col<span class="op">=</span><span class="fu"><a href="SetAlpha.html">SetAlpha</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"blue"</span>,<span class="st">"red"</span>,<span class="st">"yellow"</span>,<span class="st">"green"</span>,<span class="st">"lightblue"</span><span class="op">)</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="PlotVenn-6.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="va">r.venn</span></span>
+<span class="r-in"><span><span class="va">r.venn</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ABCDE  ABCE  ABDE   ABE  ACDE   ACE   ADE    AE     B    BC   BCD    BD     C </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    23    55    64   169     8    17    18    46   230    68    33   108    33 </span>
@@ -474,7 +480,7 @@ the frequency in that intersection area. The latter can be 0 as well.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

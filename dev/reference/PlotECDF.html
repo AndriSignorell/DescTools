@@ -21,7 +21,7 @@ The function offers the option to construct the ecdf on the base of a histogram,
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -89,8 +89,8 @@ The function offers the option to construct the ecdf on the base of a histogram,
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">PlotECDF</span><span class="op">(</span><span class="va">x</span>, breaks <span class="op">=</span> <span class="cn">NULL</span>, col <span class="op">=</span> <span class="fu"><a href="Pal.html">Pal</a></span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, ylab <span class="op">=</span> <span class="st">""</span>, 
-         lwd <span class="op">=</span> <span class="fl">2</span>, xlab <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">PlotECDF</span><span class="op">(</span><span class="va">x</span>, breaks <span class="op">=</span> <span class="cn">NULL</span>, col <span class="op">=</span> <span class="fu"><a href="Pal.html">Pal</a></span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, ylab <span class="op">=</span> <span class="st">""</span>, </span>
+<span>         lwd <span class="op">=</span> <span class="fl">2</span>, xlab <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -98,24 +98,31 @@ The function offers the option to construct the ecdf on the base of a histogram,
     <dl><dt>x</dt>
 <dd><p>numeric vector of the observations for ecdf.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>breaks</dt>
+
+  <dt>breaks</dt>
 <dd><p>will be passed directly to <code><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></code>. If left to <code>NULL</code>, no histogram will be used.
 <!-- %%     ~~Describe \code{breaks} here~~ --></p></dd>
-<dt>col</dt>
+
+  <dt>col</dt>
 <dd><p>color of the line.
 <!-- %%     ~~Describe \code{col} here~~ --></p></dd>
-<dt>ylab</dt>
+
+  <dt>ylab</dt>
 <dd><p>label for the y-axis.
 <!-- %%     ~~Describe \code{ylab} here~~ --></p></dd>
-<dt>lwd</dt>
+
+  <dt>lwd</dt>
 <dd><p>line width.
 <!-- %%     ~~Describe \code{lwd} here~~ --></p></dd>
-<dt>xlab</dt>
+
+  <dt>xlab</dt>
 <dd><p>label for the x-axis.
 <!-- %%     ~~Describe \code{xlab} here~~ --></p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>arguments to be passed to subsequent functions.
 <!-- %%     ~~Describe \code{\dots} here~~ --></p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -126,7 +133,21 @@ The function offers the option to construct the ecdf on the base of a histogram,
     <div id="value">
     <h2>Value</h2>
     <p>no value returned, use <code><a href="https://rdrr.io/r/stats/ecdf.html" class="external-link">plot.ecdf</a></code> if any results are required.
-<!-- %%  ~Describe the value returned --><!-- %%  If it is a LIST, use --><!-- %%  \item{comp1 }{Description of 'comp1'} --><!-- %%  \item{comp2 }{Description of 'comp2'} --><!-- %% ... --></p>
+<!-- %%  ~Describe the value returned --></p>
+
+
+<p><!-- %%  If it is a LIST, use --></p>
+
+
+<p><!-- %%  \item{comp1 }{Description of 'comp1'} --></p>
+
+
+<p><!-- %%  \item{comp2 }{Description of 'comp2'} --></p>
+
+
+<p><!-- %% ... --></p>
+
+
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -141,14 +162,14 @@ The function offers the option to construct the ecdf on the base of a histogram,
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">PlotECDF</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">PlotECDF</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="PlotECDF-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># make large vector</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">1e7</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># plot only 1000 points instead of 1e7</span></span>
-<span class="r-in"><span class="fu">PlotECDF</span><span class="op">(</span><span class="va">x</span>, breaks<span class="op">=</span><span class="fl">1000</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># make large vector</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">1e7</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># plot only 1000 points instead of 1e7</span></span></span>
+<span class="r-in"><span><span class="fu">PlotECDF</span><span class="op">(</span><span class="va">x</span>, breaks<span class="op">=</span><span class="fl">1000</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="PlotECDF-2.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -164,7 +185,7 @@ The function offers the option to construct the ecdf on the base of a histogram,
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

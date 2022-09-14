@@ -22,7 +22,7 @@ Still the function remains flexible as all possible arguments can be passed to t
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -91,11 +91,11 @@ Still the function remains flexible as all possible arguments can be passed to t
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">PlotFdist</span><span class="op">(</span><span class="va">x</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/deparse.html" class="external-link">deparse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/substitute.html" class="external-link">substitute</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>, xlab <span class="op">=</span> <span class="st">""</span>, xlim <span class="op">=</span> <span class="cn">NULL</span>,
-          args.hist <span class="op">=</span> <span class="cn">NULL</span>, args.rug <span class="op">=</span> <span class="cn">NA</span>, args.dens <span class="op">=</span> <span class="cn">NULL</span>,
-          args.curve <span class="op">=</span> <span class="cn">NA</span>, args.boxplot <span class="op">=</span> <span class="cn">NULL</span>, args.ecdf <span class="op">=</span> <span class="cn">NULL</span>,
-          args.curve.ecdf <span class="op">=</span> <span class="cn">NA</span>, heights <span class="op">=</span> <span class="cn">NULL</span>, pdist <span class="op">=</span> <span class="cn">NULL</span>,
-          na.rm <span class="op">=</span> <span class="cn">FALSE</span>, cex.axis <span class="op">=</span> <span class="cn">NULL</span>, cex.main <span class="op">=</span> <span class="cn">NULL</span>, mar <span class="op">=</span> <span class="cn">NULL</span>, las <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">PlotFdist</span><span class="op">(</span><span class="va">x</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/deparse.html" class="external-link">deparse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/substitute.html" class="external-link">substitute</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>, xlab <span class="op">=</span> <span class="st">""</span>, xlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>          args.hist <span class="op">=</span> <span class="cn">NULL</span>, args.rug <span class="op">=</span> <span class="cn">NA</span>, args.dens <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>          args.curve <span class="op">=</span> <span class="cn">NA</span>, args.boxplot <span class="op">=</span> <span class="cn">NULL</span>, args.ecdf <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>          args.curve.ecdf <span class="op">=</span> <span class="cn">NA</span>, heights <span class="op">=</span> <span class="cn">NULL</span>, pdist <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>          na.rm <span class="op">=</span> <span class="cn">FALSE</span>, cex.axis <span class="op">=</span> <span class="cn">NULL</span>, cex.main <span class="op">=</span> <span class="cn">NULL</span>, mar <span class="op">=</span> <span class="cn">NULL</span>, las <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -103,67 +103,87 @@ Still the function remains flexible as all possible arguments can be passed to t
     <dl><dt>x</dt>
 <dd><p>the numerical variable, whose distribution is to be plotted.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>main</dt>
+
+  <dt>main</dt>
 <dd><p>main title of the plot.
 <!-- %%     ~~Describe \code{main} here~~ --></p></dd>
-<dt>xlab</dt>
+
+ <dt>xlab</dt>
 <dd><p>label of the x-axis, defaults to <code>""</code>. (The name of the variable is typically  placed in the main title and would be redundant here.)
 <!-- %%     ~~Describe \code{xlab} here~~ --></p></dd>
-<dt>xlim</dt>
+
+  <dt>xlim</dt>
 <dd><p>range of the x-axis, defaults to a pretty <code>range(x, na.rm = TRUE)</code>.
 <!-- %%     ~~Describe \code{xlim} here~~ --></p></dd>
-<dt>args.hist</dt>
+
+  <dt>args.hist</dt>
 <dd><p>list of additional arguments to be passed to the histogram <code><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist()</a></code>.
   The defaults chosen when setting <code>args.hist = NULL</code> are more or less the same as in <code><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></code>. The argument <code>type</code> defines, whether a histogram (<code>"hist"</code>) or a plot with <code>type = "h"</code> (for 'histogram' like vertical lines for <code>mass</code> representation) should be used.
   The arguments for a "h-plot"" will be <code>col</code>, <code>lwd</code>, <code>pch.col</code>, <code>pch</code>, <code>pch.bg</code> for the line and for an optional point character on top.
   The default type used will be chosen on the structure of <code>x</code>. If <code>x</code> is an integer with up to 12 unique values there will be a "h-plot" and else a histogram!
 <!-- %%     ~~Describe \code{args.hist} here~~ --></p></dd>
-<dt>args.rug</dt>
+
+  <dt>args.rug</dt>
 <dd><p>list of additional arguments to be passed to the function <code><a href="https://rdrr.io/r/graphics/rug.html" class="external-link">rug()</a></code>.
       Use <code>args.rug = NA</code> if no rug should be added. This is the default. Use <code>args.rug = NULL</code> to add rug with reasonable default values.
   <!-- %%     ~~Describe \code{args.rug} here~~ --></p></dd>
-<dt>args.dens</dt>
+
+  <dt>args.dens</dt>
 <dd><p>list of additional arguments to be passed to <code>density</code>.
   Use <code>args.dens = NA</code> if no density curve should be drawn. The defaults are taken from <code><a href="https://rdrr.io/r/stats/density.html" class="external-link">density</a></code>.
 <!-- %%     ~~Describe \code{args.dens} here~~ --></p></dd>
-<dt>args.curve</dt>
+
+  <dt>args.curve</dt>
 <dd><p>list of additional arguments to be passed to <code><a href="https://rdrr.io/r/graphics/curve.html" class="external-link">curve</a></code>.
   This argument allows to add a fitted distribution curve to the histogram. By default no curve will be added (<code>args.curve = NA</code>). If the argument is set to <code>NULL</code>, a normal curve with <code>mean(x)</code> and <code>sd(x)</code> will be drawn. See examples for more details.
 <!-- %%     ~~Describe \code{args.dens} here~~ --></p></dd>
-<dt>args.boxplot</dt>
+
+  <dt>args.boxplot</dt>
 <dd><p>list of additional arguments to be passed to the boxplot <code><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot()</a></code>.
   The defaults are pretty much the same as in <code><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></code>.
   The two additional arguments <code>pch.mean</code> (default <code>23</code>) and <code>col.meanci</code> (default <code>"grey80"</code>) control, if the mean is displayed within the boxplot. Setting those  arguments to <code>NA</code> will prevent them from being displayed.
 <!-- %%     ~~Describe \code{args.hist} here~~ --></p></dd>
-<dt>args.ecdf</dt>
+
+  <dt>args.ecdf</dt>
 <dd><p>list of additional arguments to be passed to <code><a href="https://rdrr.io/r/stats/ecdf.html" class="external-link">ecdf()</a></code>.
   Use <code>args.ecdf = NA</code> if no empirical cumulation function should be included in the plot.
   The defaults are taken from <code><a href="https://rdrr.io/r/stats/ecdf.html" class="external-link">plot.ecdf</a></code>.
 <!-- %%     ~~Describe \code{args.ecdf} here~~ --></p></dd>
-<dt>args.curve.ecdf</dt>
+
+  <dt>args.curve.ecdf</dt>
 <dd><p>list of additional arguments to be passed to <code><a href="https://rdrr.io/r/graphics/curve.html" class="external-link">curve</a></code>.
   This argument allows to add a fitted distribution curve to the cumulative distribution function. By default no curve will be added (<code>args.curve.ecdf = NA</code>). If the argument is set to <code>NULL</code>, a normal curve with <code>mean(x)</code> and <code>sd(x)</code> will be drawn. See examples for more details.
 <!-- %%     ~~Describe \code{args.dens} here~~ --></p></dd>
-<dt>heights</dt>
+
+  <dt>heights</dt>
 <dd><p>heights of the plotparts, defaults to <code>c(2,0.5,1.4)</code> for the histogram, the boxplot
   and the empirical cumulative distribution function, resp. to <code>c(2,1.5)</code> for a histogram and a boxplot only.
 <!-- %%     ~~Describe \code{heights} here~~ --></p></dd>
-<dt>pdist</dt>
+
+  <dt>pdist</dt>
 <dd><p>distances of the plotparts, defaults to <code>c(0, 0)</code>, say there will be no distance between the histogram, the boxplot and the ecdf-plot. This can be useful for instance in case that the x-axis has to
   be added to the histogram.
 <!-- %%     ~~Describe \code{heights} here~~ --></p></dd>
-<dt>na.rm</dt>
+
+  <dt>na.rm</dt>
 <dd><p>logical, should <code>NA</code>s be omitted? Histogram and boxplot could do without this option,
   but the density-function refuses to plot with missings. Defaults to <code>FALSE</code>.
 <!-- %%     ~~Describe \code{na.rm} here~~ --></p></dd>
+
 <dt>cex.axis</dt>
 <dd><p>character extension factor for the axes.</p></dd>
+
 <dt>cex.main</dt>
 <dd><p>character extension factor for the main title. Must be set in dependence of the plot parts in order to get a harmonic view.</p></dd>
+
+
 <dt>mar</dt>
 <dd><p>A numerical vector of the form <code>c(bottom, left, top, right)</code> which gives the number of lines of outer margin to be specified on the four sides of the plot. The default is <code>c(0, 0, 3, 0)</code>.</p></dd>
+
+
 <dt>las</dt>
 <dd><p>numeric in 0,1,2,3; the style of axis labels. See <code><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></code>.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -184,69 +204,69 @@ In such cases consider taking a sample, i.e. <code>  PlotFdist(x[sample(length(x
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">PlotFdist</span><span class="op">(</span>x<span class="op">=</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">delivery_min</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">PlotFdist</span><span class="op">(</span>x<span class="op">=</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">delivery_min</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="PlotFdist-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># define additional arguments for hist, dens and boxplot</span></span>
-<span class="r-in"><span class="co"># do not display the mean and its CI on the boxplot</span></span>
-<span class="r-in"><span class="fu">PlotFdist</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">delivery_min</span>, args.hist<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>breaks<span class="op">=</span><span class="fl">50</span><span class="op">)</span>,</span>
-<span class="r-in">  args.dens<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col<span class="op">=</span><span class="st">"olivedrab4"</span><span class="op">)</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>,</span>
-<span class="r-in">  args.boxplot<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col<span class="op">=</span><span class="st">"olivedrab2"</span>, pch.mean<span class="op">=</span><span class="cn">NA</span>, col.meanci<span class="op">=</span><span class="cn">NA</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># define additional arguments for hist, dens and boxplot</span></span></span>
+<span class="r-in"><span><span class="co"># do not display the mean and its CI on the boxplot</span></span></span>
+<span class="r-in"><span><span class="fu">PlotFdist</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">delivery_min</span>, args.hist<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>breaks<span class="op">=</span><span class="fl">50</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  args.dens<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col<span class="op">=</span><span class="st">"olivedrab4"</span><span class="op">)</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>  args.boxplot<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col<span class="op">=</span><span class="st">"olivedrab2"</span>, pch.mean<span class="op">=</span><span class="cn">NA</span>, col.meanci<span class="op">=</span><span class="cn">NA</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="PlotFdist-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># do a "h"-plot instead of a histogram for integers</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>, <span class="fl">100</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">PlotFdist</span><span class="op">(</span><span class="va">x</span>, args.hist<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>type<span class="op">=</span><span class="st">"mass"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># do a "h"-plot instead of a histogram for integers</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>, <span class="fl">100</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">PlotFdist</span><span class="op">(</span><span class="va">x</span>, args.hist<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>type<span class="op">=</span><span class="st">"mass"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="PlotFdist-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">rpois</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, lambda <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">PlotFdist</span><span class="op">(</span><span class="va">pp</span>, args.hist <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>type<span class="op">=</span><span class="st">"mass"</span>, pch<span class="op">=</span><span class="fl">21</span>, col<span class="op">=</span><span class="va">horange</span>,</span>
-<span class="r-in">          cex.pch<span class="op">=</span><span class="fl">2.5</span>, col.pch<span class="op">=</span><span class="va">hred</span>, lwd<span class="op">=</span><span class="fl">3</span>, bg.pch<span class="op">=</span><span class="st">"white"</span><span class="op">)</span>,</span>
-<span class="r-in">          args.boxplot <span class="op">=</span> <span class="cn">NULL</span>, args.ecdf <span class="op">=</span> <span class="cn">NA</span>, main<span class="op">=</span><span class="st">"Probability mass function"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">rpois</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, lambda <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">PlotFdist</span><span class="op">(</span><span class="va">pp</span>, args.hist <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>type<span class="op">=</span><span class="st">"mass"</span>, pch<span class="op">=</span><span class="fl">21</span>, col<span class="op">=</span><span class="va">horange</span>,</span></span>
+<span class="r-in"><span>          cex.pch<span class="op">=</span><span class="fl">2.5</span>, col.pch<span class="op">=</span><span class="va">hred</span>, lwd<span class="op">=</span><span class="fl">3</span>, bg.pch<span class="op">=</span><span class="st">"white"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>          args.boxplot <span class="op">=</span> <span class="cn">NULL</span>, args.ecdf <span class="op">=</span> <span class="cn">NA</span>, main<span class="op">=</span><span class="st">"Probability mass function"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="PlotFdist-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># special arguments for hist, density and ecdf</span></span>
-<span class="r-in"><span class="fu">PlotFdist</span><span class="op">(</span>x<span class="op">=</span><span class="va">faithful</span><span class="op">$</span><span class="va">eruptions</span>,</span>
-<span class="r-in">          args.hist<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>breaks<span class="op">=</span><span class="fl">20</span><span class="op">)</span>, args.dens<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>bw<span class="op">=</span><span class="fl">.1</span><span class="op">)</span>,</span>
-<span class="r-in">          args.ecdf<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cex<span class="op">=</span><span class="fl">1.2</span>, pch<span class="op">=</span><span class="fl">16</span>, lwd<span class="op">=</span><span class="fl">1</span><span class="op">)</span>, args.rug<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># special arguments for hist, density and ecdf</span></span></span>
+<span class="r-in"><span><span class="fu">PlotFdist</span><span class="op">(</span>x<span class="op">=</span><span class="va">faithful</span><span class="op">$</span><span class="va">eruptions</span>,</span></span>
+<span class="r-in"><span>          args.hist<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>breaks<span class="op">=</span><span class="fl">20</span><span class="op">)</span>, args.dens<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>bw<span class="op">=</span><span class="fl">.1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>          args.ecdf<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cex<span class="op">=</span><span class="fl">1.2</span>, pch<span class="op">=</span><span class="fl">16</span>, lwd<span class="op">=</span><span class="fl">1</span><span class="op">)</span>, args.rug<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="PlotFdist-5.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># no density curve, no ecdf but add rug instead, make boxplot a bit higher</span></span>
-<span class="r-in"><span class="fu">PlotFdist</span><span class="op">(</span>x<span class="op">=</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">delivery_min</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>, args.dens<span class="op">=</span><span class="cn">NA</span>, args.ecdf<span class="op">=</span><span class="cn">NA</span>,</span>
-<span class="r-in">  args.hist<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>xaxt<span class="op">=</span><span class="st">"s"</span><span class="op">)</span>,  <span class="co"># display x-axis on the histogram</span></span>
-<span class="r-in">  args.rug<span class="op">=</span><span class="cn">TRUE</span>, heights<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2.5</span><span class="op">)</span>, pdist<span class="op">=</span><span class="fl">2.5</span>, main<span class="op">=</span><span class="st">"Delivery time"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># no density curve, no ecdf but add rug instead, make boxplot a bit higher</span></span></span>
+<span class="r-in"><span><span class="fu">PlotFdist</span><span class="op">(</span>x<span class="op">=</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">delivery_min</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>, args.dens<span class="op">=</span><span class="cn">NA</span>, args.ecdf<span class="op">=</span><span class="cn">NA</span>,</span></span>
+<span class="r-in"><span>  args.hist<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>xaxt<span class="op">=</span><span class="st">"s"</span><span class="op">)</span>,  <span class="co"># display x-axis on the histogram</span></span></span>
+<span class="r-in"><span>  args.rug<span class="op">=</span><span class="cn">TRUE</span>, heights<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2.5</span><span class="op">)</span>, pdist<span class="op">=</span><span class="fl">2.5</span>, main<span class="op">=</span><span class="st">"Delivery time"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="PlotFdist-6.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># alpha channel on rug is cool, but takes its time for being drawn...</span></span>
-<span class="r-in"><span class="fu">PlotFdist</span><span class="op">(</span>x<span class="op">=</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span>, args.rug<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col<span class="op">=</span><span class="fu"><a href="SetAlpha.html">SetAlpha</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># alpha channel on rug is cool, but takes its time for being drawn...</span></span></span>
+<span class="r-in"><span><span class="fu">PlotFdist</span><span class="op">(</span>x<span class="op">=</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">temperature</span>, args.rug<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col<span class="op">=</span><span class="fu"><a href="SetAlpha.html">SetAlpha</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="PlotFdist-7.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># plot a normal density curve, but no boxplot nor ecdf</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1000</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">PlotFdist</span><span class="op">(</span><span class="va">x</span>, args.curve <span class="op">=</span> <span class="cn">NULL</span>, args.boxplot<span class="op">=</span><span class="cn">NA</span>, args.ecdf<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># plot a normal density curve, but no boxplot nor ecdf</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1000</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">PlotFdist</span><span class="op">(</span><span class="va">x</span>, args.curve <span class="op">=</span> <span class="cn">NULL</span>, args.boxplot<span class="op">=</span><span class="cn">NA</span>, args.ecdf<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="PlotFdist-8.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># compare with a t-distribution</span></span>
-<span class="r-in"><span class="fu">PlotFdist</span><span class="op">(</span><span class="va">x</span>, args.curve <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>expr<span class="op">=</span><span class="st">"dt(x, df=2)"</span>, col<span class="op">=</span><span class="st">"darkgreen"</span><span class="op">)</span>,</span>
-<span class="r-in">          args.boxplot<span class="op">=</span><span class="cn">NA</span>, args.ecdf<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span>x<span class="op">=</span><span class="st">"topright"</span>, legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"kernel density"</span>, <span class="st">"t-distribution (df=2)"</span><span class="op">)</span>,</span>
-<span class="r-in">       fill<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"col1"</span>, <span class="va">hred</span><span class="op">)</span>, <span class="st">"darkgreen"</span><span class="op">)</span>, xpd<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># compare with a t-distribution</span></span></span>
+<span class="r-in"><span><span class="fu">PlotFdist</span><span class="op">(</span><span class="va">x</span>, args.curve <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>expr<span class="op">=</span><span class="st">"dt(x, df=2)"</span>, col<span class="op">=</span><span class="st">"darkgreen"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>          args.boxplot<span class="op">=</span><span class="cn">NA</span>, args.ecdf<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span>x<span class="op">=</span><span class="st">"topright"</span>, legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"kernel density"</span>, <span class="st">"t-distribution (df=2)"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>       fill<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"col1"</span>, <span class="va">hred</span><span class="op">)</span>, <span class="st">"darkgreen"</span><span class="op">)</span>, xpd<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="PlotFdist-9.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># add a gamma distribution curve to both, histogram and ecdf</span></span>
-<span class="r-in"><span class="va">ozone</span> <span class="op">&lt;-</span> <span class="va">airquality</span><span class="op">$</span><span class="va">Ozone</span>; <span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">ozone</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>; <span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">var</a></span><span class="op">(</span><span class="va">ozone</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">PlotFdist</span><span class="op">(</span><span class="va">ozone</span>, args.hist <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>breaks<span class="op">=</span><span class="fl">15</span><span class="op">)</span>,</span>
-<span class="r-in">  args.curve <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>expr<span class="op">=</span><span class="st">"dgamma(x, shape = m^2/v, scale = v/m)"</span>, col<span class="op">=</span><span class="va">hecru</span><span class="op">)</span>,</span>
-<span class="r-in">  args.curve.ecdf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>expr<span class="op">=</span><span class="st">"pgamma(x, shape = m^2/v, scale = v/m)"</span>, col<span class="op">=</span><span class="va">hecru</span><span class="op">)</span>,</span>
-<span class="r-in">  na.rm <span class="op">=</span> <span class="cn">TRUE</span>, main <span class="op">=</span> <span class="st">"Airquality - Ozone"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># add a gamma distribution curve to both, histogram and ecdf</span></span></span>
+<span class="r-in"><span><span class="va">ozone</span> <span class="op">&lt;-</span> <span class="va">airquality</span><span class="op">$</span><span class="va">Ozone</span>; <span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">ozone</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>; <span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">var</a></span><span class="op">(</span><span class="va">ozone</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">PlotFdist</span><span class="op">(</span><span class="va">ozone</span>, args.hist <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>breaks<span class="op">=</span><span class="fl">15</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  args.curve <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>expr<span class="op">=</span><span class="st">"dgamma(x, shape = m^2/v, scale = v/m)"</span>, col<span class="op">=</span><span class="va">hecru</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  args.curve.ecdf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>expr<span class="op">=</span><span class="st">"pgamma(x, shape = m^2/v, scale = v/m)"</span>, col<span class="op">=</span><span class="va">hecru</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  na.rm <span class="op">=</span> <span class="cn">TRUE</span>, main <span class="op">=</span> <span class="st">"Airquality - Ozone"</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in dgamma(x, shape = m^2/v, scale = v/m):</span> object 'm' not found</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span>x<span class="op">=</span><span class="st">"topright"</span>, xpd<span class="op">=</span><span class="cn">NA</span>,</span>
-<span class="r-in">       legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/grDevices/plotmath.html" class="external-link">plain</a></span><span class="op">(</span><span class="st">"gamma:  "</span><span class="op">)</span> <span class="op">*</span> <span class="va">Gamma</span> <span class="op">*</span> <span class="st">" "</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/plotmath.html" class="external-link">bgroup</a></span><span class="op">(</span><span class="st">"("</span>, <span class="va">k</span> <span class="op">*</span> <span class="st">" = "</span> <span class="op">*</span></span>
-<span class="r-in">           <span class="fu"><a href="https://rdrr.io/r/grDevices/plotmath.html" class="external-link">over</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/grDevices/plotmath.html" class="external-link">bar</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span>, <span class="va">s</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span> <span class="op">*</span> <span class="st">" , "</span> <span class="op">*</span> <span class="va">theta</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/plotmath.html" class="external-link">plain</a></span><span class="op">(</span><span class="st">" = "</span><span class="op">)</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/plotmath.html" class="external-link">over</a></span><span class="op">(</span><span class="va">s</span><span class="op">^</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/grDevices/plotmath.html" class="external-link">bar</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>, <span class="st">")"</span><span class="op">)</span> <span class="op">)</span>,</span>
-<span class="r-in">                <span class="st">"kernel density"</span><span class="op">)</span>,</span>
-<span class="r-in">       fill<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">hecru</span>, <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"col1"</span>, <span class="va">hred</span><span class="op">)</span><span class="op">)</span>, text.width <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span>x<span class="op">=</span><span class="st">"topright"</span>, xpd<span class="op">=</span><span class="cn">NA</span>,</span></span>
+<span class="r-in"><span>       legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu">plain</span><span class="op">(</span><span class="st">"gamma:  "</span><span class="op">)</span> <span class="op">*</span> <span class="va">Gamma</span> <span class="op">*</span> <span class="st">" "</span> <span class="op">*</span> <span class="fu">bgroup</span><span class="op">(</span><span class="st">"("</span>, <span class="va">k</span> <span class="op">*</span> <span class="st">" = "</span> <span class="op">*</span></span></span>
+<span class="r-in"><span>           <span class="fu">over</span><span class="op">(</span><span class="fu">bar</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span>, <span class="va">s</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span> <span class="op">*</span> <span class="st">" , "</span> <span class="op">*</span> <span class="va">theta</span> <span class="op">*</span> <span class="fu">plain</span><span class="op">(</span><span class="st">" = "</span><span class="op">)</span> <span class="op">*</span> <span class="fu">over</span><span class="op">(</span><span class="va">s</span><span class="op">^</span><span class="fl">2</span>, <span class="fu">bar</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>, <span class="st">")"</span><span class="op">)</span> <span class="op">)</span>,</span></span>
+<span class="r-in"><span>                <span class="st">"kernel density"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>       fill<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">hecru</span>, <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"col1"</span>, <span class="va">hred</span><span class="op">)</span><span class="op">)</span>, text.width <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="PlotFdist-10.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -262,7 +282,7 @@ In such cases consider taking a sample, i.e. <code>  PlotFdist(x[sample(length(x
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

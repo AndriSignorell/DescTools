@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -82,27 +82,35 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">FisherZ</span><span class="op">(</span><span class="va">rho</span><span class="op">)</span>
-<span class="fu">FisherZInv</span><span class="op">(</span><span class="va">z</span><span class="op">)</span>
-<span class="fu">CorCI</span><span class="op">(</span><span class="va">rho</span>, <span class="va">n</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span>, alternative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"less"</span>, <span class="st">"greater"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">FisherZ</span><span class="op">(</span><span class="va">rho</span><span class="op">)</span></span>
+<span><span class="fu">FisherZInv</span><span class="op">(</span><span class="va">z</span><span class="op">)</span></span>
+<span><span class="fu">CorCI</span><span class="op">(</span><span class="va">rho</span>, <span class="va">n</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span>, alternative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"less"</span>, <span class="st">"greater"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>rho</dt>
 <dd><p>the Pearson's correlation coefficient</p></dd>
-<dt>z</dt>
+
+  <dt>z</dt>
 <dd><p>a Fisher z transformed value</p></dd>
-<dt>n</dt>
+
+  <dt>n</dt>
 <dd><p>sample size used for calculating the confidence intervals</p></dd>
-<dt>alternative</dt>
+
+
+  <dt>alternative</dt>
 <dd><p>is a character string, one of <code>"greater"</code>,
   <code>"less"</code>, or <code>"two.sided"</code>, or the initial letter of each,
   indicating the specification of the alternative hypothesis.
   <code>"greater"</code> corresponds to positive association, <code>"less"</code> to negative association.</p></dd>
-<dt>conf.level</dt>
+
+
+  <dt>conf.level</dt>
 <dd><p>confidence level for the returned confidence
   interval, restricted to lie between zero and one.</p></dd>
+
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -111,7 +119,15 @@
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>z value corresponding to r (in FisherZ) <br>r corresponding to z (in FisherZInv) <br>rho, lower and upper confidence intervals (CorCI) <br></p>
+    <p>z value corresponding to r (in FisherZ) <br></p>
+
+
+<p>r corresponding to z (in FisherZInv) <br></p>
+
+
+<p>rho, lower and upper confidence intervals (CorCI) <br></p>
+
+
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -125,22 +141,22 @@ slight modifications Andri Signorell &lt;andri@signorell.net&gt; based on R-Core
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">cors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">.9</span>, <span class="fl">.9</span>, <span class="fl">.1</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">zs</span> <span class="op">&lt;-</span> <span class="fu">FisherZ</span><span class="op">(</span><span class="va">cors</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">rs</span> <span class="op">&lt;-</span> <span class="fu">FisherZInv</span><span class="op">(</span><span class="va">zs</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">zs</span>, <span class="fl">2</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">cors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">.9</span>, <span class="fl">.9</span>, <span class="fl">.1</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">zs</span> <span class="op">&lt;-</span> <span class="fu">FisherZ</span><span class="op">(</span><span class="va">cors</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">rs</span> <span class="op">&lt;-</span> <span class="fu">FisherZInv</span><span class="op">(</span><span class="va">zs</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">zs</span>, <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] -1.47 -1.10 -0.87 -0.69 -0.55 -0.42 -0.31 -0.20 -0.10  0.00  0.10  0.20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [13]  0.31  0.42  0.55  0.69  0.87  1.10  1.47</span>
-<span class="r-in"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">30</span></span>
-<span class="r-in"><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">.9</span>, <span class="fl">.1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">rc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">r</span>, <span class="va">CorCI</span>, n<span class="op">=</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">t</span> <span class="op">&lt;-</span> <span class="va">r</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">2</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="va">r</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">p</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/TDist.html" class="external-link">pt</a></span><span class="op">(</span><span class="va">t</span>, <span class="va">n</span><span class="op">-</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">r.rc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>r<span class="op">=</span><span class="va">r</span>, z<span class="op">=</span><span class="fu">FisherZ</span><span class="op">(</span><span class="va">r</span><span class="op">)</span>, lower<span class="op">=</span><span class="va">rc</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span>, upper<span class="op">=</span><span class="va">rc</span><span class="op">[</span>,<span class="fl">3</span><span class="op">]</span>, t<span class="op">=</span><span class="va">t</span>, p<span class="op">=</span><span class="va">p</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">r.rc</span>,<span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">30</span></span></span>
+<span class="r-in"><span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">.9</span>, <span class="fl">.1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">rc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">r</span>, <span class="va">CorCI</span>, n<span class="op">=</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">t</span> <span class="op">&lt;-</span> <span class="va">r</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">2</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="va">r</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/TDist.html" class="external-link">pt</a></span><span class="op">(</span><span class="va">t</span>, <span class="va">n</span><span class="op">-</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">r.rc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>r<span class="op">=</span><span class="va">r</span>, z<span class="op">=</span><span class="fu">FisherZ</span><span class="op">(</span><span class="va">r</span><span class="op">)</span>, lower<span class="op">=</span><span class="va">rc</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span>, upper<span class="op">=</span><span class="va">rc</span><span class="op">[</span>,<span class="fl">3</span><span class="op">]</span>, t<span class="op">=</span><span class="va">t</span>, p<span class="op">=</span><span class="va">p</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">r.rc</span>,<span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      r    z lower upper     t    p</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.0 0.00 -0.36  0.36  0.00 0.25</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.1 0.10 -0.27  0.44  0.53 0.15</span>
@@ -166,7 +182,7 @@ slight modifications Andri Signorell &lt;andri@signorell.net&gt; based on R-Core
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

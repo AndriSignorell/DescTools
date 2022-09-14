@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,17 +87,22 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">ParseSASDatalines</span><span class="op">(</span><span class="va">x</span>, env <span class="op">=</span> <span class="va">.GlobalEnv</span>, overwrite <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ParseSASDatalines</span><span class="op">(</span><span class="va">x</span>, env <span class="op">=</span> <span class="va">.GlobalEnv</span>, overwrite <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>the SAS text</p></dd>
-<dt>env</dt>
+
+  <dt>env</dt>
 <dd><p>environment in which the dataset should be created.</p></dd>
-<dt>overwrite</dt>
+
+  <dt>overwrite</dt>
 <dd><p>logical. If set to TRUE, the function will silently overwrite a potentially existing object in <code>env</code> with the same name as declared in the SAS <code>DATA</code> section. If set to <code>FALSE</code> (default) an error will be raised if there already exists an object with the same name.</p></dd>
+
+
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -122,24 +127,24 @@ Each new row in datalines will create a corresponding unique row in the dataset.
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">txt</span> <span class="op">&lt;-</span> <span class="st">"</span>
-<span class="r-in">DATA asurvey;</span>
-<span class="r-in">INPUT id sex $ age inc r1 r2 r3 ;</span>
-<span class="r-in">DATALINES;</span>
-<span class="r-in">1   F  35 17  7 2 2</span>
-<span class="r-in">17  M  50 14  5 5 3</span>
-<span class="r-in">33  F  45  6  7 2 7</span>
-<span class="r-in">49  M  24 14  7 5 7</span>
-<span class="r-in">65  F  52  9  4 7 7</span>
-<span class="r-in">81  M  44 11  7 7 7</span>
-<span class="r-in">2   F  34 17  6 5 3</span>
-<span class="r-in">18  M  40 14  7 5 2</span>
-<span class="r-in">34  F  47  6  6 5 6</span>
-<span class="r-in">50  M  35 17  5 7 5</span>
-<span class="r-in">;</span>
-<span class="r-in">"</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="op">(</span><span class="va">d.frm</span> <span class="op">&lt;-</span> <span class="fu">ParseSASDatalines</span><span class="op">(</span><span class="va">txt</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">txt</span> <span class="op">&lt;-</span> <span class="st">"</span></span></span>
+<span class="r-in"><span><span class="st">DATA asurvey;</span></span></span>
+<span class="r-in"><span><span class="st">INPUT id sex $ age inc r1 r2 r3 ;</span></span></span>
+<span class="r-in"><span><span class="st">DATALINES;</span></span></span>
+<span class="r-in"><span><span class="st">1   F  35 17  7 2 2</span></span></span>
+<span class="r-in"><span><span class="st">17  M  50 14  5 5 3</span></span></span>
+<span class="r-in"><span><span class="st">33  F  45  6  7 2 7</span></span></span>
+<span class="r-in"><span><span class="st">49  M  24 14  7 5 7</span></span></span>
+<span class="r-in"><span><span class="st">65  F  52  9  4 7 7</span></span></span>
+<span class="r-in"><span><span class="st">81  M  44 11  7 7 7</span></span></span>
+<span class="r-in"><span><span class="st">2   F  34 17  6 5 3</span></span></span>
+<span class="r-in"><span><span class="st">18  M  40 14  7 5 2</span></span></span>
+<span class="r-in"><span><span class="st">34  F  47  6  6 5 6</span></span></span>
+<span class="r-in"><span><span class="st">50  M  35 17  5 7 5</span></span></span>
+<span class="r-in"><span><span class="st">;</span></span></span>
+<span class="r-in"><span><span class="st">"</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">d.frm</span> <span class="op">&lt;-</span> <span class="fu">ParseSASDatalines</span><span class="op">(</span><span class="va">txt</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">The object asurvey has been added to .GlobalEnv.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -168,7 +173,7 @@ Each new row in datalines will create a corresponding unique row in the dataset.
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

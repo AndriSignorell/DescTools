@@ -22,7 +22,7 @@ using oddsratio (&quot;use.or&quot;)
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -91,30 +91,37 @@ using oddsratio (<code>"use.or"</code>)
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">RelRisk</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, conf.level <span class="op">=</span> <span class="cn">NA</span>, 
-        method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"score"</span>, <span class="st">"wald"</span>, <span class="st">"use.or"</span><span class="op">)</span>, delta <span class="op">=</span> <span class="fl">0.5</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">RelRisk</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, conf.level <span class="op">=</span> <span class="cn">NA</span>, </span>
+<span>        method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"score"</span>, <span class="st">"wald"</span>, <span class="st">"use.or"</span><span class="op">)</span>, delta <span class="op">=</span> <span class="fl">0.5</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>a numeric vector or a 2x2 numeric matrix, resp. table.</p></dd>
-<dt>y</dt>
+
+  <dt>y</dt>
 <dd><p>NULL (default) or a vector with compatible dimensions to <code>x</code>. If y is provided, <code>table(x, y, ...)</code> will be calculated.</p></dd>
-<dt>conf.level</dt>
+
+  <dt>conf.level</dt>
 <dd><p>confidence level. Default is NA, meaning no confidence intervals will be
   reported.
 <!-- %%     ~~Describe \code{conf.level} here~~ --></p></dd>
-<dt>method</dt>
+
+  <dt>method</dt>
 <dd><p>method for calculating odds ratio and confidence interval. Can be one out of
     <code>"score"</code>, <code>"wald"</code>, <code>"use.or"</code>. Default is <code>"score"</code>.
 <!-- %%     ~~Describe \code{method} here~~ --></p></dd>
-<dt>delta</dt>
+
+  <dt>delta</dt>
 <dd><p>small constant to be added to the numerator for calculating the log risk ratio (Wald method). Usual choice is 0.5 although there does not seem to be any 
   theory behind this. (Dewey, M. 2006)
 <!-- %%     ~~Describe \code{delta} here~~ --></p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>further arguments are passed to the function <code><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></code>, allowing i.e. to set useNA.</p></dd>
+
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -132,10 +139,28 @@ using oddsratio (<code>"use.or"</code>)
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>If conf.level is not <code>NA</code> then the result will be
+    
+
+<p>If conf.level is not <code>NA</code> then the result will be
   a vector with 3 elements for estimate, lower confidence intervall and upper for the upper one.
-  Else the relative risk will be reported as a single value. 
-<!-- %%  ~Describe the value returned --><!-- %%  If it is a LIST, use --><!-- %%  \item{comp1 }{Description of 'comp1'} --><!-- %%  \item{comp2 }{Description of 'comp2'} --><!-- %% ... --></p>
+  Else the relative risk will be reported as a single value.</p>
+
+
+<p><!-- %%  ~Describe the value returned --></p>
+
+
+<p><!-- %%  If it is a LIST, use --></p>
+
+
+<p><!-- %%  \item{comp1 }{Description of 'comp1'} --></p>
+
+
+<p><!-- %%  \item{comp2 }{Description of 'comp2'} --></p>
+
+
+<p><!-- %% ... --></p>
+
+
     </div>
     <div id="references">
     <h2>References</h2>
@@ -161,19 +186,19 @@ using oddsratio (<code>"use.or"</code>)
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">mm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">9</span>,<span class="fl">20</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">41</span>,<span class="fl">29</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mm</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">mm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">9</span>,<span class="fl">20</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">41</span>,<span class="fl">29</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mm</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    9   41</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,]   20   29</span>
-<span class="r-in"> </span>
-<span class="r-in"><span class="fu">RelRisk</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">mm</span><span class="op">)</span>, conf.level<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span>
+<span class="r-in"><span> </span></span>
+<span class="r-in"><span><span class="fu">RelRisk</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">mm</span><span class="op">)</span>, conf.level<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rel. risk    lwr.ci    upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.5298570 0.2869143 0.8869267 </span>
-<span class="r-in"><span class="fu">RelRisk</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">mm</span><span class="op">)</span>, conf.level<span class="op">=</span><span class="fl">0.95</span>, method<span class="op">=</span><span class="st">"wald"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">RelRisk</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">mm</span><span class="op">)</span>, conf.level<span class="op">=</span><span class="fl">0.95</span>, method<span class="op">=</span><span class="st">"wald"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rel. risk    lwr.ci    upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.5298570 0.3037489 0.9242780 </span>
-<span class="r-in"><span class="fu">RelRisk</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">mm</span><span class="op">)</span>, conf.level<span class="op">=</span><span class="fl">0.95</span>, method<span class="op">=</span><span class="st">"use.or"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">RelRisk</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">mm</span><span class="op">)</span>, conf.level<span class="op">=</span><span class="fl">0.95</span>, method<span class="op">=</span><span class="st">"use.or"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rel. risk    lwr.ci    upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.5298570 0.2597810 0.9051415 </span>
 </code></pre></div>
@@ -190,7 +215,7 @@ using oddsratio (<code>"use.or"</code>)
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

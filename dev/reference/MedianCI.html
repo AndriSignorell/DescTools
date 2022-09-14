@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -82,25 +82,34 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">MedianCI</span><span class="op">(</span><span class="va">x</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span>, sides <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"left"</span>, <span class="st">"right"</span><span class="op">)</span>,
-         na.rm <span class="op">=</span> <span class="cn">FALSE</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"exact"</span>, <span class="st">"boot"</span><span class="op">)</span>, R <span class="op">=</span> <span class="fl">999</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">MedianCI</span><span class="op">(</span><span class="va">x</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span>, sides <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"left"</span>, <span class="st">"right"</span><span class="op">)</span>,</span>
+<span>         na.rm <span class="op">=</span> <span class="cn">FALSE</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"exact"</span>, <span class="st">"boot"</span><span class="op">)</span>, R <span class="op">=</span> <span class="fl">999</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>a (non-empty) numeric vector of data values.</p></dd>
-<dt>conf.level</dt>
+
+  <dt>conf.level</dt>
 <dd><p>confidence level of the interval</p></dd>
+
 <dt>sides</dt>
 <dd><p>a character string specifying the side of the confidence interval, must be one of <code>"two.sided"</code> (default), <code>"left"</code> or <code>"right"</code>. You can specify just the initial letter. <code>"left"</code> would be analogue to a hypothesis of <code>"greater"</code> in a <code>t.test</code>.</p></dd>
-<dt>na.rm</dt>
+
+
+  <dt>na.rm</dt>
 <dd><p>logical. Should missing values be removed? Defaults to <code>FALSE</code>.</p></dd>
-<dt>method</dt>
+
+  <dt>method</dt>
 <dd><p>defining the type of interval that should be calculated (one out of <code>"exact"</code>, <code>"boot"</code>). Default is <code>"exact"</code>. See Details.</p></dd>
+
+
 <dt>R</dt>
 <dd><p>The number of bootstrap replicates. Usually this will be a single positive integer. See
 <code><a href="https://rdrr.io/pkg/boot/man/boot.ci.html" class="external-link">boot.ci</a></code> for details.</p></dd>
+
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -113,10 +122,13 @@ Use <code><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sap
     <p>a numeric vector with 3 elements:</p>
 <dl><dt>median</dt>
 <dd><p>median</p></dd>
-<dt>lwr.ci</dt>
+
+  <dt>lwr.ci</dt>
 <dd><p>lower bound of the confidence interval</p></dd>
-<dt>upr.ci</dt>
+
+  <dt>upr.ci</dt>
 <dd><p>upper bound of the confidence interval</p></dd>
+
 </dl></div>
     <div id="author">
     <h2>Author</h2>
@@ -129,29 +141,29 @@ Use <code><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sap
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">MedianCI</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">price</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">MedianCI</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">price</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> median lwr.ci upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 46.764 44.970 47.664 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"conf.level")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9506831</span>
-<span class="r-in"><span class="fu">MedianCI</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">price</span>, conf.level<span class="op">=</span><span class="fl">0.99</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">MedianCI</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">price</span>, conf.level<span class="op">=</span><span class="fl">0.99</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> median lwr.ci upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 46.764 44.970 48.070 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"conf.level")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.990742</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"delivery_min"</span>,<span class="st">"temperature"</span>,<span class="st">"price"</span><span class="op">)</span><span class="op">]</span>, <span class="va">MedianCI</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"delivery_min"</span>,<span class="st">"temperature"</span>,<span class="st">"price"</span><span class="op">)</span><span class="op">]</span>, <span class="va">MedianCI</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              median lwr.ci upr.ci</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> delivery_min 24.400  23.80 25.200</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> temperature  50.000  49.50 50.700</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> price        46.764  44.97 47.664</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">MedianCI</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">price</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>, method<span class="op">=</span><span class="st">"exact"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">MedianCI</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">price</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>, method<span class="op">=</span><span class="st">"exact"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> median lwr.ci upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 46.764 44.970 47.664 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"conf.level")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9506831</span>
-<span class="r-in"><span class="fu">MedianCI</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">price</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>, method<span class="op">=</span><span class="st">"boot"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">MedianCI</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">price</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>, method<span class="op">=</span><span class="st">"boot"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> median lwr.ci upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 46.764 45.864 48.558 </span>
 </code></pre></div>
@@ -168,7 +180,7 @@ Use <code><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sap
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

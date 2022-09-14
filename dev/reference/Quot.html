@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -82,7 +82,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Quot</span><span class="op">(</span><span class="va">x</span>, lag <span class="op">=</span> <span class="fl">1</span>, quotients <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Quot</span><span class="op">(</span><span class="va">x</span>, lag <span class="op">=</span> <span class="fl">1</span>, quotients <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -90,12 +90,16 @@
     <dl><dt>x</dt>
 <dd><p>a numeric vector or matrix containing the values to be
     used for calculating the quotients.</p></dd>
-<dt>lag</dt>
+
+  <dt>lag</dt>
 <dd><p>an integer indicating which lag to use.</p></dd>
-<dt>quotients</dt>
+
+  <dt>quotients</dt>
 <dd><p>an integer indicating the order of the quotient.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>further arguments to be passed to or from methods.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -103,14 +107,22 @@
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>If <code>x</code> is a vector of length <code>n</code> and <code>quotients = 1</code>,
-  then the computed result is equal to the successive quotients
-<code>x[(1+lag):n] - x[1:(n-lag)]</code>.
-  If <code>quotients</code> is larger than one this algorithm is applied
+    
+
+<p>If <code>x</code> is a vector of length <code>n</code> and <code>quotients = 1</code>,
+  then the computed result is equal to the successive quotients</p>
+<p></p>
+<p><code>x[(1+lag):n] - x[1:(n-lag)]</code>.</p>
+
+
+<p>If <code>quotients</code> is larger than one this algorithm is applied
   recursively to <code>x</code>.
-  Note that the returned value is a vector which is shorter than
-<code>x</code>.
-  If <code>x</code> is a matrix then the division operations are carried out
+  Note that the returned value is a vector which is shorter than</p>
+<p></p>
+<p><code>x</code>.</p>
+
+
+<p>If <code>x</code> is a matrix then the division operations are carried out
   on each column separately.</p>
     </div>
     <div id="references">
@@ -126,15 +138,15 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">Quot</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">2</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">Quot</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3.000000 2.000000 1.666667 1.500000 1.400000 1.333333 1.285714 1.250000</span>
-<span class="r-in"><span class="fu">Quot</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">Quot</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5555556 0.7500000 0.8400000 0.8888889 0.9183673 0.9375000</span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html" class="external-link">cumprod</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cumsum.html" class="external-link">cumprod</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">Quot</span><span class="op">(</span><span class="va">x</span>, lag <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html" class="external-link">cumprod</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cumsum.html" class="external-link">cumprod</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">Quot</span><span class="op">(</span><span class="va">x</span>, lag <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1]            12           144          2880         86400       3628800</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [6]     203212800   14631321600 1316818944000</span>
-<span class="r-in"><span class="fu">Quot</span><span class="op">(</span><span class="va">x</span>, quotients <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">Quot</span><span class="op">(</span><span class="va">x</span>, quotients <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1]  3  4  5  6  7  8  9 10</span>
 </code></pre></div>
     </div>
@@ -150,7 +162,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

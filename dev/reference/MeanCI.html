@@ -19,7 +19,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -85,9 +85,9 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">MeanCI</span><span class="op">(</span><span class="va">x</span>, sd <span class="op">=</span> <span class="cn">NULL</span>, trim <span class="op">=</span> <span class="fl">0</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"classic"</span>, <span class="st">"boot"</span><span class="op">)</span>,
-       conf.level <span class="op">=</span> <span class="fl">0.95</span>, sides <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"left"</span>, <span class="st">"right"</span><span class="op">)</span>,
-       na.rm <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">MeanCI</span><span class="op">(</span><span class="va">x</span>, sd <span class="op">=</span> <span class="cn">NULL</span>, trim <span class="op">=</span> <span class="fl">0</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"classic"</span>, <span class="st">"boot"</span><span class="op">)</span>,</span>
+<span>       conf.level <span class="op">=</span> <span class="fl">0.95</span>, sides <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"left"</span>, <span class="st">"right"</span><span class="op">)</span>,</span>
+<span>       na.rm <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -95,26 +95,36 @@
     <dl><dt>x</dt>
 <dd><p>a (non-empty) numeric vector of data values.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
+
 <dt>sd</dt>
 <dd><p>the standard deviation of x. If provided it's interpreted as sd of the population and the normal quantiles will be used for constructing the confidence intervals. If left to <code>NULL</code> (default) the sample <code>sd(x)</code> will be calculated and used in combination with the t-distribution.</p></dd>
-<dt>trim</dt>
+
+
+  <dt>trim</dt>
 <dd><p>the fraction (0 to 0.5) of observations to be trimmed from each end of <code>x</code> before the mean is computed. Values of <code>trim</code> outside that range are taken as the nearest endpoint.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>method</dt>
+
+  <dt>method</dt>
 <dd><p>A vector of character strings representing the type of intervals required. The value should be any subset of the values <code>"classic"</code>, <code>"boot"</code>.
   See <code><a href="https://rdrr.io/pkg/boot/man/boot.ci.html" class="external-link">boot.ci</a></code>.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>conf.level</dt>
+
+  <dt>conf.level</dt>
 <dd><p>confidence level of the interval.
 <!-- %%     ~~Describe \code{conf.level} here~~ --></p></dd>
+
 <dt>sides</dt>
 <dd><p>a character string specifying the side of the confidence interval, must be one of <code>"two.sided"</code> (default), <code>"left"</code> or <code>"right"</code>. You can specify just the initial letter. <code>"left"</code> would be analogue to a hypothesis of <code>"greater"</code> in a <code>t.test</code>.</p></dd>
-<dt>na.rm</dt>
+
+
+  <dt>na.rm</dt>
 <dd><p>a logical value indicating whether <code>NA</code> values should be stripped before the computation proceeds. Defaults to FALSE.
 <!-- %%     ~~Describe \code{na.rm} here~~ --></p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>further arguments are passed to the <code><a href="https://rdrr.io/pkg/boot/man/boot.html" class="external-link">boot</a></code> function. Supported arguments are <code>type</code> (<code>"norm"</code>, <code>"basic"</code>, <code>"stud"</code>, <code>"perc"</code>, <code>"bca"</code>), <code>parallel</code> and the number of bootstrap replicates <code>R</code>. If not defined those will be set to their defaults, being <code>"basic"</code> for <code>type</code>,  option <code>"boot.parallel"</code> (and if that is not set, <code>"no"</code>) for <code>parallel</code>
  and <code>999</code> for <code>R</code>.<!-- %%     ~~Describe \code{x} here~~ --></p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -125,10 +135,13 @@
     <p>a numeric vector with 3 elements:</p>
 <dl><dt>mean</dt>
 <dd><p>mean</p></dd>
-<dt>lwr.ci</dt>
+
+  <dt>lwr.ci</dt>
 <dd><p>lower bound of the confidence interval</p></dd>
-<dt>upr.ci</dt>
+
+  <dt>upr.ci</dt>
 <dd><p>upper bound of the confidence interval</p></dd>
+
 </dl></div>
     <div id="author">
     <h2>Author</h2>
@@ -146,20 +159,20 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">d.pizza</span><span class="op">$</span><span class="va">price</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span><span class="op">]</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">MeanCI</span><span class="op">(</span><span class="va">x</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">d.pizza</span><span class="op">$</span><span class="va">price</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span><span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">MeanCI</span><span class="op">(</span><span class="va">x</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     mean   lwr.ci   upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 48.03037 37.16348 58.89726 </span>
-<span class="r-in"><span class="fu">MeanCI</span><span class="op">(</span><span class="va">x</span>, conf.level<span class="op">=</span><span class="fl">0.99</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">MeanCI</span><span class="op">(</span><span class="va">x</span>, conf.level<span class="op">=</span><span class="fl">0.99</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     mean   lwr.ci   upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 48.03037 33.14181 62.91892 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">MeanCI</span><span class="op">(</span><span class="va">x</span>, sides<span class="op">=</span><span class="st">"left"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">MeanCI</span><span class="op">(</span><span class="va">x</span>, sides<span class="op">=</span><span class="st">"left"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   mean lwr.ci upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     NA     NA    Inf </span>
-<span class="r-in"><span class="co"># same as:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">x</span>, alternative<span class="op">=</span><span class="st">"greater"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># same as:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">x</span>, alternative<span class="op">=</span><span class="st">"greater"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	One Sample t-test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -172,37 +185,37 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> mean of x </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  48.03037 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">MeanCI</span><span class="op">(</span><span class="va">x</span>, sd<span class="op">=</span><span class="fl">25</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">MeanCI</span><span class="op">(</span><span class="va">x</span>, sd<span class="op">=</span><span class="fl">25</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     mean   lwr.ci   upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 48.03037 36.78920 59.27153 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># the different types of bootstrap confints</span></span>
-<span class="r-in"><span class="fu">MeanCI</span><span class="op">(</span><span class="va">x</span>, method<span class="op">=</span><span class="st">"boot"</span>, type<span class="op">=</span><span class="st">"norm"</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># the different types of bootstrap confints</span></span></span>
+<span class="r-in"><span><span class="fu">MeanCI</span><span class="op">(</span><span class="va">x</span>, method<span class="op">=</span><span class="st">"boot"</span>, type<span class="op">=</span><span class="st">"norm"</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     mean   lwr.ci   upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 48.03037 38.17212 57.94576 </span>
-<span class="r-in"><span class="fu">MeanCI</span><span class="op">(</span><span class="va">x</span>, trim<span class="op">=</span><span class="fl">0.1</span>, method<span class="op">=</span><span class="st">"boot"</span>, type<span class="op">=</span><span class="st">"norm"</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">MeanCI</span><span class="op">(</span><span class="va">x</span>, trim<span class="op">=</span><span class="fl">0.1</span>, method<span class="op">=</span><span class="st">"boot"</span>, type<span class="op">=</span><span class="st">"norm"</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     mean   lwr.ci   upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 47.71441 37.21396 58.11883 </span>
-<span class="r-in"><span class="fu">MeanCI</span><span class="op">(</span><span class="va">x</span>, trim<span class="op">=</span><span class="fl">0.1</span>, method<span class="op">=</span><span class="st">"boot"</span>, type<span class="op">=</span><span class="st">"basic"</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">MeanCI</span><span class="op">(</span><span class="va">x</span>, trim<span class="op">=</span><span class="fl">0.1</span>, method<span class="op">=</span><span class="st">"boot"</span>, type<span class="op">=</span><span class="st">"basic"</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     mean   lwr.ci   upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 47.71441 38.04312 57.84600 </span>
-<span class="r-in"><span class="fu">MeanCI</span><span class="op">(</span><span class="va">x</span>, trim<span class="op">=</span><span class="fl">0.1</span>, method<span class="op">=</span><span class="st">"boot"</span>, type<span class="op">=</span><span class="st">"stud"</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">MeanCI</span><span class="op">(</span><span class="va">x</span>, trim<span class="op">=</span><span class="fl">0.1</span>, method<span class="op">=</span><span class="st">"boot"</span>, type<span class="op">=</span><span class="st">"stud"</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     mean   lwr.ci   upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 47.71441 37.83765 58.30641 </span>
-<span class="r-in"><span class="fu">MeanCI</span><span class="op">(</span><span class="va">x</span>, trim<span class="op">=</span><span class="fl">0.1</span>, method<span class="op">=</span><span class="st">"boot"</span>, type<span class="op">=</span><span class="st">"perc"</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">MeanCI</span><span class="op">(</span><span class="va">x</span>, trim<span class="op">=</span><span class="fl">0.1</span>, method<span class="op">=</span><span class="st">"boot"</span>, type<span class="op">=</span><span class="st">"perc"</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     mean   lwr.ci   upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 47.71441 37.22735 58.51682 </span>
-<span class="r-in"><span class="fu">MeanCI</span><span class="op">(</span><span class="va">x</span>, trim<span class="op">=</span><span class="fl">0.1</span>, method<span class="op">=</span><span class="st">"boot"</span>, type<span class="op">=</span><span class="st">"bca"</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">MeanCI</span><span class="op">(</span><span class="va">x</span>, trim<span class="op">=</span><span class="fl">0.1</span>, method<span class="op">=</span><span class="st">"boot"</span>, type<span class="op">=</span><span class="st">"bca"</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     mean   lwr.ci   upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 47.71441 36.97180 58.87290 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">MeanCI</span><span class="op">(</span><span class="va">x</span>, trim<span class="op">=</span><span class="fl">0.1</span>, method<span class="op">=</span><span class="st">"boot"</span>, type<span class="op">=</span><span class="st">"bca"</span>, R<span class="op">=</span><span class="fl">1999</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">MeanCI</span><span class="op">(</span><span class="va">x</span>, trim<span class="op">=</span><span class="fl">0.1</span>, method<span class="op">=</span><span class="st">"boot"</span>, type<span class="op">=</span><span class="st">"bca"</span>, R<span class="op">=</span><span class="fl">1999</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     mean   lwr.ci   upr.ci </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 47.71441 37.34747 58.90979 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Getting the MeanCI for more than 1 column</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, <span class="va">MeanCI</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Getting the MeanCI for more than 1 column</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, <span class="va">MeanCI</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              mean    lwr.ci    upr.ci</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> index     605.000   585.299   624.701</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> date    16145.260 16144.746 16145.774</span>
@@ -222,7 +235,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

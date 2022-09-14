@@ -19,7 +19,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -86,50 +86,61 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">dOrder</span><span class="op">(</span><span class="va">x</span>, <span class="va">densfun</span>, <span class="va">distnfun</span>, <span class="va">...</span>, <span class="va">distn</span>, mlen <span class="op">=</span> <span class="fl">1</span>, j <span class="op">=</span> <span class="fl">1</span>,
-      largest <span class="op">=</span> <span class="cn">TRUE</span>, log <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="fu">pOrder</span><span class="op">(</span><span class="va">q</span>, <span class="va">distnfun</span>, <span class="va">...</span>, <span class="va">distn</span>, mlen <span class="op">=</span> <span class="fl">1</span>, j <span class="op">=</span> <span class="fl">1</span>, largest <span class="op">=</span> <span class="cn">TRUE</span>,
-      lower.tail <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu">rOrder</span><span class="op">(</span><span class="va">n</span>, <span class="va">quantfun</span>, <span class="va">...</span>, <span class="va">distn</span>, mlen <span class="op">=</span> <span class="fl">1</span>, j <span class="op">=</span> <span class="fl">1</span>, largest <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">dOrder</span><span class="op">(</span><span class="va">x</span>, <span class="va">densfun</span>, <span class="va">distnfun</span>, <span class="va">...</span>, <span class="va">distn</span>, mlen <span class="op">=</span> <span class="fl">1</span>, j <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>      largest <span class="op">=</span> <span class="cn">TRUE</span>, log <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu">pOrder</span><span class="op">(</span><span class="va">q</span>, <span class="va">distnfun</span>, <span class="va">...</span>, <span class="va">distn</span>, mlen <span class="op">=</span> <span class="fl">1</span>, j <span class="op">=</span> <span class="fl">1</span>, largest <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      lower.tail <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu">rOrder</span><span class="op">(</span><span class="va">n</span>, <span class="va">quantfun</span>, <span class="va">...</span>, <span class="va">distn</span>, mlen <span class="op">=</span> <span class="fl">1</span>, j <span class="op">=</span> <span class="fl">1</span>, largest <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x, q</dt>
 <dd><p>Vector of quantiles.</p></dd>
-<dt>n</dt>
+
+  <dt>n</dt>
 <dd><p>Number of observations.</p></dd>
-<dt>densfun, distnfun, quantfun</dt>
+
+  <dt>densfun, distnfun, quantfun</dt>
 <dd><p>Density, distribution and
     quantile function of the specified distribution. The density
     function must have a <code>log</code> argument (a simple wrapper
     can always be constructed to achieve this).</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>Parameters of the specified distribution.</p></dd>
-<dt>distn</dt>
+
+  <dt>distn</dt>
 <dd><p>A character string, optionally specified as an
     alternative to <code>densfun</code>, <code>distnfun</code> and <code>quantfun</code>
     such that the density, distribution and quantile functions are
     formed upon the addition of the prefixes <code>d</code>, <code>p</code> and
     <code>q</code> respectively.</p></dd>
-<dt>mlen</dt>
+
+  <dt>mlen</dt>
 <dd><p>The number of independent variables.</p></dd>
-<dt>j</dt>
+
+  <dt>j</dt>
 <dd><p>The Order statistic, taken as the <code>j</code>th largest
     (default) or smallest of <code>mlen</code>, according to the value of
     <code>largest</code>.</p></dd>
-<dt>largest</dt>
+
+  <dt>largest</dt>
 <dd><p>Logical; if <code>TRUE</code> (default) use the <code>j</code>th
     largest Order statistic, otherwise use the <code>j</code>th smallest.</p></dd>
-<dt>log</dt>
+
+  <dt>log</dt>
 <dd><p>Logical; if <code>TRUE</code>, the log density is returned.</p></dd>
-<dt>lower.tail</dt>
+
+  <dt>lower.tail</dt>
 <dd><p>Logical; if <code>TRUE</code> (default) probabilities
     are P[X &lt;= x], otherwise  P[X &gt; x].</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>dOrder</code> gives the density function, <code>pOrder</code> gives the
+    <p></p>
+<p><code>dOrder</code> gives the density function, <code>pOrder</code> gives the
   distribution function and <code>qOrder</code> gives the quantile function
   of a selected Order statistic from a sample of size <code>mlen</code>,
   from a specified distibution. <code>rOrder</code> generates random deviates.</p>
@@ -145,15 +156,15 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">dOrder</span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">4</span>, <span class="va">dnorm</span>, <span class="va">pnorm</span>, mean <span class="op">=</span> <span class="fl">0.5</span>, sd <span class="op">=</span> <span class="fl">1.2</span>, mlen <span class="op">=</span> <span class="fl">5</span>, j <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">dOrder</span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">4</span>, <span class="va">dnorm</span>, <span class="va">pnorm</span>, mean <span class="op">=</span> <span class="fl">0.5</span>, sd <span class="op">=</span> <span class="fl">1.2</span>, mlen <span class="op">=</span> <span class="fl">5</span>, j <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2300687782 0.0133524232 0.0001663078</span>
-<span class="r-in"><span class="fu">dOrder</span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">4</span>, distn <span class="op">=</span> <span class="st">"norm"</span>, mean <span class="op">=</span> <span class="fl">0.5</span>, sd <span class="op">=</span> <span class="fl">1.2</span>, mlen <span class="op">=</span> <span class="fl">5</span>, j <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">dOrder</span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">4</span>, distn <span class="op">=</span> <span class="st">"norm"</span>, mean <span class="op">=</span> <span class="fl">0.5</span>, sd <span class="op">=</span> <span class="fl">1.2</span>, mlen <span class="op">=</span> <span class="fl">5</span>, j <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2300687782 0.0133524232 0.0001663078</span>
-<span class="r-in"><span class="fu">dOrder</span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">4</span>, distn <span class="op">=</span> <span class="st">"exp"</span>, mlen <span class="op">=</span> <span class="fl">2</span>, j <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">dOrder</span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">4</span>, distn <span class="op">=</span> <span class="st">"exp"</span>, mlen <span class="op">=</span> <span class="fl">2</span>, j <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.0366312778 0.0049575044 0.0006709253</span>
-<span class="r-in"><span class="fu">pOrder</span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">4</span>, distn <span class="op">=</span> <span class="st">"exp"</span>, rate <span class="op">=</span> <span class="fl">1.2</span>, mlen <span class="op">=</span> <span class="fl">2</span>, j <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">pOrder</span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">4</span>, distn <span class="op">=</span> <span class="st">"exp"</span>, rate <span class="op">=</span> <span class="fl">1.2</span>, mlen <span class="op">=</span> <span class="fl">2</span>, j <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9917703 0.9992534 0.9999323</span>
-<span class="r-in"><span class="fu">rOrder</span><span class="op">(</span><span class="fl">5</span>, <span class="va">qgamma</span>, shape <span class="op">=</span> <span class="fl">1</span>, mlen <span class="op">=</span> <span class="fl">10</span>, j <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">rOrder</span><span class="op">(</span><span class="fl">5</span>, <span class="va">qgamma</span>, shape <span class="op">=</span> <span class="fl">1</span>, mlen <span class="op">=</span> <span class="fl">10</span>, j <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2.249505 1.141041 1.598620 2.612313 1.917155</span>
 </code></pre></div>
     </div>
@@ -169,7 +180,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -87,9 +87,9 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">axTicks.POSIXct</span><span class="op">(</span><span class="va">side</span>, <span class="va">x</span>, <span class="va">at</span>, <span class="va">format</span>, labels <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">axTicks.Date</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span>, <span class="va">x</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">axTicks.POSIXct</span><span class="op">(</span><span class="va">side</span>, <span class="va">x</span>, <span class="va">at</span>, <span class="va">format</span>, labels <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">axTicks.Date</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span>, <span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -97,18 +97,23 @@
     <dl><dt>side</dt>
 <dd><p>See <a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a>.
 <!-- %%     ~~Describe \code{side} here~~ --></p></dd>
-<dt>x, at</dt>
+
+  <dt>x, at</dt>
 <dd><p>A date-time or date object.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>format</dt>
+
+  <dt>format</dt>
 <dd><p>See strptime.
 <!-- %%     ~~Describe \code{format} here~~ --></p></dd>
-<dt>labels</dt>
+
+  <dt>labels</dt>
 <dd><p>Either a logical value specifying whether annotations are to be made at the tickmarks, or a vector of character strings to be placed at the tickpoints.
 <!-- %%     ~~Describe \code{labels} here~~ --></p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>Further arguments to be passed from or to other methods.
 <!-- %%     ~~Describe \code{\dots} here~~ --></p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -118,7 +123,21 @@
     <div id="value">
     <h2>Value</h2>
     <p>numeric vector of coordinate values at which axis tickmarks can be drawn.
-<!-- %%  ~Describe the value returned --><!-- %%  If it is a LIST, use --><!-- %%  \item{comp1 }{Description of 'comp1'} --><!-- %%  \item{comp2 }{Description of 'comp2'} --><!-- %% ... --></p>
+<!-- %%  ~Describe the value returned --></p>
+
+
+<p><!-- %%  If it is a LIST, use --></p>
+
+
+<p><!-- %%  \item{comp1 }{Description of 'comp1'} --></p>
+
+
+<p><!-- %%  \item{comp2 }{Description of 'comp2'} --></p>
+
+
+<p><!-- %% ... --></p>
+
+
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -133,21 +152,21 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">beaver1</span>, <span class="op">{</span></span>
-<span class="r-in">  <span class="va">time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/strptime.html" class="external-link">strptime</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fl">1990</span>, <span class="va">day</span>, <span class="va">time</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%/%</a></span> <span class="fl">100</span>, <span class="va">time</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">100</span><span class="op">)</span>,</span>
-<span class="r-in">                   <span class="st">"%Y %j %H %M"</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">time</span>, <span class="va">temp</span>, type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span> <span class="co"># axis at 4-hour intervals.</span></span>
-<span class="r-in">  <span class="co"># now label every hour on the time axis</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">time</span>, <span class="va">temp</span>, type <span class="op">=</span> <span class="st">"l"</span>, xaxt <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">time</span><span class="op">)</span>, <span class="st">"hours"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/graphics/axis.POSIXct.html" class="external-link">axis.POSIXct</a></span><span class="op">(</span><span class="fl">1</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">r</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">r</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, by <span class="op">=</span> <span class="st">"hour"</span><span class="op">)</span>, format <span class="op">=</span> <span class="st">"%H"</span><span class="op">)</span></span>
-<span class="r-in">  <span class="co"># place the grid</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>v<span class="op">=</span><span class="fu">axTicks.POSIXct</span><span class="op">(</span><span class="fl">1</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">r</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">r</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, by <span class="op">=</span> <span class="st">"hour"</span><span class="op">)</span>, format <span class="op">=</span> <span class="st">"%H"</span><span class="op">)</span>,</span>
-<span class="r-in">         col<span class="op">=</span><span class="st">"grey"</span>, lty<span class="op">=</span><span class="st">"dotted"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">beaver1</span>, <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/strptime.html" class="external-link">strptime</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fl">1990</span>, <span class="va">day</span>, <span class="va">time</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%/%</a></span> <span class="fl">100</span>, <span class="va">time</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">100</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                   <span class="st">"%Y %j %H %M"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">time</span>, <span class="va">temp</span>, type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span> <span class="co"># axis at 4-hour intervals.</span></span></span>
+<span class="r-in"><span>  <span class="co"># now label every hour on the time axis</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">time</span>, <span class="va">temp</span>, type <span class="op">=</span> <span class="st">"l"</span>, xaxt <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">time</span><span class="op">)</span>, <span class="st">"hours"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/axis.POSIXct.html" class="external-link">axis.POSIXct</a></span><span class="op">(</span><span class="fl">1</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">r</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">r</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, by <span class="op">=</span> <span class="st">"hour"</span><span class="op">)</span>, format <span class="op">=</span> <span class="st">"%H"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="co"># place the grid</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>v<span class="op">=</span><span class="fu">axTicks.POSIXct</span><span class="op">(</span><span class="fl">1</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">r</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">r</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, by <span class="op">=</span> <span class="st">"hour"</span><span class="op">)</span>, format <span class="op">=</span> <span class="st">"%H"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>         col<span class="op">=</span><span class="st">"grey"</span>, lty<span class="op">=</span><span class="st">"dotted"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="axTicks.POSIXct-1.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="axTicks.POSIXct-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -162,7 +181,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

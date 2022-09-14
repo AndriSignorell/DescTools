@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -82,15 +82,17 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Mode</span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Mode</span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>a (non-empty) numeric vector of data values.</p></dd>
-<dt>na.rm</dt>
+
+  <dt>na.rm</dt>
 <dd><p>logical. Should missing values be removed? Defaults to <code>FALSE</code>.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -98,17 +100,21 @@
 <p>The handling of <code>NA</code> values follows the standards of the package. As soon as a single <code>NA</code> value occurs, <code>NA</code> is returned as result. This approach can sometimes be conservative when calculating the mode. The mode could be determined unambiguously in cases where the number of missing values is small enough that - regardless of what value they have - they cannot alter the sample mode. The modal frequency could then be determined within a lower and upper range. In the example of <code>x=c(1,1,1,1,2,2,NA)</code> we know that the mode of x is 1 regardless of what the true value is for the one missing value; and we know that the modal frequency must be between 4 and 5. However this is not implemented in the function and further considerations in this direction are left to the user here.</p>
 <p>The mode is elsewhere often calculated in a crude and wasteful way by tabulating the frequency for all elements of the vector and returning the most frequent one. This function uses a sophisticated data structure in C++ and is limited to determining the most frequent element only. Therefore it is orders of magnitude faster than other implementations, especially for large numeric vectors with large numbers of distinct values.</p>
 <p>You might furthermore consider using <code>density(x)$x[which.max(density(x)$y)]</code> for quantitative data or alternatively use <code><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist()</a></code>.<br>
-Another interesting idea for a more robust estimation of the mode:<br></p><div class="sourceCode"><pre><code><span class="va">peak</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/optimize.html" class="external-link">optimize</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">model</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">model</span>, <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span><span class="op">)</span><span class="op">)</span>,
-                 <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>,
-                 maximum <span class="op">=</span> <span class="cn">TRUE</span>,
-                 model <span class="op">=</span> <span class="va">y.loess</span><span class="op">)</span> 
-            
-<span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">peak</span><span class="op">$</span><span class="va">maximum</span>, <span class="va">peak</span><span class="op">$</span><span class="va">objective</span>, pch<span class="op">=</span><span class="va">FILLED.CIRCLE</span> <span class="op">&lt;-</span> <span class="fl">19</span><span class="op">)</span></code></pre></div>
+Another interesting idea for a more robust estimation of the mode:<br></p><div class="sourceCode"><pre><code><span></span>
+<span><span class="va">peak</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/optimize.html" class="external-link">optimize</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">model</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">model</span>, <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                 <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                 maximum <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                 model <span class="op">=</span> <span class="va">y.loess</span><span class="op">)</span> </span>
+<span>            </span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">peak</span><span class="op">$</span><span class="va">maximum</span>, <span class="va">peak</span><span class="op">$</span><span class="va">objective</span>, pch<span class="op">=</span><span class="va">FILLED.CIRCLE</span> <span class="op">&lt;-</span> <span class="fl">19</span><span class="op">)</span> </span></code></pre></div>
 
     </div>
     <div id="value">
     <h2>Value</h2>
-    <p>The most frequent value as number or character, depending of <code>class(x)</code>. If there is more than one, all are returned in a vector.<br>The modal frequency is attached as attribute named <code>"freq"</code>.</p>
+    <p>The most frequent value as number or character, depending of <code>class(x)</code>. If there is more than one, all are returned in a vector.<br></p>
+
+
+<p>The modal frequency is attached as attribute named <code>"freq"</code>.</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -126,46 +132,46 @@ https://stackoverflow.com/a/55213471/8416610</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># normal mode</span></span>
-<span class="r-in"><span class="fu">Mode</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># normal mode</span></span></span>
+<span class="r-in"><span><span class="fu">Mode</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in fastModeX(x, narm = FALSE):</span> object '_DescTools_fastModeX' not found</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">Mode</span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">Mode</span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"freq")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
-<span class="r-in"><span class="fu">Mode</span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">Mode</span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"freq")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
-<span class="r-in"><span class="fu">Mode</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">Mode</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"freq")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
-<span class="r-in"><span class="fu">Mode</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">0</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">Mode</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">0</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"freq")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
-<span class="r-in"><span class="fu">Mode</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">0</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">Mode</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">0</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in fastModeX(x, narm = FALSE):</span> object '_DescTools_fastModeX' not found</span>
-<span class="r-in"><span class="fu">Mode</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">0</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">Mode</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">0</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in fastModeX(x, narm = FALSE):</span> object '_DescTools_fastModeX' not found</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># returns all encountered modes, if several exist</span></span>
-<span class="r-in"><span class="fu">Mode</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># returns all encountered modes, if several exist</span></span></span>
+<span class="r-in"><span><span class="fu">Mode</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in fastModeX(x, narm = FALSE):</span> object '_DescTools_fastModeX' not found</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">Mode</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">Mode</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"freq")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
-<span class="r-in"><span class="fu">Mode</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">Mode</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in fastModeX(x, narm = FALSE):</span> object '_DescTools_fastModeX' not found</span>
-<span class="r-in"><span class="fu">Mode</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span><span class="op">)</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">Mode</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">driver</span><span class="op">)</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in fastModeX(x, narm = FALSE):</span> object '_DescTools_fastModeX' not found</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># use sapply for evaluating data.frames (resp. apply for matrices)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"driver"</span>, <span class="st">"temperature"</span>, <span class="st">"date"</span><span class="op">)</span><span class="op">]</span>, <span class="va">Mode</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># use sapply for evaluating data.frames (resp. apply for matrices)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"driver"</span>, <span class="st">"temperature"</span>, <span class="st">"date"</span><span class="op">)</span><span class="op">]</span>, <span class="va">Mode</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in fastModeX(x, narm = FALSE):</span> object '_DescTools_fastModeX' not found</span>
 </code></pre></div>
     </div>
@@ -181,7 +187,7 @@ https://stackoverflow.com/a/55213471/8416610</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

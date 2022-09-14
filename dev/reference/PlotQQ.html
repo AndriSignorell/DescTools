@@ -21,7 +21,7 @@ The assumed underlying distribution can be defined as a function of f(p), includ
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.45.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.1</span>
       </span>
     </div>
 
@@ -89,8 +89,8 @@ The assumed underlying distribution can be defined as a function of f(p), includ
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">PlotQQ</span><span class="op">(</span><span class="va">x</span>, qdist<span class="op">=</span><span class="va">qnorm</span>, main <span class="op">=</span> <span class="cn">NULL</span>, xlab <span class="op">=</span> <span class="cn">NULL</span>, ylab <span class="op">=</span> <span class="cn">NULL</span>, datax <span class="op">=</span> <span class="cn">FALSE</span>, add <span class="op">=</span> <span class="cn">FALSE</span>,
-       args.qqline <span class="op">=</span> <span class="cn">NULL</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span>, args.cband <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">PlotQQ</span><span class="op">(</span><span class="va">x</span>, qdist<span class="op">=</span><span class="va">qnorm</span>, main <span class="op">=</span> <span class="cn">NULL</span>, xlab <span class="op">=</span> <span class="cn">NULL</span>, ylab <span class="op">=</span> <span class="cn">NULL</span>, datax <span class="op">=</span> <span class="cn">FALSE</span>, add <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>       args.qqline <span class="op">=</span> <span class="cn">NULL</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span>, args.cband <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -98,37 +98,49 @@ The assumed underlying distribution can be defined as a function of f(p), includ
     <dl><dt>x</dt>
 <dd><p>the data sample
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
-<dt>qdist</dt>
+
+  <dt>qdist</dt>
 <dd><p>the quantile function of the assumed distribution. Can either be given as simple function name or defined as own function using the required arguments. Default is <code><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">qnorm()</a></code>. See examples.</p>
 <p><!-- %%     ~~Describe \code{qdist} here~~ --></p></dd>
-<dt>main</dt>
+
+  <dt>main</dt>
 <dd><p>the main title for the plot. This will be "Q-Q-Plot" by default
 <!-- %%     ~~Describe \code{main} here~~ --></p></dd>
-<dt>xlab</dt>
+
+  <dt>xlab</dt>
 <dd><p>the xlab for the plot
 <!-- %%     ~~Describe \code{xlab} here~~ --></p></dd>
-<dt>ylab</dt>
+
+  <dt>ylab</dt>
 <dd><p>the ylab for the plot
 <!-- %%     ~~Describe \code{ylab} here~~ --></p></dd>
+
 <dt>datax</dt>
 <dd><p>logical. Should data values be on the x-axis? Default is <code>FALSE</code>.</p></dd>
+
 <dt>add</dt>
 <dd><p>logical specifying if the points should be added to an already existing plot; defaults to <code>FALSE</code>.</p></dd>
-<dt>args.qqline</dt>
+
+  <dt>args.qqline</dt>
 <dd><p>arguments for the qqline. This will be estimated
    as a line through the 25% and 75% quantiles by default, which is the same procedure as <code><a href="https://rdrr.io/r/stats/qqnorm.html" class="external-link">qqline</a>()</code> does for normal
    distribution (instead of set it to abline(a = 0, b = 1)). The quantiles can however be overwritten by setting the argument <code>probs</code> to some user defined values. Also the method for calculating the quantiles can be defined (default is 7, see <code><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></code>). The line defaults are set to <code>col = par("fg")</code>, <code>lwd = par("lwd")</code> and <code>lty = par("lty")</code>.
    No line will be plotted if <code>args.qqline</code> is set to <code>NA</code>.</p></dd>
-<dt>conf.level</dt>
+
+  <dt>conf.level</dt>
 <dd><p>confidence level for the confidence interval. Set this to <code>NA</code>, if no confidence band should be plotted.
   Default is <code>0.95</code>. The confidence intervals are calculated pointwise method based on a Kolmogorov-Smirnov distribution.
 <!-- %%     ~~Describe \code{type} here~~ --></p></dd>
-<dt>args.cband</dt>
+
+  <dt>args.cband</dt>
 <dd><p>list of arguments for the confidence band, such as color or border (see <code><a href="DrawBand.html">DrawBand</a></code>).
 <!-- %%     ~~Describe \code{type} here~~ --></p></dd>
-<dt>...</dt>
+
+
+  <dt>...</dt>
 <dd><p>the dots are passed to the plot function.
 <!-- %%     ~~Describe \code{\dots} here~~ --></p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -157,26 +169,26 @@ into quantiles by means of the defined assumed distribution.
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html" class="external-link">rexp</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">10</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">PlotQQ</span><span class="op">(</span><span class="va">y</span>, <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html" class="external-link">qexp</a></span><span class="op">(</span><span class="va">p</span>, rate<span class="op">=</span><span class="fl">1</span><span class="op">/</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html" class="external-link">rexp</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">PlotQQ</span><span class="op">(</span><span class="va">y</span>, <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html" class="external-link">qexp</a></span><span class="op">(</span><span class="va">p</span>, rate<span class="op">=</span><span class="fl">1</span><span class="op">/</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="PlotQQ-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">w</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Weibull.html" class="external-link">rweibull</a></span><span class="op">(</span><span class="fl">100</span>, shape<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">PlotQQ</span><span class="op">(</span><span class="va">w</span>, qdist <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/Weibull.html" class="external-link">qweibull</a></span><span class="op">(</span><span class="va">p</span>, shape<span class="op">=</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">w</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Weibull.html" class="external-link">rweibull</a></span><span class="op">(</span><span class="fl">100</span>, shape<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">PlotQQ</span><span class="op">(</span><span class="va">w</span>, qdist <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/Weibull.html" class="external-link">qweibull</a></span><span class="op">(</span><span class="va">p</span>, shape<span class="op">=</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="PlotQQ-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html" class="external-link">rchisq</a></span><span class="op">(</span><span class="fl">100</span>, df<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">PlotQQ</span><span class="op">(</span><span class="va">z</span>, <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html" class="external-link">qchisq</a></span><span class="op">(</span><span class="va">p</span>, df<span class="op">=</span><span class="fl">5</span><span class="op">)</span>,</span>
-<span class="r-in">       args.qqline<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col<span class="op">=</span><span class="fl">2</span>, probs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.6</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">       main<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">"Q-Q plot for"</span> <span class="op">~</span><span class="op">~</span> <span class="op">{</span><span class="va">chi</span><span class="op">^</span><span class="fl">2</span><span class="op">}</span><span class="op">[</span><span class="va">nu</span> <span class="op">==</span> <span class="fl">3</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># add 5 random sets</span></span>
-<span class="r-in"><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">{</span></span>
-<span class="r-in">  <span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html" class="external-link">rchisq</a></span><span class="op">(</span><span class="fl">100</span>, df<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu">PlotQQ</span><span class="op">(</span><span class="va">z</span>, <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html" class="external-link">qchisq</a></span><span class="op">(</span><span class="va">p</span>, df<span class="op">=</span><span class="fl">5</span><span class="op">)</span>, add<span class="op">=</span><span class="cn">TRUE</span>, args.qqline <span class="op">=</span> <span class="cn">NA</span>,</span>
-<span class="r-in">         col<span class="op">=</span><span class="st">"grey"</span>, lty<span class="op">=</span><span class="st">"dotted"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html" class="external-link">rchisq</a></span><span class="op">(</span><span class="fl">100</span>, df<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">PlotQQ</span><span class="op">(</span><span class="va">z</span>, <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html" class="external-link">qchisq</a></span><span class="op">(</span><span class="va">p</span>, df<span class="op">=</span><span class="fl">5</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>       args.qqline<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col<span class="op">=</span><span class="fl">2</span>, probs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.6</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>       main<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">"Q-Q plot for"</span> <span class="op">~</span><span class="op">~</span> <span class="op">{</span><span class="va">chi</span><span class="op">^</span><span class="fl">2</span><span class="op">}</span><span class="op">[</span><span class="va">nu</span> <span class="op">==</span> <span class="fl">3</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># add 5 random sets</span></span></span>
+<span class="r-in"><span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html" class="external-link">rchisq</a></span><span class="op">(</span><span class="fl">100</span>, df<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">PlotQQ</span><span class="op">(</span><span class="va">z</span>, <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html" class="external-link">qchisq</a></span><span class="op">(</span><span class="va">p</span>, df<span class="op">=</span><span class="fl">5</span><span class="op">)</span>, add<span class="op">=</span><span class="cn">TRUE</span>, args.qqline <span class="op">=</span> <span class="cn">NA</span>,</span></span>
+<span class="r-in"><span>         col<span class="op">=</span><span class="st">"grey"</span>, lty<span class="op">=</span><span class="st">"dotted"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-plt img"><img src="PlotQQ-3.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -192,7 +204,7 @@ into quantiles by means of the defined assumed distribution.
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
