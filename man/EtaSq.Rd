@@ -42,7 +42,7 @@ Bakeman, R. (2005). Recommended effect size statistics for repeated measures des
 Olejnik, S. and Algina, J. (2003). Generalized Eta and Omega Squared Statistics: Measures of Effect Size for Some Common Research Designs. Psychological Methods 8(4), 434-447.
 }
 
-\author{Daniel Navarro <daniel.navarro@adelaide.edu.au>, Daniel Wollschlaeger <dwoll@psychologie.uni-kiel.de>}
+\author{Danielle Navarro <djnavarro@protonmail.com>, Daniel Wollschlaeger <dwoll@psychologie.uni-kiel.de>}
 
 \seealso{
 \code{\link{aov}},	\code{\link{anova}}, \code{\link[car]{Anova}}

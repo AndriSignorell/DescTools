@@ -4549,7 +4549,7 @@ VarCI <- function (x, method = c("classic", "bonett", "norm", "basic","stud","pe
 
 
 
-## stats: Lorenz, Gini & ineq ====
+## stats: Lorenz, <- & ineq ====
 
 Lc <- function(x, ...)
   UseMethod("Lc")
@@ -4748,47 +4748,111 @@ predict.Lc <- function(object, newdata, conf.level=NA, general=FALSE, n=1000, ..
 # http://finzi.psych.upenn.edu/R/library/dplR/html/gini.coef.html
 
 
-Gini <- function(x, n = rep(1, length(x)), unbiased = TRUE, conf.level = NA, R = 1000, type = "bca", na.rm = FALSE) {
+# Gini <- function(x, n = rep(1, length(x)), unbiased = TRUE, conf.level = NA, R = 1000, type = "bca", na.rm = FALSE) {
+# 
+#   # cast to numeric, as else sum(x * 1:n) might overflow for integers
+#   # http://stackoverflow.com/questions/39579029/integer-overflow-error-using-gini-function-of-package-desctools
+#   x <- as.numeric(x)
+# 
+#   x <- rep(x, n)    # same handling as Lc
+#   if(na.rm) x <- na.omit(x)
+#   if (any(is.na(x)) || any(x < 0)) return(NA_real_)
+# 
+#   i.gini <- function (x, unbiased = TRUE){
+#     n <- length(x)
+#     x <- sort(x)
+# 
+#     res <- 2 * sum(x * 1:n) / (n*sum(x)) - 1 - (1/n)
+#     if(unbiased) res <- n / (n - 1) * res
+# 
+#     # limit Gini to 0 here, if negative values appear, which is the case with
+#     # Gini( c(10,10,10))
+#     return( pmax(0, res))
+# 
+#     # other guy out there:
+#     #     N <- if (unbiased) n * (n - 1) else n * n
+#     #     dsum <- drop(crossprod(2 * 1:n - n - 1, x))
+#     #     dsum / (mean(x) * N)
+#     # is this slower, than above implementation??
+#   }
+# 
+#   if(is.na(conf.level)){
+#     res <- i.gini(x, unbiased = unbiased)
+# 
+#   } else {
+#     # adjusted bootstrap percentile (BCa) interval
+#     boot.gini <- boot(x, function(x, d) i.gini(x[d], unbiased = unbiased), R=R)
+#     ci <- boot.ci(boot.gini, conf=conf.level, type=type)
+#     res <- c(gini=boot.gini$t0, lwr.ci=ci[[4]][4], upr.ci=ci[[4]][5])
+#   }
+# 
+#   return(res)
+# 
+# }
 
-  # cast to numeric, as else sum(x * 1:n) might overflow for integers
-  # http://stackoverflow.com/questions/39579029/integer-overflow-error-using-gini-function-of-package-desctools
-  x <- as.numeric(x)
 
-  x <- rep(x, n)    # same handling as Lc
-  if(na.rm) x <- na.omit(x)
-  if (any(is.na(x)) || any(x < 0)) return(NA_real_)
 
-  i.gini <- function (x, unbiased = TRUE){
-    n <- length(x)
-    x <- sort(x)
+# recoded for better support weights 2022-09-14
 
-    res <- 2 * sum(x * 1:n) / (n*sum(x)) - 1 - (1/n)
-    if(unbiased) res <- n / (n - 1) * res
-
-    # limit Gini to 0 here, if negative values appear, which is the case with
-    # Gini( c(10,10,10))
-    return( pmax(0, res))
-
-    # other guy out there:
-    #     N <- if (unbiased) n * (n - 1) else n * n
-    #     dsum <- drop(crossprod(2 * 1:n - n - 1, x))
-    #     dsum / (mean(x) * N)
-    # is this slower, than above implementation??
+Gini <- function(x, weights=NULL, unbiased=TRUE, conf.level = NA, 
+                    R = 10000, type = "bca", na.rm=FALSE) {
+  
+  # https://core.ac.uk/download/pdf/41339501.pdf
+  
+  if (is.null(weights)) {
+    weights <- rep(1, length(x))
   }
-
-  if(is.na(conf.level)){
-    res <- i.gini(x, unbiased = unbiased)
-
-  } else {
-    # adjusted bootstrap percentile (BCa) interval
-    boot.gini <- boot(x, function(x, d) i.gini(x[d], unbiased = unbiased), R=R)
-    ci <- boot.ci(boot.gini, conf=conf.level, type=type)
-    res <- c(gini=boot.gini$t0, lwr.ci=ci[[4]][4], upr.ci=ci[[4]][5])
+  
+  if (na.rm){
+    na <- (is.na(x) | is.na(weights))
+    x <- x[!na]
+    weights <- weights[!na]
+  } 
+  
+  if (any(is.na(x)) || any(x < 0)) 
+    return(NA_real_)
+  
+  
+  
+  i.gini <- function(x, w, unbiased=FALSE) {
+    
+    w <- w/sum(w)
+    
+    x <- x[id <- order(x)]
+    w <- w[id]
+    
+    f.hat <- w / 2 + c(0, head(cumsum(w), -1))
+    wm <- Mean(x, w)
+    
+    res <- 2 / wm * sum(w * (x - wm) * (f.hat - Mean(f.hat, w)))
+    
+    if(unbiased)
+      res <- res * 1/(1 - sum(w^2))
+    
+    return(res)
   }
-
+  
+  
+  if (is.na(conf.level)) {
+    res <- i.gini(x, weights, unbiased = unbiased)
+    
+  }
+  else {
+    
+    boot.gini <- boot(data = x,
+                      statistic = function(z, i, u, unbiased) 
+                        i.gini(x = z[i], w = u[i], unbiased = unbiased), 
+                      R=R, u=weights, unbiased=unbiased)
+    ci <- boot.ci(boot.gini, conf = conf.level, type = type)
+    res <- c(gini = boot.gini$t0, lwr.ci = ci[[4]][4], upr.ci = ci[[4]][5])
+  }
+  
   return(res)
-
+  
 }
+
+
+
 
 
 

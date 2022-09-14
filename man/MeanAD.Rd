@@ -39,7 +39,7 @@ The function supports the use of weights. The default function for the center va
 }
 \value{Numeric value.}
 
-\author{Andri Signorell <andri@signorell.net> following an idea of Daniel Navarro (\code{aad} in the \pkg{lsr} package)
+\author{Andri Signorell <andri@signorell.net> following an idea of Danielle Navarro (\code{aad} in the \pkg{lsr} package)
 
 }
 

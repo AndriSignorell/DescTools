@@ -8,15 +8,15 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-Gini(x, n = rep(1, length(x)), unbiased = TRUE,
-     conf.level = NA, R = 1000, type = "bca", na.rm = FALSE)
+Gini(x, weights = NULL, unbiased = TRUE,
+     conf.level = NA, R = 10000, type = "bca", na.rm = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{a vector containing at least non-negative elements. The result will be \code{NA}, if x contains negative elements.
 %%     ~~Describe \code{x} here~~
 }
-  \item{n}{a vector of frequencies (weights), must be same length as x.
+  \item{weights}{a numerical vector of weights the same length as \code{x} giving the weights to use for elements of \code{x}.
 %%     ~~Describe \code{n} here~~
 }
   \item{unbiased}{logical. In order for G to be an unbiased estimate of the true population value,
@@ -110,7 +110,7 @@ fl <- c(2.5, 7.5, 15, 35, 75, 150)    # midpoints of classes
 n  <- c(25, 13, 10, 5, 5, 2)          # frequencies
 
 # with confidence intervals
-Gini(fl, n, conf.level=0.95, unbiased=FALSE)
+Gini(x=fl, weights=n, conf.level=0.95, unbiased=FALSE)
 
 # some special cases
 x <- c(10, 10, 0, 0, 0)
@@ -119,7 +119,7 @@ plot(Lc(x))
 Gini(x, unbiased=FALSE)
 
 # the same with weights
-Gini(x=c(10, 0), n=c(2,3), unbiased=FALSE)
+Gini(x=c(10, 0), weights=c(2,3), unbiased=FALSE)
 
 # perfect balance
 Gini(c(10, 10, 10))

@@ -3580,7 +3580,7 @@ EtaSq.lm <- function (x, type = 2, anova = FALSE) {
 
   # file:    etaSquared.R
   # author:  Dan Navarro
-  # contact: daniel.navarro@adelaide.edu.au
+  # contact: djnavarro@protonmail.com
   # changed: 13 November 2013
   # modified by Daniel Wollschlaeger 17.9.2014
 
