@@ -10,7 +10,8 @@
 \usage{
 PlotProbDist(breaks, FUN, 
              blab = NULL, main = "", xlim = NULL, col = NULL, density = 7, 
-             alab = LETTERS[1:(length(breaks) - 1)], alab_x = NULL, alab_y = NULL)
+             alab = LETTERS[1:(length(breaks) - 1)], 
+             alab_x = NULL, alab_y = NULL, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -44,6 +45,7 @@ PlotProbDist(breaks, FUN,
   \item{alab_y}{the y-coord for the area labels, if left to default they will be placed in the middle of the plot
 %%     ~~Describe \code{alab_y} here~~
 }
+\item{\dots}{further parameters passed to internally used function \code{\link{curve}()}}
 }
 \details{The function sets up a two-step plot procedure based on curve() and Shade() with additional labelling for convenience.
 %%  ~~ If necessary, more details than the description above ~~

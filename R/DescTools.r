@@ -8589,19 +8589,19 @@ BoxedText <- function(x, ...)
   
 BoxedText.default <- function(x, y = NULL, labels = seq_along(x), adj = NULL,
      pos = NULL, offset = 0.5, vfont = NULL,
-     cex = 1, txt.col = NULL, font = NULL, srt = 0, xpad = 0.2, ypad=0.2,
+     cex = 1, col = NULL, font = NULL, srt = 0, xpad = 0.2, ypad=0.2,
      density = NULL, angle = 45,
-     col = "white", border = par("fg"), lty = par("lty"), lwd = par("lwd"), ...) {
+     bg = NA, border = par("fg"), lty = par("lty"), lwd = par("lwd"), ...) {
 
 
   .BoxedText <- function(x, y = NULL, labels = seq_along(x), adj = NULL,
        pos = NA, offset = 0.5, vfont = NULL,
-       cex = 1, txt.col = NULL, font = NULL, srt = 0, xpad = 0.2, ypad=0.2,
+       cex = 1, col = NULL, font = NULL, srt = 0, xpad = 0.2, ypad=0.2,
        density = NULL, angle = 45,
-       col = "white", border = NULL, lty = par("lty"), lwd = par("lwd"), ...) {
+       bg = NA, border = NULL, lty = par("lty"), lwd = par("lwd"), ...) {
     
     # we don't manage to remove the color otherwise
-    if(is.na(col)) density <- 0
+    if(is.na(bg)) density <- 0
 
     if(is.na(pos)) pos <- NULL   # we have to change default NULL to NA to be able to repeat it
     if(is.na(vfont)) vfont <- NULL
@@ -8618,9 +8618,9 @@ BoxedText.default <- function(x, y = NULL, labels = seq_along(x), adj = NULL,
     yt <- yb + h + 2*strheight("M", cex=cex, font=font, vfont=vfont) * ypad
 
     xy <- Rotate(x=c(xl,xl,xr,xr), y=c(yb,yt,yt,yb), mx=x, my=y, theta=DegToRad(srt))
-    polygon(x=xy$x, y=xy$y, col=col, density=density, angle=angle, border=border, lty=lty, lwd=lwd, ...)
+    polygon(x=xy$x, y=xy$y, col=bg, density=density, angle=angle, border=border, lty=lty, lwd=lwd, ...)
 
-    text(x=x, y=y, labels=labels, adj=adj, pos=pos, offset=offset, vfont=vfont, cex=cex, col=txt.col, font=font, srt=srt)
+    text(x=x, y=y, labels=labels, adj=adj, pos=pos, offset=offset, vfont=vfont, cex=cex, col=col, font=font, srt=srt)
   }
 
   if(is.null(adj))
@@ -8629,7 +8629,7 @@ BoxedText.default <- function(x, y = NULL, labels = seq_along(x), adj = NULL,
     adj <- rep(adj, length.out=2)
   if (is.null(pos)) pos <- NA
   if (is.null(vfont)) vfont <- NA
-  if (is.null(txt.col)) txt.col <- par("fg")
+  if (is.null(col)) col <- par("fg")
   if (is.null(font)) font <- 1
   if (is.null(density)) density <- NA
 
@@ -8638,8 +8638,8 @@ BoxedText.default <- function(x, y = NULL, labels = seq_along(x), adj = NULL,
   # attention: we cannot repeat NULLs but we can repeat NAs, so we swap NULLs to NAs and
   #            reset them to NULL above
   lst <- list(x=x, y=y, labels=labels, pos=pos, offset=offset, vfont=vfont,
-     cex=cex, txt.col=txt.col, font=font, srt=srt, xpad=xpad, ypad=ypad,
-     density=density, angle=angle, col=col, border=border, lty=lty, lwd=lwd)
+     cex=cex, col=col, font=font, srt=srt, xpad=xpad, ypad=ypad,
+     density=density, angle=angle, bg=bg, border=border, lty=lty, lwd=lwd)
   maxdim <- max(unlist(lapply(lst, length)))
 
   # recycle all params to maxdim
@@ -8649,9 +8649,9 @@ BoxedText.default <- function(x, y = NULL, labels = seq_along(x), adj = NULL,
   for( i in 1:maxdim){
     .BoxedText(
       x=lgp$x[i], y=lgp$y[i], labels=lgp$labels[i], adj=lgp$adj[[i]], pos=lgp$pos[i], offset=lgp$offset[i]
-      , vfont=lgp$vfont[i], cex=lgp$cex[i], txt.col=lgp$txt.col[i], font=lgp$font[i]
+      , vfont=lgp$vfont[i], cex=lgp$cex[i], col=lgp$col[i], font=lgp$font[i]
       , srt=lgp$srt[i], xpad=lgp$xpad[i], ypad=lgp$ypad[i], density=lgp$density[i]
-      , angle=lgp$angle[i], col=lgp$col[i], border=lgp$border[i], lty=lgp$lty[i], lwd=lgp$lwd[i] )
+      , angle=lgp$angle[i], bg=lgp$bg[i], border=lgp$border[i], lty=lgp$lty[i], lwd=lgp$lwd[i] )
   }
 }
 
@@ -9239,16 +9239,16 @@ BarText <- function(height, b, labels=height, beside = FALSE, horiz = FALSE,
   # allow to use the more flexible BoxedText instead of text here  
   # redirection to be able to change defaults of BoxedText
   .btext <- function (x, y = NULL, labels = seq_along(x), adj = NULL, pos = NULL, 
-                      offset = 0.5, vfont = NULL, cex = 1, txt.col = NULL, font = NULL, 
+                      offset = 0.5, vfont = NULL, cex = 1, font = NULL, col=NULL,
                       srt = 0, xpad = 0.2, ypad = 0.2, density = NULL, angle = 45, 
-                      col = "white", border = NA, lty = par("lty"), 
+                      border = NA, lty = par("lty"), 
                       lwd = par("lwd"), ...) {
     
     BoxedText(x=x, y=y, labels = labels, adj = adj, pos = pos, 
-              offset = offset, vfont = vfont, cex = cex, txt.col = txt.col, 
+              offset = offset, vfont = vfont, cex = cex, col=col,
               font = font, 
               srt = srt, xpad = xpad, ypad = ypad, density = density, angle = angle, 
-              col = col, border = border, lty = lty, 
+              border = border, lty = lty, 
               lwd = lwd, ...) 
     
   }
@@ -11877,7 +11877,7 @@ Shade <- function(expr, col=par("fg"), breaks, density=10, n=101, xname = "x", .
 PlotProbDist <- function(breaks, FUN, blab=NULL, main="", xlim=NULL, 
                          col=NULL, density=7, 
                          alab = LETTERS[1:(length(breaks)-1)], 
-                         alab_x=NULL, alab_y = NULL){
+                         alab_x=NULL, alab_y = NULL, ylab="density", ...){
   
   fct <- FUN
   FUN <- "fct"
@@ -11889,8 +11889,8 @@ PlotProbDist <- function(breaks, FUN, blab=NULL, main="", xlim=NULL,
   
   curve(FUN, xlim=xlim,
         main=main,
-        type="n", las=1, ylab="density", xlab="")
-  
+        type="n", las=1, ylab=ylab, ...)
+
   Shade(FUN, breaks=breaks,
         col=col, density=density)
   
@@ -12312,7 +12312,7 @@ PolarGrid <- function(nr = NULL, ntheta = NULL, col = "lightgray",
   if(!is.null(at)){
     if(is.null(rlabels)) rlabels <- signif(at[-1], 3)   # standard values
     if(!all(is.na(rlabels)))
-      BoxedText(x=at[-1], y=0, labels=rlabels, border=FALSE, col="white", cex=cex.lab)
+      BoxedText(x=at[-1], y=0, labels=rlabels, border=FALSE, bg="white", cex=cex.lab)
   }
 
 

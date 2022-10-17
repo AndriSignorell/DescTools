@@ -12,8 +12,8 @@
 BoxedText(x, ...)
 
 \method{BoxedText}{default}(x, y = NULL, labels = seq_along(x), adj = NULL, pos = NULL, offset = 0.5, 
-          vfont = NULL, cex = 1, txt.col = NULL, font = NULL, srt = 0, 
-          xpad = 0.2, ypad = 0.2, density = NULL, angle = 45, col = "white", 
+          vfont = NULL, cex = 1, col = NULL, font = NULL, srt = 0, 
+          xpad = 0.2, ypad = 0.2, density = NULL, angle = 45, bg = NA, 
           border = par("fg"), lty = par("lty"), lwd = par("lwd"), ...)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -46,7 +46,7 @@ BoxedText(x, ...)
   \item{cex}{numeric character expansion factor; multiplied by \code{par("cex")} yields the final character size. \code{NULL} and \code{NA} are equivalent to 1.0.
 %%     ~~Describe \code{cex} here~~
 }
-  \item{txt.col, font}{the color and (if vfont = NULL) font to be used, possibly vectors. These default to the values of the global graphical parameters in \code{par()}.
+  \item{col, font}{the color and (if vfont = NULL) font to be used, possibly vectors. These default to the values of the global graphical parameters in \code{par()}.
 %%     ~~Describe \code{txt.col} here~~
 }
   \item{srt}{The string rotation in degrees. 
@@ -62,7 +62,7 @@ BoxedText(x, ...)
   \item{angle}{angle (in degrees) of the shading lines.
 %%     ~~Describe \code{angle} here~~
 }
-  \item{col}{color(s) to fill or shade the rectangle(s) with. The default \code{NA} (or also NULL) means do not fill, 
+  \item{bg}{color(s) to fill or shade the rectangle(s) with. The default \code{NA} (or also NULL) means do not fill, 
   i.e., draw transparent rectangles, unless density is specified.
 %%     ~~Describe \code{col} here~~
 }
