@@ -1164,7 +1164,7 @@ print.Desc.table    <- function(x, digits = NULL, ...) {
                  Format(x[["chisq.test"]][["statistic"]], digits=3), x[["chisq.test"]][["parameter"]],
                    Format(x[["chisq.test"]][["p.value"]], fmt="p")), "\n", sep="")
     if(!x$approx.ok)
-      cat("\nWarning message:\n  Exp. counts < 5: Chi-squared approx. may be incorrect!!\n")
+      cat("\033[31m\nWarning message:\n  Exp. counts < 5: Chi-squared approx. may be incorrect!!\n\033[39m")
 
     cat("\n")
     print(ftable(addmargins(x$tab, c(1, length(x$dim)))))
@@ -1182,8 +1182,9 @@ print.Desc.table    <- function(x, digits = NULL, ...) {
          , .CaptOut(x$chisq.test)[5], "\n\n", sep="")
 
       if(!x$approx.ok)
-         cat("\nWarning message:\n  Exp. counts < 5: Chi-squared approx. may be incorrect!!\n\n")
-
+         # cat("\nWarning message:\n  Exp. counts < 5: Chi-squared approx. may be incorrect!!\n\n")
+         cat("\033[31m\nWarning message:\n  Exp. counts < 5: Chi-squared approx. may be incorrect!!\n\n\033[39m")
+      
       print(x$perctab)
 
     } else {                      # 2-dim tabl *****
@@ -1213,8 +1214,9 @@ print.Desc.table    <- function(x, digits = NULL, ...) {
         }
 
         if(!x$approx.ok)
-          cat("\nWarning message:\n  Exp. counts < 5: Chi-squared approx. may be incorrect!!\n\n")
-
+          # cat("\nWarning message:\n  Exp. counts < 5: Chi-squared approx. may be incorrect!!\n\n")
+          cat("\033[31m\nWarning message:\n  Exp. counts < 5: Chi-squared approx. may be incorrect!!\n\n\033[39m")
+        
         if(x$verbose %in% c("2","3")){ # print only with verbosity > 1
           cat("\n")
           if(x$verbose == "2")
@@ -1257,8 +1259,9 @@ print.Desc.table    <- function(x, digits = NULL, ...) {
         }
 
         if(!x$approx.ok)
-          cat("\nWarning message:\n  Exp. counts < 5: Chi-squared approx. may be incorrect!!\n\n")
-
+          # cat("\nWarning message:\n  Exp. counts < 5: Chi-squared approx. may be incorrect!!\n\n")
+          cat("\033[31m\nWarning message:\n  Exp. counts < 5: Chi-squared approx. may be incorrect!!\n\n\033[39m")
+        
       }
 
       switch(x$verbose
@@ -1332,7 +1335,9 @@ print.Desc.Date     <- function(x, digits = NULL, ... ) {
       , .CaptOut(x$d.chisq.test)[5], "\n\n", sep="")
 
   if(!x$d.approx.ok)
-    cat("\nWarning message:\n  Exp. counts < 5: Chi-squared approx. may be incorrect!!\n\n")
+    # cat("\nWarning message:\n  Exp. counts < 5: Chi-squared approx. may be incorrect!!\n\n")
+    cat("\033[31m\nWarning message:\n  Exp. counts < 5: Chi-squared approx. may be incorrect!!\n\n\033[39m")
+  
 
   print(x$dperctab)
 
@@ -1343,14 +1348,18 @@ print.Desc.Date     <- function(x, digits = NULL, ... ) {
   print(x$mperctab)
 
   if(!x$m.approx.ok)
-    cat("\nWarning message:\n  Exp. counts < 5: Chi-squared approx. may be incorrect!!\n\n")
+    # cat("\nWarning message:\n  Exp. counts < 5: Chi-squared approx. may be incorrect!!\n\n")
+    cat("\033[31m\nWarning message:\n  Exp. counts < 5: Chi-squared approx. may be incorrect!!\n\n\033[39m")
+  
 
   if(!is.null(x$hbreaks)){
     cat("\nBy", x$hbreaks, ":\n\n")
     print(x$freq)
 
   } else {
-    cat("Warning:\n  No plausible breaks for years found!\n")
+    # cat("Warning:\n  No plausible breaks for years found!\n")
+    cat("\033[31mWarning:\n  No plausible breaks for years found!\n\033[39m")
+    
   }
   cat("\n")
 
@@ -1454,8 +1463,8 @@ print.Desc.numfact  <- function(x, digits = NULL, ...){
   }
 
   if((x$NAgs > 0) & (length(grep("NA", x$xname)) == 0))
-    cat(gettextf("\nWarning:\n  Grouping variable contains %s NAs (%s"
-                 , x$NAgs, signif(x$NAgs/x$n, digits=3)*100), "%).\n", sep="")
+    cat(gettextf("\033[31m\nWarning:\n  Grouping variable contains %s NAs (%s"
+                 , x$NAgs, signif(x$NAgs/x$n, digits=3)*100), "%).\n\033[39m", sep="")
   else
     cat("\n")
   

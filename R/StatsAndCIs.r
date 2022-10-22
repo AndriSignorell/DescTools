@@ -4254,6 +4254,73 @@ MeanDiffCI.default <- function (x, y, method = c("classic", "norm","basic","stud
 # }
 
 
+.cohen_d_ci <- function (d, n = NULL, n2 = NULL, n1 = NULL, alpha = 0.05) {
+  
+  # William Revelle in psych
+  
+  d2t <- function (d, n = NULL, n2 = NULL, n1 = NULL) {
+    
+    if (is.null(n1)) {
+      t <- d * sqrt(n)/2
+    } else if (is.null(n2)) {
+      t <- d * sqrt(n1)
+    } else {
+      t <- d/sqrt(1/n1 + 1/n2)
+    }
+    return(t)
+  }
+  
+  t2d <- function (t, n = NULL, n2 = NULL, n1 = NULL) {
+    
+    if (is.null(n1)) {
+      d <- 2 * t/sqrt(n)
+    } else {
+      if (is.null(n2)) {
+        d <- t/sqrt(n1)
+      } else {
+        d <- t * sqrt(1/n1 + 1/n2)
+      }
+    }
+    return(d)
+  }
+  
+  t <- d2t(d = d, n = n, n2 = n2, n1 = n1)
+  tail <- 1 - alpha/2
+  ci <- matrix(NA, ncol = 3, nrow = length(d))
+  for (i in 1:length(d)) {
+    nmax <- max(c(n/2 + 1, n1 + 1, n1 + n2))
+    upper <- try(t2d(uniroot(function(x) {
+      suppressWarnings(pt(q = t[i], df = nmax - 2, ncp = x)) - 
+        alpha/2
+    }, c(min(-5, -abs(t[i]) * 10), max(5, abs(t[i]) * 10)))$root, 
+    n = n[i], n2 = n2[i], n1 = n1[i]), silent = TRUE)
+    if (inherits(upper, "try-error")) {
+      ci[i, 3] <- NA
+    }
+    else {
+      ci[i, 3] <- upper
+    }
+    ci[i, 2] <- d[i]
+    lower.ci <- try(t2d(uniroot(function(x) {
+      suppressWarnings(pt(q = t[i], df = nmax - 2, ncp = x)) - 
+        tail
+    }, c(min(-5, -abs(t[i]) * 10), max(5, abs(t[i]) * 10)))$root, 
+    n = n[i], n2 = n2[i], n1 = n1[i]), silent = TRUE)
+    if (inherits(lower.ci, "try-error")) {
+      ci[i, 1] <- NA
+    }
+    else {
+      ci[i, 1] <- lower.ci
+    }
+  }
+  colnames(ci) <- c("lower", "effect", "upper")
+  rownames(ci) <- names(d)
+  return(ci)
+  
+}
+
+
+
 CohenD <- function(x, y=NULL, pooled = TRUE, correct = FALSE, conf.level = NA, na.rm = FALSE) {
 
   if (na.rm) {
@@ -4265,9 +4332,13 @@ CohenD <- function(x, y=NULL, pooled = TRUE, correct = FALSE, conf.level = NA, n
     d <- mean(x) / sd(x)
     n <- length(x)
     if(!is.na(conf.level)){
-      # reference: Smithson Confidence Intervals pp. 36:
-      ci <- .nctCI(d / sqrt(n), df = n-1, conf = conf.level)
-      res <- c(d=d, lwr.ci=ci[1]/sqrt(n), upr.ci=ci[3]/sqrt(n))
+      # # reference: Smithson Confidence Intervals pp. 36:
+      # ci <- .nctCI(d / sqrt(n), df = n-1, conf = conf.level)
+      # res <- c(d=d, lwr.ci=ci[1]/sqrt(n), upr.ci=ci[3]/sqrt(n))
+      # changed to Revelle 2022-10-22:
+      ci <- .cohen_d_ci(d = d, n = n, alpha = 1-conf.level)
+      res <- c(d=d, lwr.ci=ci[1], upr.ci=ci[3])
+      
     } else {
       res <- d
     }
@@ -4302,11 +4373,14 @@ CohenD <- function(x, y=NULL, pooled = TRUE, correct = FALSE, conf.level = NA, n
       ## p 238
       # ci <- d + c(-1, 1) * sqrt(((nx+ny) / (nx*ny) + .5 * d^2 / DF) * ((nx + ny)/DF)) * qt((1 - conf.level) / 2, DF)
 
-      # supposed to be better, Smithson's version:
-      ci <- .nctCI(d / sqrt(nx*ny/(nx+ny)), df = DF, conf = conf.level)
-      res <- c(d=d, lwr.ci=ci[1]/sqrt(nx*ny/(nx+ny)), upr.ci=ci[3]/sqrt(nx*ny/(nx+ny)))
+      # # supposed to be better, Smithson's version:
+      # ci <- .nctCI(d / sqrt(nx*ny/(nx+ny)), df = DF, conf = conf.level)
+      # res <- c(d=d, lwr.ci=ci[1]/sqrt(nx*ny/(nx+ny)), upr.ci=ci[3]/sqrt(nx*ny/(nx+ny)))
 
-      res <- c(d=d, lwr.ci=unname(ci[1]), upr.ci=unname(ci[2]))
+      # changed to Revelle      
+      ci <- .cohen_d_ci(d, n2 = nx, n1 = ny, alpha = 1-conf.level)
+      res <- c(d=d, lwr.ci=unname(ci[1]), upr.ci=unname(ci[3]))
+      
     } else {
       res <- d
     }
@@ -4320,78 +4394,95 @@ CohenD <- function(x, y=NULL, pooled = TRUE, correct = FALSE, conf.level = NA, n
 }
 
 
-
-.nctCI <- function(tval.1, df, conf) {
-
-  # Function for finding the upper and lower confidence limits for the noncentrality from noncentral t distributions.
-  # Especially helpful when forming confidence intervals around the standardized effect size, Cohen's d.
-
-  ###################################################################################################################
-  # The following code was adapted from code written by Michael Smithson:
-  # Australian National University, sometime around the early part of October, 2001
-  # Adapted by Joe Rausch & Ken Kelley: University of Notre Dame, in January 2002.
-  # Available at: JRausch@nd.edu & KKelley@nd.edu
-  ###################################################################################################################
-
-
-  # tval.1 is the observed t value, df is the degrees of freedom (group size need not be equal), and conf is simply 1 - alpha
-
-  #         Result <- matrix(NA,1,4)
-  tval <- abs(tval.1)
-
-
-  ############################This part Finds the Lower bound for the confidence interval###########################
-  ulim <- 1 - (1-conf)/2
-
-  # This first part finds a lower value from which to start.
-  lc <- c(-tval,tval/2,tval)
-  while(pt(tval, df, lc[1])<ulim)    {
-    lc <- c(lc[1]-tval,lc[1],lc[3])
-  }
-
-  # This next part finds the lower limit for the ncp.
-  diff <- 1
-  while(diff > .00000001)    {
-    if(pt(tval, df, lc[2]) <ulim)
-      lc <- c(lc[1],(lc[1]+lc[2])/2,lc[2])
-    else lc <- c(lc[2],(lc[2]+lc[3])/2,lc[3])
-    diff <- abs(pt(tval,df,lc[2]) - ulim)
-    ucdf <- pt(tval,df,lc[2])
-  }
-  res.1 <- ifelse(tval.1 >= 0,lc[2],-lc[2])
-
-  ############################This part Finds the Upper bound for the confidence interval###########################
-  llim <- (1-conf)/2
-
-  # This first part finds an upper value from which to start.
-  uc <- c(tval,1.5*tval,2*tval)
-  while(pt(tval,df,uc[3])>llim)   {
-    uc <- c(uc[1],uc[3],uc[3]+tval)
-  }
-
-  # This next part finds the upper limit for the ncp.
-  diff <- 1
-  while(diff > .00000001)         {
-    if(pt(tval,df,uc[2])<llim)
-      uc <- c(uc[1],(uc[1]+uc[2])/2,uc[2])
-    else uc <- c(uc[2],(uc[2]+uc[3])/2,uc[3])
-    diff <- abs(pt(tval,df,uc[2]) - llim)
-    lcdf <- pt(tval,df,uc[2])
-  }
-  res <- ifelse(tval.1 >= 0,uc[2],-uc[2])
-
-
-  #################################This part Compiles the results into a matrix#####################################
-
-  return(c(lwr.ci=min(res, res.1), lprob=ucdf, upr.ci=max(res, res.1), uprob=lcdf))
-
-  #        Result[1,1] <- min(res,res.1)
-  #         Result[1,2] <- ucdf
-  #         Result[1,3] <- max(res,res.1)
-  #         Result[1,4] <- lcdf
-  # dimnames(Result) <- list("Values", c("Lower.Limit", "Prob.Low.Limit", "Upper.Limit", "Prob.Up.Limit"))
-  #         Result
+.nctCI <- function(t, df, conf) {
+  
+  alpha <- 1 - conf
+  probs <- c(alpha/2, 1 - alpha/2)
+  
+  ncp <- suppressWarnings(optim(par = 1.1 * rep(t, 2), fn = function(x) {
+    p <- pt(q = t, df = df, ncp = x)
+    abs(max(p) - probs[2]) + abs(min(p) - probs[1])
+  }, control = list(abstol = 0.000000001)))
+  
+  t_ncp <- unname(sort(ncp$par))
+  
+  return(t_ncp)
+  
 }
+
+
+
+# .nctCI <- function(tval.1, df, conf) {
+# 
+#   # Function for finding the upper and lower confidence limits for the noncentrality from noncentral t distributions.
+#   # Especially helpful when forming confidence intervals around the standardized effect size, Cohen's d.
+# 
+#   ###################################################################################################################
+#   # The following code was adapted from code written by Michael Smithson:
+#   # Australian National University, sometime around the early part of October, 2001
+#   # Adapted by Joe Rausch & Ken Kelley: University of Notre Dame, in January 2002.
+#   # Available at: JRausch@nd.edu & KKelley@nd.edu
+#   ###################################################################################################################
+# 
+# 
+#   # tval.1 is the observed t value, df is the degrees of freedom (group size need not be equal), and conf is simply 1 - alpha
+# 
+#   #         Result <- matrix(NA,1,4)
+#   tval <- abs(tval.1)
+# 
+# 
+#   ############################This part Finds the Lower bound for the confidence interval###########################
+#   ulim <- 1 - (1-conf)/2
+# 
+#   # This first part finds a lower value from which to start.
+#   lc <- c(-tval,tval/2,tval)
+#   while(pt(tval, df, lc[1])<ulim)    {
+#     lc <- c(lc[1]-tval,lc[1],lc[3])
+#   }
+# 
+#   # This next part finds the lower limit for the ncp.
+#   diff <- 1
+#   while(diff > .00000001)    {
+#     if(pt(tval, df, lc[2]) <ulim)
+#       lc <- c(lc[1],(lc[1]+lc[2])/2,lc[2])
+#     else lc <- c(lc[2],(lc[2]+lc[3])/2,lc[3])
+#     diff <- abs(pt(tval,df,lc[2]) - ulim)
+#     ucdf <- pt(tval,df,lc[2])
+#   }
+#   res.1 <- ifelse(tval.1 >= 0,lc[2],-lc[2])
+# 
+#   ############################This part Finds the Upper bound for the confidence interval###########################
+#   llim <- (1-conf)/2
+# 
+#   # This first part finds an upper value from which to start.
+#   uc <- c(tval,1.5*tval,2*tval)
+#   while(pt(tval,df,uc[3])>llim)   {
+#     uc <- c(uc[1],uc[3],uc[3]+tval)
+#   }
+# 
+#   # This next part finds the upper limit for the ncp.
+#   diff <- 1
+#   while(diff > .00000001)         {
+#     if(pt(tval,df,uc[2])<llim)
+#       uc <- c(uc[1],(uc[1]+uc[2])/2,uc[2])
+#     else uc <- c(uc[2],(uc[2]+uc[3])/2,uc[3])
+#     diff <- abs(pt(tval,df,uc[2]) - llim)
+#     lcdf <- pt(tval,df,uc[2])
+#   }
+#   res <- ifelse(tval.1 >= 0,uc[2],-uc[2])
+# 
+# 
+#   #################################This part Compiles the results into a matrix#####################################
+# 
+#   return(c(lwr.ci=min(res, res.1), lprob=ucdf, upr.ci=max(res, res.1), uprob=lcdf))
+# 
+#   #        Result[1,1] <- min(res,res.1)
+#   #         Result[1,2] <- ucdf
+#   #         Result[1,3] <- max(res,res.1)
+#   #         Result[1,4] <- lcdf
+#   # dimnames(Result) <- list("Values", c("Lower.Limit", "Prob.Low.Limit", "Upper.Limit", "Prob.Up.Limit"))
+#   #         Result
+# }
 
 
 
