@@ -10,7 +10,7 @@
 }
 \usage{
 RndPairs(n, r, rdist1 = rnorm(n = n, mean = 0, sd = 1),
-         rdist2 = rnorm(n = n, mean = 0, sd = 1))
+         rdist2 = rnorm(n = n, mean = 0, sd = 1), prop = NULL)
 
 RndWord(size, length, x = LETTERS, replace = TRUE, prob = NULL)
 
@@ -30,6 +30,7 @@ RndWord(size, length, x = LETTERS, replace = TRUE, prob = NULL)
 \item{length}{a non-negative integer giving the length of the words.}
 \item{x}{elements to choose from.}
 \item{replace}{Should sampling be with replacement?}
+\item{prop}{proportions for ordinal variable, must sum to 1.}
 \item{prob}{a vector of probability weights for obtaining the elements of the vector being sampled.}
 }
 \value{a data.frame with 2 columns, X1 and X2 containing the random numbers
@@ -64,6 +65,13 @@ x <- StrCap(sapply(sample(3:15, 10), function(i) RndWord(1, i, x=letters)))
 p <- c(6.51,1.89,3.06,5.08,17.4,1.66,3.01,4.76,7.55,0.27,1.21,3.44,2.53,
        9.78,2.51,0.79,0.02,7,7.27,6.15,4.35,0.67,1.89,0.03,0.04,1.13)
 sapply(sample(3:15, 10), function(i) RndWord(1, i, x=letters, prob=p))
+
+# produce associated ordinal variables
+d.ord <- RndPairs(500, r=0.8, prop = list(c(.15, .3, .55), 
+                                      c(.3, .5, .2)))
+levels(d.ord$y) <- levels(d.ord$x) <- LETTERS[1:3]
+PlotMosaic(table(d.ord$x, d.ord$y), las=1, main="")
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

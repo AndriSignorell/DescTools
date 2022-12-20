@@ -41,7 +41,7 @@ BootCI(x, y = NULL, FUN, ..., bci.method = c("norm", "basic", "stud", "perc", "b
 }
 \value{
 a named numeric vector with 3 elements:
-  \item{<FUN>}{the specific estimate, as calculated by \code{FUN}}
+  \item{est}{the specific estimate, as calculated by \code{FUN}}
   \item{lwr.ci}{lower bound of the confidence interval}
   \item{upr.ci}{upper bound of the confidence interval}
 }

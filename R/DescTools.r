@@ -357,6 +357,10 @@ gold_sec_c <- (1+sqrt(5)) / 2
 N <- as.numeric
 
 
+Nf <- function(x, ...){
+  as.numeric(factor(x, ...))
+}  
+
 
 ## This is not exported as it would mask base function and
 # but it would be very, very handy if the base function was changed accoringly
@@ -2448,6 +2452,10 @@ Recode <- function(x, ..., elselevel=NA, use.empty=FALSE, num=FALSE){
   levels(x) <- newlevels
   if(!use.empty) x <- factor(x)  # delete potentially empty levels
 
+  # handle NA levels
+  if(any(i <- sapply(lapply(newlevels, is.na), any)))
+    x[is.na(x)] <- names(newlevels)[i]
+  
   # x was character, convert to original then
   if(xchar)
     x <- as.character
@@ -2455,8 +2463,8 @@ Recode <- function(x, ..., elselevel=NA, use.empty=FALSE, num=FALSE){
   if(num)
     x <- as.numeric(as.character(x))
 
-  
   return(x)
+  
 }
 
 
@@ -3191,10 +3199,10 @@ Month <- function (x, fmt = c("m", "mm", "mmm"), lang = DescToolsOptions("lang")
            switch(match.arg(arg = lang, choices = c("local", "engl")),
              local = {
                # months in current locale:  format(ISOdate(2000, 1:12, 1), "%b")
-               res <- factor(res, levels=1L:12L, labels=format(ISOdate(2000L, 1L:12L, 1L), "%b"))
+               res <- ordered(res, levels=1L:12L, labels=format(ISOdate(2000L, 1L:12L, 1L), "%b"))
                },
              engl = {
-               res <- factor(res, levels=1L:12L, labels=month.abb)
+               res <- ordered(res, levels=1L:12L, labels=month.abb)
              })
            if(!stringsAsFactors) res <- as.character(res)
          },
@@ -3203,10 +3211,10 @@ Month <- function (x, fmt = c("m", "mm", "mmm"), lang = DescToolsOptions("lang")
            switch(match.arg(arg = lang, choices = c("local", "engl")),
                   local = {
                     # months in current locale:  format(ISOdate(2000, 1:12, 1), "%b")
-                    res <- factor(res, levels=1L:12L, labels=format(ISOdate(2000L, 1L:12L, 1L), "%B"))
+                    res <- ordered(res, levels=1L:12L, labels=format(ISOdate(2000L, 1L:12L, 1L), "%B"))
                   },
                   engl = {
-                    res <- factor(res, levels=1L:12L, labels=month.name)
+                    res <- ordered(res, levels=1L:12L, labels=month.name)
                   })
            if(!stringsAsFactors) res <- as.character(res)
          })
@@ -3281,10 +3289,10 @@ Weekday <- function (x, fmt = c("d", "dd", "ddd"), lang = DescToolsOptions("lang
            switch(match.arg(arg = lang, choices = c("local", "engl")),
                   local = {
                     # months in current locale:  format(ISOdate(2000, 1:12, 1), "%b")
-                    res <- factor(res, levels=1:7, labels=format(ISOdate(2000, 1, 3:9), "%a"))
+                    res <- ordered(res, levels=1:7, labels=format(ISOdate(2000, 1, 3:9), "%a"))
                   },
                   engl = {
-                    res <- factor(res, levels=1:7, labels=day.abb)
+                    res <- ordered(res, levels=1:7, labels=day.abb)
                   })
            if(!stringsAsFactors) res <- as.character(res)
          },
@@ -3293,10 +3301,10 @@ Weekday <- function (x, fmt = c("d", "dd", "ddd"), lang = DescToolsOptions("lang
            switch(match.arg(arg = lang, choices = c("local", "engl")),
                   local = {
                     # months in current locale:  format(ISOdate(2000, 1:12, 1), "%b")
-                    res <- factor(res, levels=1:7, labels=format(ISOdate(2000, 1, 3:9), "%A"))
+                    res <- ordered(res, levels=1:7, labels=format(ISOdate(2000, 1, 3:9), "%A"))
                   },
                   engl = {
-                    res <- factor(res, levels=1:7, labels=day.name)
+                    res <- ordered(res, levels=1:7, labels=day.name)
                   })
            if(!stringsAsFactors) res <- as.character(res)
          })
@@ -6212,12 +6220,43 @@ SampleTwins <- function (x, stratanames = NULL, twins,
 
 
 
-RndPairs <- function(n, r, rdist1 = rnorm(n=n, mean = 0, sd = 1), rdist2 = rnorm(n=n, mean = 0, sd = 1)){
+# RndPairs <- function(n, r, rdist1 = rnorm(n=n, mean = 0, sd = 1), rdist2 = rnorm(n=n, mean = 0, sd = 1)){
+# 
+#   # create correlated random pairs
+#   data.frame(matrix(nrow=n, ncol=2, data=cbind(rdist1, rdist2)) %*%
+#                 chol(matrix(nrow=2, ncol=2, data=c(1, r, r, 1))))
+# }
 
+
+RndPairs <- function(n, r, rdist1 = rnorm(n=n, mean = 0, sd = 1), 
+                     rdist2 = rnorm(n=n, mean = 0, sd = 1), prop=NULL) {
+  
   # create correlated random pairs
-  data.frame(matrix(nrow=n, ncol=2, data=cbind(rdist1, rdist2)) %*%
-                chol(matrix(nrow=2, ncol=2, data=c(1, r, r, 1))))
+  res <- data.frame(matrix(nrow=n, ncol=2, data=cbind(rdist1, rdist2)) %*%
+                      chol(matrix(nrow=2, ncol=2, data=c(1, r, r, 1))))
+  colnames(res) <- c("x","y")
+  
+  if(!is.null(prop)){
+    
+    if(is.list(prop)){
+      propx <- cumsum(c(0, prop[[1]])) 
+      propy <- cumsum(c(0, prop[[2]]))
+      
+    } else {
+      propx <- propy <- cumsum(c(0, prop))
+    }
+    
+    
+    res$x <- CutQ(res$x, breaks = quantile(res$x, probs = propx))
+    res$y <- CutQ(res$y, breaks = quantile(res$y, probs = propy))
+    
+    
+  }
+  
+  return(res)  
+  
 }
+
 
 
 RndWord <- function(size, length, x = LETTERS, replace = TRUE, prob = NULL){

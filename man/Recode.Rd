@@ -55,6 +55,22 @@ y <- Recode(x,
             elselevel = "other")
 data.frame(x=x, y=y)
 
+# Coding NAs, NA is recoded to new_1
+x[5:6] <- NA
+x <- x[1:7] 
+
+data.frame(
+  x, 
+  RecodeNA = Recode(x,
+                    "new_1"   = c("old_4","old_8", NA),
+                    elselevel = "other"),
+       
+  # NAs remain untouched       
+  NoRecodeNA = Recode(x,
+                      "new_1"   = c("old_4","old_8"),
+                      elselevel = "other")
+)         
+
 
 x <- factor(letters[1:6])
 
@@ -81,6 +97,7 @@ Recode(likert, det=1:6, pas=7:8, pro=9:10)
 
 # or directly turned to numeric
 Recode(likert, "1"=1:6, "2"=7:8, "5"=9:10, num=TRUE)
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

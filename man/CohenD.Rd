@@ -46,7 +46,7 @@ Smithson, M.J. (2003) \emph{Confidence Intervals, Quantitative Applications in t
 
 %% ~put references to the literature/web site here ~
 }
-\author{Andri Signorell <andri@signorell.net>
+\author{Andri Signorell <andri@signorell.net>, William Revelle  <revelle@northwestern.edu> (CI) 
 %%  ~~who you are~~
 }
 
