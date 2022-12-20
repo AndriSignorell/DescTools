@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.46.4</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.47.2</span>
       </span>
     </div>
 
@@ -88,7 +88,7 @@
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">RndPairs</span><span class="op">(</span><span class="va">n</span>, <span class="va">r</span>, rdist1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">n</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
-<span>         rdist2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">n</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span>         rdist2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">n</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, prop <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">RndWord</span><span class="op">(</span><span class="va">size</span>, <span class="va">length</span>, x <span class="op">=</span> <span class="va">LETTERS</span>, replace <span class="op">=</span> <span class="cn">TRUE</span>, prob <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -118,6 +118,9 @@
 
 <dt>replace</dt>
 <dd><p>Should sampling be with replacement?</p></dd>
+
+<dt>prop</dt>
+<dd><p>proportions for ordinal variable, must sum to 1.</p></dd>
 
 <dt>prob</dt>
 <dd><p>a vector of probability weights for obtaining the elements of the vector being sampled.</p></dd>
@@ -159,8 +162,9 @@
 <span class="r-in"><span><span class="va">d.frm</span>  <span class="op">&lt;-</span> <span class="fu">RndPairs</span><span class="op">(</span>n<span class="op">=</span><span class="fl">100</span>, r<span class="op">=</span><span class="fl">0.7</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">d.frm</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">X2</span> <span class="op">~</span> <span class="va">X1</span>,<span class="va">d.frm</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="RndPairs-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">X2</span> <span class="op">~</span> <span class="va">X1</span>,<span class="va">d.frm</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(predvars, data, env):</span> object 'X2' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># change the distribution</span></span></span>
 <span class="r-in"><span><span class="va">d.frm</span>  <span class="op">&lt;-</span> <span class="fu">RndPairs</span><span class="op">(</span>n<span class="op">=</span><span class="fl">100</span>, r<span class="op">=</span><span class="fl">0.7</span>, rdist2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Lognormal.html" class="external-link">rlnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, meanlog <span class="op">=</span> <span class="fl">1</span>, sdlog <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -176,6 +180,14 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "eatainelteeai"   "peeeneekeig"     "feriieelee"      "cwab"           </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "denefrraleshghd" "meyealdre"       "atefelareiuolt"  "eeiwp"          </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "sgdicelt"        "tuialbi"        </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># produce associated ordinal variables</span></span></span>
+<span class="r-in"><span><span class="va">d.ord</span> <span class="op">&lt;-</span> <span class="fu">RndPairs</span><span class="op">(</span><span class="fl">500</span>, r<span class="op">=</span><span class="fl">0.8</span>, prop <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.15</span>, <span class="fl">.3</span>, <span class="fl">.55</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>                                      <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.3</span>, <span class="fl">.5</span>, <span class="fl">.2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">d.ord</span><span class="op">$</span><span class="va">y</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">d.ord</span><span class="op">$</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="PlotMosaic.html">PlotMosaic</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">d.ord</span><span class="op">$</span><span class="va">x</span>, <span class="va">d.ord</span><span class="op">$</span><span class="va">y</span><span class="op">)</span>, las<span class="op">=</span><span class="fl">1</span>, main<span class="op">=</span><span class="st">""</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="RndPairs-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -190,7 +202,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
