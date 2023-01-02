@@ -880,7 +880,7 @@ ModSummary.OddsRatio <- function(x, conf.level=0.95, ...){
 
 
 
-TMod <- function(..., FUN = NULL){
+TMod <- function(..., FUN = NULL, order = NULL){
   
   
   # prepare function to put together coefficients and stats
@@ -1016,6 +1016,14 @@ TMod <- function(..., FUN = NULL){
     along=3)
   
   dimnames(mall)[[2]] <- modname
+  
+  if(!identical(order, NA)){
+    # get order 
+    ordm <- rbind(m, SetNames(mm, colnames=colnames(m)))
+    j <- order(unlist(ordm[match(order, ordm[, 1]), -1]))
+    m <- m[, c(1, j+1)]
+    mm <- mm[, c(1, j+1)]
+  }
   
   # return the terms of the model in order to be able to set a filter on them
   # when plotting

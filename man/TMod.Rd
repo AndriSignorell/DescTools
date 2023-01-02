@@ -14,7 +14,7 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-TMod(..., FUN = NULL)
+TMod(..., FUN = NULL, order = NA)
 
 ModSummary(x, ...)
 
@@ -30,6 +30,7 @@ ModSummary(x, ...)
 \item{\dots}{a list of (general) linear models.}
 \item{conf.level}{the level for the confidence intervals.}
 \item{FUN}{function with arguments \code{est}, \code{se}, \code{tval}, \code{pval}, \code{lci}, \code{uci} to display the coefficients. The default function will display the coefficient and significance stars for the p-values.}
+\item{order}{row of the results table to be used as order for the models (as typically "AIC"). Can be any label in the first column of the results table. Default is \code{NA} for no special order.}
 \item{terms}{a vector with the terms of the model formula to be plotted. By default this will be all of them.}
 \item{use.profile}{logical. Defines if profile approach should be used, which normally is a good choice for small datasets. Calculating profile can however take ages for large datasets and not be necessary there. So we can fallback to normal confidence intervals. }
 
