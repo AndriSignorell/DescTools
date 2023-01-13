@@ -1982,7 +1982,7 @@ CramerVonMisesTest <- function (x) {
 
 
 #
-# AndersonDarlingTest <- function (x) {
+# AndersonDarlin<- <- function (x) {
 #
 #     DNAME <- deparse(substitute(x))
 #     x <- sort(x[complete.cases(x)])
@@ -2632,9 +2632,10 @@ MHChisqTest <- function(x, srow=1:nrow(x), scol=1:ncol(x)){
                  p.value = PVAL, method = METHOD, data.name = DNAME), class = "htest")
 }
 
+chisq.test
 
-
-GTest <- function(x, y = NULL, correct=c("none", "williams", "yates"), p = rep(1/length(x), length(x))) {
+GTest <- function(x, y = NULL, correct=c("none", "williams", "yates"), 
+                  p = rep(1/length(x), length(x)), rescale.p = FALSE) {
 
 
   # Log-likelihood tests of independence & goodness of fit
@@ -2757,12 +2758,25 @@ GTest <- function(x, y = NULL, correct=c("none", "williams", "yates"), p = rep(1
     }
   }
   else {
+    
+    
     # x is not a matrix, so we do Goodness of Fit
     METHOD <- "Log likelihood ratio (G-test) goodness of fit test"
-    if (length(x) == 1)
+    
+    if (length(dim(x)) > 2L) 
+      stop("invalid 'x'")
+    if (length(x) == 1L)
       stop("x must at least have 2 elements")
     if (length(x) != length(p))
-      stop("x and p must have the same number of elements")
+      stop("'x' and 'p' must have the same number of elements")
+    if (any(p < 0)) 
+      stop("probabilities must be non-negative.")
+    if (abs(sum(p) - 1) > sqrt(.Machine$double.eps)) {
+      if (rescale.p) 
+        p <- p/sum(p)
+      else stop("probabilities must sum to 1.")
+    }
+    
     E <- n * p
 
     if (correct=="yates"){ # Do Yates' correction

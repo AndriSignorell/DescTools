@@ -880,7 +880,7 @@ ModSummary.OddsRatio <- function(x, conf.level=0.95, ...){
 
 
 
-TMod <- function(..., FUN = NULL, order = NULL){
+TMod <- function(..., FUN = NULL, order = NA){
   
   
   # prepare function to put together coefficients and stats
