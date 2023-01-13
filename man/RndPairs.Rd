@@ -52,7 +52,7 @@ RndWord(size, length, x = LETTERS, replace = TRUE, prob = NULL)
 d.frm  <- RndPairs(n=100, r=0.7)
 
 plot(d.frm)
-lines(lm(X2 ~ X1,d.frm))
+lines(lm(y ~ x,d.frm))
 
 # change the distribution
 d.frm  <- RndPairs(n=100, r=0.7, rdist2 = rlnorm(n = 100, meanlog = 1, sdlog = .8))

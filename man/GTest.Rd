@@ -13,7 +13,7 @@
   }
   \usage{
 GTest(x, y = NULL, correct = c("none", "williams", "yates"),
-      p = rep(1/length(x), length(x))) %, rescale.p = FALSE, simulate.p.value = FALSE, B = 2000
+      p = rep(1/length(x), length(x)), rescale.p = FALSE) % , simulate.p.value = FALSE, B = 2000
   }
   \arguments{
   \item{x}{a numeric vector or matrix. \code{x} and \code{y} can also
@@ -23,6 +23,8 @@ GTest(x, y = NULL, correct = c("none", "williams", "yates"),
   \item{correct}{one out of \code{"none"} (default), \code{"williams"}, \code{"yates"} . See Details. }
   \item{p}{a vector of probabilities of the same length of \code{x}.
   An error is given if any entry of \code{p} is negative.}
+  \item{rescale.p}{	
+a logical scalar; if \code{TRUE} then p is rescaled (if necessary) to sum to 1. If rescale.p is \code{FALSE}, and p does not sum to 1, an error is given.}
 
 %  \item{rescale.p}{a logical scalar; if \code{TRUE} then \code{p} is rescaled
 %  (if necessary) to sum to 1.  If \code{rescale.p} is FALSE, and
@@ -75,8 +77,8 @@ The G-test is also called "Likelihood Ratio Test" and is asymptotically equivale
 %  the discrete distribution specified by \code{p}, each sample being
 %  of size \code{n = sum(x)}.  This simulation is done in \R and may be
 %  slow.
-  TOI Yates' correction taken from Mike Camann's 2x2 G-test function.
-  GOF Yates' correction as described in Zar (2000)
+  Test of independence Yates' correction taken from Mike Camann's 2x2 G-test function.
+  Goodness of Fit Yates' correction as described in Zar (2000).
   }
   \value{
   A list with class \code{"htest"} containing the following
@@ -93,7 +95,7 @@ The G-test is also called "Likelihood Ratio Test" and is asymptotically equivale
   \item{observed}{the observed counts.}
   \item{expected}{the expected counts under the null hypothesis.}
   }
-  \author{Pete Hurd <phurd@ualberta.ca>}
+  \author{Pete Hurd <phurd@ualberta.ca>, Andri Signorell <andri@signorell.net> (tiny tweaks)}
   \seealso{
   \code{\link{chisq.test}}.
   }
@@ -113,8 +115,6 @@ The G-test is also called "Likelihood Ratio Test" and is asymptotically equivale
   Page 38.
 
 Sokal, R. R., F. J. Rohlf (2012) \emph{Biometry: the principles and practice of statistics in biological research}. 4th edition. W. H. Freeman and Co.: New York. 937 pp.
-
-
 
   }
 \examples{
@@ -144,7 +144,7 @@ GTest(x, p = p)                # gives an error
 p <- c(0.40,0.20,0.20,0.19,0.01)
 # Expected count in category 5
 # is 1.86 < 5 ==> chi square approx.
-GTest(x, p = p)                #         maybe doubtful, but is ok!
+GTest(x, p = p)                # maybe doubtful, but is ok!
 
 ## Case B. Raw data
 x <- trunc(5 * runif(100))
