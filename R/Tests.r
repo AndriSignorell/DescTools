@@ -4949,18 +4949,24 @@ DunnettTest.default <- function (x, g, control = NULL
     diag(R) <- 1
 
     # store the given seed
-    if(exists(".Random.seed")){
-      # .Random.seed might not exist when launched as background job
-      # so only store and reset if it exists 
-      old.seed <- .Random.seed
+    has_seed <- exists(".Random.seed", globalenv(), mode = "integer", inherits = FALSE)
+    if (has_seed) {
+      old_seed <- get(".Random.seed", globalenv(), mode = "integer", inherits = FALSE)
+    } else {
+      old_seed <- NULL
     }
     set.seed(5)  # for getting consistent results every run
-    qvt <- mvtnorm::qmvt((1 - (1 - conf.level)/2), df = N - k, sigma = R, tail = "lower.tail")$quantile
-    
-    # reset seed
-    if(exists("old.seed")){
-      .Random.seed <<- old.seed
-    }
+    qvt <- local({
+      on.exit({
+        if (is.null(old_seed)) {
+          set.seed(NULL)
+          rm(".Random.seed", envir = globalenv())
+        } else {
+          assign(".Random.seed", old_seed, globalenv())
+        }
+      })
+      mvtnorm::qmvt((1 - (1 - conf.level)/2), df = N - k, sigma = R, tail = "lower.tail")$quantile
+    })
     
     lower <- meandiffs - s * sqrt((1/fittedn) + (1/controln)) * qvt
     upper <- meandiffs + s * sqrt((1/fittedn) + (1/controln)) * qvt
