@@ -88,7 +88,7 @@ BreuschGodfreyTest(y1 ~ x, order = 4)
 ## Compare with Durbin-Watson test results:
 DurbinWatsonTest(y1 ~ x)
 
-y2 <- filter(y1, 0.5, method = "recursive")
+y2 <- stats::filter(y1, 0.5, method = "recursive")
 BreuschGodfreyTest(y2 ~ x)
 }
 \keyword{htest}
