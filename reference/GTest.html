@@ -18,7 +18,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.47</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.48</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@
 
     <div id="ref-usage">
     <div class="sourceCode"><pre><code>GTest(x, y = NULL, correct = c("none", "williams", "yates"),
-      p = rep(1/length(x), length(x))) &lt;!-- %, rescale.p = FALSE, simulate.p.value = FALSE, B = 2000 --&gt;</code></pre></div>
+      p = rep(1/length(x), length(x)), rescale.p = FALSE) &lt;!-- % , simulate.p.value = FALSE, B = 2000 --&gt;</code></pre></div>
     </div>
 
     <div id="arguments">
@@ -104,6 +104,9 @@
   <dt>p</dt>
 <dd><p>a vector of probabilities of the same length of <code>x</code>.
   An error is given if any entry of <code>p</code> is negative.</p></dd>
+
+  <dt>rescale.p</dt>
+<dd><p>a logical scalar; if <code>TRUE</code> then p is rescaled (if necessary) to sum to 1. If rescale.p is <code>FALSE</code>, and p does not sum to 1, an error is given.</p></dd>
 
 
 </dl><p><!-- %  \item{rescale.p}{a logical scalar; if \code{TRUE} then \code{p} is rescaled --></p>
@@ -166,8 +169,8 @@
 <!-- %  the discrete distribution specified by \code{p}, each sample being -->
 <!-- %  of size \code{n = sum(x)}.  This simulation is done in \R and may be -->
 <!-- %  slow. -->
-  TOI Yates' correction taken from Mike Camann's 2x2 G-test function.
-  GOF Yates' correction as described in Zar (2000)</p>
+  Test of independence Yates' correction taken from Mike Camann's 2x2 G-test function.
+  Goodness of Fit Yates' correction as described in Zar (2000).</p>
     </div>
     <div id="value">
     <h2>Value</h2>
@@ -203,7 +206,7 @@
   </dl></div>
     <div id="author">
     <h2>Author</h2>
-    <p>Pete Hurd &lt;phurd@ualberta.ca&gt;</p>
+    <p>Pete Hurd &lt;phurd@ualberta.ca&gt;, Andri Signorell &lt;andri@signorell.net&gt; (tiny tweaks)</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -223,8 +226,6 @@
   New York: John Wiley &amp; Sons.
   Page 38.</p>
 <p>Sokal, R. R., F. J. Rohlf (2012) <em>Biometry: the principles and practice of statistics in biological research</em>. 4th edition. W. H. Freeman and Co.: New York. 937 pp.</p>
-
-
 <p></p>
     </div>
 
@@ -277,17 +278,12 @@
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span><span class="fu">GTest</span><span class="op">(</span><span class="va">x</span>, p <span class="op">=</span> <span class="va">p</span><span class="op">)</span>                <span class="co"># gives an error</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	Log likelihood ratio (G-test) goodness of fit test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> data:  x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> G = -1700.5, X-squared df = 4, p-value = 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Error in GTest(x, p = p) : probabilities must sum to 1.</span>
 <span class="r-in"><span><span class="co"># works</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.40</span>,<span class="fl">0.20</span>,<span class="fl">0.20</span>,<span class="fl">0.19</span>,<span class="fl">0.01</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Expected count in category 5</span></span></span>
 <span class="r-in"><span><span class="co"># is 1.86 &lt; 5 ==&gt; chi square approx.</span></span></span>
-<span class="r-in"><span><span class="fu">GTest</span><span class="op">(</span><span class="va">x</span>, p <span class="op">=</span> <span class="va">p</span><span class="op">)</span>                <span class="co">#         maybe doubtful, but is ok!</span></span></span>
+<span class="r-in"><span><span class="fu">GTest</span><span class="op">(</span><span class="va">x</span>, p <span class="op">=</span> <span class="va">p</span><span class="op">)</span>                <span class="co"># maybe doubtful, but is ok!</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Log likelihood ratio (G-test) goodness of fit test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -318,7 +314,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
