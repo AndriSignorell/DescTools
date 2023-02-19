@@ -41,7 +41,7 @@ Rothman KJ, Boice JD, Jr. (1979) Epidemiologic Analysis with a Programmable Calc
 Garwood, F. (1936) Fiducial Limits for the Poisson distribution. \emph{Biometrika} 28:437-442.
 
 \url{https://www.ine.pt/revstat/pdf/rs120203.pdf}
-
+     
 }
 \author{Andri Signorell <andri@signorell.net>
 }

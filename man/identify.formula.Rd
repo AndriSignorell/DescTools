@@ -54,7 +54,7 @@ identify(dist ~ speed, data = cars, subset = speed < 17)
 }
 \seealso{
   \code{identify}, \code{\link{locator}}, \code{\link{text}}\cr
-  \url{http://www.rforge.net/NCStats/files/}
+  \url{https://www.rforge.net/NCStats/files/}
 }
 \keyword{hplot}
 

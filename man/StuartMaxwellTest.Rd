@@ -27,7 +27,8 @@ Incomplete cases are removed, vectors are coerced into factors, and the continge
 
 If there is perfect agreement for any category k, that category must be omitted in order to invert matrix S. 
 
-If for any category \code{k}, all frequencies in row \code{k} and column \code{k} are 0, except possibly for the main diagonal element (e.g., for perfect agreement for category \code{k}, in such cases also the corresponding row and column marginal frequencies would be equal), then the category is not included in the test and should be ignored, say the Stuart-Maxwell test is performed with respect to the remaining categories only. The degree of freedom \code{df} in this case can still be considered \code{k - 1}, where \code{k} is the number of original categories; this treats omitted categories as if they were included but contributed 0 to the value of \eqn{\chi^2}{Chi-square} - a reasonable view since such categories have equal row and column marginals. (See: \url{http://www.john-uebersax.com/stat/mcnemar.htm#stuart})
+If for any category \code{k}, all frequencies in row \code{k} and column \code{k} are 0, except possibly for the main diagonal element (e.g., for perfect agreement for category \code{k}, in such cases also the corresponding row and column marginal frequencies would be equal), then the category is not included in the test and should be ignored, say the Stuart-Maxwell test is performed with respect to the remaining categories only. The degree of freedom \code{df} in this case can still be considered \code{k - 1}, where \code{k} is the number of original categories; this treats omitted categories as if they were included but contributed 0 to the value of \eqn{\chi^2}{Chi-square} - a reasonable view since such categories have equal row and column marginals. (See: \url{https://www.john-uebersax.com/stat/mcnemar.htm#stuart})
+           
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
@@ -57,7 +58,7 @@ Agresti, A. (2002) \emph{Categorical Data Analysis}. John Wiley & Sons, pp 86 ff
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-# Source: http://www.john-uebersax.com/stat/mcnemar.htm#stuart
+# Source: https://www.john-uebersax.com/stat/mcnemar.htm#stuart
 hyp <- as.table(matrix(c(20,3,0,10,30,5,5,15,40), nrow=3))
 StuartMaxwellTest(hyp)
 

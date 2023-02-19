@@ -90,7 +90,7 @@ Lin C.Y., Yang M.C. (2009) Improved p-value tests for comparing two independent 
 Trujillo-Ortiz, A., R. Hernandez-Walls, A. Castro-Perez, L. Rodriguez-Cardozo N.A. Ramos-Delgado and R. Garcia-Sanchez. (2004). Barnardextest:Barnard's Exact Probability Test. A MATLAB file. [WWW document]. \url{https://www.mathworks.com/}
 
 Mehta, C.R., Senchaudhuri, P. (2003) Conditional versus unconditional exact tests for comparing two binomials. \url{https://www.researchgate.net/publication/242179503_Conditional_versus_Unconditional_Exact_Tests_for_Comparing_Two_Binomials}
-
+     
 Calhoun, P. (2019) Exact: Unconditional Exact Test. R package version
   2.0. \cr \url{https://CRAN.R-project.org/package=Exact}
 }
