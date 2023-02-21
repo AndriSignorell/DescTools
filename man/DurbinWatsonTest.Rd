@@ -89,7 +89,7 @@ R. W. Farebrother (1984),
   Variables (80V29 p323-333)
 \emph{Applied Statistics} \bold{33}, 366--369.
 
-W. Kr‰mer & H. Sonnberger (1986),
+W. Kr√§mer & H. Sonnberger (1986),
 \emph{The Linear Regression Model under Test}. Heidelberg: Physica.
 
 J. Racine & R. Hyndman (2002),
@@ -113,7 +113,7 @@ y1 <- 1 + x + err1
 ## perform Durbin-Watson test
 DurbinWatsonTest(y1 ~ x)
 
-err2 <- filter(err1, 0.9, method="recursive")
+err2 <- stats::filter(err1, 0.9, method="recursive")
 y2 <- 1 + x + err2
 DurbinWatsonTest(y2 ~ x)
 
