@@ -114,3 +114,9 @@ z <- as.numeric(names(w <- table(x)))
 stopifnot(AllIdentical(Median(z, weights=w), Median(x), median(x), Median(c(x, NA, NA), na.rm=TRUE)))
 
 
+## LogStInv() was wrong for base != 10
+x <- seq(0, 10, by=1/4)
+tx <- LogSt(x, base=2, threshold=6)
+x. <- LogStInv(tx)
+all.equal(x, x., tol = 0) # gave 0.15144. before bug fix
+stopifnot(all.equal(x, x., tol = 1e-14))

@@ -2842,13 +2842,12 @@ LogStInv <- function (x, base=NULL, threshold = NULL) {
   if(is.null(base)) base <- attr(x, "base")
 
   res <- rep(NA, length(x))
-  idx <- (x < log10(threshold))
+  idx <- (x < (lgth <- log(threshold, base)))
   idx.na <- is.na(idx)
-  res[idx & !idx.na] <- threshold - threshold * log(base) *( log(x = threshold, base=base) - x[idx & !idx.na])
+  res[ idx & !idx.na] <- threshold - (threshold * log(base)) * (lgth - x[idx & !idx.na]) 
   res[!idx & !idx.na] <- base^(x[!idx & !idx.na])
 
   return(res)
-
 }
 
 
