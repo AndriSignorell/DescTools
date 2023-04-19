@@ -90,6 +90,9 @@ MultinomCI(x, method="wilson")
 
 # compare to
 BinomCI(x, n=sum(x))
+
+# example in Goodman (1965)
+MultinomCI(x = c(91,49,37,43),conf.level = 0.95,method="goodman")
 }
 
 \keyword{univar}

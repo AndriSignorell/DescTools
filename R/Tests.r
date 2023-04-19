@@ -4011,8 +4011,7 @@ ScheffeTest.aov <- function(x, which=NULL, contrasts = NULL, conf.level=0.95, ..
 
     psi <- apply(contrasts * means, 2, sum)
     sscoeff <- apply(contrasts * contrasts / n, 2, sum)
-    mspsi <- (psi * psi) / sscoeff
-
+    
     # Korrektur von Daniel Wollschlaeger 9.9.2014:
     #     psi <- contrasts %*% means
     #     sscoeff <- contrasts * contrasts %*% (1/n)

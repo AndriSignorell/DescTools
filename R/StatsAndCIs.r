@@ -3585,7 +3585,11 @@ MultinomCI <- function(x, conf.level = 0.95, sides = c("two.sided","left","right
   method <- match.arg(arg = method, choices = c("sisonglaz", "cplus1", "goodman", "wald", "waldcc", "wilson"))
   if(method == "goodman") {
 
-    q.chi <- qchisq(conf.level, k - 1)
+    
+    # erroneous: q.chi <- qchisq(conf.level, k - 1)
+    # corrected on 
+    
+    q.chi <- qchisq(1 - (1-conf.level)/k, df = 1)
     lci <- (q.chi + 2*x - sqrt(q.chi*(q.chi + 4*x*(n-x)/n))) / (2*(n+q.chi))
     uci <- (q.chi + 2*x + sqrt(q.chi*(q.chi + 4*x*(n-x)/n))) / (2*(n+q.chi))
 
