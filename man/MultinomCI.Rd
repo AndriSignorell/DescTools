@@ -11,11 +11,11 @@ Department of Computer Science and Artificial Intelligence, University of Granad
 (Sison-Glaz)
 
 Andri Signorell <andri@signorell.net>
-(Goodman, Wald, Wilson)
+(Goodman, Wald, Wilson, Fitzpatrick-Scott, Quesensberry-Hurst)
 }
 \usage{
 MultinomCI(x, conf.level = 0.95, sides = c("two.sided", "left", "right"),
-           method = c("sisonglaz", "cplus1", "goodman", "wald", "waldcc", "wilson"))
+           method = c("sisonglaz", "cplus1", "goodman", "wald", "waldcc", "wilson", "qh", "fs"))
 }
 \arguments{
 \item{x}{
@@ -28,7 +28,8 @@ A vector of positive integers representing the number of occurrences of each cla
 \code{"greater"} in a \code{t.test}.}
 
   \item{method}{ character string specifing which method to use; can be one out of
-  \code{"sisonglaz"}, \code{"cplus1"}, \code{"goodman"},  \code{"wald"},  \code{"waldcc"}, \code{"wilson"}.
+  \code{"sisonglaz"}, \code{"cplus1"}, \code{"goodman"},  \code{"wald"},  \code{"waldcc"}, \code{"wilson"},
+  , \code{"qh"}, \code{"fs"}.
   Method can be abbreviated. See details. Defaults to \code{"sisonglaz"}. }
 
 
@@ -36,7 +37,7 @@ A vector of positive integers representing the number of occurrences of each cla
 \details{
 Given a vector of observations with the number of samples falling in each class of a multinomial distribution,
 builds the simultaneous confidence intervals for the multinomial probabilities according to the method proposed by the mentioned authors.
-The R code for Sison and Glaz (1995) has been translated from thes SAS code written by May and Johnson (2000).\cr
+The R code for Sison and Glaz (1995) has been translated from thes SAS code written by May and Johnson (2000). See the references for the other methods (qh = Quesensberry-Hurst, fs = Fitzpatrick-Scott).\cr
 Some approaches for the confidence intervals can potentially yield negative results or values beyond 1. These would be reset such as not to exceed the range of [0, 1].
 }
 \value{
@@ -49,18 +50,25 @@ The number of rows correspond to the dimension of x.
 
 }
 \references{
-Sison, C.P and Glaz, J. (1995) Simultaneous confidence intervals and sample size determination
-for multinomial proportions. \emph{Journal of the American Statistical Association}, 90:366-369.
+Fitzpatrick, S. and Scott, A. (1987). Quick simultaneous confidence interval for multinomial proportions. \emph{Journal of American Statistical Association} 82(399): 875-878.
 
 Glaz, J., Sison, C.P. (1999) Simultaneous confidence intervals for multinomial proportions.
 \emph{Journal of Statistical Planning and Inference} 82:251-262.
+
+Goodman, L. A. (1965) On Simultaneous Confidence Intervals for Multinomial
+Proportions \emph{Technometrics}, 7, 247-254.
 
 May, W.L., Johnson, W.D.(2000) Constructing two-sided simultaneous confidence intervals for
 multinomial proportions for small counts in a large number of cells. \emph{Journal of Statistical Software} 5(6) .
 Paper and code available at \url{https://www.jstatsoft.org/v05/i06}.
 
-Goodman, L. A. (1965) On Simultaneous Confidence Intervals for Multinomial
-Proportions \emph{Technometrics}, 7, 247-254.
+Quesensberry, C.P. and Hurst, D.C. (1964). Large Sample Simultaneous Confidence Intervals for Multinational Proportions. \emph{Technometrics}, 6: 191-195.
+
+Sangeetha, U., Subbiah, M., Srinivasan, M. R. (2013) Mathematical Analysis of propensity of aberration on the methods for interval estimation of the multinomial proportions.
+\empfh{IOSR Journal of Mathematics}, e-ISSN: 2278-5728,p-ISSN: 2319-765X, Volume 7, Issue 4 (Jul. - Aug. 2013), PP 23-28
+
+Sison, C.P and Glaz, J. (1995) Simultaneous confidence intervals and sample size determination
+for multinomial proportions. \emph{Journal of the American Statistical Association}, 90:366-369.
 
 Wald, A. Tests of statistical hypotheses concerning several parameters when the number of observations is large, \emph{Trans. Am. Math. Soc.} 54 (1943) 426-482.
 
@@ -93,6 +101,12 @@ BinomCI(x, n=sum(x))
 
 # example in Goodman (1965)
 MultinomCI(x = c(91,49,37,43),conf.level = 0.95,method="goodman")
+
+# example from Sison, Glaz (1999) in Sangeetha (2013)
+x <- c(56, 72, 73, 59, 62, 87, 58)
+
+lapply(c("wald", "waldcc", "wilson", "qh", "goodman", "fs", "sisonglaz"),
+       function(m) round(MultinomCI(x, method=m)[,-1], 3))
 }
 
 \keyword{univar}

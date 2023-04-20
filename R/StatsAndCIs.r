@@ -3500,7 +3500,7 @@ BinomRatioCI <- function(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided
 
 
 MultinomCI <- function(x, conf.level = 0.95, sides = c("two.sided","left","right"),
-                       method = c("sisonglaz", "cplus1", "goodman", "wald", "waldcc", "wilson")) {
+                       method = c("sisonglaz", "cplus1", "goodman", "wald", "waldcc", "wilson", "qh", "fs")) {
 
   # Code mainly by:
   # Pablo J. Villacorta Iglesias <pjvi@decsai.ugr.es>\n
@@ -3582,7 +3582,7 @@ MultinomCI <- function(x, conf.level = 0.95, sides = c("two.sided","left","right
     conf.level <- 1 - 2*(1-conf.level)
 
 
-  method <- match.arg(arg = method, choices = c("sisonglaz", "cplus1", "goodman", "wald", "waldcc", "wilson"))
+  method <- match.arg(arg = method, choices = c("sisonglaz", "cplus1", "goodman", "wald", "waldcc", "wilson", "qh", "fs"))
   if(method == "goodman") {
 
     
@@ -3619,6 +3619,32 @@ MultinomCI <- function(x, conf.level = 0.95, sides = c("two.sided","left","right
 
     res <- cbind(est=p, lwr.ci=pmax(0, lci), upr.ci=pmin(1, uci))
 
+  } else if (method == "fs") {
+    
+    # references Fitzpatrick, S. and Scott, A. (1987). Quick simultaneous confidence 
+    # interval for multinomial proportions. 
+    # Journal of American Statistical Association 82(399): 875-878.
+    
+    q.snorm <- qnorm(1-(1 - conf.level)/2)
+    
+    lci <- p - q.snorm / (2 * sqrt(n))
+    uci <- p + q.snorm / (2 * sqrt(n))
+    
+    res <- cbind(est = p, lwr.ci = pmax(0, lci), upr.ci = pmin(1, uci))
+  
+  } else if (method == "qh") {
+    
+    # references Quesensberry, C.P. and Hurst, D.C. (1964). 
+    # Large Sample Simultaneous Confidence Intervals for 
+    # Multinational Proportions. Technometrics, 6: 191-195.
+    
+    q.chi <- qchisq(conf.level, df = k-1)
+    
+    lci <- (q.chi + 2*x - sqrt(q.chi^2 + 4*x*q.chi*(1 - p)))/(2*(q.chi+n))
+    uci <- (q.chi + 2*x + sqrt(q.chi^2 + 4*x*q.chi*(1 - p)))/(2*(q.chi+n))
+    
+    res <- cbind(est = p, lwr.ci = pmax(0, lci), upr.ci = pmin(1, uci))
+   
   } else {  # sisonglaz, cplus1
 
     const <- 0
