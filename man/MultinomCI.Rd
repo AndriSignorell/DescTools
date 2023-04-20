@@ -15,7 +15,8 @@ Andri Signorell <andri@signorell.net>
 }
 \usage{
 MultinomCI(x, conf.level = 0.95, sides = c("two.sided", "left", "right"),
-           method = c("sisonglaz", "cplus1", "goodman", "wald", "waldcc", "wilson", "qh", "fs"))
+           method = c("sisonglaz", "cplus1", "goodman", "wald", "waldcc", 
+                      "wilson", "qh", "fs"))
 }
 \arguments{
 \item{x}{
@@ -65,7 +66,7 @@ Paper and code available at \url{https://www.jstatsoft.org/v05/i06}.
 Quesensberry, C.P. and Hurst, D.C. (1964). Large Sample Simultaneous Confidence Intervals for Multinational Proportions. \emph{Technometrics}, 6: 191-195.
 
 Sangeetha, U., Subbiah, M., Srinivasan, M. R. (2013) Mathematical Analysis of propensity of aberration on the methods for interval estimation of the multinomial proportions.
-\empfh{IOSR Journal of Mathematics}, e-ISSN: 2278-5728,p-ISSN: 2319-765X, Volume 7, Issue 4 (Jul. - Aug. 2013), PP 23-28
+\emph{IOSR Journal of Mathematics}, e-ISSN: 2278-5728,p-ISSN: 2319-765X, Volume 7, Issue 4 (Jul. - Aug. 2013), PP 23-28
 
 Sison, C.P and Glaz, J. (1995) Simultaneous confidence intervals and sample size determination
 for multinomial proportions. \emph{Journal of the American Statistical Association}, 90:366-369.
