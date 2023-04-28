@@ -467,12 +467,12 @@ Desc.formula <- function(formula, data = parent.frame(),
 
 
 
-calcDesc <- function(x, n, ...) {
+calcDesc <- function(x, ...) {
   UseMethod("calcDesc")
 }
 
 
-calcDesc.default <- function(x, n, ...) {
+calcDesc.default <- function(x, ...) {
   if (!is.null(class(x))) {
     # cat(gettextf("\nSorry, don't know how to Desc class(es) %s (%s)!\n\n",
     #              paste(class(x), collapse = ", "), deparse(substitute(x))))
@@ -861,7 +861,8 @@ calcDesc.matrix <- function(x, n, conf.level = 0.95, verbose,
 
 calcDesc.bivar <- function(x, g, xname = NULL, gname = NULL,
                            margin = FALSE, breaks = 4, conf.level = 0.95,
-                           smooth = TRUE, test = kruskal.test, verbose = 2, ...) {
+                           smooth = TRUE, test = kruskal.test, verbose = 2, 
+                           ...) {
   ok <- complete.cases(x, g)
   nv <- sum(ok)
   nx <- length(x)

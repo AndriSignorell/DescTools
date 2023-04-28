@@ -2039,7 +2039,7 @@ BootCI <- function(x, y=NULL, FUN, ..., bci.method = c("norm", "basic", "stud", 
 BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right"),
                     method = c("wilson", "wald", "waldcc", "agresti-coull", "jeffreys", "modified wilson", "wilsoncc",
                                 "modified jeffreys", "clopper-pearson", "arcsine", "logit", "witting", "pratt", "midp", "lik", "blaker"), 
-                    rand = 123, tol=1e-05) {
+                    rand = 123, tol=1e-05, std_est=TRUE) {
 
   if(missing(method)) method <- "wilson"
   if(missing(sides)) sides <- "two.sided"
@@ -2047,7 +2047,7 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
   iBinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right"),
                        method = c("wilson", "wilsoncc", "wald", "waldcc","agresti-coull", "jeffreys", "modified wilson",
                        "modified jeffreys", "clopper-pearson", "arcsine", "logit", "witting", "pratt", "midp", "lik", "blaker"), 
-                       rand = 123, tol=1e-05) {
+                       rand = 123, tol=1e-05, std_est=TRUE) {
 
     if(length(x) != 1) stop("'x' has to be of length 1 (number of successes)")
     if(length(n) != 1) stop("'n' has to be of length 1 (number of trials)")
@@ -2088,12 +2088,35 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
               CI.upper <- min(1, p.hat + term2)
             }
             , "wilson" = {
+              
+              # non standard estimator
+              if(!std_est){
+                
+                x.tilde <- x + kappa^2/2
+                n.tilde <- n + kappa^2
+                p.tilde <- x.tilde/n.tilde
+                
+                est <- p.tilde
+              }
+              
               term1 <- (x + kappa^2/2)/(n + kappa^2)
               term2 <- kappa*sqrt(n)/(n + kappa^2)*sqrt(p.hat*q.hat + kappa^2/(4*n))
               CI.lower <-  max(0, term1 - term2)
               CI.upper <- min(1, term1 + term2)
             }
             , "wilsoncc" = {
+              
+              # non standard estimator
+              if(!std_est){
+                
+                x.tilde <- x + kappa^2/2
+                n.tilde <- n + kappa^2
+                p.tilde <- x.tilde/n.tilde
+                
+                est <- p.tilde
+              }
+              
+              
               lci <- ( 2*x+kappa**2 -1 - kappa*sqrt(kappa**2 -
                             2- 1/n + 4*p.hat*(n*q.hat+1))) / (2*(n+kappa**2))
               uci <- ( 2*x+kappa**2 +1 + kappa*sqrt(kappa**2 +
@@ -2108,8 +2131,10 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
               n.tilde <- n + kappa^2
               p.tilde <- x.tilde/n.tilde
               q.tilde <- 1 - p.tilde
-              # non standard estimator!!
-              attr(est, "p_tilde") <- p.tilde
+              
+              # non standard estimator
+              if(!std_est)
+                est <- p.tilde
               
               term2 <- kappa*sqrt(p.tilde*q.tilde)/sqrt(n.tilde)
               CI.lower <- max(0, p.tilde - term2)
@@ -2126,6 +2151,18 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
                 CI.upper <- qbeta(1-alpha/2, x+0.5, n-x+0.5)
             }
             , "modified wilson" = {
+              
+              # non standard estimator
+              if(!std_est){
+                
+                x.tilde <- x + kappa^2/2
+                n.tilde <- n + kappa^2
+                p.tilde <- x.tilde/n.tilde
+                
+                est <- p.tilde
+              }
+              
+              
               term1 <- (x + kappa^2/2)/(n + kappa^2)
               term2 <- kappa*sqrt(n)/(n + kappa^2)*sqrt(p.hat*q.hat + kappa^2/(4*n))
               ## comment by Andre Gillibert, 19.6.2017:
@@ -2167,8 +2204,11 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
             }
             , "arcsine" = {
               p.tilde <- (x + 0.375)/(n + 0.75)
+              
               # non standard estimator
-              est <- p.tilde
+              if(!std_est)
+                est <- p.tilde
+
               CI.lower <- sin(asin(sqrt(p.tilde)) - 0.5*kappa/sqrt(n))^2
               CI.upper <- sin(asin(sqrt(p.tilde)) + 0.5*kappa/sqrt(n))^2
             }
@@ -2179,6 +2219,7 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
               lambda.upper <- lambda.hat + kappa*sqrt(V.hat)
               CI.lower <- exp(lambda.lower)/(1 + exp(lambda.lower))
               CI.upper <- exp(lambda.upper)/(1 + exp(lambda.upper))
+              
             }
             , "witting" = {
               set.seed(rand)
@@ -2244,11 +2285,11 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
                     pbinom(x-1, size=n, prob=pi) - (1-conf.level)/2
                 }
                 
-                #One takes pi_low = 0 when x=0 and pi_up=1 when x=n
+                # One takes pi_low = 0 when x=0 and pi_up=1 when x=n
                 CI.lower <- 0
                 CI.upper <- 1
                 
-                #Calculate CI by finding roots of the f funcs
+                # Calculate CI by finding roots of the f funcs
                 if (x!=0) {
                   CI.lower <- uniroot(f.low, interval=c(0, p.hat), x=x, n=n)$root
                 } 
@@ -2328,10 +2369,6 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
     # dot not return ci bounds outside [0,1]
     ci <- c( est=est, lwr.ci=max(0, CI.lower), upr.ci=min(1, CI.upper) )
 
-    # return p.tilde for agresti-coull as attribute
-    if(method=="agresti-coull")
-      attr(ci, "p.tilde") <- p.tilde
-    
     if(sides=="left")
       ci[3] <- 1
     else if(sides=="right")
@@ -2345,7 +2382,7 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
   # handle vectors
   # which parameter has the highest dimension
   lst <- list(x=x, n=n, conf.level=conf.level, sides=sides, 
-              method=method, rand=rand)
+              method=method, rand=rand, std_est=std_est)
   maxdim <- max(unlist(lapply(lst, length)))
   # recycle all params to maxdim
   lgp <- lapply( lst, rep, length.out=maxdim )
@@ -2353,10 +2390,9 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
   # lgp$conf.level[lgp.sides!="two.sided"] <- 1 - 2*(1-lgp$conf.level[lgp.sides!="two.sided"])
 
   # get rownames
-  lgn <- Recycle(x=if(is.null(names(x))) paste("x", seq_along(x), sep=".") else names(x),
+  lgn <- DescTools::Recycle(x=if(is.null(names(x))) paste("x", seq_along(x), sep=".") else names(x),
                  n=if(is.null(names(n))) paste("n", seq_along(n), sep=".") else names(n),
-                 conf.level=conf.level, sides=sides, method=method)
-
+                 conf.level=conf.level, sides=sides, method=method, std_est=std_est)
 
 
   xn <- apply(as.data.frame(lgn[sapply(lgn, function(x) length(unique(x)) != 1)]), 1, paste, collapse=":")
@@ -2365,7 +2401,8 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
   res <- t(sapply(1:maxdim, function(i) iBinomCI(x=lgp$x[i], n=lgp$n[i],
                                                  conf.level=lgp$conf.level[i],
                                                  sides=lgp$sides[i],
-                                                 method=lgp$method[i], rand=lgp$rand[i])))
+                                                 method=lgp$method[i], rand=lgp$rand[i], 
+                                                 std_est=lgp$std_est[i])))
   colnames(res)[1] <- c("est")
   rownames(res) <- xn
   

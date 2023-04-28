@@ -5,17 +5,21 @@ DescTools 0.99.49 (2023-04-28)
 
 UPDATED FUNCTIONS:
   * Better solution for the set.seed issue in DunnetTest 
-    (Credits to Michael Chirico in 
-	https://github.com/AndriSignorell/DescTools/pull/102)
+    (Credits to Michael Chirico in
+    https://github.com/AndriSignorell/DescTools/pull/102)
   
   * BoxedText() uses xy.coords now.
   * Two new methods for MultinomCI() have been implemented 
     (Fitzpatrick-Scott and Quesensberry-Hurst).
   * BinomCI() no longer reports p_tilde but the usual x/n as
     p estimator for the Agresti-Coull confidence intervall.
+    As a replacement for this, there is a argument std_est with 
+    which the method specific non-standard point estimator can be returned.
+    (Thanks to julienbio99, MrJerryTAO and VilmantasG for the
+    research and discussion)
   * BinomCI() will return a 3 element vector instead of a
     matrix with 1 row, in the case that only one ci was 
-    calculated.
+    calculated. 
   
 BUGFIXES:
   * MultinomCI method goodman uses the correct chisquare quantile now.

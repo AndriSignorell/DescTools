@@ -11,7 +11,7 @@ BinomCI(x, n, conf.level = 0.95, sides = c("two.sided", "left", "right"),
                    "modified wilson", "wilsoncc","modified jeffreys",
                    "clopper-pearson", "arcsine", "logit", "witting", "pratt", 
                    "midp", "lik", "blaker"),
-        rand = 123, tol = 1e-05)
+        rand = 123, tol = 1e-05, std_est = TRUE)
 }
 \arguments{
   \item{x}{ number of successes. }
@@ -30,6 +30,7 @@ BinomCI(x, n, conf.level = 0.95, sides = c("two.sided", "left", "right"),
   \item{rand}{ seed for random number generator; see details. }
   \item{tol}{tolerance for method \code{"blaker"}.}
 
+  \item{std_est}{logical, specifying if the standard point estimator for the proportion value \code{x/n} should be returned (\code{TRUE}, default) or the method-specific internally used alternative point estimate (\code{FALSE}).}
 }
 \details{
   All arguments are being recycled.
@@ -100,7 +101,7 @@ Some approaches for the confidence intervals are capable of violating the [0, 1]
 
 And now, which interval should we use? The Wald interval often has inadequate coverage, particularly for small n and values of p close to 0 or 1. Conversely, the Clopper-Pearson Exact method is very conservative and tends to produce wider intervals than necessary. Brown et al. recommends the Wilson or Jeffreys methods for small n and Agresti-Coull, Wilson, or Jeffreys, for larger n as providing more reliable coverage than the alternatives. 
 
-The point estimate used for the Agresti-Coull method is slightly larger than for other methods. It's referred to as the Wilson point estimator calculated as p=(x+2)/(n+4). This values is returned as attribute \code{p.tilde}.
+For the methods \code{"wilson"}, \code{"wilsoncc"}, \code{"modified wilson"}, \code{"agresti-coull"} and \code{"arcsine"} the internally used alternative point estimator for the proportion value can be returned (by setting \code{std_est = FALSE}). The point estimate typically is slightly shifted towards 0.5 compared to the standard estimator. See the literature for the more details.
 
 }
 \value{
