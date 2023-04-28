@@ -30,7 +30,7 @@ A vector of positive integers representing the number of occurrences of each cla
 
   \item{method}{ character string specifing which method to use; can be one out of
   \code{"sisonglaz"}, \code{"cplus1"}, \code{"goodman"},  \code{"wald"},  \code{"waldcc"}, \code{"wilson"},
-  , \code{"qh"}, \code{"fs"}.
+  \code{"qh"}, \code{"fs"}.
   Method can be abbreviated. See details. Defaults to \code{"sisonglaz"}. }
 
 
@@ -103,11 +103,12 @@ BinomCI(x, n=sum(x))
 # example in Goodman (1965)
 MultinomCI(x = c(91,49,37,43),conf.level = 0.95,method="goodman")
 
-# example from Sison, Glaz (1999) in Sangeetha (2013)
+# example from Sison, Glaz (1999) in Sangeetha (2013) - Table 2
 x <- c(56, 72, 73, 59, 62, 87, 58)
-
-lapply(c("wald", "waldcc", "wilson", "qh", "goodman", "fs", "sisonglaz"),
-       function(m) round(MultinomCI(x, method=m)[,-1], 3))
+do.call(cbind, lapply(c("wald", "waldcc", "wilson", 
+                        "qh", "goodman", "fs", "sisonglaz"),
+                      function(m) round(MultinomCI(x, method=m)[,-1], 3)))
+       
 }
 
 \keyword{univar}

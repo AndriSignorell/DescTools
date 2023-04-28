@@ -46,7 +46,7 @@ BinomCI(x, n, conf.level = 0.95, sides = c("two.sided", "left", "right"),
 
   The \bold{Agresti-Coull} interval was proposed by Agresti and Coull (1998) and is a slight
   modification of the Wilson interval. The Agresti-Coull intervals are never shorter
-  than the Wilson intervals; cf. Brown et al (2001).
+  than the Wilson intervals; cf. Brown et al (2001). The internally used point estimator p-tilde is returned as attribute.
 
   The \bold{Jeffreys} interval is an implementation of the equal-tailed Jeffreys prior interval
   as given in Brown et al (2001).
@@ -98,11 +98,15 @@ For more details we refer to Brown et al (2001) as well as Witting (1985).
 
 Some approaches for the confidence intervals are capable of violating the [0, 1] boundaries and potentially yield negative results or values beyond 1. These would be truncated such as not to exceed the valid range of [0, 1].
 
-And now, which interval should we use? The Wald interval often has inadequate coverage, particularly for small n and values of p close to 0 or 1. Conversely, the Clopper-Pearson Exact method is very conservative and tends to produce wider intervals than necessary. Brown et al. recommends the Wilson or Jeffreys methods for small n and Agresti-Coull, Wilson, or Jeffreys, for larger n as providing more reliable coverage than the alternatives. Also note that the point estimate for the Agresti-Coull method is slightly larger than for other methods because of the way this interval is calculated.
+And now, which interval should we use? The Wald interval often has inadequate coverage, particularly for small n and values of p close to 0 or 1. Conversely, the Clopper-Pearson Exact method is very conservative and tends to produce wider intervals than necessary. Brown et al. recommends the Wilson or Jeffreys methods for small n and Agresti-Coull, Wilson, or Jeffreys, for larger n as providing more reliable coverage than the alternatives. 
+
+The point estimate used for the Agresti-Coull method is slightly larger than for other methods. It's referred to as the Wilson point estimator calculated as p=(x+2)/(n+4). This values is returned as attribute \code{p.tilde}.
 
 }
 \value{
   A vector with 3 elements for estimate, lower confidence intervall and upper for the upper one.
+  
+  For more than one argument each, a 3-column matrix is returned.
  }
 
 \note{ The base of this function once was \code{binomCI()} from the \pkg{SLmisc} package. In the meantime, the code has been updated on several occasions and it has undergone numerous extensions and bug fixes.

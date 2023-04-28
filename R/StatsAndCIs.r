@@ -2054,7 +2054,15 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
     if(length(conf.level) != 1)  stop("'conf.level' has to be of length 1 (confidence level)")
     if(conf.level < 0.5 | conf.level > 1)  stop("'conf.level' has to be in [0.5, 1]")
 
-    sides <- match.arg(sides, choices = c("two.sided","left","right"), several.ok = FALSE)
+    
+    method <- match.arg(arg=method, 
+                        choices=c("wilson", "wald", "waldcc", "wilsoncc","agresti-coull", 
+                                  "jeffreys", "modified wilson",
+                                  "modified jeffreys", "clopper-pearson", "arcsine", 
+                                  "logit", "witting","pratt", "midp", "lik", "blaker"))
+              
+    sides <- match.arg(sides, choices = c("two.sided","left","right"), 
+                       several.ok = FALSE)
     if(sides!="two.sided")
       conf.level <- 1 - 2*(1-conf.level)
 
@@ -2065,9 +2073,8 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
 
     # this is the default estimator used by the most (but not all) methods
     est <- p.hat
-    
-    switch( match.arg(arg=method, choices=c("wilson", "wald", "waldcc", "wilsoncc","agresti-coull", "jeffreys", "modified wilson",
-                                            "modified jeffreys", "clopper-pearson", "arcsine", "logit", "witting","pratt", "midp", "lik", "blaker"))
+
+    switch( method
             , "wald" = {
               term2 <- kappa*sqrt(p.hat*q.hat)/sqrt(n)
               CI.lower <- max(0, p.hat - term2)
@@ -2102,7 +2109,8 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
               p.tilde <- x.tilde/n.tilde
               q.tilde <- 1 - p.tilde
               # non standard estimator!!
-              est <- p.tilde
+              attr(est, "p_tilde") <- p.tilde
+              
               term2 <- kappa*sqrt(p.tilde*q.tilde)/sqrt(n.tilde)
               CI.lower <- max(0, p.tilde - term2)
               CI.upper <- min(1, p.tilde + term2)
@@ -2320,6 +2328,10 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
     # dot not return ci bounds outside [0,1]
     ci <- c( est=est, lwr.ci=max(0, CI.lower), upr.ci=min(1, CI.upper) )
 
+    # return p.tilde for agresti-coull as attribute
+    if(method=="agresti-coull")
+      attr(ci, "p.tilde") <- p.tilde
+    
     if(sides=="left")
       ci[3] <- 1
     else if(sides=="right")
@@ -2356,6 +2368,9 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
                                                  method=lgp$method[i], rand=lgp$rand[i])))
   colnames(res)[1] <- c("est")
   rownames(res) <- xn
+  
+  if(nrow(res)==1)
+    res <- res[1,]
 
   return(res)
 
@@ -2366,7 +2381,7 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
 
 BinomCIn <- function(p=0.5, width, interval=c(1, 1e5), conf.level=0.95, sides="two.sided", method="wilson") {
   uniroot(f = function(n) diff(BinomCI(x=p*n, n=n, conf.level=conf.level, 
-                                       sides=sides, method=method)[, -1]) - width, 
+                                       sides=sides, method=method)[-1]) - width, 
           interval = interval)$root
 }
 
