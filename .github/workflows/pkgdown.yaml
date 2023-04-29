@@ -4,6 +4,7 @@ on:
       - main
       - master
       - update-gha
+      - update-gha-workflows
       
 name: pkgdown
 
@@ -30,9 +31,6 @@ jobs:
         with:
           extra-packages: any::pkgdown, any::rmarkdown, local::., RDCOMClient=?ignore
           needs: website
-
-      - name: Install package
-        run: R CMD INSTALL .
 
       - name: Render README
         run: Rscript -e 'rmarkdown::render("README.Rmd")'
