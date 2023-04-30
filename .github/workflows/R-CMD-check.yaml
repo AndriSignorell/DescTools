@@ -41,7 +41,7 @@ jobs:
           extra-repositories: "http://www.omegahat.net/R"
 
       # Use RDCOMClient on Windows
-      - name: Run r-lib/actions/setup-r-dependencies@v2 (Windows)
+      - name: Setup R dependencies (Windows)
         uses: r-lib/actions/setup-r-dependencies@v2
         if: runner.os == 'Windows'
         with:
@@ -49,7 +49,7 @@ jobs:
           needs: check
           
       # Ignore RDCOMClient on MacOs and Linux
-      - name: Run r-lib/actions/setup-r-dependencies@v2 (MacOS and Linux)
+      - name: Setup R dependencies (MacOS and Linux)
         uses: r-lib/actions/setup-r-dependencies@v2
         if: runner.os != 'Windows'
         with:

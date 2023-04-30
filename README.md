@@ -1,6 +1,5 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
 <!-- badges: start -->
 
 [![CRAN
@@ -39,7 +38,7 @@ used as naming rules (in absence of convincing alternatives). The
 contributed R packages as well.
 
 Feedback, feature requests, bug reports and other suggestions are
-welcome\! Please report problems to [GitHub issues
+welcome! Please report problems to [GitHub issues
 tracker](https://github.com/AndriSignorell/DescTools/issues)
 (preferred), Stack Overflow mentioning **DescTools** or directly to the
 maintainer.
@@ -108,7 +107,7 @@ contributors](https://andrisignorell.github.io/DescTools/authors.html).
 Special thanks go to Beat Bruengger, Mathias Frueh, Daniel Wollschlaeger
 for their valuable contributions and testing. The good things come from
 all these guys, any problems are likely due to my tweaking. Thank you
-all\!
+all!
 
 **Maintainer:** Andri Signorell
 
