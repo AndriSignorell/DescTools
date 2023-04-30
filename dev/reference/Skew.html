@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.48.6</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.49.1</span>
       </span>
     </div>
 
@@ -182,17 +182,19 @@ if a <code>conf.level</code> is provided, a named numeric vector with 3 elements
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">Skew</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">price</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"):</span> "rskew" not available for .Call() for package "DescTools"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4970801</span>
 <span class="r-in"><span><span class="fu">Kurt</span><span class="op">(</span><span class="va">d.pizza</span><span class="op">$</span><span class="va">price</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("rkurt", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"):</span> "rkurt" not available for .Call() for package "DescTools"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1076097</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># use sapply to calculate skewness for a data.frame</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"temperature"</span>,<span class="st">"price"</span>,<span class="st">"delivery_min"</span><span class="op">)</span><span class="op">]</span>, <span class="va">Skew</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"):</span> "rskew" not available for .Call() for package "DescTools"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  temperature        price delivery_min </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   -0.8418683    0.4970801    0.6106322 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># or apply to do that columnwise with a matrix</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">d.pizza</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"temperature"</span>,<span class="st">"price"</span>,<span class="st">"delivery_min"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>, <span class="fl">2</span>, <span class="va">Skew</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE = "DescTools"):</span> "rskew" not available for .Call() for package "DescTools"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  temperature        price delivery_min </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   -0.8418683    0.4970801    0.6106322 </span>
 </code></pre></div>
     </div>
   </div>

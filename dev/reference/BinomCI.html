@@ -18,7 +18,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.48.6</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.49.1</span>
       </span>
     </div>
 
@@ -89,7 +89,7 @@
 <span>                   <span class="st">"modified wilson"</span>, <span class="st">"wilsoncc"</span>,<span class="st">"modified jeffreys"</span>,</span>
 <span>                   <span class="st">"clopper-pearson"</span>, <span class="st">"arcsine"</span>, <span class="st">"logit"</span>, <span class="st">"witting"</span>, <span class="st">"pratt"</span>, </span>
 <span>                   <span class="st">"midp"</span>, <span class="st">"lik"</span>, <span class="st">"blaker"</span><span class="op">)</span>,</span>
-<span>        rand <span class="op">=</span> <span class="fl">123</span>, tol <span class="op">=</span> <span class="fl">1e-05</span><span class="op">)</span></span></code></pre></div>
+<span>        rand <span class="op">=</span> <span class="fl">123</span>, tol <span class="op">=</span> <span class="fl">1e-05</span>, std_est <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -124,6 +124,9 @@
 <dd><p>tolerance for method <code>"blaker"</code>.</p></dd>
 
 
+  <dt>std_est</dt>
+<dd><p>logical, specifying if the standard point estimator for the proportion value <code>x/n</code> should be returned (<code>TRUE</code>, default) or the method-specific internally used alternative point estimate (<code>FALSE</code>).</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -137,7 +140,7 @@
   Brown et al (2001).</p>
 <p>The <b>Agresti-Coull</b> interval was proposed by Agresti and Coull (1998) and is a slight
   modification of the Wilson interval. The Agresti-Coull intervals are never shorter
-  than the Wilson intervals; cf. Brown et al (2001).</p>
+  than the Wilson intervals; cf. Brown et al (2001). The internally used point estimator p-tilde is returned as attribute.</p>
 <p>The <b>Jeffreys</b> interval is an implementation of the equal-tailed Jeffreys prior interval
   as given in Brown et al (2001).</p>
 <p>The <b>modified Wilson</b> interval is a modification of the Wilson interval for x close to 0
@@ -174,13 +177,17 @@ MLE.</p>
 
 
 <p>Some approaches for the confidence intervals are capable of violating the [0, 1] boundaries and potentially yield negative results or values beyond 1. These would be truncated such as not to exceed the valid range of [0, 1].</p>
-<p>And now, which interval should we use? The Wald interval often has inadequate coverage, particularly for small n and values of p close to 0 or 1. Conversely, the Clopper-Pearson Exact method is very conservative and tends to produce wider intervals than necessary. Brown et al. recommends the Wilson or Jeffreys methods for small n and Agresti-Coull, Wilson, or Jeffreys, for larger n as providing more reliable coverage than the alternatives. Also note that the point estimate for the Agresti-Coull method is slightly larger than for other methods because of the way this interval is calculated.</p>
+<p>And now, which interval should we use? The Wald interval often has inadequate coverage, particularly for small n and values of p close to 0 or 1. Conversely, the Clopper-Pearson Exact method is very conservative and tends to produce wider intervals than necessary. Brown et al. recommends the Wilson or Jeffreys methods for small n and Agresti-Coull, Wilson, or Jeffreys, for larger n as providing more reliable coverage than the alternatives.</p>
+<p>For the methods <code>"wilson"</code>, <code>"wilsoncc"</code>, <code>"modified wilson"</code>, <code>"agresti-coull"</code> and <code>"arcsine"</code> the internally used alternative point estimator for the proportion value can be returned (by setting <code>std_est = FALSE</code>). The point estimate typically is slightly shifted towards 0.5 compared to the standard estimator. See the literature for the more details.</p>
     </div>
     <div id="value">
     <h2>Value</h2>
     
 
 <p>A vector with 3 elements for estimate, lower confidence intervall and upper for the upper one.</p>
+  
+
+<p>For more than one argument each, a 3-column matrix is returned.</p>
 <p></p>
     </div>
     <div id="note">
@@ -223,13 +230,13 @@ Andri Signorell &lt;andri@signorell.net&gt; (interface issues and all the rest)<
 <span class="r-out co"><span class="r-pr">#&gt;</span> wilson            0.8604651 0.7273641 0.9344428</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> wald              0.8604651 0.7568980 0.9640322</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> waldcc            0.8604651 0.7452701 0.9756601</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> agresti-coull     0.8309034 0.7235600 0.9382469</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> agresti-coull     0.8604651 0.7235600 0.9382469</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> jeffreys          0.8604651 0.7348110 0.9395927</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> modified wilson   0.8604651 0.7273641 0.9344428</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> wilsoncc          0.8604651 0.7137335 0.9419725</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> modified jeffreys 0.8604651 0.7348110 0.9395927</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> clopper-pearson   0.8604651 0.7206752 0.9470234</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> arcsine           0.8542857 0.7346862 0.9424696</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> arcsine           0.8604651 0.7346862 0.9424696</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> logit             0.8604651 0.7224337 0.9359412</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> witting           0.8604651 0.7493378 0.9273288</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> pratt             0.8604651 0.7661306 0.9472522</span>
@@ -240,8 +247,8 @@ Andri Signorell &lt;andri@signorell.net&gt; (interface issues and all the rest)<
 <span class="r-in"><span><span class="co"># the confidence interval computed by binom.test</span></span></span>
 <span class="r-in"><span><span class="co">#   corresponds to the Clopper-Pearson interval</span></span></span>
 <span class="r-in"><span><span class="fu">BinomCI</span><span class="op">(</span>x<span class="op">=</span><span class="fl">42</span>, n<span class="op">=</span><span class="fl">43</span>, method<span class="op">=</span><span class="st">"clopper-pearson"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            est    lwr.ci    upr.ci</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.9767442 0.8771095 0.9994114</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       est    lwr.ci    upr.ci </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.9767442 0.8771095 0.9994114 </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/binom.test.html" class="external-link">binom.test</a></span><span class="op">(</span>x<span class="op">=</span><span class="fl">42</span>, n<span class="op">=</span><span class="fl">43</span><span class="op">)</span><span class="op">$</span><span class="va">conf.int</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8771095 0.9994114</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"conf.level")</span>
