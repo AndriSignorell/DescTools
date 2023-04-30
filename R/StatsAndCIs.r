@@ -2406,8 +2406,8 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
   colnames(res)[1] <- c("est")
   rownames(res) <- xn
   
-  if(nrow(res)==1)
-    res <- res[1,]
+  # if(nrow(res)==1)
+  #   res <- res[1,]
 
   return(res)
 

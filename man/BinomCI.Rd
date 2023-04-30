@@ -164,5 +164,8 @@ do.call(cbind, lapply(1:4,
                               "clopper-pearson", "midp", "lik"))[, -1], 
            digits=4)
 }))
+
+# returning p.tilde for agresti-coull ci
+BinomCI(x=81, n=263, meth="agresti-coull", std_est = c(TRUE, FALSE))
 }
 \keyword{univar}
