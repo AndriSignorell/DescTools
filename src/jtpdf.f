@@ -18,10 +18,10 @@ c     if only two groups it reduces to Wilcoxon-Mann-Whitney
       m = cgsize(ng-1) - cgsize(ng)
       n = cgsize(ng)
       mn1 = m*n
-      dm = dfloat(m)
-      dn = dfloat(n)
+      dm = dble(m)
+      dn = dble(n)
       do 10 i = 0, mn1
-         di = dfloat(i)
+         di = dble(i)
          pdf(i+1) = fdwilcox(di, dm, dn)
  10   continue
 
@@ -35,12 +35,12 @@ c     obtain pdf for group g against {g+1,...,ng}
          m = cgsize(g) - cgsize(g+1)
          n = cgsize(g+1)
          mn0 = m*n
-         dm = dfloat(m)
-         dn = dfloat(n)
+         dm = dble(m)
+         dn = dble(n)
 c         call intpr(" m",2,m,1)
 c         call intpr(" n",2,n,1)
          do 30 i = 0, mn0
-            di = dfloat(i)
+            di = dble(i)
             dmw = fdwilcox(di, dm, dn)
 c            call dblepr(" dmw", 4, dmw, 1)
             pdf0(i+1) = dmw

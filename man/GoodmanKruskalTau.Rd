@@ -92,6 +92,28 @@ GoodmanKruskalTau(tab, direction="row", conf.level=0.95)
 GoodmanKruskalTau(tab, direction="column", conf.level=0.95)
 # reduce both to:
 Phi(tab)^2
+
+
+# example 1 in Liebetrau (1983)
+
+tt <- matrix(c(549,93,233,119,225,455,402,  
+               212,124,78,42,41,12,132,
+               54,54,33,13,46,7,153), ncol=3,
+             dimnames=list(rownames=c("Gov", "Mil", "Edu", "Eco", "Intel", "Rel", "For"), 
+                           colnames=c("One", "Two", "Multi")))
+
+GoodmanKruskalTau(tt, direction = "row", conf.level = 0.95)
+GoodmanKruskalTau(tt, direction = "column", conf.level = 0.95)
+
+
+# SPSS
+ttt <- matrix(c(225,53,206,3,1,12), nrow=3,
+              dimnames=list(rownames=c("right","center", "left"), 
+                            colnames=c("us","ussr")))
+
+round(GoodmanKruskalTau(ttt, direction = "r", con=0.95), d=3)
+round(GoodmanKruskalTau(ttt, direction = "c"), d=3)
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

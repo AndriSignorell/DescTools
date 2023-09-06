@@ -1186,7 +1186,9 @@ Mode <- function(x, na.rm=FALSE) {
   
   if(length(x) == 1L)
     # only one value in x, x is the mode
-    return(structure(x, freq = 1L)) 
+    # return(structure(x, freq = 1L)) 
+    # changed to: only one value in x, no mode defined
+    return(structure(NA_real_, freq = NA_integer_))
   
   # we don't have NAs so far, either there were then we've already stopped
   # or they've been stripped above
@@ -4476,6 +4478,24 @@ CohenD <- function(x, y=NULL, pooled = TRUE, correct = FALSE, conf.level = NA, n
 }
 
 
+
+
+# find non-centrality parameter for the F-distribution
+ncparamF <- function(type1, type2, nu1, nu2) {
+  
+  # author Ali Baharev <ali.baharev at gmail.com>
+  
+  # Returns the noncentrality parameter of the noncentral F distribution 
+  # if probability of Type I and Type II error, degrees of freedom of the 
+  # numerator and the denominator in the F test statistics are given.
+  
+  
+  .C("fpow",  PACKAGE = "DescTools", as.double(type1), as.double(type2), 
+     as.double(nu1), as.double(nu2), lambda=double(1))$lambda
+}
+
+
+
 .nctCI <- function(t, df, conf) {
   
   alpha <- 1 - conf
@@ -4574,7 +4594,7 @@ CoefVar <- function (x, ...) {
 
 
 
-CoefVar.lm <- function (x, unbiased = FALSE, conf.level = NA, na.rm = FALSE, ...) {
+CoefVar.lm <- function (x, unbiased = FALSE, na.rm = FALSE, ...) {
 
   # source:  http://www.ats.ucla.edu/stat/mult_pkg/faq/general/coefficient_of_variation.htm
 
@@ -4592,11 +4612,12 @@ CoefVar.lm <- function (x, unbiased = FALSE, conf.level = NA, na.rm = FALSE, ...
     res <- res * ((1 - (1/(4 * (n - 1))) + (1/n) * res^2) +
                     (1/(2 * (n - 1)^2)))
   }
-  if (!is.na(conf.level)) {
-    ci <- .nctCI(sqrt(n)/res, df = n - 1, conf = conf.level)
-    res <- c(est = res, low.ci = unname(sqrt(n)/ci["upr.ci"]),
-             upr.ci = unname(sqrt(n)/ci["lwr.ci"]))
-  }
+  
+  # if (!is.na(conf.level)) {
+  #   ci <- .nctCI(sqrt(n)/res, df = n - 1, conf = conf.level)
+  #   res <- c(est = res, low.ci = unname(sqrt(n)/ci["upr.ci"]),
+  #            upr.ci = unname(sqrt(n)/ci["lwr.ci"]))
+  # }
 
   return(res)
 
@@ -4607,32 +4628,132 @@ CoefVar.lm <- function (x, unbiased = FALSE, conf.level = NA, na.rm = FALSE, ...
 # dv <- unname(nlme::getResponse(x))
 
 
-CoefVar.default <- function (x, weights=NULL, unbiased = FALSE, conf.level = NA, na.rm = FALSE, ...) {
+# CoefVar.default <- function (x, weights=NULL, unbiased = FALSE, conf.level = NA, na.rm = FALSE, ...) {
+# 
+#   if(is.null(weights)){
+#     if(na.rm) x <- na.omit(x)
+#     res <- SD(x) / Mean(x)
+#     n <- length(x)
+#     
+#   }
+#   else {
+#     res <- SD(x, weights = weights) / Mean(x, weights = weights)
+#     n <- sum(weights)
+#     
+#   }
+# 
+#   if(unbiased) {
+#     res <- res * ((1 - (1/(4*(n-1))) + (1/n) * res^2)+(1/(2*(n-1)^2)))
+#   }
+# 
+#   if(!is.na(conf.level)){
+#     ci <- .nctCI(sqrt(n)/res, df = n-1, conf = conf.level)
+#     res <- c(est=res, low.ci= unname(sqrt(n)/ci["upr.ci"]), upr.ci= unname(sqrt(n)/ci["lwr.ci"]))
+#   }
+# 
+#   return(res)
+# 
+# }
 
-  if(is.null(weights)){
-    if(na.rm) x <- na.omit(x)
-    res <- SD(x) / Mean(x)
+
+
+CoefVarCI <- function (K, n, conf.level = 0.95, 
+                       sides = c("two.sided", "left", "right"), 
+                       method = c("nct","vangel","mckay","verrill","naive")) {
+
+  # Description of confidence intervals
+  # https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/coefvacl.htm
+
+  
+  .iCoefVarCI <- Vectorize(function(K, n, conf.level=0.95, 
+                                    sides = c("two.sided", "left", "right"), 
+                                    method = c("vangel","mckay","verrill","nct","naive")) {
+    
+    method <- match.arg(method)
+    sides <- match.arg(sides, choices = c("two.sided", "left", "right"), 
+                       several.ok = FALSE)
+    
+    # double alpha in case of one-sided intervals in order to be able
+    # to generally calculate twosided intervals and select afterwards..
+    if (sides != "two.sided") 
+      conf.level <- 1 - 2 * (1 - conf.level)
+    
+    alpha <- 1 - conf.level
+    
+    df <- n - 1
+    u1 <- qchisq(1-alpha/2, df)
+    u2 <- qchisq(alpha/2, df)
+    
+    switch(method, verrill = {
+      CI.lower <- 0
+      CI.upper <- 1
+      
+    }, vangel = {
+      CI.lower <- K / sqrt(((u1+2)/n - 1) * K^2 + u1/df)
+      CI.upper <- K / sqrt(((u2+2)/n - 1) * K^2 + u2/df)
+      
+    }, mckay = {
+      CI.lower <- K / sqrt((u1/n - 1) * K^2 + u1/df)
+      CI.upper <- K / sqrt((u2/n - 1) * K^2 + u2/df)
+      
+    }, nct = {
+      ci <- .nctCI(sqrt(n)/K, df = df, conf = conf.level)
+      CI.lower <- unname(sqrt(n)/ci[2])
+      CI.upper <- unname(sqrt(n)/ci[1])
+      
+    }, naive = {
+      CI.lower <- K * sqrt(df / u1)
+      CI.upper <- K * sqrt(df / u2)
+    }
+    )
+    
+    ci <- c(est = K, 
+            lwr.ci = CI.lower, # max(0, CI.lower), 
+            upr.ci = CI.upper) # min(1, CI.upper))
+    
+    if (sides == "left") 
+      ci[3] <- Inf
+    
+    else if (sides == "right") 
+      ci[2] <- -Inf
+    
+    return(ci)
+    
+  })
+  
+
+  sides <- match.arg(sides)
+  method <- match.arg(method)
+  
+  res <- t(.iCoefVarCI(K=K, n=n, method=method, sides=sides, conf.level = conf.level))
+
+  return(res)
+  
+}  
+
+
+CoefVar.default <- function (x, weights = NULL, unbiased = FALSE, 
+                             na.rm = FALSE, ...) {
+                
+  
+  if (is.null(weights)) {
+    if (na.rm) 
+      x <- na.omit(x)
+    res <- SD(x)/Mean(x)
     n <- length(x)
     
-  }
-  else {
-    res <- SD(x, weights = weights) / Mean(x, weights = weights)
+  } else {
+    res <- SD(x, weights = weights)/Mean(x, weights = weights)
     n <- sum(weights)
-    
   }
-
-  if(unbiased) {
-    res <- res * ((1 - (1/(4*(n-1))) + (1/n) * res^2)+(1/(2*(n-1)^2)))
-  }
-
-  if(!is.na(conf.level)){
-    ci <- .nctCI(sqrt(n)/res, df = n-1, conf = conf.level)
-    res <- c(est=res, low.ci= unname(sqrt(n)/ci["upr.ci"]), upr.ci= unname(sqrt(n)/ci["lwr.ci"]))
+  
+  if (unbiased) {
+    res <- res * ((1 - (1/(4 * (n - 1))) + (1/n) * res^2) + (1/(2 * (n - 1)^2)))
   }
 
   return(res)
-
 }
+
 
 # aus agricolae: Variations Koeffizient aus aov objekt
 #
@@ -4641,7 +4762,7 @@ CoefVar.default <- function (x, weights=NULL, unbiased = FALSE, conf.level = NA,
 # }
 
 
-CoefVar.aov <- function (x, unbiased = FALSE, conf.level = NA, na.rm = FALSE, ...) {
+CoefVar.aov <- function (x, unbiased = FALSE, na.rm = FALSE, ...) {
 
   # source:  http://www.ats.ucla.edu/stat/mult_pkg/faq/general/coefficient_of_variation.htm
 
@@ -4659,11 +4780,12 @@ CoefVar.aov <- function (x, unbiased = FALSE, conf.level = NA, na.rm = FALSE, ..
     res <- res * ((1 - (1/(4 * (n - 1))) + (1/n) * res^2) +
                     (1/(2 * (n - 1)^2)))
   }
-  if (!is.na(conf.level)) {
-    ci <- .nctCI(sqrt(n)/res, df = n - 1, conf = conf.level)
-    res <- c(est = res, low.ci = unname(sqrt(n)/ci["upr.ci"]),
-             upr.ci = unname(sqrt(n)/ci["lwr.ci"]))
-  }
+  
+  # if (!is.na(conf.level)) {
+  #   ci <- .nctCI(sqrt(n)/res, df = n - 1, conf = conf.level)
+  #   res <- c(est = res, low.ci = unname(sqrt(n)/ci["upr.ci"]),
+  #            upr.ci = unname(sqrt(n)/ci["lwr.ci"]))
+  # }
 
   return(res)
 
@@ -5236,6 +5358,24 @@ ContCoef <- function(x, y = NULL, correct = FALSE, ...) {
 }
 
 
+
+.ncchisqCI <- function(chisq, df, conf) {
+  
+  alpha <- 1 - conf
+  probs <- c(alpha/2, 1 - alpha/2)
+  
+  ncp <- suppressWarnings(optim(par = 1.1 * rep(chisq, 2), fn = function(x) {
+    p <- pchisq(q = chisq, df = df, ncp = x)
+    abs(max(p) - probs[2]) + abs(min(p) - probs[1])
+  }, control = list(abstol = 0.000000001)))
+  
+  chisq_ncp <- unname(sort(ncp$par))
+  
+  return(chisq_ncp)
+  
+}
+
+
 CramerV <- function(x, y = NULL, conf.level = NA,
                     method = c("ncchisq", "ncchisqadj", "fisher", "fisheradj"), 
                     correct=FALSE, ...){
@@ -5375,19 +5515,6 @@ CramerV <- function(x, y = NULL, conf.level = NA,
 }
 
 
-
-ncparamF <- function(type1, type2, nu1, nu2) {
-
-  # author Ali Baharev <ali.baharev at gmail.com>
-  
-  # Returns the noncentrality parameter of the noncentral F distribution 
-  # if probability of Type I and Type II error, degrees of freedom of the 
-  # numerator and the denominator in the F test statistics are given.
-  
-  
-  .C("fpow",  PACKAGE = "DescTools", as.double(type1), as.double(type2), 
-     as.double(nu1), as.double(nu2), lambda=double(1))$lambda
-}
 
 
 
@@ -8180,8 +8307,10 @@ print.HoeffD <- function(x, ...)
 }
 
 
-# find non-centrality parameter for the F-distribution
-ncparamF <- function(type1, type2, nu1, nu2){
-  .C("fpow",  PACKAGE = "DescTools", as.double(type1), as.double(type2), as.double(nu1), as.double(nu2), lambda=double(1))$lambda
-}
+
+
+
+
+
+
 

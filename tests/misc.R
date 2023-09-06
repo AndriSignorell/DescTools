@@ -17,7 +17,7 @@ set.seed(45)
 (z <- as.numeric(names(w <- table(x <- sample(-10:20, size=50, r=TRUE)))))
 
 stopifnot(all(
-  identical(Mode(5), structure(5, freq = 1L))
+    identical(Mode(5), structure(NA_real_, freq = NA_integer_)) 
   , identical(Mode(NA), structure(NA_real_, freq = NA_integer_)) 
   , identical(Mode(c(NA, NA)), structure(NA_real_, freq = NA_integer_)) 
   , identical(Mode(c(NA, 0:5)), structure(NA_real_, freq = NA_integer_)) 
@@ -76,26 +76,28 @@ stopifnot(all(
 
 meth <- c("wald","waldcc","hal","jp","mee","mn","score","scorecc","ha","ac","blj")
 
+# use all(IsZero(x - y)) to take into account numerical properties of 
+# certain operating systems (especially PowerPC)
 stopifnot(all(
-  identical(unname(round(BinomDiffCI(56, 70, 48, 80, method = meth), 4)[, -1]), 
-            cbind(c(0.0575, 0.0441, 0.0535, 0.0531, 0.0534, 
-                    0.0528, 0.0524, 0.0428, 0.0494, 0.0525, 0.054), 
-                  c(0.3425, 0.3559, 0.3351, 0.3355, 0.3377, 
-                    0.3382, 0.3339, 0.3422, 0.3506, 0.3358, 0.34))),
-  identical(unname(round(BinomDiffCI(9, 10, 3, 10, method = meth), 4)[, -1]), 
+  all(IsZero(unname(round(BinomDiffCI(56, 70, 48, 80, method = meth), 4)[, -1]) - 
+             cbind(c(0.0575, 0.0441, 0.0535, 0.0531, 0.0534, 
+                     0.0528, 0.0524, 0.0428, 0.0494, 0.0525, 0.054), 
+                   c(0.3425, 0.3559, 0.3351, 0.3355, 0.3377, 
+                     0.3382, 0.3339, 0.3422, 0.3506, 0.3358, 0.34)))),
+  all(IsZero(unname(round(BinomDiffCI(9, 10, 3, 10, method = meth), 4)[, -1]) - 
             cbind(c(0.2605, 0.1605, 0.1777, 0.176, 0.1821, 
                     0.17, 0.1705, 0.1013, 0.1922, 0.16, 0.1869), 
                   c(0.9395, 1, 0.8289, 0.8306, 0.837, 0.8406, 
-                    0.809, 0.8387, 1, 0.84, 0.904))),
-  identical(unname(round(BinomDiffCI(10, 10, 0, 20, method = meth), 4)[, -1]), 
-            cbind(c(1, 0.925, 0.7482, 0.7431, 0.7224, 0.7156, 
-                    0.6791, 0.6014, 0.95, 0.6922, 0.7854), 
-                  c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1))), 
-  identical(unname(round(BinomDiffCI(84, 101, 89, 105, method = meth), 4)[, -1]), 
-            cbind(c(-0.1162, -0.1259, -0.1152, -0.116, -0.1188, 
-                    -0.1191, -0.1177, -0.1245, -0.1216, -0.1168, -0.117), 
-                  c(0.0843, 0.094, 0.0834, 0.0843, 0.0858, 0.086, 0.0851, 
-                    0.0918, 0.0898, 0.085, 0.0852)))
+                    0.809, 0.8387, 1, 0.84, 0.904)))),
+  all(IsZero(unname(round(BinomDiffCI(10, 10, 0, 20, method = meth), 4)[, -1]) - 
+        cbind(c(1, 0.925, 0.7482, 0.7431, 0.7224, 0.7156, 
+                0.6791, 0.6014, 0.95, 0.6922, 0.7854), 
+              c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)))), 
+  all(IsZero(unname(round(BinomDiffCI(84, 101, 89, 105, method = meth), 4)[, -1]) - 
+    cbind(c(-0.1162, -0.1259, -0.1152, -0.116, -0.1188, 
+            -0.1191, -0.1177, -0.1245, -0.1216, -0.1168, -0.117), 
+          c(0.0843, 0.094, 0.0834, 0.0843, 0.0858, 0.086, 0.0851, 
+            0.0918, 0.0898, 0.085, 0.0852))))
 ))
 
 
