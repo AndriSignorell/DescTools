@@ -29,7 +29,7 @@ the value of D, the more dependent are x and y."><!-- mathjax --><script src="ht
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.48</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.50</span>
       </span>
     </div>
 
@@ -177,7 +177,35 @@ Recipes in C</em> Cambridge: Cambridge University Press.</p>
 <span class="r-in"><span><span class="va">q</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,   <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">HoeffD</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span>, <span class="va">q</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Fortran("hoeffd", x, n, p, hmatrix = double(p * p), aad = double(p *     p), maxad = double(p * p), npair = integer(p * p), double(n),     double(n), double(n), double(n), double(n), PACKAGE = "DescTools"):</span> "hoeffd" not available for .Fortran() for package "DescTools"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   x y z q</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x 1 0 1 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> y 0 1 0 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> z 1 0 1 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> q 1 0 1 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> avg|F(x,y)-G(x)H(y)|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      x    y    z    q</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x 0.00 0.04 0.16 0.16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> y 0.04 0.00 0.04 0.04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> z 0.16 0.04 0.00 0.16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> q 0.16 0.04 0.16 0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> max|F(x,y)-G(x)H(y)|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      x   y    z    q</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x 0.00 0.1 0.24 0.24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> y 0.10 0.0 0.10 0.10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> z 0.24 0.1 0.00 0.24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> q 0.24 0.1 0.24 0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> n= 5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> P</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   x      y      z      q     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x        0.3633 0.0000 0.0000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> y 0.3633        0.3633 0.3633</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> z 0.0000 0.3633        0.0000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> q 0.0000 0.3633 0.0000       </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Hoeffding's test can detect even one-to-many dependency</span></span></span>
@@ -188,7 +216,27 @@ Recipes in C</em> Cambridge: Cambridge University Press.</p>
 <span class="r-plt img"><img src="HoeffD-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">HoeffD</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Fortran("hoeffd", x, n, p, hmatrix = double(p * p), aad = double(p *     p), maxad = double(p * p), npair = integer(p * p), double(n),     double(n), double(n), double(n), double(n), PACKAGE = "DescTools"):</span> "hoeffd" not available for .Fortran() for package "DescTools"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      x    y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x 1.00 0.06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> y 0.06 1.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> avg|F(x,y)-G(x)H(y)|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        x      y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x 0.0000 0.0407</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> y 0.0407 0.0000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> max|F(x,y)-G(x)H(y)|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        x      y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x 0.0000 0.0763</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> y 0.0763 0.0000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> n= 200 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> P</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   x  y </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> y  0   </span>
 </code></pre></div>
     </div>
   </div>

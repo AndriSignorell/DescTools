@@ -21,7 +21,7 @@ It can be viewed as an extension of the McNemar test to \(k \times k\) table.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.48</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.50</span>
       </span>
     </div>
 
@@ -109,8 +109,8 @@ It can be viewed as an extension of the McNemar test to \(k \times k\) table.
 <p>If <code>x</code> is a matrix, it is taken as a two-dimensional contingency table, and hence its entries should be nonnegative integers. Otherwise, both x and y must be vectors or factors of the same length and with the same levels. <br>
 Incomplete cases are removed, vectors are coerced into factors, and the contingency table is computed from these.</p>
 <p>If there is perfect agreement for any category k, that category must be omitted in order to invert matrix S.</p>
-<p>If for any category <code>k</code>, all frequencies in row <code>k</code> and column <code>k</code> are 0, except possibly for the main diagonal element (e.g., for perfect agreement for category <code>k</code>, in such cases also the corresponding row and column marginal frequencies would be equal), then the category is not included in the test and should be ignored, say the Stuart-Maxwell test is performed with respect to the remaining categories only. The degree of freedom <code>df</code> in this case can still be considered <code>k - 1</code>, where <code>k</code> is the number of original categories; this treats omitted categories as if they were included but contributed 0 to the value of \(\chi^2\) - a reasonable view since such categories have equal row and column marginals. (See: <a href="http://www.john-uebersax.com/stat/mcnemar.htm#stuart" class="external-link">http://www.john-uebersax.com/stat/mcnemar.htm#stuart</a>)
-<!-- %%  ~~ If necessary, more details than the description above ~~ --></p>
+<p>If for any category <code>k</code>, all frequencies in row <code>k</code> and column <code>k</code> are 0, except possibly for the main diagonal element (e.g., for perfect agreement for category <code>k</code>, in such cases also the corresponding row and column marginal frequencies would be equal), then the category is not included in the test and should be ignored, say the Stuart-Maxwell test is performed with respect to the remaining categories only. The degree of freedom <code>df</code> in this case can still be considered <code>k - 1</code>, where <code>k</code> is the number of original categories; this treats omitted categories as if they were included but contributed 0 to the value of \(\chi^2\) - a reasonable view since such categories have equal row and column marginals. (See: <a href="https://www.john-uebersax.com/stat/mcnemar.htm#stuart" class="external-link">https://www.john-uebersax.com/stat/mcnemar.htm#stuart</a>)</p>           
+<p><!-- %%  ~~ If necessary, more details than the description above ~~ --></p>
     </div>
     <div id="value">
     <h2>Value</h2>
@@ -155,7 +155,7 @@ Incomplete cases are removed, vectors are coerced into factors, and the continge
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Source: http://www.john-uebersax.com/stat/mcnemar.htm#stuart</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Source: https://www.john-uebersax.com/stat/mcnemar.htm#stuart</span></span></span>
 <span class="r-in"><span><span class="va">hyp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">as.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>,<span class="fl">3</span>,<span class="fl">0</span>,<span class="fl">10</span>,<span class="fl">30</span>,<span class="fl">5</span>,<span class="fl">5</span>,<span class="fl">15</span>,<span class="fl">40</span><span class="op">)</span>, nrow<span class="op">=</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">StuartMaxwellTest</span><span class="op">(</span><span class="va">hyp</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>

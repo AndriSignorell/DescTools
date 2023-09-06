@@ -19,7 +19,7 @@ The present function transforms a given odds-ratio (OR) to the respective relati
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.48</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.50</span>
       </span>
     </div>
 
@@ -157,18 +157,18 @@ risks for better communication of research findings. BMJ 2014;348:f7450 doi: 10.
 <span class="r-in"><span><span class="co"># calculated as (11/4)/(2/6)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">ORToRelRisk</span><span class="op">(</span><span class="fu"><a href="OddsRatio.html">OddsRatio</a></span><span class="op">(</span><span class="va">heart</span><span class="op">)</span>, p0 <span class="op">=</span> <span class="fl">2</span><span class="op">/</span><span class="fl">8</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"):</span> "between_num_lr" not available for .Call() for package "DescTools"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2.933333</span>
 <span class="r-in"><span><span class="co"># Relative risk = odds ratio / (1 - p0 + (p0 * odds ratio))</span></span></span>
 <span class="r-in"><span><span class="co"># where p0 is the baseline risk</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## single OR to RR</span></span></span>
 <span class="r-in"><span><span class="fu">ORToRelRisk</span><span class="op">(</span><span class="fl">14.1</span>, <span class="fl">0.05</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"):</span> "between_num_lr" not available for .Call() for package "DescTools"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8.519637</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## OR and 95% confidence interval</span></span></span>
 <span class="r-in"><span><span class="fu">ORToRelRisk</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">14.1</span>, <span class="fl">7.8</span>, <span class="fl">27.5</span><span class="op">)</span>, <span class="fl">0.05</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"):</span> "between_num_lr" not available for .Call() for package "DescTools"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  8.519637  5.820896 11.827957</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Logistic OR and 95% confidence interval</span></span></span>
 <span class="r-in"><span><span class="va">logisticOR</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">14.1</span>, <span class="fl">7.8</span>, <span class="fl">27.5</span><span class="op">)</span>,</span></span>
@@ -201,9 +201,14 @@ risks for better communication of research findings. BMJ 2014;348:f7450 doi: 10.
 <span class="r-in"><span>  <span class="va">res</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span><span class="va">RR</span> <span class="op">&lt;-</span> <span class="fu">ORToRelRisk.mat</span><span class="op">(</span><span class="va">logisticOR</span>, <span class="va">p0</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .Call("between_num_lr", as.numeric(x), as.numeric(rng[1]), as.numeric(rng[2]),     PACKAGE = "DescTools"):</span> "between_num_lr" not available for .Call() for package "DescTools"</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">RR</span>, <span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'RR' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        OR 2.5% 97.5%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7.4  8.52 5.82 11.83</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4.2  4.52 3.57  5.51</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3.0  2.90 2.78  2.99</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2.0  2.31 1.85  2.75</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.37 0.36 0.25  0.49</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.14 0.14 0.08  0.21</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Results are not completely identical to Zhang and Yu (1998)</span></span></span>
 <span class="r-in"><span><span class="co">## what probably is caused by the fact that the logistic OR values</span></span></span>
