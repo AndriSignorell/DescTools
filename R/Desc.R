@@ -3011,53 +3011,6 @@ print.abstract <- function(x, sep = NULL, width = NULL,
 }
 
 
-TwoGroups <- function(x, g,
-                      test = t.test, main = NULL,
-                      font.txt = NULL, font.desc = NULL, wrd = NULL, ...) {
-  res <- list(
-    txt = Phrase(x, g, na.rm = TRUE, ...),
-    desc = Desc(x ~ g, plotit = FALSE, test = test, digits = 1)
-  )
-
-  plot(res$desc, type = "dens", main = "")
-
-  if (is.null(wrd)) {
-    cat(res$txt, "\n")
-    print(res$desc)
-  } else {
-    if (is.null(main)) {
-      main <- gettextf(
-        "%s ~ %s",
-        deparse(substitute(x)), deparse(substitute(g))
-      )
-    }
-
-    WrdCaption(main, wrd = wrd)
-
-    ToWrd(res$txt, font = font.txt, wrd = wrd)
-    ToWrd("\n", wrd = wrd)
-
-    WrdTable(ncol = 2, widths = c(5, 11), wrd = wrd)
-    out <- capture.output(res$desc)[-c(1:6)]
-    out <- gsub("p-val", "\n  p-val", out)
-    out <- gsub("contains", "\n  contains", out)
-    ToWrd(out, font = font.desc, wrd = wrd)
-    wrd[["Selection"]]$MoveRight(wdConst$wdCell, 1, 0)
-
-    WrdPlot(
-      width = 10, height = 6.5, dfact = 2.1, crop = c(0, 0, 0.3, 0),
-      wrd = wrd, append.cr = TRUE
-    )
-
-    wrd[["Selection"]]$EndOf(wdConst$wdTable)
-    # get out of tablerange
-    wrd[["Selection"]]$MoveRight(wdConst$wdCharacter, 2, 0)
-    wrd[["Selection"]]$TypeParagraph()
-  }
-
-  invisible(res)
-}
-
 
 # Abstract <- function(x, sep=", ", zero.form=".", maxlevels=12, trunc=TRUE) {
 #
