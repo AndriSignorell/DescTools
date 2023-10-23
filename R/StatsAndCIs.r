@@ -294,6 +294,41 @@ Cov <- cov
 Cor <- cor
 
 
+
+SDN <- function(x, na.rm = FALSE){
+  sd(x, na.rm=na.rm) * sqrt(((n <- sum(!is.na(x)))-1) /n)
+}
+
+
+VarN <- function(x, na.rm = FALSE){
+  var(x, na.rm=na.rm) * ((n <- sum(!is.na(x)))-1) /n
+}
+
+
+EX <- function(x, p) sum(x * p)
+
+VarX <- function(x, p) sum((x - EX(x, p))^2 * p)
+
+
+
+# multiple gsub
+Mgsub <- function(pattern, replacement, x, ...) {
+  
+  if (length(pattern)!=length(replacement)) {
+    stop("pattern and replacement do not have the same length.")
+  }
+  result <- x
+  for (i in 1:length(pattern)) {
+    result <- gsub(pattern[i], replacement[i], result, ...)
+  }
+  
+  result
+  
+}
+
+
+
+
 # Length(x)
 # Table(x)
 # Log(x)
@@ -1194,8 +1229,9 @@ Mode <- function(x, na.rm=FALSE) {
   # or they've been stripped above
   res <- fastModeX(x, narm=FALSE)
   
+  # no mode existing, if max freq is only 1 observation
   if(length(res)== 0L & attr(res, "freq")==1L)
-    return(structure(NA_real_, freq = 1L))
+    return(structure(NA_real_, freq = NA_integer_))
   
   else
     # order results kills the attribute
@@ -5089,8 +5125,8 @@ predict.Lc <- function(object, newdata, conf.level=NA, general=FALSE, n=1000, ..
 
 # recoded for better support weights 2022-09-14
 
-Gini <- function(x, weights=NULL, unbiased=TRUE, conf.level = NA, 
-                    R = 10000, type = "bca", na.rm=FALSE) {
+Gini <- function(x, weights=NULL, unbiased=TRUE,  
+                 conf.level = NA, R = 10000, type = "bca", na.rm=FALSE) {
   
   # https://core.ac.uk/download/pdf/41339501.pdf
   
@@ -5131,8 +5167,7 @@ Gini <- function(x, weights=NULL, unbiased=TRUE, conf.level = NA,
   if (is.na(conf.level)) {
     res <- i.gini(x, weights, unbiased = unbiased)
     
-  }
-  else {
+  } else {
     
     boot.gini <- boot(data = x,
                       statistic = function(z, i, u, unbiased) 
@@ -5140,6 +5175,7 @@ Gini <- function(x, weights=NULL, unbiased=TRUE, conf.level = NA,
                       R=R, u=weights, unbiased=unbiased)
     ci <- boot.ci(boot.gini, conf = conf.level, type = type)
     res <- c(gini = boot.gini$t0, lwr.ci = ci[[4]][4], upr.ci = ci[[4]][5])
+    
   }
   
   return(res)
@@ -5174,22 +5210,43 @@ GiniSimpson <- function(x, na.rm = FALSE) {
 }
 
 
+GiniDeltas <- function (x, na.rm = FALSE) {
+  
+  # Deltas (2003, DOI:10.1162/rest.2003.85.1.226).
+  
+  if (!is.factor(x)) {
+    warning("x is not a factor!")
+    return(NA)
+  }
+  if (na.rm) 
+    x <- na.omit(x)
+  
+  p <- prop.table(table(x))
+  sum(p * (1 - p)) * length(p)/(length(p) - 1)
+  
+}
+
 
 
 HunterGaston <- function(x, na.rm = FALSE){
 
-  # we must restrict to x as factors here to ensure we have all the levels
-  # these are used in length(p)
-    
-  if(!is.factor(x)){
-    warning("x is not a factor!")
-    return(NA)
+  # Hunter-Gaston index (Hunter & Gaston, 1988, DOI:10.1128/jcm.26.11.2465-2466.1988)
+  # Credits to Wim Bernasco
+  # https://github.com/AndriSignorell/DescTools/issues/120
+  
+  # see: vegan::simpson.unb(BCI)
+  
+  
+  if (is.factor(x) | is.character(x)) {
+    if (na.rm) 
+      x <- na.omit(x)
+    tt <- table(x)
+  } else {
+    tt <- x
   }
-  if(na.rm) x <- na.omit(x)
   
-  p <- prop.table(table(x))
-  sum(p*(1-p)) * length(p)/(length(p)-1)
-  
+  sum(tt * (tt - 1)) / (sum(tt) * (sum(tt) - 1))
+
 }
 
 

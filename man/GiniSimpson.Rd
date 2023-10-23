@@ -1,15 +1,18 @@
 \name{GiniSimpson}
 \alias{GiniSimpson}
+\alias{GiniDeltas}
+
 \alias{HunterGaston}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Gini-Simpson Coefficient and Hunter-Gaston Index
+\title{Gini-Simpson Coefficient, Gini-Deltas coefficient and Hunter-Gaston Index
 %%  ~~function to do ... ~~
 }
-\description{Calculate the Gini-Simpson coefficient and the Hunter-Gaston Index.
+\description{Calculate the Gini-Simpson coefficient, the Gini variant proposed by Deltas and the Hunter-Gaston Index.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
 GiniSimpson(x, na.rm = FALSE)
+GiniDeltas(x, na.rm = FALSE)
 
 HunterGaston(x, na.rm = FALSE)
 }
@@ -30,10 +33,11 @@ This measure is also known in ecology as the probability of interspecific encoun
 }
 \references{
 Cover Thomas M. and Thomas Joy A. (1991) \emph{Elements of Information Theory}. Wiley. 
+
 Hunter, P., Gaston, A. G. (1988) Numerical Index of the Discriminatory Ability of Typing Systems:  an Application of Simpson's Index of Diversity, \emph{JOURNAL OF CLINICAL MICROBIOLOGY}, Nov. 1988, p. 2465-2466, 0095-1137/88/112465-02$02.00/0
 
+Deltas (2003) DOI:10.1162/rest.2003.85.1.226.
 
-%% ~put references to the literature/web site here ~
 }
 \author{Andri Signorell <andri@signorell.net>
 %%  ~~who you are~~

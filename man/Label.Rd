@@ -1,6 +1,8 @@
 \name{Label, Unit}
 \alias{Label}
 \alias{Label<-}
+\alias{Labels}
+\alias{Labels<-}
 \alias{Unit}
 \alias{Unit<-}
 
@@ -13,6 +15,9 @@
 \usage{
 Label(x)
 Label(x) <- value
+
+Labels(x)
+Labels(x) <- value
 
 Unit(x)
 Unit(x) <- value
@@ -30,6 +35,8 @@ Unit(x) <- value
 
 \details{The label should consist of a single text (length of 1). The text may contain line feeds.
 It can be deleted by setting the label to \code{NULL}.
+
+\code{Labels()} can be used to retrieve and assign vectorized labels to data.frames or lists.
 }
 \value{
 \code{Label} and \code{Unit} return the label attribute of x, if any; otherwise, NULL.

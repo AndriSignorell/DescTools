@@ -7195,6 +7195,37 @@ Label <- function(x) {
   return(x)
 }
 
+
+
+`Labels<-` <- function(x, value) {
+  if(is.list(value))  stop("cannot assign a list to be an object label")
+  # if((length(value) != 1L) & !is.null(value)) stop("value must be character vector of length 1")
+  
+  
+  if(is.atomic(x)) {
+    DescTools::Label(x) <- value
+    
+  } else {
+    
+    value <- rep(value, times=length(x))
+    
+    for(i in seq(x))
+      DescTools::Label(x[, i]) <- value[i]
+  }
+  
+  return(x)
+  
+}
+
+Labels <- function(x) {
+  if(is.atomic(x))
+    Label(x)
+  else 
+    sapply(x, DescTools::Label)
+}
+
+
+
 # "Label<-.data.frame" <- function(x, self=(length(value)==1), ..., value) {
 #
 #   if(!is.data.frame(x))  stop("x must be a data.frame")

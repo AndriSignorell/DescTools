@@ -5,15 +5,18 @@
 
 \name{SD}
 \alias{SD}
+\alias{SDN}
 \title{(Weighted) Standard Deviation}
 \description{
   This function computes the standard deviation of the values in
   \code{x}.
   If \code{na.rm} is \code{TRUE} then missing values are removed before
-  computation proceeds.
+  computation proceeds. \code{SDn} returns the uncorrected sample standard deviation (which is biased estimator for the sample standard deviation). 
 }
 \usage{
 SD(x, weights = NULL, na.rm = FALSE, ...)
+
+SDN(x, na.rm = FALSE)
 }
 \arguments{
   \item{x}{a numeric vector or an \R object which is coercible to one

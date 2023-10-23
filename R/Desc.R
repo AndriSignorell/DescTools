@@ -534,7 +534,8 @@ calcDesc.numeric <- function(x, n, maxrows = NULL, conf.level = 0.95,
   # check for remarkably frequent values in a numeric variable
   # say the most frequent value has significantly more than 5% from the total sample
   modefreq_crit <-
-    binom.test(attr(modex, "freq"), n = n, p = 0.05, alternative = "greater")
+    binom.test(ZeroIfNA(attr(modex, "freq")), n = n, p = 0.05, alternative = "greater")
+  
   if (modefreq_crit$p.value < 0.05 & psum$unique > 12) {
     modefreq_crit <- gettextf(
       "heap(?): remarkable frequency (%s) for the mode(s) (= %s)",

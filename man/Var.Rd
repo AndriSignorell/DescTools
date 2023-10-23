@@ -8,6 +8,8 @@
 \alias{Var.default}
 \alias{Var.Freq}
 
+\alias{VarN}
+
 \title{Variance}
 \usage{
 
@@ -16,10 +18,12 @@ Var(x, \dots)
 \method{Var}{Freq}(x, breaks, \dots)
 
 \method{Var}{default}(x, weights = NULL, na.rm = FALSE, method = c("unbiased",  "ML"), \dots)
+
+VarN(x, na.rm = FALSE)
 }
 
 \description{
-  \code{Var()} computes the variance of \code{x}.  If \code{x} is a matrix variances of the columns of \code{x} are computed.
+  \code{Var()} computes the variance of \code{x}.  If \code{x} is a matrix variances of the columns of \code{x} are computed. \code{Varn} returns the uncorrected sample variance (which is biased estimator for the sample variance). 
 }
 
 \arguments{
