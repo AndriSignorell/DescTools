@@ -122,3 +122,20 @@ tx <- LogSt(x, base=2, threshold=6)
 x. <- LogStInv(tx)
 all.equal(x, x., tol = 0) # gave 0.15144. before bug fix
 stopifnot(all.equal(x, x., tol = 1e-14))
+
+
+# Test for correct using of weights in NormWeights() and Mean()
+AllIdentical(
+  Mean(x=c(0,2,4,6))
+  , Mean(x=c(0,2,4,6), na.rm=TRUE)
+  , Mean(x=c(0,2,4,6), zero.rm=TRUE)
+  , Mean(x=c(0,2,4,6), weights = rep(1, 4), zero.rm=TRUE)
+  , Mean(x=c(0,2,4,6), weights = rep(1, 4), na.rm=TRUE, zero.rm=TRUE)
+)
+
+
+
+
+
+
+

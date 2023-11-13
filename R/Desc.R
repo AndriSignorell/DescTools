@@ -572,6 +572,7 @@ calcDesc.numeric <- function(x, n, maxrows = NULL, conf.level = 0.95,
     conf.level = conf.level,
     quant = qs,
     range = unname(diff(qs[c(1, 9)])),
+    meanAD = psum$sum1 / n,
     sd = sdx,
     vcoef = sdx / psum$mean,
     mad = mad(x, center = qs[5]),
@@ -904,9 +905,11 @@ calcDesc.bivar <- function(x, g, xname = NULL, gname = NULL,
 
     res$min <- tapply(x[ok], g[ok], FUN = min)
     res$max <- tapply(x[ok], g[ok], FUN = max)
+    res$range <- tapply(x[ok], g[ok], FUN = Range)
     res$Q1 <- tapply(x[ok], g[ok], FUN = function(z) quantile(z, probs = 0.25))
     res$Q3 <- tapply(x[ok], g[ok], FUN = function(z) quantile(z, probs = 0.75))
     res$mad <- tapply(x[ok], g[ok], FUN = mad)
+    res$meanAD <- tapply(x[ok], g[ok], FUN = MeanAD)
     res$skew <- tapply(x[ok], g[ok], FUN = Skew)
     res$kurt <- tapply(x[ok], g[ok], FUN = Kurt)
 

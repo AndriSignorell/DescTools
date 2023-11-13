@@ -25,12 +25,12 @@ NormWeights <- function(x, weights, na.rm=FALSE, zero.rm=FALSE, normwt=FALSE) {
   
   if (na.rm){
     
-    if(zero.rm)
-      # remove zeros
-      keep <- x[!is.na(x)] & weights[!is.na(weights) & (weights>0)]
-    else
-      keep <- x[!is.na(x)] & weights[!is.na(weights)]
+    keep <- !is.na(x) & !is.na(weights)
     
+    if(zero.rm)
+      # remove values with zero weights
+      keep <- keep & (weights > 0)
+
     x <- x[keep]
     weights <- weights[keep]
   } 
@@ -158,7 +158,7 @@ MAD <- function(x, weights = NULL, center = Median, constant = 1.4826, na.rm = F
   }
   
   if(!is.null(weights)) {
-    z <- NormWeights(x, weights, na.rm=na.rm)
+    z <- NormWeights(x, weights, na.rm=na.rm, zero.rm=TRUE)
     
     res <- constant *  Median(abs(z$x - center), weights = z$weights)
     
@@ -263,7 +263,7 @@ Var.default <- function (x, weights = NULL, na.rm = FALSE, method = c("unbiased"
     res <- var(x=x, na.rm=na.rm)
     
   } else {
-    z <- NormWeights(x, weights, na.rm=na.rm)
+    z <- NormWeights(x, weights, na.rm=na.rm, zero.rm=TRUE)
 
     if (match.arg(method) == "ML")
       return(as.numeric(stats::cov.wt(cbind(z$x), z$weights, method = "ML")$cov))
