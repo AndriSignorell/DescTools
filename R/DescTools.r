@@ -6871,8 +6871,8 @@ ParseSASDatalines <- function(x, env = .GlobalEnv, overwrite = FALSE) {
     if( overwrite | ! exists(dsname, envir=env) ) {
       assign(dsname, res, envir=env)
       
-      note <- gettextf("\033[36m\nThe object %s has been added to %s.\n\033[39m" 
-                       , dsname, deparse(substitute(env))) 
+      note <- col_cyan(gettextf("\nThe object %s has been added to %s.\n" 
+                       , dsname, deparse(substitute(env)))) 
       cat(note)
       
     } else {
@@ -6882,8 +6882,8 @@ ParseSASDatalines <- function(x, env = .GlobalEnv, overwrite = FALSE) {
       if(ans == "y"){
         assign(dsname, res, envir = env)
         
-        note <- gettextf("\033[36m\nThe object %s has been overwritten in %s.\n\033[39m" 
-                         , dsname, deparse(substitute(env))) 
+        note <- col_cyan(gettextf("\nThe object %s has been overwritten in %s.\n" 
+                         , dsname, deparse(substitute(env)))) 
         cat(note)
       }
       

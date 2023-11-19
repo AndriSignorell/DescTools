@@ -1,3 +1,9 @@
+
+ChisqWarning <- function(){
+  cat(cli::col_red("\nWarning message:\n  Exp. counts < 5: Chi-squared approx. may be incorrect!!\n\n"))
+}
+
+
 Desc <- function(x, ..., main = NULL, plotit = NULL, wrd = NULL) {
   if (is.null(wrd)) {
     UseMethod("Desc")
@@ -1057,7 +1063,7 @@ print.Desc <- function(x, digits = NULL, plotit = NULL, nolabel = FALSE,
 
       if (!identical(x$main, NA)) {
         if (.has_color()) {
-          cat(gettextf("\033[1m%s\033[22m", x$main))
+          cat(cli::style_bold(x$main))
         } else {
           cat(x$main)
         }
@@ -1235,10 +1241,10 @@ print.Desc.numeric <- function(x, digits = NULL, ...) {
   }
 
   if (.has_color()) {
-    cat(gettextf(
-      "\033[38;5;244m%s %s%s-CI (classic)\033[39m\n\n",
+    cat(cli::col_silver(gettextf(
+      "%s %s%s-CI (classic)\n\n",
       DescToolsOptions("footnote")[1], x$conf.level * 100, "%"
-    ))
+    )))
   } else {
     cat(gettextf(
       "%s %s%s-CI (classic)\n\n",
@@ -1294,10 +1300,9 @@ print.Desc.logical <- function(x, digits = NULL, ...) {
     ), txt[-1], sep = "\n")
 
     if (.has_color()) {
-      cat(gettextf(
-        "\n\033[38;5;244m%s %s%s-CI (Wilson)\033[39m\n\n",
+      cat(cli::col_silver(gettextf("\n%s %s%s-CI (Wilson)\n\n",
         DescToolsOptions("footnote")[1], x$conf.level * 100, "%"
-      ))
+      )))
     } else {
       cat(gettextf(
         "\n%s %s%s-CI (Wilson)\n\n",
@@ -1390,7 +1395,7 @@ print.Desc.table <- function(x, digits = NULL, ...) {
       Format(x[["chisq.test"]][["p.value"]], fmt = "p")
     ), "\n", sep = "")
     if (!x$approx.ok) {
-      cat("\033[31m\nWarning message:\n  Exp. counts < 5: Chi-squared approx. may be incorrect!!\n\033[39m")
+      cat(cli::col_red("\nWarning message:\n  Exp. counts < 5: Chi-squared approx. may be incorrect!!\n"))
     }
 
     cat("\n")
@@ -1412,8 +1417,7 @@ print.Desc.table <- function(x, digits = NULL, ...) {
       )
 
       if (!x$approx.ok) {
-        # cat("\nWarning message:\n  Exp. counts < 5: Chi-squared approx. may be incorrect!!\n\n")
-        cat("\033[31m\nWarning message:\n  Exp. counts < 5: Chi-squared approx. may be incorrect!!\n\n\033[39m")
+        ChisqWarning()
       }
 
       print(x$perctab)
@@ -1455,8 +1459,7 @@ print.Desc.table <- function(x, digits = NULL, ...) {
         }
 
         if (!x$approx.ok) {
-          # cat("\nWarning message:\n  Exp. counts < 5: Chi-squared approx. may be incorrect!!\n\n")
-          cat("\033[31m\nWarning message:\n  Exp. counts < 5: Chi-squared approx. may be incorrect!!\n\n\033[39m")
+          ChisqWarning()
         }
 
         if (x$verbose %in% c("2", "3")) { # print only with verbosity > 1
@@ -1511,8 +1514,7 @@ print.Desc.table <- function(x, digits = NULL, ...) {
         }
 
         if (!x$approx.ok) {
-          # cat("\nWarning message:\n  Exp. counts < 5: Chi-squared approx. may be incorrect!!\n\n")
-          cat("\033[31m\nWarning message:\n  Exp. counts < 5: Chi-squared approx. may be incorrect!!\n\n\033[39m")
+          ChisqWarning()
         }
       }
 
@@ -1543,10 +1545,10 @@ print.Desc.table <- function(x, digits = NULL, ...) {
 
       if ((x$verbose == "3") || (x$ttype == "t2x2")) {
         if (.has_color()) {
-          cat(gettextf(
-            "\033[38;5;244m\n----------\n%s %s%s conf. level\033[39m\n",
+          cat(cli::col_silver(gettextf(
+            "\n----------\n%s %s%s conf. level\n",
             DescToolsOptions("footnote")[1], x$conf.level * 100, "%"
-          ))
+          )))
         } else {
           cat(gettextf(
             "\n----------\n%s %s%s conf. level\n",
@@ -1594,8 +1596,7 @@ print.Desc.Date <- function(x, digits = NULL, ...) {
   )
 
   if (!x$d.approx.ok) {
-    # cat("\nWarning message:\n  Exp. counts < 5: Chi-squared approx. may be incorrect!!\n\n")
-    cat("\033[31m\nWarning message:\n  Exp. counts < 5: Chi-squared approx. may be incorrect!!\n\n\033[39m")
+    ChisqWarning()
   }
 
 
@@ -1610,8 +1611,7 @@ print.Desc.Date <- function(x, digits = NULL, ...) {
   print(x$mperctab)
 
   if (!x$m.approx.ok) {
-    # cat("\nWarning message:\n  Exp. counts < 5: Chi-squared approx. may be incorrect!!\n\n")
-    cat("\033[31m\nWarning message:\n  Exp. counts < 5: Chi-squared approx. may be incorrect!!\n\n\033[39m")
+    ChisqWarning()
   }
 
 
@@ -1620,7 +1620,7 @@ print.Desc.Date <- function(x, digits = NULL, ...) {
     print(x$freq)
   } else {
     # cat("Warning:\n  No plausible breaks for years found!\n")
-    cat("\033[31mWarning:\n  No plausible breaks for years found!\n\033[39m")
+    cat(cli::col_red("Warning:\n  No plausible breaks for years found!\n"))
   }
   cat("\n")
 }
@@ -1736,10 +1736,10 @@ print.Desc.numfact <- function(x, digits = NULL, ...) {
   }
 
   if ((x$NAgs > 0) & (length(grep("NA", x$xname)) == 0)) {
-    cat(gettextf(
-      "\033[31m\nWarning:\n  Grouping variable contains %s NAs (%s",
+    cat(cli::col_red(gettextf(
+      "\nWarning:\n  Grouping variable contains %s NAs (%s",
       x$NAgs, signif(x$NAgs / x$n, digits = 3) * 100
-    ), "%).\n\033[39m", sep = "")
+    ), "%).\n", sep = ""))
   } else {
     cat("\n")
   }

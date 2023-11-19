@@ -10,27 +10,27 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// compute_GCD
-int compute_GCD(int a, int b);
-RcppExport SEXP _DescTools_compute_GCD(SEXP aSEXP, SEXP bSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type a(aSEXP);
-    Rcpp::traits::input_parameter< int >::type b(bSEXP);
-    rcpp_result_gen = Rcpp::wrap(compute_GCD(a, b));
-    return rcpp_result_gen;
-END_RCPP
-}
 // compute_LCM
-int compute_LCM(int a, int b);
+long long compute_LCM(long long int a, long long int b);
 RcppExport SEXP _DescTools_compute_LCM(SEXP aSEXP, SEXP bSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type a(aSEXP);
-    Rcpp::traits::input_parameter< int >::type b(bSEXP);
+    Rcpp::traits::input_parameter< long long int >::type a(aSEXP);
+    Rcpp::traits::input_parameter< long long int >::type b(bSEXP);
     rcpp_result_gen = Rcpp::wrap(compute_LCM(a, b));
+    return rcpp_result_gen;
+END_RCPP
+}
+// compute_GCD
+long long compute_GCD(long long int a, long long int b);
+RcppExport SEXP _DescTools_compute_GCD(SEXP aSEXP, SEXP bSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< long long int >::type a(aSEXP);
+    Rcpp::traits::input_parameter< long long int >::type b(bSEXP);
+    rcpp_result_gen = Rcpp::wrap(compute_GCD(a, b));
     return rcpp_result_gen;
 END_RCPP
 }

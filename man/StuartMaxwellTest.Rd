@@ -53,8 +53,12 @@ Agresti, A. (2002) \emph{Categorical Data Analysis}. John Wiley & Sons, pp 86 ff
 %%  ~~who you are~~
 }
 
-\seealso{\code{\link{mcnemar.test}}, \code{\link{chisq.test}}, \code{\link{MHChisqTest}},
+\seealso{
+\code{\link{BhapkarTest}} for a more powerful alternative to the Stuart-Maxwell test
+
+\code{\link{mcnemar.test}}, \code{\link{chisq.test}}, \code{\link{MHChisqTest}},
 \code{\link{BreslowDayTest}}
+
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{

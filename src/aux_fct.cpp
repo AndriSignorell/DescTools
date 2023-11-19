@@ -1,15 +1,13 @@
 
-// [[Rcpp::depends(BH)]]
-
 #include <Rcpp.h>
-#include <boost/integer/common_factor.hpp>
+// #include <boost/integer/common_factor.hpp>
 #include <queue>
 
 #include <iostream>
 #include <sstream>
 #include <bitset>
 #include <string>
-#include <boost/algorithm/string.hpp>
+// #include <boost/algorithm/string.hpp>
 
 // #include <stdio.h>
 // #include <stdlib.h>
@@ -30,19 +28,32 @@ using namespace Rcpp;
 //
 
 
+// // [[Rcpp::export]]
+// int compute_GCD(int a, int b){
+//   return
+//     //boost::math::gcd(a, b);
+//     boost::integer::gcd(a,b);
+// }
+// 
+// // [[Rcpp::export]]
+// int compute_LCM(int a, int b){
+//   return
+//     // boost::math::lcm(a, b);
+//     boost::integer::lcm(a,b);
+// }
+
 // [[Rcpp::export]]
-int compute_GCD(int a, int b){
+long long compute_LCM(long long int a, long long int b){
   return
-    //boost::math::gcd(a, b);
-    boost::integer::gcd(a,b);
+    std::lcm(a,b);
 }
 
 // [[Rcpp::export]]
-int compute_LCM(int a, int b){
+long long compute_GCD(long long int a, long long int b){
   return
-    // boost::math::lcm(a, b);
-    boost::integer::lcm(a,b);
+    std::gcd(a,b);
 }
+
 
 
 //[[Rcpp::export]]

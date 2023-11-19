@@ -2,10 +2,10 @@
 ## Demo file for DescTools; start with 'demo(DescTools)'
 ## -----------------------------------------------------------------------------------
 
-cat("  \033[1m\033[34mDescTools\033[22m is a package for descriptive and explorative statistics. 
+cat(cli::col_blue(style_bold("  DescTools  "), " is a package for descriptive and explorative statistics. 
   It contains many basic statistic functions, tests and plots complementing 
-  the base R functions' set.\033[39m
-")
+  the base R functions' set.
+"))
 
 # Describing numeric, factor and binary variables
 Desc(d.pizza$temperatur, plotit=TRUE)
