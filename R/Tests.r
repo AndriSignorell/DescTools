@@ -1321,7 +1321,7 @@ VonNeumannTest <- function (x, alternative = c("two.sided", "less", "greater"), 
     VN <- sum(d^2) / sum((x - mx)^2) * n/(n-1)
     Ex <- 2 * n/(n-1)
     Vx <- 4 * n^2 * (n-2) / ((n+1) * (n-1)^3)
-    z <- (VN - Ex) / Vx
+    z <- (VN - Ex) / sqrt(Vx)
 
   } else {
     VN <- sum(d^2) / sum((x - mx)^2)
