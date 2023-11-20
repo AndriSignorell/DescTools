@@ -21,7 +21,7 @@ This description makes sense, for example, if the age distribution of a collecti
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.50</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.51</span>
       </span>
     </div>
 
@@ -89,8 +89,16 @@ This description makes sense, for example, if the age distribution of a collecti
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">TwoGroups</span><span class="op">(</span><span class="va">x</span>, <span class="va">g</span>, test <span class="op">=</span> <span class="va">t.test</span>, main <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>          font.txt <span class="op">=</span> <span class="cn">NULL</span>, font.desc <span class="op">=</span> <span class="cn">NULL</span>, wrd <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">TwoGroups</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, plotit <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">TwoGroups</span><span class="op">(</span><span class="va">x</span>, <span class="va">g</span>, main <span class="op">=</span> <span class="cn">NULL</span>, vname <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span>, plotit <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for formula</span></span>
+<span><span class="fu">TwoGroups</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">subset</span>, <span class="va">na.action</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for TwoGroups</span></span>
+<span><span class="fu"><a href="ToWrd.html">ToWrd</a></span><span class="op">(</span><span class="va">x</span>, font <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span>, wrd <span class="op">=</span> <span class="fu"><a href="DescToolsOptions.html">DescToolsOptions</a></span><span class="op">(</span><span class="st">"lastWord"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -103,21 +111,34 @@ This description makes sense, for example, if the age distribution of a collecti
 <dd><p>the grouping factor (preferably with two levels.)
 <!-- %%     ~~Describe \code{g} here~~ --></p></dd>
 
-  <dt>test</dt>
-<dd><p>the test to be applied, default is <code><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a>()</code>.
-<!-- %%     ~~Describe \code{test} here~~ --></p></dd>
-
   <dt>main</dt>
 <dd><p>the main title.
 <!-- %%     ~~Describe \code{main} here~~ --></p></dd>
 
-  <dt>font.txt</dt>
-<dd><p>the font chosen for the introducing text, when sending the output to Word.
-<!-- %%     ~~Describe \code{font.txt} here~~ --></p></dd>
+  <dt>vname</dt>
+<dd><p>the variable names used in the description text.
+<!-- %%     ~~Describe \code{main} here~~ --></p></dd>
 
-  <dt>font.desc</dt>
-<dd><p>the font chosen for the description, when sending the output to Word.
-<!-- %%     ~~Describe \code{font.desc} here~~ --></p></dd>
+<dt>plotit</dt>
+<dd><p>boolean. Should a plot be created? Default can be defined by <code>DescToolsOptions(plotit=TRUE/FALSE)</code>, if it does not exist then it's set to <code>FALSE</code>.</p></dd>
+
+  <dt>formula</dt>
+<dd><p>a formula of the form <code>lhs ~ rhs</code> where <code>lhs</code> gives the data values and rhs the corresponding groups.</p></dd>
+  
+  <dt>data</dt>
+<dd><p>an optional matrix or data frame (or similar: see <code><a href="https://rdrr.io/r/stats/model.frame.html" class="external-link">model.frame</a></code>) containing the variables in the formula <code>formula</code>. 
+    By default the variables are taken from <code>environment(formula)</code>.</p></dd>
+  
+  <dt>subset</dt>
+<dd><p>an optional vector specifying a subset of observations to be used.</p></dd>
+  
+  <dt>na.action</dt>
+<dd><p>a function which indicates what should happen when the data contain NAs. Defaults to <code>getOption("na.action")</code>.</p></dd>
+  
+
+  <dt>font</dt>
+<dd><p>the first font will be chosen for the introducing text, when sending the output to Word, the second for the description.
+<!-- %%     ~~Describe \code{font.txt} here~~ --></p></dd>
 
   <dt>wrd</dt>
 <dd><p>the pointer to a running MS Word instance, as created by GetNewWrd() (for a new one) or by GetCurrWrd() for an existing one. Default is <code>NULL</code>, which will report all results to the console.
@@ -165,11 +186,13 @@ This description makes sense, for example, if the age distribution of a collecti
 <span class="r-in"><span><span class="co"># we can change the colors for the plot by setting the DescToolsOptions</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="DescToolsOptions.html">DescToolsOptions</a></span><span class="op">(</span>col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">horange</span>, <span class="va">hgreen</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">TwoGroups</span><span class="op">(</span><span class="va">x</span>, <span class="va">g</span>, main<span class="op">=</span><span class="st">"Temperature ~ Rebate"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="TwoGroups-1.png" alt="" width="700" height="433"></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Temperature ~ Rebate </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> The entire group consists of a total of 1'158 elements. Of these, 580 are FALSE (50.1%, mean x 46.9) and 578 TRUE (49.9%, mean x 49.0).</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> The difference is significant (t-test, p = 2.12e-04) and is -2.15 [-3.29, -1.02] (95% CI). </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------------------------------------------------ </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x ~ g</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Temperature ~ Rebate</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Summary: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> n pairs: 1'209, valid: 1'158 (95.8%), missings: 51 (4.2%), groups: 2</span>
@@ -192,6 +215,7 @@ This description makes sense, for example, if the age distribution of a collecti
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">Warning:</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  Grouping variable contains 12 NAs (0.993%).</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-plt img"><img src="TwoGroups-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># for an output to Word simply define the wrd argument</span></span></span>
 <span class="r-in"><span><span class="co"># wrd &lt;- GetNewWrd()</span></span></span>
