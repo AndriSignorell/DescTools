@@ -34,7 +34,7 @@ PlotQQ(x, qdist=qnorm, main = NULL, xlab = NULL, ylab = NULL, datax = FALSE, add
 \item{add}{logical specifying if the points should be added to an already existing plot; defaults to \code{FALSE}.}
   \item{args.qqline}{arguments for the qqline. This will be estimated
    as a line through the 25\% and 75\% quantiles by default, which is the same procedure as \code{\link{qqline}()} does for normal
-   distribution (instead of set it to {abline(a = 0, b = 1))}. The quantiles can however be overwritten by setting the argument \code{probs} to some user defined values. Also the method for calculating the quantiles can be defined (default is 7, see \code{\link{quantile}}). The line defaults are set to \code{col = par("fg")}, \code{lwd = par("lwd")} and \code{lty = par("lty")}.
+   distribution (instead of set it to \code{abline(a = 0, b = 1))}. The quantiles can however be overwritten by setting the argument \code{probs} to some user defined values. Also the method for calculating the quantiles can be defined (default is 7, see \code{\link{quantile}}). The line defaults are set to \code{col = par("fg")}, \code{lwd = par("lwd")} and \code{lty = par("lty")}.
    No line will be plotted if \code{args.qqline} is set to \code{NA}.
 }
   \item{conf.level}{confidence level for the confidence interval. Set this to \code{NA}, if no confidence band should be plotted.

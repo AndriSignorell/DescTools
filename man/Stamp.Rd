@@ -11,7 +11,7 @@ Stamp(txt = NULL, las = par("las"), cex = 0.6)
 }
 \arguments{
   \item{txt}{an optional single text string. If it is not given, the function will look for a defined option named \code{stamp}. If not found the current date will be taken as text. If the stamp option is defined as expression the function will evaluate it. This can be used to define dynamic texts.}
-  \item{las}{numeric in {1,3}, defining direction of the text. 1 means horizontal, 3 vertical. Default is taken from \code{par("las")}.}
+  \item{las}{numeric in \code{c(1, 3)}, defining direction of the text. 1 means horizontal, 3 vertical. Default is taken from \code{par("las")}.}
   \item{cex}{numeric \bold{c}haracter \bold{ex}pansion factor; multiplied by \code{par("cex")} yields the final character size. Defaults to 0.6.}
 }
 \details{

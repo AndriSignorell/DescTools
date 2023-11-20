@@ -67,7 +67,7 @@ returns an object meant to be printed showing the results of the test.
   \code{\link{var.test}} and \code{\link{bartlett.test}} for parametric
   tests for the homogeneity in variance.
 
-  \code{\link[coin:ScaleTests]{ansari_test}} in package {coin}
+  \code{\link[coin:ScaleTests]{ansari_test}} in package \pkg{coin}
   for exact and approximate \emph{conditional} p-values for the
   Ansari-Bradley test, as well as different methods for handling ties.
 }

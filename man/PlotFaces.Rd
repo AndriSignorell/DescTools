@@ -23,21 +23,21 @@ PlotFaces(xy, which.row, fill = FALSE, nr, nc,
 }
 \details{The features paramters of this implementation are:
 \itemize{
-  \item{1 }{height of face}
-  \item{2 }{width of face}
-  \item{3 }{shape of face}
-  \item{4 }{height of mouth}
-  \item{5 }{width of mouth}
-  \item{6 }{curve of smile}
-  \item{7 }{height of eyes}
-  \item{8 }{width of eyes}
-  \item{9 }{height of hair}
-  \item{10 }{width of hair}
-  \item{11 }{styling of hair}
-  \item{12 }{height of nose}
-  \item{13 }{width of nose}
-  \item{14 }{width of ears}
-  \item{15 }{height of ears}
+  \item{1 } height of face
+  \item{2 } width of face
+  \item{3 } shape of face
+  \item{4 } height of mouth
+  \item{5 } width of mouth
+  \item{6 } curve of smile
+  \item{7 } height of eyes
+  \item{8 } width of eyes
+  \item{9 } height of hair
+  \item{10 } width of hair
+  \item{11 } styling of hair
+  \item{12 } height of nose
+  \item{13 } width of nose
+  \item{14 } width of ears
+  \item{15 } height of ears
 }
 
 \figure{faces.png}{Some faces}

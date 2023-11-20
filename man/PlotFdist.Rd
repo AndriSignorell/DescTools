@@ -80,7 +80,7 @@ PlotFdist(x, main = deparse(substitute(x)), xlab = "", xlim = NULL,
 
 \item{mar}{A numerical vector of the form \code{c(bottom, left, top, right)} which gives the number of lines of outer margin to be specified on the four sides of the plot. The default is \code{c(0, 0, 3, 0)}.}
 
-\item{las}{numeric in {0,1,2,3}; the style of axis labels. See \code{\link{par}}. }
+\item{las}{numeric in \code{c(0,1,2,3)}; the orientation of axis labels. See \code{\link{par}}. }
 }
 
 \details{Performance has been significantly improved, but if \code{x} is growing large (n > 1e7) the function will take its time to complete. Especially the density curve and the ecdf, but as well as the boxplot (due to the chosen alpha channel) will take their time to calculate and plot.\cr
