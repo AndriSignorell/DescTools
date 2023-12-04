@@ -125,16 +125,16 @@ stopifnot(all.equal(x, x., tol = 1e-14))
 
 
 # Test for correct using of weights in NormWeights() and Mean()
-AllIdentical(
+stopifnot(AllIdentical(
   Mean(x=c(0,2,4,6))
   , Mean(x=c(0,2,4,6), na.rm=TRUE)
   , Mean(x=c(0,2,4,6), zero.rm=TRUE)
   , Mean(x=c(0,2,4,6), weights = rep(1, 4), zero.rm=TRUE)
   , Mean(x=c(0,2,4,6), weights = rep(1, 4), na.rm=TRUE, zero.rm=TRUE)
-)
+))
 
 
-
+stopifnot(DescTools::HodgesLehmann(c(0.7,0.5,0.5)) == 0.55)
 
 
 

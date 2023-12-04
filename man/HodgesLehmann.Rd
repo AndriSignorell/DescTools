@@ -3,8 +3,9 @@
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{ Hodges-Lehmann Estimator of Location}
 \description{
-Function to compute the Hodges-Lehmann estimator of location in the one sample case. \cr
-Simple wrapper to extract the value from the result of \code{\link{wilcox.test}}.
+Function to compute the Hodges-Lehmann estimator of location in the one sample case following a clever fast
+algorithm by John Monahan (1984). 
+.
 }
 \usage{
 HodgesLehmann(x, y = NULL, conf.level = NA, na.rm = FALSE)
@@ -26,7 +27,7 @@ HodgesLehmann(x, y = NULL, conf.level = NA, na.rm = FALSE)
   The Hodges-Lehmann estimator is the median of the combined data points and Walsh averages.
   It is the same as the Pseudo Median returned as a by-product of the function \code{\link{wilcox.test}}.\cr
   Note that in the two-sample case the estimator for the difference in location parameters does not estimate the difference in medians (a common misconception) but rather the median of the difference between a sample from x and a sample from y.
-  The confidence interval for the "pseudo median" is extracted from \code{\link{wilcox.test}} (\code{conf.int = TRUE}). \cr
+  The confidence interval and the two case part are not yet implemented. \cr
 
 }
 \value{
@@ -36,10 +37,13 @@ and otherwise a numeric vector with 3 elements for the estimate, the lower and t
 }
 \references{ 
 Hodges, J.L., and Lehmann, E.L. (1963), Estimates of location based on rank tests. \emph{The Annals of Mathematical Statistics}, \bold{34}, 598--611. 
+
+Monahan, J. (1984), Algorithm 616: Fast Computation of the Hodges-Lehmann Location Estimator, \emph{ACM Transactions on Mathematical Software}, Vol. 10, No. 3, pp. 265-270
 }
 
 
-\author{ Andri Signorell <andri@signorell.net> }
+\author{ Cyril Flurin Moser (Cyril did the lion's share and coded Monahan's algorithm in C++), 
+ Andri Signorell <andri@signorell.net> }
 
 \seealso{\code{\link{wilcox.test}}, \code{\link{median}}, \code{\link{MedianCI}}}
 \examples{

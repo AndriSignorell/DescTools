@@ -1004,43 +1004,43 @@ FindCorr <- function(x, cutoff = .90, verbose = FALSE) {
 # }
 
 
-AUC_deprecated <- function(x, y, from=min(x, na.rm=TRUE), to = max(x, na.rm=TRUE),
-                method=c("trapezoid", "step", "spline", "linear"),
-                absolutearea = FALSE, subdivisions = 100, na.rm = FALSE, ...) {
-
-  # calculates Area unter the curve
-  # example:
-  #   AUC( x=c(1,2,3,5), y=c(0,1,1,2))
-  #   AUC( x=c(2,3,4,5), y=c(0,1,1,2))
-
-  if(na.rm) {
-    idx <- complete.cases(cbind(x,y))
-    x <- x[idx]
-    y <- y[idx]
-  }
-
-  if (length(x) != length(y))
-    stop("length x must equal length y")
-
-  idx <- order(x)
-  x <- x[idx]
-  y <- y[idx]
-
-  switch( match.arg( arg=method, choices=c("trapezoid","step","spline","linear") )
-          , "trapezoid" = { a <- sum((apply( cbind(y[-length(y)], y[-1]), 1, mean))*(x[-1] - x[-length(x)])) }
-          , "step" = { a <- sum( y[-length(y)] * (x[-1] - x[-length(x)])) }
-          , "linear" = {
-                a <- MESS_auc(x, y, from = from , to = to, type="linear",
-                                   absolutearea=absolutearea, subdivisions=subdivisions, ...)
-                       }
-          , "spline" = {
-                a <- MESS_auc(x, y, from = from , to = to, type="spline",
-                     absolutearea=absolutearea, subdivisions=subdivisions, ...)
-            # a <- integrate(splinefun(x, y, method="natural"), lower=min(x), upper=max(x))$value
-              }
-  )
-  return(a)
-}
+# AUC_deprecated <- function(x, y, from=min(x, na.rm=TRUE), to = max(x, na.rm=TRUE),
+#                 method=c("trapezoid", "step", "spline", "linear"),
+#                 absolutearea = FALSE, subdivisions = 100, na.rm = FALSE, ...) {
+# 
+#   # calculates Area unter the curve
+#   # example:
+#   #   AUC( x=c(1,2,3,5), y=c(0,1,1,2))
+#   #   AUC( x=c(2,3,4,5), y=c(0,1,1,2))
+# 
+#   if(na.rm) {
+#     idx <- complete.cases(cbind(x,y))
+#     x <- x[idx]
+#     y <- y[idx]
+#   }
+# 
+#   if (length(x) != length(y))
+#     stop("length x must equal length y")
+# 
+#   idx <- order(x)
+#   x <- x[idx]
+#   y <- y[idx]
+# 
+#   switch( match.arg( arg=method, choices=c("trapezoid","step","spline","linear") )
+#           , "trapezoid" = { a <- sum((apply( cbind(y[-length(y)], y[-1]), 1, mean))*(x[-1] - x[-length(x)])) }
+#           , "step" = { a <- sum( y[-length(y)] * (x[-1] - x[-length(x)])) }
+#           , "linear" = {
+#                 a <- MESS_auc(x, y, from = from , to = to, type="linear",
+#                                    absolutearea=absolutearea, subdivisions=subdivisions, ...)
+#                        }
+#           , "spline" = {
+#                 a <- MESS_auc(x, y, from = from , to = to, type="spline",
+#                      absolutearea=absolutearea, subdivisions=subdivisions, ...)
+#             # a <- integrate(splinefun(x, y, method="natural"), lower=min(x), upper=max(x))$value
+#               }
+#   )
+#   return(a)
+# }
 
 
 # New version, publish as soon as package sobir is updated
@@ -1640,8 +1640,11 @@ HodgesLehmann <- function(x, y = NULL, conf.level = NA, na.rm = FALSE) {
   #     .r
   #   }
 
-
-  # inspired by package ICSNP, function hl.loc
+  if(!is.null(y)) {
+    warning("Two sample case for HL-estimator not yet implemented.")
+    return(NA)
+  }
+    
 
   if(na.rm) {
     if(is.null(y))
@@ -1659,15 +1662,24 @@ HodgesLehmann <- function(x, y = NULL, conf.level = NA, na.rm = FALSE) {
   else
     return(c(est=NA,  lwr.ci=NA, upr.ci=NA))
 
-
-  res <- wilcox.test(x,  y, conf.int = TRUE, conf.level = Coalesce(conf.level, 0.8))
+  
+#  res <- wilcox.test(x,  y, conf.int = TRUE, conf.level = Coalesce(conf.level, 0.8))
+  res <-   psum <- .Call("_DescTools_hlqest", PACKAGE = "DescTools", x)
 
   if(is.na(conf.level)){
-    result <-  res$estimate
+    result <-  res
     names(result) <- NULL
+    
   } else {
-    result <- c(est=res$estimate,  lwr.ci=res$conf.int[1], upr.ci=res$conf.int[2])
-    names(result)[1] <- "est"
+    
+    n <- length(x)
+    
+    # lci <- n^2/2 + qnorm((1-conf.level)/2) * sqrt(n^2 * (2*n+1)/12) - 0.5
+    # uci <- n^2/2 - qnorm((1-conf.level)/2) * sqrt(n^2 * (2*n+1)/12) - 0.5
+    lci <- uci <- NA
+    warning("Confidence intervals not yet implemented for Hodges-Lehman-Estimator.")
+    
+    result <- c(est=res,  lwr.ci=lci, upr.ci=uci)
   }
 
   return(result)
@@ -5246,6 +5258,10 @@ HunterGaston <- function(x, na.rm = FALSE){
   }
   
   sum(tt * (tt - 1)) / (sum(tt) * (sum(tt) - 1))
+
+  # shouldn't this be: 
+  # 1 - sum(tt * (tt - 1)) / (sum(tt) * (sum(tt) - 1))
+  # ???
 
 }
 

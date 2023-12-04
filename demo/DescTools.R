@@ -2,7 +2,7 @@
 ## Demo file for DescTools; start with 'demo(DescTools)'
 ## -----------------------------------------------------------------------------------
 
-cat(cli::col_blue(style_bold("  DescTools  "), " is a package for descriptive and explorative statistics. 
+cat(cli::col_blue(cli::style_bold("  DescTools  "), " is a package for descriptive and explorative statistics. 
   It contains many basic statistic functions, tests and plots complementing 
   the base R functions' set.
 "))
