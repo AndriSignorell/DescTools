@@ -24,7 +24,7 @@ So !AllDuplicated can be used to determine all elements of x, which
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.52.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.52.3</span>
       </span>
     </div>
 
@@ -139,16 +139,16 @@ So <code>!AllDuplicated</code> can be used to determine all elements of x, which
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># all elements from A and B (no duplicates)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">union</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">B</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  1  2  7  8  9 13 17 18 20 NA  4  6 10 11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  2  3  5  6  7  9 13 17 20 NA  4 11 12 14 16</span>
 <span class="r-in"><span><span class="co"># all elements appearing in A and in B</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">intersect</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">B</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  9 18 20 NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  9 13 NA</span>
 <span class="r-in"><span><span class="co"># elements in A, but not in B</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">setdiff</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">B</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  1  2  7  8 13 17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  2  3  5  6  7 17 20</span>
 <span class="r-in"><span><span class="co"># elements in B, but not in A</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">setdiff</a></span><span class="op">(</span><span class="va">B</span>, <span class="va">A</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  4  6 10 11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  4 11 12 14 16</span>
 <span class="r-in"><span><span class="co"># Does A contain the same elements as B?</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">setequal</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">B</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
@@ -160,26 +160,26 @@ So <code>!AllDuplicated</code> can be used to determine all elements of x, which
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># count tied groups</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">ties</span>, <span class="va">length</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 7</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># length of tied groups</span></span></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">ties</span>, <span class="va">length</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="va">x</span><span class="op">&gt;</span><span class="fl">1</span><span class="op">]</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> c d f h i </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 5 3 3 3 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a b c d e h j </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2 4 2 2 2 3 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># by means of table</span></span></span>
 <span class="r-in"><span><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">tab</span><span class="op">[</span><span class="va">tab</span><span class="op">&gt;</span><span class="fl">1</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 3 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 3 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2 3 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 4 2 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># count elements involved in ties</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">tab</span><span class="op">&gt;</span><span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
 <span class="r-in"><span><span class="co"># count tied groups</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">tab</span><span class="op">[</span><span class="va">tab</span><span class="op">&gt;</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8</span>
 </code></pre></div>
     </div>
   </div>
