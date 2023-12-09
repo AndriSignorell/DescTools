@@ -175,6 +175,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// hlqest
+double hlqest(NumericVector x);
+RcppExport SEXP _DescTools_hlqest(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(hlqest(x));
+    return rcpp_result_gen;
+END_RCPP
+}
 // hl2qest
 double hl2qest(NumericVector x, NumericVector y);
 RcppExport SEXP _DescTools_hl2qest(SEXP xSEXP, SEXP ySEXP) {
@@ -184,17 +195,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
     rcpp_result_gen = Rcpp::wrap(hl2qest(x, y));
-    return rcpp_result_gen;
-END_RCPP
-}
-// hlqest
-double hlqest(NumericVector x);
-RcppExport SEXP _DescTools_hlqest(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(hlqest(x));
     return rcpp_result_gen;
 END_RCPP
 }
