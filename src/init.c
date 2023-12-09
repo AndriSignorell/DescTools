@@ -64,6 +64,7 @@ extern SEXP _DescTools_fastMode(SEXP, SEXP);
 extern SEXP _DescTools_fastModeX(SEXP, SEXP);
 extern SEXP pKolmogorov2x(SEXP, SEXP);
 extern SEXP _DescTools_hlqest(SEXP);
+extern SEXP _DescTools_hl2qest(SEXP, SEXP);
 
 
 
@@ -116,6 +117,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"tbrm",                     (DL_FUNC) &tbrm,                     2},
   {"pKolmogorov2x",            (DL_FUNC) &pKolmogorov2x,            2},
   {"_DescTools_hlqest",        (DL_FUNC) &_DescTools_hlqest,        1},
+  {"_DescTools_hl2qest",       (DL_FUNC) &_DescTools_hl2qest,       2},
   {NULL, NULL, 0}
 };
 

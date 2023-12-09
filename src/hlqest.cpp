@@ -60,11 +60,12 @@ int rng(int max) //range : [0, max]
 }  
 
 
-NumericVector stl_sort(NumericVector x) {
-  NumericVector y = clone(x);
-  std::sort(y.begin(), y.end());
-  return y;
-}
+// NumericVector stl_sort(NumericVector x) {
+//   NumericVector y = clone(x);
+//   std::sort(y.begin(), y.end());
+//   return y;
+// }
+
 
 
 // [[Rcpp::export]]
@@ -72,8 +73,9 @@ double hlqest(NumericVector x) {
   
   int n = x.size();
   
-  x = stl_sort(x);
-
+  // x = stl_sort(x);
+  std::sort(x.begin(), x.end(), [](double &a, double &b){ return a<b; });
+  
   if (n <= 2) {  // special cases for n=1 and n=2
   if (n == 1) {
     return x[0];

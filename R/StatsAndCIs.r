@@ -1640,12 +1640,6 @@ HodgesLehmann <- function(x, y = NULL, conf.level = NA, na.rm = FALSE) {
   #     .r
   #   }
 
-  if(!is.null(y)) {
-    warning("Two sample case for HL-estimator not yet implemented.")
-    return(NA)
-  }
-    
-
   if(na.rm) {
     if(is.null(y))
       x <- na.omit(x)
@@ -1663,8 +1657,12 @@ HodgesLehmann <- function(x, y = NULL, conf.level = NA, na.rm = FALSE) {
     return(c(est=NA,  lwr.ci=NA, upr.ci=NA))
 
   
-#  res <- wilcox.test(x,  y, conf.int = TRUE, conf.level = Coalesce(conf.level, 0.8))
-  res <-   psum <- .Call("_DescTools_hlqest", PACKAGE = "DescTools", x)
+  #  res <- wilcox.test(x,  y, conf.int = TRUE, conf.level = Coalesce(conf.level, 0.8))
+  if(is.null(y)){
+    res <- .Call("_DescTools_hlqest", PACKAGE = "DescTools", x)
+  } else {
+    res <- .Call("_DescTools_hl2qest", PACKAGE = "DescTools", x, y)
+  }
 
   if(is.na(conf.level)){
     result <-  res

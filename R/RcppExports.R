@@ -57,6 +57,10 @@ check.gompertz <- function(shape, rate) {
     .Call(`_DescTools_check_gompertz`, shape, rate)
 }
 
+hl2qest <- function(x, y) {
+    .Call(`_DescTools_hl2qest`, x, y)
+}
+
 hlqest <- function(x) {
     .Call(`_DescTools_hlqest`, x)
 }
