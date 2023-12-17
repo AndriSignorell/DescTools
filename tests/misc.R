@@ -134,8 +134,11 @@ stopifnot(AllIdentical(
 ))
 
 
-stopifnot(DescTools::HodgesLehmann(c(0.7,0.5,0.5)) == 0.55)
+stopifnot(IsZero(DescTools::HodgesLehmann(c(0.7,0.5,0.5)) - 0.55))
 
+stopifnot(IsZero(
+            HodgesLehmann(c(50.6, 39.2, 35.2, 17, 11.2, 14.2, 24.2, 37.4, 35.2), 
+                          c(38, 18.6, 23.2, 19, 6.6, 16.4, 14.4, 37.6, 24.4) ) - 7.8))
 
 
 

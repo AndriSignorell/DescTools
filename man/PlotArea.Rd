@@ -76,7 +76,7 @@ Matrix of cumulative sums that was used for plotting.
 %% ...
 }
 \author{
-Arni Magnusson <arnima@hafro.is>
+Arni Magnusson <thisisarni@gmail.com>
 }
 
 \seealso{

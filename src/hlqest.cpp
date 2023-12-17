@@ -1,10 +1,12 @@
 
-
+//
 // Port of Monahans algorithm for Hodges-Lehman estimator
+//
 // https://dl.acm.org/doi/10.1145/1271.319414
-// 
+// https://www4.stat.ncsu.edu/~monahan/jul10/
+//
 // by Cyril Flurin Moser 
-
+//
 // 2023-11-29
 
 

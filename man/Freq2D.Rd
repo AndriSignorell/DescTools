@@ -51,7 +51,7 @@ Freq2D(x, \dots)
       can be analyzed further.}
   }
 }
-\author{Arni Magnusson <arnima@hafro.is>}
+\author{Arni Magnusson <thisisarni@gmail.com>>}
 
 \seealso{
   \code{\link{cut}}, \code{\link{table}}, and \code{\link{print.table}}
