@@ -1,15 +1,17 @@
 \name{SetAlpha}
 \alias{SetAlpha}
+\alias{Fade}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Add an Alpha Channel To a Color
 %%  ~~function to do ... ~~
 }
 \description{ Add transparency to a color defined by its name or number. The function first converts the
- color to RGB and then appends the alpha channel.
+ color to RGB and then appends the alpha channel. \code{Fade()} combines \code{ColToOpaque(SetAlpha(col))}.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
 SetAlpha(col, alpha = 0.5)
+Fade(col, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -19,6 +21,7 @@ SetAlpha(col, alpha = 0.5)
   \item{alpha}{the alpha value to be added. This can be any value from 0 (fully transparent) to 1 (opaque). \code{NA} is interpreted so as to delete a potential alpha channel. Default is 0.5.
 %%     ~~Describe \code{alpha} here~~
 }
+\item{\dots}{the dots in \code{Fade} are passed on to \code{SetAlpha}.}
 }
 \details{All arguments are recyled as necessary.
 %%  ~~ If necessary, more details than the description above ~~
@@ -29,7 +32,7 @@ Vector with the same length as \code{col}, giving the rgb-values extended by the
 \author{Andri Signorell <andri@signorell.net>
 }
 
-\seealso{\code{\link{ColToHex}}, \code{\link{col2rgb}}
+\seealso{\code{\link{ColToHex}}, \code{\link{col2rgb}}, \code{\link{adjustcolor}}, \code{\link{ColToOpaque}}
 
 }
 \examples{

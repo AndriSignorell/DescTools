@@ -10176,6 +10176,13 @@ SetAlpha <- function(col, alpha=0.5) {
 }
 
 
+Fade <- function(col, ...){
+  ColToOpaque(SetAlpha(col, ...))
+}
+
+
+
+
 ###
 
 

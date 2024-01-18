@@ -184,25 +184,29 @@ List n_pow_sum(NumericVector x) {
   // x must be a nonempty numeric vector with NAs omitted
 
   std::map<double, int> counts;
-
-  int n = x.size();
-  for (int i = 0; i < n; i++) {
+  typedef std::map<double, int>::iterator it_type;
+  
+  // int n = x.size();
+  for (int i = 0; i < x.size(); i++) {
     counts[x[i]]++;
   }
 
-  double mean = 0;
-  typedef std::map<double, int>::iterator it_type;
-  for(it_type iterator = counts.begin(); iterator != counts.end(); iterator++) {
+  // double mean = 0;
+  // typedef std::map<double, int>::iterator it_type;
+  // for(it_type iterator = counts.begin(); iterator != counts.end(); iterator++) {
+  // 
+  //   mean += iterator->second * iterator->first;
+  // 
+  //   // iterator->first = key
+  //   // iterator->second = value
+  // }
+  // mean = mean / n;
 
-    mean += iterator->second * iterator->first;
-
-    // iterator->first = key
-    // iterator->second = value
-  }
-  mean = mean / n;
-
-  int un = counts.size();
+  double mean =  std::reduce(x.begin(), x.end(), 0.0, std::plus<double>()) / x.size();
+  
+  // int un = counts.size();
   int zn = 0;
+  int un = 0;
   double d = 0;
   double d2 = 0;
 
@@ -211,13 +215,14 @@ List n_pow_sum(NumericVector x) {
   double sum3 = 0;
   double sum4 = 0;
 
+  un = counts.size();
 
   for(it_type iterator = counts.begin(); iterator != counts.end(); iterator++) {
 
     d = iterator->first - mean;
     d2 = iterator->second * d * d;
 
-    sum1 += abs(d);  // sum of absolute difference
+    sum1 += abs(iterator->second * d);  // sum of absolute difference
     sum2 += d2;      // sum of squares
     sum3 += d2*d;    // sum of 3th powers
     sum4 += d2*d*d;  // sum of 4th powers
@@ -267,7 +272,7 @@ List n_pow_sum(NumericVector x) {
     Rcpp::Named("large_freq", large_freq)
   );
 
-  // return 0;
+  
 }
 
 

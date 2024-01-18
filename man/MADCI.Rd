@@ -19,13 +19,14 @@ MADCI(x, y = NULL, two.samp.diff = TRUE, gld.est = "TM",
   \item{y}{a second (non-empty) numeric vector of data values.
 %%     ~~Describe \code{y} here~~
 }
- \item{two.samp.diff}{logical, defining if the confidence intervals for a difference of x and y should be calculated.
+ \item{two.samp.diff}{logical, defining if the confidence intervals for the difference (mad(x)-mad(y)) (default) or for the squared ratio ((mad(x)/mad(y))^2) should be calculated. Ignored if y is not given.
 %%     ~~Describe \code{two.samp.diff} here~~
 }
-  \item{gld.est}{type of gld estimator.
+  \item{gld.est}{A character string, to select the estimation method for the generalized lambda distribution. One of: \code{ML} for numerical Maximum Likelihood, \code{MPS} or \code{MSP} for Maximum Spacings Product, \code{TM} for Titterington's Method (default), \code{SM} for Starship Method, \code{TL} for method of Trimmed L-moments, \code{Lmom} for method of L-moments, \code{DLA} for the method of Distributional Least Absolutes, or \code{Mom} for method of Moments. 
+  See \code{\link[gld]{fit.fkml}()}.
 %%     ~~Describe \code{gld.est} here~~
 }
-  \item{conf.level}{confidence level of the interval
+  \item{conf.level}{confidence level of the interval.
 }
 \item{sides}{a character string specifying the side of the confidence interval, must be one of \code{"two.sided"} (default), \code{"left"} or \code{"right"}. You can specify just the initial letter. \code{"left"} would be analogue to a hypothesis of \code{"greater"} in a \code{t.test}.}
 

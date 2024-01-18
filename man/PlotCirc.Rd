@@ -56,7 +56,7 @@ In general, the cell represents a unidirectional relationship (e.g. row->column)
 \value{the calculated points for the labels, which can be used to place userdefined labels.}
 
 \references{
-Inspired by \url{http://circos.ca/presentations/articles/vis_tables1/}
+Inspired by \url{https://circos.ca/presentations/articles/vis_tables1/}
 %% ~put references to the literature/web site here ~
 }
 \author{Andri Signorell <andri@signorell.net>

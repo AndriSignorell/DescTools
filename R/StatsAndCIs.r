@@ -439,8 +439,10 @@ Median <- function(x, ...)
 
 
 Median.default <- function(x, weights = NULL, na.rm = FALSE, ...) {
-  Quantile(x, weights, probs=0.5, na.rm=na.rm, names=FALSE)
-
+  if(is.null(weights))
+    median(x=x, na.rm=na.rm)
+  else 
+    Quantile(x, weights, probs=0.5, na.rm=na.rm, names=FALSE)
 }
 
 
@@ -527,6 +529,11 @@ Median.Freq <- function(x, breaks, ...)  {
 Quantile <- function(x, weights = NULL, probs = seq(0, 1, 0.25),
                              na.rm = FALSE, names=TRUE, type = 7, digits=7) {
 
+  
+  if(is.null(weights)){
+    quantile(x=x, probs=probs, na.rm=na.rm, names=names, type=type, digits=digits)
+    
+  } else {
   
   # this is a not exported stats function
   format_perc <- function (x, digits = max(2L, getOption("digits")), probability = TRUE, 
@@ -648,15 +655,19 @@ Quantile <- function(x, weights = NULL, probs = seq(0, 1, 0.25),
   
   return(qs)
   
+  }
 }
-
 
 
 
 
 IQRw <- function (x, weights = NULL, na.rm = FALSE, type = 7) {
   
-  diff(Quantile(x, weights=weights, probs=c(0.25, 0.75), na.rm=na.rm, type=type))
+  if(is.null(weights))
+    IQR(x=x, na.rm=na.rm, type=type)
+  
+  else 
+    diff(Quantile(x, weights=weights, probs=c(0.25, 0.75), na.rm=na.rm, type=type))
   
 }
 

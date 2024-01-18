@@ -2,7 +2,7 @@
 \alias{MeanCI}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Confidence Interval for the Mean
+Confidence Intervals for the Mean
 %%  ~~function to do ... ~~
 }
 \description{
@@ -32,7 +32,8 @@ MeanCI(x, sd = NULL, trim = 0, method = c("classic", "boot"),
   \item{conf.level}{confidence level of the interval.
 %%     ~~Describe \code{conf.level} here~~
 }
-\item{sides}{a character string specifying the side of the confidence interval, must be one of \code{"two.sided"} (default), \code{"left"} or \code{"right"}. You can specify just the initial letter. \code{"left"} would be analogue to a hypothesis of \code{"greater"} in a \code{t.test}.}
+\item{sides}{a character string specifying the side of the confidence interval, must be one of \code{"two.sided"} (default), \code{"left"} or \code{"right"}. \code{"left"} would be analogue to a hypothesis of \code{"greater"} in a \code{t.test}.
+You can specify just the initial letter.}
 
   \item{na.rm}{a logical value indicating whether \code{NA} values should be stripped before the computation proceeds. Defaults to FALSE.
 %%     ~~Describe \code{na.rm} here~~

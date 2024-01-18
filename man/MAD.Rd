@@ -28,7 +28,7 @@ MAD(x, weights = NULL, center = Median, constant = 1.4826,
 \description{
   Compute the median absolute deviation, i.e., the (lo-/hi-) median of
   the absolute deviations from the median, and (by default) adjust by a
-  factor for asymptotically normal consistency.
+  factor for asymptotically normal consistency. This function wraps the specific base R function \code{\link{mad}} and extends it for the use of weights. 
 }
 \details{
   The actual value calculated is \code{constant * cMedian(abs(x - center))}
@@ -49,8 +49,8 @@ MAD(x, weights = NULL, center = Median, constant = 1.4826,
   \code{x} will cause \code{MAD} to return \code{NA}.
 }
 \seealso{
-  \code{\link{IQR}} which is simpler but less robust,
-  \code{\link{median}}, \code{\link{var}}.
+  \code{\link{IQR}} which is simpler but less robust, \code{\link{IQRw}} for weights, 
+  \code{\link{mad}}, \code{\link{median}}, \code{\link{var}}, \code{\link{MADCI}} (confidence intervals).
 }
 \examples{
 MAD(c(1:9))
