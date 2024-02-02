@@ -21,6 +21,8 @@
 \alias{YearDays}
 \alias{MonthDays}
 \alias{HmsToMinute}
+\alias{Month.ym}
+\alias{Year.ym}
 
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Basic Date Functions
@@ -88,9 +90,9 @@ MonthDays(x)
 
 \details{These functions are mainly convenience wrappers for the painful \code{format()} and its strange codes...\cr
 Based on the requested time component, the output is as follows:\cr\cr
-\code{Year} returns the year of the input date in yyyy format.\cr
+\code{Year} returns the year of the input date in yyyy format or a yearmonth yyyymm.\cr
 \code{Quarter} returns the quarter of the year (1 to 4) for the input date. \cr
-\code{Month} returns the month of the year (1 to 12) for the input date. \cr
+\code{Month} returns the month of the year (1 to 12) for the input date or for a yearmonth yyyymm. \cr
 \code{Week} returns the week of the year for the input date (0 to 53), as defined in ISO8601. \cr
 \code{Weekday} returns the week day of the input date. (1 - Monday, 2 - Tuesday, ... 7 - Sunday). (Names and abbreviations are either english or in the current locale!)\cr
 \code{YearDay} returns the day of the year numbering (1 to 366). \cr

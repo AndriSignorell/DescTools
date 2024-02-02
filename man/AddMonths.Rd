@@ -31,7 +31,7 @@ Thanks to Antonio: \url{https://stackoverflow.com/questions/14169620/add-a-month
 \author{Andri Signorell <andri@signorell.net>, based on code by Roland Rapold and Antonio
 }
 
-\seealso{\code{\link{AddMonthsYM}}; Date functions: \code{\link{Year}}, \code{\link{Month}}, etc.
+\seealso{\code{\link{as.ym}}; Date functions: \code{\link{Year}}, \code{\link{Month}}, etc.
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{

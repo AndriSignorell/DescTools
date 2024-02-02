@@ -2423,6 +2423,14 @@ TextToTable <- function(x, dimnames = NULL, check.names=FALSE, ...){
 }
 
 
+NALevel <- function(x, level){
+  # replaces NAs by the defined level in a factor x
+  x <- factor(x, exclude=NULL)
+  levels(x)[is.na(levels(x))] <- level
+  return(x)
+}
+
+
 Recode <- function(x, ..., elselevel=NA, use.empty=FALSE, num=FALSE){
 
   # if x is character, turn it to factor and reconvert it when finished
@@ -3177,7 +3185,11 @@ IsWeekend <- function(x) {
 
 
 # Year <- function(x){ as.integer( format(as.Date(x), "%Y") ) }
-Year <- function(x){ as.POSIXlt(x)$year + 1900L }
+Year <-  function(x){
+  UseMethod("Year")
+}
+
+Year.default <- function(x){ as.POSIXlt(x)$year + 1900L }
 
 
 IsLeapYear <- function(x){
@@ -3187,7 +3199,22 @@ IsLeapYear <- function(x){
 }
 
 
-Month <- function (x, fmt = c("m", "mm", "mmm"), lang = DescToolsOptions("lang"), stringsAsFactors = TRUE) {
+Month <- function(x, fmt = c("m", "mm", "mmm"), 
+                  lang = DescToolsOptions("lang"), stringsAsFactors = TRUE) {
+  UseMethod("Month")
+}
+
+
+Month.ym <- function(x, fmt = c("m", "mm", "mmm"), 
+                     lang = DescToolsOptions("lang"), stringsAsFactors = TRUE) {
+  # unclass(x - Year(x) * 100)   
+  x <- as.Date(x)
+  NextMethod()
+}
+
+
+Month.default <- function(x, fmt = c("m", "mm", "mmm"), 
+                          lang = DescToolsOptions("lang"), stringsAsFactors = TRUE) {
 
   res <- as.POSIXlt(x)$mon + 1L
 
@@ -3365,12 +3392,6 @@ YearDay <- function(x) {
 }
 
 
-YearMonth <- function(x){
-  # returns the yearmonth representation of a date x
-  x <- as.POSIXlt(x)
-  return((x$year + 1900L)*100L + x$mon + 1L)
-}
-
 
 Today <- function() Sys.Date()
 
@@ -3395,6 +3416,42 @@ Second <- function(x) {
 Timezone <- function(x) {
   as.POSIXlt(x)$zone
 }
+
+
+YearMonth <- function(x){
+  # returns the yearmonth representation of a date x
+  x <- as.POSIXlt(x)
+  return(as.ym((x$year + 1900L)*100L + x$mon + 1L))
+}
+
+
+Year.ym  <- function(x){  unclass(round((x/100)))   }
+
+
+
+# define a new class ym ("yearmonth")
+as.ym <- function(x){
+  
+  # expects a YYYYMM format
+  if((y <- round(x/100)) %[]% c(1000, 3000) & (x - y*100) %[]% c(1, 12) ) 
+    structure(as.integer(x), class = c("ym", "num")) 
+  else 
+    structure(NA_integer_, class = c("ym", "num")) 
+  
+}
+
+print.ym <- function(x, ...) {
+  # do not print the class attributes
+  print(unclass(x), ...)
+}
+
+
+as.Date.ym <- function(x, d=1, ...){
+  as.Date(gsub("([0-9]{4})([0-9]{2})([0-9]{2})", "\\1-\\2-\\3", 
+               x*100 + d))
+}
+
+
 
 
 DiffDays360 <- function(start_d, end_d, method=c("eu","us")){
@@ -3457,7 +3514,13 @@ MonthDays <- function (x) {
 }
 
 
+
 AddMonths <- function (x, n, ...) {
+  UseMethod("AddMonths")
+}
+  
+
+AddMonths.default <- function (x, n, ...) {
 
   .addMonths <- function (x, n) {
 
@@ -3492,7 +3555,7 @@ AddMonths <- function (x, n, ...) {
 
 
 
-AddMonthsYM <- function (x, n) {
+AddMonths.ym <- function (x, n, ...) {
 
   .addMonths <- function (x, n) {
 

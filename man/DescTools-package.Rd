@@ -355,7 +355,7 @@ _RevWeibull   \tab      Reverse Weibull distribution (\link{dRevWeibull})\cr
 \cr\cr
 \bold{Date functions:}\tab\cr
 \link{day.name}, \link{day.abb} \tab Defined names of the days \cr
-\link{AddMonths}, \link{AddMonthsYM}  \tab  Add a number of months to a given date     \cr
+\link{AddMonths} \tab  Add a number of months to a given date     \cr
 \link{IsDate} \tab  Check whether x is a date object     \cr
 \link{IsWeekend} \tab  Check whether x falls on a weekend     \cr
 \link{IsLeapYear} \tab  Check whether x is a leap year     \cr
