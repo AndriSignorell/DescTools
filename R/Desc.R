@@ -826,6 +826,9 @@ calcDesc.table <- function(x, n, conf.level = 0.95, verbose, rfrq, margins,
     relrisk2 = if (ttype == "t2x2") {
       RelRisk(Rev(x, margin = 2), conf.level = conf.level, method = "wald", delta = 0)
     },
+    propdiff = if (ttype == "t2x2") {
+      BinomDiffCI(x[1,1], sum(x[1,]), x[2,1], sum(x[2,]), conf.level = conf.level, method = "mn")
+    },
     relrisk1r = if (ttype == "t2x2") {
       RelRisk(t(x), conf.level = conf.level, method = "wald", delta = 0)
     },
@@ -1474,7 +1477,8 @@ print.Desc.table <- function(x, digits = NULL, ...) {
             m <- ftable(format(rbind(
               "odds ratio    " = x$or,
               "rel. risk (col1)  " = x$relrisk1,
-              "rel. risk (col2)  " = x$relrisk2
+              "rel. risk (col2)  " = x$relrisk2,
+              "prop. diff " = x$propdiff
             ), digits = 3, nsmall = 3))
           } else {
             m <- ftable(format(rbind(
@@ -1482,7 +1486,8 @@ print.Desc.table <- function(x, digits = NULL, ...) {
               "rel. risk (col1)  " = x$relrisk1,
               "rel. risk (col2)  " = x$relrisk2,
               "rel. risk (row1)  " = x$relrisk1r,
-              "rel. risk (row2)  " = x$relrisk2r
+              "rel. risk (row2)  " = x$relrisk2r,
+              "prop. diff        " = x$propdiff
             ), digits = 3, nsmall = 3))
           }
           attr(m, "col.vars")[[1]][1] <- "estimate"
