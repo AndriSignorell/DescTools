@@ -2510,6 +2510,13 @@ RevCode <- function (x, ...) {
 
 
 
+CutAge <- function(x, from=0, to=90, by=10, right=FALSE, ordered_result=TRUE, ...){
+  cut(d.pima$age, breaks = c(seq(from, to, by), Inf), 
+      right=right, ordered_result = ordered_result, ...)
+}
+
+
+
 
 NAIf <- function (x, what) {
   x[!is.na(match(x, what))] <- NA
