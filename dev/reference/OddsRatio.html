@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.53.6</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.54.2</span>
       </span>
     </div>
 
@@ -91,7 +91,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">OddsRatio</span><span class="op">(</span><span class="va">x</span>, conf.level <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for glm</span></span>
-<span><span class="fu">OddsRatio</span><span class="op">(</span><span class="va">x</span>, conf.level <span class="op">=</span> <span class="cn">NULL</span>, digits <span class="op">=</span> <span class="fl">3</span>, use.profile <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">OddsRatio</span><span class="op">(</span><span class="va">x</span>, conf.level <span class="op">=</span> <span class="cn">NULL</span>, digits <span class="op">=</span> <span class="fl">3</span>, use.profile <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for multinom</span></span>
 <span><span class="fu">OddsRatio</span><span class="op">(</span><span class="va">x</span>, conf.level <span class="op">=</span> <span class="cn">NULL</span>, digits <span class="op">=</span> <span class="fl">3</span>, <span class="va">...</span><span class="op">)</span></span>
@@ -144,14 +144,14 @@
     
 
 <p>If a \(2 \times 2\) table is provided the following table structure is preferred:</p><div class="sourceCode"><pre><code>
-                    disease=0   disease=1
-    exposed=0 (ref)    n00         n01
-    exposed=1          n10         n11
-  </code></pre></div><p>however, for odds ratios the following table is
-  equivalent:</p><div class="sourceCode"><pre><code>
                     disease=1   disease=0
     exposed=1          n11         n10
     exposed=0          n01         n00
+  </code></pre></div><p>however, for odds ratios the following table is
+  equivalent:</p><div class="sourceCode"><pre><code>
+                    disease=0   disease=1
+    exposed=0 (ref)    n00         n01
+    exposed=1          n10         n11
   </code></pre></div><p>If the table to be  provided to this function is not in the
   preferred form, the function <code><a href="Rev.html">Rev</a>()</code> can be used to "reverse" the table rows, resp.
   -columns. Reversing columns or rows (but not both) will lead to the inverse of the odds ratio.</p>
@@ -239,7 +239,6 @@
 <span class="r-in"><span><span class="co"># OddsRatio table for logistic regression models</span></span></span>
 <span class="r-in"><span><span class="va">r.glm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">type</span> <span class="op">~</span> <span class="va">.</span>, data<span class="op">=</span><span class="fu">MASS</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/MASS/man/Pima.tr.html" class="external-link">Pima.tr2</a></span>, family<span class="op">=</span><span class="va">binomial</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">OddsRatio</span><span class="op">(</span><span class="va">r.glm</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Waiting for profiling to be done...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> glm(formula = type ~ ., family = binomial, data = MASS::Pima.tr2)</span>
@@ -247,13 +246,13 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Odds Ratios:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                or or.lci or.uci Pr(&gt;|z|)    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept) 0.000  0.000  0.002 3.38e-08 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> npreg       1.109  0.978  1.263   0.1107    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> glu         1.033  1.020  1.047 2.22e-06 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> bp          0.995  0.959  1.032   0.7971    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> skin        0.998  0.957  1.045   0.9321    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> bmi         1.087  1.000  1.184   0.0509 .  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ped         6.174  1.728 23.681   0.0062 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> age         1.042  0.998  1.090   0.0623 .  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> npreg       1.109  0.977  1.259   0.1107    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> glu         1.033  1.019  1.046 2.22e-06 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> bp          0.995  0.960  1.032   0.7971    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> skin        0.998  0.955  1.043   0.9321    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> bmi         1.087  1.000  1.182   0.0509 .  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ped         6.174  1.675 22.755   0.0062 ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> age         1.042  0.998  1.088   0.0623 .  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -261,9 +260,9 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">OddsRatio</span><span class="op">(</span><span class="va">r.glm</span><span class="op">)</span>, xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">2</span><span class="op">)</span>, main<span class="op">=</span><span class="st">"OddsRatio - glm"</span>, pch<span class="op">=</span><span class="cn">NA</span>,</span></span>
-<span class="r-in"><span>     lblcolor<span class="op">=</span><span class="va">hred</span>, args.errbars<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col<span class="op">=</span><span class="va">horange</span>, pch<span class="op">=</span><span class="fl">21</span>, col.pch<span class="op">=</span><span class="va">hblue</span>,</span></span>
-<span class="r-in"><span>     bg.pch<span class="op">=</span><span class="va">hyellow</span>, cex.pch<span class="op">=</span><span class="fl">1.5</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Waiting for profiling to be done...</span>
+<span class="r-in"><span>     lblcolor<span class="op">=</span><span class="fu">DescTools</span><span class="fu">::</span><span class="va"><a href="Pal.html">hred</a></span>, args.errbars<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col<span class="op">=</span><span class="fu">DescTools</span><span class="fu">::</span><span class="va"><a href="Pal.html">horange</a></span>, pch<span class="op">=</span><span class="fl">21</span>, </span></span>
+<span class="r-in"><span>     col.pch<span class="op">=</span><span class="fu">DescTools</span><span class="fu">::</span><span class="va"><a href="Pal.html">hblue</a></span>,</span></span>
+<span class="r-in"><span>     bg.pch<span class="op">=</span><span class="fu">DescTools</span><span class="fu">::</span><span class="va"><a href="Pal.html">hyellow</a></span>, cex.pch<span class="op">=</span><span class="fl">1.5</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="OddsRatio-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
