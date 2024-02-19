@@ -3901,7 +3901,9 @@ PoissonCI <- function(x, n = 1, conf.level = 0.95, sides = c("two.sided","left",
 
 # Konfidenzintervall fuer den Median
 
-MedianCI <- function(x, conf.level=0.95, sides = c("two.sided","left","right"), na.rm=FALSE, method=c("exact","boot"), R=999) {
+MedianCI <- function(x, conf.level=0.95, sides = c("two.sided","left","right"), 
+                     na.rm=FALSE, method=c("exact","boot"), ...) {
+  
   if(na.rm) x <- na.omit(x)
 
   MedianCI_Binom <- function( x, conf.level = 0.95,
@@ -3936,6 +3938,45 @@ MedianCI <- function(x, conf.level=0.95, sides = c("two.sided","left","right"), 
     return(ci)
   }
   
+  MedianCI_Boot <- function(x, conf.level=0.95, sides = c("two.sided", "left", "right"), 
+                            na.rm=FALSE, ...){
+
+    if(sides!="two.sided")
+      conf.level <- 1 - 2*(1-conf.level)
+    
+    R <- DescTools::InDots(..., arg="R", default=999)
+    boot.med <- boot::boot(x, function(x, d) {
+      median(x[d], na.rm=na.rm)
+      # standard error for the median required for studentized bci type:
+      # not implemented here, as not suitable for this case.
+      # sqrt(pi/2) * MeanSE(x[d])
+      # mad(x[d], na.rm=na.rm) / sqrt(length(na.omit(x[d])))
+      
+    }, R=R)
+    
+    dots <- list(...)
+    if(is.null(dots[["type"]]))
+      dots$type <- "perc"
+    
+    if(dots$type %nin% c("norm","basic","perc","bca")){
+      warning(gettextf("bootstrap type '%s' is not supported", dots$type))
+      return( c(NA, NA))
+    }
+    
+    dots$boot.out <- boot.med
+    dots$conf <- conf.level
+    
+    res <- do.call(boot::boot.ci, dots)
+    
+    if(dots$type == "norm")
+      # uses different structure for results
+      res <- res[[4]][c(2,3)]
+    else
+      res <- res[[4]][c(4,5)]
+    
+    return(res)
+  }
+  
   
   
   sides <- match.arg(sides, choices = c("two.sided","left","right"), several.ok = FALSE)
@@ -3959,11 +4000,7 @@ MedianCI <- function(x, conf.level=0.95, sides = c("two.sided","left","right"), 
             r <- MedianCI_Binom(x, conf.level = conf.level, sides=sides)
           }
           , "boot" = {
-            if(sides!="two.sided")
-               conf.level <- 1 - 2*(1-conf.level)
-              
-              boot.med <- boot(x, function(x, d) median(x[d], na.rm=na.rm), R=R)
-              r <- boot.ci(boot.med, conf=conf.level, type="basic")[[4]][4:5]
+            r <- MedianCI_Boot(x, conf.level = conf.level, sides=sides, ...)
           } )
 
   med <- median(x, na.rm=na.rm)
@@ -4232,12 +4269,18 @@ MeanCIn <- function(ci, sd, interval=c(2, 1e5), conf.level=0.95, norm=FALSE,
   width <- diff(ci)/2
   alpha <- (1-conf.level)/2
   
-  if(norm)
-    uniroot(f = function(n) sd/sqrt(n) * qnorm(p = 1-alpha) - width, 
-            interval = interval, tol = tol)$root
-  else
-    uniroot(f = function(n) (qt(1-alpha, df=n-1) * sd / sqrt(n)) - width, 
-            interval = interval, tol = tol)$root
+  if(width > sd){
+    warning("Width of confidence intervall > 2*sd, samplesize n=1 is ok for that case.")
+    return(1)
+    
+  } else {
+    if(norm)
+      uniroot(f = function(n) sd/sqrt(n) * qnorm(p = 1-alpha) - width, 
+              interval = interval, tol = tol)$root
+    else
+      uniroot(f = function(n) (qt(1-alpha, df=n-1) * sd / sqrt(n)) - width, 
+              interval = interval, tol = tol)$root
+  }
 }
 
 
@@ -6689,7 +6732,7 @@ OddsRatio <- function (x, conf.level = NULL, ...) {
 
 
 
-OddsRatio.glm <- function(x, conf.level = NULL, digits=3, use.profile=TRUE, ...) {
+OddsRatio.glm <- function(x, conf.level = NULL, digits=3, use.profile=FALSE, ...) {
 
   if(is.null(conf.level)) conf.level <- 0.95
 

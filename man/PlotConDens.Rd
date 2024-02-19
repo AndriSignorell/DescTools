@@ -61,7 +61,7 @@ PlotConDens(formula, data, col = NULL, lwd = 2, lty = 1, xlim = NULL, rev = TRUE
 \examples{
 data(Pima.tr2, package="MASS")
 PlotConDens (type ~ age | I((npreg > 0)*1L), 
-             data=Pima.tr2, col=c(hblue, hred), rev=FALSE, 
+             data=Pima.tr2, col=c(DescTools::hblue, DescTools::hred), rev=FALSE, 
              panel.first=quote(grid()))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

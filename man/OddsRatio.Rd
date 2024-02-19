@@ -17,7 +17,7 @@
 \usage{
 OddsRatio(x, conf.level = NULL, ...)
 
-\method{OddsRatio}{glm}(x, conf.level = NULL, digits = 3, use.profile = TRUE, ...)
+\method{OddsRatio}{glm}(x, conf.level = NULL, digits = 3, use.profile = FALSE, ...)
 
 \method{OddsRatio}{multinom}(x, conf.level = NULL, digits = 3, ...)
 
@@ -58,16 +58,16 @@ OddsRatio(x, conf.level = NULL, ...)
 
   If a \eqn{2 \times 2}{2 x 2} table is provided the following table structure is preferred:
   \preformatted{
-                    disease=0   disease=1
-    exposed=0 (ref)    n00         n01
-    exposed=1          n10         n11
+                    disease=1   disease=0
+    exposed=1          n11         n10
+    exposed=0          n01         n00
   }
   however, for odds ratios the following table is
   equivalent:
   \preformatted{
-                    disease=1   disease=0
-    exposed=1          n11         n10
-    exposed=0          n01         n00
+                    disease=0   disease=1
+    exposed=0 (ref)    n00         n01
+    exposed=1          n10         n11
   }
   If the table to be  provided to this function is not in the
   preferred form, the function \code{\link{Rev}()} can be used to "reverse" the table rows, resp.
@@ -149,8 +149,9 @@ r.glm <- glm(type ~ ., data=MASS::Pima.tr2, family=binomial)
 OddsRatio(r.glm)
 
 plot(OddsRatio(r.glm), xlim=c(0.5, 2), main="OddsRatio - glm", pch=NA,
-     lblcolor=hred, args.errbars=list(col=horange, pch=21, col.pch=hblue,
-     bg.pch=hyellow, cex.pch=1.5))
+     lblcolor=DescTools::hred, args.errbars=list(col=DescTools::horange, pch=21, 
+     col.pch=DescTools::hblue,
+     bg.pch=DescTools::hyellow, cex.pch=1.5))
 }
 
 \keyword{models}

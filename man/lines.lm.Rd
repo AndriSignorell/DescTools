@@ -84,14 +84,14 @@ lines(r.lm, col="red", pred.level=0.95, args.pband=list(col=SetAlpha("grey",0.3)
 
 # works with transformations too
 plot(dist ~ sqrt(speed), cars)
-lines(lm(dist ~ sqrt(speed), cars), col=hred)
+lines(lm(dist ~ sqrt(speed), cars), col=DescTools::hred)
 
 plot(dist ~ log(speed), cars)
-lines(lm(dist ~ log(speed), cars), col=hred)
+lines(lm(dist ~ log(speed), cars), col=DescTools::hred)
 
 # and with more specific variables based on only one predictor
 plot(dist ~ speed, cars)
-lines(lm(dist ~ poly(speed, degree=2), cars), col=hred)
+lines(lm(dist ~ poly(speed, degree=2), cars), col=DescTools::hred)
 
 par(opar)
 }

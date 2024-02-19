@@ -71,21 +71,22 @@ PlotProbDist(breaks=c(-6, -2.3, 1.5, 6),
              function(x) dt(x, df=8), 
              blab=c("A","B"), xlim=c(-4,4), alab=NA,
              main="t-Distribution (df=8)",
-             col=c(hred, hblue, horange), density=c(20, 7))
+             col=c(DescTools::hred, DescTools::hblue, DescTools::horange), 
+             density=c(20, 7))
 
 # Normal
 PlotProbDist(breaks=c(-10, -1, 12), 
              function(x) dnorm(x, mean=2, sd=2), 
              blab="A", xlim=c(-7,10),
              main="Normal-Distribution N(2,2)",
-             col=c(hred, hblue), density=c(20, 7))
+             col=c(DescTools::hred, DescTools::hblue), density=c(20, 7))
 
 # same for Chi-square
 PlotProbDist(breaks=c(0, 15, 35), 
              function(x) dchisq(x, df=8), 
              blab="B", xlim=c(0, 30),
              main=expression(paste(chi^2-Distribution, " (df=8)")),
-             col=c(hblue, hred), density=c(0, 20))
+             col=c(DescTools::hblue, DescTools::hred), density=c(0, 20))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory (show via RShowDoc("KEYWORDS")):

@@ -126,9 +126,10 @@ PlotDot(x, gdata = tapply(d.pizza$temperature, d.pizza$driver, mean, na.rm=TRUE)
 # special format
 par(lend=1)
 
-PlotDot(VADeaths, main="Death Rates in Virginia - 1940", pch="|", lcolor = hecru, col=hred,
+PlotDot(VADeaths, main="Death Rates in Virginia - 1940", pch="|", 
+        lcolor = DescTools::hecru, col=DescTools::hred,
         args.errbars = list(from=VADeaths-2, to=VADeaths+2, mid=VADeaths,
-                            cex=1.3, lwd=8, code=0, col=hgreen))
+                            cex=1.3, lwd=8, code=0, col=DescTools::hgreen))
 
 # Error bars for binomial confidence intervals
 tab <- table(d.pizza$driver, d.pizza$wine_delivered)

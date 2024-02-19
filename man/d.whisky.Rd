@@ -41,7 +41,8 @@ head(d.whisky)
 
 opar <- par(mfrow=c(3,3), cex.main=1.8)
 for(i in 1:9)
-  PlotPolar(d.whisky[i, 4:15], rlim=4, type="l", col=hecru, lwd=2, fill=SetAlpha(hecru, 0.4),
+  PlotPolar(d.whisky[i, 4:15], rlim=4, type="l", col=DescTools::hecru, 
+            lwd=2, fill=SetAlpha(DescTools::hecru, 0.4),
             panel.first=PolarGrid(
               ntheta=ncol(d.whisky[i, 2:13]), nr = NA, col="grey",
               lty="dotted", las=1, cex=1.4, alabels=StrCap(colnames(d.whisky[i, 3:14])),

@@ -10,7 +10,8 @@ in proportion to the correlation of two variables. It will place the elements ho
 connecting lines between the points.
 }
 \usage{
-PlotWeb(m, col = c(hred, hblue), lty = NULL, lwd = NULL, args.legend=NULL,
+PlotWeb(m, col = c(DescTools::hred, DescTools::hblue), lty = NULL, 
+        lwd = NULL, args.legend=NULL,
         pch = 21, pt.cex = 2, pt.col = "black", pt.bg = "darkgrey",
         cex.lab = 1, las = 1, adj = NULL, dist = 0.5, ...)
 }
@@ -69,7 +70,7 @@ A list of x and y coordinates, giving the coordinates of all the points drawn, u
 \examples{
 m <- cor(d.pizza[, which(sapply(d.pizza, IsNumeric, na.rm=TRUE))[-c(1:2)]],
          use="pairwise.complete.obs")
-PlotWeb(m=m, col=c(hred, hblue), main="Pizza Correlation")
+PlotWeb(m=m, col=c(DescTools::hred, DescTools::hblue), main="Pizza Correlation")
 
 
 # let's describe only the significant corrs and start with a dataset

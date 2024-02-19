@@ -80,10 +80,11 @@ Canvas(xlim = c(-5,5), xpd=TRUE)
 cols <- Pal("Helsana")[1:4]
 
 # Draw ring
-DrawCircle (r.in = 1, r.out = 5, border="darkgrey", col=SetAlpha(hyellow, 0.2), lwd=2)
+DrawCircle (r.in = 1, r.out = 5, border="darkgrey", 
+            col=SetAlpha(DescTools::hyellow, 0.2), lwd=2)
 
 # Draw circle
-DrawCircle (r.in = 6, border=hgreen, lwd=3)
+DrawCircle (r.in = 6, border=DescTools::hgreen, lwd=3)
 
 # Draw sectors
 geom <- rbind(c(-pi, 0, .25, .5), c(0, pi, 1, 2),

@@ -12744,7 +12744,7 @@ print.CountCompCases <- function(x, digits=1, ...){
 
 
 
-PlotMiss <- function(x, col = hred, bg=SetAlpha(hecru, 0.3), clust=FALSE,
+PlotMiss <- function(x, col = DescTools::hred, bg=SetAlpha(DescTools::hecru, 0.3), clust=FALSE,
                      main = NULL, ...){
 
   x <- as.data.frame(x)
@@ -13020,7 +13020,8 @@ PlotCirc <- function(tab, acol = rainbow(sum(dim(tab))), aborder = "darkgrey",
 ## plots: PlotWeb ====
 
 
-PlotWeb <- function(m, col=c(hred, hblue), lty=NULL, lwd = NULL, args.legend=NULL, pch=21, pt.cex=2,
+PlotWeb <- function(m, col=c(DescTools::hred, DescTools::hblue), lty=NULL, 
+                    lwd = NULL, args.legend=NULL, pch=21, pt.cex=2,
                     pt.col="black", pt.bg="darkgrey", cex.lab = 1.0,
                     las = 1, adj = NULL, dist = 0.5, ... ){
 
@@ -13831,7 +13832,7 @@ PlotPairs <- function(x, g=NULL, col=1, pch=19, col.smooth=1, main="",
   panel.hist <- function(x, ...) { 
     b <- hist(x, plot=FALSE) 
     par(usr = c(par("usr")[1:2], 0, max(pretty(b$density))*1.3)) 
-    hist(x, prob=TRUE, add=TRUE, col=SetAlpha(hecru, 0.6), border=hecru) 
+    hist(x, prob=TRUE, add=TRUE, col=SetAlpha(DescTools::hecru, 0.6), border=hecru) 
   }
   
   
@@ -14996,7 +14997,7 @@ ToWrd.ftable <- function (x, font = NULL, main = NULL, align=NULL, method = "com
 
 
 ToWrd.table <- function (x, font = NULL, main = NULL, align=NULL, tablestyle=NULL, autofit = TRUE,
-                              row.names=FALSE, col.names=TRUE, ..., wrd = DescToolsOptions("lastWord")) {
+                              row.names=TRUE, col.names=TRUE, ..., wrd = DescToolsOptions("lastWord")) {
 
 
   x[] <- as.character(x)

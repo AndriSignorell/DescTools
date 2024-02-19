@@ -827,7 +827,7 @@ calcDesc.table <- function(x, n, conf.level = 0.95, verbose, rfrq, margins,
       RelRisk(Rev(x, margin = 2), conf.level = conf.level, method = "wald", delta = 0)
     },
     propdiff = if (ttype == "t2x2") {
-      BinomDiffCI(x[1,1], sum(x[1,]), x[2,1], sum(x[2,]), conf.level = conf.level, method = "mn")
+      BinomDiffCI(x[1,1], sum(x[1,]), x[2,1], sum(x[2,]), conf.level = conf.level, method = "mn")[1,]
     },
     relrisk1r = if (ttype == "t2x2") {
       RelRisk(t(x), conf.level = conf.level, method = "wald", delta = 0)
@@ -2654,7 +2654,9 @@ plot.Desc.factnum <- function(x, main = NULL, col = NULL,
   if (!is.null(DescToolsOptions("stamp"))) {
     Stamp()
   }
-
+  
+  layout(matrix(1))           # reset layout on exit
+  
   invisible()
 }
 

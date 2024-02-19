@@ -24,7 +24,7 @@ ToWrd(x, font = NULL, ..., wrd = DescToolsOptions("lastWord"))
 
 \method{ToWrd}{table}(x, font = NULL, main = NULL, align = NULL,
       tablestyle = NULL, autofit = TRUE,
-      row.names = FALSE, col.names = TRUE, ..., wrd = DescToolsOptions("lastWord"))
+      row.names = TRUE, col.names = TRUE, ..., wrd = DescToolsOptions("lastWord"))
 
 \method{ToWrd}{data.frame}(x, font = NULL, main = NULL, row.names = NULL, ...,
       wrd = DescToolsOptions("lastWord"))

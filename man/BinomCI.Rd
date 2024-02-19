@@ -2,8 +2,7 @@
 \alias{BinomCI}
 \title{ Confidence Intervals for Binomial Proportions }
 \description{
-Compute confidence intervals for binomial proportions following the most popular methods.\cr
-(Wald, Wilson, Agresti-Coull, Jeffreys, Clopper-Pearson etc.)
+Compute confidence intervals for binomial proportions according to a number of the most common proposed methods.
 }
 \usage{
 BinomCI(x, n, conf.level = 0.95, sides = c("two.sided", "left", "right"),
@@ -22,9 +21,9 @@ BinomCI(x, n, conf.level = 0.95, sides = c("two.sided", "left", "right"),
 \code{"greater"} in a \code{t.test}.}
 
   \item{method}{ character string specifing which method to use; this can be one out of:
-  \code{"wald"}, \code{"wilson"}, \code{"wilsoncc"}, \code{"agresti-coull"}, \code{"jeffreys"},
+  \code{"wald"}, \code{"wilson"} (default), \code{"wilsoncc"}, \code{"agresti-coull"}, \code{"jeffreys"},
   \code{"modified wilson"}, \code{"modified jeffreys"}, \code{"clopper-pearson"},
-  \code{"arcsine"}, \code{"logit"}, \code{"witting"}, \code{"pratt"}, \code{"midp"}, \code{"lik"} and \code{"blaker"}. Defaults to \code{"wilson"}.
+  \code{"arcsine"}, \code{"logit"}, \code{"witting"}, \code{"pratt"}, \code{"midp"}, \code{"lik"} and \code{"blaker"}. 
   Abbreviation of method is accepted. See details. }
   
   \item{rand}{ seed for random number generator; see details. }
@@ -40,10 +39,14 @@ BinomCI(x, n, conf.level = 0.95, sides = c("two.sided", "left", "right"),
 
   The \bold{Wald with continuity correction } interval is obtained by adding the term 1/(2*n) to the Wald interval.
 
-  The \bold{Wilson} interval, which is the default, was introduced by Wilson (1927) and is
-  the inversion of the CLT approximation to the family of equal tail tests of p = p0.
+  The \bold{Wilson} interval, which here is the default method, was introduced by Wilson (1927) and is the inversion of the CLT approximation to the family of equal tail tests of p = p0.
   The Wilson interval is recommended by Agresti and Coull (1998) as well as by
-  Brown et al (2001).
+  Brown et al (2001). It is also returned as \code{conf.int} from the function \code{\link{prop.test}} with the \code{correct} option set to \code{FALSE}.
+
+  The \bold{Wilson cc} interval is a modification of the Wilson interval adding a continuity correction term. This is returned as \code{conf.int} from the function \code{\link{prop.test}} with the \code{correct} option set to \code{TRUE}.
+
+  The \bold{modified Wilson} interval is a modification of the Wilson interval for x close to 0
+  or n as proposed by Brown et al (2001).
 
   The \bold{Agresti-Coull} interval was proposed by Agresti and Coull (1998) and is a slight
   modification of the Wilson interval. The Agresti-Coull intervals are never shorter
@@ -51,11 +54,6 @@ BinomCI(x, n, conf.level = 0.95, sides = c("two.sided", "left", "right"),
 
   The \bold{Jeffreys} interval is an implementation of the equal-tailed Jeffreys prior interval
   as given in Brown et al (2001).
-
-  The \bold{modified Wilson} interval is a modification of the Wilson interval for x close to 0
-  or n as proposed by Brown et al (2001).
-
-  The \bold{Wilson cc} interval is a modification of the Wilson interval adding a continuity correction term.
 
   The \bold{modified Jeffreys} interval is a modification of the Jeffreys interval for
   \code{x == 0 | x == 1} and \code{x == n-1 | x == n} as proposed by
@@ -99,7 +97,7 @@ For more details we refer to Brown et al (2001) as well as Witting (1985).
 
 Some approaches for the confidence intervals are capable of violating the [0, 1] boundaries and potentially yield negative results or values beyond 1. These would be truncated such as not to exceed the valid range of [0, 1].
 
-And now, which interval should we use? The Wald interval often has inadequate coverage, particularly for small n and values of p close to 0 or 1. Conversely, the Clopper-Pearson Exact method is very conservative and tends to produce wider intervals than necessary. Brown et al. recommends the Wilson or Jeffreys methods for small n and Agresti-Coull, Wilson, or Jeffreys, for larger n as providing more reliable coverage than the alternatives. 
+So now, which interval should we use? The Wald interval often has inadequate coverage, particularly for small n and values of p close to 0 or 1. Conversely, the Clopper-Pearson Exact method is very conservative and tends to produce wider intervals than necessary. Brown et al. recommends the Wilson or Jeffreys methods for small n and Agresti-Coull, Wilson, or Jeffreys, for larger n as providing more reliable coverage than the alternatives. 
 
 For the methods \code{"wilson"}, \code{"wilsoncc"}, \code{"modified wilson"}, \code{"agresti-coull"} and \code{"arcsine"} the internally used alternative point estimator for the proportion value can be returned (by setting \code{std_est = FALSE}). The point estimate typically is slightly shifted towards 0.5 compared to the standard estimator. See the literature for the more details.
 
@@ -145,6 +143,10 @@ Andri Signorell <andri@signorell.net> (interface issues and all the rest) }
 BinomCI(x=37, n=43, 
         method=eval(formals(BinomCI)$method))   # return all methods
 
+prop.test(x=37, n=43, correct=FALSE) # same as method wilson
+prop.test(x=37, n=43, correct=TRUE)  # same as method wilsoncc
+
+
 # the confidence interval computed by binom.test
 #   corresponds to the Clopper-Pearson interval
 BinomCI(x=42, n=43, method="clopper-pearson")
@@ -156,14 +158,14 @@ BinomCI(x=c(42, 35, 23, 22), n=43, method="wilson")
 BinomCI(x=c(42, 35, 23, 22), n=c(50, 60, 70, 80), method="jeffreys")
 
 # example Table I in Newcombe (1998)
-do.call(cbind, lapply(1:4, 
-  function(i){
-    Format(BinomCI(x      = c(81, 15, 0, 1)[i], 
-                   n      = c(263, 148, 20, 29)[i], 
-                   method = c("wald", "waldcc", "wilson","wilsoncc", 
-                              "clopper-pearson", "midp", "lik"))[, -1], 
-           digits=4)
-}))
+meths <- c("wald", "waldcc", "wilson", "wilsoncc",
+           "clopper-pearson","midp", "lik")
+round(cbind(
+  BinomCI(81, 263, m=meths)[, -1],
+  BinomCI(15, 148, m=meths)[, -1],
+  BinomCI(0, 20, m=meths)[, -1],
+  BinomCI(1, 29, m=meths)[, -1]), 4)
+
 
 # returning p.tilde for agresti-coull ci
 BinomCI(x=81, n=263, meth="agresti-coull", std_est = c(TRUE, FALSE))

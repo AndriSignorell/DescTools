@@ -57,7 +57,7 @@ curve(dt(x, df=5), xlim=c(-6,6),
       type="n", las=1, ylab="probability", xlab="t")
 
 Shade(dt(x, df=5), breaks=c(-6, qt(0.025, df=5), qt(0.975, df=5), 6),
-      col=c(hred, hblue), density=c(20, 7))
+      col=c(DescTools::hred, DescTools::hblue), density=c(20, 7))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

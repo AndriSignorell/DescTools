@@ -116,7 +116,7 @@ or.c <- OddsRatio(r.c)
 tm <- TMod(m_A=or.a, m_B=or.b, m_C=or.c)
 # .. and plotit
 plot(tm, main="ORs for Models A, B, C", intercept=FALSE,
-     pch=15, col=c(hred, hblue, horange), 
+     pch=15, col=c(DescTools::hred, DescTools::hblue, DescTools::horange), 
      panel.first=abline(v=1, col="grey30"))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

@@ -8,8 +8,8 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-PlotMiss(x, col = hred, bg = SetAlpha(hecru, 0.3), clust = FALSE,
-         main = NULL, ...)
+PlotMiss(x, col = DescTools::hred, bg = SetAlpha(DescTools::hecru, 0.3), 
+         clust = FALSE, main = NULL, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

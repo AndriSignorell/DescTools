@@ -66,12 +66,12 @@ b <- barplot(x)
 BarText(x, b, x)
 
 # more complicated
-b <- barplot(VADeaths, horiz = FALSE, col=hblue, beside = TRUE)
+b <- barplot(VADeaths, horiz = FALSE, col=DescTools::hblue, beside = TRUE)
 BarText(VADeaths, b=b, horiz = FALSE, beside = TRUE, cex=0.8)
 BarText(VADeaths, b=b, horiz = FALSE, beside = TRUE, cex=0.8, pos="bottomin",
         col="white", font=2)
 
-b <- barplot(VADeaths, horiz = TRUE, col=hblue, beside = TRUE)
+b <- barplot(VADeaths, horiz = TRUE, col=DescTools::hblue, beside = TRUE)
 BarText(VADeaths, b=b, horiz = TRUE, beside = TRUE, cex=0.8)
 
 b <- barplot(VADeaths)

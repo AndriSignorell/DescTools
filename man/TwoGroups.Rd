@@ -71,7 +71,7 @@ x <- d.pizza$temperature
 g <- factor(d.pizza$rabate)
 
 # we can change the colors for the plot by setting the DescToolsOptions
-DescToolsOptions(col=c(horange, hgreen))
+DescToolsOptions(col=c(DescTools::horange, DescTools::hgreen))
 TwoGroups(x, g, main="Temperature ~ Rebate")
 
 # for an output to Word simply define the wrd argument

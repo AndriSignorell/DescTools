@@ -123,10 +123,11 @@ sapply(1:3, function(a) PlotFun(sin(a*x) ~ x,
                                 args=list(a=a), from=0, to=2*pi, by=0.01,
                                 add=(a!=1), col=a))
 
-PlotFun(sin(3*x) ~ x, polar=TRUE, from=0, to=pi, by=0.001, col=hred, lwd=2)
+PlotFun(sin(3*x) ~ x, polar=TRUE, from=0, to=pi, by=0.001, col=DescTools::hred, lwd=2)
 
 
-PlotFun(1 + 1/10 * sin(10*x) ~ x, polar=TRUE, from=0, to=2*pi, by=0.001, col=hred)
+PlotFun(1 + 1/10 * sin(10*x) ~ x, polar=TRUE, from=0, to=2*pi, by=0.001, 
+        col=DescTools::hred)
 PlotFun(sin(x) ~ cos(x), polar=FALSE, from=0, to=2*pi, by=0.01, add=TRUE, col="blue")
 
 }

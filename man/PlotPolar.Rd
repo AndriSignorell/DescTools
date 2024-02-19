@@ -166,13 +166,14 @@ segments(y0=-10, y1=10, x0 = 0)
 BoxedText(x=0, y=c(0,3,6,9), labels = c(0,3,6,9), xpad = .3, ypad=.3, border="grey35")
 
 # USJudgeRatings
-PlotPolar(USJudgeRatings[1,], type="l", col=hblue, lwd=2, cex=0.8, #fill=SetAlpha("blue", 0.4),
+PlotPolar(USJudgeRatings[1,], type="l", col=DescTools::hblue, lwd=2, cex=0.8, 
           panel.first=PolarGrid(ntheta=ncol(USJudgeRatings), col="grey", lty="solid",
                                 las=1, alabels=colnames(USJudgeRatings), lblradians=TRUE))
-PlotPolar(USJudgeRatings[2,], type="l", col=hred, lwd=2, add=TRUE)
-PlotPolar(USJudgeRatings[5,], type="l", col=horange, lwd=2, add=TRUE)
+PlotPolar(USJudgeRatings[2,], type="l", col=DescTools::hred, lwd=2, add=TRUE)
+PlotPolar(USJudgeRatings[5,], type="l", col=DescTools::horange, lwd=2, add=TRUE)
 
-legend(x="topright", inset=-0.18, col = c(hblue,hred,horange), lwd=2,
+legend(x="topright", inset=-0.18, 
+       col = c(DescTools::hblue, DescTools::hred, DescTools::horange), lwd=2,
        legend=rownames(USJudgeRatings)[c(1, 2, 5)])
 
 }

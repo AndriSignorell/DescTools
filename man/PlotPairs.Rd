@@ -46,7 +46,8 @@ PlotPairs(x, g = NULL, col = 1, pch = 19, col.smooth = 1, main = "",
 }
 \examples{
 PlotPairs(iris[1:4], g=iris$Species, main = "Anderson's Iris Data -- 3 species",
-          col=c(hred, hblue, hgreen), col.smooth=c("black", hred, hblue, hgreen))
+          col=c(DescTools::hred, DescTools::hblue, DescTools::hgreen), 
+          col.smooth=c("black", DescTools::hred, DescTools::hblue, DescTools::hgreen))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

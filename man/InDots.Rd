@@ -21,4 +21,14 @@ InDots(..., arg, default)
 }
 \author{Andri Signorell <andri@signorell.net>}
 
+\examples{
+# Function returns the argument A, if supplied or 999
+foobar <-  function(...){
+  DescTools::InDots(..., arg="A", default=99)  
+}    
+
+foobar(A=5)
+foobar(B=5, C=8)
+}
+
 \keyword{ manip }
