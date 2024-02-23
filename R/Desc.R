@@ -2355,7 +2355,7 @@ plot.Desc.xtabs <- function(x, main = NULL, col1 = NULL, col2 = NULL,
 
 plot.Desc.factfact <- function(x, main = NULL, col1 = NULL, col2 = NULL,
                                horiz = TRUE, ...) {
-  plot.Desc.table(x, main = main, col1 = col1, col2 = col2, horiz = horiz)
+  plot.Desc.table(x, main = main, col1 = col1, col2 = col2, horiz = horiz, ...)
 }
 
 # plot.Desc.numfact <- function(x, main=NULL, notch=FALSE, add_ni = TRUE,
