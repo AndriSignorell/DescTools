@@ -1472,7 +1472,8 @@ calcDesc.bivar <- function(x, g, xname = NULL, gname = NULL,
 
 
 
-
+#' @rdname Desc
+#' @export
 print.Desc <- function(x, digits = NULL, plotit = NULL, nolabel = FALSE,
                        sep = NULL, nomain = FALSE, ...) {
   .print <- function(x, digits = NULL, plotit = NULL, nomain = FALSE, ...) {
@@ -2240,7 +2241,8 @@ print.Desc.factnum <- function(x, digits = NULL, ...) {
 
 
 
-
+#' @rdname Desc
+#' @export
 plot.Desc <- function(x, main = NULL, ...) {
   plot.Desc.z <- function(z, main = main, ...) {
     if (any(z$class %in% c(
