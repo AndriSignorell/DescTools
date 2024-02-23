@@ -155,6 +155,18 @@ Desc(x, ..., main = NULL, plotit = NULL, wrd = NULL)
   ...
 )
 
+\method{print}{Desc}(
+  x,
+  digits = NULL,
+  plotit = NULL,
+  nolabel = FALSE,
+  sep = NULL,
+  nomain = FALSE,
+  ...
+)
+
+\method{plot}{Desc}(x, main = NULL, ...)
+
 \method{Desc}{palette}(x, ...)
 }
 \arguments{
