@@ -2267,13 +2267,15 @@ plot.Desc.xtabs <- function(x, main = NULL, col1 = NULL, col2 = NULL,
 
 
 plot.Desc.table <- function(x, main = NULL, col1 = NULL, col2 = NULL,
-                            horiz = TRUE, ...) {
+                            horiz = TRUE, ..., xlab = NULL, ylab = NULL) {
   opt <- DescToolsOptions(stamp = NULL)
 
   oldpar <- par(no.readonly = TRUE)
   on.exit(par(oldpar))
 
   if (is.null(main)) main <- x$main
+  if (is.null(xlab)) xlab <- Coalesce(names(dimnames(x$tab))[2], "x")
+  if (is.null(ylab)) ylab <- Coalesce(names(dimnames(x$tab))[1], "y")
 
   if (length(dim(x$tab)) == 1) {
     #    maxrows <- InDots(..., arg="maxrows", default = 12)
@@ -2319,14 +2321,8 @@ plot.Desc.table <- function(x, main = NULL, col1 = NULL, col2 = NULL,
     PlotMosaic(x$tab, main = NA, xlab = NA, ylab = NA, horiz = TRUE, cols = col1)
     PlotMosaic(x$tab, main = NA, xlab = NA, ylab = NA, horiz = FALSE, cols = col2)
 
-    title(
-      xlab = Coalesce(names(dimnames(x$tab))[2], "x"),
-      outer = TRUE, line = -1, font = 2
-    )
-    title(
-      ylab = Coalesce(names(dimnames(x$tab))[1], "y"),
-      outer = TRUE, line = 0, font = 2
-    )
+    title(xlab = xlab, outer = TRUE, line = -1, font = 2)
+    title(ylab = ylab, outer = TRUE, line = 0, font = 2)
   }
 
   if (!is.na(main) && (length(dim(x$tab)) == 2)) title(main, outer = TRUE)
@@ -2355,7 +2351,7 @@ plot.Desc.xtabs <- function(x, main = NULL, col1 = NULL, col2 = NULL,
 
 plot.Desc.factfact <- function(x, main = NULL, col1 = NULL, col2 = NULL,
                                horiz = TRUE, ...) {
-  plot.Desc.table(x, main = main, col1 = col1, col2 = col2, horiz = horiz)
+  plot.Desc.table(x, main = main, col1 = col1, col2 = col2, horiz = horiz, ...)
 }
 
 # plot.Desc.numfact <- function(x, main=NULL, notch=FALSE, add_ni = TRUE,
