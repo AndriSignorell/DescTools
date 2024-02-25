@@ -12,11 +12,9 @@
 
 # some aliases
 
-
-
-NormWeights <- function(x, weights, na.rm=FALSE, zero.rm=FALSE, normwt=FALSE) {
+# internal function, no use to export it.. (?)
+.NormWeights <- function(x, weights, na.rm=FALSE, zero.rm=FALSE, normwt=FALSE) {
   
-
   # Idea Henrik Bengtsson
   # we remove values with zero (and negative) weight. 
   # This would:
@@ -62,83 +60,6 @@ NormWeights <- function(x, weights, na.rm=FALSE, zero.rm=FALSE, normwt=FALSE) {
 
 
 
-Mean <- function (x, ...)
-  UseMethod("Mean")
-
-
-Mean.Freq <- function(x, breaks, ...)  {
-  sum(head(MoveAvg(breaks, order=2, align="left"), -1) * x$perc)
-}
-
-
-
-Mean.default <- function (x, weights = NULL, trim = 0, na.rm = FALSE, ...) {
-
-  if(is.null(weights)) {
-    # use mean here instead of mean.default in order to be able to handle
-    # mean.Date, mean.POSIXct etc.
-    mean(x, trim, na.rm, ...)
-
-  } else {
-    if(trim!=0)
-      warning("trim can't be set together with weights, we fall back to trim=0!")
-
-    # # verbatim from stats:::weighted.mean.default
-    # 
-    # if (length(weights) != length(x))
-    #   stop("'x' and 'w' must have the same length")
-    # weights <- as.double(weights)
-    # if (na.rm) {
-    #   i <- !is.na(x)
-    #   weights <- weights[i]
-    #   x <- x[i]
-    # }
-    # sum((x * weights)[weights != 0])/sum(weights)
-    
-    # use a standard treatment for weights
-    z <- NormWeights(x, weights, na.rm=na.rm, zero.rm=TRUE)
-    
-    # we get no 0-weights back here...
-    sum(z$x * z$weights) / z$wsum
-    
-  }
-
-}
-
-
-
-
-# Average absolute deviation from the mean
-MeanAD <- function (x, weights=NULL, center = Mean, na.rm = FALSE) {
-  
-  # MeanAD_w(x=0:6, w=c(21,46,54,40,24,10,5))
-  
-  if (na.rm) 
-    x <- na.omit(x)
-  
-  
-  if (is.function(center)) {
-    fct <- center
-    center <- "fct"
-    if(is.null(weights))
-      center <- gettextf("%s(x)", center)
-    else
-      center <- gettextf("%s(x, weights=weights)", center)
-    center <- eval(parse(text = center))
-  }
-  
-  if(!is.null(weights)) {
-    z <- NormWeights(x, weights, na.rm=na.rm, zero.rm=TRUE)
-    res <- sum(abs(z$x - center) * z$weights) / z$wsum
-    
-  } else {
-    # Calculates the mean absolute deviation from the sample mean.
-    res <- mean(abs(x - center))
-  }
-  
-  return(res)
-  
-}  
 
 
 
@@ -158,7 +79,7 @@ MAD <- function(x, weights = NULL, center = Median, constant = 1.4826, na.rm = F
   }
   
   if(!is.null(weights)) {
-    z <- NormWeights(x, weights, na.rm=na.rm, zero.rm=TRUE)
+    z <- .NormWeights(x, weights, na.rm=na.rm, zero.rm=TRUE)
     
     res <- constant *  Median(abs(z$x - center), weights = z$weights)
     
@@ -263,7 +184,7 @@ Var.default <- function (x, weights = NULL, na.rm = FALSE, method = c("unbiased"
     res <- var(x=x, na.rm=na.rm)
     
   } else {
-    z <- NormWeights(x, weights, na.rm=na.rm, zero.rm=TRUE)
+    z <- .NormWeights(x, weights, na.rm=na.rm, zero.rm=TRUE)
 
     if (match.arg(method) == "ML")
       return(as.numeric(stats::cov.wt(cbind(z$x), z$weights, method = "ML")$cov))
@@ -396,44 +317,6 @@ Range <- function(x, trim=NULL, robust=FALSE, na.rm = FALSE, ...){
 
 
 
-# ------------------------------------------
-# Authors: Andreas Alfons and Matthias Templ
-#          Vienna University of Technology
-# ------------------------------------------
-
-#' Weighted median
-#'
-#' Compute the weighted median (Eurostat definition).
-#'
-#' The implementation strictly follows the Eurostat definition.
-#'
-#' @param x a numeric vector.
-#' @param weights an optional numeric vector giving the sample weights.
-#' @param sorted a logical indicating whether the observations in \code{x} are
-#' already sorted.
-#' @param na.rm a logical indicating whether missing values in \code{x} should
-#' be omitted.
-#' @return The weighted median of values in \code{x} is returned.
-#'
-#' @author Andreas Alfons and Matthias Templ
-#'
-#' @seealso \code{\link{arpt}}, \code{\link{incMedian}},
-#' \code{\link{weightedQuantile}}
-#'
-#' @references Working group on Statistics on Income and Living Conditions
-#' (2004) Common cross-sectional EU indicators based on EU-SILC; the gender pay
-#' gap.  \emph{EU-SILC 131-rev/04}, Eurostat.
-#'
-#' @keywords survey
-#'
-#' @examples
-#' data(eusilc)
-#' weightedMedian(eusilc$eqIncome, eusilc$rb050)
-#'
-#' @export
-
-
-
 Median <- function(x, ...)
   UseMethod("Median")
 
@@ -471,8 +354,6 @@ Median.factor <- function(x, na.rm = FALSE, ...) {
 
 
 
-
-
 Median.Freq <- function(x, breaks, ...)  {
 
   mi <- min(which(x$cumperc > 0.5))
@@ -482,46 +363,6 @@ Median.Freq <- function(x, breaks, ...)  {
 }
 
 
-
-
-# ------------------------------------------
-# Authors: Andreas Alfons and Matthias Templ
-#          Vienna University of Technology
-# ------------------------------------------
-
-#' Weighted quantiles
-#'
-#' Compute weighted quantiles (Eurostat definition).
-#'
-#' The implementation strictly follows the Eurostat definition.
-#'
-#' @param x a numeric vector.
-#' @param weights an optional numeric vector giving the sample weights.
-#' @param probs numeric vector of probabilities with values in \eqn{[0,1]}.
-#' @param sorted a logical indicating whether the observations in \code{x} are
-#' already sorted.
-#' @param na.rm a logical indicating whether missing values in \code{x} should
-#' be omitted.
-#'
-#' @return A numeric vector containing the weighted quantiles of values in
-#' \code{x} at probabilities \code{probs} is returned.  Unlike
-#' \code{\link[stats]{quantile}}, this returns an unnamed vector.
-#'
-#' @author Andreas Alfons and Matthias Templ
-#'
-#' @seealso \code{\link{incQuintile}}, \code{\link{weightedMedian}}
-#'
-#' @references Working group on Statistics on Income and Living Conditions
-#' (2004) Common cross-sectional EU indicators based on EU-SILC; the gender pay
-#' gap.  \emph{EU-SILC 131-rev/04}, Eurostat.
-#'
-#' @keywords survey
-#'
-#' @examples
-#' data(eusilc)
-#' weightedQuantile(eusilc$eqIncome, eusilc$rb050)
-#'
-#' @export
 
 
 # further weighted quantiles in Hmisc and modi, both on CRAN
@@ -1714,13 +1555,16 @@ Skew <- function (x, weights=NULL, na.rm = FALSE, method = 3, conf.level = NA, c
     # method 1: older textbooks
     if(!is.null(weights)){
       # use a standard treatment for weights
-      z <- NormWeights(x, weights, na.rm=na.rm, zero.rm=TRUE)
-      r.skew <- .Call("rskeww", as.numeric(z$x), as.numeric(Mean(z$x, weights = z$weights)), as.numeric(z$weights), PACKAGE="DescTools")
+      z <- .NormWeights(x, weights, na.rm=na.rm, zero.rm=TRUE)
+      r.skew <- .Call("rskeww", 
+                      as.numeric(z$x), as.numeric(Mean(z$x, weights = z$weights)), 
+                      as.numeric(z$weights), PACKAGE="DescTools")
       n <- z$wsum
       
     } else {
       if (na.rm) x <- na.omit(x)
-      r.skew <- .Call("rskew", as.numeric(x), as.numeric(mean(x)), PACKAGE="DescTools")
+      r.skew <- .Call("rskew", as.numeric(x), 
+                      as.numeric(mean(x)), PACKAGE="DescTools")
       n <- length(x)
       
     }
@@ -1785,7 +1629,7 @@ Kurt <- function (x, weights=NULL, na.rm = FALSE, method = 3, conf.level = NA,
     # method 1: older textbooks
     if(!is.null(weights)){
       # use a standard treatment for weights
-      z <- NormWeights(x, weights, na.rm=na.rm, zero.rm=TRUE)
+      z <- .NormWeights(x, weights, na.rm=na.rm, zero.rm=TRUE)
       r.kurt <- .Call("rkurtw", as.numeric(z$x), as.numeric(Mean(z$x, weights = z$weights)), as.numeric(z$weights), PACKAGE="DescTools")
       n <- z$wsum
       
@@ -3899,130 +3743,6 @@ PoissonCI <- function(x, n = 1, conf.level = 0.95, sides = c("two.sided","left",
 
 
 
-# Konfidenzintervall fuer den Median
-
-MedianCI <- function(x, conf.level=0.95, sides = c("two.sided","left","right"), 
-                     na.rm=FALSE, method=c("exact","boot"), ...) {
-  
-  if(na.rm) x <- na.omit(x)
-
-  MedianCI_Binom <- function( x, conf.level = 0.95,
-                              sides = c("two.sided", "left", "right"), na.rm = FALSE ){
-    
-    # http://www.stat.umn.edu/geyer/old03/5102/notes/rank.pdf
-    # http://de.scribd.com/doc/75941305/Confidence-Interval-for-Median-Based-on-Sign-Test
-    if(na.rm) x <- na.omit(x)
-    n <- length(x)
-    switch( match.arg(sides)
-            , "two.sided" = {
-              k <- qbinom(p = (1 - conf.level) / 2, size=n, prob=0.5, lower.tail=TRUE)
-              ci <- sort(x)[c(k, n - k + 1)]
-              attr(ci, "conf.level") <- 1 - 2 * pbinom(k-1, size=n, prob=0.5)
-            }
-            , "left" = {
-              k <- qbinom(p = (1 - conf.level), size=n, prob=0.5, lower.tail=TRUE)
-              ci <- c(sort(x)[k], Inf)
-              attr(ci, "conf.level") <- 1 - pbinom(k-1, size=n, prob=0.5)
-            }
-            , "right" = {
-              k <- qbinom(p = conf.level, size=n, prob=0.5, lower.tail=TRUE)
-              ci <- c(-Inf, sort(x)[k])
-              attr(ci, "conf.level") <- pbinom(k, size=n, prob=0.5)
-            }
-    )
-    # confints for small samples can be outside the observed range e.g. n < 6
-    if(identical(StripAttr(ci), NA_real_)) {
-      ci <- c(-Inf, Inf)
-      attr(ci, "conf.level") <- 1
-    }  
-    return(ci)
-  }
-  
-  MedianCI_Boot <- function(x, conf.level=0.95, sides = c("two.sided", "left", "right"), 
-                            na.rm=FALSE, ...){
-
-    if(sides!="two.sided")
-      conf.level <- 1 - 2*(1-conf.level)
-    
-    R <- DescTools::InDots(..., arg="R", default=999)
-    boot.med <- boot::boot(x, function(x, d) {
-      median(x[d], na.rm=na.rm)
-      # standard error for the median required for studentized bci type:
-      # not implemented here, as not suitable for this case.
-      # sqrt(pi/2) * MeanSE(x[d])
-      # mad(x[d], na.rm=na.rm) / sqrt(length(na.omit(x[d])))
-      
-    }, R=R)
-    
-    dots <- list(...)
-    if(is.null(dots[["type"]]))
-      dots$type <- "perc"
-    
-    if(dots$type %nin% c("norm","basic","perc","bca")){
-      warning(gettextf("bootstrap type '%s' is not supported", dots$type))
-      return( c(NA, NA))
-    }
-    
-    dots$boot.out <- boot.med
-    dots$conf <- conf.level
-    
-    res <- do.call(boot::boot.ci, dots)
-    
-    if(dots$type == "norm")
-      # uses different structure for results
-      res <- res[[4]][c(2,3)]
-    else
-      res <- res[[4]][c(4,5)]
-    
-    return(res)
-  }
-  
-  
-  
-  sides <- match.arg(sides, choices = c("two.sided","left","right"), several.ok = FALSE)
-  
-  # if(sides!="two.sided")
-  #   conf.level <- 1 - 2*(1-conf.level)
-
-  # alte Version, ziemlich grosse Unterschiede zu wilcox.test:
-  # Bosch: Formelsammlung Statistik (bei Markus Naepflin), S. 95
-  # x <- sort(x)
-  # return( c(
-  # x[ qbinom(alpha/2,length(x),0.5) ], ### lower limit
-  # x[ qbinom(1-alpha/2,length(x),0.5) ] ### upper limit
-  # ) )
-
-  method <- match.arg(arg=method, choices=c("exact","boot"))
-  
-  switch( method
-          , "exact" = { # this is the SAS-way to do it
-            # https://stat.ethz.ch/pipermail/r-help/2003-September/039636.html
-            r <- MedianCI_Binom(x, conf.level = conf.level, sides=sides)
-          }
-          , "boot" = {
-            r <- MedianCI_Boot(x, conf.level = conf.level, sides=sides, ...)
-          } )
-
-  med <- median(x, na.rm=na.rm)
-  if(is.na(med)) {   # do not report a CI if the median is not defined...
-    res <- rep(NA, 3)
-    
-  } else {
-    res <- c(median=med, r)
-    # report the conf.level which can deviate from the required one
-    if(method=="exact")  attr(res, "conf.level") <-  attr(r, "conf.level")
-  }
-  names(res) <- c("median","lwr.ci","upr.ci")
-
-  if(sides=="left")
-    res[3] <- Inf
-  else if(sides=="right")
-    res[2] <- -Inf
-
-  return( res )
-
-}
-
 
 
 
@@ -4160,108 +3880,6 @@ MeanSE <- function(x, sd = NULL, na.rm = FALSE) {
 
 
 
-MeanCI <- function (x, sd = NULL, trim = 0, method = c("classic", "boot"),
-                    conf.level = 0.95, sides = c("two.sided","left","right"), na.rm = FALSE, ...) {
-
-  if (na.rm) x <- na.omit(x)
-
-  sides <- match.arg(sides, choices = c("two.sided","left","right"), several.ok = FALSE)
-  if(sides!="two.sided")
-    conf.level <- 1 - 2*(1-conf.level)
-
-  winvar <- function(x, trim) {
-    n <- length(x)
-    # calculate the winsorized variance of x
-    trn <- floor(trim * n) + 1
-
-    # new 17.2.2015:
-    minval <- sort(x, partial = trn)[trn]
-    maxval <- sort(x, partial = max((n - trn + 1), 1))[max((n - trn + 1), 1)]
-    winvar <- var(Winsorize(x, minval = minval, maxval = maxval))
-
-    # This was an overkill, we need only the n-thest value here:
-    # winvar <- var(Winsorize(x, minval=max(Small(x, trn)), maxval=min(Large(x, trn))))
-    #
-    # degrees of freedom
-    DF <- n - 2*(trn-1) - 1
-    return(c(var=winvar, DF=DF))
-  }
-
-  method <- match.arg(method, c("classic", "boot"))
-  if(method == "classic"){
-    if(trim != 0) {
-      # see: http://dornsife.usc.edu/assets/sites/239/docs/Rallfun-v27.txt
-      #      http://www.psychology.mcmaster.ca/bennett/boot09/rt2.pdf
-
-      wvar <- winvar(x, trim)
-      # the standard error
-      se <- sqrt(wvar["var"]) / ((1 - 2*trim) * sqrt(length(x)))
-
-      res <- mean(x, trim = trim) + c(0, -1, 1) * qt(1-(1-conf.level)/2, wvar["DF"]) * se
-      names(res) <- c("mean", "lwr.ci", "upr.ci")
-
-    } else {
-      if(is.null(sd)) {
-        a <- qt(p = (1 - conf.level)/2, df = length(x) - 1) * sd(x)/sqrt(length(x))
-      } else {
-        a <- qnorm(p = (1 - conf.level)/2) * sd/sqrt(length(x))
-      }
-      res <- c(mean = mean(x), lwr.ci = mean(x) + a, upr.ci = mean(x) - a)
-    }
-
-  } else {
-
-    # see: http://www.psychology.mcmaster.ca/bennett/boot09/percentileT.pdf
-    # this might contain an erroneuous calculation of boot variance...
-
-    btype <- InDots(..., arg="type", default="basic")
-
-    # we need separate functions for trimmed means and normal means
-    if(trim != 0) {
-      boot.fun <- boot(x,
-                       function(x, i){
-                         # this is according to the example in boot.ci
-                         m <- mean(x[i], na.rm = FALSE, trim = trim)
-                         n <- length(i)
-                         v <- winvar(x, trim)/((1-2*trim)*sqrt(length(x)))^2
-                         c(m, v)
-                       },
-                       R=InDots(..., arg="R", default=999),
-                       parallel=InDots(..., arg="parallel", default="no"))
-
-    } else {
-      boot.fun <- boot(x,
-                       function(x, i){
-                         # this is according to the example in boot.ci
-                         m <- mean(x[i], na.rm = FALSE)
-                         n <- length(i)
-                         v <- (n-1) * var(x[i]) / n^2
-                         # v <- (sd(x[i]) / sqrt(n))^2  # following Bennet
-                         c(m, v)
-                         # IMPORTANT: boot.ci requires the estimated VARIANCE of the statistic
-                         # pop sd estimated from bootstrapped sample
-                       },
-                       R=InDots(..., arg="R", default=999),
-                       parallel=InDots(..., arg="parallel", default="no"))
-    }
-    ci <- boot.ci(boot.fun, conf=conf.level, type=btype)
-
-    if(btype == "norm"){
-      res <- c(mean=boot.fun$t0[1], lwr.ci=ci[[4]][2], upr.ci=ci[[4]][3])
-    } else {
-      res <- c(mean=boot.fun$t0[1], lwr.ci=ci[[4]][4], upr.ci=ci[[4]][5])
-    }
-  }
-
-  if(sides=="left")
-    res[3] <- Inf
-  else if(sides=="right")
-    res[2] <- -Inf
-
-  return(res)
-}
-
-
 
 MeanCIn <- function(ci, sd, interval=c(2, 1e5), conf.level=0.95, norm=FALSE, 
                     tol = .Machine$double.eps^0.5) {
@@ -4285,49 +3903,9 @@ MeanCIn <- function(ci, sd, interval=c(2, 1e5), conf.level=0.95, norm=FALSE,
 
 
 
-
-# MeanCIn <- function(xm, sd, pop_sd=NULL, width, interval=c(1, 1e5), conf.level=0.95, sides="two.sided") {
-# 
-#   sides <- match.arg(sides, choices = c("two.sided","left","right"), several.ok = FALSE)
-#   if(sides!="two.sided")
-#     conf.level <- 1 - 2*(1-conf.level)
-# 
-#   if(!is.null(sd))  
-#     mci <- function(n) qt(c((1-conf.level)/2, 1-, df = n-1) *sd / sqrt(n)
-#   
-#   else if(!is.null(pop_sd))
-#     mci <- function(n) qnorm((1-conf.level)/2) *sd / sqrt(n)
-#   
-#   else{
-#     warning("Provide either sd or pop_sd")
-#     return(NA)
-#   }
-#   
-#   uniroot(f = function(n) diff(mci(n)) - width, 
-#           interval = interval)$root
-#   
-#   if(sides=="left")
-#     res[3] <- Inf
-#   else if(sides=="right")
-#     res[2] <- -Inf
-#   
-#   
-# }
-
-
-
-# CIn <- function(p=0.5, width, interval=c(1, 1e5), conf.level=0.95, sides="two.sided", method="wilson") {
-#   uniroot(f = function(n) diff(BinomCI(x=p*n, n=n, conf.level=conf.level, 
-#                                        sides=sides, method=method)[, -1]) - width, 
-#           interval = interval)$root
-# }
-
-
-
 MeanDiffCI <- function(x, ...){
   UseMethod("MeanDiffCI")
 }
-
 
 
 MeanDiffCI.formula <- function (formula, data, subset, na.action, ...) {
@@ -5371,6 +4949,13 @@ Rosenbluth <- function(x, n = rep(1, length(x)), na.rm = FALSE) {
 ###
 
 ## stats: assocs etc. ====
+
+
+CutAge <- function(x, from=0, to=90, by=10, right=FALSE, ordered_result=TRUE, ...){
+  cut(x, breaks = c(seq(from, to, by), Inf), 
+      right=right, ordered_result = ordered_result, ...)
+}
+
 
 
 CutQ <- function(x, breaks=quantile(x, seq(0, 1, by=0.25), na.rm=TRUE), 
@@ -8235,7 +7820,70 @@ TablePearson <- function(x, scores.type="table") {
 
 
 TableSpearman <-  function(x, scores.type="table"){
+# following:
+# https://stat.ethz.ch/pipermail/r-help/2005-July/076371.html
   
+#   tablespearman=function(x)
+#   {
+#     # Details algorithme manuel SAS PROC FREQ page 540
+#     # Statistic
+#     n=sum(x)
+#     nr=nrow(x)
+#     nc=ncol(x)
+#     tmpd=cbind(expand.grid(1:nr,1:nc))
+#     ind=rep(1:(nr*nc),as.vector(x))
+#     tmp=tmpd[ind,]
+#     rhos=cor(apply(tmp,2,rank))[1,2]
+#     # ASE
+#     Ri=scores(x,1,"ranks")- n/2
+#     Ci=scores(x,2,"ranks")- n/2
+#     sr=apply(x,1,sum)
+#     sc=apply(x,2,sum)
+#     F=n^3 - sum(sr^3)
+#     G=n^3 - sum(sc^3)
+#     w=(1/12)*sqrt(F*G)
+#     vij=data
+#     for (i in 1:nrow(x))
+#     {
+#       qi=0
+#       if (i<nrow(x))
+#       {
+#         for (k in i:nrow(x)) qi=qi+sum(x[k,]*Ci)
+#       }
+#     }
+#     for (j in 1:ncol(x))
+#     {
+#       qj=0
+#       if (j<ncol(x))
+#       {
+#         for (k in j:ncol(x)) qj=qj+sum(x[,k]*Ri)
+#       }
+#       vij[i,j]=n*(Ri[i]*Ci[j] +
+#                     0.5*sum(x[i,]*Ci)+0.5*sum(data[,j]*Ri) +qi+qj)
+#     }
+#     
+#     
+#     v=sum(data*outer(Ri,Ci))
+#     wij=-n/(96*w)*outer(sr,sc,FUN=function(a,b) return(a^2*G+b^2*F))
+#     zij=w*vij-v*wij
+#     zbar=sum(data*zij)/n
+#     vard=(1/(n^2*w^4))*sum(x*(zij-zbar)^2)
+#     ASE=sqrt(vard)		
+#     # Test
+#     vbar=sum(x*vij)/n
+#     p1=sum(x*(vij-vbar)^2)
+#     p2=n^2*w^2
+#     var0=p1/p2
+#     stat=rhos/sqrt(var0)
+#     
+#     # Output
+#     out=list(estimate=rhos,ASE=ASE,name="Spearman
+# correlation",bornes=c(-1,1))
+#     class(out)="ordtest"
+#     return(out)
+#   }
+#   
+#   #tablespearman(data)
 }
 
 
