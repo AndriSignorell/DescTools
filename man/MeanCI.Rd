@@ -2,7 +2,7 @@
 % Please edit documentation in R/MeanCI.R
 \name{MeanCI}
 \alias{MeanCI}
-\title{Confidence Intervals for the Mean \%\% ~~function to do ... ~~}
+\title{Confidence Intervals for the Mean}
 \usage{
 MeanCI(
   x,
@@ -26,10 +26,9 @@ t-distribution.}
 
 \item{trim}{the fraction (0 to 0.5) of observations to be trimmed from each
 end of \code{x} before the mean is computed. Values of \code{trim} outside
-that range are taken as the nearest endpoint. \%\% ~~Describe \code{x} here~~}
+that range are taken as the nearest endpoint.}
 
-\item{conf.level}{confidence level of the interval. \%\% ~~Describe
-\code{conf.level} here~~}
+\item{conf.level}{confidence level of the interval.}
 
 \item{sides}{a character string specifying the side of the confidence
 interval, must be one of \code{"two.sided"} (default), \code{"left"} or
@@ -39,12 +38,10 @@ letter.}
 
 \item{method}{A vector of character strings representing the type of
 intervals required. The value should be any subset of the values
-\code{"classic"}, \code{"boot"}.  See \code{\link{boot.ci}}. \%\% ~~Describe
-\code{x} here~~}
+\code{"classic"}, \code{"boot"}.  See \code{\link{boot.ci}}.}
 
 \item{na.rm}{a logical value indicating whether \code{NA} values should be
-stripped before the computation proceeds. Defaults to FALSE. \%\% ~~Describe
-\code{na.rm} here~~}
+stripped before the computation proceeds. Defaults to FALSE.}
 
 \item{...}{further arguments are passed to the \code{\link{boot}} function.
 Supported arguments are \code{type} (\code{"norm"}, \code{"basic"},
@@ -52,7 +49,7 @@ Supported arguments are \code{type} (\code{"norm"}, \code{"basic"},
 of bootstrap replicates \code{R}. If not defined those will be set to their
 defaults, being \code{"basic"} for \code{type}, option
 \code{"boot.parallel"} (and if that is not set, \code{"no"}) for
-\code{parallel} and \code{999} for \code{R}.\%\% ~~Describe \code{x} here~~}
+\code{parallel} and \code{999} for \code{R}.}
 }
 \value{
 a numeric vector with 3 elements: \item{mean}{mean}

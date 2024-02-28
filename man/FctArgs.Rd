@@ -41,6 +41,27 @@ formals(PlotFdist)
 
 # compare:
 FctArgs(PlotFdist)
+
+# alternative also spotting unexported functions
+GetArgs <- function(FUN) {
+  a <- formals(getAnywhere(FUN)$objs[[1]])
+  arg.labels <- names(a)
+  arg.values <- as.character(a)
+  char <- sapply(a, is.character)
+  arg.values[char] <- paste("\"", arg.values[char], "\"", sep="")
+
+  c(fname=FUN, 
+    args=paste(StrTrim(gsub("= $", "", 
+               paste(arg.labels, arg.values, sep=" = "))), 
+               collapse=", "))
+
+}
+
+fcts <- grep("plot.Desc", unclass(lsf.str(envir = asNamespace("DescTools"), 
+                                          all.names = TRUE)), value=TRUE)
+fargs <- t(unname(sapply(fcts, GetArgs)))
+fargs
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

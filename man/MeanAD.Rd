@@ -12,12 +12,12 @@ MeanAD(x, weights = NULL, center = Mean, na.rm = FALSE)
 \item{weights}{a numerical vector of weights the same length as \code{x}
 giving the weights to use for elements of \code{x}.}
 
-\item{center}{a single numerical value or the name of a function to be used
+\item{center}{a single numerical value or the name of a function applied to \code{x} to be used
 as center. Can as well be a self defined function.  Default is
 \code{\link{Mean}()}.}
 
 \item{na.rm}{a logical value indicating whether or not missing values should
-be removed. Defaults to FALSE.}
+be removed. Defaults to \code{FALSE}.}
 }
 \value{
 Numeric value.
@@ -28,15 +28,14 @@ sample mean or the median. \%\% ~~ A concise (1-5 lines) description of what
 the function does. ~~
 }
 \details{
-The MeanAD function calculates the mean absolute deviation from the mean
+The \code{MeanAD} function calculates the mean absolute deviation from the mean
 value (or from another supplied center point) of x, after having removed
 \code{NA} values (if requested): \deqn{\frac{1}{n} \cdot \sum_{i=1}^{n}\left
 | x_{i}-c \right | \; \; \; \textup{where} \; c=mean(x) \; \textup{or} \;
 c=med(x)}{1/n sum(|x_i - c|) where c=mean(x) or c=med(x)} \cr The function
 supports the use of weights. The default function for the center value
 \code{\link{Mean}()} has a weights arguments, too. If a user defined
-function is used it must be assured that it has a weights argument. \%\% ~~ If
-necessary, more details than the description above ~~
+function is used it must be assured that it has a weights argument.
 }
 \examples{
 

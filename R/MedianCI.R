@@ -11,22 +11,29 @@
 #' or from a matrix.
 #' 
 #' @param x a (non-empty) numeric vector of data values.
+#' 
 #' @param conf.level confidence level of the interval
+#' 
 #' @param sides a character string specifying the side of the confidence
 #' interval, must be one of \code{"two.sided"} (default), \code{"left"} or
 #' \code{"right"}. You can specify just the initial letter. \code{"left"} would
 #' be analogue to a hypothesis of \code{"greater"} in a \code{t.test}.
+#' 
 #' @param na.rm logical. Should missing values be removed? Defaults to
 #' \code{FALSE}.
+#' 
 #' @param method defining the type of interval that should be calculated (one
 #' out of \code{"exact"}, \code{"boot"}). Default is \code{"exact"}. See
 #' Details.
+#' 
 #' @param \dots the dots are passed on to \code{\link{boot.ci}}. In particular,
 #' the type of bootstrap confidence interval can be defined via this. The
 #' defaults are \code{R=999} and \code{type="perc"}.
+#' 
 #' @return a numeric vector with 3 elements: \item{median}{median}
 #' \item{lwr.ci}{lower bound of the confidence interval} \item{upr.ci}{upper
 #' bound of the confidence interval}
+#' 
 #' @author Andri Signorell <andri@@signorell.net>
 #' @seealso \code{\link{wilcox.test}}, \code{\link{MeanCI}},
 #' \code{\link{median}}, \code{\link{HodgesLehmann}}
@@ -52,9 +59,10 @@
 #' MedianCI(x, method="boot", type="bca")
 #' 
 #' MedianCI(x, method="boot", type="basic")
-#' MedianCI(x, method="boot", type="stud")
 #' MedianCI(x, method="boot", type="perc")
 #' MedianCI(x, method="boot", type="norm", R=499)
+#' # not supported:
+#' MedianCI(x, method="boot", type="stud")
 #' 
 #' MedianCI(x, method="boot", sides="right")
 #' 

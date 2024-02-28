@@ -1,5 +1,5 @@
 
-#' Confidence Intervals for the Mean %% ~~function to do ... ~~
+#' Confidence Intervals for the Mean
 #' 
 #' Collection of several approaches to determine confidence intervals for the
 #' mean. Both, the classical way and bootstrap intervals are implemented for
@@ -16,34 +16,33 @@
 #' t-distribution.
 #' @param trim the fraction (0 to 0.5) of observations to be trimmed from each
 #' end of \code{x} before the mean is computed. Values of \code{trim} outside
-#' that range are taken as the nearest endpoint. %% ~~Describe \code{x} here~~
+#' that range are taken as the nearest endpoint. 
 #' @param method A vector of character strings representing the type of
 #' intervals required. The value should be any subset of the values
-#' \code{"classic"}, \code{"boot"}.  See \code{\link{boot.ci}}. %% ~~Describe
-#' \code{x} here~~
-#' @param conf.level confidence level of the interval. %% ~~Describe
-#' \code{conf.level} here~~
+#' \code{"classic"}, \code{"boot"}.  See \code{\link{boot.ci}}. 
+#' @param conf.level confidence level of the interval. 
 #' @param sides a character string specifying the side of the confidence
 #' interval, must be one of \code{"two.sided"} (default), \code{"left"} or
 #' \code{"right"}. \code{"left"} would be analogue to a hypothesis of
 #' \code{"greater"} in a \code{t.test}. You can specify just the initial
 #' letter.
 #' @param na.rm a logical value indicating whether \code{NA} values should be
-#' stripped before the computation proceeds. Defaults to FALSE. %% ~~Describe
-#' \code{na.rm} here~~
+#' stripped before the computation proceeds. Defaults to FALSE. 
+#' 
 #' @param ... further arguments are passed to the \code{\link{boot}} function.
 #' Supported arguments are \code{type} (\code{"norm"}, \code{"basic"},
 #' \code{"stud"}, \code{"perc"}, \code{"bca"}), \code{parallel} and the number
 #' of bootstrap replicates \code{R}. If not defined those will be set to their
 #' defaults, being \code{"basic"} for \code{type}, option
 #' \code{"boot.parallel"} (and if that is not set, \code{"no"}) for
-#' \code{parallel} and \code{999} for \code{R}.%% ~~Describe \code{x} here~~
+#' \code{parallel} and \code{999} for \code{R}.
 
 #' @return a numeric vector with 3 elements: \item{mean}{mean}
 #' \item{lwr.ci}{lower bound of the confidence interval} \item{upr.ci}{upper
 #' bound of the confidence interval}
 
 #' @author Andri Signorell <andri@@signorell.net>
+#' 
 #' @seealso \code{\link{Mean}}, \code{\link{t.test}}, \code{\link{MeanDiffCI}},
 #' \code{\link{MedianCI}}, \code{\link{VarCI}}, \code{\link{MeanCIn}}
 
@@ -102,7 +101,7 @@ MeanCI <- function (x, sd = NULL, trim = 0,
     # new 17.2.2015:
     minval <- sort(x, partial = trn)[trn]
     maxval <- sort(x, partial = max((n - trn + 1), 1))[max((n - trn + 1), 1)]
-    winvar <- var(DescTools::Winsorize(x, minval = minval, maxval = maxval))
+    winvar <- var(DescTools::Winsorize(x, val = c(minval, maxval)))
     
     # This was an overkill, we need only the n-thest value here:
     # winvar <- var(Winsorize(x, minval=max(Small(x, trn)), maxval=min(Large(x, trn))))

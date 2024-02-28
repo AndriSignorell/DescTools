@@ -87,7 +87,7 @@
 
     if(na.rm) x <- na.omit(x)
 
-    winvar <- var(Winsorize(x, probs = c(trim, 1-trim)))
+    winvar <- var(Winsorize(x, val=quantile(x, probs = c(trim, 1-trim), na.rm=TRUE)))
 
     trimse <- sqrt(winvar) / ((1 - 2 * trim) * sqrt(length(x)))
     trimse
@@ -208,7 +208,7 @@ YuenTTest.default <- function (x, y = NULL, alternative = c("two.sided", "less",
 
   nx <- length(x)
   mx <- mean(x, trim = trim)
-  vx <- var(Winsorize(x, probs = c(trim, 1-trim)))
+  vx <- var(Winsorize(x, val=quantile(x, probs = c(trim, 1-trim), na.rm=TRUE) ))
 
   if (is.null(y) | paired) {
     if (nx < 2)
@@ -218,8 +218,9 @@ YuenTTest.default <- function (x, y = NULL, alternative = c("two.sided", "less",
 
     if(paired){
       my <- mean(y, trim = trim)
-      vy <- var(Winsorize(y, probs = c(trim, 1-trim)))
-      covxy <- var(Winsorize(x, probs = c(trim, 1-trim)), Winsorize(y, probs = c(trim, 1-trim)))
+      vy <- var(Winsorize(y, val=quantile(y, probs = c(trim, 1-trim), na.rm=TRUE)))
+      covxy <- var(Winsorize(x, val=quantile(x, probs = c(trim, 1-trim), na.rm=TRUE)), 
+                   Winsorize(y, val=quantile(y, probs = c(trim, 1-trim), na.rm=TRUE)))
       stderr <- sqrt( (nx-1) * (vx + vy - 2 * covxy) / ((df + 1) * df) )
     } else {
       stderr <- sqrt(vx) / ((1 - 2 * trim) * sqrt(nx))
@@ -247,7 +248,7 @@ YuenTTest.default <- function (x, y = NULL, alternative = c("two.sided", "less",
     if (ny < 2)
       stop("not enough 'y' observations")
     my <- mean(y, trim = trim)
-    vy <- var(Winsorize(y, probs = c(trim, 1-trim)))
+    vy <- var(Winsorize(y, val=quantile(y, probs = c(trim, 1-trim), na.rm=TRUE)))
     method <- "Yuen Two Sample t-test"
     estimate <- c(mx, my)
     names(estimate) <- c("trimmed mean of x", "trimmed mean of y")

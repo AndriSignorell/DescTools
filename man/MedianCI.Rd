@@ -71,9 +71,10 @@ set.seed(448)
 MedianCI(x, method="boot", type="bca")
 
 MedianCI(x, method="boot", type="basic")
-MedianCI(x, method="boot", type="stud")
 MedianCI(x, method="boot", type="perc")
 MedianCI(x, method="boot", type="norm", R=499)
+# not supported:
+MedianCI(x, method="boot", type="stud")
 
 MedianCI(x, method="boot", sides="right")
 

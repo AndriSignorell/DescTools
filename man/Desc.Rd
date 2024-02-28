@@ -491,6 +491,10 @@ cols1 <- SetAlpha(c("sienna4", "burlywood", "chartreuse3", "slategray1"), 0.6)
 cols2 <- SetAlpha(c("moccasin", "salmon1", "wheat3", "gray32"), 0.8)
 plot(Desc(tab), col1=cols1, col2=cols2)
 
+# choose alternative flavours for graphing numeric ~ factor using pipe
+# (colors are recyled)
+Desc(temperature ~ driver, data = d.pizza) |> plot(type="dens", col=Pal("Tibco"))
+
 
 # use global format options for presentation
 Fmt(abs=as.fmt(digits=0, big.mark=""))
