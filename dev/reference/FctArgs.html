@@ -20,7 +20,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.54.3</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.54.4</span>
       </span>
     </div>
 
@@ -217,6 +217,63 @@ argument names.
 <span class="r-out co"><span class="r-pr">#&gt;</span> cex.main        NULL                  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mar             NULL                  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> las             1                     </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># alternative also spotting unexported functions</span></span></span>
+<span class="r-in"><span><span class="va">GetArgs</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">FUN</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/formals.html" class="external-link">formals</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/getAnywhere.html" class="external-link">getAnywhere</a></span><span class="op">(</span><span class="va">FUN</span><span class="op">)</span><span class="op">$</span><span class="va">objs</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">arg.labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">arg.values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">char</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">a</span>, <span class="va">is.character</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">arg.values</span><span class="op">[</span><span class="va">char</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"\""</span>, <span class="va">arg.values</span><span class="op">[</span><span class="va">char</span><span class="op">]</span>, <span class="st">"\""</span>, sep<span class="op">=</span><span class="st">""</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>fname<span class="op">=</span><span class="va">FUN</span>, </span></span>
+<span class="r-in"><span>    args<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="StrTrim.html">StrTrim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"= $"</span>, <span class="st">""</span>, </span></span>
+<span class="r-in"><span>               <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">arg.labels</span>, <span class="va">arg.values</span>, sep<span class="op">=</span><span class="st">" = "</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>               collapse<span class="op">=</span><span class="st">", "</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">fcts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"plot.Desc"</span>, <span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">unclass</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/ls_str.html" class="external-link">lsf.str</a></span><span class="op">(</span>envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ns-internal.html" class="external-link">asNamespace</a></span><span class="op">(</span><span class="st">"DescTools"</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>                                          all.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>, value<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fargs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unname.html" class="external-link">unname</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">fcts</span>, <span class="va">GetArgs</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fargs</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] "plot.Desc"          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,] "plot.Desc.Date"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] "plot.Desc.character"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] "plot.Desc.default"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,] "plot.Desc.factfact" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] "plot.Desc.factnum"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,] "plot.Desc.factor"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] "plot.Desc.integer"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] "plot.Desc.logical"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,] "plot.Desc.matrix"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,] "plot.Desc.numeric"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [12,] "plot.Desc.numfact"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13,] "plot.Desc.numnum"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [14,] "plot.Desc.ordered"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [15,] "plot.Desc.table"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16,] "plot.Desc.ts"       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [17,] "plot.Desc.xtabs"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,2]                                                                                                                                                                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] "x, main = NULL, ..."                                                                                                                                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,] "x, main = NULL, breaks = NULL, type = c(1, 2, 3), ..."                                                                                                                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] "x, main = NULL, ..."                                                                                                                                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] "x, main = NULL, ..."                                                                                                                                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,] "x, main = NULL, col1 = NULL, col2 = NULL, horiz = TRUE, ..."                                                                                                                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] "x, main = NULL, col = NULL, add_ni = TRUE, smooth = NULL, ..."                                                                                                                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,] "x, main = NULL, maxlablen = 25, type = c(\"bar\", \"dot\"), col = NULL, border = NULL, xlim = NULL, ecdf = TRUE, ..."                                                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] "x, main = NULL, ..."                                                                                                                                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] "x, main = NULL, xlab = \"\", col = NULL, legend = TRUE, xlim = c(0, 1), confint = TRUE, ..."                                                                                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,] "x, main = NULL, col1 = NULL, col2 = NULL, horiz = TRUE, ..."                                                                                                                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,] "x, main = NULL, args.hist = NULL, ..."                                                                                                                                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [12,] "x, main = NULL, add_ni = TRUE, args.boxplot = NULL, col = DescToolsOptions(\"col\"), xlim = NULL, args.legend = NULL, type = c(\"design\", \"dens\"), ..."                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13,] "x, main = NULL, col = SetAlpha(1, 0.3), pch = NULL, cex = par(\"cex\"), bg = par(\"bg\"), xlab = NULL, ylab = NULL, smooth = NULL, smooth.front = TRUE, conf.level = 0.95, ..."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [14,] "x, main = NULL, ..."                                                                                                                                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [15,] "x, main = NULL, col1 = NULL, col2 = NULL, horiz = TRUE, ..., xlab = NULL, ylab = NULL"                                                                                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16,] "x, main = NULL, ..."                                                                                                                                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [17,] "x, main = NULL, col1 = NULL, col2 = NULL, horiz = TRUE, ..."                                                                                                                   </span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
