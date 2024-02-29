@@ -46,23 +46,23 @@ x <- round(runif(100) * 100, 1)
 
 (d.frm <- DescTools::Sort(data.frame(
   x, 
-  default  = WinsorizeA(x), 
-  quantile = WinsorizeA(x, quantile(x, probs=c(0.1, 0.8), na.rm = FALSE)), 
-  fixed    = WinsorizeA(x, val=c(15, 85)), 
-  closest  = WinsorizeA(x, val=Closest(x, c(30, 70))) 
+  default  = Winsorize(x), 
+  quantile = Winsorize(x, quantile(x, probs=c(0.1, 0.8), na.rm = FALSE)), 
+  fixed    = Winsorize(x, val=c(15, 85)), 
+  closest  = Winsorize(x, val=Closest(x, c(30, 70))) 
 )))[c(1:10, 90:100), ]
 
 PlotLinesA(SetNames(d.frm, rownames=NULL), lwd=2, col=Pal("Tibco"), 
            main="Winsorized Vector")
 z <- 0:10
 # twosided (default):
-WinsorizeA(z, val=c(2,8))
+Winsorize(z, val=c(2,8))
 
 # onsided:
 # ... replace all values > 8 with 8
-WinsorizeA(z, val=c(min(z), 8))
+Winsorize(z, val=c(min(z), 8))
 # ... replace all values < 4 with 4
-WinsorizeA(z, val=c(4, max(z)))
+Winsorize(z, val=c(4, max(z)))
 
 # use Large and Small, if a fix number of values should be winsorized (here k=3):
 Winsorize(x, val=c(Small(x, k=3)[3], Large(x, k=3)[1]))
