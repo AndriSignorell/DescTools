@@ -2642,29 +2642,35 @@ PageTest.formula <- function (formula, data, subset, na.action, ...) {
 
 
 
+
+# internal function
+.as.CochranQTest <- function(x){
+  # just adding the name statistic and the methods label
+  attr(x$statistic, "names") <- "Q"
+  x$method <- "Cochran's Q test"
+  return(x)
+}
+
 CochranQTest <- function(y, ...){
-
   # Cochran's Q Test is analogue to the friedman.test with 0,1 coded response
-
-  res <- friedman.test(y, ...)
-  attr(res$statistic, "names") <- "Q"
-  res$method <- "Cochran's Q test"
-  return(res)
+  .as.CochranQTest(
+    friedman.test(y, ...)
+  )
 }
 
 CochranQTest.default <- function(y, groups, blocks, ...){
-  res <- friedman.test(y, groups, blocks, ...)
-  attr(res$statistic, "names") <- "Q"
-  res$method <- "Cochran's Q test"
-  return(res)
+  .as.CochranQTest(
+    friedman.test(y, groups, blocks, ...)
+  )
 }
 
 CochranQTest.formula <- function(formula, data, subset, na.action, ...){
-  res <- friedman.test(formula, data, subset, na.action, ...)
-  attr(res$statistic, "names") <- "Q"
-  res$method <- "Cochran's Q test"
-  return(res)
+  .as.CochranQTest(
+    friedman.test(formula, data, subset, na.action, ...)
+  )
 }
+
+
 
 
 MHChisqTest <- function(x, srow=1:nrow(x), scol=1:ncol(x)){
@@ -5210,6 +5216,8 @@ HotellingsT2Test.formula <- function (formula, data, subset, na.action, ...) {
 
 HosmerLemeshowTest <- function (fit, obs, ngr = 10, X, verbose = FALSE){
 
+  warning("This function will be moved to the package ModTools. Please update.")
+  
   # woher kommt das?? -> klaeren!
   # - > MKmisc
 

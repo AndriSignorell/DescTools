@@ -1,6 +1,11 @@
 
 
-Conf <- function(x, ...) UseMethod("Conf")
+Conf <- function(x, ...) {
+  
+  warning("This function will be moved to the package ModTools. Please update.")
+  
+  UseMethod("Conf")
+}
 
 
 Conf.table <- function(x, pos = NULL, ...) {
@@ -240,10 +245,15 @@ print.Conf <- function(x, digits = max(3, getOption("digits") - 3), ...) {
 
 
 
-Sens <- function(x, ...) Conf(x, ...)[["byclass"]]["sens",]
+Sens <- function(x, ...) {
+  warning("This function will be moved to the package ModTools. Please update.")
+  Conf(x, ...)[["byclass"]]["sens",]
+}
 
-Spec <- function(x, ...) Conf(x, ...)[["byclass"]]["spec",]
-
+Spec <- function(x, ...) {
+  warning("This function will be moved to the package ModTools. Please update.")
+  Conf(x, ...)[["byclass"]]["spec",]
+}
 
 
 
@@ -419,8 +429,14 @@ Spec <- function(x, ...) Conf(x, ...)[["byclass"]]["spec",]
 
 
 BrierScore <- function(...){
+  warning("This function will be moved to the package ModTools. Please update.")
   UseMethod("BrierScore")
 }
+
+
+# BrierScore.FitMod <- function(...){
+#   NextMethod(...)
+# }
 
 
 BrierScore.default <- function(resp, pred, scaled = FALSE, ...){
@@ -477,8 +493,11 @@ BrierScore.mult <- function(x, scaled=FALSE, ...){
 # }
 
 
-Cstat <- function (x, ...)
+Cstat <- function (x, ...){
+  warning("This function will be moved to the package ModTools. Please update.")
+  
   UseMethod("Cstat")
+}
 
 
 Cstat.glm <- function(x, ...) {
@@ -562,7 +581,10 @@ Cstat.default <- function(x, resp, ...) {
 
 
 
-MAE <- function(x, ...) UseMethod("MAE")
+MAE <- function(x, ...) {
+  warning("This function will be moved to the package ModTools. Please update.")
+  UseMethod("MAE")
+}
 
 MAE.lm <- function(x, ...)
   # regr will escalate to lm, so no need for another interface here
@@ -574,7 +596,11 @@ MAE.default <- function (x, ref, na.rm=FALSE, ...) {
   mean(abs(ref-x), na.rm=na.rm, ...)
 }
 
-MSE <- function(x, ...) UseMethod("MSE")
+MSE <- function(x, ...) {
+  warning("This function will be moved to the package ModTools. Please update.")
+  
+  UseMethod("MSE")
+}
 
 MSE.lm <- function(x, ...)
   # regr will escalate to lm, so no need for another interface here
@@ -584,7 +610,10 @@ MSE.default <- function (x, ref, na.rm=FALSE, ...) {
   mean((ref-x)^2, na.rm=na.rm, ...)
 }
 
-RMSE <- function(x, ...) UseMethod("RMSE")
+RMSE <- function(x, ...) {
+  warning("This function will be moved to the package ModTools. Please update.")
+  UseMethod("RMSE")
+}
 
 RMSE.lm <- function(x, ...)
   # regr will escalate to lm, so no need for another interface here
@@ -596,7 +625,11 @@ RMSE.default <- function (x, ref, na.rm=FALSE, ...) {
 }
 
 
-MAPE <- function(x, ...) UseMethod("MAPE")
+MAPE <- function(x, ...) {
+  warning("This function will be moved to the package ModTools. Please update.")
+  UseMethod("MAPE")
+}
+
 
 MAPE.lm <- function(x, ...)
   # regr will escalate to lm, so no need for another interface here
@@ -609,7 +642,11 @@ MAPE.default <- function (x, ref, na.rm=FALSE, ...) {
 }
 
 
-SMAPE <- function(x, ...) UseMethod("SMAPE")
+SMAPE <- function(x, ...) {
+  warning("This function will be moved to the package ModTools. Please update.")
+  
+  UseMethod("SMAPE")
+}
 
 SMAPE.lm <- function(x, ...)
   # regr will escalate to lm, so no need for another interface here
@@ -633,11 +670,17 @@ SMAPE.default <- function (x, ref, na.rm=FALSE, ...) {
 
 
 NMSE <- function(x, ref, train.y){
+  
+  warning("This function will be moved to the package ModTools. Please update.")
+  
   sse <- sum((ref-x)^2)
   sse/sum((ref-mean(train.y))^2)
 }
 
 NMAE <- function(x, ref, train.y){
+  
+  warning("This function will be moved to the package ModTools. Please update.")
+  
   sae <- sum(abs(ref-x))
   sae/sum(abs(ref-mean(train.y)))
 }
@@ -645,6 +688,8 @@ NMAE <- function(x, ref, train.y){
 
 
 VIF <- function(mod) {
+  
+  warning("This function will be moved to the package ModTools. Please update.")
   
   # original from car: Henric Nilsson and John Fox
   
@@ -694,6 +739,9 @@ model.matrix.gls <- function(object, ...){
 
 
 ModSummary <- function(x, ...){
+  
+  warning("This function will be moved to the package ModTools. Please update.")
+  
   UseMethod("ModSummary")
 }
 
@@ -882,6 +930,7 @@ ModSummary.OddsRatio <- function(x, conf.level=0.95, ...){
 
 TMod <- function(..., FUN = NULL, order = NA){
   
+  warning("This function will be moved to the package ModTools. Please update.")
   
   # prepare function to put together coefficients and stats
   if(is.null(FUN))
@@ -1181,6 +1230,8 @@ ToWrd.TMod <- function (x, font = NULL, para = NULL, main = NULL, align = NULL,
 
 PartialSD <- function(x) {
   
+  warning("This function will be moved to the package ModTools. Please update.")
+  
   mm <- model.matrix(x)
   .partialsd(coef(x), apply(mm, 2L, sd), VIF(x), nobs(x),
              sum(attr(mm, "assign") != 0))
@@ -1295,6 +1346,8 @@ coefTable.hurdle <-
 
 StdCoef <- function(x, partial.sd = FALSE, ...) {
   
+  warning("This function will be moved to the package ModTools. Please update.")
+  
   coefmat <- coefTable(x, ...)
   
   mm <- model.matrix(x)
@@ -1317,6 +1370,8 @@ StdCoef <- function(x, partial.sd = FALSE, ...) {
 
 
 PseudoR2 <- function(x, which = NULL) {
+  
+  warning("This function will be moved to the package ModTools. Please update.")
   
   # this function will not work with weights, neither with cbind lhs!!
   # http://stats.stackexchange.com/questions/183699/how-to-calculate-pseudo-r2-when-using-logistic-regression-on-aggregated-data-fil
