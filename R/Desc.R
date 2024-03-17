@@ -928,8 +928,10 @@ calcDesc.default <- function(x, ...) {
 }
 
 
+
 calcDesc.numeric <- function(x, n, maxrows = NULL, conf.level = 0.95,
                              include_x = TRUE, ...) {
+  
   probs <- c(0, 0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95, 1)
 
   # the quantiles, totally analogue to the core of stats::quantile:
@@ -949,8 +951,8 @@ calcDesc.numeric <- function(x, n, maxrows = NULL, conf.level = 0.95,
   i <- which(index > lo)
   h <- (index - lo)[i]
   qs[i] <- (1 - h) * qs[i] + h * x[hi[i]]
-  names(qs) <-
-    c("min", ".05", ".10", ".25", "median", ".75", ".90", ".95", "max")
+  
+  names(qs) <- c("min", ".05", ".10", ".25", "median", ".75", ".90", ".95", "max")
 
   # ... here we go, all we need so far is in qs
 
@@ -964,12 +966,19 @@ calcDesc.numeric <- function(x, n, maxrows = NULL, conf.level = 0.95,
 
   # this is method 3 in the usual functions Skew and Kurt
   skewx <- ((1 / n * psum$sum3) / (psum$sum2 / n)^1.5) * ((n - 1) / n)^(3 / 2)
-  kurtx <-
-    ((((1 / n * psum$sum4) / (psum$sum2 / n)^2) - 3) + 3) * (1 - 1 / n)^2 - 3
+  kurtx <- ((((1 / n * psum$sum4) / (psum$sum2 / n)^2) - 3) + 3) * (1 - 1 / n)^2 - 3
 
   # get std dev here
   sdx <- sqrt(psum$sum2 / (n - 1))
 
+  # meanCI
+  if (n > 1) {
+    a <- qt(p = (1-conf.level) / 2, df = n-1) * sdx / sqrt(n)
+  } else {
+    a <- NA
+  }
+  meanCI <- psum$mean + c(-1,1) * a
+  
   # get the mode
   modex <- Mode(x)
 
@@ -1012,6 +1021,7 @@ calcDesc.numeric <- function(x, n, maxrows = NULL, conf.level = 0.95,
     mean = psum$mean,
     meanSE = sdx / sqrt(n),
     conf.level = conf.level,
+    meanCI = meanCI,
     quant = qs,
     range = unname(diff(qs[c(1, 9)])),
     meanAD = psum$sum1 / n,
