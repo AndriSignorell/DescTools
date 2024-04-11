@@ -494,18 +494,56 @@ TOne <- function(x, grp = NA, add.length=TRUE,
 }
 
 
+
+# Old, replaced by 0.99.54.6:
+# print.TOne <- function(x, ...){
+#   
+#   cat("\n")
+#   
+#   write.table(format(rbind(colnames(x), x), justify="left"),
+#               row.names=FALSE, col.names=FALSE, quote=FALSE)
+#   
+#   if(!is.null(attr(x, "legend"))){
+#     cat("---\n")
+#     cat(attr(x, "legend"), "\n")
+#   }
+#   cat("\n")
+#   
+# }
+
 print.TOne <- function(x, ...){
   
   cat("\n")
   
-  write.table(format(rbind(colnames(x), x), justify="left"),
-              row.names=FALSE, col.names=FALSE, quote=FALSE)
-  
-  if(!is.null(attr(x, "legend"))){
-    cat("---\n")
-    cat(attr(x, "legend"), "\n")
-  }
-  cat("\n")
+  if(.has_color()){
+    
+    t1 <- as.data.frame.matrix(x)
+    colnames(t1) <- colnames(x)
+    
+    out <- capture.output(print((t1), right=FALSE, sep="   ", 
+                                print.gap=3, col.names=F))
+    cat(cli::style_bold(out[1]))
+    print(unname(t1), right=FALSE, sep="   ", print.gap=3, col.names=F)
+    
+    if(!is.null(attr(x, "legend"))){
+      cat(cli::col_silver("---\n"))
+      cat(cli::col_silver(attr(x, "legend"), "\n"))
+    }
+    cat("\n")
+    
+    
+  } else {
+    
+    write.table(format(rbind(colnames(x), x), justify="left"),
+                row.names=FALSE, col.names=FALSE, quote=FALSE)
+    
+    if(!is.null(attr(x, "legend"))){
+      cat("---\n")
+      cat(attr(x, "legend"), "\n")
+    }
+    cat("\n")
+    
+  } 
   
 }
 

@@ -1356,7 +1356,7 @@ PercentRank <- function(x)
 
 
 
-Unwhich <- function(idx, n, useNames=TRUE){
+Unwhich <- function(idx, n = max(idx), useNames=TRUE){
 
   # Author: Nick Sabbe
 
@@ -1365,8 +1365,13 @@ Unwhich <- function(idx, n, useNames=TRUE){
   # less performant, but oneliner:
   #   is.element(seq_len(n), i)
 
+  if(n < max(idx)){
+    warning(gettextf("n=%s must not be less than max(idx)=%s, which currently is the case", n, max(idx)))
+    return(NA)
+  }
+  
   res <- logical(n)
-
+  
   if(length(idx) > 0L) {
     res[idx] <- TRUE
     if(useNames) names(res)[idx] <- names(idx)

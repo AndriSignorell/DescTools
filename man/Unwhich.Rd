@@ -9,14 +9,14 @@ vector/matrix from indices.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-Unwhich(idx, n, useNames = TRUE)
+Unwhich(idx, n = max(idx), useNames = TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{idx}{the indices as returned by \code{\link{which}}.
 %%     ~~Describe \code{idx} here~~
 }
-  \item{n}{integer, the length of the original vector.
+  \item{n}{integer, the length of the original vector. This must not be less than \code{max(idx)}, which is also the default.
 %%     ~~Describe \code{n} here~~
 }
   \item{useNames}{logical, determining if the names of the indices should be preserved.

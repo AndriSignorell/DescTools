@@ -2724,7 +2724,7 @@ plot.Desc.xtabs <- function(x, main = NULL, col1 = NULL, col2 = NULL,
 
 
 plot.Desc.table <- function(x, main = NULL, col1 = NULL, col2 = NULL,
-                            horiz = TRUE, ..., xlab = NULL, ylab = NULL) {
+                            horiz = TRUE, ..., xlab = NULL, ylab = NULL, which = c(1,2)) {
   opt <- DescToolsOptions(stamp = NULL)
 
   oldpar <- par(no.readonly = TRUE)
@@ -2763,32 +2763,39 @@ plot.Desc.table <- function(x, main = NULL, col1 = NULL, col2 = NULL,
       )
     }
 
-    if (horiz) {
-      # width <- 16
-      # height <- 6.5  # dimension for 2 mosaicplots
-      par(mfrow = c(1, 2))
-      par(oma = c(1.1, 2.1, ifelse(is.na(main), 0, 2.1), 0))
-    } else {
-      # width <- 7
-      # height <- 14  # dimension for 2 mosaicplots
-      par(mfrow = c(2, 1), xpd = TRUE)
-      par(oma = c(3.1, 1.1, ifelse(is.na(main), 0, 2), 0))
+    if(length(which) == 2){
+      if (horiz) {
+        # width <- 16
+        # height <- 6.5  # dimension for 2 mosaicplots
+        par(mfrow = c(1, 2))
+        par(oma = c(1.1, 2.1, ifelse(is.na(main), 0, 2.1), 0))
+      } else {
+        # width <- 7
+        # height <- 14  # dimension for 2 mosaicplots
+        par(mfrow = c(2, 1), xpd = TRUE)
+        par(oma = c(3.1, 1.1, ifelse(is.na(main), 0, 2), 0))
+      }
     }
-
-    PlotMosaic(x$tab, main = NA, xlab = NA, ylab = NA, horiz = TRUE, cols = col1)
-    PlotMosaic(x$tab, main = NA, xlab = NA, ylab = NA, horiz = FALSE, cols = col2)
+    
+    if(any(which==1))
+      PlotMosaic(x$tab, main = NA, xlab = NA, ylab = NA, horiz = TRUE, cols = col1)
+    
+    if(any(which==2))
+      PlotMosaic(x$tab, main = NA, xlab = NA, ylab = NA, horiz = FALSE, cols = col2)
 
     title(xlab = xlab, outer = TRUE, line = -1, font = 2)
     title(ylab = ylab, outer = TRUE, line = 0, font = 2)
   }
 
-  if (!is.na(main) && (length(dim(x$tab)) == 2)) title(main, outer = TRUE)
+  if (!is.na(main) && (length(dim(x$tab)) == 2)) 
+    title(main, outer = ifelse(length(which)==2, TRUE, FALSE))
 
   options(opt)
   if (!is.null(DescToolsOptions("stamp"))) Stamp()
 
   # invisible(list(width=width, height=height))
   invisible()
+  
 }
 
 
