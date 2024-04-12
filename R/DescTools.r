@@ -2542,6 +2542,14 @@ NAIfBlank <- function(x)
 
 
 
+
+NZ <- function(x){
+  # return non-zero elements of x
+  x[ x!=0 ]
+}
+
+
+
 Impute <- function(x, FUN = function(x) median(x, na.rm=TRUE)) {
 
   if(is.function(FUN)) {
