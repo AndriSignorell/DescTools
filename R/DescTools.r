@@ -2545,7 +2545,7 @@ NAIfBlank <- function(x)
 
 NZ <- function(x){
   # return non-zero elements of x
-  x[ x!=0 ]
+  x[ !IsZero(x) ]
 }
 
 

@@ -3572,9 +3572,9 @@ MultinomCI <- function(x, conf.level = 0.95, sides = c("two.sided","left","right
   }
 
   if(sides=="left")
-    res[3] <- 1
+    res[,3] <- 1
   else if(sides=="right")
-    res[2] <- 0
+    res[,2] <- 0
 
   return(res)
 }

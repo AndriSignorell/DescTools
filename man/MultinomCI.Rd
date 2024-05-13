@@ -82,10 +82,14 @@ Wilson, E. B. Probable inference, the law of succession and statistical inferenc
 # were drawn: 23 of them belong to the first class, 12 to the
 # second class and 44 to the third class. Punctual estimations
 # of the probabilities from this sample would be 23/79, 12/79
-# and 44/79 but we want to build 95% simultaneous confidence intervals
+# and 44/79 but we want to build 95\% simultaneous confidence intervals
 # for the true probabilities
 
 MultinomCI(c(23, 12, 44), conf.level=0.95)
+
+# single sided
+MultinomCI(c(23, 12, 44), conf.level=0.95, sides="left")
+MultinomCI(c(23, 12, 44), conf.level=0.95, sides="right")
 
 
 x <- c(35, 74, 22, 69)
