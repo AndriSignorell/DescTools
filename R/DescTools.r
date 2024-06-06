@@ -3445,11 +3445,10 @@ Year.ym  <- function(x){  unclass(round((x/100)))   }
 as.ym <- function(x){
   
   # expects a YYYYMM format
-  if((y <- round(x/100)) %[]% c(1000, 3000) & (x - y*100) %[]% c(1, 12) ) 
-    structure(as.integer(x), class = c("ym", "num")) 
-  else 
-    structure(NA_integer_, class = c("ym", "num")) 
-  
+    res <- structure(as.integer(x), class = c("ym", "num"))
+    res[!((y <- round(x/100)) %[]% c(1000, 3000) & 
+            (x - y * 100) %[]% c(1, 12))]   <- NA_integer_
+    return(res)
 }
 
 print.ym <- function(x, ...) {
