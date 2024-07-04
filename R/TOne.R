@@ -293,18 +293,7 @@ TOne <- function(x, grp = NA, add.length=TRUE,
   cat_test <- TEST[["cat"]]$fun
   dich_test <- TEST[["dich"]]$fun
   
-  
-  
-  # replaced for flexible test in 0.99.19
-  # num_row <- function(x, g, total=TRUE, test="kruskal.test", vname = deparse(substitute(x))){
-  #   # wie soll die zeile aussehen fuer numerische Daten
-  #   p <- eval(parse(text=gettextf("%s(x ~ g)", test)))
-  #   cbind(var=vname, total = num_fun(x), rbind(tapply(x, g, num_fun)),
-  #   #      paste(Format(p$p.value, fmt="*", na.form = "   "), ifelse(is.na(p), "", .FootNote(1))))
-  #         paste(Format(p$p.value, fmt="*", na.form = "   "), ifelse(is.na(p$p.value), "", .FootNote(1))))
-  # }
-  
-  
+
   num_row <- function(x, g, total=TRUE, vname = deparse(substitute(x))){
     if(!identical(g, NA)) {
       res <- Format(num_test(x, g), fmt=fmt$pval)
@@ -347,10 +336,12 @@ TOne <- function(x, grp = NA, add.length=TRUE,
       p <- NA
     m <- cbind(m, c(paste(Format(p, fmt=fmt$pval), ifelse(is.na(p), "", .FootNote(3))), rep("", nlevels(x))))
     
-    if(nrow(m) <=3) {
-      m[2,1] <- gettextf("%s (= %s)", m[1, 1], row.names(tab)[1])
-      m <- m[2, , drop=FALSE]
-    }
+    # this reduces binary categories to a single flag, which should not be necessary here,
+    # as it would be handled be dich_mat
+    # if(nrow(m) <=3) {
+    #   m[2,1] <- gettextf("%s (= %s)", m[1, 1], row.names(tab)[1])
+    #   m <- m[2, , drop=FALSE]
+    # }
     
     colnames(m) <- c("var","total", head(colnames(tab), -1), "")
     m
@@ -389,7 +380,7 @@ TOne <- function(x, grp = NA, add.length=TRUE,
   }
   
   
-  intref <- match.arg(intref, choices = c("high", "low"))
+  intref <- match.arg(intref, choices = c("high", "low", "both"))
   
   if(mode(x) %in% c("logical","numeric","complex","character"))
     x <- data.frame(x)
@@ -412,33 +403,30 @@ TOne <- function(x, grp = NA, add.length=TRUE,
       
     } else if(ctype[i] == "dich") {
       
-      # refactor all types, numeric, logic but not factors and let user choose
-      # the level to be reported.
-      if(!is.factor(x[, i])) {   # should only apply to boolean, integer or numerics
-        xi <- factor(x[, i])
-        if(match.arg(intref, choices = c("high", "low")) == "high")
-          xi <- relevel(xi, tail(levels(xi), 1))
+      if(intref=="both"){
+        lst[[i]] <- cat_mat(factor(x[,i]), grp, vname=vnames[i])
         
       } else {
-        xi <- x[, i]
+        
+        # refactor all types, numeric, logic but not factors and let user choose
+        # the level to be reported.
+        if(!is.factor(x[, i])) {   # should only apply to boolean integer or numerics
+          xi <- factor(x[, i])
+          if(match.arg(intref, choices = c("high", "low", "both")) == "high")
+            xi <- relevel(xi, tail(levels(xi), 1))
+          
+        } else {
+          xi <- x[, i]
+        }
+        
+        if (default_vnames) {
+          lst[[i]] <- dich_mat(xi, grp, vname = gettextf("%s (= %s)", vnames[i], head(levels(xi), 1)))
+        } else {
+          lst[[i]] <- dich_mat(xi, grp, vname = gettextf("%s", vnames[i]))
+        }
+        
       }
-      
-      if (default_vnames) {
-        lst[[i]] <- dich_mat(xi, grp, vname = gettextf("%s (= %s)", vnames[i], head(levels(xi), 1)))
-      } else {
-        lst[[i]] <- dich_mat(xi, grp, vname = gettextf("%s", vnames[i]))
-      }
-      
-      #
-      # if(default_vnames){
-      #   # only declare the ref level on default_vnames
-      #   lst[[i]] <- dich_mat(x[,i], grp, vname=gettextf("%s (= %s)", vnames[i], head(levels(factor(x[,i])), 1)))
-      #
-      # } else {
-      #   # the user is expected to define ref level, if he wants one
-      #   lst[[i]] <- dich_mat(x[,i], grp, vname=gettextf("%s", vnames[i]))
-      # }
-      
+
     } else {
       lst[[i]] <- rbind(c(colnames(x)[i], rep(NA, nlevels(grp) + 2)))
     }

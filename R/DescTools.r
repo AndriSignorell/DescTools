@@ -4149,6 +4149,15 @@ AllDuplicated <- function(x){
 # }
 
 
+
+Bun <- function(..., na.rm=FALSE){
+  # unites a list of binary vectors elementwise using max
+  lst <- list(...)
+  (apply(do.call(cbind, lst), 1, sum, na.rm=na.rm) > 0)*1
+}
+
+
+
 Dummy <- function (x, method = c("treatment", "sum", "helmert", "poly", "full"),  base = 1, levels=NULL) {
 
   # Alternatives:
