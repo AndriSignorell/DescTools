@@ -4,7 +4,7 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-reference-topic">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -18,7 +18,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.54.12</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.54.13</span>
       </span>
     </div>
 
@@ -26,8 +26,8 @@
       <ul class="nav navbar-nav"><li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-book"></span>
-     
-     
+
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li class="dropdown-header">Documentation for version of package:</li>
@@ -44,7 +44,7 @@
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Tutorials
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li class="dropdown-header">PDF:</li>
@@ -61,20 +61,20 @@
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/AndriSignorell/DescTools/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Geometric Mean and Standard Deviation <!-- %% ~~function to do ... ~~ --></h1>
-    
+
     <div class="hidden name"><code>Gmean.Rd</code></div>
     </div>
 
@@ -92,29 +92,30 @@
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>x</dt>
+    <p></p>
+<dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
 <dd><p>a positive numeric vector. An object which is not a vector is coerced (if possible) by as.vector.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
 
-  <dt>method</dt>
+  <dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
 <dd><p>a vector of character strings representing the type of intervals required. The value should be any subset of the values <code>"classic"</code>, <code>"boot"</code>.
   See <code><a href="https://rdrr.io/pkg/boot/man/boot.ci.html" class="external-link">boot.ci</a></code>.
 <!-- %%     ~~Describe \code{x} here~~ --></p></dd>
 
-  <dt>conf.level</dt>
+  <dt id="arg-conf-level">conf.level<a class="anchor" aria-label="anchor" href="#arg-conf-level"></a></dt>
 <dd><p>confidence level of the interval. Default is <code>NA</code>.
 <!-- %%     ~~Describe \code{conf.level} here~~ --></p></dd>
 
-<dt>sides</dt>
+<dt id="arg-sides">sides<a class="anchor" aria-label="anchor" href="#arg-sides"></a></dt>
 <dd><p>a character string specifying the side of the confidence interval, must be one of <code>"two.sided"</code> (default), <code>"left"</code> or <code>"right"</code>. You can specify just the initial letter. <code>"left"</code> would be analogue to a hypothesis of <code>"greater"</code> in a <code>t.test</code>.</p></dd>
 
 
 
-  <dt>na.rm</dt>
+  <dt id="arg-na-rm">na.rm<a class="anchor" aria-label="anchor" href="#arg-na-rm"></a></dt>
 <dd><p>logical, indicating whether <code>NA</code> values should be stripped before the computation proceeds. Defaults to <code>FALSE</code>.
 <!-- %%     ~~Describe \code{na.rm} here~~ --></p></dd>
 
- <dt>...</dt>
+ <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>further arguments are passed to the <code><a href="https://rdrr.io/pkg/boot/man/boot.html" class="external-link">boot</a></code> function. Supported arguments are <code>type</code> (<code>"norm"</code>, <code>"basic"</code>, <code>"stud"</code>, <code>"perc"</code>, <code>"bca"</code>), <code>parallel</code> and the number of bootstrap replicates <code>R</code>. If not defined those will be set to their defaults, being <code>"basic"</code> for <code>type</code>,  option <code>"boot.parallel"</code> (and if that is not set, <code>"no"</code>) for <code>parallel</code>
  and <code>999</code> for <code>R</code>.<!-- %%     ~~Describe \code{x} here~~ --></p></dd>
 
@@ -128,12 +129,12 @@ For strict positive values the geometric mean is computed as <code>exp(MeanCI(lo
 <p><b>Considerations (Roenfeldt 2018)</b> <code>     </code> "The calculation of the geometric mean requires that all values are non-zero and positive. So what should you do if you have data that do not meet this requirement? If you have values that equal zero, you have a few options:</p><ul><li><p>Adjust your scale so that you add 1 to every number in the data set, and then subtract 1 from the resulting geometric mean.</p></li>
 <li><p>Ignore zeros or missing data in your calculations.</p></li>
 <li><p>Convert zeros to a very small number (often called "below the detection limit") that is less than the next smallest number in the data set.</p></li>
-</ul><p>If you have negative numbers, you will need to convert those numbers to a positive value before calculating the geometric mean. You can then assign the resulting geometric mean a negative value. If 
-your data set contains both positive and negative values, you will have to separate them and find the 
-geometric means for each group, and you can then find the weighted average of their individual 
+</ul><p>If you have negative numbers, you will need to convert those numbers to a positive value before calculating the geometric mean. You can then assign the resulting geometric mean a negative value. If
+your data set contains both positive and negative values, you will have to separate them and find the
+geometric means for each group, and you can then find the weighted average of their individual
 geometric means to find the total geometric mean for the full data set.
-If none of these options appeals to you, you are not alone! There is controversy among statisticians about 
-what is the best method for dealing with these values. You may want to calculate several types of 
+If none of these options appeals to you, you are not alone! There is controversy among statisticians about
+what is the best method for dealing with these values. You may want to calculate several types of
 averages and decide what makes the most sense for you and the results you are trying to report."</p>
     </div>
     <div id="value">
@@ -143,8 +144,8 @@ averages and decide what makes the most sense for you and the results you are tr
     <div id="references">
     <h2>References</h2>
     <p>Snedecor, G. W., Cochran, W. G. Cochran (1989) Statistical Methods, 8th ed. Ames, <em>IA: Iowa State University Press </em></p>
-<p>Roenfeldt K. (2018) Better than Average: Calculating Geometric Means Using SAS, 
-Henry M. Jackson Foundation for the Advancement of Military Medicine, 
+<p>Roenfeldt K. (2018) Better than Average: Calculating Geometric Means Using SAS,
+Henry M. Jackson Foundation for the Advancement of Military Medicine,
 <a href="https://www.lexjansen.com/wuss/2018/56_Final_Paper_PDF.pdf" class="external-link">https://www.lexjansen.com/wuss/2018/56_Final_Paper_PDF.pdf</a>
 <!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p>
     </div>
@@ -199,15 +200,15 @@ Henry M. Jackson Foundation for the Advancement of Military Medicine,
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
 </div>
 
       </footer></div>
 
-  
 
 
-  
+
+
 
   </body></html>
 
