@@ -4549,10 +4549,12 @@ LsFct <- function(package){
 #
 # }
 
+
 LsObj <- function(package){
   # example  lsf("DescTools")
   ls(pos = gettextf("package:%s", package))
 }
+
 
 
 GetCalls <- function (fun, alphabetic = TRUE, package=NULL) {
@@ -4976,7 +4978,15 @@ ToWide <- function(x, g, by=NULL, varnames=NULL){
 
   g <- factor(g)
   s <- split(x, g)
-
+  
+  if(by != "row.names"){
+    # set the columnname for the value according to the group level
+    # in order to avoid duplicate names in Reduce() down the road ...
+    for(i in seq(s)){
+      colnames(s[[i]])[1] <- names(s)[i]
+    }
+  }
+  
   res <- Reduce(function(x, y) {
     z <- merge(x, y, by=by, all.x=TRUE, all.y=TRUE)
     # kill the rownames

@@ -735,7 +735,7 @@ Desc.data.frame <- function(x, main = NULL, plotit = NULL, enum = TRUE,
   attr(res[["_objheader"]][["abstract"]], "main") <-
     res[["_objheader"]][["main"]]
 
-  res[["_objheader"]][["str"]] <- DescTools:::.CaptOut(
+  res[["_objheader"]][["str"]] <- .CaptOut(
     res[["_objheader"]][["abstract"]],
     width = getOption("width")
   )[-c(1:3)]
@@ -3222,7 +3222,7 @@ printWrd <- function(x, main = NULL, plotit = NULL, ..., wrd = wrd) {
       } else if (z[[1]]$class %in% c("numnum")) {
         plot.Desc(z, main = NA)
         WrdPlot(
-          width = 6.5, height = 6.5 / DescTools:::gold_sec_c, dfact = 2.5,
+          width = 6.5, height = 6.5 / gold_sec_c, dfact = 2.5,
           crop = c(0, 0, 0.2, 0), wrd = wrd, append.cr = TRUE
         )
       } else if (z[[1]]$class %in% c("numfact")) {

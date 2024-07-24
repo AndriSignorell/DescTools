@@ -61,7 +61,7 @@ export(
 "ORToRelRisk", "Abstract", "ColumnWrap",
 "WrdCellRange", "WrdMergeCells", "WrdFormatCells", "Some","PlotFdist", "plot.palette",
 "Pal", "Shade", "StrExtract", "Asp", "PlotLog", "axTicks.Date", "LineToUser",
-"PseudoR2", "MAE","MSE","RMSE","MAPE","SMAPE","NMSE","NMAE", "BrierScore", "Unwhich",
+"PseudoR2", "MAE","MSE","RMSE","MAPE","SMAPE","NMSE","NMAE", "BrierScore", "BrierScoreCI", "Unwhich",
 "Fmt", "as.fmt", "ModSummary", "TMod", "VIF", "StdCoef", "PartialSD", "HosmerLemeshowTest", "Cstat", "GeomTrans",
 "%^%", "TitleRect","BarText","as.CDateFmt", "Phrase", "N","Nf", "BootCI", "VonNeumannTest",
 "Append","ConoverTest",
@@ -82,7 +82,8 @@ export(
 "VanWaerdenTest", "RSessionAlive", "RTempdirAlive", "StripAttr", "SetAttr","PlotConDens", "StrSplit", "SplitToCol","SplitToDummy",
 "CmykToCmy", "CmyToCmyk", "RgbToCmy", "CmykToRgb", "RevCode", "MADCI","QuantileCI", "BinomCIn",
 "GetCalls", "BhapkarTest", "StrExtractBetween", "GenRandGroups", "Rank", "rSum21",
-"dTri","pTri","qTri","rTri"
+"dTri","pTri","qTri","rTri",
+"BrierScoreCI","CstatCI","RSqCI"
 )
 
 
@@ -270,6 +271,12 @@ S3method(Conf, regr)
 S3method(Conf, lda)
 S3method(Conf, qda)
 
+S3method(BrierScoreCI, default)
+S3method(BrierScoreCI, glm)
+
+S3method(CstatCI, default)
+S3method(CstatCI, glm)
+
 S3method(print, Conf)
 S3method(plot, Conf)
 
@@ -323,10 +330,6 @@ S3method(print, fmt)
 
 S3method(Cstat, default)
 S3method(Cstat, glm)
-
-S3method(BrierScore, default)
-S3method(BrierScore, glm)
-S3method(BrierScore, mult)
 
 S3method(MAE, default)
 S3method(MAE, lm)

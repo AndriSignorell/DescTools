@@ -10,19 +10,12 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-BrierScore(...)
-
-\method{BrierScore}{glm}(x, scaled = FALSE, ...)
-
-\method{BrierScore}{default}(resp, pred, scaled = FALSE, ...)
+BrierScore(x, pred = NULL, scaled = FALSE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{a glm object
+  \item{x}{either a model object if pred is not supplied or the response variable if it is.
 %%     ~~Describe \code{x} here~~
-}
- \item{resp}{the response variable
-%%     ~~Describe \code{resp} here~~
 }
   \item{pred}{the predicted values
 %%     ~~Describe \code{pred} here~~
