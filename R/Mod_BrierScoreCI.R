@@ -12,7 +12,7 @@
 #' \code{"right"}. \code{"left"} would be analogue to a hypothesis of
 #' \code{"greater"} in a \code{t.test}. You can specify just the initial
 #' letter.
-#' @param ... further arguments are passed to the \code{\link{boot}} function.
+#' @param ... further arguments are passed to the \code{\link[boot]{boot}} function.
 #' Supported arguments are \code{type} (\code{"norm"}, \code{"basic"},
 #' \code{"stud"}, \code{"perc"}, \code{"bca"}), \code{parallel} and the number
 #' of bootstrap replicates \code{R}. If not defined those will be set to their

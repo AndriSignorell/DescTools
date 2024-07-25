@@ -38,12 +38,12 @@ letter.}
 
 \item{method}{A vector of character strings representing the type of
 intervals required. The value should be any subset of the values
-\code{"classic"}, \code{"boot"}.  See \code{\link{boot.ci}}.}
+\code{"classic"}, \code{"boot"}.  See \code{\link[boot]{boot.ci}}.}
 
 \item{na.rm}{a logical value indicating whether \code{NA} values should be
 stripped before the computation proceeds. Defaults to FALSE.}
 
-\item{...}{further arguments are passed to the \code{\link{boot}} function.
+\item{...}{further arguments are passed to the \code{\link[boot]{boot}} function.
 Supported arguments are \code{type} (\code{"norm"}, \code{"basic"},
 \code{"stud"}, \code{"perc"}, \code{"bca"}), \code{parallel} and the number
 of bootstrap replicates \code{R}. If not defined those will be set to their

@@ -1148,13 +1148,15 @@ TukeyBiweight <- function(x, const=9, na.rm = FALSE, conf.level = NA, ci.type = 
 
   if(is.na(conf.level)){
     #  .Call("tbrm", as.double(x[!is.na(x)]), const)
-    res <- .Call("tbrm", PACKAGE="DescTools", as.double(x), const)
-
+    # res <- .Call("tbrm", PACKAGE="DescTools", as.double(x), const)
+    res <- .Call("_DescTools_tbrm", PACKAGE = "DescTools", x, const)
+    
   } else {
 
 
     # adjusted bootstrap percentile (BCa) interval
-    boot.tbw <- boot(x, function(x, d) .Call("tbrm", PACKAGE="DescTools", as.double(x[d]), const), R=R, ...)
+    boot.tbw <- boot(x, function(x, d) 
+      .Call("_DescTools_tbrm", PACKAGE="DescTools", x[d], const), R=R, ...)
     ci <- boot.ci(boot.tbw, conf=conf.level, type=ci.type)
     res <- c(tbw=boot.tbw$t0, lwr.ci=ci[[4]][4], upr.ci=ci[[4]][5])
   }

@@ -65,6 +65,7 @@ extern SEXP _DescTools_fastModeX(SEXP, SEXP);
 extern SEXP pKolmogorov2x(SEXP, SEXP);
 extern SEXP _DescTools_hlqest(SEXP);
 extern SEXP _DescTools_hl2qest(SEXP, SEXP);
+extern SEXP _DescTools_tbrm(SEXP, SEXP);
 
 
 
@@ -97,8 +98,9 @@ static const R_CallMethodDef CallEntries[] = {
   {"_DescTools_pgompertz_work", (DL_FUNC) &_DescTools_pgompertz_work, 5},
   {"_DescTools_dgompertz_work", (DL_FUNC) &_DescTools_dgompertz_work, 4},
   {"_DescTools_check_gompertz", (DL_FUNC) &_DescTools_check_gompertz, 2},
-  {"_DescTools_fastMode",       (DL_FUNC) &_DescTools_fastMode, 2},
-  {"_DescTools_fastModeX",       (DL_FUNC) &_DescTools_fastModeX, 2},
+  {"_DescTools_fastMode",      (DL_FUNC) &_DescTools_fastMode,      2},
+  {"_DescTools_fastModeX",     (DL_FUNC) &_DescTools_fastModeX,     2},
+  {"_DescTools_tbrm",          (DL_FUNC) &_DescTools_tbrm,          2},
   {"between_num_",             (DL_FUNC) &between_num_,             3},
   {"between_num_l",            (DL_FUNC) &between_num_l,            3},
   {"between_num_lm",           (DL_FUNC) &between_num_lm,           3},
@@ -114,7 +116,6 @@ static const R_CallMethodDef CallEntries[] = {
   {"rkurtw",                   (DL_FUNC) &rkurtw,                   3},
   {"rskew",                    (DL_FUNC) &rskew,                    2},
   {"rskeww",                   (DL_FUNC) &rskeww,                   3},
-  {"tbrm",                     (DL_FUNC) &tbrm,                     2},
   {"pKolmogorov2x",            (DL_FUNC) &pKolmogorov2x,            2},
   {"_DescTools_hlqest",        (DL_FUNC) &_DescTools_hlqest,        1},
   {"_DescTools_hl2qest",       (DL_FUNC) &_DescTools_hl2qest,       2},

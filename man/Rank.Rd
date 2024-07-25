@@ -28,7 +28,7 @@ Rank(..., decreasing = FALSE, na.last = TRUE,
   In addition to the \code{ties.method} values possible using base's \code{\link[base]{rank}}, it also provides another additional argument \code{"dense"}.
 Dense ranks are consecutive integers beginning with 1. No ranks are skipped if there are ranks with multiple items. So the largest rank value is the number of unique values of x. See examples.
 
-  Like \code{\link{forder}}, sorting is done in "C-locale"; in particular, this may affect how capital/lowercase letters are ranked. See Details on \code{forder} for more.
+  Like \code{\link[data.table]{forder}}, sorting is done in "C-locale"; in particular, this may affect how capital/lowercase letters are ranked. See Details on \code{forder} for more.
 
   \code{bit64::integer64} type is also supported.
 
@@ -60,6 +60,6 @@ Rank(d.set, ties.method="dense", na.last=NA)
 Rank(d.set, decreasing=c(FALSE, TRUE), ties.method="first")
 }
 \seealso{
-\code{\link{frankv}}, \code{\link{data.table}}, \code{\link{setkey}}, \code{\link{setorder}}
+\code{\link[data.table]{frankv}}, \code{\link[data.table]{data.table}}, \code{\link[data.table]{setkey}}, \code{\link[data.table]{setorder}}
 }
 \keyword{ data }

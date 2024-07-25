@@ -10,6 +10,18 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
+// tbrm
+double tbrm(const std::vector<double>& x, double C);
+RcppExport SEXP _DescTools_tbrm(SEXP xSEXP, SEXP CSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::vector<double>& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type C(CSEXP);
+    rcpp_result_gen = Rcpp::wrap(tbrm(x, C));
+    return rcpp_result_gen;
+END_RCPP
+}
 // compute_LCM
 long long compute_LCM(long long int a, long long int b);
 RcppExport SEXP _DescTools_compute_LCM(SEXP aSEXP, SEXP bSEXP) {

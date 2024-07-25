@@ -17,7 +17,7 @@ Hmean(x, method = c("classic", "boot"), conf.level = NA,
 %%     ~~Describe \code{x} here~~
 }
   \item{method}{a vector of character strings representing the type of intervals required. The value should be any subset of the values \code{"classic"}, \code{"boot"}.
-  See \code{\link{boot.ci}}.
+  See \code{\link[boot]{boot.ci}}.
 %%     ~~Describe \code{x} here~~
 }
   \item{conf.level}{confidence level of the interval. Default is \code{NA}.
@@ -29,7 +29,7 @@ Hmean(x, method = c("classic", "boot"), conf.level = NA,
   \item{na.rm}{logical, indicating whether \code{NA} values should be stripped before the computation proceeds. Defaults to \code{FALSE}.
 %%     ~~Describe \code{na.rm} here~~
 }
- \item{...}{further arguments are passed to the \code{\link{boot}} function. Supported arguments are \code{type} (\code{"norm"}, \code{"basic"}, \code{"stud"}, \code{"perc"}, \code{"bca"}), \code{parallel} and the number of bootstrap replicates \code{R}. If not defined those will be set to their defaults, being \code{"basic"} for \code{type},  option \code{"boot.parallel"} (and if that is not set, \code{"no"}) for \code{parallel}
+ \item{...}{further arguments are passed to the \code{\link[boot]{boot}} function. Supported arguments are \code{type} (\code{"norm"}, \code{"basic"}, \code{"stud"}, \code{"perc"}, \code{"bca"}), \code{parallel} and the number of bootstrap replicates \code{R}. If not defined those will be set to their defaults, being \code{"basic"} for \code{type},  option \code{"boot.parallel"} (and if that is not set, \code{"no"}) for \code{parallel}
  and \code{999} for \code{R}.%%     ~~Describe \code{x} here~~
 }
 

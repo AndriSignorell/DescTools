@@ -9,13 +9,14 @@
 #' 
 #' The winsorized vector is obtained by
 #' 
-#' \deqn{g(x) = }{wins(x) = -c if x < -c, c if x > c, x otherwise}\deqn{
-#' \left\{\begin{array}{ll} }{wins(x) = -c if x < -c, c if x > c, x
-#' otherwise}\deqn{ -c &\textup{for }x \le -c\\ }{wins(x) = -c if x < -c, c if
-#' x > c, x otherwise}\deqn{ x &\textup{for } |x| < c\\ }{wins(x) = -c if x <
-#' -c, c if x > c, x otherwise}\deqn{ c &\textup{for }x \ge c }{wins(x) = -c if
-#' x < -c, c if x > c, x otherwise}\deqn{ \end{array}\right. }{wins(x) = -c if
-#' x < -c, c if x > c, x otherwise}
+#' \deqn{g(x) =
+#'   \left\{\begin{array}{ll}
+#'     -c &\textup{for } x \le c\\
+#'     x  &\textup{for } |x| < c\\
+#'     c  &\textup{for } x \ge c
+#'     \end{array}\right.
+#'   }{g(x)=-c, if x\le -c,
+#'   x, |x| < c, x, if x \ge c, c }
 #' 
 #' You may also want to consider standardizing (possibly robustly) the data
 #' before you perform a winsorization.

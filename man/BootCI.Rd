@@ -21,7 +21,7 @@ BootCI(x, y = NULL, FUN, ..., bci.method = c("norm", "basic", "stud", "perc", "b
   \item{FUN}{the function to be used }
 
 
-    \item{bci.method}{A vector of character strings representing the type of intervals required. The value should be any subset of the values \code{"norm"}, \code{"basic"}, \code{"stud"}, \code{"perc"}, \code{"bca"}, as it is passed on as \code{method} to \code{\link{boot.ci}}.
+    \item{bci.method}{A vector of character strings representing the type of intervals required. The value should be any subset of the values \code{"norm"}, \code{"basic"}, \code{"stud"}, \code{"perc"}, \code{"bca"}, as it is passed on as \code{method} to \code{\link[boot]{boot.ci}}.
 }
   \item{conf.level}{confidence level of the interval.
 }

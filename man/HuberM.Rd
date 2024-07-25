@@ -22,7 +22,7 @@ HuberM(x, k = 1.345, mu = median(x), s = mad(x, center = mu),
  \item{ci.type}{The type of confidence interval required. The value should be any subset 
  of the values \code{"wald"}, \code{"boot"}. 
 }
-\item{\dots}{ the dots are passed to the function \code{\link{boot}}, when confidence intervalls are calculated.}
+\item{\dots}{ the dots are passed to the function \code{\link[boot]{boot.ci}}, when confidence intervalls are calculated.}
 }
 
 \details{

@@ -19,7 +19,7 @@ VarCI(x, method = c("classic", "bonett", "norm", "basic", "stud", "perc", "bca")
 %%     ~~Describe \code{x} here~~
 }
   \item{method}{vector of character strings representing the type of intervals required. The value should be any subset of the values \code{"classic"}, \code{"bonett"}, \code{"norm"}, \code{"basic"},  \code{"stud"},  \code{"perc"},  \code{"bca"}.
-  See \code{\link{boot.ci}}.
+  See \code{\link[boot]{boot.ci}}.
 %%     ~~Describe \code{x} here~~
 }
   \item{conf.level}{confidence level of the interval.
@@ -31,7 +31,7 @@ VarCI(x, method = c("classic", "bonett", "norm", "basic", "stud", "perc", "bca")
 %%     ~~Describe \code{na.rm} here~~
 }
   \item{R}{number of bootstrap replicates. Usually this will be a single positive integer. For importance resampling, some resamples may use one set of weights and others use a different set of weights. In this case R would be a vector of integers where each component gives the number of resamples from each of the rows of weights.
-  See \code{\link{boot}}.
+  See \code{\link[boot]{boot}}.
 %%     ~~Describe \code{x} here~~
 }
 

@@ -54,7 +54,7 @@ Kurt(x, weights = NULL, na.rm = FALSE, method = 3, conf.level = NA,
  some resamples may use one set of weights and others use a different set of weights. In this case \code{R} would be a vector 
  of integers where each component gives the number of resamples from each of the rows of weights.
 }
-\item{\dots}{ the dots are passed to the function \code{\link{boot}}, when confidence intervalls are calculated.}
+\item{\dots}{ the dots are passed to the function \code{\link[boot]{boot}}, when confidence intervalls are calculated.}
 
 }
 

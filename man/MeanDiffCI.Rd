@@ -29,7 +29,7 @@ MeanDiffCI(x, ...)
 }
   \item{method}{a vector of character strings representing the type of intervals required. The value should be any subset of the values
   \code{"classic"}, \code{"norm"}, \code{"basic"}, \code{"stud"}, \code{"perc"}, \code{"bca"}.
-  See \code{\link{boot.ci}}.
+  See \code{\link[boot]{boot.ci}}.
 %%     ~~Describe \code{x} here~~
 }
   \item{conf.level}{confidence level of the interval.
@@ -43,7 +43,7 @@ MeanDiffCI(x, ...)
 %%     ~~Describe \code{na.rm} here~~
 }
   \item{R}{the number of bootstrap replicates. Usually this will be a single positive integer. For importance resampling, some resamples may use one set of weights and others use a different set of weights. In this case R would be a vector of integers where each component gives the number of resamples from each of the rows of weights.
-  See \code{\link{boot}}.
+  See \code{\link[boot]{boot}}.
 %%     ~~Describe \code{x} here~~
 }
   \item{formula}{a formula of the form \code{lhs ~ rhs} where \code{lhs} is a numeric variable giving the data values and \code{rhs} a factor with two levels giving the corresponding groups.}
@@ -54,7 +54,7 @@ MeanDiffCI(x, ...)
   \item{\dots}{further argument to be passed to or from methods.}
 }
 \details{This function collects code from two sources. The classical confidence interval is calculated by means of \code{\link{t.test}}.
-The bootstrap intervals are strongly based on the example in \code{\link{boot}}.
+The bootstrap intervals are strongly based on the example in \code{\link[boot]{boot}}.
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{a numeric vector with 3 elements:
@@ -65,7 +65,8 @@ The bootstrap intervals are strongly based on the example in \code{\link{boot}}.
 \author{Andri Signorell <andri@signorell.net>}
 
 \seealso{
-\code{\link{MeanCI}}, \code{\link{VarCI}}, \code{\link{MedianCI}}, \code{\link{boot.ci}}
+\code{\link{MeanCI}}, \code{\link{VarCI}}, \code{\link{MedianCI}}, 
+\code{\link[boot]{boot.ci}}
 }
 
 \examples{

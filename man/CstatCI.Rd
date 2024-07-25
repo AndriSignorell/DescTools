@@ -22,7 +22,7 @@ interval, must be one of \code{"two.sided"} (default), \code{"left"} or
 \code{"greater"} in a \code{t.test}. You can specify just the initial
 letter.}
 
-\item{...}{further arguments are passed to the \code{\link{boot}} function.
+\item{...}{further arguments are passed to the \code{\link[boot]{boot}} function.
 Supported arguments are \code{type} (\code{"norm"}, \code{"basic"},
 \code{"stud"}, \code{"perc"}, \code{"bca"}), \code{parallel} and the number
 of bootstrap replicates \code{R}. If not defined those will be set to their

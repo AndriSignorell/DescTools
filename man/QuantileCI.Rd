@@ -26,12 +26,12 @@ QuantileCI(x, probs=seq(0, 1, .25), conf.level = 0.95,
   \item{method}{defining the type of interval that should be calculated (one out of \code{"exact"}, \code{"boot"}). Default is \code{"exact"}. See Details.}
 
 \item{R}{The number of bootstrap replicates. Usually this will be a single positive integer. See
-\code{\link{boot.ci}} for details.
+\code{\link[boot]{boot.ci}} for details.
 }
 }
 \details{
 The \code{"exact"} method corresponds to the way the confidence interval for the median is calculated in SAS. \cr
-The boot confidence interval type is calculated by means of \code{\link{boot.ci}} with default type \code{"basic"}.
+The boot confidence interval type is calculated by means of \code{\link[boot]{boot.ci}} with default type \code{"basic"}.
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{if probs was of length 1
