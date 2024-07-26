@@ -1295,33 +1295,80 @@ HighLow <- function (x, nlow = 5L, nhigh = nlow, na.last = NA) {
 
 
 
-Closest <- Vectorize( function(x, a, which = FALSE, na.rm = FALSE){
+# Closest <- Vectorize( function(x, a, which = FALSE, na.rm = FALSE){
+# 
+# #   # example: Closest(a=67.5, x=d.pizza$temperature)
+# #
+#   if(na.rm) x <- x[!is.na(x)]
+# 
+#   mdist <- min(abs(x-a))
+#   if(is.na(mdist))
+#     res <- NA
+# 
+#   else {
+#     idx <- DescTools::IsZero(abs(x-a) - mdist)    # beware of floating-point-gods
+#     if(which == TRUE )
+#       res <- which(idx)
+#     else
+#       res <- x[idx]
+#   }
+# 
+# # Frank's Hmisc solution is faster
+# # but does not handle ties satisfactorily
+# 
+# #   res <- .Fortran("wclosest", as.double(a), as.double(x), length(a),
+# #            length(x), j = integer(length(a)), PACKAGE = "DescTools")$j
+# #   if(!which) res <- x[res]
+#   return(res)
+# 
+# }, vectorize.args="a")
+# 
 
-#   # example: Closest(a=67.5, x=d.pizza$temperature)
-#
-  if(na.rm) x <- x[!is.na(x)]
 
-  mdist <- min(abs(x-a))
-  if(is.na(mdist))
-    res <- NA
+Closest <- function(x, a, which = FALSE, na.rm = FALSE){
+  
+  # example: Closest(a=67.5, x=d.pizza$temperature, na.rm=TRUE)
+  
+  FUN <- function(x, a, which = FALSE, na.rm = FALSE){
+    
+    if(na.rm) x <- x[!is.na(x)]
+    
+    mdist <- min(abs(x-a))
+    if(is.na(mdist))
+      res <- NA
+    
+    else {
+      idx <- DescTools::IsZero(abs(x-a) - mdist)    # beware of floating-point-gods
+      if(which == TRUE )
+        res <- which(idx)
+      else
+        res <- x[idx]
+    }
 
-  else {
-    idx <- DescTools::IsZero(abs(x-a) - mdist)    # beware of floating-point-gods
-    if(which == TRUE )
-      res <- which(idx)
-    else
-      res <- x[idx]
+    # Frank's Hmisc solution is faster
+    # but does not handle ties satisfactorily
+    
+    #   res <- .Fortran("wclosest", as.double(a), as.double(x), length(a),
+    #            length(x), j = integer(length(a)), PACKAGE = "DescTools")$j
+    #   if(!which) res <- x[res]
+    
+    return(res)
+    
   }
-
-# Frank's Hmisc solution is faster
-# but does not handle ties satisfactorily
-
-#   res <- .Fortran("wclosest", as.double(a), as.double(x), length(a),
-#            length(x), j = integer(length(a)), PACKAGE = "DescTools")$j
-#   if(!which) res <- x[res]
+  
+  # vectorize arguments a and which
+  res <- mapply(FUN=FUN, a=a, which=which, 
+                MoreArgs = list(x=x, na.rm=na.rm), SIMPLIFY=FALSE)
+  
+  # simplify: if res is a list with 1 element only, reduce to vector
+  if(length(res)==1)
+    res <- res[[1]] 
+  
   return(res)
+  
+}
 
-}, vectorize.args="a")
+
 
 
 
