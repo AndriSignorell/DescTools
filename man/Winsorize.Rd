@@ -51,7 +51,7 @@ x <- round(runif(100) * 100, 1)
   quantile  = Winsorize(x, quantile(x, probs=c(0.1, 0.8), na.rm = FALSE)), 
   fixed_val = Winsorize(x, val=c(15, 85)),
   fixed_n   = Winsorize(x, val=c(Small(x, k=3)[3], Large(x, k=3)[1])),
-  closest   = Winsorize(x, val=Closest(x, c(30, 70))) 
+  closest   = Winsorize(x, val=unlist(Closest(x, c(30, 70)))) 
 )))[c(1:10, 90:100), ]
 
 # use Large and Small, if a fix number of values should be winsorized (here k=3)
