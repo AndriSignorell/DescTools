@@ -301,8 +301,11 @@ TOne <- function(x, grp = NA, add.length=TRUE,
     } else {
       res <- ""
     }
-    cbind(var=vname, total = num_fun(x), rbind(tapply(x, g, num_fun)),
+   
+    return(
+      cbind(var=vname, total = num_fun(x), rbind(tapply(x, g, num_fun)),
           paste(res, .FootNote(1)))
+    )
   }
   
   
@@ -344,7 +347,9 @@ TOne <- function(x, grp = NA, add.length=TRUE,
     # }
     
     colnames(m) <- c("var","total", head(colnames(tab), -1), "")
-    m
+    
+    return(m)
+    
   }
   
   dich_mat <- function(x, g, vname=deparse(substitute(x))){
@@ -376,64 +381,72 @@ TOne <- function(x, grp = NA, add.length=TRUE,
     m <- rbind(c(vname, m[1,], paste(Format(p, fmt=fmt$pval), foot)))
     colnames(m) <- c("var","total", head(colnames(tab), -1), "")
     
-    m
-  }
-  
-  
-  intref <- match.arg(intref, choices = c("high", "low", "both"))
-  
-  if(mode(x) %in% c("logical","numeric","complex","character"))
-    x <- data.frame(x)
-  
-  # find description types
-  ctype <- sapply(x, class)
-  # should we add "identical type": only one value??
-  ctype[sapply(x, IsDichotomous, strict=TRUE, na.rm=TRUE)] <- "dich"
-  
-  ctype[sapply(ctype, function(x) any(x %in% c("numeric","integer")))] <- "num"
-  ctype[sapply(ctype, function(x) any(x %in% c("factor","ordered","character")))] <- "cat"
-  
-  lst <- list()
-  for(i in 1:ncol(x)){
-    if(ctype[i] == "num"){
-      lst[[i]] <- num_row(x[,i], grp, vname=vnames[i])
-      
-    } else if(ctype[i] == "cat") {
-      lst[[i]] <- cat_mat(x[,i], grp, vname=vnames[i])
-      
-    } else if(ctype[i] == "dich") {
-      
-      if(intref=="both"){
-        lst[[i]] <- cat_mat(factor(x[,i]), grp, vname=vnames[i])
-        
-      } else {
-        
-        # refactor all types, numeric, logic but not factors and let user choose
-        # the level to be reported.
-        if(!is.factor(x[, i])) {   # should only apply to boolean integer or numerics
-          xi <- factor(x[, i])
-          if(match.arg(intref, choices = c("high", "low", "both")) == "high")
-            xi <- relevel(xi, tail(levels(xi), 1))
-          
-        } else {
-          xi <- x[, i]
-        }
-        
-        if (default_vnames) {
-          lst[[i]] <- dich_mat(xi, grp, vname = gettextf("%s (= %s)", vnames[i], head(levels(xi), 1)))
-        } else {
-          lst[[i]] <- dich_mat(xi, grp, vname = gettextf("%s", vnames[i]))
-        }
-        
-      }
-
-    } else {
-      lst[[i]] <- rbind(c(colnames(x)[i], rep(NA, nlevels(grp) + 2)))
-    }
+    return(m)
     
   }
   
+  
+  
+  if(!identical(x, NA)) {
+    
+    # NA is handled as subtitle
+    intref <- match.arg(intref, choices = c("high", "low", "both"))
+    
+    if(mode(x) %in% c("logical","numeric","complex","character"))
+      x <- data.frame(x)
+    
+    # find description types
+    ctype <- sapply(x, class)
+    # should we add "identical type": only one value??
+    ctype[sapply(x, IsDichotomous, strict=TRUE, na.rm=TRUE)] <- "dich"
+    
+    ctype[sapply(ctype, function(x) any(x %in% c("numeric","integer")))] <- "num"
+    ctype[sapply(ctype, function(x) any(x %in% c("factor","ordered","character")))] <- "cat"
+    
+    lst <- list()
+    for(i in 1:ncol(x)){
+      if(ctype[i] == "num"){
+        lst[[i]] <- num_row(x[,i], grp, vname=vnames[i])
+
+      } else if(ctype[i] == "cat") {
+        lst[[i]] <- cat_mat(x[,i], grp, vname=vnames[i])
+        
+      } else if(ctype[i] == "dich") {
+        
+        if(intref=="both"){
+          lst[[i]] <- cat_mat(factor(x[,i]), grp, vname=vnames[i])
+          
+        } else {
+          
+          # refactor all types, numeric, logic but not factors and let user choose
+          # the level to be reported.
+          if(!is.factor(x[, i])) {   # should only apply to boolean integer or numerics
+            xi <- factor(x[, i])
+          } else {
+            xi <- x[, i]
+          }
+          
+          if(match.arg(intref, choices = c("high", "low", "both")) == "high")
+            xi <- relevel(xi, tail(levels(xi), 1))
+
+          if (default_vnames) {
+            lst[[i]] <- dich_mat(xi, grp, vname = gettextf("%s (= %s)", vnames[i], head(levels(xi), 1)))
+          } else {
+            lst[[i]] <- dich_mat(xi, grp, vname = gettextf("%s", vnames[i]))
+          }
+        }
+        
+      } else {
+        lst[[i]] <- rbind(c(colnames(x)[i], rep(NA, nlevels(grp) + 2)))
+      }
+    }
+  } else {
+    m <- cat_mat(grp, grp, vnames)
+    lst <- list(c(vnames, rep("", ncol(m)-1)))
+  }
+  
   res <- do.call(rbind, lst)
+
   
   if(add.length)
     res <- rbind(c("n", c(Format(sum(!is.na(grp)), fmt=fmt$abs),
@@ -509,9 +522,9 @@ print.TOne <- function(x, ...){
     colnames(t1) <- colnames(x)
     
     out <- capture.output(print((t1), right=FALSE, sep="   ", 
-                                print.gap=3, col.names=F))
+                                print.gap=3, col.names=FALSE))
     cat(cli::style_bold(out[1]))
-    print(unname(t1), right=FALSE, sep="   ", print.gap=3, col.names=F)
+    print(unname(t1), right=FALSE, sep="   ", print.gap=3, col.names=FALSE)
     
     if(!is.null(attr(x, "legend"))){
       cat(cli::col_silver("---\n"))
@@ -534,5 +547,23 @@ print.TOne <- function(x, ...){
   } 
   
 }
+
+
+
+# subsetting TOne
+
+`[.TOne` <- function(x, i, j, ..., drop=FALSE) {
+  
+  # subset main character matrix, don't drop structure by default
+  res <- unclass(x)[i, j, drop=drop]
+  
+  # attribute dim should not be restore all relevant attributes
+  attr(res, "legend") <- attr(x, "legend")
+  attr(res, "class") <- attr(x, "class")
+  
+  return(res)
+  
+}
+
 
 
