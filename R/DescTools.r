@@ -15481,7 +15481,8 @@ WrdPlot <- function( type="png", append.cr=TRUE, crop=c(0,0,0,0), main = NULL,
 
 
 
-WrdTable <- function(nrow = 1, ncol = 1, heights = NULL, widths = NULL, main = NULL, wrd = DescToolsOptions("lastWord")){
+WrdTable <- function(nrow = 1, ncol = 1, heights = NULL, widths = NULL, 
+                     main = NULL, wrd = DescToolsOptions("lastWord")){
 
   res <- wrd[["ActiveDocument"]][["Tables"]]$Add(wrd[["Selection"]][["Range"]],
                                                  NumRows = nrow, NumColumns = ncol)
@@ -15511,6 +15512,66 @@ WrdTable <- function(nrow = 1, ncol = 1, heights = NULL, widths = NULL, main = N
 
   invisible(res)
 }
+
+
+
+WrdTableHeading <- function(wtab, text, bold=TRUE, 
+                            alignment=wdConst$wdAlignParagraphCenter,
+                            merge_cols = NULL,
+                            wrd = DescToolsOptions("lastWord")){
+  
+  # inserts a first row in a word table and allows to merge cells
+  
+  # example:
+  # WrdTableHeading(wtab, text=c("Coefficients","Death\n(n=45)", 
+  #                              "Nurs", "Restroke", "MACE"),
+  #                  alignment=c(wdConst$wdAlignParagraphLeft, 
+  #                              rep(wdConst$wdAlignParagraphCenter, 4)), 
+  #                  merge_cols = c("2:4", "5:7", "8:10", "11:13"))
+  
+  
+  WrdTableDuplicateFirstRow <- function(wtab){
+    
+    wtab$Rows(1)$Range()$Copy()
+    wtab$Rows(1)$Select()
+    # wrd[["Selection"]]$InsertRowsBelow()
+    wtab$Rows(2)$Range()$Paste()
+    
+  }
+  
+  # Prepare the first row for the heading  
+  WrdTableDuplicateFirstRow(wtab)
+  wtab$Rows(1)$Select()
+  wsel <- wrd$Selection()
+  wsel$delete()
+  
+  if(!is.null(merge_cols)){
+    lost_cols <- 0
+    # start merging columns
+    for(i in seq(merge_cols)){
+      i_rng <- as.numeric(strsplit(merge_cols[i], split=":")[[1]]) - lost_cols
+      WrdMergeCells(wtab, rstart=c(1, i_rng[1]), rend=c(1, i_rng[2]))
+      lost_cols <- lost_cols + diff(i_rng)
+    }
+  }
+  
+  # get final cell count
+  cells_n <- wtab$Rows(1)$cells()$Count()
+  alignment <- rep(alignment, length.out=cells_n)
+  bold <- rep(bold, length.out=cells_n)
+  
+  # place the text in all columns
+  for( i in seq(cells_n)){
+    rng <- wtab$Cell(1, i)$Range()
+    rng[["text"]] <- text[i]
+    hwnd <- rng$paragraphFormat()
+    hwnd[["Alignment"]] <- alignment[i]
+    hwnd <- rng$font()
+    hwnd[["bold"]] <- bold[i]
+  }  
+  
+}
+
 
 
 
