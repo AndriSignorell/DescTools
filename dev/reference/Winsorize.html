@@ -19,7 +19,7 @@ substitute values are the most extreme retained values."><meta name="robots" con
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.54.13</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.55.2</span>
       </span>
     </div>
 
@@ -110,8 +110,13 @@ the winsorized data.</p>
     <div id="details">
     <h2>Details</h2>
     <p>The winsorized vector is obtained by</p>
-<p>$$g(x) = $$$$
-\left\{\begin{array}{ll} $$$$ -c &amp;\textup{for }x \le -c\\ $$$$ x &amp;\textup{for } |x| &lt; c\\ $$$$ c &amp;\textup{for }x \ge c $$$$ \end{array}\right. $$</p>
+<p>$$g(x) =
+  \left\{\begin{array}{ll}
+    -c &amp;\textup{for } x \le c\\
+    x  &amp;\textup{for } |x| &lt; c\\
+    c  &amp;\textup{for } x \ge c
+    \end{array}\right.
+  $$</p>
 <p>You may also want to consider standardizing (possibly robustly) the data
 before you perform a winsorization.</p>
     </div>
@@ -142,7 +147,7 @@ an option to winsorize multivariate data</p>
 <span class="r-in"><span>  quantile  <span class="op">=</span> <span class="fu">Winsorize</span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">x</span>, probs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.8</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>, </span></span>
 <span class="r-in"><span>  fixed_val <span class="op">=</span> <span class="fu">Winsorize</span><span class="op">(</span><span class="va">x</span>, val<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">85</span><span class="op">)</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  fixed_n   <span class="op">=</span> <span class="fu">Winsorize</span><span class="op">(</span><span class="va">x</span>, val<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="Large.html">Small</a></span><span class="op">(</span><span class="va">x</span>, k<span class="op">=</span><span class="fl">3</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="fu"><a href="Large.html">Large</a></span><span class="op">(</span><span class="va">x</span>, k<span class="op">=</span><span class="fl">3</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  closest   <span class="op">=</span> <span class="fu">Winsorize</span><span class="op">(</span><span class="va">x</span>, val<span class="op">=</span><span class="fu"><a href="Closest.html">Closest</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">70</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> </span></span>
+<span class="r-in"><span>  closest   <span class="op">=</span> <span class="fu">Winsorize</span><span class="op">(</span><span class="va">x</span>, val<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="Closest.html">Closest</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">70</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> </span></span>
 <span class="r-in"><span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">90</span><span class="op">:</span><span class="fl">100</span><span class="op">)</span>, <span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       x default quantile fixed_val fixed_n closest</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 37  0.5    3.08     9.28        15     1.2    29.3</span>
