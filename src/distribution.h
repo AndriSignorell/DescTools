@@ -1,6 +1,7 @@
 #ifndef DISTRIBUTION_H
 #define DISTRIBUTION_H
 
+#define STRICT_R_HEADERS
 #include <Rcpp.h>
 
 namespace {

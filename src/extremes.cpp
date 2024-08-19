@@ -2,6 +2,7 @@
 // [[Rcpp::plugins(cpp11)]]
 
 
+#define STRICT_R_HEADERS
 #include <Rcpp.h>
 #include <utility>
 #include <queue>

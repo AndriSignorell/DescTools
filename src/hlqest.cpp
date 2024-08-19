@@ -10,7 +10,9 @@
 // 2023-11-29
 
 
+#define STRICT_R_HEADERS
 #include <Rcpp.h>
+#include <R.h>
 
 #include <iostream>
 #include <vector>
@@ -221,9 +223,9 @@ double hlqest(NumericVector x) {
   }
   
   cleanup:
-    free(lb);
-    free(rb);
-    free(q);
+    R_Free(lb);
+    R_Free(rb);
+    R_Free(q);
   
   return retval;
 }
@@ -367,9 +369,9 @@ double hl2qest(NumericVector x, NumericVector y) {
   }
   
   cleanup:
-    free(lb);
-    free(rb);
-    free(q);
+    R_Free(lb);
+    R_Free(rb);
+    R_Free(q);
   
   return retval;
 }

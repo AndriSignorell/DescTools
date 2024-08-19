@@ -1,6 +1,7 @@
 #ifndef REPLEN_H
 #define REPLEN_H
 
+#define STRICT_R_HEADERS
 #include <Rcpp.h>
 
 namespace {

@@ -1,5 +1,6 @@
 #include <cmath>
 
+#define STRICT_R_HEADERS
 #include <Rcpp.h>
 
 #include "distribution.h"

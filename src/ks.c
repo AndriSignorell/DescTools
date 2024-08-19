@@ -148,8 +148,8 @@ K(int n, double d)
    k = (int) (n * d) + 1;
    m = 2 * k - 1;
    h = k - n * d;
-   H = (double*) Calloc(m * m, double);
-   Q = (double*) Calloc(m * m, double);
+   H = (double*) R_Calloc(m * m, double);
+   Q = (double*) R_Calloc(m * m, double);
    for(i = 0; i < m; i++)
        for(j = 0; j < m; j++)
 	   if(i - j + 1 < 0)
@@ -177,8 +177,8 @@ K(int n, double d)
        }
    }
    s *= pow(10., eQ);
-   Free(H);
-   Free(Q);
+   R_Free(H);
+   R_Free(Q);
    return(s);
 }
 
@@ -215,7 +215,7 @@ m_power(double *A, int eA, double *V, int *eV, int m, int n)
 	return;
     }
     m_power(A, eA, V, eV, m, n / 2);
-    B = (double*) Calloc(m * m, double);
+    B = (double*) R_Calloc(m * m, double);
     m_multiply(V, V, B, m);
     eB = 2 * (*eV);
     if((n % 2) == 0) {
@@ -232,7 +232,7 @@ m_power(double *A, int eA, double *V, int *eV, int m, int n)
 	    V[i] = V[i] * 1e-140;
 	*eV += 140;
     }
-    Free(B);
+    R_Free(B);
 }
 
 /* Two-sided two-sample */

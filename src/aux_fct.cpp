@@ -1,4 +1,5 @@
 
+#define STRICT_R_HEADERS
 #include <Rcpp.h>
 // #include <boost/integer/common_factor.hpp>
 #include <queue>
