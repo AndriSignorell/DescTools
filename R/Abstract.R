@@ -64,10 +64,19 @@
 
 Abstract <- function(x, sep = ", ", zero.form = ".", maxlevels = 5,
                      trunc = TRUE, list.len = 999) {
+  
+  shortclass <- function(x) {
+    z <- unlist(lapply(x, function(z) paste(class(z), collapse = ", ")))
+    res <- tolower(substr(z, 1, 3))
+    # z <- c("integer", "date", "numeric", "factor", "logical", "ordered") 
+    return(res)
+  }
+  
+  
   res <- data.frame(
     nr = 1:ncol(x),
+    class = shortclass(x),
     varname = colnames(x),
-    class = unlist(lapply(x, function(z) paste(class(z), collapse = ", "))),
     label = unlist(lapply(lapply(x, Label), Coalesce, "-")),
     levels = unlist(lapply(
       x,
@@ -106,8 +115,8 @@ Abstract <- function(x, sep = ", ", zero.form = ".", maxlevels = 5,
   )
   
   rownames(res) <- NULL
-  res <- res[, c("nr", "varname", "class", "NAs", "levels", "label")]
-  colnames(res) <- c("Nr", "ColName", "Class", "NAs", "Levels", "Label")
+  res <- res[, c("nr", "class", "varname", "NAs", "levels", "label")]
+  colnames(res) <- c("Nr", "Class", "ColName", "NAs", "Levels", "Label")
   
   res <- res[1:min(nrow(res), list.len), ]
   
@@ -161,12 +170,7 @@ print.abstract <- function(x, sep = NULL, width = NULL,
   opt <- options(max.print = 1e4)
   on.exit(options(opt))
   
-  #   # define the separator, "-------..." if not given
-  sep <- Coalesce(sep, x$sep, paste(rep("-", (getOption("width") - 2)),
-                                    collapse = ""
-  ))
-  
-  cat(sep, "\n")
+  cat(.LineSep(sep, x), "\n")
   cat(attr(x, "main"))
   
   label <- attr(x, "label")

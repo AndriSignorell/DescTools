@@ -1485,6 +1485,14 @@ calcDesc.bivar <- function(x, g, xname = NULL, gname = NULL,
 }
 
 
+.LineSep <- function(sep, x){
+  # define the separator, "-------..." if not given
+  Coalesce(
+    sep, x$sep, eval(parse(text=DescToolsOptions("linesep", default = NA))),
+    paste(rep("-", (getOption("width") - 2)), collapse = "")
+  )
+  
+}
 
 #' @rdname Desc
 #' @export
@@ -1514,12 +1522,7 @@ print.Desc <- function(x, digits = NULL, plotit = NULL, nolabel = FALSE,
     # }
 
     if (!nomain) {
-      # define the separator, "-------..." if not given
-      sep <- Coalesce(
-        sep, x$sep,
-        paste(rep("-", (getOption("width") - 2)), collapse = "")
-      )
-      cat(sep, "\n")
+      cat(.LineSep(sep, x), "\n")
 
       if (!identical(x$main, NA)) {
         if (.has_color()) {
