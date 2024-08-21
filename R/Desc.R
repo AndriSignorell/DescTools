@@ -1485,11 +1485,14 @@ calcDesc.bivar <- function(x, g, xname = NULL, gname = NULL,
 }
 
 
-.LineSep <- function(sep, x){
+.LineSep <- function(sep, x, n=NULL){
+  if(is.null(n))
+    n <- getOption("width") - 2
+  
   # define the separator, "-------..." if not given
   Coalesce(
     sep, x$sep, eval(parse(text=DescToolsOptions("linesep", default = NA))),
-    paste(rep("-", (getOption("width") - 2)), collapse = "")
+    paste(rep("-", n), collapse = "")
   )
   
 }
@@ -2011,12 +2014,12 @@ print.Desc.table <- function(x, digits = NULL, ...) {
       if ((x$verbose == "3") || (x$ttype == "t2x2")) {
         if (.has_color()) {
           cat(cli::col_silver(gettextf(
-            "\n----------\n%s %s%s conf. level\n",
+            "\n%s\n%s %s%s conf. level\n", .LineSep(n=10),
             DescToolsOptions("footnote")[1], x$conf.level * 100, "%"
           )))
         } else {
           cat(gettextf(
-            "\n----------\n%s %s%s conf. level\n",
+            "\n%s\n%s %s%s conf. level\n", .LineSep(n=10),
             DescToolsOptions("footnote")[1], x$conf.level * 100, "%"
           ))
         }
