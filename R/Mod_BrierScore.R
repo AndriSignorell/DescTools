@@ -29,6 +29,13 @@ BrierScore <- function(x, pred=NULL, scaled = FALSE, ...){
   }
 
 
+  NumResponse <- function(x){
+    # returns the numeric response from a model in 0-1
+    # works for glm, rp, rf, nn, c5, svm, qda, lda, nb, lb
+    x$terms <- eval(x$call$formula)
+    as.numeric(model.response(model.frame(x))) - 1
+  }
+  
 
   if(!is.null(pred)) {
     .Brier(x, pred, scaled)
@@ -37,11 +44,12 @@ BrierScore <- function(x, pred=NULL, scaled = FALSE, ...){
 
     if(inherits(x, "glm")) {
       pred <- predict(x, type="response")
-      resp <- as.numeric(x$y)
+      resp <- NumResponse(x) # as.numeric(x$y)
 
      } else {
       pred <- predict(x, type="prob")[, 2]
-      resp <- as.numeric(model.extract(x$model, "response")) - 1
+      # resp <- as.numeric(model.extract(x$model, "response")) - 1
+      resp <- NumResponse(x)
      }
 
     .Brier(resp=resp, pred=pred, scaled=scaled)
