@@ -6995,6 +6995,30 @@ as.fmt <- function(...){
 
 
 
+ReadSPSS <- function(fn, encoding=NULL){
+  
+  d.spss <- haven::read_spss(file=fn, encoding = encoding)
+  
+  d.set <- as.data.frame(d.spss)
+  
+  # get rid of SPSS specific attributes
+  d.set <- as.data.frame(
+               lapply(d.set, 
+                      DescTools::StripAttr, 
+                      attr=c("format.spss", "display_width"))) 
+
+  # turn haven_labelled into common factors
+  idx <- sapply(d.spss, inherits, "haven_labelled")
+  
+  # restore factors and the labels
+  d.set[idx] <- haven::as_factor(d.set[idx])
+
+  return(d.set)
+  
+}
+
+
+
 ParseSASDatalines <- function(x, env = .GlobalEnv, overwrite = FALSE) {
 
   # see: http://www.psychstatistics.com/2012/12/07/using-datalines-in-sas/

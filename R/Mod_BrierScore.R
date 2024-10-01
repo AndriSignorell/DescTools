@@ -32,8 +32,15 @@ BrierScore <- function(x, pred=NULL, scaled = FALSE, ...){
   NumResponse <- function(x){
     # returns the numeric response from a model in 0-1
     # works for glm, rp, rf, nn, c5, svm, qda, lda, nb, lb
+
     x$terms <- eval(x$call$formula)
-    as.numeric(model.response(model.frame(x))) - 1
+    res <- model.response(model.frame(x))
+    
+    if(is.factor(res))
+      res <- as.numeric(res) -1
+    
+    return(res)
+    
   }
   
 
