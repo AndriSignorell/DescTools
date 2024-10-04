@@ -16759,19 +16759,44 @@ WrdKill <- function(){
 
 
 
-CourseData <- function(name, url=NULL, header=TRUE, sep=";", ...){
+FileExistURL <- function(url){
+  HTTP_STATUS_OK <- 200
+  hd <- httr::HEAD(url)
+  status <- hd$all_headers[[1]]$status
+  res <- status == HTTP_STATUS_OK 
+  attr(res, "status") <- status
+  
+  return(res)
+}
 
+
+CourseData <- function(name, url=NULL, header=TRUE, sep=";", ...){
+  
+  # try datasets and buch folder
+  if(is.null(url)){
+    url <- "http://www.signorell.net/hwz/datasets/"
+    if(FileExistURL(gettextf("%s/%s", url, name))){
+      # do nothing, url and name are both correct
+    } else {
+      url <- "http://www.signorell.net/buch/"
+      if(FileExistURL(gettextf("%s/%s", url, name))){
+        # do nothing, url and name are both correct
+      } else {
+        stop(gettextf("File %s does not exist!"))
+      }  
+    }
+  } else {
+    if(!FileExistURL(gettextf("%s/%s", url, name)))
+      stop(gettextf("File %s does not exist!"))
+  }
+  
+  
   if(grepl("xls", tools::file_ext(name))) {
     res <- OpenDataObject(name=name, url=url, ...)
     
   } else {
-  
-    if(length(grep(pattern = "\\..{3}", x = name))==0)
-      name <- paste(name, ".txt", sep="")
-    if(is.null(url))
-      url <- "http://www.signorell.net/hwz/datasets/"
-    url <- gettextf(paste(url, "%s", sep=""), name)
-    res <- read.table(file = url, header = header, sep = sep, ...)
+    res <- read.table(file = gettextf("%s/%s", url, name), 
+                      header = header, sep = sep, ...)
   }
   
   return(res)
@@ -16781,10 +16806,7 @@ CourseData <- function(name, url=NULL, header=TRUE, sep=";", ...){
 
 
 
-OpenDataObject <- function(name, url=NULL, 
-                           doc=list(Description=c("Variable", "Beschreibung", "Codes", "Skala")), 
-                           ...){
-
+OpenDataObject <- function(name, url=NULL, doc=NULL, ...){
 
   if(is.null(url))
     url <- "http://www.signorell.net/hwz/datasets/"
@@ -16795,6 +16817,14 @@ OpenDataObject <- function(name, url=NULL,
     stop(resp)
   
   z <- as.data.frame(read_excel(tf))
+  
+  if(is.null(doc)){
+    # try to use doc if at least one more sheet exists
+    if(length(readxl::excel_sheets(tf)) > 1)
+      doc <- list(Description=c("Variable", "Beschreibung", "Codes", "Skala"))
+    else 
+      doc <- NA
+  }
   
   if(!is.na(doc)) {
 
