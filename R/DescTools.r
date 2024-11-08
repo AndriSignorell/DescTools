@@ -7240,8 +7240,6 @@ Append.data.frame <- function(x, values, after = NULL, rows=FALSE, names=NULL, .
   
 }
 
-
-
 Append.TOne <-  function(x, values, after = NULL, rows=TRUE, names=NULL, ...) {
   
   # appending to a TOne object means appending to a matrix while preserving the class
@@ -7256,57 +7254,17 @@ Append.TOne <-  function(x, values, after = NULL, rows=TRUE, names=NULL, ...) {
 }
 
 
+AppendRowNames <- function(x, names="rownames", after=0, remove_rownames=TRUE){
+  
+  res <- Append(x, row.names(x), after = after, names=names)
+  
+  if(remove_rownames)
+    res <- SetNames(res, rownames=NULL)
+  
+  return(res)
+  
+}
 
-
-# InsRow <- function(m, x, i, row.names=NULL){
-#
-#   nr <- dim(m)[1]
-#   if(missing(i)) i <- nr+1
-#
-#   x <- matrix(x, ncol=ncol(m))
-#   if(!is.null(row.names))
-#     row.names(x) <- row.names
-#   if(i==1)
-#     res <- rbind(x, m)
-#   else if(i>nr)
-#     res <- rbind(m, x)
-#   else
-#     res <- rbind(m[1:(i-1),, drop=FALSE], x, m[i:nr,, drop=FALSE])
-#   colnames(res) <- colnames(m)
-#   res
-# }
-#
-#
-#
-#
-# InsCol <- function(x, values, i, names=NULL, ...) {
-#   UseMethod("InsCol")
-# }
-#
-#
-# InsCol.data.frame <- function(x, values, i, names=NULL, ...) {
-#   as.data.frame(append(x, SetNames(list(values), names=names), after = i+1))
-# }
-#
-#
-# InsCol.default <- function(x, values, i, names=NULL, ...){
-#
-#   nc <- dim(x)[2]
-#   if(missing(i)) i <- nc+1
-#
-#   values <- matrix(values, nrow=nrow(x))
-#   if(!is.null(names))
-#     colnames(values) <- names
-#   if(i==1)
-#     res <- cbind(values, x)
-#   else if(i > nc)
-#     res <- cbind(x, values)
-#   else
-#     res <- cbind(x[,1:(i-1), drop=FALSE], values, x[,i:nc, drop=FALSE])
-#   rownames(res) <- rownames(x)
-#   res
-# }
-#
 
 
 
