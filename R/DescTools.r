@@ -6997,11 +6997,11 @@ as.fmt <- function(...){
 
 ReadSPSS <- function(fn, encoding=NULL){
   
-  d.spss <- haven::read_spss(file=fn, encoding = encoding)
+  d.spss <- haven::read_sav(file=fn, encoding = encoding)
   
   d.set <- as.data.frame(d.spss)
   
-  # get rid of SPSS specific attributes
+  # get rid of unimportant SPSS specific attributes
   d.set <- as.data.frame(
                lapply(d.set, 
                       DescTools::StripAttr, 

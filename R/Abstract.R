@@ -68,6 +68,7 @@ Abstract <- function(x, sep = ", ", zero.form = ".", maxlevels = 5,
   shortclass <- function(x) {
     z <- unlist(lapply(x, function(z) paste(class(z), collapse = ", ")))
     res <- tolower(substr(z, 1, 3))
+    res <- gsub("cha","chr", res)
     # z <- c("integer", "date", "numeric", "factor", "logical", "ordered") 
     return(res)
   }
