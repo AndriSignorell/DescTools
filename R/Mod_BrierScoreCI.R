@@ -6,6 +6,8 @@
 #'
 #' @param object the model object as returned by glm.
 
+#' @param scaled logical, defining if scaled or not. Default is \code{FALSE}.
+
 #' @param conf.level confidence level of the interval.
 #' @param sides a character string specifying the side of the confidence
 #' interval, must be one of \code{"two.sided"} (default), \code{"left"} or
@@ -42,18 +44,18 @@
 
 
 
-BrierScoreCI <- function(object, conf.level = 0.95, 
+BrierScoreCI <- function(object, scaled = FALSE, conf.level = 0.95, 
                          sides = c("two.sided", "left", "right"), ...){
   UseMethod("BrierScoreCI")
 }
 
 
-BrierScoreCI.default <- function(object, conf.level = 0.95, 
+BrierScoreCI.default <- function(object, scaled = FALSE, conf.level = 0.95, 
                                  sides = c("two.sided", "left", "right"), ...)
   .NotThere(object)
 
 
-BrierScoreCI.glm <- function(object, conf.level = 0.95, 
+BrierScoreCI.glm <- function(object, scaled = FALSE, conf.level = 0.95, 
                              sides = c("two.sided", "left", "right"), ...){
 
   # example
@@ -62,7 +64,8 @@ BrierScoreCI.glm <- function(object, conf.level = 0.95,
 
   .BootCI(DATA = object$data,
           FUN =  function(data, i)
-            BrierScore( update( object, .~., data = data[i, ]) ),
+            BrierScore( update( object, .~., data = data[i, ]), 
+                        scaled = scaled),
           conf.level = conf.level, sides = sides, ... )
 
 }

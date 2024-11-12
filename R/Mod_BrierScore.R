@@ -11,6 +11,7 @@ BrierScore <- function(x, pred=NULL, scaled = FALSE, ...){
     # https://stats.stackexchange.com/questions/187627/calculating-the-brier-score-for-multinomial-models
     
     # see also BrierScore.mult
+    # mclust::BrierScore
     
     if(!all(unique(resp) %in% c(0, 1)))
       stop("BrierScore can only be calculated for binomial outcomes.")
@@ -70,10 +71,28 @@ BrierScore <- function(x, pred=NULL, scaled = FALSE, ...){
 
 BrierScore.mult <- function(x, scaled=FALSE, ...){
 
+  
+  # .BrierScore.mclust <- function (z, class) {
+  #   
+  #   z <- as.matrix(z)
+  #   z <- sweep(z, 1, STATS = rowSums(z), FUN = "/")
+  #   
+  #   cl <- unmap(class, groups = if (is.factor(class)) 
+  #     levels(class)
+  #     else NULL)
+  #   
+  #   if (any(dim(cl) != dim(z))) 
+  #     stop("input arguments do not match!")
+  #   
+  #   sum((cl - z)^2)/(2 * nrow(cl))
+  #   
+  # }
+  
   # https://en.wikipedia.org/wiki/Brier_score
 
   ref <- model.response(model.frame(x))
-  res <- mean(apply((DescTools::Dummy(ref, method = "full") - predict(x, type="prob"))^2, 1, sum))
+  res <- mean(apply((DescTools::Dummy(ref, method = "full") - 
+                              predict(x, type="prob"))^2, 1, sum))
 
   # check for reference, this is not correct!!
   # if(scaled){
