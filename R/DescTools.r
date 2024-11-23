@@ -12780,42 +12780,6 @@ CompleteColumns <- function(x, which=TRUE){
 
 
 
-CountCompCases <- function(x){
-
-  # x is a data.frame
-
-  n <- nrow(x)
-  cc <- sum(complete.cases(x))
-
-  z <- numeric(ncol(x))
-  m <- numeric(ncol(x))
-  for(i in 1:ncol(x)){
-    z[i] <- sum(complete.cases(x[,-i]))
-    m[i] <- sum(is.na(x[,i]))
-  }
-
-  res <- list(
-    n=n, cc=cc, tab=data.frame(vname=colnames(x), nas=m, nas_p=m/n, cifnot=z, cifnot_p=z/n)
-  )
-
-  class(res) <- "CountCompCases"
-  res
-
-}
-
-
-print.CountCompCases <- function(x, digits=1, ...){
-
-  cat(gettextf("\nTotal rows:      %s\nComplete Cases:  %s (%s)\n\n", x$n, x$cc,
-               Format(x$cc/x$n, fmt="%", digits=digits)))
-  x$tab$nas_p <- Format(x$tab$nas_p, fmt="%", digits=digits)
-  x$tab$cifnot_p <- Format(x$tab$cifnot_p, fmt="%", digits=digits)
-
-  print(x$tab, print.gap = 2)
-  cat("\n")
-}
-
-
 
 PlotMiss <- function(x, col = DescTools::hred, bg=SetAlpha(DescTools::hecru, 0.3), clust=FALSE,
                      main = NULL, ...){

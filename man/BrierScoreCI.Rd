@@ -6,6 +6,7 @@
 \usage{
 BrierScoreCI(
   object,
+  scaled = FALSE,
   conf.level = 0.95,
   sides = c("two.sided", "left", "right"),
   ...
@@ -13,6 +14,8 @@ BrierScoreCI(
 }
 \arguments{
 \item{object}{the model object as returned by glm.}
+
+\item{scaled}{logical, defining if scaled or not. Default is \code{FALSE}.}
 
 \item{conf.level}{confidence level of the interval.}
 
