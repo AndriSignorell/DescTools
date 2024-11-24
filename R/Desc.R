@@ -3053,7 +3053,10 @@ plot.Desc.factnum <- function(x, main = NULL, col = NULL,
   if (is.null(main)) main <- x$main
 
   usr <- par("usr")
-  on.exit(par(usr))
+  on.exit({
+    par(usr)
+    layout(matrix(1))
+    })           # reset layout on exit
   mar <- c(5, 4, 2 * add_ni, 2) + .1
 
   par(mar = mar, oma = c(0, 0, 4.1, 0))
@@ -3128,8 +3131,6 @@ plot.Desc.factnum <- function(x, main = NULL, col = NULL,
   if (!is.null(DescToolsOptions("stamp"))) {
     Stamp()
   }
-  
-  layout(matrix(1))           # reset layout on exit
   
   invisible()
 }

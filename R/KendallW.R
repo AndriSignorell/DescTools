@@ -13,13 +13,13 @@
 #' concordance. The test itself is only valid for large samples.\cr Kendall's W
 #' should be corrected for ties, if raters did not use a true ranking order for
 #' the subjects.\cr
-#' The function warns if ties are present and no correction has been required.\cr\cr
+#' The function warns if ties are present and no correction has been required.
 #' 
-#' In the presence of NAs the algorithm is switched to a generalized form for 
+#' In the presence of \code{NAs} the algorithm is switched to a generalized form for 
 #' randomly incomplete datasets introduced in Brueckl (2011).
 #' This uses the mean Spearman's rho of all pairwise comparisons, 
-#' (see Kendall, 1962):
-#' W = (1+mean(rho)*(k-1)) / k
+#' (see Kendall, 1962):\cr
+#' \deqn{W = (1+mean(rho)*(k-1)) / k}
 #' where k is the mean number of (pairwise) ratings per object and mean(rho) is 
 #' calculated weighted, according to Taylor (1987), since the pairwise are 
 #' possibly based on a different number of ratings, what must be reflected 
@@ -37,9 +37,9 @@
 #' @param test a logical indicating whether the test statistic and p-value
 #' should be reported.
 
-#' @return Either a single value if test is set to \code{FALSE} or else \cr
+#' @return Either a single value if \code{test = FALSE} or else \cr
 #' 
-#' a list with class \dQuote{htest} containing the following components:
+#' a list with class \code{\dQuote{htest}} containing the following components:
 #' \item{statistic}{the value of the chi-square statistic.} \item{p.value }{the
 #' p-value for the test.} \item{method}{the character string \dQuote{Kendall's
 #' coefficient of concordance W}.} \item{data.name}{a character string giving
@@ -47,11 +47,8 @@
 #' \item{parameter}{the degrees of freedom df, the number of subjects examined
 #' and the number of raters.}
 
-#' @note This function was previously published as \code{kendall()} in the
-#' \pkg{irr} package and has been integrated here without logical changes, but
-#' with some adaptations in the result structure.
-
-#' @author Andri Signorell <andri@signorell.net> based on code by Matthias Gamer <m.gamer@@uke.uni-hamburg.de>
+#' @author Andri Signorell <andri@signorell.net> 
+#' based on code by Matthias Gamer <m.gamer@@uke.uni-hamburg.de>
 #' and Markus Brueckl <markus.brueckl@tu-berlin.de>
 
 #' @seealso \code{\link[stats]{cor}}, \code{\link{KappaM}},
@@ -60,10 +57,13 @@
 
 #' @references Kendall, M.G. (1948) \emph{Rank correlation methods}. London:
 #' Griffin.
+#' 
 #' Kendall, M.G. (1962). Rank correlation methods (3rd ed.). London: Griffin.
+#' 
 #' Brueckl, M. (2011). Statistische Verfahren zur Ermittlung der 
 #' Urteileruebereinstimmung. in: Altersbedingte Veraenderungen der 
 #' Stimme und Sprechweise von Frauen, Berlin: Logos, 88–103.
+#' 
 #' Taylor, J.M.G. (1987). Kendall's and Spearman's correlation coefficients in the presence of a blocking variable. \emph{Biometrics}, 43, 409–416.
 
 
@@ -179,15 +179,14 @@ KendallW <- function(x, correct=FALSE, test=FALSE) {
   if(test){
     p.value <- pchisq(stat, ns-1, lower.tail = FALSE)
     method <- paste("Kendall's coefficient of concordance", coeff.name)
-    alternative <- paste(coeff.name, "is greater 0")
-    names(coeff) <- coeff.name
-    
+
     rval <- list(
-      estimate = coeff, 
+      estimate = SetNames(coeff, "W"), 
       parameter=c(df=ns-1, subjects=ns, raters=nr),
       statistic = SetNames(stat, "Kendall chi-squared"), 
       p.value = p.value,
-      alternative = alternative, method = method, 
+      alternative = "W is greater 0", 
+      method = method, 
       data.name = dname)
     
     class(rval) <- "htest"
@@ -196,7 +195,7 @@ KendallW <- function(x, correct=FALSE, test=FALSE) {
     rval <- coeff
   }
   
-  if (!correct && TIES) warning("Coefficient may be incorrect due to ties")
+  if (!correct && TIES) warning("Coefficient may be incorrect due to ties, consider setting correct = TRUE!")
   
   return(rval)
   
