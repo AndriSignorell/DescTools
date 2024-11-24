@@ -11,15 +11,15 @@ KendallW(x, correct = FALSE, test = FALSE)
 raters (in columns).}
 
 \item{correct}{a logical indicating whether the coefficient should be
-corrected for ties within raters.}
+corrected for ties within raters. (Default \code{FALSE})}
 
 \item{test}{a logical indicating whether the test statistic and p-value
-should be reported.}
+should be reported. (Default \code{FALSE})}
 }
 \value{
-Either a single value if test is set to \code{FALSE} or else \cr
+Either a single value if \code{test = FALSE} or else \cr
 
-a list with class \dQuote{htest} containing the following components:
+a list with class \dQuote{\code{htest}} containing the following components:
 \item{statistic}{the value of the chi-square statistic.} \item{p.value }{the
 p-value for the test.} \item{method}{the character string \dQuote{Kendall's
 coefficient of concordance W}.} \item{data.name}{a character string giving
@@ -38,15 +38,17 @@ The test for Kendall's W is completely equivalent to
 Friedman's is that Kendall's W has an interpretation as the coefficient of
 concordance. The test itself is only valid for large samples.\cr Kendall's W
 should be corrected for ties, if raters did not use a true ranking order for
-the subjects.\cr
-The function warns if ties are present and no correction has been required.\cr\cr
+the subjects.
+The function warns if ties are present and no correction has been required.
 
-In the presence of NAs the algorithm is switched to a generalized form for
+In the presence of \code{NAs} the algorithm is switched to a generalized form for
 randomly incomplete datasets introduced in Brueckl (2011).
-This uses the mean Spearman's rho of all pairwise comparisons,
-(see Kendall, 1962):
-W = (1+mean(rho)*(k-1)) / k
-where k is the mean number of (pairwise) ratings per object and mean(rho) is
+This approach uses the mean Spearman \eqn{\rho}{rho} of all pairwise comparisons
+(see Kendall, 1962):\cr
+
+\deqn{W = (1+mean(\rho)*(k-1)) / k}
+
+where k is the mean number of (pairwise) ratings per object and mean(\eqn{\rho}{rho}) is
 calculated weighted, according to Taylor (1987), since the pairwise are
 possibly based on a different number of ratings, what must be reflected
 in weights.
@@ -55,11 +57,6 @@ as usual implementations of Kendall's W, except for tied ranks. In case
 of tied ranks, the (pairwise) correction of s used, which (already with
 complete datasets) results in slightly different values than the tie
 correction explicitly specified for W.
-}
-\note{
-This function was previously published as \code{kendall()} in the
-\pkg{irr} package and has been integrated here without logical changes, but
-with some adaptations in the result structure.
 }
 \examples{
 
@@ -93,10 +90,13 @@ friedman.test(y=as.matrix(d.att[,-1]), groups = d.att$id)
 \references{
 Kendall, M.G. (1948) \emph{Rank correlation methods}. London:
 Griffin.
+
 Kendall, M.G. (1962). Rank correlation methods (3rd ed.). London: Griffin.
+
 Brueckl, M. (2011). Statistische Verfahren zur Ermittlung der
 Urteileruebereinstimmung. in: Altersbedingte Veraenderungen der
 Stimme und Sprechweise von Frauen, Berlin: Logos, 88–103.
+
 Taylor, J.M.G. (1987). Kendall's and Spearman's correlation coefficients in the presence of a blocking variable. \emph{Biometrics}, 43, 409–416.
 }
 \seealso{
@@ -105,7 +105,8 @@ Taylor, J.M.G. (1987). Kendall's and Spearman's correlation coefficients in the 
 \code{\link[stats]{friedman.test}}
 }
 \author{
-Andri Signorell \href{mailto:andri@signorell.net}{andri@signorell.net} based on code by Matthias Gamer \href{mailto:m.gamer@uke.uni-hamburg.de}{m.gamer@uke.uni-hamburg.de}
+Andri Signorell \href{mailto:andri@signorell.net}{andri@signorell.net}\cr
+based on code by Matthias Gamer \href{mailto:m.gamer@uke.uni-hamburg.de}{m.gamer@uke.uni-hamburg.de}\cr
 and Markus Brueckl \href{mailto:markus.brueckl@tu-berlin.de}{markus.brueckl@tu-berlin.de}
 }
 \keyword{multivar}

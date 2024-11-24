@@ -12,15 +12,17 @@
 #' Friedman's is that Kendall's W has an interpretation as the coefficient of
 #' concordance. The test itself is only valid for large samples.\cr Kendall's W
 #' should be corrected for ties, if raters did not use a true ranking order for
-#' the subjects.\cr
+#' the subjects. 
 #' The function warns if ties are present and no correction has been required.
 #' 
 #' In the presence of \code{NAs} the algorithm is switched to a generalized form for 
 #' randomly incomplete datasets introduced in Brueckl (2011).
-#' This uses the mean Spearman's rho of all pairwise comparisons, 
+#' This approach uses the mean Spearman \eqn{\rho}{rho} of all pairwise comparisons 
 #' (see Kendall, 1962):\cr
-#' \deqn{W = (1+mean(rho)*(k-1)) / k}
-#' where k is the mean number of (pairwise) ratings per object and mean(rho) is 
+#' 
+#' \deqn{W = (1+mean(\rho)*(k-1)) / k}
+#' 
+#' where k is the mean number of (pairwise) ratings per object and mean(\eqn{\rho}{rho}) is 
 #' calculated weighted, according to Taylor (1987), since the pairwise are 
 #' possibly based on a different number of ratings, what must be reflected 
 #' in weights.
@@ -33,13 +35,13 @@
 #' @param x \eqn{n \times m}{k x m} matrix or dataframe, k subjects (in rows) m
 #' raters (in columns).
 #' @param correct a logical indicating whether the coefficient should be
-#' corrected for ties within raters.
+#' corrected for ties within raters. (Default \code{FALSE})
 #' @param test a logical indicating whether the test statistic and p-value
-#' should be reported.
+#' should be reported. (Default \code{FALSE})
 
 #' @return Either a single value if \code{test = FALSE} or else \cr
 #' 
-#' a list with class \code{\dQuote{htest}} containing the following components:
+#' a list with class \dQuote{\code{htest}} containing the following components:
 #' \item{statistic}{the value of the chi-square statistic.} \item{p.value }{the
 #' p-value for the test.} \item{method}{the character string \dQuote{Kendall's
 #' coefficient of concordance W}.} \item{data.name}{a character string giving
@@ -47,8 +49,8 @@
 #' \item{parameter}{the degrees of freedom df, the number of subjects examined
 #' and the number of raters.}
 
-#' @author Andri Signorell <andri@signorell.net> 
-#' based on code by Matthias Gamer <m.gamer@@uke.uni-hamburg.de>
+#' @author Andri Signorell <andri@signorell.net>\cr
+#' based on code by Matthias Gamer <m.gamer@@uke.uni-hamburg.de>\cr
 #' and Markus Brueckl <markus.brueckl@tu-berlin.de>
 
 #' @seealso \code{\link[stats]{cor}}, \code{\link{KappaM}},
@@ -122,7 +124,8 @@ KendallW <- function(x, correct=FALSE, test=FALSE) {
     N <- nrow(ratings)
     m <- ncol(ratings)
     
-    rho <- ZeroIfNA(stats::cor(ratings, method = "spearman", use = "pairwise.complete"))
+    rho <- ZeroIfNA(stats::cor(ratings, method = "spearman", 
+                               use = "pairwise.complete"))
     
     w <- t(!is.na(ratings)) %*% (!is.na(ratings)) -1 
     w <- pmax(0, w[lower.tri(w)])
