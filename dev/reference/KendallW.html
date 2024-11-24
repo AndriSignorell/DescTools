@@ -19,7 +19,7 @@ coefficient could be corrected for ties within raters."><meta name="robots" cont
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.58.4</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.58.6</span>
       </span>
     </div>
 
@@ -100,18 +100,18 @@ raters (in columns).</p></dd>
 
 <dt id="arg-correct">correct<a class="anchor" aria-label="anchor" href="#arg-correct"></a></dt>
 <dd><p>a logical indicating whether the coefficient should be
-corrected for ties within raters.</p></dd>
+corrected for ties within raters. (Default <code>FALSE</code>)</p></dd>
 
 
 <dt id="arg-test">test<a class="anchor" aria-label="anchor" href="#arg-test"></a></dt>
 <dd><p>a logical indicating whether the test statistic and p-value
-should be reported.</p></dd>
+should be reported. (Default <code>FALSE</code>)</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Either a single value if test is set to <code>FALSE</code> or else <br></p>
-<p>a list with class “htest” containing the following components:</p>
+    <p>Either a single value if <code>test = FALSE</code> or else <br></p>
+<p>a list with class “<code>htest</code>” containing the following components:</p>
 <dl><dt>statistic</dt>
 <dd><p>the value of the chi-square statistic.</p></dd>
  <dt>p.value </dt>
@@ -138,14 +138,14 @@ and the number of raters.</p></dd>
 Friedman's is that Kendall's W has an interpretation as the coefficient of
 concordance. The test itself is only valid for large samples.<br> Kendall's W
 should be corrected for ties, if raters did not use a true ranking order for
-the subjects.<br>
-The function warns if ties are present and no correction has been required.<br><br></p>
-<p>In the presence of NAs the algorithm is switched to a generalized form for
+the subjects.
+The function warns if ties are present and no correction has been required.</p>
+<p>In the presence of <code>NAs</code> the algorithm is switched to a generalized form for
 randomly incomplete datasets introduced in Brueckl (2011).
-This uses the mean Spearman's rho of all pairwise comparisons,
-(see Kendall, 1962):
-W = (1+mean(rho)*(k-1)) / k
-where k is the mean number of (pairwise) ratings per object and mean(rho) is
+This approach uses the mean Spearman \(\rho\) of all pairwise comparisons
+(see Kendall, 1962):<br></p>
+<p>$$W = (1+mean(\rho)*(k-1)) / k$$</p>
+<p>where k is the mean number of (pairwise) ratings per object and mean(\(\rho\)) is
 calculated weighted, according to Taylor (1987), since the pairwise are
 possibly based on a different number of ratings, what must be reflected
 in weights.
@@ -155,21 +155,15 @@ of tied ranks, the (pairwise) correction of s used, which (already with
 complete datasets) results in slightly different values than the tie
 correction explicitly specified for W.</p>
     </div>
-    <div id="note">
-    <h2>Note</h2>
-    <p>This function was previously published as <code>kendall()</code> in the
-<span class="pkg">irr</span> package and has been integrated here without logical changes, but
-with some adaptations in the result structure.</p>
-    </div>
     <div id="references">
     <h2>References</h2>
     <p>Kendall, M.G. (1948) <em>Rank correlation methods</em>. London:
-Griffin.
-Kendall, M.G. (1962). Rank correlation methods (3rd ed.). London: Griffin.
-Brueckl, M. (2011). Statistische Verfahren zur Ermittlung der
+Griffin.</p>
+<p>Kendall, M.G. (1962). Rank correlation methods (3rd ed.). London: Griffin.</p>
+<p>Brueckl, M. (2011). Statistische Verfahren zur Ermittlung der
 Urteileruebereinstimmung. in: Altersbedingte Veraenderungen der
-Stimme und Sprechweise von Frauen, Berlin: Logos, 88–103.
-Taylor, J.M.G. (1987). Kendall's and Spearman's correlation coefficients in the presence of a blocking variable. <em>Biometrics</em>, 43, 409–416.</p>
+Stimme und Sprechweise von Frauen, Berlin: Logos, 88–103.</p>
+<p>Taylor, J.M.G. (1987). Kendall's and Spearman's correlation coefficients in the presence of a blocking variable. <em>Biometrics</em>, 43, 409–416.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -179,7 +173,8 @@ Taylor, J.M.G. (1987). Kendall's and Spearman's correlation coefficients in the 
     </div>
     <div id="author">
     <h2>Author</h2>
-    <p>Andri Signorell <a href="mailto:andri@signorell.net">andri@signorell.net</a> based on code by Matthias Gamer <a href="mailto:m.gamer@uke.uni-hamburg.de">m.gamer@uke.uni-hamburg.de</a>
+    <p>Andri Signorell <a href="mailto:andri@signorell.net">andri@signorell.net</a><br>
+based on code by Matthias Gamer <a href="mailto:m.gamer@uke.uni-hamburg.de">m.gamer@uke.uni-hamburg.de</a><br>
 and Markus Brueckl <a href="mailto:markus.brueckl@tu-berlin.de">markus.brueckl@tu-berlin.de</a></p>
     </div>
 
@@ -201,10 +196,10 @@ and Markus Brueckl <a href="mailto:markus.brueckl@tu-berlin.de">markus.brueckl@t
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  anxiety</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Kendall chi-squared = 30.76, df = 19, subjects = 20, raters = 3,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> p-value = 0.04288</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: W (with ties correction) is greater 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: W is greater 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> W (with ties correction) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                0.5396569 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         W </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.5396569 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># example from Siegel and Castellan (1988)</span></span></span>
