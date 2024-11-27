@@ -76,9 +76,9 @@ and the ones for the kurtosis:\cr
   method = 2 is used in SAS and SPSS.  \cr
   method = 3 is used in MINITAB and BMDP. \cr
 
-Cramer et al. (1997) mention the asymptotic standard error of the skewness, resp. kurtosis: \cr
-\preformatted{ASE.skew = sqrt( 6n(n-1)/((n-2)(n+1)(n+3)) )
-ASE.kurt = sqrt( (n^2 - 1)/((n-3)(n+5)) )} to be used for calculating the confidence intervals. This is implemented here with \code{ci.type="classic"}. However, Joanes and Gill (1998) advise against this approach, pointing out that the normal assumptions would virtually always be violated. 
+Cramer (1997) mentions the asymptotic standard error of the skewness, resp. kurtosis: \cr
+\preformatted{ASE.skew = sqrt( 6*n*(n-1)/((n-2)*(n+1)*(n+3)) )
+ASE.kurt = sqrt((24*n*(n - 1)^2) / ((n - 3)*(n - 2)*(n + 3)*(n + 5)))} to be used for calculating the confidence intervals. This is implemented here with \code{ci.type="classic"}. However, Joanes and Gill (1998) advise against this approach, pointing out that the normal assumptions would virtually always be violated. 
 They suggest using the bootstrap method. That's why the default method for the confidence interval type is set to \code{"bca"}.\cr  
 
 This implementation of the two functions is comparably fast, as the expensive sums are coded in C.

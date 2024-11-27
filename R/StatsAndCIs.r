@@ -1589,7 +1589,8 @@ Kurt <- function (x, weights=NULL, na.rm = FALSE, method = 3, conf.level = NA,
     }
     
     se <- sqrt((24*n*(n-2)*(n-3))/((n+1)^2*(n+3)*(n+5)))
-
+#    se <- sqrt((24 * n * (n - 1)^2) / ((n - 3) * (n - 2) * (n + 3) * (n + 5)))
+    
     if (method == 2) {
       # method 2: SAS/SPSS
       r.kurt <- ((r.kurt + 3) * (n + 1)/(n - 1) - 3) * (n - 1)^2/(n - 2)/(n - 3)
