@@ -1,6 +1,5 @@
 
 
-
 #' Add Up Partial Confidence Intervals to a Total CI
 #' 
 #' Starting with a response variable that obtains different 
@@ -18,7 +17,7 @@
 
 #' @seealso \code{\link{BinomCI}},
 
-#' @references \url{StackExchange}{https://stats.stackexchange.com/questions/223924/how-to-add-up-partial-confidence-intervals-to-create-a-total-confidence-interval}
+#' @references \url{https://stats.stackexchange.com/questions/223924/how-to-add-up-partial-confidence-intervals-to-create-a-total-confidence-interval}
 
 #' @examples
 #' x <- do.call(rbind, 
@@ -39,7 +38,7 @@ SumCI <- function(x){
   # half ci for the sum is sqrt(sum(ci^2))
   ci_sum <- sqrt(sum(ci^2))
 
-  res <- SetNames(c(sum(x[, 1]) +  c(0,-1,1) * ci_sum),
+  res <- SetNames(sum(x[, 1]) +  c(0,-1,1) * ci_sum,
                   names=c("sum", "lwr.ci", "upr.ci"))
   
   return(res)
