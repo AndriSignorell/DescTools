@@ -4907,6 +4907,22 @@ CutAge <- function(x, from=0, to=90, by=10, right=FALSE, ordered_result=TRUE, ..
 
 
 
+CutGen <- function(vintage){
+  
+  # Babyboomer (1946-1964)
+  # Generation X (1965-1979)
+  # Generation Y (1980-1995) – auch als Millennials bezeichnet.
+  # Generation Z (1996-2010)
+  # Generation Alpha (ab 2011-2025)
+  
+  cut(vintage,
+      breaks=c(1946,1965,1980,1996,2011, Inf), right=FALSE, 
+      labels = c("Babyboomer","Gen X","Millennials","Gen Z","Gen Alpha"),
+      ordered = TRUE)
+  
+}
+
+
 CutQ <- function(x, breaks=quantile(x, seq(0, 1, by=0.25), na.rm=TRUE), 
                  labels=NULL, na.rm = FALSE, ...){
 
