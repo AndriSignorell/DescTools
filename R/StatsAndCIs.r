@@ -3412,7 +3412,7 @@ MultinomCI <- function(x, conf.level = 0.95, sides = c("two.sided","left","right
   
   # rewritten in R by Andri Signorell
   
-  .momentsA <- function(c, lambda) {
+  .moments <- function(c, lambda) {
     
     a <- lambda + c
     b <- max(lambda - c, 0)
@@ -3439,9 +3439,9 @@ MultinomCI <- function(x, conf.level = 0.95, sides = c("two.sided","left","right
     
   }
   
-  .truncpoiA <- function(c, x, n, k) {
+  .truncpoi <- function(c, x, n, k) {
 
-    m <- t(sapply(x, .momentsA, c=c))
+    m <- t(sapply(x, .moments, c=c))
     m[,4] <- m[,4] - 3*m[, 2]^2
     
     probn <- 1/(ppois(n, n) - ppois(n - 1, n))
