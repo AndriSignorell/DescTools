@@ -18,7 +18,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.58.10</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.58.11</span>
       </span>
     </div>
 
@@ -84,7 +84,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">TMod</span><span class="op">(</span><span class="va">...</span>, FUN <span class="op">=</span> <span class="cn">NULL</span>, order <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">TMod</span><span class="op">(</span><span class="va">...</span>, FUN <span class="op">=</span> <span class="cn">NULL</span>, order <span class="op">=</span> <span class="cn">NA</span>, verb <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">ModSummary</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
@@ -96,7 +96,7 @@
 <span><span class="co"># S3 method for class 'TMod'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, terms <span class="op">=</span> <span class="cn">NULL</span>, intercept <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'TMod'</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="fl">3</span>, na.form <span class="op">=</span> <span class="st">"-"</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="fl">3</span>, na.form <span class="op">=</span> <span class="st">"-"</span>, verb <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -117,6 +117,11 @@
 
 <dt id="arg-order">order<a class="anchor" aria-label="anchor" href="#arg-order"></a></dt>
 <dd><p>row of the results table to be used as order for the models (as typically "AIC"). Can be any label in the first column of the results table. Default is <code>NA</code> for no special order.</p></dd>
+
+<dt id="arg-verb">verb<a class="anchor" aria-label="anchor" href="#arg-verb"></a></dt>
+<dd><p>logical, determining whether the full set of model performance
+            indicators (<code>TRUE</code>) or a reduced set should be displayed
+            (<code>FALSE</code> is default).</p></dd>
 
 <dt id="arg-terms">terms<a class="anchor" aria-label="anchor" href="#arg-terms"></a></dt>
 <dd><p>a vector with the terms of the model formula to be plotted. By default this will be all of them.</p></dd>
@@ -177,76 +182,46 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Waiting for profiling to be done...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Waiting for profiling to be done...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Waiting for profiling to be done...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                coef   r.full        r.nox        r.grp        r.gam    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1       (Intercept)   66.915 ***   51.101 ***   53.411 ***   63.709 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2       Agriculture   -0.172 *     -0.026       -0.096       -0.175 *  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3       Examination   -0.258        -           -0.872 ***   -0.129    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4         Education   -0.871 ***   -0.857 ***    -           -0.944 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          Catholic    0.104 **     -            -            0.106 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Infant.Mortality    1.077 **     1.493 **     1.796 ***    1.174 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  CutQ(Catholic)Q2    -            -           -0.035        -        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  CutQ(Catholic)Q3    -            -           -5.780        -        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  CutQ(Catholic)Q4    -            -            5.939        -        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10              ---                                                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11        r.squared    0.707        0.566        0.611        -        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12    adj.r.squared    0.671        0.536        0.552        -        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13            sigma    7.165        8.511        8.359        -        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14           logLik -156.036     -165.243     -162.699     -156.506    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15          logLik0    -            -            -         -186.992    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16               G2    -            -            -           60.971    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17         deviance 2105.043     3114.635     2795.124        -        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18              AIC  326.072      340.485      341.398      327.012    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19              BIC  339.023      349.736      356.199      339.963    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20            numdf    5            3            6            7        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21            dendf   41           43           40            -        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22                N   47           47           47           47        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23           n vars    5            3            4            5        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24           n coef    6            4            7            6        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25                F   19.761       18.699       10.454        -        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26                p    5.594e-10    0.000        0.000        -        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27              MAE    5.321        6.826        6.079        5.330    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28             MAPE    0.079        0.098        0.095        0.078    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29              MSE   44.788       66.269       59.471       45.342    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30             RMSE    6.692        8.141        7.712        6.734    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31         McFadden    -            -            -            0.163    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32      McFaddenAdj    -            -            -            0.131    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33       Nagelkerke    -            -            -            0.727    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34         CoxSnell    -            -            -            0.727    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      r.gama       r.gaml    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    48.790 ***    4.184 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     -           -0.002 *  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     0.050       -0.003    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    -0.808 ***   -0.015 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     0.089 *      0.001 *  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6     1.290 **     0.017 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7     -            -        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8     -            -        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9     -            -        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10                          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11    -            -        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12    -            -        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13    -            -        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 -159.674     -157.224    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 -186.992     -186.992    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16   54.636       59.534    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17    -            -        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18  331.347      328.449    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19  342.448      341.400    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20    6            7        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21    -            -        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22   47           47        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23    4            5        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24    5            6        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25    -            -        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26    -            -        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27    5.869        5.458    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28    0.086        0.080    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29   52.015       47.361    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30    7.212        6.882    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31    0.146        0.159    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32    0.119        0.127    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33    0.688        0.718    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34    0.687        0.718    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                coef  r.full       r.nox       r.grp       r.gam      r.gama    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       (Intercept)  66.915 ***  51.101 ***  53.411 ***  63.709 ***  48.790 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       Agriculture  -0.172 *    -0.026      -0.096      -0.175 *     -        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3       Examination  -0.258       -          -0.872 ***  -0.129       0.050    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4         Education  -0.871 ***  -0.857 ***   -          -0.944 ***  -0.808 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          Catholic   0.104 **    -           -           0.106 **    0.089 *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Infant.Mortality   1.077 **    1.493 **    1.796 ***   1.174 **    1.290 ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  CutQ(Catholic)Q2   -           -          -0.035       -           -        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  CutQ(Catholic)Q3   -           -          -5.780       -           -        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  CutQ(Catholic)Q4   -           -           5.939       -           -        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10              ---                                                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11    adj.r.squared   0.671       0.536       0.552       -           -        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12              AIC 326.072     340.485     341.398     327.012     331.347    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                N  47          47          47          47          47        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14              NAs   0           0           0           0           0        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15           n vars   5           3           4           5           4        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16           n coef   6           4           7           6           5        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17              MAE   5.321       6.826       6.079       5.330       5.869    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18             RMSE   6.692       8.141       7.712       6.734       7.212    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19         McFadden   -           -           -           0.163       0.146    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     r.gaml    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    4.184 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   -0.002 *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   -0.003    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   -0.015 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    0.001 *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    0.017 ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7    -        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8    -        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9    -        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11   -        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 328.449    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13  47        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14   0        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15   5        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16   6        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17   5.458    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18   6.882    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19   0.159    </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># display confidence intervals</span></span></span>
 <span class="r-in"><span><span class="fu">TMod</span><span class="op">(</span><span class="va">r.full</span>, <span class="va">r.nox</span>, <span class="va">r.gam</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">est</span>, <span class="va">se</span>, <span class="va">tval</span>, <span class="va">pval</span>, <span class="va">lci</span>, <span class="va">uci</span><span class="op">)</span><span class="op">{</span></span></span>
@@ -257,70 +232,40 @@
 <span class="r-in"><span>           <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Waiting for profiling to be done...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                coef               r.full                    r.nox    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1       (Intercept)   66.915 [45.294, 88.54]   51.101 [28.928, 73.27]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2       Agriculture   -0.172 [-0.314, -0.03]   -0.026 [-0.173, 0.12] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3       Examination   -0.258 [-0.771, 0.25]     -                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4         Education   -0.871 [-1.241, -0.50]   -0.857 [-1.205, -0.51]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          Catholic    0.104 [0.033, 0.18]      -                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Infant.Mortality    1.077 [0.306, 1.85]      1.493 [0.608, 2.38]  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7               ---                                                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8         r.squared    0.707                    0.566                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9     adj.r.squared    0.671                    0.536                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10            sigma    7.165                    8.511                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11           logLik -156.036                 -165.243                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12          logLik0    -                        -                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13               G2    -                        -                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14         deviance 2105.043                 3114.635                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15              AIC  326.072                  340.485                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16              BIC  339.023                  349.736                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17            numdf    5                        3                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18            dendf   41                       43                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19                N   47                       47                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20           n vars    5                        3                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21           n coef    6                        4                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22                F   19.761                   18.699                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23                p    5.594e-10                0.000                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24              MAE    5.321                    6.826                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25             MAPE    0.079                    0.098                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26              MSE   44.788                   66.269                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27             RMSE    6.692                    8.141                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28         McFadden    -                        -                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29      McFaddenAdj    -                        -                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30       Nagelkerke    -                        -                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31         CoxSnell    -                        -                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   r.gam    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    63.709 [44.294, 83.44]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    -0.175 [-0.318, -0.04]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    -0.129 [-0.626, 0.36] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    -0.944 [-1.252, -0.63]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     0.106 [0.035, 0.18]  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6     1.174 [0.479, 1.84]  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7                          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8     -                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9     -                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10    -                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 -156.506                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 -186.992                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13   60.971                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14    -                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15  327.012                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16  339.963                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17    7                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18    -                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19   47                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20    5                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21    6                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22    -                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23    -                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24    5.330                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25    0.078                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26   45.342                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27    6.734                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28    0.163                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29    0.131                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30    0.727                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31    0.727                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                coef              r.full                   r.nox    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       (Intercept)  66.915 [45.294, 88.54]  51.101 [28.928, 73.27]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       Agriculture  -0.172 [-0.314, -0.03]  -0.026 [-0.173, 0.12] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3       Examination  -0.258 [-0.771, 0.25]    -                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4         Education  -0.871 [-1.241, -0.50]  -0.857 [-1.205, -0.51]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          Catholic   0.104 [0.033, 0.18]     -                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Infant.Mortality   1.077 [0.306, 1.85]     1.493 [0.608, 2.38]  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7               ---                                                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8     adj.r.squared   0.671                   0.536                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9               AIC 326.072                 340.485                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                N  47                      47                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11              NAs   0                       0                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12           n vars   5                       3                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13           n coef   6                       4                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14              MAE   5.321                   6.826                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15             RMSE   6.692                   8.141                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16         McFadden   -                       -                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                  r.gam    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   63.709 [44.294, 83.44]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   -0.175 [-0.318, -0.04]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   -0.129 [-0.626, 0.36] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   -0.944 [-1.252, -0.63]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    0.106 [0.035, 0.18]  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    1.174 [0.479, 1.84]  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8    -                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  327.012                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  47                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11   0                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12   5                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13   6                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14   5.330                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15   6.734                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16   0.163                </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># cbind interface is not supported!!</span></span></span>
@@ -343,31 +288,19 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Waiting for profiling to be done...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Waiting for profiling to be done...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Waiting for profiling to be done...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             coef    r.glm0        r.glm1        r.glm2    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    (Intercept)    -0.740 ***     0.509 ***     0.685 *  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2       Class2nd     -            -0.856 ***    -1.018 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3       Class3rd     -            -1.596 ***    -1.778 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      ClassCrew     -            -1.664 ***    -0.858 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5      SexFemale     -             -             2.420 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6       AgeAdult     -             -            -1.062 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7            ---                                          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8         logLik -1384.728     -1294.278     -1105.031    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9        logLik0 -1384.728     -1384.728     -1384.728    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10            G2    -0.000       180.901       559.396    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11           AIC  2771.457      2596.555      2222.061    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12           BIC  2777.153      2619.342      2256.241    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13         numdf     1             4             6        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14             N  2201          2201          2201        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15        n vars     0             1             3        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16      McFadden     0.000         0.065         0.202    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17   McFaddenAdj    -0.001         0.062         0.198    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18    Nagelkerke     0.000         0.110         0.314    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19      CoxSnell     0.000         0.079         0.224    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20 Kendall Tau-a     0.000         0.124         0.227    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21  Somers Delta     0.000         0.283         0.519    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22         Gamma     -             0.386         0.623    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23         Brier     0.219         0.200         0.162    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24             C     0.500         0.642         0.760    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           coef   r.glm0       r.glm1       r.glm2    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  (Intercept)   -0.740 ***    0.509 ***    0.685 *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     Class2nd    -           -0.856 ***   -1.018 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3     Class3rd    -           -1.596 ***   -1.778 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    ClassCrew    -           -1.664 ***   -0.858 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    SexFemale    -            -            2.420 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6     AgeAdult    -            -           -1.062 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7          ---                                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8          AIC 2771.457     2596.555     2222.061    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9            N 2201         2201         2201        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10         NAs    0            0            0        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11      n vars    0            1            3        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12    McFadden    0.000        0.065        0.202    </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot OddsRatios</span></span></span>
 <span class="r-in"><span><span class="va">d.pima</span> <span class="op">&lt;-</span> <span class="fu">MASS</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/MASS/man/Pima.tr.html" class="external-link">Pima.tr2</a></span></span></span>
