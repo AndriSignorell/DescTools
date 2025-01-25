@@ -9,7 +9,7 @@ used to create the barplot.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-ConnLines(..., col = 1, lwd = 1, lty = "solid", xalign = c("mar","mid"))
+ConnLines(..., col = 1, lwd = 1, lty = "solid", xalign = c("mar", "mid"))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -36,36 +36,35 @@ either to the margins of the bars ("mar" which is the default) or to "mid". The 
 %%  ~~who you are~~
 }
 
-\seealso{\code{\link{barplot}}
+\seealso{\code{\link{BarText}}, \code{\link{barplot}} 
 }
 \examples{
 tab <- with(
-  subset(d.pizza, driver \%in\% c("Carpenter","Miller","Farmer","Butcher")),
+  subset(d.pizza, driver \%in\% c("Carpenter", "Miller", "Farmer", "Butcher")),
   table(factor(driver), Weekday(date, "dd", stringsAsFactor=TRUE))
 )
 tab
 
 barplot(tab, beside=FALSE, space=1.2)
-ConnLines(tab, beside=FALSE, space=1.2, lcol="grey50", lwd=1, lty=2)
+ConnLines(tab, beside=FALSE, space=1.2, col="grey50", lwd=1, lty=2)
 
 barplot(tab, beside=FALSE, space=1.2, horiz=TRUE)
-ConnLines(tab, beside=FALSE, space=1.2, horiz=TRUE, lcol="grey50", lwd=1, lty=2)
+ConnLines(tab, beside=FALSE, space=1.2, horiz=TRUE, col="grey50", lwd=1, lty=2)
 
 
 cols <- Pal("Helsana")[1:4]
 b <- barplot(tab, beside=FALSE, horiz=FALSE, col=cols)
-ConnLines(tab, beside=FALSE, horiz=FALSE, lcol="grey50", lwd=1, lty=2)
+ConnLines(tab, beside=FALSE, horiz=FALSE, col="grey50", lwd=1, lty=2)
 
 # set some labels
-txt <- tab
-txt[] <- gsub(pattern="^0", "", t(tab))       # do not print 0s
-text(x=b, y=t(apply(apply(rbind(0,tab), 2, Midx), 2, cumsum)), labels=txt,
-     col=(matrix(rep(TextContrastColor(cols), each=ncol(tab)),
-          nrow=nrow(tab), byrow=FALSE )))
+BarText(tab, b, 
+        labels=Format(tab, zero.form = "", d=0), pos = "mid", 
+        col=(matrix(rep(TextContrastColor(cols), each=ncol(tab)),
+                    nrow=nrow(tab), byrow=FALSE )))
 
 # align to the middle of the bars
 barplot(tab, beside=FALSE, space=1.2)
-ConnLines(tab, beside=FALSE, space=1.2, lcol="grey50", lwd=1, lty=2, method="mid")
+ConnLines(tab, beside=FALSE, space=1.2, col="grey50", lwd=1, lty=2, method="mid")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

@@ -3,11 +3,9 @@
 
 
 ModSummary <- function(x, ...){
-
-
-
   UseMethod("ModSummary")
 }
+
 
 
 ModSummary.lm <- function(x, conf.level=0.95, ...){
@@ -41,6 +39,7 @@ ModSummary.lm <- function(x, conf.level=0.95, ...){
     p             = pf(fstatistic[[1]], fstatistic[[2]], fstatistic[[3]], lower.tail=FALSE)
   )),
   N             = nobs(x),
+  NAs           = ifelse(is.null(x$na.action), 0, length(x$na.action)),
   logLik        = logLik(x),
   deviance      = deviance(x),
   AIC           = AIC(x),
@@ -67,9 +66,12 @@ ModSummary.lmrob <- function (x, conf.level = 0.95, ...) {
   fit <- x$fitted.values
   y <- model.response(x$model)
   statsx <- c(with(smrx, c(sigma = sigma, r.squared = r.squared,
-                           adj.r.squared = adj.r.squared, F = df[[1]], numdf = df[[3]],
+                           adj.r.squared = adj.r.squared, F = df[[1]], 
+                           numdf = df[[3]],
                            dendf = df[[2]], p = pf(df[[1]], df[[2]],
-                                                   df[[3]], lower.tail = FALSE))), N = nobs(x),
+                                                   df[[3]], lower.tail = FALSE))), 
+              N = nobs(x),
+              NAs = ifelse(is.null(x$na.action), 0, length(x$na.action)),
               #           logLik = logLik(x), deviance = deviance(x), AIC = AIC(x),
               logLik = NA, deviance = NA, AIC = NA,
               "n vars" = length(attr(x$terms, "term.labels")),
@@ -136,6 +138,7 @@ ModSummary.glm <- function(x, conf.level=0.95, use.profile = TRUE, ...){
 
     statsx <- c(statsx,
                 "N" =  nobs(x),
+                "NAs" = ifelse(is.null(x$na.action), 0, length(x$na.action)),
                 "n vars" = length(attr(x$terms, "term.labels")),
                 "n coef" = nrow(x$coefficients),
                 "numdf" = attr(logLik(x), "df"),
@@ -152,6 +155,7 @@ ModSummary.glm <- function(x, conf.level=0.95, use.profile = TRUE, ...){
 
     statsx <- c(statsx[],
                 "N" =  nobs(x),
+                "NAs" = ifelse(is.null(x$na.action), 0, length(x$na.action)),
                 "n vars" = length(attr(x$terms, "term.labels")),
                 "n coef" = length(x$coefficients),
                 "numdf" = attr(logLik(x), "df"),
@@ -177,6 +181,7 @@ ModSummary.OddsRatio <- function(x, conf.level=0.95, ...){
 
   statsx <- x$PseudoR2
   statsx <- c(N = x$nobs,
+              "NAs" = ifelse(is.null(x$na.action), 0, length(x$na.action)),
               "n vars" = length(x$terms),
               "n coef" = nrow(x$res),
               statsx[],
@@ -192,7 +197,7 @@ ModSummary.OddsRatio <- function(x, conf.level=0.95, ...){
 
 
 
-TMod <- function(..., FUN = NULL, order = NA){
+TMod <- function(..., FUN = NULL, order = NA, verb=FALSE){
 
   if (!requireNamespace("DescTools", quietly = TRUE))
     stop("package 'DescTools' must be installed")
@@ -266,14 +271,13 @@ TMod <- function(..., FUN = NULL, order = NA){
 
   row.names(mm) <- mm$stat
   mm <- mm[match(c("r.squared", "adj.r.squared","sigma","logLik","logLik0","G2","deviance",
-                   "AIC","BIC","numdf","dendf","N","n vars","n coef","F","p","MAE","MAPE","MSE","RMSE","McFadden",
+                   "AIC","BIC","numdf","dendf","N", "NAs", "n vars","n coef","F","p","MAE","MAPE","MSE","RMSE","McFadden",
                    "McFaddenAdj","Nagelkerke","CoxSnell","Kendall Tau-a","Somers Delta","Gamma","Brier","C"),
                  rownames(mm))
            , ]
   mm <- mm[!is.na(mm$stat), ]
 
   row.names(mm) <- NULL
-
 
 
   # # compose est-lci-uci table
@@ -352,22 +356,29 @@ TMod <- function(..., FUN = NULL, order = NA){
 
   names(mterms) <- modname
 
-  return(structure(list(m, mm, lcoef, mall=mall, terms=mterms), class="TMod"))
+  return(structure(list(m, mm, lcoef, mall=mall, terms=mterms, verb=verb), 
+                   class="TMod"))
 
 
 }
 
 
-print.TMod <- function(x, digits=3, na.form = "-", ...){
+print.TMod <- function(x, digits=3, na.form = "-", verb = NULL, ...){
 
+  if(!Coalesce(verb, x$verb))   # alternative: less verbose then >1
+    x[[2]] <- x[[2]][match(c("adj.r.squared","AIC", "N", "NAs","n vars",
+                         "n coef","MAE","RMSE","McFadden"), 
+                         x[[2]]$stat, nomatch = 0), ] 
+  
+  
   colnames(x[[1]])[-1] <- paste0(colnames(x[[1]])[-1], strrep(" ", times=4))
   x[[1]][, -1] <- Format(x[[1]][, -1], digits=digits, na.form = na.form)
 
   x2 <- x[[2]]
   x[[2]][, -1] <- Format(x[[2]][, -1], digits=digits, na.form = na.form)
 
-  x[[2]][x[[2]]$stat %in% c("numdf", "dendf", "N", "n vars", "n coef"), -1] <-
-    Format(x2[x[[2]]$stat %in% c("numdf", "dendf", "N", "n vars", "n coef"), -1], digits=0, na.form=na.form)
+  x[[2]][x[[2]]$stat %in% c("numdf", "dendf", "N", "NAs", "n vars", "n coef"), -1] <-
+    Format(x2[x[[2]]$stat %in% c("numdf", "dendf", "N", "NAs", "n vars", "n coef"), -1], digits=0, na.form=na.form)
 
   m <- rbind(x[[1]],  setNames(c("---", rep("", ncol(x[[1]]) -1)), colnames(x[[1]])),
              setNames(x[[2]], colnames(x[[1]])))
@@ -420,24 +431,6 @@ plot.TMod <- function(x, terms=NULL, intercept=FALSE, ...){
 
 
 
-
-# ToWrd.TMod <- function(x, font=NULL, para=NULL, main=NULL, align=NULL,
-#                        autofit=TRUE, ..., wrd=DescToolsOptions("lastWord")) {
-#   m <- FixToTable(capture.output(x))
-#   if(is.null(align))
-#     align <- "l"
-#   wt <- ToWrd.matrix(x=m, font=font, para=para, main=main, align=align, autofit=autofit, ..., wrd=wrd)
-#
-#   # insert decimal tabs
-#   # Selection.ParagraphFormat.TabStops(CentimetersToPoints(1.14)).Position = CentimetersToPoints(1.14)
-#   # Selection.TypeText Text:=vbTab
-#
-# }
-
-
-
-
-
 ToWrd.TMod <- function (x, font = NULL, para = NULL, main = NULL, align = NULL,
                         split=" ", fixed = TRUE,
                         autofit = TRUE, digits = 3, na.form = "-", ...,
@@ -447,8 +440,8 @@ ToWrd.TMod <- function (x, font = NULL, para = NULL, main = NULL, align = NULL,
   # prepare quality measures
   x2 <- x[[2]]
   x[[2]][, -1] <- Format(x[[2]][, -1], digits = digits, na.form = na.form)
-  x[[2]][x[[2]]$stat %in% c("numdf", "dendf", "N", "n vars", "n coef"), -1] <-
-    Format(x2[x[[2]]$stat %in% c("numdf", "dendf", "N", "n vars", "n coef"), -1],
+  x[[2]][x[[2]]$stat %in% c("numdf", "dendf", "N", "NAs", "n vars", "n coef"), -1] <-
+    Format(x2[x[[2]]$stat %in% c("numdf", "dendf", "N", "NAs", "n vars", "n coef"), -1],
            digits = 0, na.form = na.form)
 
   if(!is.null(split)) {

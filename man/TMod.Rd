@@ -14,7 +14,7 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-TMod(..., FUN = NULL, order = NA)
+TMod(..., FUN = NULL, order = NA, verb = FALSE)
 
 ModSummary(x, ...)
 
@@ -22,7 +22,7 @@ ModSummary(x, ...)
 \method{ModSummary}{glm}(x, conf.level = 0.95, use.profile = TRUE, ...)
 
 \method{plot}{TMod}(x, terms = NULL, intercept = FALSE, ...)
-\method{print}{TMod}(x, digits = 3, na.form = "-", ...)
+\method{print}{TMod}(x, digits = 3, na.form = "-", verb = NULL, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -31,6 +31,9 @@ ModSummary(x, ...)
 \item{conf.level}{the level for the confidence intervals.}
 \item{FUN}{function with arguments \code{est}, \code{se}, \code{tval}, \code{pval}, \code{lci}, \code{uci} to display the coefficients. The default function will display the coefficient and significance stars for the p-values.}
 \item{order}{row of the results table to be used as order for the models (as typically "AIC"). Can be any label in the first column of the results table. Default is \code{NA} for no special order.}
+\item{verb}{logical, determining whether the full set of model performance 
+            indicators (\code{TRUE}) or a reduced set should be displayed 
+            (\code{FALSE} is default). }
 \item{terms}{a vector with the terms of the model formula to be plotted. By default this will be all of them.}
 \item{use.profile}{logical. Defines if profile approach should be used, which normally is a good choice for small datasets. Calculating profile can however take ages for large datasets and not be necessary there. So we can fallback to normal confidence intervals. }
 
