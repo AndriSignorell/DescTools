@@ -18,7 +18,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.57</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.59</span>
       </span>
     </div>
 
@@ -138,8 +138,8 @@
 <p>method = 1 is the typical definition used in Stata and in many older textbooks.   <br>
   method = 2 is used in SAS and SPSS.  <br>
   method = 3 is used in MINITAB and BMDP. <br></p>
-<p>Cramer et al. (1997) mention the asymptotic standard error of the skewness, resp. kurtosis: <br></p><div class="sourceCode"><pre><code>ASE.skew = sqrt( 6n(n-1)/((n-2)(n+1)(n+3)) )
-ASE.kurt = sqrt( (n^2 - 1)/((n-3)(n+5)) )</code></pre></div><p>to be used for calculating the confidence intervals. This is implemented here with <code>ci.type="classic"</code>. However, Joanes and Gill (1998) advise against this approach, pointing out that the normal assumptions would virtually always be violated.
+<p>Cramer (1997) mentions the asymptotic standard error of the skewness, resp. kurtosis: <br></p><div class="sourceCode"><pre><code><span><span class="va">ASE.skew</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span> <span class="fl">6</span><span class="op">*</span><span class="va">n</span><span class="op">*</span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">2</span><span class="op">)</span><span class="op">*</span><span class="op">(</span><span class="va">n</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span><span class="op">*</span><span class="op">(</span><span class="va">n</span><span class="op">+</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op">)</span></span>
+<span><span class="va">ASE.kurt</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="op">(</span><span class="fl">24</span><span class="op">*</span><span class="va">n</span><span class="op">*</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">3</span><span class="op">)</span><span class="op">*</span><span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">2</span><span class="op">)</span><span class="op">*</span><span class="op">(</span><span class="va">n</span> <span class="op">+</span> <span class="fl">3</span><span class="op">)</span><span class="op">*</span><span class="op">(</span><span class="va">n</span> <span class="op">+</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><p>to be used for calculating the confidence intervals. This is implemented here with <code>ci.type="classic"</code>. However, Joanes and Gill (1998) advise against this approach, pointing out that the normal assumptions would virtually always be violated.
 They suggest using the bootstrap method. That's why the default method for the confidence interval type is set to <code>"bca"</code>.<br></p>
 <p>This implementation of the two functions is comparably fast, as the expensive sums are coded in C.</p>
     </div>
