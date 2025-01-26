@@ -38,6 +38,7 @@
 #' corrected for ties within raters. (Default \code{FALSE})
 #' @param test a logical indicating whether the test statistic and p-value
 #' should be reported. (Default \code{FALSE})
+#' @param na.rm is not longer supported and will be ignored.
 
 #' @return Either a single value if \code{test = FALSE} or else \cr
 #' 
@@ -101,12 +102,14 @@
 #' friedman.test(y=as.matrix(d.att[,-1]), groups = d.att$id)
  
  
-KendallW <- function(x, correct=FALSE, test=FALSE) {
+KendallW <- function(x, correct=FALSE, test=FALSE, na.rm=NULL) {
   
   # see also old Jim Lemon function kendall.w
   # other solution: library(irr);  kendall(ratings, correct = TRUE)
   # http://www.real-statistics.com/reliability/kendalls-w/
   
+  if(!is.null(na.rm))
+    warning("na.rm is not longer supported, see help!")
   
   dname <- deparse(substitute(x))
   
