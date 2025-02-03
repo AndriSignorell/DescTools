@@ -7,6 +7,7 @@
 \alias{Day<-}
 \alias{Weekday}
 \alias{YearDay}
+\alias{YearWeek}
 \alias{YearMonth}
 \alias{IsWeekend}
 \alias{IsLeapYear}
@@ -41,6 +42,7 @@ Day(x)
 Weekday(x, fmt = c("d", "dd", "ddd"), lang = DescToolsOptions("lang"),
         stringsAsFactors = TRUE)
 YearDay(x)
+YearWeek(x, method = c("iso", "us"))
 YearMonth(x)
 
 Day(x) <- value
@@ -97,6 +99,8 @@ Based on the requested time component, the output is as follows:\cr\cr
 \code{Weekday} returns the week day of the input date. (1 - Monday, 2 - Tuesday, ... 7 - Sunday). (Names and abbreviations are either english or in the current locale!)\cr
 \code{YearDay} returns the day of the year numbering (1 to 366). \cr
 \code{Day} returns the day of the month (1 to 31). \cr
+\code{YearDay} returns the yearday representation (yyyyddd) of a date as long integer. \cr
+\code{YearWeek} returns the yearweek representation (yyyyww) of a date as long integer. \cr
 \code{YearMonth} returns the yearmonth representation (yyyymm) of a date as long integer. \cr
 \code{Hour}, \code{Minute}, \code{Second}, \code{Timezone} return the hour, minute, second or timezone from a POSIXlt object. \cr
 \code{HmsToMinute} converts the time parts of a POSIXlt object to minutes.\cr
