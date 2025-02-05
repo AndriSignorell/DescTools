@@ -25,6 +25,30 @@ conv_DecToBin <- function(n) {
     .Call(`_DescTools_conv_DecToBin`, n)
 }
 
+isoWeek <- function(x) {
+    .Call(`_DescTools_isoWeek`, x)
+}
+
+usWeek <- function(x) {
+    .Call(`_DescTools_usWeek`, x)
+}
+
+isoYear <- function(x) {
+    .Call(`_DescTools_isoYear`, x)
+}
+
+isoYearweek <- function(x) {
+    .Call(`_DescTools_isoYearweek`, x)
+}
+
+usYearweek <- function(x) {
+    .Call(`_DescTools_usYearweek`, x)
+}
+
+usYearmonth <- function(x) {
+    .Call(`_DescTools_usYearmonth`, x)
+}
+
 top_n <- function(x, n = 5L) {
     .Call(`_DescTools_top_n`, x, n)
 }

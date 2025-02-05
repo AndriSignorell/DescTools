@@ -79,6 +79,72 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// isoWeek
+IntegerVector isoWeek(DateVector x);
+RcppExport SEXP _DescTools_isoWeek(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< DateVector >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(isoWeek(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// usWeek
+IntegerVector usWeek(DateVector x);
+RcppExport SEXP _DescTools_usWeek(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< DateVector >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(usWeek(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// isoYear
+IntegerVector isoYear(DateVector x);
+RcppExport SEXP _DescTools_isoYear(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< DateVector >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(isoYear(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// isoYearweek
+IntegerVector isoYearweek(DateVector x);
+RcppExport SEXP _DescTools_isoYearweek(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< DateVector >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(isoYearweek(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// usYearweek
+IntegerVector usYearweek(DateVector x);
+RcppExport SEXP _DescTools_usYearweek(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< DateVector >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(usYearweek(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// usYearmonth
+IntegerVector usYearmonth(DateVector x);
+RcppExport SEXP _DescTools_usYearmonth(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< DateVector >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(usYearmonth(x));
+    return rcpp_result_gen;
+END_RCPP
+}
 // top_n
 Rcpp::List top_n(Rcpp::NumericVector x, int n);
 RcppExport SEXP _DescTools_top_n(SEXP xSEXP, SEXP nSEXP) {

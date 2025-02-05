@@ -66,7 +66,12 @@ extern SEXP pKolmogorov2x(SEXP, SEXP);
 extern SEXP _DescTools_hlqest(SEXP);
 extern SEXP _DescTools_hl2qest(SEXP, SEXP);
 extern SEXP _DescTools_tbrm(SEXP, SEXP);
-
+extern SEXP _DescTools_isoWeek(SEXP);
+extern SEXP _DescTools_usWeek(SEXP);
+extern SEXP _DescTools_isoYear(SEXP);
+extern SEXP _DescTools_isoYearweek(SEXP);
+extern SEXP _DescTools_usYearweek(SEXP);
+extern SEXP _DescTools_usYearmonth(SEXP);
 
 
 /* .Fortran calls */
@@ -119,8 +124,15 @@ static const R_CallMethodDef CallEntries[] = {
   {"pKolmogorov2x",            (DL_FUNC) &pKolmogorov2x,            2},
   {"_DescTools_hlqest",        (DL_FUNC) &_DescTools_hlqest,        1},
   {"_DescTools_hl2qest",       (DL_FUNC) &_DescTools_hl2qest,       2},
+  {"_DescTools_isoWeek",                  (DL_FUNC) &_DescTools_isoWeek,                  1},
+  {"_DescTools_usWeek",                   (DL_FUNC) &_DescTools_usWeek,                   1},
+  {"_DescTools_isoYear",                  (DL_FUNC) &_DescTools_isoYear,                  1},
+  {"_DescTools_isoYearweek",              (DL_FUNC) &_DescTools_isoYearweek,              1},
+  {"_DescTools_usYearweek",               (DL_FUNC) &_DescTools_usYearweek,               1},
+  {"_DescTools_usYearmonth",              (DL_FUNC) &_DescTools_usYearmonth,              1},
   {NULL, NULL, 0}
 };
+
 
 static const R_FortranMethodDef FortranEntries[] = {
   {"hoeffd", (DL_FUNC) &F77_NAME(hoeffd), 12},

@@ -132,6 +132,8 @@ Month.default <- function(x, fmt = c("m", "mm", "mmm"),
 }
 
 
+
+
 Week <- function(x, method = c("iso", "us")){
   
   # cast x to date, such as being able to handle POSIX-Dates automatically
@@ -164,14 +166,18 @@ Week <- function(x, method = c("iso", "us")){
            #       wn <- (as.integer(x.thursday - first.thursday) %/% 7) + 1 - ((x.weekday < 4) & (Year(x.thursday) != Year(first.thursday)))*52
            #       wn <- ifelse(wn == 0, Week(as.Date(paste(x.y-1, "12-31", sep="-"))), wn)
            
-           z <- x + (3 - (as.POSIXlt(x)$wday + 6) %% 7)
-           jan1 <- as.Date(paste(Year(z), "-01-01", sep=""))
+           # Old:
+           # z <- x + (3 - (as.POSIXlt(x)$wday + 6) %% 7)
+           # jan1 <- as.Date(paste(Year(z), "-01-01", sep=""))
+           # 
+           # wn <- 1 + as.integer(z - jan1) %/% 7
            
-           wn <- 1 + as.integer(z - jan1) %/% 7
+           wn <- .Call("_DescTools_isoWeek", x, PACKAGE="DescTools")
            
          },
          "us"={
-           wn <- as.numeric(strftime(as.POSIXlt(x), format="%W"))
+         # wn <- as.numeric(strftime(as.POSIXlt(x), format="%W"))
+           wn <- .Call("_DescTools_usWeek", x, PACKAGE="DescTools")
          }
   )
   return(wn)
@@ -295,15 +301,34 @@ Timezone <- function(x) {
 
 YearMonth <- function(x){
   # returns the yearmonth representation of a date x
-  x <- as.POSIXlt(x)
-  return(as.ym((x$year + 1900L)*100L + x$mon + 1L))
+  # x <- as.POSIXlt(x)
+  # return(as.ym((x$year + 1900L)*100L + x$mon + 1L))
+  
+  return(.Call("_DescTools_usYearmonth", x, PACKAGE="DescTools")) 
+  
 }
 
 
-YearWeek <- function (x, method = c("iso", "us")) {
-  x <- as.POSIXlt(x)
-  return((x$year + 1900L) * 100L + DescTools::Week(x, method=method))
+YearWeek <- function(x, method = c("iso", "us")){
+  
+  # cast x to date, such as being able to handle POSIX-Dates automatically
+  x <- as.Date(x)
+  
+  method <- match.arg(method, c("iso", "us"))
+  switch(method,
+         "iso" = {
+          res <- .Call("_DescTools_isoYearweek", x, PACKAGE="DescTools") 
+
+         },
+         "us"={
+           res <- .Call("_DescTools_usYearweek", x, PACKAGE="DescTools") 
+         }
+  )
+  
+  return(res)
+  
 }
+
 
 
 YearDay <- function(x) {
