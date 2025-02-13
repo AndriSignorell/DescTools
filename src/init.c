@@ -72,6 +72,8 @@ extern SEXP _DescTools_isoYear(SEXP);
 extern SEXP _DescTools_isoYearweek(SEXP);
 extern SEXP _DescTools_usYearweek(SEXP);
 extern SEXP _DescTools_usYearmonth(SEXP);
+extern SEXP _DescTools_isLeapYearDate(SEXP);
+extern SEXP _DescTools_isLeapYearInt(SEXP);
 
 
 /* .Fortran calls */
@@ -124,12 +126,14 @@ static const R_CallMethodDef CallEntries[] = {
   {"pKolmogorov2x",            (DL_FUNC) &pKolmogorov2x,            2},
   {"_DescTools_hlqest",        (DL_FUNC) &_DescTools_hlqest,        1},
   {"_DescTools_hl2qest",       (DL_FUNC) &_DescTools_hl2qest,       2},
-  {"_DescTools_isoWeek",                  (DL_FUNC) &_DescTools_isoWeek,                  1},
-  {"_DescTools_usWeek",                   (DL_FUNC) &_DescTools_usWeek,                   1},
-  {"_DescTools_isoYear",                  (DL_FUNC) &_DescTools_isoYear,                  1},
-  {"_DescTools_isoYearweek",              (DL_FUNC) &_DescTools_isoYearweek,              1},
-  {"_DescTools_usYearweek",               (DL_FUNC) &_DescTools_usYearweek,               1},
-  {"_DescTools_usYearmonth",              (DL_FUNC) &_DescTools_usYearmonth,              1},
+  {"_DescTools_isoWeek",       (DL_FUNC) &_DescTools_isoWeek,       1},
+  {"_DescTools_usWeek",        (DL_FUNC) &_DescTools_usWeek,        1},
+  {"_DescTools_isoYear",       (DL_FUNC) &_DescTools_isoYear,       1},
+  {"_DescTools_isoYearweek",   (DL_FUNC) &_DescTools_isoYearweek,   1},
+  {"_DescTools_usYearweek",    (DL_FUNC) &_DescTools_usYearweek,    1},
+  {"_DescTools_usYearmonth",   (DL_FUNC) &_DescTools_usYearmonth,   1},
+  {"_DescTools_isLeapYearDate",(DL_FUNC) &_DescTools_isLeapYearDate,1},
+  {"_DescTools_isLeapYearInt", (DL_FUNC) &_DescTools_isLeapYearInt, 1},
   {NULL, NULL, 0}
 };
 

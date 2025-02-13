@@ -505,9 +505,6 @@ CorPart <- function(m, x, y)  {
 }
 
 
-FisherZ <- function(rho)  {0.5*log((1+rho)/(1-rho)) }   #converts r to z
-
-FisherZInv <- function(z) {(exp(2*z)-1)/(1+exp(2*z)) }   #converts back again
 
 
 CorCI <- function(rho, n, conf.level = 0.95, alternative = c("two.sided","less","greater")) {

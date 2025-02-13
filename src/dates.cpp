@@ -5,6 +5,8 @@
 using namespace Rcpp;
 
 
+// ************************ Week ***************
+
 // [[Rcpp::export]]
 IntegerVector isoWeek(DateVector x) {
   
@@ -66,6 +68,9 @@ IntegerVector usWeek(DateVector x) {
 
 
 
+// ************************ Year ***************
+
+
 // [[Rcpp::export]]
 IntegerVector isoYear(DateVector x) {
   
@@ -100,6 +105,8 @@ IntegerVector isoYear(DateVector x) {
   
 }
 
+
+// ************************ YearWeek ***************
 
 
 // [[Rcpp::export]]
@@ -163,6 +170,11 @@ IntegerVector usYearweek(DateVector x) {
 }
 
 
+
+// ************************ Yearmonth ***************
+
+
+
 // [[Rcpp::export]]
 IntegerVector usYearmonth(DateVector x) {
   
@@ -177,6 +189,42 @@ IntegerVector usYearmonth(DateVector x) {
   return res;
   
 }
+
+
+// [[Rcpp::export]]
+IntegerVector isLeapYearDate(DateVector x) {
+  
+  int n = x.size();
+  int y = 0;
+  IntegerVector res(n);
+  
+  for (int i = 0; i < n; i++) {
+    Date curr_d = x[i];
+    y = curr_d.getYear(); 
+    res[i] = (y % 4 == 0 && y % 100 != 0) || (y % 400 == 0);
+    
+  }
+  
+  return res;
+  
+}
+
+
+// [[Rcpp::export]]
+IntegerVector isLeapYearInt(IntegerVector x) {
+  
+  int n = x.size();
+  IntegerVector res(n);
+  
+  for (int i = 0; i < n; i++) {
+    res[i] = (x[i] % 4 == 0 && x[i] % 100 != 0) || (x[i] % 400 == 0);
+  }
+  
+  return res;
+  
+}
+
+
 
 
 

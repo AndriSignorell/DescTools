@@ -49,6 +49,14 @@ usYearmonth <- function(x) {
     .Call(`_DescTools_usYearmonth`, x)
 }
 
+isLeapYearDate <- function(x) {
+    .Call(`_DescTools_isLeapYearDate`, x)
+}
+
+isLeapYearInt <- function(x) {
+    .Call(`_DescTools_isLeapYearInt`, x)
+}
+
 top_n <- function(x, n = 5L) {
     .Call(`_DescTools_top_n`, x, n)
 }
