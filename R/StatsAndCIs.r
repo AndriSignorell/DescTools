@@ -507,39 +507,6 @@ CorPart <- function(m, x, y)  {
 
 
 
-CorCI <- function(rho, n, conf.level = 0.95, alternative = c("two.sided","less","greater")) {
-
-
-  if (n < 3L)
-    stop("not enough finite observations")
-
-  if (!missing(conf.level) && (length(conf.level) != 1 || !is.finite(conf.level)
-                               || conf.level < 0 || conf.level > 1))
-    stop("'conf.level' must be a single number between 0 and 1")
-
-  alternative <- match.arg(alternative)
-
-  # correct rho == 1 with rho == almost 1 in order to return ci = c(1, 1)
-  # which is a sensible value for the confidence interval
-  if(identical(rho, 1)) 
-    ci <- c(1, 1)
-  
-  else {
-    z <- FisherZ(rho)
-    sigma <- 1/sqrt(n - 3)
-  
-    ci <- switch(alternative,
-                 less = c(-Inf, z + sigma * qnorm(conf.level)),
-                 greater = c(z - sigma * qnorm(conf.level), Inf),
-                 two.sided = z + c(-1, 1) * sigma * qnorm((1 + conf.level)/2))
-    ci <- FisherZInv(ci)
-  }
-
-  return(c(cor = rho, lwr.ci = ci[1], upr.ci = ci[2]))
-  
-}
-
-
 
 
 CorPolychor <- function (x, y, ML=FALSE, control=list(), std.err=FALSE, maxcor=.9999){
@@ -1886,8 +1853,10 @@ BootCI <- function(x, y=NULL, FUN, ..., bci.method = c("norm", "basic", "stud", 
 
 # Confidence Intervals for Binomial Proportions
 BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right"),
-                    method = c("wilson", "wald", "waldcc", "agresti-coull", "jeffreys", "modified wilson", "wilsoncc",
-                                "modified jeffreys", "clopper-pearson", "arcsine", "logit", "witting", "pratt", "midp", "lik", "blaker"), 
+                    method = c("wilson", "wald", "waldcc", "agresti-coull", "jeffreys", 
+                               "modified wilson", "wilsoncc",
+                               "modified jeffreys", "clopper-pearson", "arcsine", 
+                               "logit", "witting", "pratt", "midp", "lik", "blaker"), 
                     rand = 123, tol=1e-05, std_est=TRUE) {
 
   if(missing(method)) method <- "wilson"

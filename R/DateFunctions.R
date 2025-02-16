@@ -150,7 +150,7 @@ Week <- function(x, method = c("iso", "us")){
   #   DescTools = Week(dd, "iso"),
   #   lubridate = lubridate::isoweek(dd)
   # )
-  # --> Superfast!!
+  # --> We are superfast!!
   
   # cast x to date, such as being able to handle POSIX-Dates automatically
   x <- as.Date(x)

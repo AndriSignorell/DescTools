@@ -1,5 +1,5 @@
 
-ChisqWarning <- function(){
+.ChisqWarning <- function(){
   cat(cli::col_red("\nWarning message:\n  Exp. counts < 5: Chi-squared approx. may be incorrect!!\n\n"))
 }
 
@@ -1887,7 +1887,7 @@ print.Desc.table <- function(x, digits = NULL, ...) {
       )
 
       if (!x$approx.ok) {
-        ChisqWarning()
+        .ChisqWarning()
       }
 
       print(x$perctab)
@@ -1929,7 +1929,7 @@ print.Desc.table <- function(x, digits = NULL, ...) {
         }
 
         if (!x$approx.ok) {
-          ChisqWarning()
+          .ChisqWarning()
         }
 
         if (x$verbose %in% c("2", "3")) { # print only with verbosity > 1
@@ -1986,7 +1986,7 @@ print.Desc.table <- function(x, digits = NULL, ...) {
         }
 
         if (!x$approx.ok) {
-          ChisqWarning()
+          .ChisqWarning()
         }
       }
 
@@ -2073,7 +2073,7 @@ print.Desc.Date <- function(x, digits = NULL, ...) {
   )
 
   if (!x$d.approx.ok) {
-    ChisqWarning()
+    .ChisqWarning()
   }
 
 
@@ -2088,7 +2088,7 @@ print.Desc.Date <- function(x, digits = NULL, ...) {
   print(x$mperctab)
 
   if (!x$m.approx.ok) {
-    ChisqWarning()
+    .ChisqWarning()
   }
 
 
