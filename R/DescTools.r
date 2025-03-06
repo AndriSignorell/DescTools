@@ -4776,6 +4776,51 @@ Format.default <- function(x, digits = NULL, sci = NULL
                            , eps = NULL, ...){
   
   
+  .format.ci <- function(x, digits = NULL, sci = NULL
+                         , big.mark = NULL, ldigits = NULL
+                         , ...){
+    
+    conf.level <- InDots(..., arg = "conf.level", default=0.95)
+      
+    # x must consist of 3 values!
+    x <- Format(unlist(x), 
+                , digits = digits, sci = sci
+                , big.mark = big.mark, ldigits = ldigits
+                , zero.form = NULL, na.form = na.form
+                , align = align, width = width
+                , lang = lang
+                , eps = eps, ...)
+
+    gettextf("%s (%s CI from %s to %s)", 
+             x[1], 
+             Format(conf.level, fmt="%", digits=0), 
+             x[2], x[3]) 
+  }
+  
+
+  .format.cip <- function(x, digits = NULL, sci = NULL
+                          , big.mark = NULL, ldigits = NULL
+                          , ...){
+    
+    conf.level <- InDots(..., arg = "conf.level", default=0.95)
+    
+    # x must consist of 3 values!
+    x <- Format(unlist(x), 
+                , digits = digits, sci = sci
+                , big.mark = big.mark, ldigits = ldigits
+                , zero.form = NULL, na.form = na.form
+                , fmt="%"
+                , align = align, width = width
+                , lang = lang
+                , eps = eps, ...)
+    
+    gettextf("%s (%s CI from %s to %s)", 
+             x[1], 
+             Format(conf.level, fmt="%", digits=0), 
+             x[2], x[3]) 
+  }
+  
+  
   .format.pval <- function(x, eps, digits=NULL){
     # format p-values  *********************************************************
     # this is based on original code from format.pval
@@ -5012,6 +5057,12 @@ Format.default <- function(x, digits = NULL, sci = NULL
     
   } else if(fmt=="p*"){
     r <- .format.pstars(x, eps, digits)
+
+  } else if(fmt == "ci"){
+    r <- .format.ci(x, digits=digits, sci=sci, big.mark=big.mark, ldigits=ldigits, ...)
+
+  } else if(fmt == "ci%"){
+    r <- .format.cip(x, digits=digits, sci=sci, big.mark=big.mark, ldigits=ldigits, ...)
     
   } else if(fmt=="eng"){
     r <- .format.eng(x, digits=digits, ldigits=ldigits, zero.form=zero.form, na.form=na.form)

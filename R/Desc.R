@@ -929,122 +929,126 @@ calcDesc.default <- function(x, ...) {
 
 
 
-calcDesc.numeric <- function(x, n, maxrows = NULL, conf.level = 0.95,
-                             include_x = TRUE, ...) {
-  
-  probs <- c(0, 0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95, 1)
+# calcDesc.numeric <- function(x, n, maxrows = NULL, conf.level = 0.95,
+#                              include_x = TRUE, ...) {
+# 
+#   probs <- c(0, 0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95, 1)
+# 
+#   # the quantiles, totally analogue to the core of stats::quantile:
+#   index <- 1 + (n - 1) * probs
+# 
+#   lo <- floor(index)
+#   hi <- ceiling(index)
+# 
+#   x <- sort(x, partial = unique(c(lo, hi)))
+#   # WHOLE x MUST be sorted in order to get the smallest and largest values,
+#   # as well as the number of unique values!!!
+# 
+#   # old: x <- sort(x)
+#   # x <- sort.int(x, method="quick")  # somewhat faster than "shell"
+# 
+#   qs <- x[lo]
+#   i <- which(index > lo)
+#   h <- (index - lo)[i]
+#   qs[i] <- (1 - h) * qs[i] + h * x[hi[i]]
+# 
+#   names(qs) <- c("min", ".05", ".10", ".25", "median", ".75", ".90", ".95", "max")
+# 
+#   # ... here we go, all we need so far is in qs
+# 
+#   # proceed with the parameteric stuff, we cannot calc mean faster than R,
+#   # so do it here
+#   # meanx <- mean.default(x)      # somewhat faster than mean
+# 
+#   # we send the SORTED vector WITHOUT NAs to the C++ function to calc
+#   # the power sum(s)
+#   psum <- .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x)
+# 
+#   # this is method 3 in the usual functions Skew and Kurt
+#   skewx <- ((1 / n * psum$sum3) / (psum$sum2 / n)^1.5) * ((n - 1) / n)^(3 / 2)
+#   kurtx <- ((((1 / n * psum$sum4) / (psum$sum2 / n)^2) - 3) + 3) * (1 - 1 / n)^2 - 3
+# 
+#   # get std dev here
+#   varx <- psum$sum2 / (n - 1)
+#   sdx <- sqrt(varx)
+# 
+#   # meanCI
+#   if (n > 1) {
+#     a <- qt(p = (1-conf.level) / 2, df = n-1) * sdx / sqrt(n)
+#   } else {
+#     a <- NA
+#   }
+#   meanCI <- psum$mean + c(-1,1) * a
+# 
+#   # get the mode
+#   modex <- Mode(x)
+# 
+#   # check for remarkably frequent values in a numeric variable
+#   # say the most frequent value has significantly more than 5% from the total sample
+#   modefreq_crit <-
+#     binom.test(ZeroIfNA(attr(modex, "freq")), n = n, p = 0.05, alternative = "greater")
+# 
+#   if (modefreq_crit$p.value < 0.05 & psum$unique > 12) {
+#     modefreq_crit <- gettextf(
+#       "heap(?): remarkable frequency (%s) for the mode(s) (= %s)",
+#       Format(modefreq_crit$estimate, fmt = "%", digits = 1),
+#       paste(modex, collapse = ", ")
+#     )
+#   } else {
+#     modefreq_crit <- NA
+#   }
+# 
+#   # we display frequencies, when unique values <=12 else we set maxrows = 0
+#   # which will display extreme values as high-low list
+#   if (is.null(maxrows)) {
+#     maxrows <- ifelse(psum$unique <= 12, 12, 0)
+#   }
+# 
+#   if (maxrows > 0) {
+#     freq <- Freq(factor(x))
+#     colnames(freq)[1] <- "value"
+#     # use maxrows as percentage, when < 1
+#     if (maxrows < 1) {
+#       maxrows <- sum(freq[, 5] < maxrows) + 1
+#     }
+#   } else {
+#     freq <- NULL
+#   }
+# 
+#   # put together the results
+#   res <- list(
+#     unique = psum$unique,
+#     "0s" = psum$zero,
+#     mean = psum$mean,
+#     meanSE = sdx / sqrt(n),
+#     conf.level = conf.level,
+#     meanCI = meanCI,
+#     quant = qs,
+#     range = unname(diff(qs[c(1, 9)])),
+#     meanAD = psum$sum1 / n,
+#     sd = sdx,
+#     var = varx,
+#     vcoef = sdx / psum$mean,
+#     mad = mad(x, center = qs[5]),
+#     IQR = unname(diff(qs[c(4, 6)])),
+#     skew = skewx,
+#     kurt = kurtx,
+#     small = data.frame(val = psum$small_val, freq = psum$small_freq),
+#     large = data.frame(val = psum$large_val, freq = psum$large_freq),
+#     mode = modex,
+#     modefreq_crit = modefreq_crit,
+#     freq = freq,
+#     maxrows = maxrows,
+#     x = if (include_x) x else NULL
+#   )
+# 
+#   return(res)
+# }
 
-  # the quantiles, totally analogue to the core of stats::quantile:
-  index <- 1 + (n - 1) * probs
-
-  lo <- floor(index)
-  hi <- ceiling(index)
-
-  x <- sort(x, partial = unique(c(lo, hi)))
-  # WHOLE x MUST be sorted in order to get the smallest and largest values,
-  # as well as the number of unique values!!!
-
-  # old: x <- sort(x)
-  # x <- sort.int(x, method="quick")  # somewhat faster than "shell"
-
-  qs <- x[lo]
-  i <- which(index > lo)
-  h <- (index - lo)[i]
-  qs[i] <- (1 - h) * qs[i] + h * x[hi[i]]
-  
-  names(qs) <- c("min", ".05", ".10", ".25", "median", ".75", ".90", ".95", "max")
-
-  # ... here we go, all we need so far is in qs
-
-  # proceed with the parameteric stuff, we cannot calc mean faster than R,
-  # so do it here
-  # meanx <- mean.default(x)      # somewhat faster than mean
-
-  # we send the SORTED vector WITHOUT NAs to the C++ function to calc
-  # the power sum(s)
-  psum <- .Call("_DescTools_n_pow_sum", PACKAGE = "DescTools", x)
-
-  # this is method 3 in the usual functions Skew and Kurt
-  skewx <- ((1 / n * psum$sum3) / (psum$sum2 / n)^1.5) * ((n - 1) / n)^(3 / 2)
-  kurtx <- ((((1 / n * psum$sum4) / (psum$sum2 / n)^2) - 3) + 3) * (1 - 1 / n)^2 - 3
-
-  # get std dev here
-  sdx <- sqrt(psum$sum2 / (n - 1))
-
-  # meanCI
-  if (n > 1) {
-    a <- qt(p = (1-conf.level) / 2, df = n-1) * sdx / sqrt(n)
-  } else {
-    a <- NA
-  }
-  meanCI <- psum$mean + c(-1,1) * a
-  
-  # get the mode
-  modex <- Mode(x)
-
-  # check for remarkably frequent values in a numeric variable
-  # say the most frequent value has significantly more than 5% from the total sample
-  modefreq_crit <-
-    binom.test(ZeroIfNA(attr(modex, "freq")), n = n, p = 0.05, alternative = "greater")
-  
-  if (modefreq_crit$p.value < 0.05 & psum$unique > 12) {
-    modefreq_crit <- gettextf(
-      "heap(?): remarkable frequency (%s) for the mode(s) (= %s)",
-      Format(modefreq_crit$estimate, fmt = "%", digits = 1),
-      paste(modex, collapse = ", ")
-    )
-  } else {
-    modefreq_crit <- NA
-  }
-
-  # we display frequencies, when unique values <=12 else we set maxrows = 0
-  # which will display extreme values as high-low list
-  if (is.null(maxrows)) {
-    maxrows <- ifelse(psum$unique <= 12, 12, 0)
-  }
-
-  if (maxrows > 0) {
-    freq <- Freq(factor(x))
-    colnames(freq)[1] <- "value"
-    # use maxrows as percentage, when < 1
-    if (maxrows < 1) {
-      maxrows <- sum(freq[, 5] < maxrows) + 1
-    }
-  } else {
-    freq <- NULL
-  }
-
-  # put together the results
-  res <- list(
-    unique = psum$unique,
-    "0s" = psum$zero,
-    mean = psum$mean,
-    meanSE = sdx / sqrt(n),
-    conf.level = conf.level,
-    meanCI = meanCI,
-    quant = qs,
-    range = unname(diff(qs[c(1, 9)])),
-    meanAD = psum$sum1 / n,
-    sd = sdx,
-    vcoef = sdx / psum$mean,
-    mad = mad(x, center = qs[5]),
-    IQR = unname(diff(qs[c(4, 6)])),
-    skew = skewx,
-    kurt = kurtx,
-    small = data.frame(val = psum$small_val, freq = psum$small_freq),
-    large = data.frame(val = psum$large_val, freq = psum$large_freq),
-    mode = modex,
-    modefreq_crit = modefreq_crit,
-    freq = freq,
-    maxrows = maxrows,
-    x = if (include_x) x else NULL
-  )
-
-  return(res)
-}
 
 
 calcDesc.logical <- function(x, n, ord = "level", conf.level = 0.95, ...) {
+  
   ff <- table(x)
 
   # how should the table be sorted, by name, level or frq? (NULL means "desc")
@@ -1074,6 +1078,7 @@ calcDesc.logical <- function(x, n, ord = "level", conf.level = 0.95, ...) {
 
 
 calcDesc.factor <- function(x, n, maxrows = NULL, ord, ...) {
+  
   freq <- Freq(x, ord = ord)
 
   if (is.null(maxrows)) {
@@ -1357,6 +1362,7 @@ calcDesc.bivar <- function(x, g, xname = NULL, gname = NULL,
     res$mean <- tapply(x[ok], g[ok], FUN = mean)
     res$median <- tapply(x[ok], g[ok], FUN = median)
     res$sd <- tapply(x[ok], g[ok], FUN = sd)
+    res$var <- tapply(x[ok], g[ok], FUN = var)
     res$IQR <- tapply(x[ok], g[ok], FUN = IQR)
     res$ns <- tapply(x, g, FUN = function(z) sum(!is.na(z)))
     res$np <- res$ns / res$nv
@@ -1377,6 +1383,7 @@ calcDesc.bivar <- function(x, g, xname = NULL, gname = NULL,
     if (margin) {
       res$mean <- c(res$mean, "Total" = mean(x[ok]))
       res$median <- c(res$median, median(x[ok]))
+      res$var <- c(res$var, var(x[ok]))
       res$sd <- c(res$sd, sd(x[ok]))
       res$IQR <- c(res$IQR, IQR(x[ok]))
       res$ns <- c(res$ns, sum(res$ns))
@@ -1399,6 +1406,7 @@ calcDesc.bivar <- function(x, g, xname = NULL, gname = NULL,
     res$class <- "factnum"
     res$mean <- tapply(g[ok], x[ok], FUN = mean)
     res$median <- tapply(g[ok], x[ok], FUN = median)
+    res$var <- tapply(g[ok], x[ok], FUN = var)
     res$sd <- tapply(g[ok], x[ok], FUN = sd)
     res$IQR <- tapply(g[ok], x[ok], FUN = IQR)
     res$ns <- tapply(g, x, FUN = function(z) sum(!is.na(z)))
@@ -1419,6 +1427,7 @@ calcDesc.bivar <- function(x, g, xname = NULL, gname = NULL,
     if (margin) {
       res$mean <- c(res$mean, "Total" = mean(g[ok]))
       res$median <- c(res$median, median(g[ok]))
+      res$var <- c(res$var, var(g[ok]))
       res$sd <- c(res$sd, sd(g[ok]))
       res$IQR <- c(res$IQR, IQR(g[ok]))
       res$ns <- c(res$ns, sum(res$ns))

@@ -214,6 +214,9 @@ paste(Format(x, fmt="engabb", ldigits=2, digits=2), "g", sep="")
 pval <- rev(sort(c(outer(1:6, 10^-(1:3)))))
 noquote(cbind(Format(pval, fmt="p"), Format(pval, fmt="*")))
 
+# special formats, e.g. confidence intervals
+Format(c(3.2, 4.5, 6.7)/100, fmt="ci\%", digits=2, conf.level=0.90)
+
 # use Fmt() to get and define new formats stored as option
 Fmt()                        # all defined formats
 Fmt("abs")                   # only format named "abs"
