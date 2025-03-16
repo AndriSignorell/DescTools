@@ -15748,7 +15748,7 @@ CourseData <- function(name, url=NULL, header=TRUE, sep=";", ...){
     }
   } else {
     if(!FileExistURL(gettextf("%s/%s", url, name)))
-      stop(gettextf("File %s does not exist!"))
+      stop(gettextf("File %s/%s does not exist!", url, name))
   }
   
   

@@ -27,7 +27,7 @@ Hampel considers values outside of median +/- 3 * (median absolute deviation) to
 \value{the values of x lying outside the whiskers in a boxplot \cr
 or the indices of them }
 
-\author{Andri Signorell <andri@signorell.net>}
+\author{Andri Signorell <andri@signorell.net>, performance improvement by Luis Gustavo Schuck}
 
 \references{Hampel F. R. (1974) The influence curve and its role in robust estimation, \emph{Journal of the American Statistical Association}, 69, 382-393}
 
