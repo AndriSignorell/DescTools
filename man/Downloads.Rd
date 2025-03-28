@@ -11,7 +11,7 @@ Downloads(fname, ...)
 will be used.}
 
 \item{\dots}{are passed on to the open functions
-\code{\link[readxl]{readxl}}() or \code{\link[readr]{read.table()}}.}
+\code{\link[readxl]{readxl}}() or \code{\link[readr]{read_table}()}.}
 }
 \value{
 the file

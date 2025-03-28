@@ -8,7 +8,7 @@
 #' @param fname the filename, if no extension specified the first file found
 #' will be used.
 #' @param \dots are passed on to the open functions
-#' \code{\link[readxl]{readxl}}() or \code{\link[readr]{read.table}()}.
+#' \code{\link[readxl]{readxl}}() or \code{\link[readr]{read_table}()}.
 #' @return the file
 #' @author Andri Signorell <andri@@signorell.net>
 #' @examples
@@ -50,7 +50,7 @@ Downloads <- function(fname, ...){
         res <- as.data.frame(readxl::read_excel(paste(downloads_path, fname, sep="/"), ...))
         
       } else {
-        res <- read.table(file = gettextf("%s/%s", downloads_path, fname), ...)
+        res <- readr::read_table(file = gettextf("%s/%s", downloads_path, fname), ...)
       }
     
   } else {

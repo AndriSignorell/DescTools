@@ -15743,7 +15743,7 @@ CourseData <- function(name, url=NULL, header=TRUE, sep=";", ...){
       if(FileExistURL(gettextf("%s/%s", url, name))){
         # do nothing, url and name are both correct
       } else {
-        stop(gettextf("File %s does not exist!"))
+        stop(gettextf("File %s/%s does not exist!", url, name))
       }  
     }
   } else {
@@ -15753,7 +15753,7 @@ CourseData <- function(name, url=NULL, header=TRUE, sep=";", ...){
   
   
   if(grepl("xls", tools::file_ext(name))) {
-    res <- OpenDataObject(name=name, url=url, ...)
+    res <- OpenDataObject(name=name, url=url, doc=NA, ...)
     
   } else {
     res <- read.table(file = gettextf("%s/%s", url, name), 
@@ -15803,20 +15803,24 @@ OpenDataObject <- function(name, url=NULL, doc=NULL, ...){
     
     # Define factors
     id <- which(code[[col_scale]] %in% c("nominal", "ordinal"))
-    codes <- lapply(strsplit(code[[col_code]][id], "\\r\\n"), strsplit, split="=")
-    names(codes) <- code[[col_var]][id]
     
-    for(x in code[[col_var]][id]){
-      z[, x] <- factor(z[, x], 
-                       ordered = (code[[col_scale]][code[[col_var]] == x]) == "ordinal")
+    if(length(id)>0){
+      codes <- lapply(strsplit(code[[col_code]][id], "\\r\\n"), strsplit, split="=")
+      names(codes) <- code[[col_var]][id]
       
-      # could also not be defined, e.g. patient id (nominal, but no codes)
-      if(!identical(codes[[x]], NA)){
-        levels(z[, x]) <- StrTrim(sapply(codes[[x]], "[", 2))[
-                      match(levels(z[, x]), StrTrim(sapply(codes[[x]], "[", 1)))]
+      for(x in code[[col_var]][id]){
+        z[, x] <- factor(z[, x], 
+                         ordered = (code[[col_scale]][code[[col_var]] == x]) == "ordinal")
+        
+        # could also not be defined, e.g. patient id (nominal, but no codes)
+        # codes is character after the strsplit procedure... (!)
+        if(!identical(unlist(codes[[x]]), NA_character_)){
+          levels(z[, x]) <- StrTrim(sapply(codes[[x]], "[", 2))[
+                        match(levels(z[, x]), StrTrim(sapply(codes[[x]], "[", 1)))]
+        }
       }
     }
-  
+    
     # Labels:
     for(x in code[[col_var]])
       Label(z[, x]) <- na.omit(code[[col_lbl]][code[[col_var]] == x])
@@ -15826,6 +15830,31 @@ OpenDataObject <- function(name, url=NULL, doc=NULL, ...){
   return(z)
   
 }
+
+
+DataDescription <- function(fn, sheet="Description"){
+  
+  # get a data description for datafiles in excel
+  
+  # try to use doc if at least one more sheet exists
+  if("Description" %in% readxl::excel_sheets(fn) & length(readxl::excel_sheets(fn))>1) {
+    d.desc <- as.data.frame(read_excel(fn, sheet = sheet))
+    # use only currentrange("A1"), say: clip on the first completely empty row
+    d.desc <- d.desc[1:(min(which(apply(d.desc, 1, 
+                                        function(x) sum(is.na(x)) == ncol(d.desc))))-1),]
+    
+    codelist <- list()
+    for(i in nrow(tab <- d.desc[!is.na(d.desc$Codes), ])){
+      codelist[[tab$Variable]] <- strsplit(tab$Codes, "\\r\\n")[[1]]
+    }
+    
+  }
+  
+  return(list(desctable=d.desc, codes=codelist))
+  
+}
+
+
 
 
 
