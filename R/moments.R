@@ -9,6 +9,7 @@
 #'
 #' @return List with mean and variance
 #' @seealso \code{\link[stats]{dbinom}}
+#' @references Casella, G. and Berger, R.L. (2002). Statistical Inference. Duxbury.
 #' @examples
 #' mbinom(size = 10, prob = 0.3)
 mbinom <- function(size, prob) {
@@ -27,6 +28,7 @@ mbinom <- function(size, prob) {
 #'
 #' @return List with mean and variance
 #' @seealso \code{\link[stats]{dpois}}
+#' @references Ross, S.M. (2014). Introduction to Probability Models. Academic Press.
 #' @examples
 #' mpois(lambda = 4)
 mpois <- function(lambda) {
@@ -43,6 +45,7 @@ mpois <- function(lambda) {
 #'
 #' @return List with mean and variance
 #' @seealso \code{\link[stats]{dgeom}}
+#' @references Grimmett, G. and Stirzaker, D. (2001). Probability and Random Processes. Oxford University Press.
 #' @examples
 #' mgeom(prob = 0.2)
 mgeom <- function(prob) {
@@ -62,6 +65,7 @@ mgeom <- function(prob) {
 #'
 #' @return List with mean and variance
 #' @seealso \code{\link[stats]{dnbinom}}
+#' @references Casella, G. and Berger, R.L. (2002). Statistical Inference. Duxbury.
 #' @examples
 #' mnbinom(size = 5, prob = 0.4)
 mnbinom <- function(size, prob) {
@@ -82,6 +86,7 @@ mnbinom <- function(size, prob) {
 #'
 #' @return List with mean and variance
 #' @seealso \code{\link[stats]{dhyper}}
+#' @references Rice, J.A. (2006). Mathematical Statistics and Data Analysis. Cengage Learning.
 #' @examples
 #' mhyper(m = 20, n = 30, k = 10)
 mhyper <- function(m, n, k) {
@@ -102,6 +107,7 @@ mhyper <- function(m, n, k) {
 #'
 #' @return List with mean and variance
 #' @seealso \code{\link[stats]{dnorm}}
+#' @references Wackerly, D., Mendenhall, W., and Scheaffer, R. (2008). Mathematical Statistics with Applications. Cengage.
 #' @examples
 #' mnorm(mean = 0, sd = 1)
 mnorm <- function(mean, sd) {
@@ -118,6 +124,7 @@ mnorm <- function(mean, sd) {
 #'
 #' @return List with mean and variance
 #' @seealso \code{\link[stats]{dexp}}
+#' @references Hogg, R.V., McKean, J., and Craig, A.T. (2018). Introduction to Mathematical Statistics. Pearson.
 #' @examples
 #' mexp(rate = 0.5)
 mexp <- function(rate) {
@@ -137,6 +144,7 @@ mexp <- function(rate) {
 #'
 #' @return List with mean and variance
 #' @seealso \code{\link[stats]{dgamma}}
+#' @references Evans, M., Hastings, N., and Peacock, B. (2000). Statistical Distributions. Wiley.
 #' @examples
 #' mgamma(shape = 2, rate = 0.5)
 mgamma <- function(shape, rate) {
@@ -156,6 +164,7 @@ mgamma <- function(shape, rate) {
 #'
 #' @return List with mean and variance
 #' @seealso \code{\link[stats]{dlnorm}}
+#' @references Aitchison, J. and Brown, J.A.C. (1957). The Lognormal Distribution. Cambridge University Press.
 #' @examples
 #' mlnorm(meanlog = 0, sdlog = 1)
 mlnorm <- function(meanlog, sdlog) {
@@ -175,6 +184,7 @@ mlnorm <- function(meanlog, sdlog) {
 #'
 #' @return List with mean and variance
 #' @seealso \code{\link[stats]{dbeta}}
+#' @references Johnson, N.L., Kotz, S., and Balakrishnan, N. (1995). Continuous Univariate Distributions, Vol. 2. Wiley.
 #' @examples
 #' mbeta(shape1 = 2, shape2 = 3)
 mbeta <- function(shape1, shape2) {
@@ -193,6 +203,7 @@ mbeta <- function(shape1, shape2) {
 #'
 #' @return List with mean and variance
 #' @seealso \code{\link[stats]{dchisq}}
+#' @references Rice, J.A. (2006). Mathematical Statistics and Data Analysis. Cengage Learning.
 #' @examples
 #' mchisq(df = 4)
 mchisq <- function(df) {
@@ -209,6 +220,7 @@ mchisq <- function(df) {
 #'
 #' @return List with mean and variance
 #' @seealso \code{\link[stats]{dt}}
+#' @references Casella, G. and Berger, R.L. (2002). Statistical Inference. Duxbury.
 #' @examples
 #' mt(df = 5)
 mt <- function(df) {
@@ -220,14 +232,15 @@ mt <- function(df) {
 #' Mean and Variance of the F Distribution
 #'
 #' Formula:
-#'   \eqn{\mu = \frac{df[2]}{df[2] - 2} \quad (df[2] > 2)}
-#'   \eqn{\mathrm{Var}(X) = \frac{2 df[2]^2 (df[1] + df[2] - 2)}{df[1] (df[2] - 2)^2 (df[2] - 4)} \quad (df[2] > 4)}
+#'   \eqn{\mu = \frac{df2}{df2 - 2} \quad (df2 > 2)}
+#'   \eqn{\mathrm{Var}(X) = \frac{2 df2^2 (df1 + df2 - 2)}{df1 (df2 - 2)^2 (df2 - 4)} \quad (df2 > 4)}
 #'
 #' @param df1 Numerator degrees of freedom
 #' @param df2 Denominator degrees of freedom
 #'
 #' @return List with mean and variance
 #' @seealso \code{\link[stats]{df}}
+#' @references Hogg, R.V., McKean, J., and Craig, A.T. (2018). Introduction to Mathematical Statistics. Pearson.
 #' @examples
 #' mf(df1 = 5, df2 = 10)
 mf <- function(df1, df2) {
