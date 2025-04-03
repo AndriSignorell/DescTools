@@ -20,6 +20,9 @@ Formula:
 \examples{
 mchisq(df = 4)
 }
+\references{
+Rice, J.A. (2006). Mathematical Statistics and Data Analysis. Cengage Learning.
+}
 \seealso{
 \code{\link[stats]{dchisq}}
 }

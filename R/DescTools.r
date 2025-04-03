@@ -361,6 +361,12 @@ Nf <- function(x, ...){
   as.numeric(factor(x, ...))
 }  
 
+# # why not always so??
+# OR <- DescTools::OddsRatio
+
+# Non breaking space for Word
+NBSP <- "\U00A0"
+
 
 ## This is not exported as it would mask base function and
 # but it would be very, very handy if the base function was changed accoringly
@@ -13304,6 +13310,41 @@ ParseFormula <- function(formula, data=parent.frame(), drop = TRUE) {
 
 
 
+.WrdInsertAfter <- function(x, remove=TRUE, 
+                           wrd = DescToolsOptions("lastWord")){
+  
+  # RDCOMClient together with InsertAfter inserts a number of special characters
+  # at the end of the inserted text, as soon as the the text contains 
+  # non ascii characters.
+  # As we see no solution to avoid this, we try to remove the characters here
+  # by typing backspace.
+  
+  # example
+  # xx <- do.call(gettextf, as.list(c("m\U00A0=\U00A0%s, f\U00A0=\U00A0%s", Format(c(0.568,0.432), fmt="%", d=1))))
+  
+  # no correction
+  # .WrdInsertAfter(xx, remove=FALSE)  
+  # with correction
+  # .WrdInsertAfter(xx)  
+  
+  CountNonASCII <- function(x){
+    nchar(x) - nchar(iconv(x, "UTF-8", "ASCII", ""))
+  }
+  
+  wrd[["Selection"]]$InsertAfter(paste(x, collapse = "\n"))
+  res <- wrd[["Selection"]]$Range()
+  wrd[["Selection"]]$Collapse(Direction = wdConst$wdCollapseEnd)
+  
+  if (remove & getOption("wrdinsert_rm_garbage", TRUE)){
+    # Now deleting the special characters
+    sapply(seq(CountNonASCII(x)), 
+           function(i) wrd[["Selection"]]$TypeBackspace())
+  }
+  
+  invisible(res)
+  
+}
+
 
 # put that to an example...
 # WrdPageBreak <- function( wrd = .lastWord ) {
@@ -13552,7 +13593,11 @@ ToWrd.character <- function (x, font = NULL, para = NULL, style = NULL, bullet=F
   if (any(l10n_info()[["Latin-1"]] & Encoding(x) == "UTF-8"))
     x[Encoding(x) == "UTF-8"] <- iconv(x[Encoding(x) == "UTF-8"], from = "UTF-8", to = "latin1")
 
-  wrd[["Selection"]]$InsertAfter(paste(x, collapse = "\n"))
+  # handle garbage of special characters inserted on the 
+  # existance of non ASCII characters
+  # wrd[["Selection"]]$InsertAfter(paste(x, collapse = "\n"))
+  
+  .WrdInsertAfter(paste(x, collapse = "\n"))
 
   if (!is.null(style))
     WrdStyle(wrd) <- style
@@ -13784,7 +13829,10 @@ ToWrd.table <- function (x, font = NULL, main = NULL, align=NULL, tablestyle=NUL
   nr <- nrow(x)
 
   # insert and convert
-  wrd[["Selection"]]$InsertAfter(txt)
+  # wrd[["Selection"]]$InsertAfter(txt)
+  # No garbage!!
+  .WrdInsertAfter(txt)
+  
   wrdTable <- wrd[["Selection"]]$ConvertToTable(Separator = wdConst$wdSeparateByTabs,
                                             NumColumns = nc,  NumRows = nr,
                                             AutoFitBehavior = wdConst$wdAutoFitFixed)
@@ -14831,13 +14879,11 @@ Phrase <- function(x, g, glabels=NULL, xname=NULL, unit=NULL, lang="engl", na.rm
 
 
 
-XLView <- function (x, col.names = TRUE, row.names = FALSE, na = "", preserveStrings=FALSE, sep=";") {
-
-  # # define some XL constants
-  # xlToRight <- -4161
+XLView <- function (x, col.names = TRUE, row.names = FALSE, na = "", 
+                    preserveStrings=FALSE, sep=";") {
 
   fn <- paste(tempfile(pattern = "file", tmpdir = tempdir()),
-              ".csv", sep = "")
+              ".xlsx", sep = "")
   xl <- GetNewXL(newdoc=FALSE)
   owb <- xl[["Workbooks"]]
 
@@ -14855,12 +14901,27 @@ XLView <- function (x, col.names = TRUE, row.names = FALSE, na = "", preserveStr
       }
     }
 
-    write.table(x, file = fn, sep = sep, col.names = col.names,
-                qmethod = "double", row.names = row.names, na=na)
+    # write.table(x, file = fn, sep = sep, col.names = col.names,
+    #             qmethod = "double", row.names = row.names, na=na)
+    # better option 2025-04-03:
+    # note: na, preserveStrings, and sep are ignored and obsolete
+    writexl::write_xlsx(x, path=fn, col_names = col.names)
+    
     ob <- owb$Open(fn)
+    
+    # *** defunct *** 
     # if row.names are saved there's the first cell in the first line missing
     # I don't actually see, how to correct this besides inserting a cell in XL
-    if(row.names) xl$Cells(1, 1)$Insert(Shift=xlConst$xlToRight)
+    # if(row.names) xl$Cells(1, 1)$Insert(Shift=xlConst$xlToRight)
+    # *** defunct *** 
+    
+    # rownames are not supported in write_xlsx()
+    # so we insert a new column and paste them on request
+    if(row.names) {
+      xl$Columns(1)$Insert(Shift=xlConst$xlToRight)
+      ToXL(rownames(x), at = "A2", xl = xl)
+    }  
+
     xl[["Cells"]][["EntireColumn"]]$AutoFit()
 
   } else {
@@ -14876,7 +14937,8 @@ XLView <- function (x, col.names = TRUE, row.names = FALSE, na = "", preserveStr
 }
 
 
-XLSaveAs <- function(fn, file_format=xlConst$XlFileFormat$xlWorkbookNormal, xl=DescToolsOptions("lastXL")){
+XLSaveAs <- function(fn, file_format=xlConst$XlFileFormat$xlWorkbookNormal, 
+                     xl=DescToolsOptions("lastXL")){
   xl[["ActiveWorkbook"]]$SaveAs(FileName=fn, FileFormat=file_format)
 }
   

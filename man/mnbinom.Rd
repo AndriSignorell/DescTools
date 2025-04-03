@@ -22,6 +22,9 @@ Formula:
 \examples{
 mnbinom(size = 5, prob = 0.4)
 }
+\references{
+Casella, G. and Berger, R.L. (2002). Statistical Inference. Duxbury.
+}
 \seealso{
 \code{\link[stats]{dnbinom}}
 }

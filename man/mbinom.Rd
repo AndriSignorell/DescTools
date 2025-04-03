@@ -22,6 +22,9 @@ Formula:
 \examples{
 mbinom(size = 10, prob = 0.3)
 }
+\references{
+Casella, G. and Berger, R.L. (2002). Statistical Inference. Duxbury.
+}
 \seealso{
 \code{\link[stats]{dbinom}}
 }

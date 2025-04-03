@@ -22,6 +22,9 @@ Formula:
 \examples{
 mbeta(shape1 = 2, shape2 = 3)
 }
+\references{
+Johnson, N.L., Kotz, S., and Balakrishnan, N. (1995). Continuous Univariate Distributions, Vol. 2. Wiley.
+}
 \seealso{
 \code{\link[stats]{dbeta}}
 }

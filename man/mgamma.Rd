@@ -22,6 +22,9 @@ Formula:
 \examples{
 mgamma(shape = 2, rate = 0.5)
 }
+\references{
+Evans, M., Hastings, N., and Peacock, B. (2000). Statistical Distributions. Wiley.
+}
 \seealso{
 \code{\link[stats]{dgamma}}
 }

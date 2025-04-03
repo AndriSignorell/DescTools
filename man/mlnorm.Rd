@@ -22,6 +22,9 @@ Formula:
 \examples{
 mlnorm(meanlog = 0, sdlog = 1)
 }
+\references{
+Aitchison, J. and Brown, J.A.C. (1957). The Lognormal Distribution. Cambridge University Press.
+}
 \seealso{
 \code{\link[stats]{dlnorm}}
 }

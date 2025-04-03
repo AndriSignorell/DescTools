@@ -116,7 +116,7 @@ mnorm <- function(mean, sd) {
 
 #' Mean and Variance of the Exponential Distribution
 #'
-#' Formula:
+#' The exponential distribution with rate \eqn{\lambda} has mean and variance
 #'   \eqn{\mu = \frac{1}{\lambda}}
 #'   \eqn{\mathrm{Var}(X) = \frac{1}{\lambda^2}}
 #'
@@ -210,19 +210,22 @@ mchisq <- function(df) {
   list(mean = df, variance = 2 * df)
 }
 
+
 #' Mean and Variance of the t-Distribution
 #'
-#' Formula:
-#'   \eqn{\mu = 0 \quad (df > 1)}
-#'   \eqn{\mathrm{Var}(X) = \frac{df}{df - 2} \quad (df > 2)}
+#' The \eqn{t} distribution with \code{df} \eqn{= \nu}{= n} degrees of 
+#' freedom has mean and variance of:
+#'   \eqn{\mu = 0 \quad (\nu > 1)}
+#'   \eqn{\mathrm{Var}(X) = \frac{\nu}{\nu - 2} \quad (\nu > 2)}
 #'
-#' @param df Degrees of freedom
+#' @param df degrees of freedom (\eqn{> 0}, maybe non-integer). \code{df = Inf} is allowed.
 #'
 #' @return List with mean and variance
 #' @seealso \code{\link[stats]{dt}}
 #' @references Casella, G. and Berger, R.L. (2002). Statistical Inference. Duxbury.
 #' @examples
 #' mt(df = 5)
+
 mt <- function(df) {
   mu <- if (df > 1) 0 else NA
   var <- if (df > 2) df / (df - 2) else NA
@@ -231,9 +234,10 @@ mt <- function(df) {
 
 #' Mean and Variance of the F Distribution
 #'
-#' Formula:
-#'   \eqn{\mu = \frac{df2}{df2 - 2} \quad (df2 > 2)}
-#'   \eqn{\mathrm{Var}(X) = \frac{2 df2^2 (df1 + df2 - 2)}{df1 (df2 - 2)^2 (df2 - 4)} \quad (df2 > 4)}
+#' The F distribution with \code{df1 =} \eqn{n_1}{n1} and \code{df2 =} 
+#' \eqn{n_2}{n2} degrees of freedom has mean and variance:
+#'   \eqn{\mu = \frac{n_2}{n_2 - 2} \quad (n_2 > 2)}
+#'   \eqn{\mathrm{Var}(X) = \frac{2 n_2^2 (n_1 + n_2 - 2)}{n_1 (n_2 - 2)^2 (n_2 - 4)} \quad (n_2 > 4)}
 #'
 #' @param df1 Numerator degrees of freedom
 #' @param df2 Denominator degrees of freedom
@@ -243,6 +247,7 @@ mt <- function(df) {
 #' @references Hogg, R.V., McKean, J., and Craig, A.T. (2018). Introduction to Mathematical Statistics. Pearson.
 #' @examples
 #' mf(df1 = 5, df2 = 10)
+#' 
 mf <- function(df1, df2) {
   mu <- if (df2 > 2) df2 / (df2 - 2) else NA
   var <- if (df2 > 4) {

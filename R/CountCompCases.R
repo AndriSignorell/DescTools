@@ -1,5 +1,4 @@
 
-
 #' Count Complete Cases 
 #'                                                                               
 #' Return for each variable of a data frame the number of missing values and     
@@ -7,16 +6,19 @@
 #'                                                                               
 #' @aliases CountCompCases print.CountCompCases                                  
 #' @param x a data.frame containg the data.                                      
-#' @param digits the number of digits to be used when printing the results.      
-#' @param \\dots the dots are not further used.                                  
 #' @return A list with three elements. The first gives the number of rows, the   
 #' second the number of complete cases for the whole data frame. The third       
-#' element \\code{tab} contains the data for the single variables.                
+#' element \code{tab} contains the data for the single variables.                
+#' 
 #' @author Andri Signorell <andri@@signorell.net> 
-#' @seealso \\code{\\link{PlotMiss}}, \\code{\\link{CompleteColumns}},           
-#' \\code{\\link{complete.cases}}, \\code{\\link{is.na}}, \\code{\\link{na.omit}}
+#' 
+#' @seealso \code{\link{PlotMiss}}, \code{\link{CompleteColumns}},           
+#' \code{\link{complete.cases}}, \code{\link{is.na}}, \code{\link{na.omit}}
 #' @examples                                                                     
-#' \n#' CountCompCases(d.pizza)\n#'                                             
+#' 
+#' CountCompCases(d.pizza)
+#'
+#'                                              
 
 
 CountCompCases <- function(x){

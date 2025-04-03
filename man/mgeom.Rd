@@ -20,6 +20,9 @@ Formula:
 \examples{
 mgeom(prob = 0.2)
 }
+\references{
+Grimmett, G. and Stirzaker, D. (2001). Probability and Random Processes. Oxford University Press.
+}
 \seealso{
 \code{\link[stats]{dgeom}}
 }

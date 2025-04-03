@@ -13,12 +13,15 @@ mexp(rate)
 List with mean and variance
 }
 \description{
-Formula:
+The exponential distribution with rate \eqn{\lambda} has mean and variance
 \eqn{\mu = \frac{1}{\lambda}}
 \eqn{\mathrm{Var}(X) = \frac{1}{\lambda^2}}
 }
 \examples{
 mexp(rate = 0.5)
+}
+\references{
+Hogg, R.V., McKean, J., and Craig, A.T. (2018). Introduction to Mathematical Statistics. Pearson.
 }
 \seealso{
 \code{\link[stats]{dexp}}

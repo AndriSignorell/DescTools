@@ -15,12 +15,17 @@ mf(df1, df2)
 List with mean and variance
 }
 \description{
-Formula:
-\eqn{\mu = \frac{df[2]}{df[2] - 2} \quad (df[2] > 2)}
-\eqn{\mathrm{Var}(X) = \frac{2 df[2]^2 (df[1] + df[2] - 2)}{df[1] (df[2] - 2)^2 (df[2] - 4)} \quad (df[2] > 4)}
+The F distribution with \code{df1 =} \eqn{n_1}{n1} and \code{df2 =}
+\eqn{n_2}{n2} degrees of freedom has mean and variance:
+\eqn{\mu = \frac{n_2}{n_2 - 2} \quad (n_2 > 2)}
+\eqn{\mathrm{Var}(X) = \frac{2 n_2^2 (n_1 + n_2 - 2)}{n_1 (n_2 - 2)^2 (n_2 - 4)} \quad (n_2 > 4)}
 }
 \examples{
 mf(df1 = 5, df2 = 10)
+
+}
+\references{
+Hogg, R.V., McKean, J., and Craig, A.T. (2018). Introduction to Mathematical Statistics. Pearson.
 }
 \seealso{
 \code{\link[stats]{df}}

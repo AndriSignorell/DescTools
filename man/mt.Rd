@@ -7,18 +7,22 @@
 mt(df)
 }
 \arguments{
-\item{df}{Degrees of freedom}
+\item{df}{degrees of freedom (\eqn{> 0}, maybe non-integer). \code{df = Inf} is allowed.}
 }
 \value{
 List with mean and variance
 }
 \description{
-Formula:
-\eqn{\mu = 0 \quad (df > 1)}
-\eqn{\mathrm{Var}(X) = \frac{df}{df - 2} \quad (df > 2)}
+The \eqn{t} distribution with \code{df} \eqn{= \nu}{= n} degrees of
+freedom has mean and variance of:
+\eqn{\mu = 0 \quad (\nu > 1)}
+\eqn{\mathrm{Var}(X) = \frac{\nu}{\nu - 2} \quad (\nu > 2)}
 }
 \examples{
 mt(df = 5)
+}
+\references{
+Casella, G. and Berger, R.L. (2002). Statistical Inference. Duxbury.
 }
 \seealso{
 \code{\link[stats]{dt}}

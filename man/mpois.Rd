@@ -20,6 +20,9 @@ Formula:
 \examples{
 mpois(lambda = 4)
 }
+\references{
+Ross, S.M. (2014). Introduction to Probability Models. Academic Press.
+}
 \seealso{
 \code{\link[stats]{dpois}}
 }

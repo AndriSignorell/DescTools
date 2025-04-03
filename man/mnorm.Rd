@@ -22,6 +22,9 @@ Formula:
 \examples{
 mnorm(mean = 0, sd = 1)
 }
+\references{
+Wackerly, D., Mendenhall, W., and Scheaffer, R. (2008). Mathematical Statistics with Applications. Cengage.
+}
 \seealso{
 \code{\link[stats]{dnorm}}
 }

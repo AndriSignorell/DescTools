@@ -24,6 +24,9 @@ Formula:
 \examples{
 mhyper(m = 20, n = 30, k = 10)
 }
+\references{
+Rice, J.A. (2006). Mathematical Statistics and Data Analysis. Cengage Learning.
+}
 \seealso{
 \code{\link[stats]{dhyper}}
 }
