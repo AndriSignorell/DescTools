@@ -5563,7 +5563,7 @@ ICC <- function(x, type=c("all", "ICC1","ICC2","ICC3","ICC1k","ICC2k","ICC3k"), 
 
   if(type!="all"){
     if(is.na(conf.level)){
-      res <- results[idx, c(2)][,]
+      res <- results[idx, c(2)]
     } else {
       res <- unlist(results[idx, c(2, 7:8)])
       names(res) <- c(type,"lwr.ci","upr.ci")
