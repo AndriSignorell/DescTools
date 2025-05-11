@@ -11,7 +11,7 @@ Department of Computer Science and Artificial Intelligence, University of Granad
 (Sison-Glaz)
 
 Andri Signorell <andri@signorell.net>
-(Goodman, Wald, Wilson, Fitzpatrick-Scott, Quesensberry-Hurst)
+(Goodman, Wald, Wilson, Fitzpatrick-Scott, Quesenberry-Hurst)
 }
 \usage{
 MultinomCI(x, conf.level = 0.95, sides = c("two.sided", "left", "right"),
@@ -38,7 +38,7 @@ A vector of positive integers representing the number of occurrences of each cla
 \details{
 Given a vector of observations with the number of samples falling in each class of a multinomial distribution,
 builds the simultaneous confidence intervals for the multinomial probabilities according to the method proposed by the mentioned authors.
-The R code for Sison and Glaz (1995) has been translated from thes SAS code written by May and Johnson (2000). See the references for the other methods (qh = Quesensberry-Hurst, fs = Fitzpatrick-Scott).\cr
+The R code for Sison and Glaz (1995) has been translated from thes SAS code written by May and Johnson (2000). See the references for the other methods (qh = Quesenberry-Hurst, fs = Fitzpatrick-Scott).\cr
 Some approaches for the confidence intervals can potentially yield negative results or values beyond 1. These would be reset such as not to exceed the range of [0, 1].
 }
 \value{
@@ -63,7 +63,7 @@ May, W.L., Johnson, W.D.(2000) Constructing two-sided simultaneous confidence in
 multinomial proportions for small counts in a large number of cells. \emph{Journal of Statistical Software} 5(6) .
 Paper and code available at \url{https://www.jstatsoft.org/v05/i06}.
 
-Quesensberry, C.P. and Hurst, D.C. (1964). Large Sample Simultaneous Confidence Intervals for Multinational Proportions. \emph{Technometrics}, 6: 191-195.
+Quesenberry, C.P. and Hurst, D.C. (1964). Large Sample Simultaneous Confidence Intervals for Multinational Proportions. \emph{Technometrics}, 6: 191-195.
 
 Sangeetha, U., Subbiah, M., Srinivasan, M. R. (2013) Mathematical Analysis of propensity of aberration on the methods for interval estimation of the multinomial proportions.
 \emph{IOSR Journal of Mathematics}, e-ISSN: 2278-5728,p-ISSN: 2319-765X, Volume 7, Issue 4 (Jul. - Aug. 2013), PP 23-28
@@ -109,7 +109,7 @@ MultinomCI(x=c(91, 49, 37, 43), conf.level=0.95, method="goodman")
 
 # example from Sison, Glaz (1999) in Sangeetha (2013) - Table 2
 #
-#    Wald          Wald_CC       Wilson        Quesnberry-Hurst	
+#    Wald          Wald_CC       Wilson        Quesenberry-Hurst
 #    LL     UL     LL     UL     LL     UL     LL     UL
 # 1	 0.090	0.149  0.089  0.150	 0.094	0.153  0.076  0.183
 # 2  0.121	0.187  0.120  0.188	 0.124	0.190  0.104  0.222

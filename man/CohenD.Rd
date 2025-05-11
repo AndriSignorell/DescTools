@@ -4,7 +4,7 @@
 \title{Cohen's Effect Size
 %%  ~~function to do ... ~~
 }
-\description{Computes the Cohen's d and Hedges'g effect size statistics. 
+\description{Computes the Cohen's d and Hedges' g effect size statistics.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{

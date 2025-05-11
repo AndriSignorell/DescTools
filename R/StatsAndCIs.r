@@ -2409,7 +2409,7 @@ BinomDiffCI <- function(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided"
 
            },
 
-           "blj" = {  # brown-li-jeffrey
+           "blj" = {  # brown-li-jeffreys
              p1.dash <- (x1 + 0.5) / (n1+1)
              p2.dash <- (x2 + 0.5) / (n2+1)
              vd <- p1.dash*(1-p1.dash)/n1 + p2.dash*(1-p2.dash)/n2
@@ -2519,7 +2519,7 @@ BinomDiffCI <- function(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided"
              CI.upper <- min(1, theta + w)
              
            },
-           "jp" = {   # jeffery perks
+           "jp" = {   # jeffreys perks
              
              # same as haldane but with other psi
              psi <- 0.5 * ((x1 + 0.5) / (n1 + 1) + (x2 + 0.5) / (n2 + 1) )
@@ -3490,7 +3490,7 @@ MultinomCI <- function(x, conf.level = 0.95, sides = c("two.sided","left","right
   
   } else if (method == "qh") {
     
-    # references Quesensberry, C.P. and Hurst, D.C. (1964). 
+    # references Quesenberry, C.P. and Hurst, D.C. (1964).
     # Large Sample Simultaneous Confidence Intervals for 
     # Multinational Proportions. Technometrics, 6: 191-195.
     
@@ -4027,7 +4027,7 @@ CohenD <- function(x, y=NULL, pooled = TRUE, correct = FALSE, conf.level = NA, n
 
     #  if(unbiased) d <- d * gamma(DF/2)/(sqrt(DF/2) * gamma((DF - 1)/2))
 
-    if(correct){  # "Hedges's g"
+    if(correct){  # "Hedges' g"
       # Hedges, L. V. & Olkin, I. (1985). Statistical methods for meta-analysis. Orlando, FL: Academic Press.
       d <- d * (1 - 3 / ( 4 * (nx + ny) - 9))
     }
