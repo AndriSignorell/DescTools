@@ -13333,12 +13333,19 @@ ParseFormula <- function(formula, data=parent.frame(), drop = TRUE) {
   
   wrd[["Selection"]]$InsertAfter(paste(x, collapse = "\n"))
   res <- wrd[["Selection"]]$Range()
-  wrd[["Selection"]]$Collapse(Direction = wdConst$wdCollapseEnd)
   
   if (remove & getOption("wrdinsert_rm_garbage", TRUE)){
+    
+    # remove selection
+    wrd[["Selection"]]$Collapse(Direction = wdConst$wdCollapseEnd)
+    
     # Now deleting the special characters
-    sapply(seq(CountNonASCII(x)), 
-           function(i) wrd[["Selection"]]$TypeBackspace())
+    if((j <- CountNonASCII(x)) > 0){
+      sapply(seq(j), 
+             function(i) wrd[["Selection"]]$TypeBackspace())
+    }
+    res$Select()
+    
   }
   
   invisible(res)

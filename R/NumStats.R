@@ -93,7 +93,7 @@ calcDesc.numeric <- function(x, n, maxrows = NULL, conf.level = 0.95,
   } else {
     a <- NA
   }
-  meanCI <- nstat$mean + c(-1,1) * a
+  meanCI <- nstat$mean + c(1, -1) * a
 
   # check for remarkably frequent values in a numeric variable
   # say the most frequent value has significantly more than 5% from the total sample

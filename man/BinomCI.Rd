@@ -6,8 +6,8 @@ Compute confidence intervals for binomial proportions according to a number of t
 }
 \usage{
 BinomCI(x, n, conf.level = 0.95, sides = c("two.sided", "left", "right"),
-        method = c("wilson", "wald", "waldcc", "agresti-coull", "jeffreys",
-                   "modified wilson", "wilsoncc","modified jeffreys",
+        method = c("wilson", "wald", "waldcc", "agresti-coull", "jeffrey",
+                   "modified wilson", "wilsoncc","modified jeffrey",
                    "clopper-pearson", "arcsine", "logit", "witting", "pratt", 
                    "midp", "lik", "blaker"),
         rand = 123, tol = 1e-05, std_est = TRUE)
@@ -21,8 +21,8 @@ BinomCI(x, n, conf.level = 0.95, sides = c("two.sided", "left", "right"),
 \code{"greater"} in a \code{t.test}.}
 
   \item{method}{ character string specifing which method to use; this can be one out of:
-  \code{"wald"}, \code{"wilson"} (default), \code{"wilsoncc"}, \code{"agresti-coull"}, \code{"jeffreys"},
-  \code{"modified wilson"}, \code{"modified jeffreys"}, \code{"clopper-pearson"},
+  \code{"wald"}, \code{"wilson"} (default), \code{"wilsoncc"}, \code{"agresti-coull"}, \code{"jeffrey"},
+  \code{"modified wilson"}, \code{"modified jeffrey"}, \code{"clopper-pearson"},
   \code{"arcsine"}, \code{"logit"}, \code{"witting"}, \code{"pratt"}, \code{"midp"}, \code{"lik"} and \code{"blaker"}. 
   Abbreviation of method is accepted. See details. }
   
@@ -52,10 +52,10 @@ BinomCI(x, n, conf.level = 0.95, sides = c("two.sided", "left", "right"),
   modification of the Wilson interval. The Agresti-Coull intervals are never shorter
   than the Wilson intervals; cf. Brown et al (2001). The internally used point estimator p-tilde is returned as attribute.
 
-  The \bold{Jeffreys} interval is an implementation of the equal-tailed Jeffreys prior interval
-  as given in Brown et al (2001).
+  The \bold{Jeffrey} interval is an implementation of the equal-tailed 
+                     Jeffrey prior interval as given in Brown et al (2001).
 
-  The \bold{modified Jeffreys} interval is a modification of the Jeffreys interval for
+  The \bold{modified Jeffrey} interval is a modification of the Jeffrey interval for
   \code{x == 0 | x == 1} and \code{x == n-1 | x == n} as proposed by
   Brown et al (2001).
 
@@ -97,7 +97,7 @@ For more details we refer to Brown et al (2001) as well as Witting (1985).
 
 Some approaches for the confidence intervals are capable of violating the [0, 1] boundaries and potentially yield negative results or values beyond 1. These would be truncated such as not to exceed the valid range of [0, 1].
 
-So now, which interval should we use? The Wald interval often has inadequate coverage, particularly for small n and values of p close to 0 or 1. Conversely, the Clopper-Pearson Exact method is very conservative and tends to produce wider intervals than necessary. Brown et al. recommends the Wilson or Jeffreys methods for small n and Agresti-Coull, Wilson, or Jeffreys, for larger n as providing more reliable coverage than the alternatives. 
+So now, which interval should we use? The Wald interval often has inadequate coverage, particularly for small n and values of p close to 0 or 1. Conversely, the Clopper-Pearson Exact method is very conservative and tends to produce wider intervals than necessary. Brown et al. recommends the Wilson or Jeffrey methods for small n and Agresti-Coull, Wilson, or Jeffrey, for larger n as providing more reliable coverage than the alternatives. 
 
 For the methods \code{"wilson"}, \code{"wilsoncc"}, \code{"modified wilson"}, \code{"agresti-coull"} and \code{"arcsine"} the internally used alternative point estimator for the proportion value can be returned (by setting \code{std_est = FALSE}). The point estimate typically is slightly shifted towards 0.5 compared to the standard estimator. See the literature for the more details.
 
@@ -155,7 +155,7 @@ binom.test(x=42, n=43)$conf.int
 
 # all arguments are being recycled:
 BinomCI(x=c(42, 35, 23, 22), n=43, method="wilson")
-BinomCI(x=c(42, 35, 23, 22), n=c(50, 60, 70, 80), method="jeffreys")
+BinomCI(x=c(42, 35, 23, 22), n=c(50, 60, 70, 80), method="jeffrey")
 
 # example Table I in Newcombe (1998)
 meths <- c("wald", "waldcc", "wilson", "wilsoncc",

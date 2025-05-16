@@ -11,7 +11,8 @@
     
 }
 \usage{
-CutAge(x, from = 0, to = 90, by = 10, right = FALSE, ordered_result = TRUE, ...)
+CutAge(x, from = 0, to = 90, by = 10, right = FALSE, ordered_result = TRUE, 
+       full = TRUE, ...)
 CutGen(vintage)
 }
 \arguments{
@@ -27,6 +28,9 @@ CutGen(vintage)
 logical: should the result be an ordered factor? Default is \code{TRUE} - unlike in \code{\link{cut}}!
 }
 
+  \item{full}{logical, setting to \code{FALSE} will remove empty levels at the edges of
+  the distribution}
+  
   \item{\dots}{the dots are passed on to the underlying function \code{\link{cut}()}. Use these for e.g. change the labels. 
 }
 \item{vintage}{year of birth}

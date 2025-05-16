@@ -48,6 +48,26 @@ LeveneTest(y, ...)
 \value{
 returns an object meant to be printed showing the results of the test.
 }
+\details{
+Let Xij be the jth observation of X for the ith group. Let Zij = |Xij − Xi
+|, where Xi
+is the
+mean of X in the ith group. Levene’s test statistic is
+\deqn{
+W_0 = \frac{
+  \sum_i n_i (\bar{Z}_i - \bar{Z})^2 / (g - 1)
+}{
+  \sum_i \sum_j (Z_{ij} - \bar{Z}_i)^2 / \sum_i (n_i - 1)
+}
+}
+
+where ni
+is the number of observations in group i and g is the number of groups. W50 is obtained
+by replacing Xi with the ith group median of Xij , whereas W10 is obtained by replacing Xi with
+the 10% trimmed mean for group i.
+
+}
+%% https://www.stata.com/manuals13/rsdtest.pdf
 \note{ This function was previously published as leveneTest() in the library(car)
   and has been integrated here without logical changes.
 }

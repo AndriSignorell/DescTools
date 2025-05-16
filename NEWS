@@ -10,6 +10,16 @@ NEW FUNCTIONS ADDED:
 UPDATED FUNCTIONS:
   * XLView() uses write_xlsx instead write.table allowing better support
     for non ASCII characters.
+  * CutAge() gains a new argument full, allowing to remove empty
+    levels at the edges of the distribution.  
+	
+    
+BUGFIXES:
+  * DoBy() ignored provided names for the new created variables. 
+  * Corrected several typos in names (Quesenberry, Jeffrey). 
+    (Credit to musvaage in https://github.com/AndriSignorell/DescTools/pull/169)
+  * ICC() no longer fails when "type" argument is set to anything other 
+    than "all". (Credit to Alphonse Kwizera)
 
 
 
@@ -259,7 +269,7 @@ UPDATED FUNCTIONS:
   
   * BoxedText() supports xy.coords now.
   * Two new methods for MultinomCI() have been implemented 
-    (Fitzpatrick-Scott and Quesensberry-Hurst).
+    (Fitzpatrick-Scott and Quesenberry-Hurst).
   * BinomCI() no longer reports p_tilde but the usual x/n as
     p estimator for the Agresti-Coull confidence intervall.
     As a replacement for this, there is a argument std_est with 
@@ -1854,7 +1864,7 @@ UPDATED FUNCTIONS:
 BUGFIXES:
    * AddLm(x, y, ...) created the wrong formula x ~ y instead of the correct y ~ x model.
    * Corrected bug in function StrDist: wrong initialisation for Levenshtein distance.
-   * Corrected a bug in BinomCI identified by Steven Kern in the modified Jeffreys interval
+   * Corrected a bug in BinomCI identified by Steven Kern in the modified Jeffrey interval
      for binomial proportions.
    * AddConnLines confused the space argument between horiz=FALSE and horiz=TRUE.
    * shapiro.test would have stopped the Desc procedure, if a variable had only identical values.

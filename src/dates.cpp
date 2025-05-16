@@ -14,7 +14,14 @@ IntegerVector isoWeek(DateVector x) {
   IntegerVector weeks(n);
 
   for (int i = 0; i < n; i++) {
+    
+    if (R_IsNA(x[i])) {
+      weeks[i] = NA_INTEGER;
+      continue;
+    }
+    
     Date curr_d = x[i];
+
     int days_n = curr_d.getDate(); // Number of days since 1970-01-01
     int wday = (days_n + 4) % 7;   // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
     
@@ -53,8 +60,14 @@ IntegerVector usWeek(DateVector x) {
   IntegerVector weeks(n);
   
   for (int i = 0; i < n; i++) {
-    Date curr_d = x[i];
     
+    if (R_IsNA(x[i])) {
+      weeks[i] = NA_INTEGER;
+      continue;
+    }
+    
+    Date curr_d = x[i];
+
     // Calculate US week number (weeks start on Sunday)
     // this does not work:
     //   weeks[i] = curr_d.getYearday() % 7 + 1;
@@ -79,7 +92,13 @@ IntegerVector isoYear(DateVector x) {
   
   for (int i = 0; i < n; i++) {
     
+    if (R_IsNA(x[i])) {
+      res[i] = NA_INTEGER;
+      continue;
+    }
+
     Date curr_d = x[i];
+
     int days_n = curr_d.getDate(); // Number of days since 1970-01-01
     int wday = (days_n + 4) % 7;   // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
     
@@ -117,7 +136,13 @@ IntegerVector isoYearweek(DateVector x) {
   
   for (int i = 0; i < n; i++) {
     
+    if (R_IsNA(x[i])) {
+      res[i] = NA_INTEGER;
+      continue;
+    }
+    
     Date curr_d = x[i];
+    
     int days_n = curr_d.getDate(); // Number of days since 1970-01-01
     int wday = (days_n + 4) % 7;   // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
     
@@ -155,7 +180,13 @@ IntegerVector usYearweek(DateVector x) {
   
   for (int i = 0; i < n; i++) {
     
+    if (R_IsNA(x[i])) {
+      res[i] = NA_INTEGER;
+      continue;
+    }
+
     Date curr_d = x[i];
+
     int y = curr_d.getYear();
     int m = curr_d.getMonth();
     int d = curr_d.getDay();

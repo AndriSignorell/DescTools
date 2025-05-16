@@ -1851,9 +1851,9 @@ BootCI <- function(x, y=NULL, FUN, ..., bci.method = c("norm", "basic", "stud", 
 
 # Confidence Intervals for Binomial Proportions
 BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right"),
-                    method = c("wilson", "wald", "waldcc", "agresti-coull", "jeffreys", 
+                    method = c("wilson", "wald", "waldcc", "agresti-coull", "jeffrey", 
                                "modified wilson", "wilsoncc",
-                               "modified jeffreys", "clopper-pearson", "arcsine", 
+                               "modified jeffrey", "clopper-pearson", "arcsine", 
                                "logit", "witting", "pratt", "midp", "lik", "blaker"), 
                     rand = 123, tol=1e-05, std_est=TRUE) {
 
@@ -1861,8 +1861,10 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
   if(missing(sides)) sides <- "two.sided"
 
   iBinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right"),
-                       method = c("wilson", "wilsoncc", "wald", "waldcc","agresti-coull", "jeffreys", "modified wilson",
-                       "modified jeffreys", "clopper-pearson", "arcsine", "logit", "witting", "pratt", "midp", "lik", "blaker"), 
+                       method = c("wilson", "wilsoncc", "wald", "waldcc","agresti-coull", 
+                                  "jeffrey", "modified wilson",
+                                  "modified jeffrey", "clopper-pearson", "arcsine", 
+                                  "logit", "witting", "pratt", "midp", "lik", "blaker"), 
                        rand = 123, tol=1e-05, std_est=TRUE) {
 
     if(length(x) != 1) stop("'x' has to be of length 1 (number of successes)")
@@ -1873,8 +1875,8 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
     
     method <- match.arg(arg=method, 
                         choices=c("wilson", "wald", "waldcc", "wilsoncc","agresti-coull", 
-                                  "jeffreys", "modified wilson",
-                                  "modified jeffreys", "clopper-pearson", "arcsine", 
+                                  "jeffrey", "modified wilson",
+                                  "modified jeffrey", "clopper-pearson", "arcsine", 
                                   "logit", "witting","pratt", "midp", "lik", "blaker"))
               
     sides <- match.arg(sides, choices = c("two.sided","left","right"), 
@@ -1956,7 +1958,7 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
               CI.lower <- max(0, p.tilde - term2)
               CI.upper <- min(1, p.tilde + term2)
             }
-            , "jeffreys" = {
+            , "jeffrey" = {
               if(x == 0)
                 CI.lower <- 0
               else
@@ -1996,7 +1998,7 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
               else
                 CI.upper <- min(1, term1 + term2)
             }
-            , "modified jeffreys" = {
+            , "modified jeffrey" = {
               if(x == n)
                 CI.lower <- (alpha/2)^(1/n)
               else {
@@ -4027,7 +4029,7 @@ CohenD <- function(x, y=NULL, pooled = TRUE, correct = FALSE, conf.level = NA, n
 
     #  if(unbiased) d <- d * gamma(DF/2)/(sqrt(DF/2) * gamma((DF - 1)/2))
 
-    if(correct){  # "Hedges's g"
+    if(correct){  # "Hedges' g"
       # Hedges, L. V. & Olkin, I. (1985). Statistical methods for meta-analysis. Orlando, FL: Academic Press.
       d <- d * (1 - 3 / ( 4 * (nx + ny) - 9))
     }
@@ -4854,9 +4856,16 @@ Rosenbluth <- function(x, n = rep(1, length(x)), na.rm = FALSE) {
 ## stats: assocs etc. ====
 
 
-CutAge <- function(x, from=0, to=90, by=10, right=FALSE, ordered_result=TRUE, ...){
-  cut(x, breaks = c(seq(from, to, by), Inf), 
-      right=right, ordered_result = ordered_result, ...)
+CutAge <- function(x, from=0, to=90, by=10, right=FALSE, ordered_result=TRUE, full=TRUE, ...){
+  res <- cut(x, breaks = c(seq(from, to, by), Inf), 
+             right=right, ordered_result = ordered_result, ...)
+  if(!full)
+    res <- factor(res, 
+	              levels=levels(res)[do.call(seq, 
+				              as.list(range(which(Freq(res)$freq != 0))))])			
+  
+  return(res)  
+	  
 }
 
 
@@ -5563,7 +5572,7 @@ ICC <- function(x, type=c("all", "ICC1","ICC2","ICC3","ICC1k","ICC2k","ICC3k"), 
 
   if(type!="all"){
     if(is.na(conf.level)){
-      res <- results[idx, c(2)][,]
+      res <- results[idx, c(2)]
     } else {
       res <- unlist(results[idx, c(2, 7:8)])
       names(res) <- c(type,"lwr.ci","upr.ci")

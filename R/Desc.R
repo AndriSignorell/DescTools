@@ -1616,8 +1616,8 @@ print.Desc.numeric <- function(x, digits = NULL, ...) {
     a <- NA
   }
 
-  x["meanCI"] <- x[["mean"]] + a
-  x["meanUCI"] <- x[["mean"]] - a
+  x["meanCI"] <- x[["mean"]] - a
+  x["meanUCI"] <- x[["mean"]] + a
 
   x[c("length", "n", "NAs", "unique", "0s")] <-
     lapply(x[c("length", "n", "NAs", "unique", "0s")],

@@ -48,8 +48,9 @@ DoBy.default <- function(x, by, FUN, vnames=NULL, collapse=FALSE, ...){
 
   xname <- deparse(substitute(x))
   res <- x
-  is(is.null(vnames))
+  if(is.null(vnames)){
     vnames <- paste(deparse(substitute(FUN)), deparse(substitute(x)), sep=".")
+  }
 
   if (missing(by))
     x[] <- FUN(x, ...)
