@@ -2521,7 +2521,7 @@ BinomDiffCI <- function(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided"
              CI.upper <- min(1, theta + w)
              
            },
-           "jp" = {   # jeffery perks
+           "jp" = {   # jeffreys-perks
              
              # same as haldane but with other psi
              psi <- 0.5 * ((x1 + 0.5) / (n1 + 1) + (x2 + 0.5) / (n2 + 1) )

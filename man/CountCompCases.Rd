@@ -12,10 +12,6 @@ CountCompCases(x)
 }
 \arguments{
 \item{x}{a data.frame containg the data.}
-
-\item{digits}{the number of digits to be used when printing the results.}
-
-\item{\\dots}{the dots are not further used.}
 }
 \value{
 A list with three elements. The first gives the number of rows, the

@@ -50,7 +50,7 @@ be obtained by solving a cubic equation and gave unique closed-form expressions 
 
 The \bold{Mee} (code \code{"mee"}) interval proposed by Mee (1984) and Farrington-Manning (1990) is using the same maximum likelihood estimators as Miettinen-Nurminen but with another correcting factor.
 
-The \bold{Brown, Li's Jeffrey} (code \code{"blj"}) interval was proposed by Brown, Li's Jeffrey (2005).
+The \bold{Brown-Li-Jeffreys} (code \code{"blj"}) interval was proposed by Brown and Li (2005).
 
 The \bold{Hauck-Anderson} (code \code{"ha"}) interval was proposed by Hauck-Anderson (1986).
 
