@@ -1404,15 +1404,18 @@ Rank <- function(..., decreasing = FALSE, na.last = TRUE,
 }
 
 
-PercentRank <- function(x)
-  trunc(rank(x, na.last="keep"))/sum(!is.na(x))
+PercentRank <- function(x) {
+  
+  # trunc(rank(x, na.last="keep"))/sum(!is.na(x))
+  trunc(Rank(x, ties.method = "min", na.last="keep") - 1) / 
+      (sum(!is.na(x)) - 1)
+}
 
 
 
 Unwhich <- function(idx, n = max(idx), useNames=TRUE){
 
   # Author: Nick Sabbe
-
   # http://stackoverflow.com/questions/7659833/inverse-of-which
 
   # less performant, but oneliner:
