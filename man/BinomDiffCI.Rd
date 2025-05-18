@@ -50,12 +50,13 @@ be obtained by solving a cubic equation and gave unique closed-form expressions 
 
 The \bold{Mee} (code \code{"mee"}) interval proposed by Mee (1984) and Farrington-Manning (1990) is using the same maximum likelihood estimators as Miettinen-Nurminen but with another correcting factor.
 
-The \bold{Brown-Li-Jeffreys} (code \code{"blj"}) interval was proposed by Brown and Li (2005).
+The \bold{Brown-Li-Jeffreys} (code \code{"blj"}) interval was 
+proposed by Brown and Li (2005).
 
 The \bold{Hauck-Anderson} (code \code{"ha"}) interval was proposed by Hauck-Anderson (1986).
 
 The \bold{Haldane} (code \code{"hal"}) interval is described in Newcombe (1998) and so is
-the \bold{Jeffrey-Perks} (code \code{"jp"}).
+the \bold{Jeffreys-Perks} (code \code{"jp"}).
 
 Some approaches for the confidence intervals can potentially yield negative results or values beyond [-1, 1]. These would be reset such as not to exceed the range of [-1, 1].
 
@@ -117,7 +118,7 @@ SetNames(round(
                        "jp", "mee",
                        "mn", "score", "scorecc", 
                        "ha", "ac", "blj"))[,-1], 4),
-  rownames=c("1. Wald, no CC", "2. Wald, CC", "3. Haldane", "4. Jeffrey-Perks",
+  rownames=c("1. Wald, no CC", "2. Wald, CC", "3. Haldane", "4. Jeffreys-Perks",
              "5. Mee", "6. Miettinen-Nurminen", "10. Score, no CC", "11. Score, CC",
              "12. Hauck-Andersen", "13. Agresti-Caffo", "16. Brown-Li"))
 

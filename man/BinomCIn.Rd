@@ -29,8 +29,8 @@ BinomCIn(p = 0.5, width, interval = c(1, 100000),
 
   \item{method}{ character string specifing which method to use; this can be one out of:
   \code{"wald"}, \code{"wilson"}, \code{"wilsoncc"}, \code{"agresti-coull"}, 
-  \code{"jeffrey"},
-  \code{"modified wilson"}, \code{"modified jeffrey"}, \code{"clopper-pearson"},
+  \code{"jeffreys"},
+  \code{"modified wilson"}, \code{"modified jeffreys"}, \code{"clopper-pearson"},
   \code{"arcsine"}, \code{"logit"}, \code{"witting"} or \code{"pratt"}. Defaults to \code{"wilson"}.
   Abbreviation of method are accepted. See details in \code{\link{BinomCI}()}. }
 }

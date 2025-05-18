@@ -1851,9 +1851,10 @@ BootCI <- function(x, y=NULL, FUN, ..., bci.method = c("norm", "basic", "stud", 
 
 # Confidence Intervals for Binomial Proportions
 BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right"),
-                    method = c("wilson", "wald", "waldcc", "agresti-coull", "jeffrey", 
+                    method = c("wilson", "wald", "waldcc", "agresti-coull", 
+                               "jeffreys", 
                                "modified wilson", "wilsoncc",
-                               "modified jeffrey", "clopper-pearson", "arcsine", 
+                               "modified jeffreys", "clopper-pearson", "arcsine", 
                                "logit", "witting", "pratt", "midp", "lik", "blaker"), 
                     rand = 123, tol=1e-05, std_est=TRUE) {
 
@@ -1862,8 +1863,8 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
 
   iBinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right"),
                        method = c("wilson", "wilsoncc", "wald", "waldcc","agresti-coull", 
-                                  "jeffrey", "modified wilson",
-                                  "modified jeffrey", "clopper-pearson", "arcsine", 
+                                  "jeffreys", "modified wilson",
+                                  "modified jeffreys", "clopper-pearson", "arcsine", 
                                   "logit", "witting", "pratt", "midp", "lik", "blaker"), 
                        rand = 123, tol=1e-05, std_est=TRUE) {
 
@@ -1875,8 +1876,8 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
     
     method <- match.arg(arg=method, 
                         choices=c("wilson", "wald", "waldcc", "wilsoncc","agresti-coull", 
-                                  "jeffrey", "modified wilson",
-                                  "modified jeffrey", "clopper-pearson", "arcsine", 
+                                  "jeffreys", "modified wilson",
+                                  "modified jeffreys", "clopper-pearson", "arcsine", 
                                   "logit", "witting","pratt", "midp", "lik", "blaker"))
               
     sides <- match.arg(sides, choices = c("two.sided","left","right"), 
@@ -1958,7 +1959,7 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
               CI.lower <- max(0, p.tilde - term2)
               CI.upper <- min(1, p.tilde + term2)
             }
-            , "jeffrey" = {
+            , "jeffreys" = {
               if(x == 0)
                 CI.lower <- 0
               else
@@ -1998,7 +1999,7 @@ BinomCI <- function(x, n, conf.level = 0.95, sides = c("two.sided","left","right
               else
                 CI.upper <- min(1, term1 + term2)
             }
-            , "modified jeffrey" = {
+            , "modified jeffreys" = {
               if(x == n)
                 CI.lower <- (alpha/2)^(1/n)
               else {
@@ -2411,7 +2412,7 @@ BinomDiffCI <- function(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided"
 
            },
 
-           "blj" = {  # brown-li-jeffrey
+           "blj" = {  # brown-li-jeffreys
              p1.dash <- (x1 + 0.5) / (n1+1)
              p2.dash <- (x2 + 0.5) / (n2+1)
              vd <- p1.dash*(1-p1.dash)/n1 + p2.dash*(1-p2.dash)/n2
