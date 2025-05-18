@@ -19,7 +19,7 @@ and the Noether (1957) procedure. Koopman results are found iteratively for most
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.60.5</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.60.6</span>
       </span>
     </div>
 

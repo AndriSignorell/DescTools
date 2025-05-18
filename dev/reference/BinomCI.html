@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.60.5</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.60.6</span>
       </span>
     </div>
 
@@ -83,8 +83,8 @@
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">BinomCI</span><span class="op">(</span><span class="va">x</span>, <span class="va">n</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span>, sides <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"left"</span>, <span class="st">"right"</span><span class="op">)</span>,</span>
-<span>        method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wilson"</span>, <span class="st">"wald"</span>, <span class="st">"waldcc"</span>, <span class="st">"agresti-coull"</span>, <span class="st">"jeffrey"</span>,</span>
-<span>                   <span class="st">"modified wilson"</span>, <span class="st">"wilsoncc"</span>,<span class="st">"modified jeffrey"</span>,</span>
+<span>        method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wilson"</span>, <span class="st">"wald"</span>, <span class="st">"waldcc"</span>, <span class="st">"agresti-coull"</span>, <span class="st">"jeffreys"</span>,</span>
+<span>                   <span class="st">"modified wilson"</span>, <span class="st">"wilsoncc"</span>,<span class="st">"modified jeffreys"</span>,</span>
 <span>                   <span class="st">"clopper-pearson"</span>, <span class="st">"arcsine"</span>, <span class="st">"logit"</span>, <span class="st">"witting"</span>, <span class="st">"pratt"</span>, </span>
 <span>                   <span class="st">"midp"</span>, <span class="st">"lik"</span>, <span class="st">"blaker"</span><span class="op">)</span>,</span>
 <span>        rand <span class="op">=</span> <span class="fl">123</span>, tol <span class="op">=</span> <span class="fl">1e-05</span>, std_est <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
@@ -110,8 +110,9 @@
 
   <dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
 <dd><p>character string specifing which method to use; this can be one out of:
-  <code>"wald"</code>, <code>"wilson"</code> (default), <code>"wilsoncc"</code>, <code>"agresti-coull"</code>, <code>"jeffrey"</code>,
-  <code>"modified wilson"</code>, <code>"modified jeffrey"</code>, <code>"clopper-pearson"</code>,
+  <code>"wald"</code>, <code>"wilson"</code> (default), <code>"wilsoncc"</code>,
+  <code>"agresti-coull"</code>, <code>"jeffreys"</code>,
+  <code>"modified wilson"</code>, <code>"modified jeffreys"</code>, <code>"clopper-pearson"</code>,
   <code>"arcsine"</code>, <code>"logit"</code>, <code>"witting"</code>, <code>"pratt"</code>, <code>"midp"</code>, <code>"lik"</code> and <code>"blaker"</code>.
   Abbreviation of method is accepted. See details.</p></dd>
 
@@ -142,9 +143,9 @@
 <p>The <b>Agresti-Coull</b> interval was proposed by Agresti and Coull (1998) and is a slight
   modification of the Wilson interval. The Agresti-Coull intervals are never shorter
   than the Wilson intervals; cf. Brown et al (2001). The internally used point estimator p-tilde is returned as attribute.</p>
-<p>The <b>Jeffrey</b> interval is an implementation of the equal-tailed
-                     Jeffrey prior interval as given in Brown et al (2001).</p>
-<p>The <b>modified Jeffrey</b> interval is a modification of the Jeffrey interval for
+<p>The <b>Jeffreys</b> interval is an implementation of the equal-tailed
+                     Jeffreys prior interval as given in Brown et al (2001).</p>
+<p>The <b>modified Jeffreys</b> interval is a modification of the Jeffreys interval for
   <code>x == 0 | x == 1</code> and <code>x == n-1 | x == n</code> as proposed by
   Brown et al (2001).</p>
 <p>The <b>Clopper-Pearson</b> interval is based on quantiles of corresponding beta
@@ -174,9 +175,22 @@ MLE.</p>
 <p>For more details we refer to Brown et al (2001) as well as Witting (1985).</p>
 
 
-<p>Some approaches for the confidence intervals are capable of violating the [0, 1] boundaries and potentially yield negative results or values beyond 1. These would be truncated such as not to exceed the valid range of [0, 1].</p>
-<p>So now, which interval should we use? The Wald interval often has inadequate coverage, particularly for small n and values of p close to 0 or 1. Conversely, the Clopper-Pearson Exact method is very conservative and tends to produce wider intervals than necessary. Brown et al. recommends the Wilson or Jeffrey methods for small n and Agresti-Coull, Wilson, or Jeffrey, for larger n as providing more reliable coverage than the alternatives.</p>
-<p>For the methods <code>"wilson"</code>, <code>"wilsoncc"</code>, <code>"modified wilson"</code>, <code>"agresti-coull"</code> and <code>"arcsine"</code> the internally used alternative point estimator for the proportion value can be returned (by setting <code>std_est = FALSE</code>). The point estimate typically is slightly shifted towards 0.5 compared to the standard estimator. See the literature for the more details.</p>
+<p>Some approaches for the confidence intervals are capable of violating the [0, 1]
+boundaries and potentially yield negative results or values beyond 1.
+These would be truncated such as not to exceed the valid range of [0, 1].</p>
+<p>So now, which interval should we use? The Wald interval often has
+inadequate coverage, particularly for small n and values of p close to 0 or 1.
+Conversely, the Clopper-Pearson Exact method is very conservative and tends
+to produce wider intervals than necessary. Brown et al.
+recommends the Wilson or Jeffreys methods for small n and Agresti-Coull,
+Wilson, or Jeffreys, for larger n as providing more reliable coverage .
+than the alternatives.</p>
+<p>For the methods <code>"wilson"</code>, <code>"wilsoncc"</code>, <code>"modified wilson"</code>,
+<code>"agresti-coull"</code> and <code>"arcsine"</code> the internally used alternative
+point estimator for the proportion value can be returned
+(by setting <code>std_est = FALSE</code>). The point estimate typically
+is slightly shifted towards 0.5 compared to the standard estimator.
+See the literature for the more details.</p>
     </div>
     <div id="value">
     <h2>Value</h2>
@@ -212,30 +226,31 @@ Andri Signorell &lt;andri@signorell.net&gt; (interface issues and all the rest)<
     </div>
     <div id="see-also">
     <h2>See also</h2>
-    <div class="dont-index"><p><code><a href="https://rdrr.io/r/stats/binom.test.html" class="external-link">binom.test</a></code>, <code>binconf</code>, <code><a href="MultinomCI.html">MultinomCI</a></code>,  <code><a href="BinomDiffCI.html">BinomDiffCI</a></code>, <code><a href="BinomRatioCI.html">BinomRatioCI</a></code></p></div>
+    <div class="dont-index"><p><code><a href="https://rdrr.io/r/stats/binom.test.html" class="external-link">binom.test</a></code>, <code>binconf</code>,
+<code><a href="MultinomCI.html">MultinomCI</a></code>,  <code><a href="BinomDiffCI.html">BinomDiffCI</a></code>, <code><a href="BinomRatioCI.html">BinomRatioCI</a></code></p></div>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">BinomCI</span><span class="op">(</span>x<span class="op">=</span><span class="fl">37</span>, n<span class="op">=</span><span class="fl">43</span>, </span></span>
 <span class="r-in"><span>        method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/eval.html" class="external-link">eval</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/formals.html" class="external-link">formals</a></span><span class="op">(</span><span class="va">BinomCI</span><span class="op">)</span><span class="op">$</span><span class="va">method</span><span class="op">)</span><span class="op">)</span>   <span class="co"># return all methods</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                        est    lwr.ci    upr.ci</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> wilson           0.8604651 0.7273641 0.9344428</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> wald             0.8604651 0.7568980 0.9640322</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> waldcc           0.8604651 0.7452701 0.9756601</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> agresti-coull    0.8604651 0.7235600 0.9382469</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> jeffrey          0.8604651 0.7348110 0.9395927</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> modified wilson  0.8604651 0.7273641 0.9344428</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> wilsoncc         0.8604651 0.7137335 0.9419725</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> modified jeffrey 0.8604651 0.7348110 0.9395927</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> clopper-pearson  0.8604651 0.7206752 0.9470234</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> arcsine          0.8604651 0.7346862 0.9424696</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> logit            0.8604651 0.7224337 0.9359412</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> witting          0.8604651 0.7493378 0.9273288</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> pratt            0.8604651 0.7661306 0.9472522</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> midp             0.8604651 0.7321815 0.9414281</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lik              0.8604651 0.7372546 0.9420472</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> blaker           0.8604651 0.7255152 0.9374534</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         est    lwr.ci    upr.ci</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> wilson            0.8604651 0.7273641 0.9344428</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> wald              0.8604651 0.7568980 0.9640322</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> waldcc            0.8604651 0.7452701 0.9756601</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> agresti-coull     0.8604651 0.7235600 0.9382469</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> jeffreys          0.8604651 0.7348110 0.9395927</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> modified wilson   0.8604651 0.7273641 0.9344428</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> wilsoncc          0.8604651 0.7137335 0.9419725</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> modified jeffreys 0.8604651 0.7348110 0.9395927</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> clopper-pearson   0.8604651 0.7206752 0.9470234</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> arcsine           0.8604651 0.7346862 0.9424696</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> logit             0.8604651 0.7224337 0.9359412</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> witting           0.8604651 0.7493378 0.9273288</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> pratt             0.8604651 0.7661306 0.9472522</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> midp              0.8604651 0.7321815 0.9414281</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lik               0.8604651 0.7372546 0.9420472</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> blaker            0.8604651 0.7255152 0.9374534</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/prop.test.html" class="external-link">prop.test</a></span><span class="op">(</span>x<span class="op">=</span><span class="fl">37</span>, n<span class="op">=</span><span class="fl">43</span>, correct<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> <span class="co"># same as method wilson</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -283,7 +298,7 @@ Andri Signorell &lt;andri@signorell.net&gt; (interface issues and all the rest)<
 <span class="r-out co"><span class="r-pr">#&gt;</span> x.2 0.8139535 0.6738300 0.9025825</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> x.3 0.5348837 0.3891564 0.6748894</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> x.4 0.5116279 0.3675231 0.6538255</span>
-<span class="r-in"><span><span class="fu">BinomCI</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">42</span>, <span class="fl">35</span>, <span class="fl">23</span>, <span class="fl">22</span><span class="op">)</span>, n<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">60</span>, <span class="fl">70</span>, <span class="fl">80</span><span class="op">)</span>, method<span class="op">=</span><span class="st">"jeffrey"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">BinomCI</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">42</span>, <span class="fl">35</span>, <span class="fl">23</span>, <span class="fl">22</span><span class="op">)</span>, n<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">60</span>, <span class="fl">70</span>, <span class="fl">80</span><span class="op">)</span>, method<span class="op">=</span><span class="st">"jeffreys"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               est    lwr.ci    upr.ci</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> x.1:n.1 0.8400000 0.7206737 0.9213325</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> x.2:n.2 0.5833333 0.4571040 0.7017365</span>
