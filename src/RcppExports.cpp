@@ -10,6 +10,29 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
+// ConDisPairs
+List ConDisPairs(IntegerMatrix x);
+RcppExport SEXP _DescTools_ConDisPairs(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerMatrix >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(ConDisPairs(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// ConDisPairsXY
+List ConDisPairsXY(NumericVector x, NumericVector y);
+RcppExport SEXP _DescTools_ConDisPairsXY(SEXP xSEXP, SEXP ySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
+    rcpp_result_gen = Rcpp::wrap(ConDisPairsXY(x, y));
+    return rcpp_result_gen;
+END_RCPP
+}
 // tbrm
 double tbrm(const std::vector<double>& x, double C);
 RcppExport SEXP _DescTools_tbrm(SEXP xSEXP, SEXP CSEXP) {

@@ -19,8 +19,8 @@ the variables on the right-hand-side of the model must all be factors and
 must be completely crossed.}
 
 \item{...}{arguments to be passed down, e.g., \code{data} for the
-\code{formula} and \code{lm} methods; can also be used to pass arguments to
-the function given by \code{center} (e.g., \code{center=mean} and
+\code{formula}; can also be used to pass arguments to
+the function given by \code{center} (e.g., \code{center=mean},
 \code{trim=0.1} specify the 10\% trimmed mean).}
 
 \item{formula}{a formula of the form \code{lhs ~ rhs} where \code{lhs} gives
@@ -43,15 +43,15 @@ when the data contain NAs. Defaults to \code{getOption("na.action")}.}
 provides a more robust test (Brown-Forsythe-Test).}
 }
 \value{
-returns an object meant to be printed showing the results of the
-test.
+An object of class "htest" representing the result of the
+hypothesis test.
 }
 \description{
 Computes Levene's test for homogeneity of variance across groups.
 }
 \details{
-Let \eqn{X_ij} be the jth observation of X for the ith group.
-Let \eqn{Z_ij = |X_ij - X_i|}, where \eqn{X_i} is the mean of X in the ith group.
+Let \eqn{X_{ij}} be the jth observation of X for the ith group.
+Let \eqn{Z_{ij} = |X_{ij} - X_i|}, where \eqn{X_i} is the mean of X in the ith group.
 Levene’s test statistic is
 \deqn{ W_0 = \frac{ \sum_i n_i (\bar{Z}_i - \bar{Z})^2 / (g - 1) }{ \sum_i 
 \sum_j (Z_{ij} - \bar{Z}_i)^2 / \sum_i (n_i - 1) } }
@@ -78,7 +78,8 @@ LeveneTest(x ~ grp, data=serum)
 LeveneTest(x ~ grp, data=serum, center=mean)
 LeveneTest(x ~ grp, data=serum, center=mean, trim=0.1)
 
-LeveneTest( c(rnorm(10), rnorm(10, 0, 2)), factor(rep(c("A","B"), each=10)) )
+LeveneTest( c(rnorm(10), rnorm(10, 0, 2)), 
+            factor(rep(c("A","B"), each=10)) )
 
 LeveneTest(Ozone ~ Month, data = airquality)
 
@@ -92,6 +93,11 @@ Linear Models}, Second Edition. Sage.
 
 Fox, J. and Weisberg, S. (2011) \emph{An R Companion to Applied Regression},
 Second Edition, Sage.
+
+Levene, H. (1960) Robust tests for equality of variances.
+in Ingram, O., Hotelling, H. et al. (Hrsg.) (1960) Contributions
+to Probability and Statistics, \emph{Essays in Honor of Harold Hotelling}.
+Stanford University Press, 1960, ISBN 0-8047-0596-8, S. 278–292.
 }
 \seealso{
 \code{\link{fligner.test}} for a rank-based (nonparametric)

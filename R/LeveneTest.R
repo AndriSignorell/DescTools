@@ -3,8 +3,8 @@
 #' 
 #' Computes Levene's test for homogeneity of variance across groups.
 #' 
-#' Let \eqn{X_ij} be the jth observation of X for the ith group. 
-#' Let \eqn{Z_ij = |X_ij - X_i|}, where \eqn{X_i} is the mean of X in the ith group. 
+#' Let \eqn{X_{ij}} be the jth observation of X for the ith group. 
+#' Let \eqn{Z_{ij} = |X_{ij} - X_i|}, where \eqn{X_i} is the mean of X in the ith group. 
 #' Levene’s test statistic is 
 #' \deqn{ W_0 = \frac{ \sum_i n_i (\bar{Z}_i - \bar{Z})^2 / (g - 1) }{ \sum_i 
 #' \sum_j (Z_{ij} - \bar{Z}_i)^2 / \sum_i (n_i - 1) } } 
@@ -37,12 +37,12 @@
 #' when the data contain NAs. Defaults to \code{getOption("na.action")}.
 
 #' @param ... arguments to be passed down, e.g., \code{data} for the
-#' \code{formula} and \code{lm} methods; can also be used to pass arguments to
-#' the function given by \code{center} (e.g., \code{center=mean} and
+#' \code{formula}; can also be used to pass arguments to
+#' the function given by \code{center} (e.g., \code{center=mean},
 #' \code{trim=0.1} specify the 10% trimmed mean).
 
-#' @return returns an object meant to be printed showing the results of the
-#' test.
+#' @return An object of class "htest" representing the result of the 
+#' hypothesis test.
 
 #' @note This function is rewritten using common R standards based on 
 #' car::leveneTest() using the same calculation logic.
@@ -61,11 +61,17 @@
 #' \code{\link[coin:ScaleTests]{ansari_test}} in package \pkg{coin} for exact
 #' and approximate \emph{conditional} p-values for the Ansari-Bradley test, as
 #' well as different methods for handling ties.
+#' 
 #' @references Fox, J. (2008) \emph{Applied Regression Analysis and Generalized
 #' Linear Models}, Second Edition. Sage.
 #' 
 #' Fox, J. and Weisberg, S. (2011) \emph{An R Companion to Applied Regression},
 #' Second Edition, Sage.
+#' 
+#' Levene, H. (1960) Robust tests for equality of variances. 
+#' in Ingram, O., Hotelling, H. et al. (Hrsg.) (1960) Contributions 
+#' to Probability and Statistics, \emph{Essays in Honor of Harold Hotelling}. 
+#' Stanford University Press, 1960, ISBN 0-8047-0596-8, S. 278–292.
 
 #' @keywords htest
 
@@ -85,7 +91,8 @@
 #' LeveneTest(x ~ grp, data=serum, center=mean)
 #' LeveneTest(x ~ grp, data=serum, center=mean, trim=0.1)
 #' 
-#' LeveneTest( c(rnorm(10), rnorm(10, 0, 2)), factor(rep(c("A","B"), each=10)) )
+#' LeveneTest( c(rnorm(10), rnorm(10, 0, 2)), 
+#'             factor(rep(c("A","B"), each=10)) )
 #' 
 #' LeveneTest(Ozone ~ Month, data = airquality)
 #' 
@@ -139,30 +146,6 @@ LeveneTest.formula <- function (formula, data, subset, na.action, ...) {
   
 }
 
-# example
-# d.set <- data.frame(
-# ramsay = c(111, 107, 100, 99, 102, 106, 109, 108, 104, 99,
-#             101, 96, 97, 102, 107, 113, 116, 113, 110, 98)
-# 
-# , jung.parekh = c(107, 108, 106, 98, 105, 103, 110, 105, 104,
-#                          100, 96, 108, 103, 104, 114, 114, 113, 108, 106, 99)
-# )
-# 
-# 
-# ToLong(d.set)
-# 
-# LeveneTest(x~grp, ToLong(d.set))
-# 
-
-# LeveneTest.default(x ~ grp, ToLong(d.set))
-# 
-# with(ToLong(d.set), LeveneTest.default(x, grp))
-# 
-# DescTools::LeveneTest(x ~ grp, ToLong(d.set))
-# 
-# debug(LeveneTest.default)
-# 
-# var.test(x ~ grp, ToLong(d.set))
 
 #' @export
 #' @method LeveneTest default
@@ -239,6 +222,16 @@ LeveneTest.default <- function (x, g, center=median, ...) {
 
 
 
+# https://www.stata.com/manuals13/rsdtest.pdf
+# stay <- haven::read_dta("http://www.stata-press.com/data/r13/stay.dta")
+# 
+# LeveneTest(lengthstay ~ factor(sex), stay)
+# LeveneTest(lengthstay ~ factor(sex), stay, center=mean)
+# LeveneTest(lengthstay ~ factor(sex), stay, center=mean, trim=0.1)
+# 
+
+
+
 # 
 # with(carData::Moore, DescTools::LeveneTest(conformity, fcategory))
 # 
@@ -251,9 +244,7 @@ LeveneTest.default <- function (x, g, center=median, ...) {
 # LeveneTest(conformity ~ fcategory * partner.status, data = Moore, center = mean)
 # LeveneTest(conformity ~ fcategory * partner.status, data = Moore, center = mean, trim = 0.1)
 # 
-# 
-# 
-# 
+
 # 
 # LeveneTest(lm(conformity ~ fcategory*partner.status, data = Moore))
 # 

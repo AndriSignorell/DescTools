@@ -41,8 +41,12 @@ Cstat.default <- function(x, resp, ...) {
 
   # ... instead of elegant O(n log(n))
   # changed by 0.99.27
-  z <- .DoCount(as.numeric(factor(resp)), x)
-  return((z$C + 0.5*z$T)/(z$D+z$C+z$T))
+  # z <- .DoCount(as.numeric(factor(resp)), x)
+  # return((z$C + 0.5*z$T)/(z$D+z$C+z$T))
+
+  # new implementation in Rcpp:
+  z <- ConDisPairsXY(as.numeric(factor(resp)), x)
+  return((z$C + 0.5 * z$Ties_X)/(z$D + z$C + z$Ties_X))
 
 }
 

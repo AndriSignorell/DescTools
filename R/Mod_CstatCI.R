@@ -66,3 +66,16 @@ CstatCI.glm <- function(object, conf.level = 0.95,
 
 }
 
+
+CstatCI.FitMod <- function (object, conf.level = 0.95, 
+                            sides = c("two.sided", "left", "right"), ...) {
+  
+  .BootCI(DATA = object$data, 
+                      FUN = function(data, i) Cstat(update(object, . ~ ., data = data[i, ])), 
+                      conf.level = conf.level, sides = sides, 
+                      ...)
+  
+}
+
+
+
