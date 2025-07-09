@@ -11,18 +11,20 @@
     
 }
 \usage{
-CutAge(x, from = 0, to = 90, by = 10, right = FALSE, ordered_result = TRUE, 
-       full = TRUE, ...)
+CutAge(x, breaks = c(seq(from = 0, to = 90, by = 10), Inf), 
+       right = FALSE, ordered_result = TRUE, 
+       full = TRUE, labels = NULL, ...)
 CutGen(vintage)
 }
 \arguments{
   \item{x}{ continuous variable. }
   
-  \item{from, to}{the starting and (maximal) end values of the sequence.
+  \item{breaks}{either a numeric vector of two or more unique cut points or a single number (greater than or equal to 2) 
+  giving the number of intervals into which x is to be cut. Default is 10-year intervals from
+  0 to 90.
 }
-  \item{by}{number: increment of the sequence. Default is 10, alternatives could be 5 or 20.
-}
-  \item{right}{logical, indicating if the intervals should be closed on the right (and open on the left) or vice versa. Default is \code{FALSE} - unlike in \code{\link{cut}}!
+  \item{right}{logical, indicating if the intervals should be closed on the right (and open on the left) or vice versa. 
+  Default is \code{FALSE} - unlike in \code{\link{cut}}!
 }
   \item{ordered_result}{	
 logical: should the result be an ordered factor? Default is \code{TRUE} - unlike in \code{\link{cut}}!
@@ -31,6 +33,9 @@ logical: should the result be an ordered factor? Default is \code{TRUE} - unlike
   \item{full}{logical, setting to \code{FALSE} will remove empty levels at the edges of
   the distribution}
   
+  \item{labels}{labels for the levels. When set to \code{TRUE} the age ranges
+  will be 00-09, 10-19, 20-29, etc. }
+
   \item{\dots}{the dots are passed on to the underlying function \code{\link{cut}()}. Use these for e.g. change the labels. 
 }
 \item{vintage}{year of birth}

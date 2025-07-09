@@ -4857,9 +4857,20 @@ Rosenbluth <- function(x, n = rep(1, length(x)), na.rm = FALSE) {
 ## stats: assocs etc. ====
 
 
-CutAge <- function(x, from=0, to=90, by=10, right=FALSE, ordered_result=TRUE, full=TRUE, ...){
-  res <- cut(x, breaks = c(seq(from, to, by), Inf), 
-             right=right, ordered_result = ordered_result, ...)
+CutAge <- function(x, breaks=c(seq(from=0, to=90, by=10), Inf), 
+                   right=FALSE, ordered_result=TRUE, full=TRUE, 
+                   labels=NULL, ...) {
+  
+  
+  if(identical(labels, TRUE)){
+    labels <- paste(Format(head(breaks, -1), ldigits=2, digits=0), 
+                    c(head(breaks[-1], -1)-1, ".."), sep="-")
+  }
+  
+  res <- cut(x, breaks = breaks, 
+             right=right, ordered_result = ordered_result, 
+             labels = labels, ...)
+  
   if(!full)
     res <- factor(res, 
 	              levels=levels(res)[do.call(seq, 
