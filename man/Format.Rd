@@ -21,22 +21,22 @@ There's also an easygoing interface for format templates, defined as a list cons
 Format(x, digits = NULL, sci = NULL, big.mark = NULL,
        ldigits = NULL, zero.form = NULL, na.form = NULL,
        fmt = NULL, align = NULL, width = NULL, lang = NULL, 
-       eps = NULL, ...)
+       eps = NULL, outdec = NULL, ...)
 
 \method{Format}{table}(x, digits = NULL, sci = NULL, big.mark = NULL,
        ldigits = NULL, zero.form = NULL, na.form = NULL,
        fmt = NULL, align = NULL, width = NULL, lang = NULL, 
-       eps = NULL, ...)
+       eps = NULL, outdec = NULL, ...)
 
 \method{Format}{matrix}(x, digits = NULL, sci = NULL, big.mark = NULL,
        ldigits = NULL, zero.form = NULL, na.form = NULL,
        fmt = NULL, align = NULL, width = NULL, lang = NULL, 
-       eps = NULL, ...)
+       eps = NULL, outdec = NULL, ...)
 
 \method{Format}{default}(x, digits = NULL, sci = NULL, big.mark = NULL,
        ldigits = NULL, zero.form = NULL, na.form = NULL,
        fmt = NULL, align = NULL, width = NULL, lang = NULL, 
-       eps = NULL, ...)
+       eps = NULL, outdec = NULL, ...)
 
 Fmt(...)
 
@@ -88,8 +88,9 @@ This argument is send directly to the function \code{\link{StrAlign}()} as argum
 \item{eps}{a numerical tolerance used mainly for formatting p values, those less than eps are formatted as "\code{< [eps]}" (where '[eps]' stands for \code{format(eps, digits))}. Default is \code{.Machine$double.eps}.}
 % \item{value}{the value to be overridden in the function \code{fmt}}.
 % \item{name}{the name of the format in \code{fmt}.}
+\item{outdec}{character, specifying the decimal mark to be used. If not provided, the 
+default set as \code{OutDec} option is used.}
 \item{\dots}{further arguments to be passed to or from methods. }
-
 }
 \details{
 \code{Format()} is the workhorse here and formats numbers and dates. \cr\cr
@@ -233,9 +234,7 @@ Fmt(nob=Fmt("nob", digits=5))
 Fmt("nob")
 
 # change the character to be used as the decimal point
-opt <- options(OutDec=",")
-Format(1200, digits=2, big.mark = ".")
-options(opt)
+Format(1200, digits=2, big.mark = ".", outdec=",")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

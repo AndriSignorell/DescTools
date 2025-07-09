@@ -58,7 +58,7 @@ ConnLines(tab, beside=FALSE, horiz=FALSE, col="grey50", lwd=1, lty=2)
 
 # set some labels
 BarText(tab, b, 
-        labels=Format(tab, zero.form = "", d=0), pos = "mid", 
+        labels=Format(tab, zero.form = "", digits=0), pos = "mid", 
         col=(matrix(rep(TextContrastColor(cols), each=ncol(tab)),
                     nrow=nrow(tab), byrow=FALSE )))
 

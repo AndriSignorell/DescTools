@@ -188,7 +188,7 @@ t1 <- TOne(x     = d.pizza[,c("temperature", "driver", "rabate")],
            fmt = list(abs  = as.fmt(big.mark = " ", digits=0), 
                       num  = as.fmt(big.mark = " ", digits=1), 
                       per  = as.fmt(fmt=function(x) 
-                          StrPad(Format(x, fmt="\%", d=1), width=5, adj = "r")), 
+                          StrPad(Format(x, fmt="\%", digits=1), width=5, adj = "r")), 
                       pval = as.fmt(fmt = "*", na.form = "   ")) 
 )
 # add a userdefined legend

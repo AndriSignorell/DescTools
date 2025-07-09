@@ -87,6 +87,8 @@ Other association measures: \cr
 # example in:
 # http://support.sas.com/documentation/cdl/en/statugfreq/63124/PDF/default/statugfreq.pdf
 # pp. S. 1821
+# Somers’ D C|R 0.4427 0.0837 0.2786 0.6068
+# Somers’ D R|C 0.2569 0.0499 0.1592 0.3547
 
 tab <- as.table(rbind(c(26,26,23,18,9),c(6,7,9,14,23)))
 

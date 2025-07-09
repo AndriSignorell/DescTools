@@ -46,7 +46,7 @@ Cstat.default <- function(x, resp, ...) {
 
   # new implementation in Rcpp:
   z <- ConDisPairsXY(as.numeric(factor(resp)), x)
-  return((z$C + 0.5 * z$Ties_X)/(z$D + z$C + z$Ties_X))
+  return((z$C + 0.5 * z$Ties_Y)/(z$D + z$C + z$Ties_Y))
 
 }
 

@@ -7464,7 +7464,7 @@ SpearmanRho <- function(x, y = NULL, use = c("everything", "all.obs", "complete.
 ConDisPairs <-function(x){
 
   # tab is a matrix of counts
-  res <- .Call("_DescTools_ConDisPairs", PACKAGE = "DescTools", x)
+  .Call("_DescTools_ConDisPairs", PACKAGE = "DescTools", x)
   
 }
 
