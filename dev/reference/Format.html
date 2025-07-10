@@ -20,7 +20,7 @@ There's also an easygoing interface for format templates, defined as a list cons
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.60.7</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.60.9</span>
       </span>
     </div>
 
@@ -91,25 +91,25 @@ The <code>Format()</code> function wraps all these functions and tries to offer 
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Format</span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="cn">NULL</span>, sci <span class="op">=</span> <span class="cn">NULL</span>, big.mark <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>       ldigits <span class="op">=</span> <span class="cn">NULL</span>, zero.form <span class="op">=</span> <span class="cn">NULL</span>, na.form <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>       fmt <span class="op">=</span> <span class="cn">NULL</span>, align <span class="op">=</span> <span class="cn">NULL</span>, width <span class="op">=</span> <span class="cn">NULL</span>, lang <span class="op">=</span> <span class="cn">NULL</span>, </span>
-<span>       eps <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span>       eps <span class="op">=</span> <span class="cn">NULL</span>, outdec <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'table'</span></span>
 <span><span class="fu">Format</span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="cn">NULL</span>, sci <span class="op">=</span> <span class="cn">NULL</span>, big.mark <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>       ldigits <span class="op">=</span> <span class="cn">NULL</span>, zero.form <span class="op">=</span> <span class="cn">NULL</span>, na.form <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>       fmt <span class="op">=</span> <span class="cn">NULL</span>, align <span class="op">=</span> <span class="cn">NULL</span>, width <span class="op">=</span> <span class="cn">NULL</span>, lang <span class="op">=</span> <span class="cn">NULL</span>, </span>
-<span>       eps <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span>       eps <span class="op">=</span> <span class="cn">NULL</span>, outdec <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'matrix'</span></span>
 <span><span class="fu">Format</span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="cn">NULL</span>, sci <span class="op">=</span> <span class="cn">NULL</span>, big.mark <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>       ldigits <span class="op">=</span> <span class="cn">NULL</span>, zero.form <span class="op">=</span> <span class="cn">NULL</span>, na.form <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>       fmt <span class="op">=</span> <span class="cn">NULL</span>, align <span class="op">=</span> <span class="cn">NULL</span>, width <span class="op">=</span> <span class="cn">NULL</span>, lang <span class="op">=</span> <span class="cn">NULL</span>, </span>
-<span>       eps <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span>       eps <span class="op">=</span> <span class="cn">NULL</span>, outdec <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Default S3 method</span></span>
 <span><span class="fu">Format</span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="cn">NULL</span>, sci <span class="op">=</span> <span class="cn">NULL</span>, big.mark <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>       ldigits <span class="op">=</span> <span class="cn">NULL</span>, zero.form <span class="op">=</span> <span class="cn">NULL</span>, na.form <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>       fmt <span class="op">=</span> <span class="cn">NULL</span>, align <span class="op">=</span> <span class="cn">NULL</span>, width <span class="op">=</span> <span class="cn">NULL</span>, lang <span class="op">=</span> <span class="cn">NULL</span>, </span>
-<span>       eps <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span>       eps <span class="op">=</span> <span class="cn">NULL</span>, outdec <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">Fmt</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
 <span></span>
@@ -176,9 +176,12 @@ This argument is send directly to the function <code><a href="StrAlign.html">Str
 
 </dl><p><!-- % \item{value}{the value to be overridden in the function \code{fmt}}. -->
 <!-- % \item{name}{the name of the format in \code{fmt}.} --></p>
-<dl><dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>further arguments to be passed to or from methods.</p></dd>
+<dl><dt id="arg-outdec">outdec<a class="anchor" aria-label="anchor" href="#arg-outdec"></a></dt>
+<dd><p>character, specifying the decimal mark to be used. If not provided, the
+default set as <code>OutDec</code> option is used.</p></dd>
 
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
+<dd><p>further arguments to be passed to or from methods.</p></dd>
 
 </dl></div>
     <div id="details">
@@ -252,16 +255,16 @@ If <code>x</code> was a <code>matrix</code>, then a the result will also be a <c
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">Format</span><span class="op">(</span><span class="va">m</span>, digits<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     A   B   C   D   E   F   G   H   I   J</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A 0.6 0.7 0.1 0.7 0.3 0.8 0.9 0.0 0.4 0.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B 0.9 0.3 0.5 0.6 1.0 0.6 0.8 0.8 0.8 0.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C 0.9 0.4 0.3 0.3 0.4 0.6 0.3 0.5 0.2 0.3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D 0.3 0.6 0.8 0.3 0.9 0.7 0.8 0.1 0.2 1.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> E 0.3 0.3 0.9 0.8 0.6 0.9 0.6 0.2 0.2 0.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> F 0.6 0.7 0.2 0.6 0.4 0.4 0.9 0.2 0.3 0.4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> G 0.2 0.0 0.1 0.0 0.6 0.4 0.0 0.2 0.8 0.3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> H 0.5 0.9 0.8 0.3 0.5 0.3 0.5 0.9 0.2 0.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> I 0.5 0.5 1.0 0.2 0.1 0.4 0.1 0.5 0.1 0.3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> J 1.0 0.7 0.3 0.6 0.9 0.6 0.3 0.0 1.0 0.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A 0.6 0.3 0.5 0.2 0.3 0.2 0.0 0.1 0.0 0.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B 0.7 0.8 0.1 0.2 1.0 0.5 0.4 0.6 0.5 0.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C 0.9 0.6 0.2 0.2 0.2 0.8 0.1 1.0 0.1 0.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D 0.4 0.9 0.2 0.3 0.4 0.1 0.8 0.4 0.7 0.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> E 0.4 0.0 0.2 0.8 0.3 0.1 0.1 0.0 0.9 0.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> F 0.3 0.5 0.9 0.2 0.5 0.1 0.8 0.2 0.5 0.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> G 0.4 0.1 0.5 0.1 0.3 0.1 0.7 0.8 0.4 0.7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> H 0.6 0.3 0.0 1.0 0.3 0.4 0.2 0.1 0.2 0.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> I 0.9 0.0 0.4 0.9 0.8 0.7 0.3 0.8 0.1 0.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> J 0.8 0.8 0.8 0.1 0.6 0.4 0.4 0.2 0.9 0.4</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># engineering format</span></span></span>
 <span class="r-in"><span><span class="fu">Format</span><span class="op">(</span><span class="va">x</span>, fmt<span class="op">=</span><span class="st">"eng"</span>,  digits<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
@@ -305,7 +308,9 @@ If <code>x</code> was a <code>matrix</code>, then a the result will also be a <c
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># special formats, e.g. confidence intervals</span></span></span>
 <span class="r-in"><span><span class="fu">Format</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3.2</span>, <span class="fl">4.5</span>, <span class="fl">6.7</span><span class="op">)</span><span class="op">/</span><span class="fl">100</span>, fmt<span class="op">=</span><span class="st">"ci%"</span>, digits<span class="op">=</span><span class="fl">2</span>, conf.level<span class="op">=</span><span class="fl">0.90</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3.20% (90% CI from 4.50% to 6.70%)</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>one argument not used by format 'Non interpretable fmt code will be ignored.'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Non interpretable fmt code will be ignored.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.03 0.04 0.07</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># use Fmt() to get and define new formats stored as option</span></span></span>
 <span class="r-in"><span><span class="fu">Fmt</span><span class="op">(</span><span class="op">)</span>                        <span class="co"># all defined formats</span></span></span>
@@ -399,10 +404,8 @@ If <code>x</code> was a <code>matrix</code>, then a the result will also be a <c
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Example:       314159.26536</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># change the character to be used as the decimal point</span></span></span>
-<span class="r-in"><span><span class="va">opt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>OutDec<span class="op">=</span><span class="st">","</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">Format</span><span class="op">(</span><span class="fl">1200</span>, digits<span class="op">=</span><span class="fl">2</span>, big.mark <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">Format</span><span class="op">(</span><span class="fl">1200</span>, digits<span class="op">=</span><span class="fl">2</span>, big.mark <span class="op">=</span> <span class="st">"."</span>, outdec<span class="op">=</span><span class="st">","</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.200,00</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="va">opt</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>

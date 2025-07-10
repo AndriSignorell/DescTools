@@ -19,7 +19,7 @@ cards contains the standard set of 52 playing cards in four colours (without Jok
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.60.7</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.60.9</span>
       </span>
     </div>
 
@@ -131,31 +131,31 @@ The dataset <code>roulette</code> contains the standard sample space for one spi
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># drawing 5 cards</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">cards</span><span class="op">$</span><span class="va">card</span>, <span class="fl">5</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Q-spade"   "5-club"    "K-spade"   "7-diamond" "J-diamond"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2-spade"   "8-diamond" "5-heart"   "A-spade"   "J-spade"  </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># drawing 5 cards with jokers</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">cards</span><span class="op">$</span><span class="va">card</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"Joker"</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>, <span class="fl">5</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "9-heart"   "A-club"    "6-diamond" "2-spade"   "K-heart"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "10-diamond" "10-spade"   "9-heart"    "6-spade"    "K-heart"   </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># spin the wheel by using the DescTools::Sample() for sampling</span></span></span>
 <span class="r-in"><span><span class="co"># rows from a data frame</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="Sample.html">Sample</a></span><span class="op">(</span><span class="va">roulette</span>, size<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    num   col parity highlow dozens column     pocketrange</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32   2 black   even     low      1     35 voisins du zero</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    num col parity highlow dozens column pocketrange</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15   1 red    odd     low      1     34   orphelins</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># simulate the evening in Las Vegas with 10 games</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="Sample.html">Sample</a></span><span class="op">(</span><span class="va">roulette</span>, <span class="fl">10</span>, replace<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    num   col parity highlow dozens column       pocketrange</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21  23   red    odd    high      2     35 tiers du cylindre</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20  10 black   even     low      1     34 tiers du cylindre</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30  17 black    odd     low      2     35         orphelins</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22   8 black   even     low      1     35 tiers du cylindre</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34   4 black   even     low      1     34   voisins du zero</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15   1   red    odd     low      1     34         orphelins</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26  13 black    odd     low      2     34 tiers du cylindre</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27  27   red    odd    high      3     36 tiers du cylindre</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28   6 black   even     low      1     36         orphelins</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12  31 black    odd    high      3     34         orphelins</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     num   col parity highlow dozens column       pocketrange</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26   13 black    odd     low      2     34 tiers du cylindre</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27   27   red    odd    high      3     36 tiers du cylindre</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28    6 black   even     low      1     36         orphelins</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12   31 black    odd    high      3     34         orphelins</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    12   red   even     low      1     36          jeu zero</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33   21   red    odd    high      2     36   voisins du zero</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5.1  12   red   even     low      1     36          jeu zero</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3     3   red    odd     low      1     36          jeu zero</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36   15 black    odd     low      2     36          jeu zero</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29   34   red   even    high      3     34         orphelins</span>
 </code></pre></div>
     </div>
   </div>

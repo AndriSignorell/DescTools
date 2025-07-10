@@ -22,7 +22,7 @@ CutAge() is a convenient wrapper for cutting age variables in groups
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DescTools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.60.7</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.99.60.9</span>
       </span>
     </div>
 
@@ -91,8 +91,9 @@ CutAge() is a convenient wrapper for cutting age variables in groups
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">CutAge</span><span class="op">(</span><span class="va">x</span>, from <span class="op">=</span> <span class="fl">0</span>, to <span class="op">=</span> <span class="fl">90</span>, by <span class="op">=</span> <span class="fl">10</span>, right <span class="op">=</span> <span class="cn">FALSE</span>, ordered_result <span class="op">=</span> <span class="cn">TRUE</span>, </span>
-<span>       full <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">CutAge</span><span class="op">(</span><span class="va">x</span>, breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span>from <span class="op">=</span> <span class="fl">0</span>, to <span class="op">=</span> <span class="fl">90</span>, by <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>, <span class="cn">Inf</span><span class="op">)</span>, </span>
+<span>       right <span class="op">=</span> <span class="cn">FALSE</span>, ordered_result <span class="op">=</span> <span class="cn">TRUE</span>, </span>
+<span>       full <span class="op">=</span> <span class="cn">TRUE</span>, labels <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="fu">CutGen</span><span class="op">(</span><span class="va">vintage</span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -103,14 +104,14 @@ CutAge() is a convenient wrapper for cutting age variables in groups
 <dd><p>continuous variable.</p></dd>
 
 
-  <dt id="arg-from-to">from, to<a class="anchor" aria-label="anchor" href="#arg-from-to"></a></dt>
-<dd><p>the starting and (maximal) end values of the sequence.</p></dd>
-
-  <dt id="arg-by">by<a class="anchor" aria-label="anchor" href="#arg-by"></a></dt>
-<dd><p>number: increment of the sequence. Default is 10, alternatives could be 5 or 20.</p></dd>
+  <dt id="arg-breaks">breaks<a class="anchor" aria-label="anchor" href="#arg-breaks"></a></dt>
+<dd><p>either a numeric vector of two or more unique cut points or a single number (greater than or equal to 2)
+  giving the number of intervals into which x is to be cut. Default is 10-year intervals from
+  0 to 90.</p></dd>
 
   <dt id="arg-right">right<a class="anchor" aria-label="anchor" href="#arg-right"></a></dt>
-<dd><p>logical, indicating if the intervals should be closed on the right (and open on the left) or vice versa. Default is <code>FALSE</code> - unlike in <code><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut</a></code>!</p></dd>
+<dd><p>logical, indicating if the intervals should be closed on the right (and open on the left) or vice versa.
+  Default is <code>FALSE</code> - unlike in <code><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut</a></code>!</p></dd>
 
   <dt id="arg-ordered-result">ordered_result<a class="anchor" aria-label="anchor" href="#arg-ordered-result"></a></dt>
 <dd><p>logical: should the result be an ordered factor? Default is <code>TRUE</code> - unlike in <code><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut</a></code>!</p></dd>
@@ -119,6 +120,11 @@ CutAge() is a convenient wrapper for cutting age variables in groups
   <dt id="arg-full">full<a class="anchor" aria-label="anchor" href="#arg-full"></a></dt>
 <dd><p>logical, setting to <code>FALSE</code> will remove empty levels at the edges of
   the distribution</p></dd>
+
+
+  <dt id="arg-labels">labels<a class="anchor" aria-label="anchor" href="#arg-labels"></a></dt>
+<dd><p>labels for the levels. When set to <code>TRUE</code> the age ranges
+  will be 00-09, 10-19, 20-29, etc.</p></dd>
 
 
   <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
