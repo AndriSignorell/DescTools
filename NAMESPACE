@@ -85,7 +85,7 @@ export(
 "dTri","pTri","qTri","rTri",
 "BrierScoreCI","CstatCI","RSqCI", "ReadSPSS", "Downloads",
 "mbinom","mpois","mgeom","mnbinom","mhyper","mnorm","mexp",
-"mgamma","mlnorm","mbeta","mchisq","mt","mf", "FmtCI"
+"mgamma","mlnorm","mbeta","mchisq","mt","mf", "FmCI", "Fm", "Style"
 )
 
 
@@ -102,7 +102,7 @@ importFrom("graphics", "abline", "arrows", "axTicks", "axis", "barplot", "box", 
            "plot", "plot.design", "plot.new", "plot.window", "points", "polygon", "rect", "screen", "segments", "split.screen", "strheight", "strwidth", "symbols", "text", "title",
            "grconvertX", "grconvertY", "curve")
 importFrom("grDevices", "chull", "col2rgb", "colorRampPalette", "colors", "dev.new", "dev.copy", "dev.cur", "dev.flush", "dev.hold", "dev.list", "dev.off", "dev.set", "gray.colors", "heat.colors", "rainbow", "rgb", "rgb2hsv", "xy.coords", "bitmap", "jpeg", "pdf", "png", "postscript", "tiff","adjustcolor", "dev.size")
-importFrom("methods", "is", "slot", "slotNames")
+importFrom("methods", "is", "slot", "slotNames", "formalArgs")
 importFrom("utils", "capture.output", "combn", "head", "help.search", "ls.str", "lsf.str", "memory.limit", "object.size", "read.table", "select.list", "sessionInfo", "stack", "str", "tail",
            "write.table", "browseURL","getParseData","find", "getAnywhere")
 importFrom("boot", "boot", "boot.ci", "corr")
@@ -166,11 +166,21 @@ S3method(VanWaerdenTest, formula)
 S3method(VanWaerdenTest, default)
 S3method(EtaSq, aovlist)
 S3method(EtaSq, lm)
+
 S3method(Format, default)
 S3method(Format, matrix)
 S3method(Format, data.frame)
 S3method(Format, table)
 S3method(Format, ftable)
+
+
+S3method(Fm, default)
+S3method(Fm, matrix)
+S3method(Fm, data.frame)
+S3method(Fm, table)
+S3method(Fm, ftable)
+S3method(print, Fm)
+
 
 S3method(HotellingsT2Test, default)
 S3method(HotellingsT2Test, formula)
@@ -334,6 +344,7 @@ S3method(Desc, palette)
 S3method(print, palette)
 S3method(plot, palette)
 S3method(print, fmt)
+S3method(print, style)
 
 S3method(Cstat, default)
 S3method(Cstat, glm)

@@ -76,6 +76,7 @@ extern SEXP _DescTools_isLeapYearDate(SEXP);
 extern SEXP _DescTools_isLeapYearInt(SEXP);
 extern SEXP _DescTools_ConDisPairs(SEXP);
 extern SEXP _DescTools_ConDisPairsXY(SEXP, SEXP);
+extern SEXP _DescTools_formatNum(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 
 
 /* .Fortran calls */
@@ -138,6 +139,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"_DescTools_isLeapYearInt", (DL_FUNC) &_DescTools_isLeapYearInt, 1},
   {"_DescTools_ConDisPairs",   (DL_FUNC) &_DescTools_ConDisPairs,   1},
   {"_DescTools_ConDisPairsXY", (DL_FUNC) &_DescTools_ConDisPairsXY, 2},
+  {"_DescTools_formatNum",     (DL_FUNC) &_DescTools_formatNum,     7},
   {NULL, NULL, 0}
 };
 

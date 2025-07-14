@@ -5,23 +5,26 @@ DescTools 0.99.61 (2025-05-28)
 ------------------------------
 
 NEW FUNCTIONS ADDED:
-  * FmtCI() returns formatted confidence intervals.
+  * FmCI() returns formatted confidence intervals.
+  * Fm() is a better function for formatting numbers and dates. 
+    It's gonna replace Format() in the future.
 
 UPDATED FUNCTIONS:
   * XLView() uses write_xlsx instead write.table allowing better support
     for non ASCII characters.
   * CutAge() gains a new argument full, allowing to remove empty
-    levels at the edges of the distribution. The arguments have been changed.
-    from, to, by have been replaced by breaks and a new argument labels allow 
-    to define better suited labels for the levels.
+    levels at the edges of the distribution. 
+    The arguments have also been changed:
+      _from_, _to_, _by_ have been replaced by 
+      _breaks_
+    A new argument _labels_ allow to define better suited labels for the levels.
   * LeveneTest() has been given the same interface as similar functions in 
     base R (as ansari.test or kruskal.test). lm-interface has been defunct.
-  * ConDisPairs() now runs in O(n log^2 n) instead in O(n*n), and so 
+  * ConDisPairs() now runs in O(n log^2 n) instead in O(n2), and so 
     do all the dependent functions.
   * Format() looses the two predefined formats for displaying confidence 
     intervals, fmt="ci" and fmt="ci%".
-  * Format() gains a new argument outdec.  
-	
+
     
 BUGFIXES:
   * DoBy() ignored provided names for the new created variables. 

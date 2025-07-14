@@ -260,6 +260,23 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// formatNum
+CharacterVector formatNum(NumericVector x, Nullable<IntegerVector> digits, Nullable<IntegerVector> ldigits, Nullable<CharacterVector> big_mark, Nullable<CharacterVector> decimal_mark, int sci_big, int sci_small);
+RcppExport SEXP _DescTools_formatNum(SEXP xSEXP, SEXP digitsSEXP, SEXP ldigitsSEXP, SEXP big_markSEXP, SEXP decimal_markSEXP, SEXP sci_bigSEXP, SEXP sci_smallSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< Nullable<IntegerVector> >::type digits(digitsSEXP);
+    Rcpp::traits::input_parameter< Nullable<IntegerVector> >::type ldigits(ldigitsSEXP);
+    Rcpp::traits::input_parameter< Nullable<CharacterVector> >::type big_mark(big_markSEXP);
+    Rcpp::traits::input_parameter< Nullable<CharacterVector> >::type decimal_mark(decimal_markSEXP);
+    Rcpp::traits::input_parameter< int >::type sci_big(sci_bigSEXP);
+    Rcpp::traits::input_parameter< int >::type sci_small(sci_smallSEXP);
+    rcpp_result_gen = Rcpp::wrap(formatNum(x, digits, ldigits, big_mark, decimal_mark, sci_big, sci_small));
+    return rcpp_result_gen;
+END_RCPP
+}
 // dgompertz_work
 Rcpp::NumericVector dgompertz_work(const Rcpp::NumericVector& x, const Rcpp::NumericVector& shape, const Rcpp::NumericVector& rate, const bool log);
 RcppExport SEXP _DescTools_dgompertz_work(SEXP xSEXP, SEXP shapeSEXP, SEXP rateSEXP, SEXP logSEXP) {

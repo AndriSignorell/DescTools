@@ -1,5 +1,5 @@
-\name{FmtCI}
-\alias{FmtCI}
+\name{FmCI}
+\alias{FmCI}
 \title{
 Format Confidence Intervals
 }
@@ -7,7 +7,7 @@ Format Confidence Intervals
 Format confidence intervals using a flexible template.
 }
 \usage{
-FmtCI(x, template = "\%s [\%s, \%s]", ...)
+FmCI(x, template = "\%s [\%s, \%s]", ...)
 }
 \arguments{
   \item{x}{the numerical values, given in the order in which they are 
@@ -30,11 +30,11 @@ FmtCI(x, template = "\%s [\%s, \%s]", ...)
 x <- c(est=2.1, lci=1.5, uci=3.8)
 
 # default template
-FmtCI(x)
+FmCI(x)
 # user defined template (note the double percent code)
-FmtCI(x, template="\%s (95\%\%-CI \%s-\%s)", digits=1)
+FmCI(x, template="\%s (95\%\%-CI \%s-\%s)", digits=1)
 
 # in higher datastructures
 mci <- tapply(warpbreaks$breaks, warpbreaks$wool, MeanCI)
-sapply(mci, FmtCI, digits=1)
+sapply(mci, FmCI, digits=1)
 }

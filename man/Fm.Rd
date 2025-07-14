@@ -1,49 +1,45 @@
-\name{Format}
-\alias{Format}
-\alias{Format.default}
-\alias{Format.matrix}
-\alias{Format.table}
-\alias{Fmt}
-\alias{as.fmt}
+\name{Fm}
+\alias{Fm}
+\alias{Fm.default}
+\alias{Fm.matrix}
+\alias{Fm.table}
+\alias{Style}
 
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Format Numbers and Dates
 %%  ~~function to do ... ~~
 }
-\description{Formatting numbers with base R tools often degenerates into a major 
-intellectual challenge for us little minds down here in the valley of tears. 
-There are a number of options available and quite often it's hard to work out 
-which one to use, when an uncommon setting is needed.
-The \code{Format()} function wraps all these functions and tries to offer a 
-simpler, less technical, but still flexible interface.
+\description{Formatting numbers with base R tools often degenerates into a major intellectual challenge for us little minds down here in the valley of tears. There are a number of options available and quite often it's hard to work out which one to use, when a more uncommon setting is needed.
+The \code{Fm()} function wraps all these functions and tries to offer a simpler, less technical, but still flexible interface.
 
 There's also an easygoing interface for format templates, defined as a list consisting of any accepted format features. This enables to define templates globally and easily change or modify them later.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-Format(x, digits = NULL, sci = NULL, big.mark = NULL,
+Fm(x, digits = NULL, sci = NULL, big.mark = NULL,
        ldigits = NULL, zero.form = NULL, na.form = NULL,
        fmt = NULL, align = NULL, width = NULL, lang = NULL, 
        eps = NULL, outdec = NULL, ...)
 
-\method{Format}{table}(x, digits = NULL, sci = NULL, big.mark = NULL,
+\method{Fm}{table}(x, digits = NULL, sci = NULL, big.mark = NULL,
        ldigits = NULL, zero.form = NULL, na.form = NULL,
        fmt = NULL, align = NULL, width = NULL, lang = NULL, 
        eps = NULL, outdec = NULL, ...)
 
-\method{Format}{matrix}(x, digits = NULL, sci = NULL, big.mark = NULL,
+\method{Fm}{matrix}(x, digits = NULL, sci = NULL, big.mark = NULL,
        ldigits = NULL, zero.form = NULL, na.form = NULL,
        fmt = NULL, align = NULL, width = NULL, lang = NULL, 
        eps = NULL, outdec = NULL, ...)
 
-\method{Format}{default}(x, digits = NULL, sci = NULL, big.mark = NULL,
+\method{Fm}{default}(x, digits = NULL, sci = NULL, big.mark = NULL,
        ldigits = NULL, zero.form = NULL, na.form = NULL,
        fmt = NULL, align = NULL, width = NULL, lang = NULL, 
        eps = NULL, outdec = NULL, ...)
 
-Fmt(...)
-
-as.fmt(...)
+Style(name = NULL, digits = NULL, sci = NULL, big.mark = NULL, 
+      ldigits = NULL, zero.form = NULL, na.form = NULL, 
+      fmt = NULL, align = NULL, width = NULL, lang = NULL, 
+      eps = NULL, outdec = NULL, label = NULL, ...)
 
 }
 %- maybe also 'usage' for other objects documented here.
@@ -93,9 +89,12 @@ This argument is send directly to the function \code{\link{StrAlign}()} as argum
 \item{outdec}{character, specifying the decimal mark to be used. If not provided, the 
 default set as \code{OutDec} option is used.}
 \item{\dots}{further arguments to be passed to or from methods. }
+\item{name}{a name for a defined style}
+\item{label}{a description for a defined style}
+
 }
 \details{
-\code{Format()} is the workhorse here and formats numbers and dates. \cr\cr
+\code{Fm()} is the workhorse here and formats numbers and dates. \cr\cr
 The argument \code{fmt} is very flexible and is used to generate a variety of 
 different formats. When \code{x} is a date, it can take 
 ISO-8601-date-and-time-format codes consisting 
@@ -115,7 +114,7 @@ Even more variability is needed to display numeric values. For the most frequent
 
 \code{\%} \tab percent \tab will divide the given number by 100 and append the \%-sign (without a separator).\cr
 \tab\cr
-\code{p} \tab p-value \tab will wrap the function \code{\link{format.pval}} and return a p-value format. \cr \tab \tab Use \code{eps} to define the threshold to switch to a \code{ < 000 } representation.\cr
+\code{p} \tab p-value \tab will wrap the function \code{\link{format.pval}} and return a p-value format. \cr \tab \tab Use \code{eps} to define the threshold to e.g. switch to a \code{ <0.001 } representation.\cr
 \tab\cr
 \code{frac} \tab fractions \tab will (try to) convert numbers to fractions. So 0.1 will be displayed as 1/10. \cr \tab\tab See \code{\link[MASS]{fractions}()}.\cr
 \tab\cr
@@ -137,17 +136,19 @@ This allows to store and manage the full format in variables or as options (in \
 
 Finally \code{fmt} can also be a function in x, which makes formatting very flexible.
 
-New formats can be created by means of \code{as.fmt()}. This works quite straight on. We can use any of the arguments from \code{Format()} and combine them to a list. \cr
-The following code will define a new format template named "\code{myNumFmt}" of the class \code{"fmt"}. Provided to \code{Format()} this will result in a number displayed with 2 fixed digits and a comma as big mark:
+New formats can be created by means of \code{as.fmt()}. This works quite straight on. We can use any of the arguments from \code{Fm()} and combine them to a list. \cr
+The following code will define a new format template named "\code{myNumFmt}" of the class \code{"fmt"}. Provided to \code{Fm()} this will result in a number displayed with 2 fixed digits and a comma as big mark:
 \preformatted{myNumFmt <- as.fmt(digits=2, big.mark=",")
-Format(12222.89345, fmt=myNumFmt) = 12,222.89}
+Fm(12222.89345, fmt=myNumFmt) = 12,222.89}
 The latter returns the same result as if the arguments would have been supplied directly: \cr
-\code{Format(12222.89345, digits=2, big.mark=",")}.
+\code{Fm(12222.89345, digits=2, big.mark=",")}.
 
 Many report functions (e.g. \code{\link{TOne}()}) in \bold{DescTools} use three default formats for counts (named \code{"abs"}), numeric values (\code{"num"}) and percentages (\code{"per"}). These formats can be set by the user as options (see \code{\link{DescToolsOptions}()}. For other purposes any number of any named formats can be defined. 
 
-\code{Fmt()} is used to access and edit already defined Formats. It can directly adapt defined properties and returns the format template. \code{Fmt("num", digits=1, sci=10)} will use the current version of the numeric format and change the digits to 1 and the threshold to switch to scientifc presentation to numbers >1e10 and <1e-10.
-Format templates can be altered using their names. With \code{Fmt(abs=Fmt("abs", big.mark=" "))} the format template for count values \code{"abs"} will be overwritten with the new values and stored as option for the current session.
+\code{Style()} is used to access and edit already defined format definitions. It can directly adapt defined properties and returns the format template. \code{Style("num", digits=1, sci=10)} will use the current version of the numeric format and change the digits to 1 and the threshold to switch to scientifc presentation to numbers >1e10 and <1e-10.
+
+%% Format templates can be altered using their names. With \code{Style(abs=Style("abs", big.mark=" "))} the format 
+%% template for count values \code{"abs"} will be overwritten with the new values and stored as option for the current session.
 
 The formats can as well be organized as options. \code{DescToolsOptions("fmt")} would display the currently defined formats. This mechanic works analogously to the \code{options()} procedure of base R. So to store the current settings we can use 
 \preformatted{opt <- DescToolsOptions("fmt")
@@ -178,51 +179,48 @@ If \code{x} was a \code{matrix}, then a the result will also be a \code{matrix}.
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-Format(as.Date(c("2014-11-28", "2014-1-2")), fmt="ddd, d mmmm yyyy")
-Format(as.Date(c("2014-11-28", "2014-1-2")), fmt="ddd, d mmmm yyyy", lang="engl")
+Fm(as.Date(c("2014-11-28", "2014-1-2")), fmt="ddd, d mmmm yyyy")
+Fm(as.Date(c("2014-11-28", "2014-1-2")), fmt="ddd, d mmmm yyyy", lang="engl")
 
 x <- pi * 10^(-10:10)
 
-Format(x, digits=3, fmt="\%", sci=NA)
-Format(x, digits=4, sci=c(4, 6), ldigits=0, width=9, align=".")
+Fm(x, digits=3, fmt="\%")
+Fm(x, digits=4, sci=4, ldigits=0, width=9, align=".")
 
 
 # format a matrix
 m <- matrix(runif(100), nrow=10,
             dimnames=list(LETTERS[1:10], LETTERS[1:10]))
 
-Format(m, digits=1)
+Fm(m, digits=1)
 
 # engineering format
-Format(x, fmt="eng",  digits=2)
-Format(x, fmt="engabb", ldigits=2, digits=2)
+Fm(x, fmt="eng",  digits=2)
+Fm(x, fmt="engabb", ldigits=2, digits=2)
 # combine with grams [g]
-paste(Format(x, fmt="engabb", ldigits=2, digits=2), "g", sep="")
+paste(Fm(x, fmt="engabb", ldigits=2, digits=2), "g", sep="")
 
 # example form symnum
 pval <- rev(sort(c(outer(1:6, 10^-(1:3)))))
-noquote(cbind(Format(pval, fmt="p"), Format(pval, fmt="*")))
+noquote(cbind(Fm(pval, fmt="p"), Fm(pval, fmt="*")))
 
-# special formats, e.g. confidence intervals
-Format(c(3.2, 4.5, 6.7)/100, fmt="ci\%", digits=2, conf.level=0.90)
-
-# use Fmt() to get and define new formats stored as option
-Fmt()                        # all defined formats
-Fmt("abs")                   # only format named "abs"
-Fmt("nexist")                # only format named "nexist" (nonexisting)
-Fmt("abs", "per", "nexist")
-Fmt("abs", digits=3)         # get Fmt("abs") and overwrite digits
-Fmt("abs", na.form="-")      # get Fmt("abs") and add user defined na.form
+# use Style() to get and define new formats stored as option
+Style()                        # all defined formats
+Style("abs")                   # only format named "abs"
+Style("nexist")                # only format named "nexist" (nonexisting)
+Style("abs", "per", "nexist")
+Style("abs", digits=3)         # get Style("abs") and overwrite digits
+Style("abs", na.form="-")      # get Style("abs") and add user defined na.form
 
 # define totally new format and store as option
-Fmt(nob=as.fmt(digits=10, na.form="nodat"))
+Style(nob=as.fmt(digits=10, na.form="nodat"))
 
 # overwrite an existing format
-Fmt(nob=Fmt("nob", digits=5))
-Fmt("nob")
+Style(nob=Style("nob", digits=5))
+Style("nob")
 
 # change the character to be used as the decimal point
-Format(1200, digits=2, big.mark = ".", outdec=",")
+Fm(1200, digits=2, big.mark = ".", outdec=",")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

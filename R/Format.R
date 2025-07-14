@@ -768,9 +768,5 @@ print.fmt <- function(x, ...){
 
 
 
-FmtCI <- function(x, template="%s [%s, %s]", ...){
-  x <- Format(x, ...)
-  gettextf(template, x[1], x[2], x[3])  
-}
 
 
