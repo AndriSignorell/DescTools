@@ -15,14 +15,14 @@
 ##'                     n=1:5)
 ##' 
 ##' # all characters
-##' StringsAsFactors(d.dat)
+##' str(StringsAsFactors(d.dat))
 ##' # only char_y
-##' StringsAsFactors(d.dat, columns="char_y")
+##' str(StringsAsFactors(d.dat, columns="char_y"))
 ##' # only char_x
-##' StringsAsFactors(d.dat, columns="char_x")
+##' str(StringsAsFactors(d.dat, columns="char_x"))
 ##' 
 ##' # all characters, besides 2 (second column, so "char_y")
-##' StringsAsFactors(d.dat, columns=-2)
+##' str(StringsAsFactors(d.dat, columns=-2))
 ##' 
 
 
