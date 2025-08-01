@@ -1,7 +1,11 @@
 
 ##' Convert Character Columns to Factors
 ##' 
-##' A helper function to convert some or all columns of a data.frame to factors.
+##' Strings as factors have recently been downgraded in base R's 
+##' \code{\link{data.frame)()) function. However, 
+##' it is still usually a good idea to encode string variables 
+##' as factors. This function helps to convert some or 
+##' all columns of a data.frame to factors.
 ##' 
 ##' @param x the data.frame
 ##' @param columns names or indexes of the columns to be converted; 
@@ -37,13 +41,13 @@ StringsAsFactors <- function(x, columns=NULL){
       # exclude columns
       columns <- which(sapply(x, is.character) & 
                          Unwhich(columns, ncol(x)))
-      # else positive columns: 
+    # else positive columns: 
       # leave unchanged and just use for selection
       
-      # else if(is.character(columns))
-      # use columns as columnnames
+  # else if(is.character(columns))
+    # use columns as columnnames
       
-    } 
+  } 
   
   x[columns] <- data.frame(as.list(x[columns]), stringsAsFactors = TRUE)
   

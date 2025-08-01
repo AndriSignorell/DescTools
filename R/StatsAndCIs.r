@@ -5680,9 +5680,14 @@ CCC <- function(x, y, ci = "z-transform", conf.level = 0.95, na.rm = FALSE){
   p <- 2 * sxy / (sx2 + sy2 + (yb - xb)^2)
 
   delta <- (dat$x - dat$y)
-  rmean <- apply(dat, MARGIN = 1, FUN = mean)
+  
+  # we remove the names here, because otherwise only the assignment of 
+  # na.rm would cause the row names to be defined as characters.
+  # see: https://github.com/AndriSignorell/DescTools/issues/172
+  rmean <- unname(apply(dat, MARGIN = 1, FUN = mean))
+  
   blalt <- data.frame(mean = rmean, delta)
-
+  
   # Scale shift:
   v <- sd1 / sd2
   # Location shift relative to the scale:

@@ -1437,9 +1437,12 @@ MosesTest.default <- function(x, y, extreme = NULL, ...){
 
 SiegelTukeyTest <- function (x, ...)  UseMethod("SiegelTukeyTest")
 
+# compare:  jmuOutlier::siegel.test()
+
+
 SiegelTukeyTest.formula <- function (formula, data, subset, na.action, ...)
 {
-  # this is a taken analogue to wilcox.test.formula
+  # this is adapted analogue to wilcox.test.formula
 
   if (missing(formula) || (length(formula) != 3L) || (length(attr(terms(formula[-2L]),
                                                                   "term.labels")) != 1L))
@@ -1504,8 +1507,12 @@ SiegelTukeyRank <- function(x, g, drop.median = TRUE) {
   }
 
   unique.ranks <- tapply(rank, sort.x, mean)
-  unique.x <- as.numeric(as.character(names(unique.ranks)))
-
+  
+  # changed by 0.99.60 in consequence of https://github.com/AndriSignorell/DescTools/issues/171
+  # names might not be exact...
+  # unique.x <- as.numeric(as.character(names(unique.ranks)))
+  unique.x <- unique(sort.x)
+  
   ST.matrix <- merge(
     data.frame(sort.x, sort.id),          # this are the original values in x-order
     data.frame(unique.x, unique.ranks),   # this is the rank.matrix

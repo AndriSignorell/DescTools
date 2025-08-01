@@ -4359,7 +4359,8 @@ ToLong <- function (x, varnames = NULL) {
     varnames <- c("grp", "x")
 
   colnames(res) <- varnames
-  rownames(res) <- do.call(paste, c(expand.grid(rownames(x), grpnames), sep="."))
+  if(!is.null(rownames(x)))
+    rownames(res) <- do.call(paste, c(expand.grid(rownames(x), grpnames), sep="."))
 
   return(res)
 }
