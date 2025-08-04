@@ -8,20 +8,22 @@ NEW FUNCTIONS ADDED:
   * FmCI() returns formatted confidence intervals.
   * Fm() is a redesigned function for formatting numbers and dates. 
     It's gonna replace Format() in the future.
+  * StringsAsFactors() helps to define characters as factors in data.frames.
+  * GlassDelta() calculates another commonly used effectsize measure.
+  
 
 UPDATED FUNCTIONS:
   * XLView() uses write_xlsx instead write.table allowing better support
     for non ASCII characters.
   * CutAge() gains a new argument full, allowing to remove empty
     levels at the edges of the distribution. 
-    The arguments have also been changed:
-      _from_, _to_, _by_ have been replaced by 
-      _breaks_
-    A new argument _labels_ allow to define better suited labels for the levels.
+    The arguments have also been changed: "from", "to", "by" have 
+    been replaced by "breaks". A new argument "labels" allow to define 
+    better suited labels for age specific levels.
   * LeveneTest() has been given the same interface as similar functions in 
     base R (as ansari.test or kruskal.test). lm-interface has been defunct.
   * ConDisPairs() now runs in O(n log^2 n) instead in O(n2), and so 
-    do all the dependent functions.
+    do all the dependent functions. It has been recoded in Rcpp.
   * Format() looses the two predefined formats for displaying confidence 
     intervals, fmt="ci" and fmt="ci%".
 
@@ -40,8 +42,14 @@ BUGFIXES:
   * CCC() yields the same classes of results independently of the definition of
     na.rm. (Credits go to abichat, 
       https://github.com/AndriSignorell/DescTools/issues/172)
+  * CohenD's confidence intervals were too small, when using the Hedges correction.
 
-
+  
+DEFUNCT:
+  * OddsRatio.multinom() has been moved to the package ModTools, where it 
+    better fits.
+    
+    
 
 DescTools 0.99.60 (2025-03-28)
 ------------------------------

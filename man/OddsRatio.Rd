@@ -1,7 +1,6 @@
 \name{OddsRatio}
 \alias{OddsRatio}
 \alias{OddsRatio.glm}
-\alias{OddsRatio.multinom}
 \alias{OddsRatio.zeroinfl}
 \alias{OddsRatio.default}
 
@@ -18,8 +17,6 @@
 OddsRatio(x, conf.level = NULL, ...)
 
 \method{OddsRatio}{glm}(x, conf.level = NULL, digits = 3, use.profile = FALSE, ...)
-
-\method{OddsRatio}{multinom}(x, conf.level = NULL, digits = 3, ...)
 
 \method{OddsRatio}{zeroinfl}(x, conf.level = NULL, digits = 3, ...)
 

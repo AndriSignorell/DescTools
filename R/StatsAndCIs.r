@@ -3900,169 +3900,6 @@ MeanDiffCI.default <- function (x, y, method = c("classic", "norm","basic","stud
 }
 
 
-# CohenEffectSize <- function(x){
-
-# (C) Antti Arppe 2007-2011
-# E-mail: antti.arppe@helsinki.fi
-
-# Cohen's Effect Size (1988)
-# e0 <- matrix(,ctable.rows,ctable.cols)
-# for(i in 1:ctable.rows)
-# for(j in 1:ctable.cols)
-# e0[i,j] <- sum.row[i]*sum.col[j]/N
-# p0 <- e0/N
-# p1 <- ctable/N
-# effect.size <- sqrt(sum(((p1-p0)^2)/p0))
-# noncentrality <- N*(effect.size^2)
-# d.f=(ctable.rows-1)*(ctable.cols-1)
-# beta <- pchisq(qchisq(alpha,df=d.f,lower.tail=FALSE),df=d.f,ncp=noncentrality)
-# power <- 1-beta
-
-# return(effect.size)
-# }
-
-
-.cohen_d_ci <- function (d, n = NULL, n2 = NULL, n1 = NULL, alpha = 0.05) {
-  
-  # William Revelle in psych
-  
-  d2t <- function (d, n = NULL, n2 = NULL, n1 = NULL) {
-    
-    if (is.null(n1)) {
-      t <- d * sqrt(n)/2
-    } else if (is.null(n2)) {
-      t <- d * sqrt(n1)
-    } else {
-      t <- d/sqrt(1/n1 + 1/n2)
-    }
-    return(t)
-  }
-  
-  t2d <- function (t, n = NULL, n2 = NULL, n1 = NULL) {
-    
-    if (is.null(n1)) {
-      d <- 2 * t/sqrt(n)
-    } else {
-      if (is.null(n2)) {
-        d <- t/sqrt(n1)
-      } else {
-        d <- t * sqrt(1/n1 + 1/n2)
-      }
-    }
-    return(d)
-  }
-  
-  t <- d2t(d = d, n = n, n2 = n2, n1 = n1)
-  tail <- 1 - alpha/2
-  ci <- matrix(NA, ncol = 3, nrow = length(d))
-  for (i in 1:length(d)) {
-    nmax <- max(c(n/2 + 1, n1 + 1, n1 + n2))
-    upper <- try(t2d(uniroot(function(x) {
-      suppressWarnings(pt(q = t[i], df = nmax - 2, ncp = x)) - 
-        alpha/2
-    }, c(min(-5, -abs(t[i]) * 10), max(5, abs(t[i]) * 10)))$root, 
-    n = n[i], n2 = n2[i], n1 = n1[i]), silent = TRUE)
-    if (inherits(upper, "try-error")) {
-      ci[i, 3] <- NA
-    }
-    else {
-      ci[i, 3] <- upper
-    }
-    ci[i, 2] <- d[i]
-    lower.ci <- try(t2d(uniroot(function(x) {
-      suppressWarnings(pt(q = t[i], df = nmax - 2, ncp = x)) - 
-        tail
-    }, c(min(-5, -abs(t[i]) * 10), max(5, abs(t[i]) * 10)))$root, 
-    n = n[i], n2 = n2[i], n1 = n1[i]), silent = TRUE)
-    if (inherits(lower.ci, "try-error")) {
-      ci[i, 1] <- NA
-    }
-    else {
-      ci[i, 1] <- lower.ci
-    }
-  }
-  colnames(ci) <- c("lower", "effect", "upper")
-  rownames(ci) <- names(d)
-  return(ci)
-  
-}
-
-
-
-CohenD <- function(x, y=NULL, pooled = TRUE, correct = FALSE, conf.level = NA, na.rm = FALSE) {
-
-  if (na.rm) {
-    x <- na.omit(x)
-    if(!is.null(y)) y <- na.omit(y)
-  }
-
-  if(is.null(y)){   # one sample Cohen d
-    d <- mean(x) / sd(x)
-    n <- length(x)
-    if(!is.na(conf.level)){
-      # # reference: Smithson Confidence Intervals pp. 36:
-      # ci <- .nctCI(d / sqrt(n), df = n-1, conf = conf.level)
-      # res <- c(d=d, lwr.ci=ci[1]/sqrt(n), upr.ci=ci[3]/sqrt(n))
-      # changed to Revelle 2022-10-22:
-      ci <- .cohen_d_ci(d = d, n = n, alpha = 1-conf.level)
-      res <- c(d=d, lwr.ci=ci[1], upr.ci=ci[3])
-      
-    } else {
-      res <- d
-    }
-  } else {
-
-    meanx <- mean(x)
-    meany <- mean(y)
-    #     ssqx <- sum((x - meanx)^2)
-    #     ssqy <- sum((y - meany)^2)
-    nx <- length(x)
-    ny <- length(y)
-
-    DF <- nx + ny - 2
-    d <- (meanx - meany)
-
-    if(pooled){
-      d <- d / sqrt(((nx - 1) * var(x) + (ny - 1) * var(y)) / DF)
-    }else{
-      d <- d / sd(c(x, y))
-    }
-
-    #  if(unbiased) d <- d * gamma(DF/2)/(sqrt(DF/2) * gamma((DF - 1)/2))
-
-    if(correct){  # "Hedges' g"
-      # Hedges, L. V. & Olkin, I. (1985). Statistical methods for meta-analysis. Orlando, FL: Academic Press.
-      d <- d * (1 - 3 / ( 4 * (nx + ny) - 9))
-    }
-
-    if(!is.na(conf.level)) {
-      # old:
-      # The Handbook of Research Synthesis and Meta-Analysis (Cooper, Hedges, & Valentine, 2009)
-      ## p 238
-      # ci <- d + c(-1, 1) * sqrt(((nx+ny) / (nx*ny) + .5 * d^2 / DF) * ((nx + ny)/DF)) * qt((1 - conf.level) / 2, DF)
-
-      # # supposed to be better, Smithson's version:
-      # ci <- .nctCI(d / sqrt(nx*ny/(nx+ny)), df = DF, conf = conf.level)
-      # res <- c(d=d, lwr.ci=ci[1]/sqrt(nx*ny/(nx+ny)), upr.ci=ci[3]/sqrt(nx*ny/(nx+ny)))
-
-      # changed to Revelle      
-      ci <- .cohen_d_ci(d, n2 = nx, n1 = ny, alpha = 1-conf.level)
-      res <- c(d=d, lwr.ci=unname(ci[1]), upr.ci=unname(ci[3]))
-      
-    } else {
-      res <- d
-    }
-  }
-
-  ## Cohen, J. (1992). A power primer. Psychological Bulletin, 112, 155-159. Crow, E. L. (1991).
-  attr(res, "magnitude") <- c("negligible","small","medium","large")[findInterval(abs(d), c(0.2, 0.5, 0.8)) + 1]
-
-  return(res)
-
-}
-
-
-
 
 # find non-centrality parameter for the F-distribution
 ncparamF <- function(type1, type2, nu1, nu2) {
@@ -6243,53 +6080,53 @@ OddsRatio.glm <- function(x, conf.level = NULL, digits=3, use.profile=FALSE, ...
 }
 
 
-OddsRatio.multinom <- function(x, conf.level=NULL, digits=3, ...) {
-
-  if(is.null(conf.level)) conf.level <- 0.95
-
-  # class(x) <- class(x)[class(x)!="regr"]
-  r.summary <- summary(x, Wald.ratios = TRUE)
-
-  coe <- t(r.summary$coefficients)
-  coe <- reshape(data.frame(coe, id=row.names(coe)), varying=1:ncol(coe), idvar="id"
-                 , times=colnames(coe), v.names="or", direction="long")
-
-  se <- t(r.summary$standard.errors)
-  se <- reshape(data.frame(se), varying=1:ncol(se),
-                times=colnames(se), v.names="se", direction="long")[, "se"]
-
-  # d.res <- r.summary
-  d.res <- data.frame(
-    "or"= exp(coe[, "or"]),
-    "or.lci" = exp(coe[, "or"] + qnorm(0.025) * se),
-    "or.uci" = exp(coe[, "or"] - qnorm(0.025) * se),
-    "pval" = 2*(1-pnorm(q = abs(coe[, "or"]/se), mean=0, sd=1)),
-    "sig" = 2*(1-pnorm(q = abs(coe[, "or"]/se), mean=0, sd=1))
-  )
-  
-  d.print <- data.frame(
-    "or"= Format(exp(coe[, "or"]), digits=digits),
-    "or.lci" = Format(exp(coe[, "or"] + qnorm(0.025) * se), digits=digits),
-    "or.uci" = Format(exp(coe[, "or"] - qnorm(0.025) * se), digits=digits),
-    "pval" = Format(2*(1-pnorm(q = abs(coe[, "or"]/se), mean=0, sd=1)), fmt="p", digits=3),
-    "sig" = Format(2*(1-pnorm(q = abs(coe[, "or"]/se), mean=0, sd=1)), fmt="*"),
-    stringsAsFactors = FALSE
-  )
-
-  colnames(d.print)[4:5] <- c("Pr(>|z|)","")
-  rownames(d.print) <- paste(coe$time, coe$id, sep=":")
-  
-  rownames(d.res) <- rownames(d.print)
-
-  res <- list(or = d.print, call = x$call,
-              BrierScore = NA, # BrierScore(x),
-              PseudoR2 = PseudoR2(x, which="all"), res=d.res)
-
-  class(res) <- "OddsRatio"
-  return(res)
-
-}
-
+# OddsRatio.multinom <- function(x, conf.level=NULL, digits=3, ...) {
+# 
+#   if(is.null(conf.level)) conf.level <- 0.95
+# 
+#   # class(x) <- class(x)[class(x)!="regr"]
+#   r.summary <- summary(x, Wald.ratios = TRUE)
+# 
+#   coe <- t(r.summary$coefficients)
+#   coe <- reshape(data.frame(coe, id=row.names(coe)), varying=1:ncol(coe), idvar="id"
+#                  , times=colnames(coe), v.names="or", direction="long")
+# 
+#   se <- t(r.summary$standard.errors)
+#   se <- reshape(data.frame(se), varying=1:ncol(se),
+#                 times=colnames(se), v.names="se", direction="long")[, "se"]
+# 
+#   # d.res <- r.summary
+#   d.res <- data.frame(
+#     "or"= exp(coe[, "or"]),
+#     "or.lci" = exp(coe[, "or"] + qnorm(0.025) * se),
+#     "or.uci" = exp(coe[, "or"] - qnorm(0.025) * se),
+#     "pval" = 2*(1-pnorm(q = abs(coe[, "or"]/se), mean=0, sd=1)),
+#     "sig" = 2*(1-pnorm(q = abs(coe[, "or"]/se), mean=0, sd=1))
+#   )
+#   
+#   d.print <- data.frame(
+#     "or"= Format(exp(coe[, "or"]), digits=digits),
+#     "or.lci" = Format(exp(coe[, "or"] + qnorm(0.025) * se), digits=digits),
+#     "or.uci" = Format(exp(coe[, "or"] - qnorm(0.025) * se), digits=digits),
+#     "pval" = Format(2*(1-pnorm(q = abs(coe[, "or"]/se), mean=0, sd=1)), fmt="p", digits=3),
+#     "sig" = Format(2*(1-pnorm(q = abs(coe[, "or"]/se), mean=0, sd=1)), fmt="*"),
+#     stringsAsFactors = FALSE
+#   )
+# 
+#   colnames(d.print)[4:5] <- c("Pr(>|z|)","")
+#   rownames(d.print) <- paste(coe$time, coe$id, sep=":")
+#   
+#   rownames(d.res) <- rownames(d.print)
+# 
+#   res <- list(or = d.print, call = x$call,
+#               BrierScore = NA, # BrierScore(x),
+#               PseudoR2 = PseudoR2(x, which="all"), res=d.res)
+# 
+#   class(res) <- "OddsRatio"
+#   return(res)
+# 
+# }
+# 
 
 
 OddsRatio.zeroinfl <- function (x, conf.level = NULL, digits = 3, ...) {
