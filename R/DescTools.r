@@ -5600,28 +5600,59 @@ as.fmt <- function(...){
 }
 
 
+# 
+# ReadSPSS <- function(fn, encoding=NULL){
+#   
+#   d.spss <- haven::read_sav(file=fn, encoding = encoding)
+#   
+#   d.set <- as.data.frame(d.spss)
+#   
+#   # get rid of unimportant SPSS specific attributes
+#   d.set <- as.data.frame(
+#                lapply(d.set, 
+#                       DescTools::StripAttr, 
+#                       attr=c("format.spss", "display_width"))) 
+# 
+#   # turn haven_labelled into common factors
+#   idx <- sapply(d.spss, inherits, "haven_labelled")
+#   
+#   # restore factors and the labels
+#   d.set[idx] <- haven::as_factor(d.set[idx])
+# 
+#   return(d.set)
+#   
+# }
 
-ReadSPSS <- function(fn, encoding=NULL){
-  
-  d.spss <- haven::read_sav(file=fn, encoding = encoding)
-  
-  d.set <- as.data.frame(d.spss)
+
+
+ToBaseR <- function(x, ...){
+  UseMethod("ToRoots")
+}
+
+
+ToBaseR.tbl_df <- function(x, ...){
+  # rollback a tibble to data.frame, with usual factors etc.
+  res <- as.data.frame(x)
   
   # get rid of unimportant SPSS specific attributes
-  d.set <- as.data.frame(
-               lapply(d.set, 
-                      DescTools::StripAttr, 
-                      attr=c("format.spss", "display_width"))) 
+  res <- as.data.frame(
+    lapply(res, 
+           DescTools::StripAttr, 
+           attr=c("format.spss", "display_width", "format.stata"))) 
 
-  # turn haven_labelled into common factors
-  idx <- sapply(d.spss, inherits, "haven_labelled")
+  for(i in which(sapply(x, inherits, "haven_labelled") )){
+    res[i] <- Rollback.haven_labelled(x[i])
+  }
   
-  # restore factors and the labels
-  d.set[idx] <- haven::as_factor(d.set[idx])
-
-  return(d.set)
-  
+  return(res)
 }
+
+
+ToBaseR.haven_labelled <- function(x, ...){
+  haven::as_factor(x, ...)
+}
+
+
 
 
 

@@ -221,6 +221,10 @@ Fm.default <- function(x, digits = NULL, sci = NULL
                         , lang = NULL,  eps = NULL
                         , outdec = NULL, ...){
 
+  # Format a vector x
+  
+  # store names
+  orig_names <- names(x)
 
   # store index of missing values in ina
   if ((has.na <- any(ina <- is.na(x))))
@@ -395,6 +399,9 @@ Fm.default <- function(x, digits = NULL, sci = NULL
     r <- StrAlign(r, sep = align)
   }
   
+  
+  # restore names
+  if (!is.null(orig_names)) names(r) <- orig_names
   
   class(r) <- c("Fm", class(r))
   return(r)
