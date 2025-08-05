@@ -5641,7 +5641,7 @@ ToBaseR.tbl_df <- function(x, ...){
            attr=c("format.spss", "display_width", "format.stata"))) 
 
   for(i in which(sapply(x, inherits, "haven_labelled") )){
-    res[i] <- Rollback.haven_labelled(x[i])
+    res[i] <- ToBaseR.haven_labelled(x[i])
   }
   
   return(res)
@@ -5652,6 +5652,10 @@ ToBaseR.haven_labelled <- function(x, ...){
   haven::as_factor(x, ...)
 }
 
+
+ToBaseR.default <- function(x, ...){
+  warning(gettextf('Not implemented for class(es) "%s"', paste(class(x), collapse=", ")))
+}
 
 
 
