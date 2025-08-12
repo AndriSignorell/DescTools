@@ -4321,9 +4321,10 @@ ToWide <- function(x, g, by=NULL, varnames=NULL){
     #   In merge.data.frame(x, y, by = by, all.x = TRUE, all.y = TRUE) :
     #   column names 'y.x', 'y.y' are duplicated in the result
     
-    if(inherits(x, "data.frame"))  
-      colnames(x)[ncol(x)] <- paste0(colnames(x)[ncol(x)-1], "y")
-    
+    if(inherits(x, "data.frame"))
+      if(colnames(x)[ncol(x)] != "idx")
+        colnames(x)[ncol(x)] <- paste0(colnames(x)[ncol(x)-1], "y")
+
     z <- merge(x, y, by=by, all.x=TRUE, all.y=TRUE)
     # kill the rownames
     if(by=="row.names") z <- z[, -grep("Row.names", names(z))]
