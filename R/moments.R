@@ -1,3 +1,43 @@
+
+
+# Condense moments to one function
+
+# 
+# #' Moments for the Most Popular Distributions
+# #'
+# #' Formula:
+# #'   \eqn{\mu = n \cdot p}
+# #'   \eqn{\mathrm{Var}(X) = n \cdot p \cdot (1 - p)}
+# #'
+# #' @param size Number of trials
+# #' @param prob Probability of success
+# #'
+# #' @return List with mean and variance
+# #' @seealso \code{\link[stats]{dbinom}}
+# #' @references Casella, G. and Berger, R.L. (2002). Statistical Inference. Duxbury.
+# #' @examples
+# #' mbinom(size = 10, prob = 0.3)
+# 
+ 
+ 
+# Moment <- function(dist, moment=c(1,2), ...){
+# 
+#   dist <- match.arg(dist, c("binom","hyper","pois","geom",
+#                             "f", "t","chisq","norm","lnorm", "beta","gamma", "exp"))
+# 
+#   res <- switch(dist,
+#            binom  = .mbinom(...),
+#            nbinom = .mnbinom(...),
+#            geom   = .mgeom(...),
+#            hyper  = .mhyper(...)
+#            )
+# 
+#   return(res[moment])
+# 
+# }
+
+
+
 #' Mean and Variance of the Binomial Distribution
 #'
 #' Formula:
@@ -12,6 +52,7 @@
 #' @references Casella, G. and Berger, R.L. (2002). Statistical Inference. Duxbury.
 #' @examples
 #' mbinom(size = 10, prob = 0.3)
+
 mbinom <- function(size, prob) {
   mu <- size * prob
   var <- size * prob * (1 - prob)

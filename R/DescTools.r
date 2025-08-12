@@ -3842,40 +3842,6 @@ RoundTo <- function(x, multiple = 1, FUN = round) {
 }
 
 
-# Alternative Idee mit up and down:
-
-# Round <- function(x, digits = 0, direction=c("both", "down", "up"), multiple = NA) {
-#
-#   direction <- match.arg(direction)
-#
-#   switch(direction
-#          , both={
-#            if(is.na(multiple)){
-#              res <- round(x, digits = digits)
-#            } else {
-#              res <- round(x/multiple) * multiple
-#            }
-#          }
-#          , down={
-#            if(is.na(multiple)){
-#              res <- floor(x, digits = digits)
-#            } else {
-#              res <- floor(x/multiple) * multiple
-#            }
-#          }
-#          , up={
-#            if(is.na(multiple)){
-#              res <- ceiling(x, digits = digits)
-#            } else {
-#              res <- ceiling(x/multiple) * multiple
-#            }
-#          }
-#   )
-#   return(res)
-# }
-
-
-
 
 Str <- function(x, ...){
 
@@ -3946,14 +3912,6 @@ LsFct <- function(package){
 
 }
 
-# LsData <- function(package){
-#   # example  lsf("DescTools")
-#   ls(pos = gettextf("package:%s", package))
-#   as.vector(unclass(ls.str(gettextf("package:%s", package), mode="list")))
-#
-# }
-
-
 LsObj <- function(package){
   # example  lsf("DescTools")
   ls(pos = gettextf("package:%s", package))
@@ -3995,36 +3953,9 @@ PDFManual <- function(package){
 }
 
 
-# showPDFmanual <- function(package, lib.loc=NULL)
-# {
-#   path <- find.package(package, lib.loc)
-#   system(paste(shQuote(file.path(R.home("bin"), "R")),
-#                "CMD", "Rd2pdf",
-#                shQuote(path)))
-# }
-
-
 ###
 
 ## base: organisation, format, report and printing routines ====
-
-
-# Mbind <- function(...){
-#   # matrix bind
-#   # function um n nxm-matrizen zu einem 3d-array zusammenzufassen
-#
-#   arg.list <- list(...)
-#   # check dimensions, by compare the dimension of each matrix to the first
-#   if( !all( unlist(lapply(arg.list, function(m) all(unlist(dim(arg.list[[1]])) == unlist(dim(m)))) )))
-#      stop("Not all matrices have the same dimension!")
-#
-#   ma <- array(unlist(arg.list), dim=c(nrow(arg.list[[1]]), ncol(arg.list[[2]]), length(arg.list)) )
-#   dimnames(ma) <- dimnames(arg.list[[1]])
-#   dimnames(ma)[[3]] <- if(is.null(names(arg.list))){1:length(arg.list)} else {names(arg.list)}
-#
-#   return(ma)
-# }
-
 
 Abind <- function(..., along=N, rev.along=NULL, new.names=NULL,
                   force.array=TRUE, make.names=FALSE,
@@ -4333,15 +4264,6 @@ Abind <- function(..., along=N, rev.along=NULL, new.names=NULL,
 # *********************************** 12.12.2014
 # stack/unstack does exactly that
 
-# ToLong <- function(x, varnames=NULL){
-#   lst <- as.list(x)
-#   res <- data.frame(rep(names(lst), lapply(lst, length)), unlist(lst))
-#   rownames(res) <- NULL
-#   if(is.null(varnames)) varnames <- c("grp","x")
-#   colnames(res) <- varnames
-#   return(res)
-# }
-
 ToLong <- function (x, varnames = NULL) {
 
   if(!is.list(x)) {
@@ -4403,15 +4325,6 @@ ToWide <- function(x, g, by=NULL, varnames=NULL){
   return(res)
 
 }
-
-
-# ToWide <- function(x, g, varnames=NULL){
-#   g <- factor(g)
-#   res <- do.call("cbind", split(x, g))
-#   if(is.null(varnames)) varnames <- levels(g)
-#   colnames(res) <- varnames
-#   return(res)
-# }
 
 
 
@@ -4708,237 +4621,6 @@ Strata <- function (x, stratanames = NULL, size = 1,
 
 
 
-# Strata <- function (data, stratanames = NULL, size,
-#                     method = c("srswor", "srswr", "poisson", "systematic"),
-#                     pik, description = FALSE)
-# {
-#
-# #  Author: Yves Tille <yves.tille@unine.ch>, Alina Matei <alina.matei@unine.ch>
-# #  source: library(sampling)
-#
-#   inclusionprobabilities <- function (a, n)
-#   {
-#     nnull = length(a[a == 0])
-#     nneg = length(a[a < 0])
-#     if (nnull > 0)
-#       warning("there are zero values in the initial vector a\n")
-#     if (nneg > 0) {
-#       warning("there are ", nneg, " negative value(s) shifted to zero\n")
-#       a[(a < 0)] = 0
-#     }
-#     if (identical(a, rep(0, length(a))))
-#       pik1 = a
-#     else {
-#       pik1 = n * a/sum(a)
-#       pik = pik1[pik1 > 0]
-#       list1 = pik1 > 0
-#       list = pik >= 1
-#       l = length(list[list == TRUE])
-#       if (l > 0) {
-#         l1 = 0
-#         while (l != l1) {
-#           x = pik[!list]
-#           x = x/sum(x)
-#           pik[!list] = (n - l) * x
-#           pik[list] = 1
-#           l1 = l
-#           list = (pik >= 1)
-#           l = length(list[list == TRUE])
-#         }
-#         pik1[list1] = pik
-#       }
-#     }
-#     pik1
-#   }
-#
-#   srswor <- function (n, N)
-#   {
-#     s <- rep(0, times = N)
-#     s[sample(N, n)] <- 1
-#     s
-#   }
-#
-#   srswr <-  function (n, N)
-# #    as.vector(rmultinom(1, n, rep(n/N, times = N)))
-#     if(n==0) rep(0, N) else as.vector(rmultinom(1, n, rep(n/N, times = N)))
-#
-#
-#   UPsystematic <- function (pik, eps = 1e-06)
-#   {
-#     if (any(is.na(pik)))
-#       stop("there are missing values in the pik vector")
-#     list = pik > eps & pik < 1 - eps
-#     pik1 = pik[list]
-#     N = length(pik1)
-#     a = (c(0, cumsum(pik1)) - runif(1, 0, 1))%%1
-#     s1 = as.integer(a[1:N] > a[2:(N + 1)])
-#     s = pik
-#     s[list] = s1
-#     s
-#   }
-#
-#   UPpoisson <- function (pik)
-#   {
-#     if (any(is.na(pik)))
-#       stop("there are missing values in the pik vector")
-#     as.numeric(runif(length(pik)) < pik)
-#   }
-#
-#
-#
-#   if (missing(method)) {
-#     warning("the method is not specified; by default, the method is srswor")
-#     method = "srswor"
-#   }
-#   if (!(method %in% c("srswor", "srswr", "poisson", "systematic")))
-#     stop("the name of the method is wrong")
-#   if (method %in% c("poisson", "systematic") & missing(pik))
-#     stop("the vector of probabilities is missing")
-#   if (missing(stratanames) | is.null(stratanames)) {
-#     if (method == "srswor")
-#       result = data.frame((1:nrow(data))[srswor(size, nrow(data)) ==
-#                                            1], rep(size/nrow(data), size))
-#     if (method == "srswr") {
-#       s = srswr(size, nrow(data))
-#       st = s[s != 0]
-#       l = length(st)
-#       result = data.frame((1:nrow(data))[s != 0])
-#       if (size <= nrow(data))
-#         result = cbind.data.frame(result, st, prob = rep(size/nrow(data),
-#                                                          l))
-#       else {
-#         prob = rep(size/nrow(data), l)/sum(rep(size/nrow(data),
-#                                                l))
-#         result = cbind.data.frame(result, st, prob)
-#       }
-#       colnames(result) = c("id", "replicates", "prob")
-#     }
-#     if (method == "poisson") {
-#       pikk = inclusionprobabilities(pik, size)
-#       s = (UPpoisson(pikk) == 1)
-#       if (length(s) > 0)
-#         result = data.frame((1:nrow(data))[s], pikk[s])
-#       if (description)
-#         cat("\nPopulation total and number of selected units:",
-#             nrow(data), sum(s), "\n")
-#     }
-#     if (method == "systematic") {
-#       pikk = inclusionprobabilities(pik, size)
-#       s = (UPsystematic(pikk) == 1)
-#       result = data.frame((1:nrow(data))[s], pikk[s])
-#     }
-#     if (method != "srswr")
-#       colnames(result) = c("id", "prob")
-#     if (description & method != "poisson")
-#       cat("\nPopulation total and number of selected units:",
-#           nrow(data), sum(size), "\n")
-#   }
-#   else {
-#     data = data.frame(data)
-#     index = 1:nrow(data)
-#     m = match(stratanames, colnames(data))
-#     if (any(is.na(m)))
-#       stop("the names of the strata are wrong")
-#     data2 = cbind.data.frame(data[, m], index)
-#     colnames(data2) = c(stratanames, "index")
-#     x1 = data.frame(unique(data[, m]))
-#     colnames(x1) = stratanames
-#     result = NULL
-#     for (i in 1:nrow(x1)) {
-#       if (is.vector(x1[i, ]))
-#         data3 = data2[data2[, 1] == x1[i, ], ]
-#       else {
-#         as = data.frame(x1[i, ])
-#         names(as) = names(x1)
-#         data3 = merge(data2, as, by = intersect(names(data2),
-#                                                 names(as)))
-#       }
-#       y = sort(data3$index)
-#       if (description & method != "poisson") {
-#         cat("Stratum", i, "\n")
-#         cat("\nPopulation total and number of selected units:",
-#             length(y), size[i], "\n")
-#       }
-#       if (method != "srswr" & length(y) < size[i]) {
-#         stop("not enough obervations in the stratum ",
-#              i, "\n")
-#         st = c(st, NULL)
-#       }
-#       else {
-#         if (method == "srswor") {
-#           st = y[srswor(size[i], length(y)) == 1]
-#           r = cbind.data.frame(data2[st, ], rep(size[i]/length(y),
-#                                                 size[i]))
-#         }
-#         if (method == "systematic") {
-#           pikk = inclusionprobabilities(pik[y], size[i])
-#           s = (UPsystematic(pikk) == 1)
-#           st = y[s]
-#           r = cbind.data.frame(data2[st, ], pikk[s])
-#         }
-#         if (method == "srswr") {
-#           s = srswr(size[i], length(y))
-#           st = rep(y[s != 0], s[s != 0])
-#           l = length(st)
-#           if (size[i] <= length(y))
-#             r = cbind.data.frame(data2[st, ], prob = rep(size[i]/length(y),
-#                                                          l))
-#           else {
-#             prob = rep(size[i]/length(y), l)/sum(rep(size[i]/length(y),
-#                                                      l))
-#             r = cbind.data.frame(data2[st, ], prob)
-#           }
-#         }
-#         if (method == "poisson") {
-#           pikk = inclusionprobabilities(pik[y], size[i])
-#           s = (UPpoisson(pikk) == 1)
-#           if (any(s)) {
-#             st = y[s]
-#             r = cbind.data.frame(data2[st, ], pikk[s])
-#             if (description) {
-#               cat("Stratum", i, "\n")
-#               cat("\nPopulation total and number of selected units:",
-#                   length(y), length(st), "\n")
-#             }
-#           }
-#           else {
-#             if (description) {
-#               cat("Stratum", i, "\n")
-#               cat("\nPopulation total and number of selected units:",
-#                   length(y), 0, "\n")
-#             }
-#             r = NULL
-#           }
-#         }
-#       }
-#       # corrected 7.4.2014 for allowing size=0 for a stratum:
-#       # if (!is.null(r)) {
-#       if (!is.null(r) & nrow(r)>0) {
-#         r = cbind(r, i)
-#         result = rbind.data.frame(result, r)
-#       }
-#     }
-#
-# # original, seems a bit "over-ifed"
-# #     if (method == "srswr")
-# #          colnames(result) = c(stratanames, "ID_unit", "Prob", "Stratum")
-# #     else colnames(result) = c(stratanames, "ID_unit", "Prob", "Stratum")
-#
-#     colnames(result) <- c(stratanames, "id", "prob", "stratum")
-#
-#     if (description) {
-#       cat("Number of strata ", nrow(x1), "\n")
-#       if (method == "poisson")
-#         cat("Total number of selected units", nrow(result),
-#             "\n")
-#       else cat("Total number of selected units", sum(size),
-#                "\n")
-#     }
-#   }
-#   result
-# }
-
-
 SampleTwins <- function (x, stratanames = NULL, twins,
                          method = c("srswor", "srswr", "poisson", "systematic"),
                          pik, description = FALSE) {
@@ -4963,14 +4645,6 @@ SampleTwins <- function (x, stratanames = NULL, twins,
 
 }
 
-
-
-# RndPairs <- function(n, r, rdist1 = rnorm(n=n, mean = 0, sd = 1), rdist2 = rnorm(n=n, mean = 0, sd = 1)){
-# 
-#   # create correlated random pairs
-#   data.frame(matrix(nrow=n, ncol=2, data=cbind(rdist1, rdist2)) %*%
-#                 chol(matrix(nrow=2, ncol=2, data=c(1, r, r, 1))))
-# }
 
 
 RndPairs <- function(n, r, rdist1 = rnorm(n=n, mean = 0, sd = 1), 
@@ -5165,28 +4839,6 @@ FctArgs <- function(name, sort=FALSE) {
 
   invisible(output)
 }
-
-
-# GetArgs <- function(FUN) {
-#   
-#   a <- formals(getAnywhere(FUN)$objs[[1]])
-#   arg.labels <- names(a)
-#   arg.values <- as.character(a)
-#   char <- sapply(a, is.character)
-#   arg.values[char] <- paste("\"", arg.values[char], "\"", sep="")
-#   
-#   c(fname=FUN, args=paste(StrTrim(gsub("= $", "", paste(arg.labels, arg.values, sep=" = "))), collapse=", "))
-#   
-# }
-# 
-# fcts <- grep("plot.Desc", unclass(lsf.str(envir = asNamespace("DescTools"), all.names = T)), v=T)
-# fargs <- t(unname(sapply(fcts, GetArgs)))
-# 
-
-
-
-
-
 
 
 
@@ -5598,66 +5250,6 @@ as.fmt <- function(...){
             class = "fmt")
 
 }
-
-
-# 
-# ReadSPSS <- function(fn, encoding=NULL){
-#   
-#   d.spss <- haven::read_sav(file=fn, encoding = encoding)
-#   
-#   d.set <- as.data.frame(d.spss)
-#   
-#   # get rid of unimportant SPSS specific attributes
-#   d.set <- as.data.frame(
-#                lapply(d.set, 
-#                       DescTools::StripAttr, 
-#                       attr=c("format.spss", "display_width"))) 
-# 
-#   # turn haven_labelled into common factors
-#   idx <- sapply(d.spss, inherits, "haven_labelled")
-#   
-#   # restore factors and the labels
-#   d.set[idx] <- haven::as_factor(d.set[idx])
-# 
-#   return(d.set)
-#   
-# }
-
-
-
-ToBaseR <- function(x, ...){
-  UseMethod("ToRoots")
-}
-
-
-ToBaseR.tbl_df <- function(x, ...){
-  # rollback a tibble to data.frame, with usual factors etc.
-  res <- as.data.frame(x)
-  
-  # get rid of unimportant SPSS specific attributes
-  res <- as.data.frame(
-    lapply(res, 
-           DescTools::StripAttr, 
-           attr=c("format.spss", "display_width", "format.stata"))) 
-
-  for(i in which(sapply(x, inherits, "haven_labelled") )){
-    res[i] <- ToBaseR.haven_labelled(x[i])
-  }
-  
-  return(res)
-}
-
-
-ToBaseR.haven_labelled <- function(x, ...){
-  haven::as_factor(x, ...)
-}
-
-
-ToBaseR.default <- function(x, ...){
-  warning(gettextf('Not implemented for class(es) "%s"', paste(class(x), collapse=", ")))
-}
-
-
 
 
 ParseSASDatalines <- function(x, env = .GlobalEnv, overwrite = FALSE) {
@@ -14144,6 +13736,10 @@ XLView <- function (x, col.names = TRUE, row.names = FALSE, na = "",
       }
     }
 
+    # writexl::write_xlsx can only handle data.frames...
+    is(is.matrix(x))
+      x <- as.data.frame(x)
+    
     # write.table(x, file = fn, sep = sep, col.names = col.names,
     #             qmethod = "double", row.names = row.names, na=na)
     # better option 2025-04-03:

@@ -141,7 +141,7 @@ Style <- function(  name = NULL
     sty <- .OptStyles()[[name]]
     
     if(is.null(sty)){
-      warning(gettextf("Style %s could not be found in options.", name))
+      warning(gettextf("Style '%s' could not be found in options.", name))
       return(NA)
     }
   }
@@ -194,7 +194,8 @@ print.style <- function(x, ...){
                ifelse(identical(attr(x, "default"), TRUE), " (default)", "")),  
       gettextf("Description:   %s\n", Label(x)),
       gettextf("Definition:    %s\n", CollapseList(x)),
-      gettextf("Example:       %s\n", Fm(pi * 1e5, fmt=x))
+      gettextf("Example:       %s\n", Fm(pi * 1e5, fmt=x)),
+      sep = ""
   )
 }
 
