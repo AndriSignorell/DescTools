@@ -1,23 +1,40 @@
 \name{Agree}
 \alias{Agree}
+\alias{Agree.default}
+\alias{Agree.formula}
+
 \title{Raw Simple And Extended Percentage Agreement}
 \description{
 Computes raw simple and extended percentage agreement among raters.
 }
 \usage{
-Agree(x, grp = NULL, tolerance = 0, na.rm = FALSE)
+Agree(x, ...)
+\method{Agree}{formula}(formula, data, subset, na.action, \dots)
+\method{Agree}{default}(x, tolerance = 0, na.rm = FALSE, ...)
+
 }
 \arguments{
   \item{x}{a data.frame, a list or a \eqn{k \times m}{k x m} matrix, k subjects (in rows) m raters (in columns). 
   If \code{grp} is provided it must be a value vector of same length.}
-  \item{grp}{a grouping vector, if this is provided, x must be a suitable value vector.}
   \item{tolerance}{number of successive rating categories that should be regarded as rater agreement (see details).}
   \item{na.rm}{
-  logical, indicating whether \code{NA} values should be stripped before the computation proceeds. If set to \code{TRUE} only the complete cases of the ratings will be used. Defaults to \code{FALSE}.
-  %%     ~~Describe \code{na.rm} here~~
+  logical, indicating whether \code{NA} values should be stripped before the computation proceeds. 
+  If set to \code{TRUE} only the complete cases of the ratings will be used. Defaults to \code{FALSE}.
 }
-
+  \item{formula}{a formula of the form \code{lhs ~ rhs} where \code{lhs}
+    gives the data values and \code{rhs} the corresponding groups.}
+  \item{data}{an optional matrix or data frame (or similar: see
+    \code{\link{model.frame}}) containing the variables in the
+    formula \code{formula}.  By default the variables are taken from
+    \code{environment(formula)}.}
+  \item{subset}{an optional vector specifying a subset of observations
+    to be used.}
+  \item{na.action}{a function which indicates what should happen when
+    the data contain \code{NA}s.  Defaults to
+    \code{getOption("na.action")}.}
   
+  \item{\dots}{further arguments to be passed to or from methods.}
+
 }
 \details{
 Extended percentage agreement can be calculated with a \code{tolerance > 0}. If tolerance equals 1 e.g., 
@@ -89,5 +106,58 @@ Agree(exam[, -1], tolerance=1)
 
 # release difference to max 2, we have 2 agreements (2, 4)
 Agree(exam[, -1], tolerance=2)
+
+
+# *********************************************************
+# Operating the Formula Interface
+
+# we have 5 subjects and 4 raters (in wide form)
+(d.ratings <- data.frame(
+  subj = c("1", "2", "3", "4", "5"), 
+  rtr1 = structure(c(1,1,1,1,3), 
+                  levels = c("V", "N", "P"), class = "factor"), 
+  rtr2 = structure(c(1,2,1,1,3), 
+                  levels = c("V", "N", "P"), class = "factor"), 
+  rtr3 = structure(c(1,3,1,1,3), 
+                  levels = c("V", "N", "P"), class = "factor"), 
+  rtr4 = structure(c(1,1,1,1,2), 
+                  levels = c("V", "N", "P"), class = "factor")
+  )) 
+
+# this structure can be directly send to the function
+Agree(d.ratings[, -1])
+
+# or we can coerce to a matrix before (if we want..)
+Agree(as.matrix(d.ratings[, -1]))
+
+# but what, when our structure is in long format?        
+d.long <- reshape(d.ratings,
+                  varying=2:5,
+                  idvar=c("subj"),
+                  times=colnames(d.ratings)[2:5],
+                  v.names="rat", timevar="rater",
+                  direction="long",
+                  new.row.names=seq(prod(dim(d.ratings))))
+head(d.long)
+
+# for that we can use the formulat interface
+# note the structure: response ~ subjects (rows) | raters (columns)
+Agree(rat ~ subj | rater, d.long)
+
+# but what, when we have missings?
+# we leave out rtr1's rating for subj 2 
+
+# if we do nothing, we clearly get NA
+Agree(rat ~ subj | rater, d.long[-2,])
+
+# setting na.action to na.omit omits the subject "1" 
+# as reported in attr(,"na.action"), number of subjects is yet 4
+Agree(rat ~ subj | rater, d.long[-2,], na.action = na.omit)
+
+# setting na.rm only ignores missings, subject 1 remains in the matrix
+Agree(rat ~ subj | rater, d.long[-2,], na.rm = TRUE)
 }
+
+
+
 \keyword{univar}
