@@ -1,20 +1,17 @@
 \name{CutAge}
 \alias{CutAge}
-\alias{CutGen}
 \title{Create a Factor Variable by Cutting an Age Variable
 }
-\description{Dividing the range of an age variable \code{x} into intervals is a frequent task. The commonly used function \code{\link{cut}} has unfavourable default values for this.
+\description{Dividing the range of an age variable \code{x} into intervals is a frequent task in data analysis.
+The commonly used function \code{\link{cut}} has unfavourable default values for this.
 \code{CutAge()} is a convenient wrapper for cutting age variables in groups 
-    of e.g. 10 years with more suitable defaults.\cr
-    \code{CutGen} yields the generation of a person based on the year of birth.
-    
-    
+    of e.g. 10 years with more suitable defaults.
+
 }
 \usage{
 CutAge(x, breaks = c(seq(from = 0, to = 90, by = 10), Inf), 
        right = FALSE, ordered_result = TRUE, 
        full = TRUE, labels = NULL, ...)
-CutGen(vintage)
 }
 \arguments{
   \item{x}{ continuous variable. }
@@ -38,17 +35,6 @@ logical: should the result be an ordered factor? Default is \code{TRUE} - unlike
 
   \item{\dots}{the dots are passed on to the underlying function \code{\link{cut}()}. Use these for e.g. change the labels. 
 }
-\item{vintage}{year of birth}
-}
-\details{
-The generations are defined as:\cr
-
-1946-1964 Babyboomer\cr 
-1965-1979 Generation X \cr
-1980-1995 Generation Y  – also known as Millennials\cr
-1996-2010 Generation Z \cr
-2011-.... Generation Alpha\cr 
-
 }
 
 \value{

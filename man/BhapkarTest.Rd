@@ -56,3 +56,5 @@ mc <- as.table(matrix(c(20,3,0,10,30,5,5,15,40), nrow=3))
 BhapkarTest(mc)
 }
 \keyword{ htest }
+\concept{ irr }
+

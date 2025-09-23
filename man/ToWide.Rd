@@ -9,7 +9,7 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-ToLong(x, varnames = NULL)
+ToLong(x, varnames = NULL, incl.rownames = FALSE)
 ToWide(x, g, by = NULL, varnames = NULL)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -24,19 +24,16 @@ ToWide(x, g, by = NULL, varnames = NULL)
 %%     ~~Describe \code{g} here~~
 }
   \item{varnames}{the variable names if not the grouping levels should be used.
-%%     ~~Describe \code{varnames} here~~
 }
+\item{incl.rownames}{logical (default \code{FALSE}), if set to \code{TRUE} a 
+column containing the rownames will be appended at the end of the data.frame.}
+
 }
 \details{\code{ToLong} expects x as a matrix or a data.frame and reshapes it to a (long) factor representation.
 \code{ToWide} expects the vectors x, g, by, wheras x being the variable, g the splitting factor and by a vector for rowwise merging.
 %%  ~~ If necessary, more details than the description above ~~
 }
-\value{the reshaped object
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+\value{the reshaped object of \code{data.frame} class
 }
 \author{Andri Signorell <andri@signorell.net>
 %%  ~~who you are~~

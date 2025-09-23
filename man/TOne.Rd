@@ -76,16 +76,7 @@ variables, as mean/standard deviation for continuous variables, and
 proportions for categorical variables. In many cases, a comparison is made
 between groups within the framework of the scientific question.
 
-\preformatted{ var Brent Camden Westminster n 474 (39.5%) 344 (28.7%) 381
-(31.8%) temperature 51.1 (8.7) 47.4 (10.1) 44.3 (9.8) *** ' driver *** "'
-Butcher 72 (15.2%) 1 (0.3%) 22 (5.8%) Carpenter 29 (6.1%) 19 (5.6%) 221
-(58.2%) Carter 177 (37.4%) 47 (13.8%) 5 (1.3%) Farmer 19 (4.0%) 87 (25.5%)
-11 (2.9%) Hunter 128 (27.1%) 4 (1.2%) 24 (6.3%) Miller 6 (1.3%) 41 (12.0%)
-77 (20.3%) Taylor 42 (8.9%) 142 (41.6%) 20 (5.3%) rabate (= TRUE) 235
-(50.3%) 172 (50.3%) 184 (48.7%) "' --- ') Kruskal-Wallis test, ") Fisher
-exact test, "') Chi-Square test Signif. codes: 0 '***' 0.001 '**' 0.01 '*'
-0.05 '.' 0.1 ' ' 1 }
-
+\figure{tone.png}{Table 1}
 Creating such a table can be very time consuming and there's a need for a
 flexible function that helps us to solve the task. \code{TOne()} is designed
 to be easily used with sensible defaults, and yet flexible enough to allow

@@ -1,18 +1,14 @@
 \name{CohenKappa}
 \alias{CohenKappa}
-%- Also NEED an '\alias' for EACH other topic documented here.
-\title{Cohen's Kappa and Weighted Kappa
+\title{Cohen's Kappa and Weighted Kappa }
 
-%%  ~~function to do ... ~~
-}
-\description{Computes the agreement rates Cohen's kappa and weighted kappa and their confidence intervals.
-
-
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+\description{Computes the agreement rates Cohen's kappa and weighted kappa and 
+their confidence intervals.
 }
 \usage{
-CohenKappa(x, y = NULL, weights = c("Unweighted", "Equal-Spacing", "Fleiss-Cohen"),
+CohenKappa(x, y, weights = c("Unweighted", "Equal-Spacing", "Fleiss-Cohen"),
            conf.level = NA, ...)
+
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -48,9 +44,9 @@ The vector interface \code{(x, y)} is only supported for the calculation of unwe
 \value{if no confidence intervals are requested:
 the estimate as numeric value\cr\cr
 else a named numeric vector with 3 elements
-\item{kappa}{estimate}
-\item{lwr.ci}{lower confidence interval}
-\item{upr.ci}{upper confidence interval}
+\item{est}{estimate}
+\item{lci}{lower confidence interval}
+\item{uci}{upper confidence interval}
 }
 
 \references{
@@ -127,7 +123,23 @@ weights <- matrix(c(
  ), ncol=3)
 
 CohenKappa(fleiss, weights)
+
+
+# using the formula interface
+d.long <- data.frame(
+  subj = c("1", "2", "3", "4", "5", "1", "2", "3", "4", "5", 
+           "1", "2", "3", "4", "5", "1", "2", "3", "4", "5"), 
+  rater = c("rtr1", "rtr1", "rtr1", "rtr1", "rtr1", "rtr2", 
+            "rtr2", "rtr2", "rtr2", "rtr2", "rtr3", "rtr3", 
+            "rtr3", "rtr3", "rtr3", "rtr4", "rtr4", "rtr4", 
+            "rtr4", "rtr4"), 
+  rat = factor(c("V","V","V","V","P","V","N","V","V","P","V",
+                 "P","V","V","P","V","V","V","V","N")))
+
+CohenKappa(rat ~ subj | rater, d.long, 
+           subset=rater \%in\% c("rtr1","rtr2"), conf.level = 0.95)
+
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
+
 \keyword{ multivar }
+\concept{ irr }

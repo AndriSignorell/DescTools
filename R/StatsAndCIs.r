@@ -1819,21 +1819,22 @@ BootCI <- function(x, y=NULL, FUN, ..., bci.method = c("norm", "basic", "stud", 
   if(sides!="two.sided")
     conf.level <- 1 - 2*(1-conf.level)
 
-  if(is.null(y))
-    boot.fun <- boot(x, function(x, d) do.call(FUN, append(list(x[d]), dots)), R = R)
-  else
+  if(is.null(y)) {
+    if(is.matrix(x) || is.data.frame(x)){
+      boot.fun <- boot(x, function(x, d) 
+        do.call(FUN, append(list(x[d, , drop=FALSE]), dots)), R = R)
+    } else {
+      boot.fun <- boot(x, function(x, d) 
+        do.call(FUN, append(list(x[d]), dots)), R = R)
+    }
+  } else
     boot.fun <- boot(x, function(x, d) do.call(FUN, append(list(x[d], y[d]), dots)), R = R)
 
-  ci <- boot.ci(boot.fun, conf=conf.level, type=bci.method)
-
-  if (bci.method == "norm") {
-    res <- c(est = boot.fun$t0, lwr.ci = ci[[4]][2],
-             upr.ci = ci[[4]][3])
-
-  } else {
-    res <- c(est = boot.fun$t0, lwr.ci = ci[[4]][4],
-             upr.ci = ci[[4]][5])
-  }
+  ci <- boot.ci(boot.fun, conf=conf.level, type=bci.method)[[4]]
+  
+  res <- c(est = boot.fun$t0, 
+           lci = ci[ncol(ci)-1],
+           uci = ci[ncol(ci)])
 
   if(sides=="left")
     res[3] <- Inf
@@ -4719,17 +4720,17 @@ CutAge <- function(x, breaks=c(seq(from=0, to=90, by=10), Inf),
 
 
 
-CutGen <- function(vintage){
+Generation <- function(year){
   
-  # Babyboomer (1946-1964)
+  # Babyboomer   (1946-1964)
   # Generation X (1965-1979)
-  # Generation Y (1980-1995) – auch als Millennials bezeichnet.
+  # Generation Y (1980-1995) – also called Millennials
   # Generation Z (1996-2010)
   # Generation Alpha (ab 2011-2025)
   
-  cut(vintage,
-      breaks=c(1946,1965,1980,1996,2011, Inf), right=FALSE, 
-      labels = c("Babyboomer","Gen X","Millennials","Gen Z","Gen Alpha"),
+  cut(year,
+      breaks=c(1946, 1965, 1980, 1996, 2011, Inf), right=FALSE, 
+      labels = c("Babyboomer","Gen X","Millennial","Gen Z","Gen Alpha"),
       ordered = TRUE)
   
 }
@@ -5070,211 +5071,6 @@ TschuprowT <- function(x, y = NULL, correct = FALSE, ...){
 
 
 
-# based on Kappa from library(vcd)
-# author: David Meyer
-# see also: kappa in library(psych)
-
-CohenKappa <- function (x, y = NULL, 
-                         weights = c("Unweighted", "Equal-Spacing", "Fleiss-Cohen"), 
-                         conf.level = NA, ...) {
-  
-  if (is.character(weights)) 
-    weights <- match.arg(weights)
-  
-  if (!is.null(y)) {
-    # we can not ensure a reliable weighted kappa for 2 factors with different levels
-    # so refuse trying it... (unweighted is no problem)
-    
-    if (!identical(weights, "Unweighted")) 
-      stop("Vector interface for weighted Kappa is not supported. Provide confusion matrix.")
-    
-    # x and y must have the same levels in order to build a symmetric confusion matrix
-    x <- factor(x)
-    y <- factor(y)
-    lvl <- unique(c(levels(x), levels(y)))
-    x <- factor(x, levels = lvl)
-    y <- factor(y, levels = lvl)
-    x <- table(x, y, ...)
-    
-  } else {
-    d <- dim(x)
-    if (d[1L] != d[2L]) 
-      stop("x must be square matrix if provided as confusion matrix")
-  }
-  
-  d <- diag(x)
-  n <- sum(x)
-  nc <- ncol(x)
-  colFreqs <- colSums(x)/n
-  rowFreqs <- rowSums(x)/n
-  
-  kappa <- function(po, pc) {
-    (po - pc)/(1 - pc)
-  }
-  
-  std <- function(p, pc, k, W = diag(1, ncol = nc, nrow = nc)) {
-    sqrt((sum(p * sweep(sweep(W, 1, W %*% colSums(p) * (1 - k)), 
-                        2, W %*% rowSums(p) * (1 - k))^2) - 
-            (k - pc * (1 - k))^2) / crossprod(1 - pc)/n)
-  }
-  
-  if(identical(weights, "Unweighted")) {
-    po <- sum(d)/n
-    pc <- as.vector(crossprod(colFreqs, rowFreqs))
-    k <- kappa(po, pc)
-    s <- as.vector(std(x/n, pc, k))
-    
-  } else {  
-    
-    # some kind of weights defined
-    W <- if (is.matrix(weights)) 
-      weights
-    else if (weights == "Equal-Spacing") 
-      1 - abs(outer(1:nc, 1:nc, "-"))/(nc - 1)
-    else # weights == "Fleiss-Cohen"
-      1 - (abs(outer(1:nc, 1:nc, "-"))/(nc - 1))^2
-    
-    po <- sum(W * x)/n
-    pc <- sum(W * colFreqs %o% rowFreqs)
-    k <- kappa(po, pc)
-    s <- as.vector(std(x/n, pc, k, W))
-  }
-  
-  if (is.na(conf.level)) {
-    res <- k
-  } else {
-    ci <- k + c(1, -1) * qnorm((1 - conf.level)/2) * s
-    res <- c(kappa = k, lwr.ci = ci[1], upr.ci = ci[2])
-  }
-  
-  return(res)
-  
-}
-
-
-
-# KappaTest <- function(x, weights = c("Equal-Spacing", "Fleiss-Cohen"), conf.level = NA) {
-# to do, idea is to implement a Kappa test for H0: kappa = 0 as in
-# http://support.sas.com/documentation/cdl/en/statugfreq/63124/PDF/default/statugfreq.pdf, pp. 1687
-#   print( "still to do...." )
-
-# }
-
-
-KappaM <- function(x, method = c("Fleiss", "Conger", "Light"), conf.level = NA) {
-
-  # ratings <- as.matrix(na.omit(x))
-  #
-  # ns <- nrow(ratings)
-  # nr <- ncol(ratings)
-  #
-  # # Build table
-  # lev <- levels(as.factor(ratings))
-  #
-  # for (i in 1:ns) {
-  #   frow <- factor(ratings[i,],levels=lev)
-  #
-  #   if (i==1)
-  #     ttab <- as.numeric(table(frow))
-  #   else
-  #     ttab <- rbind(ttab, as.numeric(table(frow)))
-  # }
-  #
-  # ttab <- matrix(ttab, nrow=ns)
-
-  # we have not factors for matrices, but we need factors below...
-  if(is.matrix(x))
-    x <- as.data.frame(x)
-  
-  x <- na.omit(x)
-  ns <- nrow(x)
-  nr <- ncol(x)
-
-  # find all levels in the data (data.frame)
-  lev <- levels(factor(unlist(x)))
-  # apply the same levels to all variables and switch to integer matrix
-  xx <- do.call(cbind, lapply(x, factor, levels=lev))
-
-  ttab <- apply(Abind(lapply(as.data.frame(xx), function(z) Dummy(z, method="full", levels=seq_along(lev))), along = 3),
-                c(1,2), sum)
-
-  agreeP <- sum((rowSums(ttab^2)-nr)/(nr*(nr-1))/ns)
-
-  switch( match.arg(method, choices= c("Fleiss", "Conger", "Light"))
-          , "Fleiss" = {
-            chanceP <- sum(colSums(ttab)^2)/(ns*nr)^2
-            value <- (agreeP - chanceP)/(1 - chanceP)
-
-            pj <- colSums(ttab)/(ns*nr)
-            qj <- 1-pj
-
-            varkappa <- (2/(sum(pj*qj)^2*(ns*nr*(nr-1))))*(sum(pj*qj)^2-sum(pj*qj*(qj-pj)))
-            SEkappa <- sqrt(varkappa)
-
-            ci <- value + c(1,-1) * qnorm((1-conf.level)/2) * SEkappa
-          }
-          , "Conger" = {
-            # for (i in 1:nr) {
-            #   rcol <- factor(x[,i],levels=lev)
-            #
-            #   if (i==1)
-            #     rtab <- as.numeric(table(rcol))
-            #   else
-            #     rtab <- rbind(rtab, as.numeric(table(rcol)))
-            # }
-
-            rtab <- apply(Abind(lapply(as.data.frame(t(xx)), function(z) Dummy(z, method="full", levels=seq_along(lev))), along = 3),
-                          c(1,2), sum)
-
-            rtab <- rtab/ns
-
-            chanceP <- sum(colSums(ttab)^2)/(ns*nr)^2 - sum(apply(rtab, 2, var)*(nr-1)/nr)/(nr-1)
-            value <- (agreeP - chanceP)/(1 - chanceP)
-
-            # we have not SE for exact Kappa value
-            ci <- c(NA, NA)
-
-          }
-          , "Light" = {
-            m <- DescTools::PairApply(x, DescTools::CohenKappa, symmetric=TRUE)
-            value <- mean(m[upper.tri(m)])
-
-            levlen <- length(lev)
-            for (nri in 1:(nr - 1)) for (nrj in (nri + 1):nr) {
-              for (i in 1:levlen) for (j in 1:levlen) {
-                if (i != j) {
-                  r1i <- sum(x[, nri] == lev[i])
-                  r2j <- sum(x[, nrj] == lev[j])
-                  if (!exists("dis"))
-                    dis <- r1i * r2j
-                  else dis <- c(dis, r1i * r2j)
-                }
-              }
-              if (!exists("disrater"))
-                disrater <- sum(dis)
-              else disrater <- c(disrater, sum(dis))
-              rm(dis)
-            }
-            B <- length(disrater) * prod(disrater)
-            chanceP <- 1 - B/ns^(choose(nr, 2) * 2)
-            varkappa <- chanceP/(ns * (1 - chanceP))
-            SEkappa <- sqrt(varkappa)
-
-            ci <- value + c(1,-1) * qnorm((1-conf.level)/2) * SEkappa
-
-          }
-  )
-
-
-  if (is.na(conf.level)) {
-    res <- value
-  } else {
-    res <- c("kappa"=value, lwr.ci=ci[1], upr.ci=ci[2])
-  }
-  return(res)
-
-}
-
 
 
 # ICC(ratings)
@@ -5534,76 +5330,77 @@ CCC <- function(x, y, ci = "z-transform", conf.level = 0.95, na.rm = FALSE){
 }
 
 
-
-
-KrippAlpha <- function (x, method = c("nominal", "ordinal", "interval", "ratio")) {
-
-  method  <-  match.arg(method)
-
-  coincidence.matrix <- function(x) {
-    levx <- (levels(as.factor(x)))
-    nval <- length(levx)
-    cm <- matrix(rep(0, nval * nval), nrow = nval)
-    dimx <- dim(x)
-    vn <- function(datavec) sum(!is.na(datavec))
-    if(any(is.na(x))) mc <- apply(x, 2, vn) - 1
-    else mc <- rep(1, dimx[2])
-    for(col in 1:dimx[2]) {
-      for(i1 in 1:(dimx[1] - 1)) {
-        for(i2 in (i1 + 1):dimx[1]) {
-          if(!is.na(x[i1, col]) && !is.na(x[i2, col])) {
-            index1 <- which(levx == x[i1, col])
-            index2 <- which(levx == x[i2, col])
-            cm[index1, index2] <- cm[index1,index2] + (1 + (index1 == index2))/mc[col]
-            if(index1 != index2) cm[index2,index1] <- cm[index1,index2]
-          }
-        }
-      }
-    }
-    nmv  <-  sum(apply(cm, 2, sum))
-    return(structure(list(method="Krippendorff's alpha",
-                          subjects=dimx[2], raters=dimx[1],irr.name="alpha",
-                          value=NA,stat.name="nil",statistic=NULL,
-                          cm=cm,data.values=levx,nmatchval=nmv,data.level=NA),
-                     class = "irrlist"))
-  }
-
-  ka <- coincidence.matrix(x)
-  ka$data.level <- method
-  dimcm <- dim(ka$cm)
-  utcm <- as.vector(ka$cm[upper.tri(ka$cm)])
-  diagcm <- diag(ka$cm)
-  occ <- sum(diagcm)
-  nc <- apply(ka$cm,1,sum)
-  ncnc <- sum(nc * (nc - 1))
-  dv <- as.numeric(ka$data.values)
-  diff2 <- rep(0,length(utcm))
-  ncnk <- rep(0,length(utcm))
-  ck <- 1
-
-  if (dimcm[2]<2)
-    ka$value <- 1.0
-  else {
-    for(k in 2:dimcm[2]) {
-      for(c in 1:(k-1)) {
-        ncnk[ck] <- nc[c] * nc[k]
-        if(match(method[1],"nominal",0)) diff2[ck] <- 1
-        if(match(method[1],"ordinal",0)) {
-          diff2[ck] <- nc[c]/2
-          if(k > (c+1))
-            for(g in (c+1):(k-1)) diff2[ck] <- diff2[ck] + nc[g]
-            diff2[ck] <- diff2[ck]+nc[k]/2
-            diff2[ck] <- diff2[ck]^2
-        }
-        if(match(method[1],"interval",0)) diff2[ck] <- (dv[c]-dv[k])^2
-        if(match(method[1],"ratio",0)) diff2[ck] <- (dv[c]-dv[k])^2/(dv[c]+dv[k])^2
-        ck <- ck+1
-      }
-    }
-    ka$value <- 1-(ka$nmatchval-1)*sum(utcm*diff2)/sum(ncnk*diff2)
-  }
-  return(ka)
-}
+#
+# deprecated in 0.99.61 - 2025-08-18
+#
+# KrippAlpha <- function (x, method = c("nominal", "ordinal", "interval", "ratio")) {
+# 
+#   method  <-  match.arg(method)
+# 
+#   coincidence.matrix <- function(x) {
+#     levx <- (levels(as.factor(x)))
+#     nval <- length(levx)
+#     cm <- matrix(rep(0, nval * nval), nrow = nval)
+#     dimx <- dim(x)
+#     vn <- function(datavec) sum(!is.na(datavec))
+#     if(any(is.na(x))) mc <- apply(x, 2, vn) - 1
+#     else mc <- rep(1, dimx[2])
+#     for(col in 1:dimx[2]) {
+#       for(i1 in 1:(dimx[1] - 1)) {
+#         for(i2 in (i1 + 1):dimx[1]) {
+#           if(!is.na(x[i1, col]) && !is.na(x[i2, col])) {
+#             index1 <- which(levx == x[i1, col])
+#             index2 <- which(levx == x[i2, col])
+#             cm[index1, index2] <- cm[index1,index2] + (1 + (index1 == index2))/mc[col]
+#             if(index1 != index2) cm[index2,index1] <- cm[index1,index2]
+#           }
+#         }
+#       }
+#     }
+#     nmv  <-  sum(apply(cm, 2, sum))
+#     return(structure(list(method="Krippendorff's alpha",
+#                           subjects=dimx[2], raters=dimx[1],irr.name="alpha",
+#                           value=NA,stat.name="nil",statistic=NULL,
+#                           cm=cm,data.values=levx,nmatchval=nmv,data.level=NA),
+#                      class = "irrlist"))
+#   }
+# 
+#   ka <- coincidence.matrix(x)
+#   ka$data.level <- method
+#   dimcm <- dim(ka$cm)
+#   utcm <- as.vector(ka$cm[upper.tri(ka$cm)])
+#   diagcm <- diag(ka$cm)
+#   occ <- sum(diagcm)
+#   nc <- apply(ka$cm,1,sum)
+#   ncnc <- sum(nc * (nc - 1))
+#   dv <- as.numeric(ka$data.values)
+#   diff2 <- rep(0,length(utcm))
+#   ncnk <- rep(0,length(utcm))
+#   ck <- 1
+# 
+#   if (dimcm[2]<2)
+#     ka$value <- 1.0
+#   else {
+#     for(k in 2:dimcm[2]) {
+#       for(c in 1:(k-1)) {
+#         ncnk[ck] <- nc[c] * nc[k]
+#         if(match(method[1],"nominal",0)) diff2[ck] <- 1
+#         if(match(method[1],"ordinal",0)) {
+#           diff2[ck] <- nc[c]/2
+#           if(k > (c+1))
+#             for(g in (c+1):(k-1)) diff2[ck] <- diff2[ck] + nc[g]
+#             diff2[ck] <- diff2[ck]+nc[k]/2
+#             diff2[ck] <- diff2[ck]^2
+#         }
+#         if(match(method[1],"interval",0)) diff2[ck] <- (dv[c]-dv[k])^2
+#         if(match(method[1],"ratio",0)) diff2[ck] <- (dv[c]-dv[k])^2/(dv[c]+dv[k])^2
+#         ck <- ck+1
+#       }
+#     }
+#     ka$value <- 1-(ka$nmatchval-1)*sum(utcm*diff2)/sum(ncnk*diff2)
+#   }
+#   return(ka)
+# }
 
 
 
@@ -7578,10 +7375,11 @@ TableSpearman <-  function(x, scores.type="table"){
 
 # all association measures combined
 
-Assocs <- function(x, conf.level = 0.95, verbose=NULL){
+Assocs <- function(x, conf.level = 0.95, out = c("def", "ext")){
 
-  if(is.null(verbose)) verbose <- "3"
-  if(verbose != "3") conf.level <- NA
+  out <- match.arg(out)
+  # if(is.null(verbose)) verbose <- "3"
+  # if(verbose != "3") conf.level <- NA
 
 
   res <- rbind(
@@ -7597,7 +7395,7 @@ Assocs <- function(x, conf.level = 0.95, verbose=NULL){
     res <- rbind(res, "Kendall Tau-b" = c(KendallTauB(x, conf.level=conf.level)))
   }
 
-  if(verbose=="3") {
+  if(out == "ext") {
 
     # # this is from boot::corr combined with ci logic from cor.test
     # r <- boot::corr(d=CombPairs(1:nrow(x), 1:ncol(x)), as.vector(x))
@@ -7626,7 +7424,7 @@ Assocs <- function(x, conf.level = 0.95, verbose=NULL){
       , "Mutual Information" = c(MutInf(x),NA,NA)
     ) }
 
-  if(verbose=="3")
+  if(out == "ext")
     dimnames(res)[[2]][1] <- "estimate"
   else
     dimnames(res)[[2]] <- c("estimate", "lwr.ci", "upr.ci")

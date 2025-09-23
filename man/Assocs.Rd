@@ -9,7 +9,7 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-Assocs(x, conf.level = 0.95, verbose = NULL)
+Assocs(x, conf.level = 0.95, out = c("def", "ext"))
 
 \method{print}{Assocs}(x, digits = 4, ...)
 }
@@ -22,7 +22,12 @@ Assocs(x, conf.level = 0.95, verbose = NULL)
 
 %%     ~~Describe \code{conf.level} here~~
 }
-\item{verbose}{integer out of \code{c(2, 1, 3)} defining the verbosity of the reported results. 2 (default) means medium, 1 less and 3 extensive results. \cr Applies only to tables and is ignored else.
+\item{out}{
+either \code{"def"} or \code{"ext"} defining the set of results. 
+If \code{"def"} is selected, only the value of the statistic is 
+returned, supplemented with the confidence interval 
+if necessary. If the argument is set to \code{"ext"}, an 
+extended result set with various intermediate results is returned.
 }
 
   \item{digits}{integer which determines the number of digits used in formatting the measures of association.

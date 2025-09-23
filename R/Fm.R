@@ -19,10 +19,13 @@
   any(grepl("_CH|Switzerland", Sys.getlocale()))
 }
 
-.dec_sep <- function() sub("1", "", format(1.1))
+.dec_sep <- function() gsub("1", "", format(1.1))
+
+# bigmark <- utils::readRegistry("Control Panel\\International", hive = "HCU")$sThousand
+.thousands_sep <- function() Sys.localeconv()["thousands_sep"]
 
 
-.OptStyles <- function(){
+Styles <- function(){
   # return all styles defined in R options
   opt <- options()
   return(opt[sapply(opt, class) == "style"])
@@ -138,7 +141,7 @@ Style <- function(  name = NULL
   if(!is.null(name)){
     
     # get all defined styles in the options, and select the required one
-    sty <- .OptStyles()[[name]]
+    sty <- Styles()[[name]]
     
     if(is.null(sty)){
       warning(gettextf("Style '%s' could not be found in options.", name))

@@ -1,122 +1,99 @@
 
 
+# Percent Agreement (nominal) with designbased SE/CI after Klein/Gwet
 
-
-.LongToSquare <- function(formula, data, subset, na.action, ...){
+Agree <- function(x, conf.level = 0.95, fpc = 0, verbose=0) {
   
-  # returns a 2-dim matrix of a subject-rater-rating formula
+  # x: Matrix (subjects x raters); Eintraege = Kategorien (Zahlen/Strings), NAs erlaubt
+  n  <- nrow(x)
   
-  # originally based on:   stats:::friedman.test.formula
+  # Itemweise paarweise Uebereinstimmung P_{o,i}
+  poi <- apply(x, 1, function(row) {
+    v <- row[!is.na(row)]
+    m <- length(v)
+    if (m < 2) return(NA_real_)
+    tab <- table(v)
+    sum(tab * (tab - 1)) / (m * (m - 1))
+  })
   
-  if (missing(formula)) 
-    stop("formula missing")
+  n0 <- sum(!is.na(poi))
+  Po <- if (n0 > 0) mean(poi, na.rm = TRUE) else NA_real_
   
-  if ((length(formula) != 3L) || 
-      (length(formula[[3L]]) != 3L) || 
-      (formula[[3L]][[1L]] != as.name("|")) || 
-      (length(formula[[3L]][[2L]]) != 1L) || 
-      (length(formula[[3L]][[3L]]) != 1L)) 
-    stop("incorrect specification for 'formula'")
+  # Subjektbeitraege kappa_i (hier = n/n0 * P_{o,i} fuer pairbare; 0 sonst)
+  ki <- rep(0, n)
+  if (n0 > 0) ki[!is.na(poi)] <- (n / n0) * poi[!is.na(poi)]
   
-  formula[[3L]][[1L]] <- as.name("+")
-  
-  m <- match.call(expand.dots = FALSE)
-  m$formula <- formula
-  if (is.matrix(eval(m$data, parent.frame()))) 
-    m$data <- as.data.frame(data)
-  
-  m[[1L]] <- quote(stats::model.frame)
-  # in order to delete potentially provided tolerance or 
-  # na.rm arguments to be passed later on 
-  m$... <- NULL  
-  
-  
-  ## >>> WICHTIG: subset korrekt behandeln wegen Kollistion mit der Funktion subset
-  if (!missing(subset)) {
-    m$subset <- substitute(subset)  # Ausdruck capturen
+  # SE und CI (designbasiert, df = n-1)
+  if (is.na(Po) || n <= 1) {
+    se <- NA_real_
+    ci <- c(lower = NA_real_, upper = NA_real_)
   } else {
-    m$subset <- NULL                # ganz entfernen
-  }
-  ## (Optional) na.action unverändert durchreichen:
-  # if (missing(na.action)) m$na.action <- NULL
-  
-  
-  mf <- eval(m, parent.frame())
-  
-  DNAME <- gettextf("%s by %s (rows) and %s (columns)", 
-                    names(mf)[1], names(mf)[2], names(mf)[3])
-  
-  # now reshaping to matrix form
-  m <- reshape(mf, idvar=colnames(mf)[2], timevar=colnames(mf)[3],
-               direction="wide")
-  
-  # get better order for rows and columns
-  m <- m[order(m[,1]), ]
-  m <- cbind(m[, 1, drop=FALSE], m[, -1][, order(colnames(m)[-1])])
-  # remove response variable part from columnnames
-  colnames(m) <- gsub(gettextf("%s\\.", names(mf)[1]), "", colnames(m))
-  rownames(m) <- NULL
-  
-  if(!missing(na.action)){
-    subj <- m[, names(mf)[2]]
-    m <- na.action(m)
-    # provide the names of omitted subjects
-    attr(attr(m, "na.action"), "values") <- subj[as.numeric(attr(m, "na.action"))]
+    var_hat <- (1 - fpc) / (n * (n - 1)) * sum((ki - Po)^2)
+    se <- sqrt(var_hat)
+    alpha <- 1 - conf.level
+    tcrit <- qt(1 - alpha/2, df = n - 1)
+    ci <- c(lower = max(0, Po - tcrit * se),
+            upper = min(1, Po + tcrit * se))
   }
   
-  attr(m, "data.name") <- DNAME
-  attr(m, "")
-  return(m)
-  
-}
-
-
-
-Agree <- function(x,  ...) {
-  UseMethod("Agree")
-}    
-
-
-Agree.formula <- function(formula, data, subset, na.action, ...){
-
-  m <- .LongToSquare(formula, data, subset, na.action, ...)
-  res <- Agree(m[, -1], ...)
-
-  if(!is.null(attr(m, "na.action"))){
-    attr(res, "na.action") <- attr(m, "na.action")
+  if(verbose == 0){
+    if(!is.na(conf.level)) {
+      res <- c(est=Po, lci=ci[1], uci=ci[2])
+      
+    } else {
+      res <- Po
+    }
+  } else {
+    res <- list(estimate = Po,
+                se = se,
+                conf.int = ci,
+                n = n,
+                n_pairable = n0,
+                method = "Percent Agreement (design-based; Klein/Gwet)")
   }
-
-  return(res)
-
-}
-
-
-
-Agree.default <- function(x, tolerance = 0, na.rm=FALSE, ...){
-  
-  # coercing to matrix is a good idea, as ratings should be the same type 
-  # for all the raters
-  
-  if(inherits(x, "list"))
-    x <- do.call(cbind, x)
-  else
-    x <- as.matrix(x)
-  
-  # if matrix is character switch to factor 
-  # with all unique elements (!!) as levels
-  if(mode(x) =="character")
-    x[] <- factor(x)
-  
-  d <- sum(apply(x, 1, 
-                 function(z) diff(as.numeric(range(z, na.rm = na.rm))) <= tolerance)) 
-  
-  res <- d / nrow(x)
-  attr(res, c("subjects")) <- nrow(x)
-  attr(res, c("raters")) <- ncol(x)
   
   return(res)
   
+  
 }
+
+
+
+# 
+# Agree.default <- function(x, ..., tolerance = 0, na.rm=FALSE){
+#   
+#   # coercing to matrix is a good idea, as ratings should be the same type 
+#   # for all the raters
+#   
+#   if(IsConfusionTable(x)){
+#     
+#     d <- sum(diag(x)) / sum(x)
+#     attr(res, c("subjects")) <- sum(x)
+#     attr(res, c("raters")) <- 2
+#     
+#   } else {
+#   
+#     if(inherits(x, "list"))
+#       x <- do.call(cbind, x)
+#     else
+#       x <- as.matrix(x)
+#     
+#     # if matrix is character switch to factor 
+#     # with all unique elements (!!) as levels
+#     if(mode(x) =="character")
+#       x[] <- factor(x)
+#     
+#     d <- sum(apply(x, 1, 
+#                    function(z) diff(as.numeric(range(z, na.rm = na.rm))) <= tolerance)) 
+#     
+#     res <- d / nrow(x)
+#     attr(res, c("subjects")) <- nrow(x)
+#     attr(res, c("raters")) <- ncol(x)
+#   }
+#   
+#   return(res)
+#   
+# }
 
 
 # Old version, replaced 2025-08-12

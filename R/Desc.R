@@ -1291,7 +1291,8 @@ calcDesc.table <- function(x, n, conf.level = 0.95, verbose, rfrq, margins,
       RelRisk(t(Rev(x, margin = 1)), conf.level = conf.level, method = "wald", delta = 0)
     },
     assocs = if (ttype %in% c("t2x2", "trxc")) {
-      Assocs(x, conf.level = conf.level, verbose = verbose)
+      Assocs(x, conf.level = conf.level, 
+             out = ifelse(verbose==3, "ext", "def"))
     } else {
       NULL
     },

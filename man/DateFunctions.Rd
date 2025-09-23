@@ -91,33 +91,36 @@ MonthDays(x)
 }
 
 \details{These functions are mainly convenience wrappers for the painful \code{format()} and its strange codes...\cr
-Based on the requested time component, the output is as follows:\cr\cr
-\code{Year} returns the year of the input date in yyyy format or a yearmonth yyyymm.\cr
-\code{Quarter} returns the quarter of the year (1 to 4) for the input date. \cr
-\code{Month} returns the month of the year (1 to 12) for the input date or for a yearmonth yyyymm. \cr
-\code{Week} returns the week of the year for the input date (0 to 53), as defined in ISO8601. \cr
-\code{Weekday} returns the week day of the input date. (1 - Monday, 2 - Tuesday, ... 7 - Sunday). (Names and abbreviations are either english or in the current locale!)\cr
-\code{YearDay} returns the day of the year numbering (1 to 366). \cr
-\code{Day} returns the day of the month (1 to 31). \cr
-\code{YearDay} returns the yearday representation (yyyyddd) of a date as long integer. \cr
-\code{YearWeek} returns the yearweek representation (yyyyww) of a date as long integer. \cr
-\code{YearMonth} returns the yearmonth representation (yyyymm) of a date as long integer. \cr
-\code{Hour}, \code{Minute}, \code{Second}, \code{Timezone} return the hour, minute, second or timezone from a POSIXlt object. \cr
-\code{HmsToMinute} converts the time parts of a POSIXlt object to minutes.\cr
-\code{Today}, \code{Now} return the current date, resp. the current date and time.\cr
+Based on the requested time component, the output is as follows:\cr
+\tabular{ll}{
+\code{Year}\tab returns the year of a date or a yearmonth (\code{yyyymm}) in (\code{yyyy}) format .\cr
+\code{Quarter}\tab  returns the quarter of the year (1 to 4) for the input date. \cr
+\code{Month}\tab  returns the month of the year (1 to 12) for the input date or for a yearmonth. \cr
+\code{Week}\tab  returns the week of the year for the input date (0 to 53), as defined in ISO8601. \cr
+\code{Weekday}\tab  returns the week day of the input date. (1 - Monday, 2 - Tuesday, ... 7 - Sunday). (Names and abbreviations are either english or in the current locale!)\cr
+\code{YearDay}\tab  returns the day of the year numbering (1 to 366). \cr
+\code{Day}\tab  returns the day of the month (1 to 31). \cr
+\code{YearDay}\tab  returns the yearday representation (yyyyddd) of a date as long integer. \cr
+\code{YearWeek}\tab  returns the yearweek representation (yyyyww) of a date as long integer. \cr
+\code{YearMonth}\tab  returns the yearmonth representation (yyyymm) of a date as long integer. \cr
+\code{Hour}, \code{Minute}, \code{Second} \tab returns the hour, minute or second from a POSIXlt object. \cr
+\code{Timezone} \tab returns the timezone from a POSIXlt object. \cr
+\code{HmsToMinute} \tab converts the time parts of a POSIXlt object to minutes.\cr
+\code{Today}, \code{Now}\tab  returns the current date, resp. the current date and time.\cr
 
-\code{IsWeekend} returns \code{TRUE}, if the date x falls on a weekend. \cr
-\code{IsLeapYear} returns \code{TRUE}, if the year of the date x is a leap year. \cr
-
+\code{IsWeekend} \tab returns \code{TRUE}, if the date x falls on a weekend. \cr
+\code{IsLeapYear} \tab returns \code{TRUE}, if the year of the date x is a leap year. \cr
+}
 The day can not only be extracted, but as well be defined. See examples.
-
-\code{DiffDays360} calculates the difference between 2 dates using the 360-days convention.\cr
-\code{LastDayOfMonth} returns the last day of the month of the given date(s).
-\code{YearDays} returns the total number of days of the given date(s).
-\code{MonthDays} returns the numer of days of the month of the given date(s).
-%%  ~~ If necessary, more details than the description above ~~
-
-The language in Weekday and Moth can be set with an option as well. The functions will check for an existing option named "lang" and take this value if it exists. So simply set option(lang="engl") if the results should always be reported in English.
+\tabular{ll}{
+\code{DiffDays360} \tab calculates the difference between 2 dates using the 360-days convention.\cr
+\code{LastDayOfMonth} \tab returns the last day of the month of the given date(s). \cr
+\code{YearDays} \tab returns the total number of days of the given date(s). \cr
+\code{MonthDays} \tab returns the numer of days of the month of the given date(s). \cr
+}
+The language in \code{Weekday()} and \code{Month()} can be set with an option as well. 
+These functions will check for an existing option named \code{"lang"} and take this value 
+if it exists. So simply set \code{option(lang="engl")} if the results should always be reported in English.
 
 }
 \value{a vector of the same dimension as x, consisting of either numeric values or characters depending on the function used.

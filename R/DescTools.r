@@ -4264,7 +4264,7 @@ Abind <- function(..., along=N, rev.along=NULL, new.names=NULL,
 # *********************************** 12.12.2014
 # stack/unstack does exactly that
 
-ToLong <- function (x, varnames = NULL) {
+ToLong <- function (x, varnames = NULL, incl.rownames=FALSE) {
 
   if(!is.list(x)) {
     if(is.matrix(x) || is.table(x))
@@ -4277,14 +4277,20 @@ ToLong <- function (x, varnames = NULL) {
   if(is.null(grpnames)) grpnames <- paste("X", 1:length(lst), sep="")
   res <- data.frame(rep(grpnames, lapply(lst, length)), unlist(lst))
   rownames(res) <- NULL
-  if (is.null(varnames))
-    varnames <- c("grp", "x")
-
-  colnames(res) <- varnames
   if(!is.null(rownames(x)))
     rownames(res) <- do.call(paste, c(expand.grid(rownames(x), grpnames), sep="."))
 
+  if(incl.rownames)
+    res <- Append(res, rep(rownames(x), times=ncol(x)), 
+                  after = 2)
+  
+  if (is.null(varnames))
+    varnames <- c("grp", "x", "rowname")
+
+  colnames(res) <- varnames[seq(ncol(res))]
+  
   return(res)
+  
 }
 
 

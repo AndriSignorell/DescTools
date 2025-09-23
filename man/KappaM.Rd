@@ -2,7 +2,10 @@
 \alias{KappaM}
 \title{Kappa for m Raters}
 \description{
-Computes kappa as an index of interrater agreement between m raters on categorical data.
+Computes Fleiss’ kappa, which quantifies agreement among m≥2 raters 
+on categorical items by contrasting the mean observed 
+agreement with the chance agreement implied by the overall 
+category proportions. It equals Scott’s pi when m=2 (but not Cohen’s kappa).
 }
 \usage{
 KappaM(x, method = c("Fleiss", "Conger", "Light"), conf.level = NA)
@@ -16,10 +19,22 @@ KappaM(x, method = c("Fleiss", "Conger", "Light"), conf.level = NA)
 
 \details{
 Missing data are omitted in a listwise way.\cr
-The coefficient described by Fleiss (1971) does not reduce to Cohen's Kappa (unweighted) for m=2 raters. Therefore, the exact Kappa coefficient, which is slightly higher in most cases, was proposed by Conger (1980).\cr
-Light's Kappa equals the average of all possible combinations of bivariate Kappas between raters.\cr
-The confidence levels can only be reported using Fleiss' formulation of Kappa.
-}
+Fleiss’ kappa (Fleiss, 1971) is a multi-rater 
+agreement coefficient that generalises 
+Scott’s pi (Scott, 1955) to m raters by basing chance agreement on the average 
+category proportions across raters. For m = 2 it equals Scott’s pi 
+(not Cohen’s kappa). Cohen’s kappa, by contrast, is defined for 
+two raters and computes chance agreement from each rater’s own 
+marginal distribution; it can also be extended with weights for 
+ordinal scales (weighted Cohen’s kappa). Light’s kappa (Light, 1971) 
+is simply 
+the unweighted mean of all pairwise Cohen kappas among multiple 
+raters, whereas Conger’s kappa (Conger, 1980) is a principled multi-rater generalisation
+that reduces exactly to Cohen’s kappa when m = 2.\cr 
+Standard errors and Wald-type confidence intervals are 
+available for all of these coefficients (Cohen, Scott, Fleiss, Conger); 
+bootstrap intervals are a practical alternative when 
+assumptions are doubtful. }
 \value{
 a single numeric value if no confidence intervals are requested,\cr
 and otherwise a numeric vector with 3 elements for the estimate, the lower and the upper confidence interval
@@ -32,8 +47,12 @@ Fleiss, J.L. (1971): Measuring nominal scale agreement among many raters \emph{P
 
 Fleiss, J.L., Levin, B., & Paik, M.C. (2003): \emph{Statistical Methods for Rates and Proportions}, 3rd Edition. New York: John Wiley & Sons
 
-Light, R.J. (1971): Measures of response agreement for qualitative data: Some generalizations and alternatives. \emph{Psychological Bulletin}, 76, 365-377.
+Light, R.J. (1971): Measures of response agreement for qualitative 
+data: Some generalizations and alternatives. 
+\emph{Psychological Bulletin}, 76, 365-377.
 
+Scott, W.A. (1955). Reliability of content analysis: the case of 
+nominal scale coding. \emph{Public Opinion Quarterly}, XIX, 321-325. 
 }
 
 \note{ This function was previously published as \code{kappam.fleiss()} in the  \pkg{irr} package and has been integrated here with some changes in the interface.
@@ -65,3 +84,4 @@ KappaM(statement, conf.level=0.95)   # Fleiss' Kappa and confidence intervals
 KappaM(statement, method="Light")   # Exact Kappa
 }
 \keyword{multivar}
+\concept{ irr }
