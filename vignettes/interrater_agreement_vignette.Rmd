@@ -1,0 +1,139 @@
+---
+title: "Interrater Agreement"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Interrater Agreement}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Introduction
+In many research and applied settings, several raters evaluate the same subjects.  
+To assess the reliability of these ratings, different indices and tests of **interrater agreement** and **reliability** are available.  
+
+This package provides functions that work either on **rater matrices** (containing the raw ratings per subject and rater) or on **coincidence matrices** (containing the frequency of agreement/disagreement across raters).
+
+# Data Structures
+
+## Rater Matrix
+A rater matrix contains one row per subject and one column per rater.
+
+```{r}
+anxiety <- data.frame(
+  rater1 = c(3,3,3,4,5,5,2),
+  rater2 = c(3,6,4,6,2,4,2),
+  rater3 = c(2,1,4,4,3,2,1)
+)
+anxiety
+```
+
+## Long Format
+Data are often available in long format. These can be converted with `RaterFrame()`.
+
+```{r}
+d.long <- reshape(anxiety,
+                  varying = 1:3,
+                  idvar   = c("subj"),
+                  times   = colnames(anxiety),
+                  v.names = "rating",
+                  timevar = "rater",
+                  direction = "long",
+                  new.row.names = seq(prod(dim(anxiety))))
+
+head(d.long)
+
+rmat <- RaterFrame(rating ~ subj | rater, data = d.long)
+rmat
+```
+
+## Coincidence Matrix
+A coincidence matrix summarizes the frequency of paired ratings across categories.  
+Some agreement measures are defined only on this structure.
+
+## Note on Unused Factor Levels
+It may happen that the rating variable is defined as a **factor** with more categories than actually appear in the data.  
+For example:
+
+```{r}
+d.long$rating <- factor(d.long$rating, levels = 1:7)
+levels(d.long$rating)
+table(d.long$rating)
+```
+
+Here, some factor levels are defined (e.g. `7`) but not used by any rater.  
+When computing the coincidence matrix, this results in a row/column of zeros:
+
+- In the **data frame**, the variable still keeps the unused level.  
+- In the **coincidence matrix**, the corresponding row/column will contain only zeros.  
+
+This behavior is consistent and sometimes desirable (e.g. when comparing across datasets with different observed categories).  
+If unused levels are not intended, they can be removed with:
+
+```{r}
+d.long$rating <- droplevels(d.long$rating)
+```
+
+# Missing Values
+Missing ratings are common when not all raters evaluate all subjects. Typical strategies:
+
+- **Listwise deletion**: drop subjects with any missing value.  
+- **Pairwise deletion**: use available rater pairs for each statistic (recommended default).  
+- **Imputation**: rarely advisable in reliability analyses.  
+
+Default recommendation: **pairwise deletion**.
+
+# Agreement Measures
+
+## Two raters
+- **Cohen’s Kappa (`CohenKappa`)**  
+  + Established, chance-corrected agreement  
+  – Sensitive to marginal imbalances (“Kappa paradox”)  
+
+- **PABAK (`PABAK`)**  
+  + Adjusts for prevalence and bias effects  
+  – Less commonly reported  
+
+- **Concordance Correlation Coefficient (`CCC`)**  
+  + For metric data, combines correlation and mean agreement  
+  – Not suitable for categorical scales  
+
+## Multiple raters
+- **Fleiss’ Kappa (`KappaM`)** – generalization of Cohen’s Kappa  
+- **Randolph’s Kappa (`Randolph`)** – free-marginal version, independent of fixed marginals  
+- **Krippendorff’s Alpha (`KrippAlpha`)** – highly flexible, supports different scales and missing data  
+- **Gwet’s AC1/AC2 (`GwetAC1`, `GwetAC2`)** – more stable than Kappa under prevalence/bias  
+- **Kendall’s W (`KendallW`)** – rank concordance  
+- **Intraclass Correlation (`ICC`)** – for metric data, multiple model types (absolute agreement vs. consistency)  
+- **Cronbach’s Alpha (`CronbachAlpha`)** – internal consistency, can be interpreted as rater reliability  
+
+# Tests for Rater Differences
+These procedures test for **systematic differences** rather than overall agreement:
+
+- **`friedman.test`** – nonparametric ranks, >2 raters  
+- **`quade.test`** – Friedman with covariate weighting  
+- **`PageTest`** – ordered alternatives in ranks  
+- **`CochranQTest`** – binary data, multiple raters  
+- **`StuartMaxwellTest`, `BhapkarTest`** – marginal symmetry tests for categorical paired data  
+
+# Example
+
+```{r}
+# Cohen’s Kappa (two raters)
+CohenKappa(anxiety[,1:2])
+
+# Fleiss’ Kappa (all three raters)
+KappaM(rmat)
+
+# Krippendorff’s Alpha
+KrippAlpha(rmat)
+
+# Kendall’s W
+KendallW(rmat)
+```

@@ -12544,7 +12544,8 @@ ToWrd.matrix <- function(x, font=NULL, main = NULL, ..., wrd = DescToolsOptions(
 
 ToWrd.Freq <- function(x, font=NULL, main = NULL, ..., wrd = DescToolsOptions("lastWord")){
 
-  x[,c(3,5)] <- sapply(round(x[,c(3,5)], 3), Format, digits=3)
+  x[, c(2,4)] <- sapply(round(x[, c(2,4)], 3), Format, fmt=Fmt("abs"))
+  x[, c(3,5)] <- sapply(round(x[, c(3,5)], 3), Format, fmt=Fmt("per"))
 
   res <- ToWrd.data.frame(x=x, main=main, font=font, wrd=wrd)
 
@@ -13476,8 +13477,8 @@ Phrase <- function(x, g, glabels=NULL, xname=NULL, unit=NULL, lang="engl", na.rm
     unit <- ""
 
   if(lang=="engl"){
-    txt1 <- "The entire group consists of a total of %s elements. Of these, %s are %s (%s, mean %s %s %s) and %s %s (%s, mean %s %s %s).\n"
-    txt2 <- "The difference is significant (t-test, p = %s) and is %s %s [%s, %s] (95%s CI)."
+    txt1 <- "The entire sample consists of a total of %s elements. Of these, %s are in group %s (%s, mean %s %s %s) and %s in group %s (%s, mean %s %s %s).\n"
+    txt2 <- "The difference is significant (t-test, p = %s) and amounts to %s %s [%s, %s] (95%s CI)."
     txt3 <- "The difference is not significant.\n"
 
   } else {

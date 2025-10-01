@@ -4719,7 +4719,6 @@ CutAge <- function(x, breaks=c(seq(from=0, to=90, by=10), Inf),
 }
 
 
-
 Generation <- function(year){
   
   # Babyboomer   (1946-1964)
@@ -4817,6 +4816,42 @@ CutQ <- function(x, breaks=quantile(x, seq(0, 1, by=0.25), na.rm=TRUE),
 
 
 
+cut.integer <- function(x, breaks, labels = NULL, include.lowest = FALSE, right = TRUE, 
+                        ordered_result = FALSE, ...){
+  
+  # labels are constructed using "(a,b]" interval notation in cut.default, 
+  # which is perfectly fine for numeric variables, but not well suited for 
+  # integers, for which an explicit formulation is more appropriate
+  
+  
+  .FmInf <- function(x){
+    x[!is.finite(x)] <- ".."
+    return(x)
+  }
+  
+  if(is.null(labels)){
+    from <- head(breaks, -1)
+    to <- breaks[-1]
+    
+    if(right)
+      labels <- paste(.FmInf(from + 1), .FmInf(to), sep="-")
+    else
+      labels <- paste(.FmInf(from), .FmInf(to - 1), sep="-")
+    
+  }
+  
+  res <- cut.default(x=x, breaks=breaks, labels=labels, include.lowest=include.lowest,
+                     right=right, ordered_result=ordered_result, ...)
+  
+  return(res)  
+  
+} 
+
+
+
+
+
+
 # Phi-Koeff
 Phi  <- function (x, y = NULL, ...) {
   if(!is.null(y)) x <- table(x, y, ...)
@@ -4835,9 +4870,12 @@ Phi  <- function (x, y = NULL, ...) {
 
 # Kontingenz-Koeffizient
 ContCoef <- function(x, y = NULL, correct = FALSE, ...) {
+  
   if(!is.null(y)) x <- table(x, y, ...)
+  
   chisq <- suppressWarnings(chisq.test(x, correct = FALSE)$statistic)
   cc <- as.numeric( sqrt( chisq / ( chisq + sum(x)) ))
+  
   if(correct) {  # Sakoda's adjusted Pearson's C
     k <- min(nrow(x),ncol(x))
     cc <- cc/sqrt((k-1)/k)
@@ -5054,7 +5092,7 @@ TschuprowT <- function(x, y = NULL, correct = FALSE, ...){
   
   if(correct) {
     # Bergsma, W, A bias-correction for Cramer's V and Tschuprow's T
-    # September 2013Journal of the Korean Statistical Society 42(3)
+    # September 2013 Journal of the Korean Statistical Society 42(3)
     # DOI: 10.1016/j.jkss.2012.10.002
     # see also CramerV
     

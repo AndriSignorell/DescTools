@@ -2,7 +2,7 @@
 % Please edit documentation in R/IsConfusionTable.R
 \name{IsConfusionTable}
 \alias{IsConfusionTable}
-\title{Detect whether an object looks like a confusion/coincidence matrix}
+\title{Detect Whether an Object Looks Like a Confusion/Coincidence Matrix}
 \usage{
 IsConfusionTable(
   x,
@@ -37,7 +37,7 @@ otherwise \code{FALSE}.
 }
 \description{
 Checks if \code{x} behaves like a rater-by-rater contingency table:
-square 2D numeric counts (or, optionally, proportions), non-negative,
+square 2D numeric (integer-like) counts (or, optionally, proportions), non-negative,
 finite, and (optionally) with matching row/column names.
 }
 \examples{

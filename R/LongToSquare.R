@@ -80,12 +80,14 @@
 
 RaterFrame <- function(formula, data, subset, na.action){
 
-    # Attention: This does not work as subset is evaluate here, leading to:
-    # Error in `[.default`(xj, i) : invalid subscript type 'closure'
     # m <- .LongToSquare(formula, data, subset, na.action, ...)
-    
+  
+    # *** Attention !!! ***: 
+    # Above code does not work as subset is evaluated here, leading to:
+    #    Error in `[.default`(xj, i) : invalid subscript type 'closure'
     # thus we simply pass the call unevaluated to the next function
     cl <- match.call(expand.dots = FALSE)
+    
     # cl[[1L]] <- quote(DescTools:::.LongToSquare) - No ::: allowed for CRAN check!
     cl[[1L]] <- getFromNamespace(".LongToSquare", "DescTools")
     

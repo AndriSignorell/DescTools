@@ -1,9 +1,9 @@
 
 
-#' Detect whether an object looks like a confusion/coincidence matrix
+#' Detect Whether an Object Looks Like a Confusion/Coincidence Matrix
 #'
 #' Checks if \code{x} behaves like a rater-by-rater contingency table:
-#' square 2D numeric counts (or, optionally, proportions), non-negative,
+#' square 2D numeric (integer-like) counts (or, optionally, proportions), non-negative,
 #' finite, and (optionally) with matching row/column names.
 #'
 #' @param x Object to check (typically a \code{table}, \code{matrix}, or
