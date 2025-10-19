@@ -2,33 +2,55 @@
 
 # Percent Agreement (nominal) with designbased SE/CI after Klein/Gwet
 
-Agree <- function(x, conf.level = 0.95, fpc = 0, verbose=0) {
+Agree <- function(x, y = NULL, conf.level = 0.95, fpc = 0, verbose=0) {
   
-  # x: Matrix (subjects x raters); Eintraege = Kategorien (Zahlen/Strings), NAs erlaubt
-  n  <- nrow(x)
+  if(!is.null(y)){
+    x <- NormalizeToConfusion(x, y)
+  } 
   
-  # Itemweise paarweise Uebereinstimmung P_{o,i}
-  poi <- apply(x, 1, function(row) {
-    v <- row[!is.na(row)]
-    m <- length(v)
-    if (m < 2) return(NA_real_)
-    tab <- table(v)
-    sum(tab * (tab - 1)) / (m * (m - 1))
-  })
+  if(IsConfusionTable(x)){
+    
+    n <- sum(x)
+    
+    Po <- (a <- sum(diag(x))) / n
+    ki <- 0
+    var_hat <- (1 - fpc) / (n * (n - 1)) * sum( a * (1-Po)^2 + (n - a) * (0 -Po)^2)
+    
+  } else {
+    
+    if(is.list(x)){
+      x <- as.data.frame(x)
+    }
+    
+    # x: Matrix (subjects x raters); Eintraege = Kategorien (Zahlen/Strings), NAs erlaubt
+    n  <- nrow(x)
+    
+    # Itemweise paarweise Uebereinstimmung P_{o,i}
+    poi <- apply(x, 1, function(row) {
+      v <- row[!is.na(row)]
+      m <- length(v)
+      if (m < 2) return(NA_real_)
+      tab <- table(v)
+      sum(tab * (tab - 1)) / (m * (m - 1))
+    })
+    
+    n0 <- sum(!is.na(poi))
+    Po <- if (n0 > 0) mean(poi, na.rm = TRUE) else NA_real_
   
-  n0 <- sum(!is.na(poi))
-  Po <- if (n0 > 0) mean(poi, na.rm = TRUE) else NA_real_
   
-  # Subjektbeitraege kappa_i (hier = n/n0 * P_{o,i} fuer pairbare; 0 sonst)
-  ki <- rep(0, n)
-  if (n0 > 0) ki[!is.na(poi)] <- (n / n0) * poi[!is.na(poi)]
+    # Subjektbeitraege kappa_i (hier = n/n0 * P_{o,i} fuer pairbare; 0 sonst)
+    ki <- rep(0, n)
+    if (n0 > 0) ki[!is.na(poi)] <- (n / n0) * poi[!is.na(poi)]
+
+    var_hat <- (1 - fpc) / (n * (n - 1)) * sum((ki - Po)^2)
+    
+  }
   
   # SE und CI (designbasiert, df = n-1)
   if (is.na(Po) || n <= 1) {
     se <- NA_real_
     ci <- c(lower = NA_real_, upper = NA_real_)
   } else {
-    var_hat <- (1 - fpc) / (n * (n - 1)) * sum((ki - Po)^2)
     se <- sqrt(var_hat)
     alpha <- 1 - conf.level
     tcrit <- qt(1 - alpha/2, df = n - 1)

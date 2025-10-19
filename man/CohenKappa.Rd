@@ -10,24 +10,17 @@ CohenKappa(x, y, weights = c("Unweighted", "Equal-Spacing", "Fleiss-Cohen"),
            conf.level = NA, ...)
 
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{can either be a numeric vector or a confusion matrix. In the latter case x must be a square matrix.
-%%     ~~Describe \code{x} here~~
-}
- \item{y}{NULL (default) or a vector with compatible dimensions to \code{x}. If \code{y} is provided, \code{table(x, y, \dots)} is calculated. In order to get a square matrix, \code{x} and \code{y} are
- coerced to factors with synchronized levels. (Note, that the vector interface can not be used together with weights.)
-%%     ~~Describe \code{y} here~~
-}
+  \item{x}{can either be a numeric vector or a confusion matrix. In the latter case x must be a square matrix.}
+  
+  \item{y}{\code{NULL} (default) or a vector with compatible dimensions to \code{x}. If \code{y} is provided, \code{table(x, y, \dots)} is calculated. In order to get a square matrix, \code{x} and \code{y} are
+  coerced to factors with synchronized levels. (Note, that the vector interface can not be used together with weights.)}
+  
   \item{weights}{either one out of \code{"Unweighted"} (default), \code{"Equal-Spacing"}, \code{"Fleiss-Cohen"}, which will calculate the weights accordingly, or a user-specified matrix having the same dimensions as x containing the weights for each cell.
-
-%%     ~~Describe \code{weights} here~~
 }
 \item{conf.level}{confidence level of the interval. If set to \code{NA} (which is the default) no confidence intervals will be calculated.
-%%     ~~Describe \code{conf.level} here~~
 }
   \item{\dots}{further arguments are passed to the function \code{\link{table}}, allowing i.e. to set \code{useNA}. This refers only to the vector interface.
-%%     ~~Describe \code{\dots} here~~
 }
 
 }
@@ -38,7 +31,6 @@ The latter attaches greater importance to closer disagreements.\cr
 \cr
 Data can be passed to the function either as matrix or data.frame in \code{x}, or as two numeric vectors \code{x} and \code{y}. In the latter case \code{table(x, y, ...)} is calculated. Thus \code{NA}s are handled the same way as \code{\link{table}} does. Note that tables are by default calculated \bold{without} NAs. The specific argument \code{useNA} can be passed via the ... argument.\cr
 The vector interface \code{(x, y)} is only supported for the calculation of unweighted kappa. This is because we cannot ensure a safe construction of a confusion table for two factors with different levels, which is independent of the order of the levels in \code{x} and \code{y}. So weights might lead to inconsistent results. The function will raise an error in this case.
-%%  ~~ If necessary, more details than the description above ~~
 }
 
 \value{if no confidence intervals are requested:
@@ -136,8 +128,9 @@ d.long <- data.frame(
   rat = factor(c("V","V","V","V","P","V","N","V","V","P","V",
                  "P","V","V","P","V","V","V","V","N")))
 
-CohenKappa(rat ~ subj | rater, d.long, 
-           subset=rater \%in\% c("rtr1","rtr2"), conf.level = 0.95)
+CohenKappa(RaterFrame(rat ~ subj | rater, d.long, 
+                      subset=rater \%in\% c("rtr1","rtr2"))[, -1], 
+           conf.level = 0.95)
 
 }
 

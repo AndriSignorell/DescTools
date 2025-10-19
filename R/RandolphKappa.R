@@ -5,22 +5,19 @@
 #' distributions (i.e., it is free-marginal).
 #'
 #' @name RandolphKappa
-#' @aliases RandolphKappa RandolphKappa.default RandolphKappa.formula
 #'
 #' @param x (Default method) A matrix of size \eqn{N \times m} with subjects in
 #'   rows and raters in columns; cells contain the assigned categories.
-#' @param formula (Formula method) A model formula of the form
-#'   \code{response ~ subject + rater} describing ratings in long format.
-#' @param data (Formula method) A \code{data.frame} containing the variables
-#'   referenced in \code{formula}.
-#' @param subset (Formula method) Optional logical vector or expression to select
-#'   a subset of rows from \code{data}.
-#' @param na.action (Formula method) A function indicating what should happen
-#'   when the data contain \code{NA}s.
-#' @param ... Reserved for future extensions; currently unused.
 #' @param conf.level Numeric confidence level (e.g., \code{0.95}) for bootstrap
 #'   confidence intervals. Currently no interval is computed; passing
 #'   \code{NA} (the default) skips any CI.
+#' @param ... further arguments are passed to the \code{\link[boot]{boot}} function.
+#' Supported arguments are \code{type} (\code{"norm"}, \code{"basic"},
+#' \code{"stud"}, \code{"perc"}, \code{"bca"}), \code{parallel} and the number
+#' of bootstrap replicates \code{R}. If not defined those will be set to their
+#' defaults, being \code{"basic"} for \code{type}, option
+#' \code{"boot.parallel"} (and if that is not set, \code{"no"}) for
+#' \code{parallel} and \code{999} for \code{R}.
 #'
 #' @details
 #' Let \eqn{k} be the number of distinct categories across all ratings,
@@ -63,24 +60,21 @@
 #'   rater   = rep(paste0("r", 1:3), times = 5),
 #'   rating  = c(1,1,1, 2,2,2, 1,2,1, 3,3,3, 2,2,1)
 #' )
-#' RandolphKappa(rating ~ subject + rater, data = df)
+#' RandolphKappa(RaterFrame(rating ~ subject | rater, 
+#'                          data = df, incl.subj=FALSE))
 
-
-#' @export
-RandolphKappa <- function(x, ..., conf.level = NA) UseMethod("RandolphKappa")
 
 
 #' @rdname RandolphKappa
 #' @export
-#' @method RandolphKappa default
-RandolphKappa.default <- function(x, ..., conf.level = NA) {
+RandolphKappa <- function(x, conf.level = NA, ...) {
 
     # x: matrix subjects x raters
     N <- nrow(x)
     m <- ncol(x)
     k <- length(unique(as.vector(x)))
     
-    # pro Subjekt die maximal übereinstimmende Kategorie
+    # the category with the highest agreement for each topic
     agree_per_item <- apply(x, 1, function(row) {
       tab <- table(row)
       max(tab) / m
@@ -93,27 +87,6 @@ RandolphKappa.default <- function(x, ..., conf.level = NA) {
     
     return(kappa)
 
-}
-
-
-#' @rdname RandolphKappa
-#' @export
-#' @method RandolphKappa formula
-
-RandolphKappa.formula <- function(formula, data, subset, na.action,
-# there is only bootstrap    ci_method = c("none", "bootstrap"),
-                                  ..., conf.level = NA) {
-  
-  cl <- match.call(expand.dots = FALSE)
-  cl[[1L]] <- getFromNamespace(".LongToSquare", "DescTools")
-  m <- eval.parent(cl)
-  
-  res <- RandolphKappa.default(m[, -1, drop = FALSE], 
-                               conf.level = conf.level, ...)
-  
-  res$data.name <- attr(m, "data.name")
-  return(res)
-  
 }
 
 

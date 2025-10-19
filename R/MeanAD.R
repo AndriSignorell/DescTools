@@ -3,8 +3,8 @@
 #' Mean Absolute Deviation From a Center Point 
 #' 
 #' Calculates the mean absolute deviation from a center point, typically the
-#' sample mean or the median. %% ~~ A concise (1-5 lines) description of what
-#' the function does. ~~
+#' sample mean or the median. 
+#' 
 #' 
 #' The \code{MeanAD} function calculates the mean absolute deviation from the mean
 #' value (or from another supplied center point) of x, after having removed
@@ -15,7 +15,7 @@
 #' \code{\link{Mean}()} has a weights arguments, too. If a user defined
 #' function is used it must be assured that it has a weights argument. 
 #' 
-#' @param x a vector containing the observations. %% ~~Describe \code{x} here~~
+#' @param x a vector containing the observations.
 #' 
 #' @param weights a numerical vector of weights the same length as \code{x}
 #' giving the weights to use for elements of \code{x}.

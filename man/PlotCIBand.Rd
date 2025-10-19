@@ -79,7 +79,7 @@ PlotCIBand(x, cbind(fit, low, high),
 
 # 2) Add to an existing plot:
 plot(x, fit, type = "n", xlab = "x", ylab = "y")
-PlotCIBand(x, fit, low, high, add = TRUE)
+PlotCIBand(cbind(fit, low, high), add = TRUE)
 
 }
 \seealso{

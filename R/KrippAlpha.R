@@ -14,16 +14,23 @@
 #' @param method Character string specifying the measurement level. 
 #'   One of \code{"nominal"}, \code{"ordinal"}, \code{"interval"}, 
 #'   or \code{"ratio"}.
-#' @param values Optional numeric vector of scale values corresponding 
-#'   to the rating categories (required for \code{"interval"} and 
+#' @param levels Optional vector specifying the set of possible categories, resp. 
+#'  scale values corresponding to the rating categories (required for \code{"interval"} and 
 #'   \code{"ratio"} methods).
-#' @param levels Optional vector specifying the set of possible categories. 
 #'   If \code{NULL}, levels are inferred from the data.
 #' @param raters Optional vector specifying which columns of \code{x} 
 #'   are the raters. If \code{NULL}, all columns are assumed to be raters.
 #' @param conf.level Confidence level for bootstrap confidence intervals 
 #'   of Krippendorff's alpha. If \code{NA} (default), no bootstrap is computed.
 #' @param out One out of \code{c("def", "ext")} for extended results, \code{"def"} is default.
+#' 
+#' @param ... further arguments are passed to the \code{\link[boot]{boot}} function.
+#' Supported arguments are \code{type} (\code{"norm"}, \code{"basic"},
+#' \code{"stud"}, \code{"perc"}, \code{"bca"}), \code{parallel} and the number
+#' of bootstrap replicates \code{R}. If not defined those will be set to their
+#' defaults, being \code{"basic"} for \code{type}, option
+#' \code{"boot.parallel"} (and if that is not set, \code{"no"}) for
+#' \code{parallel} and \code{999} for \code{R}.
 #'
 #' @details
 #' The function constructs the coincidence matrix from the wide-format data 
@@ -68,7 +75,7 @@
 #'   r2 = c(2, 5, 6, 7, 1),
 #'   r3 = c(1, 4, 6, 6, 2)
 #' )
-#' KrippAlpha(dat2, method = "interval", values = 1:7)
+#' KrippAlpha(dat2, method = "interval", levels = 1:7)
 #'
 
 
@@ -83,11 +90,13 @@
 # Krippendorff's alpha from wide data (m raters), using O from above.
 KrippAlpha <- function(x, method = c("nominal","ordinal",
                                   "interval","ratio"),
-                       values = NULL, levels = NULL, 
+                       levels = NULL, 
                        raters = NULL, 
-                       conf.level = NA, out = c("def", "ext")) {
+                       conf.level = NA, out = c("def", "ext"),
+                       ...) {
   
   method <- match.arg(method)
+  out <- match.arg(out)
   
   O <- .CoincidenceFromWide(x, raters = raters, levels = levels)
   
@@ -110,17 +119,18 @@ KrippAlpha <- function(x, method = c("nominal","ordinal",
     diag(delta2) <- 0
     
   } else {
-    if (is.null(values)) values <- seq_len(K)
-    if (length(values) != K) stop("'values' muss Laenge K haben.")
-    values <- as.numeric(values)
+    
+    if (is.null(levels)) levels <- seq_len(K)
+    if (length(levels) != K) stop("'levels' must have length K.")
+    levels <- as.numeric(levels)
     
     if (method == "interval") {
-      D <- outer(values, values, `-`)
+      D <- outer(levels, levels, `-`)
       delta2 <- D * D
       diag(delta2) <- 0
     } else { # ratio
-      S <- outer(values, values, `+`)
-      D <- outer(values, values, `-`)
+      S <- outer(levels, levels, `+`)
+      D <- outer(levels, levels, `-`)
       delta2 <- (D / pmax(S, .Machine$double.eps))^2
       diag(delta2) <- 0
     }
@@ -136,11 +146,11 @@ KrippAlpha <- function(x, method = c("nominal","ordinal",
     calc_alpha <- function(x) 
           KrippAlpha(x, 
              method = method,
-             values = values, levels = levels, 
+             levels = levels, 
              raters = raters, 
              conf.level = NA)
     
-    ci <- BootCI(x = x, FUN = calc_alpha)
+    ci <- BootCI(x = x, FUN = calc_alpha, ...)
     names(ci) <- c("alpha", "lci","uci")
     
   } else {

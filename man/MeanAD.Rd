@@ -7,7 +7,7 @@
 MeanAD(x, weights = NULL, center = Mean, na.rm = FALSE)
 }
 \arguments{
-\item{x}{a vector containing the observations. \%\% ~~Describe \code{x} here~~}
+\item{x}{a vector containing the observations.}
 
 \item{weights}{a numerical vector of weights the same length as \code{x}
 giving the weights to use for elements of \code{x}.}
@@ -24,8 +24,7 @@ Numeric value.
 }
 \description{
 Calculates the mean absolute deviation from a center point, typically the
-sample mean or the median. \%\% ~~ A concise (1-5 lines) description of what
-the function does. ~~
+sample mean or the median.
 }
 \details{
 The \code{MeanAD} function calculates the mean absolute deviation from the mean

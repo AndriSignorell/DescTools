@@ -15,14 +15,38 @@
 
 
 .is_ch_locale <- function() {
-  # sind CH-Einstellungen aktiv?
+  # are CH-settings active?
   any(grepl("_CH|Switzerland", Sys.getlocale()))
 }
 
 .dec_sep <- function() gsub("1", "", format(1.1))
 
-# bigmark <- utils::readRegistry("Control Panel\\International", hive = "HCU")$sThousand
-.thousands_sep <- function() Sys.localeconv()["thousands_sep"]
+
+.thousands_sep <- function(sep="") {
+  
+  # try to get a default thousand's separator
+  
+  Coalesce(
+           # take user's choice first
+           getOption("thousands_sep"), 
+           
+           # if not there, use locale definition in R environment
+           # but treat blank as "not defined"
+           NAIfBlank(Sys.localeconv()["thousands_sep"]),
+           
+           # try to get the system's setting
+           if(Sys.info()[["sysname"]] == "Windows"){
+             utils::readRegistry("Control Panel\\International", hive = "HCU")$sThousand
+             
+           } else {
+             # Sys.info()[["sysname"]] %in% c("Linux", "Darwin")
+             out <- system("locale -k thousands_sep", intern = TRUE)
+             sub(".*=", "", out[1])
+           },
+           
+           # if all else fails, fallback to the given default ""
+           sep)
+}  
 
 
 Styles <- function(){
@@ -32,11 +56,28 @@ Styles <- function(){
 }
 
 
+# # define styles used by reporting functions
+# abs.sty <- Coalesce(
+#                Styles("abs"),
+#                Style(digits=0, big.mark = .thousands_sep))
+# num.sty <- Coalesce(
+#                Styles("num"), 
+#                Style(digits=3, big.mark = .thousands_sep))
+# perc.sty <- Coalesce(
+#                 Styles("perc"),
+#                 Style(fmt="%", digits=1))
+# pval.sty <- Coalesce(
+#                 Styles("pval"),
+#                 Style(fmt="pval", eps=3))
+
+
+
 
 .format.stars <- function(x, 
                           breaks=c(0,0.001,0.01,0.05,0.1,1), 
                           labels=c("***","** ","*  ",".  ","   ")){
-  # format significance stars  ***************************************************
+
+  # format significance stars ***, **, * ... 
   # example: Fm(c(0.3, 0.08, 0.042, 0.001), fmt="*")
   
   res <- as.character(sapply(x, cut, 
@@ -48,12 +89,14 @@ Styles <- function(){
 
 
 .format.pstars <- function(x, eps, digits)
+  # format p-val AND stars
   paste(.format.pval(x, eps, digits), .format.stars(x))
 
 
 
 .format.pval <- function(x, eps, digits=NULL){
-  # format p-values  *********************************************************
+  
+  # format p-values  
   # this is based on original code from format.pval
   
   if(is.null(digits))
@@ -87,6 +130,8 @@ Styles <- function(){
 .format.eng <- function(x, digits = NULL, ldigits = 1
                         , zero.form = NULL, na.form = NULL){
   
+  # engineering format, snap to powers of 10^3
+  
   s <- lapply(strsplit(format(x, scientific=TRUE), "e"), as.numeric)
   y <- unlist(lapply(s, "[[", 1))
   pwr <- unlist(lapply(s, "[", 2))
@@ -100,6 +145,7 @@ Styles <- function(){
   )
   
 }
+
 
 .format.engabb <- function(x, digits = NULL, ldigits = 1
                            , zero.form = NULL, na.form = NULL){
@@ -137,7 +183,7 @@ Style <- function(  name = NULL
                   , label = NULL, ...){
   
   
-  # if a name ist provided, look for the name in the DescTools options
+  # if a name ist provided, look for the name in the options
   if(!is.null(name)){
     
     # get all defined styles in the options, and select the required one
@@ -154,13 +200,18 @@ Style <- function(  name = NULL
   # in a new class <style>
   
   # all function arguments, same arguments as Fm() uses
-  # for default values use: a <- formals(get("Style", pos=1))
+  # (for default values, we would use: a <- formals(get("Style", pos=1)))
+  
+  # so get all arguments from the Style() function
   a <- formalArgs(Style)
+  
   # remove dots name from the list
   a <- a[a %nin% c("name", "label","...")]
+  
   # get the values of all the arguments
   v <- sapply(a, dynGet)
-  # get rid of NULLs and append dots
+  
+  # get rid of NULLs and append dots again
   res <- c(v[!sapply(v, is.null)],
            unlist(match.call(expand.dots=FALSE)$...))    
   
@@ -509,5 +560,6 @@ FmCI <- function(x, template="%s [%s, %s]", ...){
   x <- Fm(x, ...)
   gettextf(template, x[1], x[2], x[3])  
 }
+
 
 

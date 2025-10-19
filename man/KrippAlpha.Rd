@@ -7,11 +7,11 @@
 KrippAlpha(
   x,
   method = c("nominal", "ordinal", "interval", "ratio"),
-  values = NULL,
   levels = NULL,
   raters = NULL,
   conf.level = NA,
-  out = c("def", "ext")
+  out = c("def", "ext"),
+  ...
 )
 }
 \arguments{
@@ -22,11 +22,9 @@ ratings (columns = raters, rows = subjects/items).}
 One of \code{"nominal"}, \code{"ordinal"}, \code{"interval"},
 or \code{"ratio"}.}
 
-\item{values}{Optional numeric vector of scale values corresponding
-to the rating categories (required for \code{"interval"} and
-\code{"ratio"} methods).}
-
-\item{levels}{Optional vector specifying the set of possible categories.
+\item{levels}{Optional vector specifying the set of possible categories, resp.
+scale values corresponding to the rating categories (required for \code{"interval"} and
+\code{"ratio"} methods).
 If \code{NULL}, levels are inferred from the data.}
 
 \item{raters}{Optional vector specifying which columns of \code{x}
@@ -36,6 +34,14 @@ are the raters. If \code{NULL}, all columns are assumed to be raters.}
 of Krippendorff's alpha. If \code{NA} (default), no bootstrap is computed.}
 
 \item{out}{One out of \code{c("def", "ext")} for extended results, \code{"def"} is default.}
+
+\item{...}{further arguments are passed to the \code{\link[boot]{boot}} function.
+Supported arguments are \code{type} (\code{"norm"}, \code{"basic"},
+\code{"stud"}, \code{"perc"}, \code{"bca"}), \code{parallel} and the number
+of bootstrap replicates \code{R}. If not defined those will be set to their
+defaults, being \code{"basic"} for \code{type}, option
+\code{"boot.parallel"} (and if that is not set, \code{"no"}) for
+\code{parallel} and \code{999} for \code{R}.}
 }
 \value{
 A list with elements:
@@ -80,7 +86,7 @@ dat2 <- data.frame(
   r2 = c(2, 5, 6, 7, 1),
   r3 = c(1, 4, 6, 6, 2)
 )
-KrippAlpha(dat2, method = "interval", values = 1:7)
+KrippAlpha(dat2, method = "interval", levels = 1:7)
 
 }
 \references{

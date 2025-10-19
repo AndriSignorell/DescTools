@@ -5,18 +5,12 @@
 \title{Create Table One Describing Baseline Characteristics}
 \usage{
 TOne(
-  x,
-  grp = NA,
-  add.length = TRUE,
-  colnames = NULL,
-  vnames = NULL,
-  total = TRUE,
-  align = "\\\\l",
-  FUN = NULL,
-  TEST = NULL,
+  x, grp = NA, add.length = TRUE,
+  colnames = NULL, vnames = NULL, total = TRUE,
+  align = "\\\\l", FUN = NULL, TEST = NULL,
   intref = "high",
-  fmt = list(abs = Fmt("abs"), num = Fmt("num"), per = Fmt("per"), pval = as.fmt(fmt =
-    "*", na.form = "   "))
+  fmt = list(abs = Fmt("abs"), num = Fmt("num"), per = Fmt("per"), 
+             pval = as.fmt(fmt = "*", na.form = "   "))
 )
 }
 \arguments{
@@ -77,6 +71,7 @@ proportions for categorical variables. In many cases, a comparison is made
 between groups within the framework of the scientific question.
 
 \figure{tone.png}{Table 1}
+
 Creating such a table can be very time consuming and there's a need for a
 flexible function that helps us to solve the task. \code{TOne()} is designed
 to be easily used with sensible defaults, and yet flexible enough to allow
@@ -87,9 +82,13 @@ variables: quantitative (numeric, integer), qualitative (factor, characters)
 and dichotomous variables (the latter having exactly two values or levels).
 Depending on the variable type, the descriptives and the according sensible
 tests are chosen. By default mean/sd are chosen to describe numeric
-variables.  \preformatted{ FUN = function(x) gettextf("%s / %s",
-Format(mean(x, na.rm = TRUE), digits = 1), Format(sd(x, na.rm = TRUE),
-digits = 3)) }
+variables.
+\preformatted{ 
+  FUN = function(x) 
+          gettextf("%s / %s", 
+                   Format(mean(x, na.rm = TRUE), digits = 1), 
+                   Format(sd(x, na.rm = TRUE), digits = 3)) 
+}
 
 Their difference is tested with the Kruskal-Wallis test. For categorical
 variables the absolute and relative frequencies are calculated and tested
@@ -97,11 +96,17 @@ with a chi-square test. \cr The tests can be changed with the argument
 \code{TEST}. These must be organised as list containing elements named
 \code{"num"}, \code{"cat"} and \code{"dich"}. Each of them must be a
 function with arguments \code{(x, g)}, returning something similar to a
-p-value.  \preformatted{ TEST = list( num = list(fun = function(x,
-g){summary(aov(x ~ g))[[1]][1, "Pr(>F)"]}, lbl = "ANOVA"), cat = list(fun =
-function(x, g){chisq.test(table(x, g))$p.val}, lbl = "Chi-Square test"),
-dich = list(fun = function(x, g){fisher.test(table(x, g))$p.val}, lbl =
-"Fisher exact test")) } The legend text of the test, which is appended to
+p-value.
+\preformatted{
+  TEST = list( num = list(fun = function(x, g){
+      summary(aov(x ~ g))[[1]][1, "Pr(>F)"]}, lbl = "ANOVA"), 
+    cat = list(fun = function(x, g){
+      chisq.test(table(x, g))$p.val}, lbl = "Chi-Square test"),
+    dich = list(fun = function(x, g){
+      fisher.test(table(x, g))$p.val}, lbl = "Fisher exact test")
+  ) }
+
+The legend text of the test, which is appended to
 the table together with the significance codes, can be set with the variable
 \code{lbl}.
 
@@ -111,9 +116,17 @@ are used. Deviations from this can be freely passed as arguments to the
 function. Formats can be defined for integers, floating point numbers,
 percentages and for the p-values of statistical tests. All options of the
 function \code{\link{Format}()} are available and can be provided as a list.
-See examples which show several different implementations. \preformatted{
-fmt = list(abs = Fmt("abs"), num = Fmt("num"), per = Fmt("per"), pval =
-as.fmt(fmt = "*", na.form = " ")) }
+See examples which show several different implementations.
+\preformatted{
+  fmt = list(abs  = Fmt("abs"), 
+             num  = Fmt("num"), 
+             per  = Fmt("per"), 
+             pval = as.fmt(fmt = "*", na.form = " ")
+             ) }
+
+Several tables can be appended using \code{\link{Append}()}. This can be useful,
+if e.g. the \code{mean/sd} AND \code{median/IQR} should be displayed together.
+Another use case is to introduce a delimiter row.
 
 The function returns a character matrix as result, which can easily be
 subset or combined with other matrices. An interface for
@@ -223,7 +236,7 @@ ToWrd(
 
 }
 \seealso{
-\code{\link{WrdTable}()}, \code{\link{ToWrd.TOne}()}
+\code{\link{WrdTable}()}, \code{\link{ToWrd.TOne}()}, \code{\link{Append}()}
 }
 \author{
 Andri Signorell \href{mailto:andri@signorell.net}{andri@signorell.net}

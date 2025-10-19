@@ -1,4 +1,10 @@
 
+# News message:
+# * GwetAC1(), GwetAC2(), RandolphKappa() are further rater agreement measures. 
+# * PABAK() returns the Prevalence- And Bias-Adjusted Kappa. 
+
+
+
 # =========================================================
 # PABAK  (2 Rater; optional generalisierte K-Variante)
 # =========================================================
@@ -9,17 +15,28 @@
 #' Berechnet PABAK. Für 2 Rater gilt \code{PABAK = 2*Po - 1}. Optional kann
 #' die generalisierte Mehrkategorien-Form \eqn{(K*Po - 1)/(K - 1)} benutzt
 #' werden; für \eqn{K=2} sind beide identisch.
+#' Calculates PABAK. For 2 raters, PABAK = 2*Po - 1. 
+#' Optionally, the generalised multi-category form can be used; 
+#' for K=2, both are identical.
 #'
-#' @param x (Default) \eqn{n\times m}-Matrix/Dataframe: Zeilen = Subjekte,
-#' Spalten = Rater; Werte = Kategorien (Faktor/Char/Integer), \code{NA} erlaubt.
+#' @param x (Default) \eqn{n\times m}-matrix/data.frame: rows = subjects,
+#' columns = rater; values = categories (factor/char/integer), \code{NA} allowed.
 #' @param y (optional), second vector of ratings
-#' @param formula (Formel) \code{y ~ subj | rater} for long shaped data.
-#' @param data,subset,na.action,... wie üblich; werden an \code{LongToSquare()} übergeben.
-#' @param generalized logical, Standard \code{FALSE}. Wenn \code{TRUE}, wird
-#' die Mehrkategorien-Form \eqn{(K*Po - 1)/(K - 1)} verwendet (für m=2 empfohlen,
-#' wenn \eqn{K>2}).
+#' @param generalized logical, (default \code{FALSE}). If \code{TRUE}, 
+#' the multicategory-form \eqn{(K*Po - 1)/(K - 1)} will be used (recommended for m=2),
+#' if \eqn{K>2}).
+#' @param conf.level Confidence level for bootstrap confidence intervals 
+#'   of Krippendorff's alpha. If \code{NA} (default), no bootstrap is computed.
+#' @param ... further arguments are passed to the \code{\link[boot]{boot}} function.
+#' Supported arguments are \code{type} (\code{"norm"}, \code{"basic"},
+#' \code{"stud"}, \code{"perc"}, \code{"bca"}), \code{parallel} and the number
+#' of bootstrap replicates \code{R}. If not defined those will be set to their
+#' defaults, being \code{"basic"} for \code{type}, option
+#' \code{"boot.parallel"} (and if that is not set, \code{"no"}) for
+#' \code{parallel} and \code{999} for \code{R}.
 #'
-#' @return \code{htest}-Objekt mit \code{statistic = PABAK}, \code{estimate = Po},
+#'
+#' @return \code{htest}-object with \code{statistic = PABAK}, \code{estimate = Po},
 #' \code{parameter = c(subjects, raters)} und \code{method}.
 
 #' @examples
@@ -39,21 +56,21 @@
 #' # most flexible and controllable in long form
 #' d.long <- ToLong(d.frm, incl.rownames = TRUE, 
 #'                  varnames=c("rater","rating","subj"))
-#'                  PABAK(rating ~ subj | rater, data=d.long)
+#'                  
+#' PABAK(RaterFrame(rating ~ subj | rater, 
+#'                  data=d.long, incl.subj=FALSE))
 #'                  
 #' @concept{ ~irr }
 
 
-#' @export
-PABAK <- function(x, ..., generalized = FALSE) UseMethod("PABAK")
-
 
 #' @rdname PABAK
 #' @export
-PABAK.default <- function(x, y=NULL, ..., generalized = FALSE) {
+PABAK <- function(x, y=NULL, generalized = FALSE, 
+                  conf.level=NA, ...) {
   
   
-  m <- .NormalizeToConfusion(x, y)
+  m <- NormalizeToConfusion(x, y)
 
   nc <- ncol(m)
   # if (nc != 2)
@@ -83,23 +100,6 @@ PABAK.default <- function(x, y=NULL, ..., generalized = FALSE) {
   attr(stat, "Po") <- Po
   
   return(stat)
-  
-}
-
-
-#' @rdname PABAK
-#' @export
-PABAK.formula <- function(formula, data, subset, na.action, 
-                          ..., generalized = FALSE) {
-  
-  cl <- match.call(expand.dots = FALSE)
-  cl[[1L]] <- getFromNamespace(".LongToSquare", "DescTools")
-  m <- eval.parent(cl)
-  
-  res <- PABAK.default(m[, -1, drop = FALSE], generalized = generalized)
-  attr(res, "data.name") <- attr(m, "data.name")
-  
-  return(res)  
   
 }
 

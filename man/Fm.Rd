@@ -4,6 +4,7 @@
 \alias{Fm.matrix}
 \alias{Fm.table}
 \alias{Style}
+\alias{Styles}
 
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Format Numbers and Dates
@@ -40,7 +41,8 @@ Style(name = NULL, digits = NULL, sci = NULL, big.mark = NULL,
       ldigits = NULL, zero.form = NULL, na.form = NULL, 
       fmt = NULL, align = NULL, width = NULL, lang = NULL, 
       eps = NULL, outdec = NULL, label = NULL, ...)
-
+      
+Styles()
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -147,6 +149,7 @@ Many report functions (e.g. \code{\link{TOne}()}) in \bold{DescTools} use three 
 
 \code{Style()} is used to access and edit already defined format definitions. It can directly adapt defined properties and returns the format template. \code{Style("num", digits=1, sci=10)} will use the current version of the numeric format and change the digits to 1 and the threshold to switch to scientifc presentation to numbers >1e10 and <1e-10.
 
+\code{Styles()} returns all found style definitions. 
 %% Format templates can be altered using their names. With \code{Style(abs=Style("abs", big.mark=" "))} the format 
 %% template for count values \code{"abs"} will be overwritten with the new values and stored as option for the current session.
 

@@ -47,24 +47,11 @@
 #'   \code{"none"}, \code{"asymptotic"} (delta method), or \code{"bootstrap"}.
 #' @param conf.level Confidence level for the interval (default \code{0.95}).
 #' 
-#' @param out either \code{"def"} or \code{"ext"} defining the set of results. 
-#' If \code{"def"} is selected, only the value of the statistic is 
-#' returned, supplemented with the confidence interval 
-#' if necessary. If the argument is set to \code{"ext"}, an 
-#' extended result set with various intermediate results is returned.
-#' 
 #' @param ... Further arguments are passed to \code{BootCI()}  to control
 #' type and parameters of the bootstrap confidence intervals.
 #'
-#' @return An object of class \code{"htest"} with elements:
-#' \item{statistic}{Named numeric: \code{AC1}.}
-#' \item{estimate}{Named vector with \code{Po} (observed agreement) and
-#'   \code{Pe} (expected agreement).}
-#' \item{parameter}{Named vector with \code{subjects} and \code{raters.eff}
-#'   (average number of valid ratings per subject).}
-#' \item{conf.int}{Confidence interval for AC1 if requested.}
-#' \item{method}{Method string.}
-#' \item{data.name}{Description of the data.}
+#' @return Named vector with est, lci and uci if confidence interval for AC1 if requested,
+#' estimate only if not.
 #'
 #' @examples
 #' # Wide example (5 subjects x 4 raters), nominal categories V/N/P:
@@ -83,7 +70,8 @@
 #'
 #' # Formula interface (long data):
 #' # AC1(y ~ id | rater)
-#' GwetAC1(RaterFrame(rat ~ subj | rater, data = d.long), ci = "asymptotic")
+#' GwetAC1(RaterFrame(rat ~ subj | rater, data = d.long, incl.subj=FALSE), 
+#'         ci = "asymptotic")
 #'
 #' # Default interface (matrix/data.frame):
 #' m <- as.matrix(d.ratings[,-1])
@@ -99,89 +87,162 @@
 
 #' @rdname GwetAC1
 #' @export
-GwetAC1 <- function(x, y = NULL,
-                   conf.level = 0.95,
-                   ci.type = c("asymptotic","bootstrap"),
-                   out = c("def", "ext"), ...) {
-  
-  m <- .NormalizeToConfusion(x, y)
-  
-  res <- .GwetAC1(m, conf.level=conf.level) 
-  
-  if(match.arg(ci.type) == "bootstrap"){
-    ci <- BootCI(x,y, 
-                 FUN=function(x,y) GwetAC1(x, y, 
-                                          conf.level = NA), 
-                 ...)
-    
-    res[["ci"]] <- ci
-  }
 
-  if(out == "def"){
-    if(!is.na(conf.level)) {
-      res <- SetNames(unlist(c(res["ac1"], res["ci"])), names=c("est","lci","uci"))
-    } else {
-      res <- res["ac1"]
+GwetAC1 <- function (x, y = NULL, 
+                     conf.level = NA, 
+                     ci.type = c("asymptotic","bootstrap"), ...) {
+  
+  if(!is.null(y)){
+    x <- NormalizeToConfusion(x, y)
+  } 
+  
+  if(IsConfusionTable(x)){
+    
+    # still to do .....
+    return(NA)
+    
+  } else {
+    
+    if (is.matrix(x)) x <- as.data.frame(x)
+    
+    # Harmonise all levels over alle columns
+    all_levels <- sort(unique(unlist(lapply(x, as.character))))
+    x[] <- lapply(x, function(x) factor(as.character(x), levels = all_levels))
+    
+    n <- nrow(x)
+    m <- ncol(x)
+    k <- length(all_levels)
+    
+    # Absolute frequencies per object & category
+    nij <- matrix(0, n, k)
+    for (i in 1:n) {
+      for (j in 1:k) {
+        nij[i, j] <- sum(x[i, ] == all_levels[j])
+      }
     }
-  } else {
-    # res is what comes back from .GwetAC
-  }
     
-  return (res)
-}
+    # P_i for each object
+    P_i <- rowSums(nij * (nij - 1)) / (m * (m - 1))
+    P_a <- mean(P_i)
+    
+    # Marginal probs p_j
+    p_j <- colMeans(nij / m)
+    P_e <- 1 / (k - 1) * sum(p_j * (1 - p_j))
+    
+    # Gwet’s AC1-estimat
+    AC1 <- (P_a - P_e) / (1 - P_e)
+    
+    # Variance & SE & 95%-CI
+    v <- sum((P_i - P_a)^2) / (n * (n - 1))
+    se <- sqrt(v / (1 - P_e)^2)
 
-
-.GwetAC1 <- function(m, conf.level=NULL){
-  
-  # counts -> proportions
-  n <- sum(m)
-  if (!is.finite(n) || n <= 0) stop("Non-positive total.")
-  P <- m / n
-  k <- nrow(P)
-  
-  # observed agreement
-  Po <- sum(diag(P))
-  
-  # margins and e_i
-  pi_dot  <- rowSums(P)
-  p_dot_i <- colSums(P)
-  e <- (pi_dot + p_dot_i) / 2
-  
-  # Pe for AC1
-  Pe <- sum(e * (1 - e) / (k - 1))
-  
-  # handle degenerate case
-  if (abs(1 - Pe) < .Machine$double.eps^0.5) {
-    ac1 <- NA_real_
-    se  <- NA_real_
-    ci  <- c(NA_real_, NA_real_)
-    return(list(ac1 = ac1, Po = Po, Pe = Pe, se = se, ci = ci, n = n, k = k))
   }
   
-  ac1 <- (Po - Pe) / (1 - Pe)
-  
-  # Variance (SAS PROC FREQ formula)
-  A <- sum(diag(P) * (1 - e) / (k - 1)) - Po * Pe
-  # expand B
-  E_sum <- outer(e, e, function(ei, ej) (1 - (ei + ej)/2)^2)
-  B <- sum(P * (E_sum / (k - 1)^2)) - Pe^2
-  
-  var_ac1 <- (Po * (1 - Po) - 4 * (1 - ac1) * A + 4 * (1 - ac1)^2 * B) /
-    (n * (1 - Pe)^2)
-  var_ac1 <- max(var_ac1, 0)  # numerical guard
-  se <- sqrt(var_ac1)
-  
-  if (is.null(conf.level)) {
-    ci <- c(NA_real_, NA_real_)
+  if (is.na(conf.level)) {
+    res <- AC1
+    
   } else {
-    z <- qnorm(1 - (1 - conf.level)/2)
-    ci <- c(ac1 - z * se, ac1 + z * se)
+    
+    # CI might not be consistent with irrCAC Gwet's results...
+    # not clear how to handle this..
+    # trim ci to -1, 1 (should we do or should we not??)   
+    ci <- AC1 + Winsorize( 
+                  c(1, -1) * qnorm((1 - conf.level)/2) * se, 
+                  val = c(-1,1))
+    res <- c(est = AC1, lci = ci[1], uci = ci[2])
   }
-  
-  list(ac1 = ac1, Po = Po, Pe = Pe, se = se, ci = ci, n = n, k = k)
-  
+
+
 }
 
+
+# 
+# GwetAC1_old <- function(x, y = NULL,
+#                    conf.level = 0.95,
+#                    ci.type = c("asymptotic","bootstrap"),
+#                    out = c("def", "ext"), ...) {
+#   
+#   if(!is.null(y))
+#     m <- NormalizeToConfusion(x, y)
+#   else
+#     m <- x
+#   
+#   res <- .GwetAC1(m, conf.level=conf.level) 
+#   
+#   if(match.arg(ci.type) == "bootstrap"){
+#     ci <- BootCI(x,y, 
+#                  FUN=function(x,y) GwetAC1(x, y, 
+#                                           conf.level = NA), 
+#                  ...)
+#     
+#     res[["ci"]] <- ci
+#   }
+# 
+#   if(out == "def"){
+#     if(!is.na(conf.level)) {
+#       res <- SetNames(unlist(c(res["ac1"], res["ci"])), names=c("est","lci","uci"))
+#     } else {
+#       res <- res["ac1"]
+#     }
+#   } else {
+#     # res is what comes back from .GwetAC
+#   }
+#     
+#   return (res)
+# }
+# 
+# 
+# .GwetAC1 <- function(m, conf.level=NULL){
+#   
+#   # counts -> proportions
+#   n <- sum(m)
+#   if (!is.finite(n) || n <= 0) stop("Non-positive total.")
+#   P <- m / n
+#   k <- nrow(P)
+#   
+#   # observed agreement
+#   Po <- sum(diag(P))
+#   
+#   # margins and e_i
+#   pi_dot  <- rowSums(P)
+#   p_dot_i <- colSums(P)
+#   e <- (pi_dot + p_dot_i) / 2
+#   
+#   # Pe for AC1
+#   Pe <- sum(e * (1 - e) / (k - 1))
+#   
+#   # handle degenerate case
+#   if (abs(1 - Pe) < .Machine$double.eps^0.5) {
+#     ac1 <- NA_real_
+#     se  <- NA_real_
+#     ci  <- c(NA_real_, NA_real_)
+#     return(list(ac1 = ac1, Po = Po, Pe = Pe, se = se, ci = ci, n = n, k = k))
+#   }
+#   
+#   ac1 <- (Po - Pe) / (1 - Pe)
+#   
+#   # Variance (SAS PROC FREQ formula)
+#   A <- sum(diag(P) * (1 - e) / (k - 1)) - Po * Pe
+#   # expand B
+#   E_sum <- outer(e, e, function(ei, ej) (1 - (ei + ej)/2)^2)
+#   B <- sum(P * (E_sum / (k - 1)^2)) - Pe^2
+#   
+#   var_ac1 <- (Po * (1 - Po) - 4 * (1 - ac1) * A + 4 * (1 - ac1)^2 * B) /
+#     (n * (1 - Pe)^2)
+#   var_ac1 <- max(var_ac1, 0)  # numerical guard
+#   se <- sqrt(var_ac1)
+#   
+#   if (is.null(conf.level)) {
+#     ci <- c(NA_real_, NA_real_)
+#   } else {
+#     z <- qnorm(1 - (1 - conf.level)/2)
+#     ci <- c(ac1 - z * se, ac1 + z * se)
+#   }
+#   
+#   list(ac1 = ac1, Po = Po, Pe = Pe, se = se, ci = ci, n = n, k = k)
+#   
+# }
+# 
 
 
 # 

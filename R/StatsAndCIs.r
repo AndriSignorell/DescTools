@@ -5115,7 +5115,8 @@ TschuprowT <- function(x, y = NULL, correct = FALSE, ...){
 # ICC_(ratings, type="ICC3", conf.level=0.95)
 # ICC_(ratings, type="all", conf.level=0.95)
 
-ICC <- function(x, type=c("all", "ICC1","ICC2","ICC3","ICC1k","ICC2k","ICC3k"), conf.level = NA, na.rm = FALSE) {
+ICC <- function(x, type=c("all", "ICC1","ICC2","ICC3","ICC1k","ICC2k","ICC3k"), 
+                conf.level = NA, na.rm = FALSE) {
 
   ratings <- as.matrix(x)
   if(na.rm) ratings <- na.omit(ratings)
@@ -7492,6 +7493,8 @@ print.Assocs <- function(x, digits=4, ...){
 
 ## This is an exact copy from Hmisc
 ## Changes since sent to statlib: improved printing N matrix in print.hoeffd
+
+# https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/procstat/procstat_corr_details07.htm
 
 HoeffD <- function(x, y) {
 

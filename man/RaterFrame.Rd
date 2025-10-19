@@ -7,7 +7,7 @@ with the subjects in rows and the raters in columns as base structure for
 IRA functions.
 }
 \usage{
-RaterFrame(formula, data, subset, na.action)
+RaterFrame(formula, data, subset, na.action, incl.subj = TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -15,9 +15,16 @@ RaterFrame(formula, data, subset, na.action)
   \item{data}{ the data }
   \item{subset}{ potential subset}
   \item{na.action}{what should happen with missings}
+  \item{incl.subj}{logical, should the subject column be included (default \code{TRUE}) }
 }
-\details{Here the details
+\details{Assessments made by raters are typically—and appropriately—stored 
+and organized in databases. Data originating from databases are usually in 
+long format. Converting this long format into a wide format suitable for 
+analysis is a complex task. The present function supports this process by 
+converting long-format data into a wide format that can be used by subsequent 
+inter-rater agreement functions. Missing values are marked as \code{NAs}.
 }
+
 \value{a data.frame containing structured data}
 \author{Andri Signorell <andri@signorell.net>}
 
@@ -38,5 +45,8 @@ RaterFrame(rating ~ subj | rater, d.long[-c(3, 6), ])
 
 RaterFrame(rating ~ subj | rater, d.long[-c(3, 6), ], 
            na.action=na.omit)
+           
+# omit the subject column
+RaterFrame(rating ~ subj | rater, d.long, incl.subj=FALSE)
 }
 \concept{ ~irr }

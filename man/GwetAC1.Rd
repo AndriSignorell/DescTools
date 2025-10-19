@@ -7,9 +7,8 @@
 GwetAC1(
   x,
   y = NULL,
-  conf.level = 0.95,
+  conf.level = NA,
   ci.type = c("asymptotic", "bootstrap"),
-  out = c("def", "ext"),
   ...
 )
 }
@@ -27,25 +26,12 @@ nominal categories (factor, character, or integers); \code{NA} allowed.}
 \item{ci.type}{Type of confidence interval: one of
 \code{"none"}, \code{"asymptotic"} (delta method), or \code{"bootstrap"}.}
 
-\item{out}{either \code{"def"} or \code{"ext"} defining the set of results.
-If \code{"def"} is selected, only the value of the statistic is
-returned, supplemented with the confidence interval
-if necessary. If the argument is set to \code{"ext"}, an
-extended result set with various intermediate results is returned.}
-
 \item{...}{Further arguments are passed to \code{BootCI()}  to control
 type and parameters of the bootstrap confidence intervals.}
 }
 \value{
-An object of class \code{"htest"} with elements:
-\item{statistic}{Named numeric: \code{AC1}.}
-\item{estimate}{Named vector with \code{Po} (observed agreement) and
-\code{Pe} (expected agreement).}
-\item{parameter}{Named vector with \code{subjects} and \code{raters.eff}
-(average number of valid ratings per subject).}
-\item{conf.int}{Confidence interval for AC1 if requested.}
-\item{method}{Method string.}
-\item{data.name}{Description of the data.}
+Named vector with est, lci and uci if confidence interval for AC1 if requested,
+estimate only if not.
 }
 \description{
 Computes Gwet's AC1 agreement coefficient for \emph{m >= 2} raters
@@ -98,7 +84,8 @@ d.long <- reshape(d.ratings, varying=2:5, idvar="subj",
 
 # Formula interface (long data):
 # AC1(y ~ id | rater)
-GwetAC1(RaterFrame(rat ~ subj | rater, data = d.long), ci = "asymptotic")
+GwetAC1(RaterFrame(rat ~ subj | rater, data = d.long, incl.subj=FALSE), 
+        ci = "asymptotic")
 
 # Default interface (matrix/data.frame):
 m <- as.matrix(d.ratings[,-1])

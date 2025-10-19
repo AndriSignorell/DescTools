@@ -2,37 +2,25 @@
 % Please edit documentation in R/RandolphKappa.R
 \name{RandolphKappa}
 \alias{RandolphKappa}
-\alias{RandolphKappa.default}
-\alias{RandolphKappa.formula}
 \title{Randolph's Free-Marginal Multirater Kappa}
 \usage{
-RandolphKappa(x, ..., conf.level = NA)
-
-\method{RandolphKappa}{default}(x, ..., conf.level = NA)
-
-\method{RandolphKappa}{formula}(formula, data, subset, na.action, ..., conf.level = NA)
+RandolphKappa(x, conf.level = NA, ...)
 }
 \arguments{
 \item{x}{(Default method) A matrix of size \eqn{N \times m} with subjects in
 rows and raters in columns; cells contain the assigned categories.}
 
-\item{...}{Reserved for future extensions; currently unused.}
-
 \item{conf.level}{Numeric confidence level (e.g., \code{0.95}) for bootstrap
 confidence intervals. Currently no interval is computed; passing
 \code{NA} (the default) skips any CI.}
 
-\item{formula}{(Formula method) A model formula of the form
-\code{response ~ subject + rater} describing ratings in long format.}
-
-\item{data}{(Formula method) A \code{data.frame} containing the variables
-referenced in \code{formula}.}
-
-\item{subset}{(Formula method) Optional logical vector or expression to select
-a subset of rows from \code{data}.}
-
-\item{na.action}{(Formula method) A function indicating what should happen
-when the data contain \code{NA}s.}
+\item{...}{further arguments are passed to the \code{\link[boot]{boot}} function.
+Supported arguments are \code{type} (\code{"norm"}, \code{"basic"},
+\code{"stud"}, \code{"perc"}, \code{"bca"}), \code{parallel} and the number
+of bootstrap replicates \code{R}. If not defined those will be set to their
+defaults, being \code{"basic"} for \code{type}, option
+\code{"boot.parallel"} (and if that is not set, \code{"no"}) for
+\code{parallel} and \code{999} for \code{R}.}
 }
 \value{
 A numeric scalar: the value of Randolph's kappa.
@@ -74,7 +62,8 @@ df <- data.frame(
   rater   = rep(paste0("r", 1:3), times = 5),
   rating  = c(1,1,1, 2,2,2, 1,2,1, 3,3,3, 2,2,1)
 )
-RandolphKappa(rating ~ subject + rater, data = df)
+RandolphKappa(RaterFrame(rating ~ subject | rater, 
+                         data = df, incl.subj=FALSE))
 }
 \references{
 Randolph, J. J. (2005). Free-Marginal Multirater Kappa (multirater \eqn{\kappa_{\mathrm{free}}}):

@@ -78,7 +78,7 @@
 }
 
 
-RaterFrame <- function(formula, data, subset, na.action){
+RaterFrame <- function(formula, data, subset, na.action, incl.subj=TRUE){
 
     # m <- .LongToSquare(formula, data, subset, na.action, ...)
   
@@ -87,11 +87,14 @@ RaterFrame <- function(formula, data, subset, na.action){
     #    Error in `[.default`(xj, i) : invalid subscript type 'closure'
     # thus we simply pass the call unevaluated to the next function
     cl <- match.call(expand.dots = FALSE)
+    cl$incl.subj <- NULL
     
     # cl[[1L]] <- quote(DescTools:::.LongToSquare) - No ::: allowed for CRAN check!
     cl[[1L]] <- getFromNamespace(".LongToSquare", "DescTools")
     
     m <- eval.parent(cl)
+    if(!incl.subj) m <- m[, -1]
+    
     class(m) <- c("raterframe", class(m))
     
     return(m)

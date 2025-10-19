@@ -13,26 +13,13 @@ CohenKappa <- function (x, y = NULL,
   if (is.character(weights)) 
     weights <- match.arg(weights)
   
-  if (!is.null(y)) {
+  if (!is.null(y) & !identical(weights, "Unweighted")) {
     # we can not ensure a reliable weighted kappa for 2 factors with different levels
     # so refuse trying it... (unweighted is no problem)
-    
-    if (!identical(weights, "Unweighted")) 
-      stop("Vector interface for weighted Kappa is not supported. Provide confusion matrix.")
-    
-    # x and y must have the same levels in order to build a symmetric confusion matrix
-    x <- factor(x)
-    y <- factor(y)
-    lvl <- unique(c(levels(x), levels(y)))
-    x <- factor(x, levels = lvl)
-    y <- factor(y, levels = lvl)
-    x <- table(x, y, ...)
-    
-  } else {
-    d <- dim(x)
-    if (d[1L] != d[2L]) 
-      stop("x must be square matrix if provided as confusion matrix")
+    stop("Vector interface for weighted Kappa is not supported. Provide confusion matrix.")
   }
+  
+  x <- NormalizeToConfusion(x=x, y=y, ...)
   
   d <- diag(x)
   n <- sum(x)
@@ -45,12 +32,13 @@ CohenKappa <- function (x, y = NULL,
   }
   
   std <- function(p, pc, k, W = diag(1, ncol = nc, nrow = nc)) {
-    sqrt((sum(p * sweep(sweep(W, 1, W %*% colSums(p) * (1 - k)), 
-                        2, W %*% rowSums(p) * (1 - k))^2) - 
-            (k - pc * (1 - k))^2) / crossprod(1 - pc)/n)
-  }
+              sqrt((sum(p * sweep(sweep(W, 1, W %*% colSums(p) * (1 - k)), 
+                                  2, W %*% rowSums(p) * (1 - k))^2) - 
+                      (k - pc * (1 - k))^2) / crossprod(1 - pc)/n)
+          }
   
   if(identical(weights, "Unweighted")) {
+    
     po <- sum(d)/n
     pc <- as.vector(crossprod(colFreqs, rowFreqs))
     k <- kappa(po, pc)
@@ -60,11 +48,13 @@ CohenKappa <- function (x, y = NULL,
     
     # some kind of weights defined
     W <- if (is.matrix(weights)) 
-      weights
-    else if (weights == "Equal-Spacing") 
-      1 - abs(outer(1:nc, 1:nc, "-"))/(nc - 1)
-    else # weights == "Fleiss-Cohen"
-      1 - (abs(outer(1:nc, 1:nc, "-"))/(nc - 1))^2
+            weights
+          
+          else if (weights == "Equal-Spacing") 
+            1 - abs(outer(1:nc, 1:nc, "-"))/(nc - 1)
+    
+          else # weights == "Fleiss-Cohen"
+            1 - (abs(outer(1:nc, 1:nc, "-"))/(nc - 1))^2
     
     po <- sum(W * x)/n
     pc <- sum(W * colFreqs %o% rowFreqs)
