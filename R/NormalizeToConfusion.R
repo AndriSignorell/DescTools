@@ -7,13 +7,17 @@
 #' Supported inputs:
 #' \itemize{
 #'   \item \strong{table} (2D): already a confusion table.
-#'   \item \strong{matrix} that looks like a confusion table (square, non-negative, etc.).
-#'   \item \strong{matrix/data.frame} with \eqn{\ge}2 columns and >2 rows: interpreted as raw ratings
-#'         (subjects in rows, raters in columns). If more than two raters are present,
-#'         the pair to use is specified via \code{rater.pair}.
-#'   \item \strong{list} of \eqn{\ge}2 vectors: each element is one rater's ratings.
+#'   \item \strong{matrix} that looks like a confusion table 
+#'      (square, non-negative, etc.).
+#'   \item \strong{matrix/data.frame} with 2 columns and >2 rows: interpreted as raw ratings
+#'         (subjects in rows, raters in columns). 
+#'   \item \strong{list} of 2 vectors: each element is one rater's ratings.
 #'   \item \strong{two vectors} \code{x}, \code{y}: ratings of two raters.
 #' }
+#' 
+#' If you have more than two raters, select the required pair before passing 
+#' the data to the function.
+#'
 #'
 #' @param x Input object (see details).
 #' @param y Optional second vector of ratings (used only if \code{x} is a single vector).
@@ -24,7 +28,7 @@
 #'
 #' @return A square numeric \code{matrix} with dimnames (rows = rater A levels, cols = rater B levels).
 #'
-#' @seealso [IsConfusionTable()], [RaterFrame()]
+#' @seealso [IsConfusionTable()], [RaterFrame()], [PairApply()]
 #' @examples
 #' A <- c("pos","neg","pos","inc")
 #' B <- c("pos","pos","neg","inc")
@@ -60,6 +64,7 @@
 #' # matrix/data.frame with 2 columns (subjects × raters):
 #' NormalizeToConfusion(cbind(x, y))
 #' NormalizeToConfusion(data.frame(x, y))
+#' list with 2 elements (same as vector interface):
 #' NormalizeToConfusion(list(x, y))
 #' 
 #' # table:
@@ -79,11 +84,13 @@
 #'              1, 2, 3, 4, 5, 6, 7)
 #' )
 #' 
-#' # matrix/data.frame with >= 2 columns (subjects × raters):
+#' # matrix/data.frame with 2 columns (subjects × raters):
 #' NormalizeToConfusion(
-#'   RaterFrame(rating ~ subj | rater, 
-#'              d.anxiety, subset=rater %in% c("rater1","rater2"))[, -1]
+#'   RaterFrame(rating ~ subj | rater, data=d.anxiety, 
+#'              subset=rater %in% c("rater1","rater2"), incl.subj=FALSE)
 #' )
+#' 
+
 
 
 

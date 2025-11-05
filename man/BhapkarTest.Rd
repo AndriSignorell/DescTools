@@ -50,7 +50,7 @@ Sun X., Yang Z. (2008) Generalized McNemar's Test for Homogeneity of the Margina
 }
 
 \examples{
-# Source: http://www.john-uebersax.com/stat/mcnemar.htm#stuart
+# Source: https://john-uebersax.com-us.com/stat/mcnemar.htm#bhapkar
 mc <- as.table(matrix(c(20,3,0,10,30,5,5,15,40), nrow=3))
 
 BhapkarTest(mc)

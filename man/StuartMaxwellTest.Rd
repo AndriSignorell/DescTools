@@ -62,7 +62,7 @@ Agresti, A. (2002) \emph{Categorical Data Analysis}. John Wiley & Sons, pp 86 ff
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-# Source: https://www.john-uebersax.com/stat/mcnemar.htm#stuart
+# Source: https://john-uebersax.com-us.com/stat/mcnemar.htm#stuart
 hyp <- as.table(matrix(c(20,3,0,10,30,5,5,15,40), nrow=3))
 StuartMaxwellTest(hyp)
 

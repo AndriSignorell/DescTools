@@ -4,12 +4,16 @@
 \title{Recode a Factor
 %%  ~~function to do ... ~~
 }
-\description{Combining or rearranging a factor can be tedious if it has many levels. \code{Recode} supports this step by
-accepting a direct definition of new levels by enumerating old levelnames as argument and adding an \code{"elselevel"} option. If new levels are given as integer values they will be translated in the according levels.
+\description{Combining or rearranging a factor can be tedious if it has many 
+vels. \code{Recode} supports this step by
+accepting a direct definition of new levels by enumerating old levelnames 
+as argument and adding an \code{"elselevel"} option. If new levels are given as 
+integer values they will be translated in the according levels.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-Recode(x, ..., elselevel = NA, use.empty = FALSE, num = FALSE)
+Recode(x, ..., keep = NULL, elselevel = NA, ref = NULL, 
+       use.empty = FALSE, num = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -20,10 +24,16 @@ Recode(x, ..., elselevel = NA, use.empty = FALSE, num = FALSE)
   \code{newlevel_a=c("old_a", "old_b"), }\cr\code{newlevel_b=c("old_c", "old_d")}\cr See examples.
 %%     ~~Describe \code{newlevels} here~~
 }
+
+\item{keep}{vector of levels that should be left untouched.}
+
   \item{elselevel}{the value for levels, which are not matched by newlevel list.
   If this is set to \code{NULL}, the elselevels will be left unchanged.
   If set to \code{NA} (default) non matched levels will be set to \code{NA}.
-}
+ }
+
+  \item{ref}{the reference level, typically a string.}
+
   \item{use.empty}{logical. Defines how a new level, which can't be found in x, should be handled.  Should it be left in the level's list or be dropped? The default is \code{FALSE},
    which drops empty levels.
 %%     ~~Describe \code{newlevels} here~~
@@ -39,8 +49,8 @@ the factor having the new levels applied.
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{\code{\link{factor}}, \code{\link{levels}}\cr
-There's another solution in the package \bold{car}.
+\seealso{\code{\link{factor}}, \code{\link{levels}}, \code{\link{relevel}}, \code{\link{reorder}}\cr
+There's another solution for this problem in the package \bold{car}.
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
@@ -70,6 +80,15 @@ data.frame(
                       "new_1"   = c("old_4","old_8"),
                       elselevel = "other")
 )         
+
+# keep some levels, collapse others and reset the reference level
+ff <- factor(c("apple","pear","banana","kiwi",
+               "mango","peach","grape","plum"))
+
+Recode(f, 
+        stone=c("peach", "plum"), 
+        keep=c("apple","banana"),
+        elselevel = "other", ref="stone")
 
 
 x <- factor(letters[1:6])

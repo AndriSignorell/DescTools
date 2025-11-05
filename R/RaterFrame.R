@@ -3,7 +3,8 @@
 #> based on a data.frame organized in long form to a square matrix
 #> consisting of rating ~ subject | rater, subjects as rows and 
 #> raters in columns as required in various functions
-#> This is used in all interrater agreement and reliability functions.
+#> This is particularly used in all interrater agreement and 
+#> reliability functions.
 
 
 .LongToSquare <- function(formula, data, subset, na.action){
@@ -80,19 +81,25 @@
 
 RaterFrame <- function(formula, data, subset, na.action, incl.subj=TRUE){
 
-    # m <- .LongToSquare(formula, data, subset, na.action, ...)
   
     # *** Attention !!! ***: 
-    # Above code does not work as subset is evaluated here, leading to:
+    # Following code 
+    #  
+    #   m <- .LongToSquare(formula, data, subset, na.action, ...)
+    # 
+    # does not work as subset is evaluated here, leading to:
     #    Error in `[.default`(xj, i) : invalid subscript type 'closure'
     # thus we simply pass the call unevaluated to the next function
     cl <- match.call(expand.dots = FALSE)
     cl$incl.subj <- NULL
     
-    # cl[[1L]] <- quote(DescTools:::.LongToSquare) - No ::: allowed for CRAN check!
+    # this would work, but ::: are not allowed for CRAN check!
+    # cl[[1L]] <- quote(DescTools:::.LongToSquare) 
     cl[[1L]] <- getFromNamespace(".LongToSquare", "DescTools")
     
     m <- eval.parent(cl)
+    
+    # remove the first column if subject information not required
     if(!incl.subj) m <- m[, -1]
     
     class(m) <- c("raterframe", class(m))

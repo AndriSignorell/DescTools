@@ -2493,15 +2493,17 @@ NALevel <- function(x, level){
 }
 
 
-Recode <- function(x, ..., elselevel=NA, use.empty=FALSE, num=FALSE){
+Recode <- function(x, ..., keep=NULL, elselevel=NA, ref= NULL, 
+                   use.empty=FALSE, num=FALSE){
 
   # if x is character, turn it to factor and reconvert it when finished
   if(xchar <- is.character(x)){
     x <- factor(x)
   }
   
-  newlevels <- list(...)
-
+  # newlevels <- list(...)
+  newlevels <- c(SetNames(keep, names=keep), list(...))
+  
   if( sum(duplicated(unlist(newlevels))) > 0) stop ("newlevels contain non unique values!")
 
   # convert numeric values to according levels if all arguments are passed as numerics
@@ -2526,13 +2528,16 @@ Recode <- function(x, ..., elselevel=NA, use.empty=FALSE, num=FALSE){
   if(any(i <- sapply(lapply(newlevels, is.na), any)))
     x[is.na(x)] <- names(newlevels)[i]
   
+  if(!is.null(ref))
+    x <- relevel(x, ref=ref)
+  
   # x was character, convert to original then
   if(xchar)
     x <- as.character
-  
+
   if(num)
     x <- as.numeric(as.character(x))
-
+  
   return(x)
   
 }

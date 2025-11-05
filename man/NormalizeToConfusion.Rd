@@ -28,13 +28,16 @@ for exactly two raters across \eqn{k} categories.
 Supported inputs:
 \itemize{
 \item \strong{table} (2D): already a confusion table.
-\item \strong{matrix} that looks like a confusion table (square, non-negative, etc.).
-\item \strong{matrix/data.frame} with \eqn{\ge}2 columns and >2 rows: interpreted as raw ratings
-(subjects in rows, raters in columns). If more than two raters are present,
-the pair to use is specified via \code{rater.pair}.
-\item \strong{list} of \eqn{\ge}2 vectors: each element is one rater's ratings.
+\item \strong{matrix} that looks like a confusion table
+(square, non-negative, etc.).
+\item \strong{matrix/data.frame} with 2 columns and >2 rows: interpreted as raw ratings
+(subjects in rows, raters in columns).
+\item \strong{list} of 2 vectors: each element is one rater's ratings.
 \item \strong{two vectors} \code{x}, \code{y}: ratings of two raters.
 }
+
+If you have more than two raters, select the required pair before passing
+the data to the function.
 }
 \examples{
 A <- c("pos","neg","pos","inc")
@@ -71,6 +74,7 @@ NormalizeToConfusion(x, y)
 # matrix/data.frame with 2 columns (subjects × raters):
 NormalizeToConfusion(cbind(x, y))
 NormalizeToConfusion(data.frame(x, y))
+list with 2 elements (same as vector interface):
 NormalizeToConfusion(list(x, y))
 
 # table:
@@ -90,13 +94,14 @@ d.anxiety <- data.frame(
              1, 2, 3, 4, 5, 6, 7)
 )
 
-# matrix/data.frame with >= 2 columns (subjects × raters):
+# matrix/data.frame with 2 columns (subjects × raters):
 NormalizeToConfusion(
-  RaterFrame(rating ~ subj | rater, 
-             d.anxiety, subset=rater \%in\% c("rater1","rater2"))[, -1]
+  RaterFrame(rating ~ subj | rater, data=d.anxiety, 
+             subset=rater \%in\% c("rater1","rater2"), incl.subj=FALSE)
 )
+
 }
 \seealso{
-\code{\link[=IsConfusionTable]{IsConfusionTable()}}, \code{\link[=RaterFrame]{RaterFrame()}}
+\code{\link[=IsConfusionTable]{IsConfusionTable()}}, \code{\link[=RaterFrame]{RaterFrame()}}, \code{\link[=PairApply]{PairApply()}}
 }
 \keyword{internal}

@@ -39,14 +39,17 @@ d.long <- data.frame(
              "1", "2", "3", "4", "5"), 
     rating = c(1, 4, 5, 7, 2, 2, 5, 6, 7, 1, 1, 4, 6, 6, 2))
 
-RaterFrame(rating ~ subj | rater, d.long)
+# default rater frame
+RaterFrame(rating ~ subj | rater, data=d.long)
 
-RaterFrame(rating ~ subj | rater, d.long[-c(3, 6), ])
+# introduce some NAs
+RaterFrame(rating ~ subj | rater, data=d.long[-c(3, 6), ])
 
-RaterFrame(rating ~ subj | rater, d.long[-c(3, 6), ], 
+# omit cases containing NAs
+RaterFrame(rating ~ subj | rater, data=d.long[-c(3, 6), ], 
            na.action=na.omit)
            
 # omit the subject column
-RaterFrame(rating ~ subj | rater, d.long, incl.subj=FALSE)
+RaterFrame(rating ~ subj | rater, data=d.long, incl.subj=FALSE)
 }
 \concept{ ~irr }
