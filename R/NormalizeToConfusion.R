@@ -64,7 +64,7 @@
 #' # matrix/data.frame with 2 columns (subjects × raters):
 #' NormalizeToConfusion(cbind(x, y))
 #' NormalizeToConfusion(data.frame(x, y))
-#' list with 2 elements (same as vector interface):
+#' # list with 2 elements (same as vector interface):
 #' NormalizeToConfusion(list(x, y))
 #' 
 #' # table:

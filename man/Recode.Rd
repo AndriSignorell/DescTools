@@ -85,7 +85,7 @@ data.frame(
 ff <- factor(c("apple","pear","banana","kiwi",
                "mango","peach","grape","plum"))
 
-Recode(f, 
+Recode(ff, 
         stone=c("peach", "plum"), 
         keep=c("apple","banana"),
         elselevel = "other", ref="stone")
