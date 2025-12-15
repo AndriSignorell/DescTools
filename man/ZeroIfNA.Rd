@@ -3,6 +3,7 @@
 \alias{NAIfZero}
 \alias{BlankIfNA}
 \alias{NAIfBlank}
+\alias{NAVal}
 \alias{NAIf}
 \alias{Impute}
 
@@ -10,14 +11,19 @@
 \title{Replace NAs by 0
 %%  ~~function to do ... ~~
 }
-\description{Replace NAs in a numeric vector x with 0. This function has the same logic as the zeroifnull function in SQL. \code{NAIfZero()} does replace zeros with \code{NA}.
-\code{BlankIfNA()} and \code{NAIfBlank()} do the same, but for character vectors.
+\description{\code{ZeroIfNA()} replaces NAs in a numeric vector x with 0. 
+This function has the same logic as the zeroifnull function in SQL. 
+For values other than zero the function \code{NAVal()} can be used, which 
+replaces the NA values by a given value. 
+\code{NAIfZero()} does replace zeros with \code{NA}.
+\code{BlankIfNA()} and \code{NAIfBlank()} do the same, but for character vectors. 
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
 ZeroIfNA(x)
 NAIfZero(x)
 NAIf(x, what)
+NAVal(x, val)
 
 BlankIfNA(x, blank="")
 NAIfBlank(x)

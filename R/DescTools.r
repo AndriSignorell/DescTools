@@ -2533,7 +2533,7 @@ Recode <- function(x, ..., keep=NULL, elselevel=NA, ref= NULL,
   
   # x was character, convert to original then
   if(xchar)
-    x <- as.character
+    x <- as.character(x)
 
   if(num)
     x <- as.numeric(as.character(x))
@@ -2587,8 +2587,14 @@ ZeroIfNA <- function(x) {
   replace(x, is.na(x), 0L)
 }
 
+NAVal <- function(x, val){
+  replace(x, is.na(x), val)
+}
+
+
 NAIfZero <- function(x)
   replace(x, IsZero(x), NA)
+
 
 
 BlankIfNA <- function(x, blank="") {
