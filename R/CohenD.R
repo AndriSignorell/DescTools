@@ -107,8 +107,7 @@
 
 
 
-CohenD <- function(x, y=NULL, 
-                   pooled = TRUE, correct = FALSE, 
+CohenD <- function(x, y=NULL, correct = FALSE, 
                    conf.level = NA, na.rm = FALSE) {
   
   if (na.rm) {
@@ -144,12 +143,7 @@ CohenD <- function(x, y=NULL,
     DF <- nx + ny - 2
     d <- (meanx - meany)
     
-    if(pooled){
-      .sd <- sqrt(((nx - 1) * var(x) + (ny - 1) * var(y)) / DF)
-    } else {
-      .sd <- sd(c(x, y))
-    }
-    
+    .sd <- sqrt(((nx - 1) * var(x) + (ny - 1) * var(y)) / DF)
     d <- d / .sd
     
     #  if(unbiased) d <- d * gamma(DF/2)/(sqrt(DF/2) * gamma((DF - 1)/2))
@@ -184,7 +178,7 @@ CohenD <- function(x, y=NULL,
   
   ## Cohen, J. (1992). A power primer. Psychological Bulletin, 112, 155-159. Crow, E. L. (1991).
   attr(res, "magnitude") <- c("negligible","small","medium","large")[findInterval(abs(d), c(0.2, 0.5, 0.8)) + 1]
-  attr(res, "std") <- .sd
+  attr(res, "sd_pooled") <- .sd
   return(res)
   
 }

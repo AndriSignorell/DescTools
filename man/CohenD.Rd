@@ -5,7 +5,7 @@
 \description{Computes the Cohen's d and Hedges' g effect size statistics. 
 }
 \usage{
-CohenD(x, y = NULL, pooled = TRUE, correct = FALSE, 
+CohenD(x, y = NULL, correct = FALSE, 
        conf.level = NA, na.rm = FALSE)
 }
 \arguments{
@@ -13,13 +13,15 @@ CohenD(x, y = NULL, pooled = TRUE, correct = FALSE,
 }
   \item{y}{a (non-empty) numeric vector of data values.
 }
-  \item{pooled}{logical, indicating whether compute pooled standard deviation or the whole sample standard deviation. Default is TRUE.
+  \item{correct}{logical, indicating whether to apply the 
+  Hedges correction. (Default: \code{FALSE})
 }
-  \item{correct}{logical, indicating whether to apply the Hedges correction. (Default: FALSE)
+  \item{conf.level}{confidence level of the interval. 
+  Set this to \code{NA}, if no 
+  confidence intervals should be calculated. (This is the default) 
 }
-  \item{conf.level}{confidence level of the interval. Set this to NA, if no confidence intervals should be calculated. (This is the default) 
-}
- \item{na.rm}{logical. Should missing values be removed? Defaults to FALSE.
+ \item{na.rm}{logical. Should missing values be removed? 
+ Defaults to \code{FALSE}.
 }
 
 }

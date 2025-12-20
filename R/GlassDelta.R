@@ -50,6 +50,13 @@ GlassDelta <- function(x, y, conf.level=NULL, use_control_sd=TRUE, na.rm=FALSE){
     res <- delta
   }
   return(res)
+  
+  # todo:
+  # attributes like in cohen d
+  
+  # sd_control
+  # for paired designs sd_diff
+  
 }
 
 

@@ -1996,7 +1996,7 @@ SplitPath <- function(path, last.is.file=NULL) {
   lst$dirname <- paste(lst$dirname, "/", sep="")
   lst$fullfilename <- basename(path)
 
-  lst$fullpath <- paste0(BlankIfNA(lst$drive), lst$dirname)
+  lst$fullpath <- paste0(NAVal(lst$drive), lst$dirname)
   
   # lst$filename <- strsplit(lst$fullfilename, "\\.")[[1]][1]
   # lst$extension <- strsplit(lst$fullfilename, "\\.")[[1]][2]
@@ -2022,7 +2022,7 @@ StrSpell <- function(x, upr="CAP", type = c("NATO", "Morse")){
   # example:    Spell("Yailov9teb6i")
 
   type <- match.arg(type)
-  upr <- BlankIfNA(upr)
+  upr <- NAVal(upr)
 
   y <- factor(strsplit(x, "")[[1]], levels = c(LETTERS, letters, 0:9))
 
@@ -2587,7 +2587,8 @@ ZeroIfNA <- function(x) {
   replace(x, is.na(x), 0L)
 }
 
-NAVal <- function(x, val){
+NAVal <- function(x, val=""){
+  # same as NVL() in SQL
   replace(x, is.na(x), val)
 }
 
@@ -2596,11 +2597,12 @@ NAIfZero <- function(x)
   replace(x, IsZero(x), NA)
 
 
-
-BlankIfNA <- function(x, blank="") {
-  #  same as zeroifnull but with characters
-  replace(x, is.na(x), blank)
-}
+# replaced by NAVal 
+#
+# BlankIfNA <- function(x, blank="") {
+#   #  same as zeroifnull but with characters
+#   replace(x, is.na(x), blank)
+# }
 
 
 NAIfBlank <- function(x)
@@ -6109,12 +6111,66 @@ PtInPoly <- function(pnts, poly.pnts)  {
 
 # experimental: formula interface for split
 
-split.formula <- function(x, f, drop = FALSE, data = NULL, ...) {
-  mf <- model.frame(x, data)
-  f <- mf[,2]
-  x <- mf[,1]
-  split(x, f, drop=drop, ...)
+# raw early approach:
+# split.formula <- function(x, f, drop = FALSE, data = NULL, ...) {
+#   mf <- model.frame(x, data)
+#   f <- mf[,2]
+#   x <- mf[,1]
+#   split(x, f, drop=drop, ...)
+# }
+
+
+split.formula <- function(formula, data, subset, na.action, drop=FALSE, ...){
+  
+  if (missing(formula) || (length(formula) != 3L)) 
+    stop("'formula' missing or incorrect")
+  
+  m <- match.call(expand.dots = FALSE)
+  m$formula <- formula
+  if (is.matrix(eval(m$data, parent.frame()))) 
+    m$data <- as.data.frame(data)
+  
+  m[[1L]] <- quote(stats::model.frame)
+  # in order to delete potentially provided tolerance or 
+  # na.rm arguments to be passed later on 
+  # m$... <- NULL  
+  
+  ## >>> IMPORTANT: Treat subset correctly due to collision with 
+  ##                the subset function.
+  if (!missing(subset)) {
+    m$subset <- substitute(subset)  # capture the argument
+  } else {
+    m$subset <- NULL                # remove completely
+  }
+  ## (Optional) na.action pass through unchanged:
+  # if (missing(na.action)) m$na.action <- NULL
+  
+  mf <- eval(m, parent.frame())
+  
+  DNAME <- gettextf("%s by %s (rows)", names(mf)[1], 
+                    paste(names(mf)[-1], collapse=" : "))
+  
+  ff <- mf[, -1]
+  if(ncol(mf[, -1, drop=FALSE]) > 1)
+    ff <- as.list(mf[, -1])
+
+  # now do the split
+  res <- split(x=mf[, 1], f=ff, drop=drop, ...)
+  
+  # add na information
+  if(!missing(na.action)){
+    subj <- res[, names(mf)[2]]
+    res <- na.action(res)
+    # provide the names of omitted subjects
+    attr(attr(res, "na.action"), "values") <- subj[as.numeric(attr(res, "na.action"))]
+  }
+  
+  attr(res, "data.name") <- DNAME
+  attr(res, "")
+  return(res)
+  
 }
+
 
 
 

@@ -13,8 +13,8 @@
 MeanDiffCI(x, ...)
 
 \method{MeanDiffCI}{default}(x, y, method = c("classic", "norm", "basic", "stud", "perc", "bca"),
-           conf.level = 0.95, sides = c("two.sided", "left", "right"), paired = FALSE,
-           na.rm = FALSE, R = 999, ...)
+           conf.level = 0.95, sides = c("two.sided", "left", "right"), 
+           paired = FALSE, var.equal = FALSE, na.rm = FALSE, R = 999, ...)
 
 \method{MeanDiffCI}{formula}(formula, data, subset, na.action, ...)
 
@@ -37,8 +37,15 @@ MeanDiffCI(x, ...)
 }
 \item{sides}{a character string specifying the side of the confidence interval, must be one of \code{"two.sided"} (default), \code{"left"} or \code{"right"}. You can specify just the initial letter. \code{"left"} would be analogue to a hypothesis of \code{"greater"} in a \code{t.test}.}
 
-\item{paired}{a logical indicating whether you want confidence intervals for a paired design. Defaults to \code{FALSE}.}
+\item{paired}{a logical indicating whether you want confidence intervals 
+for a paired design. Defaults to \code{FALSE}.}
 
+\item{var.equal}{a logical variable indicating whether to treat the 
+two variances as being equal. Default is \code{FALSE}. If \code{TRUE} then the pooled variance 
+is used to estimate the variance otherwise the Welch 
+(or Satterthwaite) approximation to the degrees of freedom is used. Passed on to 
+\code{\link{t.test}()}.
+}
   \item{na.rm}{logical. Should missing values be removed? Defaults to \code{FALSE}.
 %%     ~~Describe \code{na.rm} here~~
 }

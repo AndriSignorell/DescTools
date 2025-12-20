@@ -1,42 +1,56 @@
 \name{split.formula}
 \alias{split.formula}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{Formula Interface for Split
-%%  ~~function to do ... ~~
 }
-\description{Implementation of a simple formula interface for the \code{\link{split}} function.
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+\description{Implementation of a simple formula interface for the 
+\code{\link{split}} function. Idea is to split the \code{rhs} 
+of the formula by the \code{lhs}.
 }
 \usage{
-\method{split}{formula} (x, f, drop = FALSE, data = NULL, ...)
+\method{split}{formula} (formula, data, subset, na.action, drop = FALSE, ...)
 
 }
 \arguments{
-%- maybe also 'usage' for other objects documented here.
-  \item{x}{a formula of the form \code{y ~ x}.}
-\item{f}{a 'factor' in the sense that \code{\link{as.factor}(f)} defines the grouping, or a list of such factors in which case their interaction is used for the grouping.}
-\item{drop}{logical indicating if levels that do not occur should be dropped (if \code{f} is a \code{factor} or a list).
-Defaults to FALSE.}
 
-  \item{data}{the data frame from which the formula should
-  be evaluated.}
-
-
-  \item{\dots}{other arguments to be passed to
-  \code{\link{split}}.}
-}
-\author{Andri Signorell <andri@signorell.net>
-%%  ~~who you are~~
+\item{formula}{
+a formula of the form \code{lhs ~ rhs} where \code{lhs} is a
+  variable giving the data values and \code{rhs }
+  defines the grouping, or a list of such factors 
+  in which case their interaction is used for the grouping.
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{\code{\link{split}} 
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\item{data}{
+  an optional matrix or data frame (or similar: see \code{\link{model.frame}}) 
+  containing the variables in the formula. 
+  By default the variables are taken from \code{environment(formula)}.
 }
+
+\item{subset}{	
+an optional vector specifying a subset of observations to be used.
+}
+
+\item{na.action}{
+a function which indicates what should happen when the data contain \code{NA}s.
+}
+
+\item{drop}{logical indicating if levels that do not occur should 
+be dropped (if \code{f} is a \code{factor} or a list).
+Defaults to \code{FALSE}.}
+
+\item{\dots}{other arguments to be passed to \code{\link{split}}.}
+}
+
+\author{Andri Signorell <andri@signorell.net>}
+
+\seealso{\code{\link{split}}  }
 \examples{
 split(extra ~ group, data = sleep)
+
+# more variables are taken as interaction
+split(breaks ~ wool + tension, warpbreaks)
+
+# subset
+split(breaks ~ wool, warpbreaks, subset = tension=="L")
+
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
 \keyword{ category }

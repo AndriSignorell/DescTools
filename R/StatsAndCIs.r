@@ -3848,7 +3848,7 @@ MeanDiffCI.formula <- function (formula, data, subset, na.action, ...) {
 
 MeanDiffCI.default <- function (x, y, method = c("classic", "norm","basic","stud","perc","bca"),
                                 conf.level = 0.95, sides = c("two.sided","left","right"),
-                                paired = FALSE, na.rm = FALSE, R=999, ...) {
+                                paired = FALSE, var.equal=FALSE, na.rm = FALSE, R=999, ...) {
 
   if (na.rm) {
     x <- na.omit(x)
@@ -3861,7 +3861,7 @@ MeanDiffCI.default <- function (x, y, method = c("classic", "norm","basic","stud
 
   method <- match.arg(method, c("classic", "norm","basic","stud","perc","bca"))
   if(method == "classic"){
-    a <- t.test(x, y, conf.level = conf.level, paired = paired)
+    a <- t.test(x, y, conf.level = conf.level, paired = paired, var.equal=var.equal)
     if(paired)
       res <- c(meandiff = mean(x - y), lwr.ci = a$conf.int[1], upr.ci = a$conf.int[2])
     else

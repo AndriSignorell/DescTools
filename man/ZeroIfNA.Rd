@@ -1,66 +1,44 @@
 \name{ZeroIfNA}
 \alias{ZeroIfNA}
 \alias{NAIfZero}
-\alias{BlankIfNA}
 \alias{NAIfBlank}
 \alias{NAVal}
 \alias{NAIf}
 \alias{Impute}
 
-%- Also NEED an '\alias' for EACH other topic documented here.
-\title{Replace NAs by 0
-%%  ~~function to do ... ~~
-}
-\description{\code{ZeroIfNA()} replaces NAs in a numeric vector x with 0. 
-This function has the same logic as the zeroifnull function in SQL. 
+\title{Replacing NAs by Specific Values or Vice Versa}
+
+\description{\code{ZeroIfNA()} replaces \code{NA}s in a numeric vector \code{x} with 0. 
+This function has the same logic as the \code{ZEROIFNULL()} function in SQL. 
 For values other than zero the function \code{NAVal()} can be used, which 
-replaces the NA values by a given value. 
+replaces the \code{NA} values by a given value. 
 \code{NAIfZero()} does replace zeros with \code{NA}.
-\code{BlankIfNA()} and \code{NAIfBlank()} do the same, but for character vectors. 
+\code{NAIfBlank()} does the same, but for character vectors. 
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
 ZeroIfNA(x)
 NAIfZero(x)
 NAIf(x, what)
-NAVal(x, val)
 
-BlankIfNA(x, blank="")
+NAVal(x, val="")
 NAIfBlank(x)
 
 Impute(x, FUN = function(x) median(x, na.rm = TRUE))
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{the vector x, whose NAs should be overwritten with 0s.
-%%     ~~Describe \code{x} here~~
-}
-  \item{blank}{a character to be used for "blank". Default is an empty string ("").
-%%     ~~Describe \code{x} here~~
-}
-\item{what}{a vector of elements to be set to \code{NA} in \code{x}.}
+  \item{x}{the vector x, whose \code{NA}s should be overwritten with 0s.}
+  \item{val}{the value \code{NA}s should be replaced by. Default is an empty string ("").}
+  \item{what}{a vector of elements to be set to \code{NA} in \code{x}.}
   \item{FUN}{the name of a function to be used as imputation. Can as well be a self defined function or a constant value.
-  Default is \code{\link{median}}.
-
-%%     ~~Describe \code{na.rm} here~~
-}
-}
-\value{the edited vector x
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
-}
-\author{Andri Signorell <andri@signorell.net>
-%%  ~~who you are~~
+  Default is \code{\link{median}}.}
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
+\value{the edited vector x}
 
-\seealso{\code{\link{replace}}
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
+\author{Andri Signorell <andri@signorell.net>}
+
+\seealso{\code{\link{replace}} }
 \examples{
 z <- c(8, NA, 9, NA, 3)
 
@@ -77,10 +55,8 @@ Impute(z)
 
 z <- c("a", NA, "", NA, "k")
 
-BlankIfNA(z)
+NAVal(z)
 # [1] "a" "" "" "" "k"
 
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ manip }% __ONLY ONE__ keyword per line
+\keyword{ manip }
