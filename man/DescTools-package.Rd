@@ -99,7 +99,7 @@ A grouped list of the functions:
 \link{VecRot}, \link{VecShift}  \tab  Shift the elements of a vector in a circular mode to the right \cr
 \tab or to the left by n characters.     \cr
 \link{Clockwise}       \tab      Transform angles from counter clock into clockwise mode \cr
-\link{split.formula}       \tab      A formula interface for the base function split \cr
+\link{Split}       \tab      A formula interface for the base function split \cr
 \link{reorder.factor}       \tab      Reorder the levels of a factor \cr
 \link{ToLong}, \link{ToWide}     \tab Simple reshaping of a vector \cr
 \link{SetNames}       \tab      Set the names, rownames or columnnames in an object and return it\cr

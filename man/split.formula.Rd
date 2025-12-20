@@ -1,16 +1,26 @@
-\name{split.formula}
-\alias{split.formula}
-\title{Formula Interface for Split
-}
-\description{Implementation of a simple formula interface for the 
-\code{\link{split}} function. Idea is to split the \code{rhs} 
-of the formula by the \code{lhs}.
-}
-\usage{
-\method{split}{formula} (formula, data, subset, na.action, drop = FALSE, ...)
 
+\name{Split}
+\alias{Split}
+\alias{Split.default}
+\alias{Split.formula}
+\title{Divide Data into Groups}
+
+\description{
+Divides data into groups defined by a grouping factor.
+For the formula method, the left-hand side of the formula is split
+according to one or more grouping variables on the right-hand side.
+}
+
+\usage{
+Split(x, ...)
+
+\method{Split}{default}(x, f, drop = FALSE, ...)
+\method{Split}{formula}(formula, data, subset, na.action, drop = FALSE, ...)
 }
 \arguments{
+ \item{x}{a vector or data object to be split.}
+
+  \item{f}{a factor or list defining the grouping structure.}
 
 \item{formula}{
 a formula of the form \code{lhs ~ rhs} where \code{lhs} is a
@@ -37,20 +47,26 @@ a function which indicates what should happen when the data contain \code{NA}s.
 be dropped (if \code{f} is a \code{factor} or a list).
 Defaults to \code{FALSE}.}
 
-\item{\dots}{other arguments to be passed to \code{\link{split}}.}
+\item{\dots}{additional arguments to be passed to \code{\link{split}}.}
 }
+
+\details{
+The formula interface constructs a model frame using
+\code{\link[stats]{model.frame}} and supports optional
+\code{subset} and \code{na.action} arguments.
+}
+\seealso{\link{split}}
 
 \author{Andri Signorell <andri@signorell.net>}
 
-\seealso{\code{\link{split}}  }
 \examples{
-split(extra ~ group, data = sleep)
+Split(extra ~ group, data = sleep)
 
 # more variables are taken as interaction
-split(breaks ~ wool + tension, warpbreaks)
+Split(breaks ~ wool + tension, warpbreaks)
 
 # subset
-split(breaks ~ wool, warpbreaks, subset = tension=="L")
+Split(breaks ~ wool, warpbreaks, subset = tension=="L")
 
 }
 \keyword{ category }
