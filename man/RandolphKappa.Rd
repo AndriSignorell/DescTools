@@ -63,7 +63,7 @@ df <- data.frame(
   rating  = c(1,1,1, 2,2,2, 1,2,1, 3,3,3, 2,2,1)
 )
 RandolphKappa(RaterFrame(rating ~ subject | rater, 
-                         data = df, incl.subj=FALSE))
+                         data = df, drop.subj=TRUE))
 }
 \references{
 Randolph, J. J. (2005). Free-Marginal Multirater Kappa (multirater \eqn{\kappa_{\mathrm{free}}}):

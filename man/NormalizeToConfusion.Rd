@@ -97,7 +97,7 @@ d.anxiety <- data.frame(
 # matrix/data.frame with 2 columns (subjects × raters):
 NormalizeToConfusion(
   RaterFrame(rating ~ subj | rater, data=d.anxiety, 
-             subset=rater \%in\% c("rater1","rater2"), incl.subj=FALSE)
+             subset=rater \%in\% c("rater1","rater2"), drop.subj=TRUE)
 )
 
 }

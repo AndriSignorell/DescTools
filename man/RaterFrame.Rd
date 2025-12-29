@@ -7,7 +7,7 @@ with the subjects in rows and the raters in columns as base structure for
 IRA functions.
 }
 \usage{
-RaterFrame(formula, data, subset, na.action, incl.subj = TRUE)
+RaterFrame(formula, data, subset, na.action, drop.subj = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -15,7 +15,8 @@ RaterFrame(formula, data, subset, na.action, incl.subj = TRUE)
   \item{data}{ the data }
   \item{subset}{ potential subset}
   \item{na.action}{what should happen with missings}
-  \item{incl.subj}{logical, should the subject column be included (default \code{TRUE}) }
+  \item{drop.subj}{logical, should the subject column be included 
+  (default \code{FALSE}) }
 }
 \details{Assessments made by raters are typically—and appropriately—stored 
 and organized in databases. Data originating from databases are usually in 
@@ -31,14 +32,10 @@ inter-rater agreement functions. Missing values are marked as \code{NAs}.
 \seealso{\code{\link{KrippAlpha}}}
 
 \examples{
-
 d.long <- data.frame(
-    rater = c("A", "A", "A", "A", "A", "B", "B", "B", "B", "B", 
-              "C", "C", "C", "C", "C"), 
-    subj = c("1", "2", "3", "4", "5", "1", "2", "3", "4", "5", 
-             "1", "2", "3", "4", "5"), 
-    rating = c(1, 4, 5, 7, 2, 2, 5, 6, 7, 1, 1, 4, 6, 6, 2))
-
+     expand.grid(subj=as.character(1:5), rater=LETTERS[1:3]),
+     rating = c(1, 4, 5, 7, 2, 2, 5, 6, 7, 1, 1, 4, 6, 6, 2))
+           
 # default rater frame
 RaterFrame(rating ~ subj | rater, data=d.long)
 
@@ -50,6 +47,6 @@ RaterFrame(rating ~ subj | rater, data=d.long[-c(3, 6), ],
            na.action=na.omit)
            
 # omit the subject column
-RaterFrame(rating ~ subj | rater, data=d.long, incl.subj=FALSE)
+RaterFrame(rating ~ subj | rater, data=d.long, drop.subj=TRUE)
 }
 \concept{ ~irr }

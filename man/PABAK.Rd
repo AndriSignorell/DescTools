@@ -58,7 +58,7 @@ d.long <- ToLong(d.frm, incl.rownames = TRUE,
                  varnames=c("rater","rating","subj"))
                  
 PABAK(RaterFrame(rating ~ subj | rater, 
-                 data=d.long, incl.subj=FALSE))
+                 data=d.long, drop.subj=TRUE))
                  
 }
 \concept{{ ~irr }}

@@ -79,7 +79,7 @@
 }
 
 
-RaterFrame <- function(formula, data, subset, na.action, incl.subj=TRUE){
+RaterFrame <- function(formula, data, subset, na.action, drop.subj=FALSE){
 
   
     # *** Attention !!! ***: 
@@ -91,7 +91,7 @@ RaterFrame <- function(formula, data, subset, na.action, incl.subj=TRUE){
     #    Error in `[.default`(xj, i) : invalid subscript type 'closure'
     # thus we simply pass the call unevaluated to the next function
     cl <- match.call(expand.dots = FALSE)
-    cl$incl.subj <- NULL
+    cl$drop.subj <- NULL
     
     # this would work, but ::: are not allowed for CRAN check!
     # cl[[1L]] <- quote(DescTools:::.LongToSquare) 
@@ -100,7 +100,7 @@ RaterFrame <- function(formula, data, subset, na.action, incl.subj=TRUE){
     m <- eval.parent(cl)
     
     # remove the first column if subject information not required
-    if(!incl.subj) m <- m[, -1]
+    if(drop.subj) m <- m[, -1]
     
     class(m) <- c("raterframe", class(m))
     

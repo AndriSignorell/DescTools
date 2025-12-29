@@ -238,7 +238,7 @@
 # just for check not to bark!
 utils::globalVariables(c("d.units","d.periodic","d.prefix",
                          "day.name","day.abb","wdConst","xlConst",
-                         "fmt", "pal",
+                         "fmt", "pal", "phi",
                          "hred","hblue","horange","hyellow","hecru","hgreen",
                          "tarot","cards","roulette", "ind"))
 
@@ -273,7 +273,9 @@ utils::globalVariables(c("d.units","d.periodic","d.prefix",
 # day.abb <- c("Mon","Tue","Wed","Thu","Fri","Sat","Sun")
 
 # internal: golden section constant
-gold_sec_c <- (1+sqrt(5)) / 2
+# everything we have to know about it:
+#    https://mathworld.wolfram.com/GoldenRatio.html
+phi <- 0.5*(1+sqrt(5))
 
 
 # tarot <- structure(list(rank = c("1", "2", "3", "4", "5", "6", "7", "8",

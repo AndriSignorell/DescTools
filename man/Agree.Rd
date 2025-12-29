@@ -26,27 +26,29 @@ Agree(x, y = NULL,
   \item{verbose}{ for more results }
 }
 \details{
-\code{n / N} is used as the finite population correction (fpc) factor: 
+\code{n / N} is used as the finite population correction (\code{fpc}) factor: 
 when the sample covers a large share of the population, sampling variability decreases, 
-and thus the variance estimate is adjusted downward by (1 – n/N).
+and thus the variance estimate is adjusted downward by \code{(1 – n/N)}.
 %% Tolerance no longer available (should we reimplemend??)
 %% Extended percentage agreement can be calculated with a \code{tolerance > 0}. If tolerance equals 1 e.g., 
 %% raters differing by one scale degree are interpreted as agreeing. This makes sense with numeric ratings.
 %% When used with characters it must be noted that those are coerced to factors and subsequently to numeric
 %% values.
 }
+\note{The handling of missing values is not really convincing so far and might be 
+altered in future! }
 \value{
 numeric value of coefficient of interrater reliability
 
 If verbose is set to 1, an extended resultset is returned as list 
 with the following components:
-\itemize{
-  \item[\code{Po          }] Observed proportion of agreement among raters.
-  \item[\code{se          }] the standard error 
-  \item[\code{conf.int    }] the confidence interval
-  \item[\code{n           }] the number of subjects
-  \item[\code{n_pairable  }] the number of pairs
-  \item[\code{method      }] "Percent Agreement (design-based; Klein/Gwet)"
+\tabular{ll}{
+  \verb{  }\code{Po}                  \tab Observed proportion of agreement among raters. \cr
+  \verb{  }\code{se}                  \tab the standard error \cr
+  \verb{  }\code{conf.int}            \tab the confidence interval \cr
+  \verb{  }\code{n}                   \tab the number of subjects \cr
+  \verb{  }\code{n_pairable}\verb{  } \tab the number of pairs \cr
+  \verb{  }\code{method}              \tab "Percent Agreement (design-based; Klein/Gwet)" \cr
 }
 }
 
@@ -71,9 +73,6 @@ Agree(as.list(rating[, -1]))
 
 # provide a matrix
 Agree(as.matrix(rating[, -1]))
-
-# provide value and group
-with(ToLong(rating[, -1]), Agree(x, grp))
 
 # provide a character matrix
 chrm <- as.matrix(rating[, -1]) 
@@ -147,8 +146,8 @@ Agree(RaterFrame(rat ~ subj | rater, d.long)[, -1])
 
 # but what, when we have missings?
 # we leave out rtr1's rating for subj 2 
-
-# if we do nothing, we clearly get NA
+# NAs are silently ignored 
+# (** probably not a good idea, check with experts ... **)
 Agree(RaterFrame(rat ~ subj | rater, d.long[-2,])[, -1])
 
 # setting na.action to na.omit omits the subject "1" 

@@ -70,7 +70,7 @@
 #'
 #' # Formula interface (long data):
 #' # AC1(y ~ id | rater)
-#' GwetAC1(RaterFrame(rat ~ subj | rater, data = d.long, incl.subj=FALSE), 
+#' GwetAC1(RaterFrame(rat ~ subj | rater, data = d.long, drop.subj=TRUE), 
 #'         ci = "asymptotic")
 #'
 #' # Default interface (matrix/data.frame):
