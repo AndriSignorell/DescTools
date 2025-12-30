@@ -12,7 +12,7 @@
 This function has the same logic as the \code{ZEROIFNULL()} function in SQL. 
 For values other than zero the function \code{NAVal()} can be used, which 
 replaces the \code{NA} values by a given value. 
-\code{NAIfZero()} does replace zeros with \code{NA}.
+\code{NAIfZero()} replaces zeros with \code{NA}.
 \code{NAIfBlank()} does the same, but for character vectors. 
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
@@ -28,8 +28,9 @@ Impute(x, FUN = function(x) median(x, na.rm = TRUE))
 }
 \arguments{
   \item{x}{the vector x, whose \code{NA}s should be overwritten with 0s.}
-  \item{val}{the value \code{NA}s should be replaced by. Default is an empty string ("").}
-  \item{what}{a vector of elements to be set to \code{NA} in \code{x}.}
+  \item{val}{the value \code{NA}s should be replaced by. 
+             Default is an empty string (\code{""}).}
+  \item{what}{a vector of elements to be replaced with \code{NA} in \code{x}.}
   \item{FUN}{the name of a function to be used as imputation. Can as well be a self defined function or a constant value.
   Default is \code{\link{median}}.}
 }

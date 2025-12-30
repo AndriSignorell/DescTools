@@ -12278,7 +12278,7 @@ ToWrdPlot <- function(plotcode,
                       ){
   
   if(is.null(width)) width <- 15
-  if(is.null(height)) height <- width / gold_sec_c 
+  if(is.null(height)) height <- width / phi 
 
   crop <- rep(crop, length.out=4)
     

@@ -3245,7 +3245,7 @@ printWrd <- function(x, main = NULL, plotit = NULL, ..., wrd = wrd) {
       } else if (z[[1]]$class %in% c("numnum")) {
         plot.Desc(z, main = NA)
         WrdPlot(
-          width = 6.5, height = 6.5 / gold_sec_c, dfact = 2.5,
+          width = 6.5, height = 6.5 / phi, dfact = 2.5,
           crop = c(0, 0, 0.2, 0), wrd = wrd, append.cr = TRUE
         )
       } else if (z[[1]]$class %in% c("numfact")) {

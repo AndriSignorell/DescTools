@@ -72,7 +72,6 @@ Styles <- function(){
 
 
 
-
 .format.stars <- function(x, 
                           breaks=c(0,0.001,0.01,0.05,0.1,1), 
                           labels=c("***","** ","*  ",".  ","   ")){
@@ -285,10 +284,11 @@ Fm.default <- function(x, digits = NULL, sci = NULL
   if ((has.na <- any(ina <- is.na(x))))
     x <- x[!ina]
 
-
+  if(is.null(na.form)) na.form <- NA_real_
+  
   # Dispatch on class of x **************
   
-  if(all(inherits(x=x, what="Date"))) {
+  if(all(inherits(x, c("Date", "POSIXct", "POSIXt")))) {
     
     # Format DATES
     
@@ -296,14 +296,24 @@ Fm.default <- function(x, digits = NULL, sci = NULL
     # for other types
     if(is.null(lang)) lang <- DescToolsOptions("lang")
     
-    if(lang=="engl"){
+    if(lang=="en"){
       loc <- Sys.getlocale("LC_TIME")
       Sys.setlocale("LC_TIME", "C")
       on.exit(Sys.setlocale("LC_TIME", loc), add = TRUE)
     }
     
-    r <- format(x, as.CDateFmt(fmt=fmt))
+    # defunct, use Rcpp function
+    # r <- format(x, as.CDateFmt(fmt=fmt))
     
+    # CharacterVector FmDateTime_cpp(
+    #   SEXP x,
+    #   std::string fmt,
+    #   bool strict = true,
+    #   std::string locale = "current"
+    # )
+    
+    r <- formatDateTime(x=x, fmt=fmt, strict=TRUE, locale="current")
+
   } else if(all(class(x) %in% c("character","factor","ordered"))) {
     
     # Format any form of TEXT
@@ -418,8 +428,7 @@ Fm.default <- function(x, digits = NULL, sci = NULL
       if(is.null(sci))       sci <- Coalesce(NAIfZero(getOption("scipen")), 7) # default
       if(is.null(eps))       eps <- .Machine$double.eps
       if(is.null(big.mark))  big.mark <- Coalesce(getOption("big.mark"), "")
-      if(is.null(na.form))   na.form <- NA_real_
-      
+
       if(!is.null(outdec)) { opt <- options(OutDec = outdec)
                              on.exit(options(opt)) }
 

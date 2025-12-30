@@ -260,6 +260,20 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// formatDateTime
+CharacterVector formatDateTime(SEXP x, std::string fmt, bool strict, std::string locale);
+RcppExport SEXP _DescTools_formatDateTime(SEXP xSEXP, SEXP fmtSEXP, SEXP strictSEXP, SEXP localeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< std::string >::type fmt(fmtSEXP);
+    Rcpp::traits::input_parameter< bool >::type strict(strictSEXP);
+    Rcpp::traits::input_parameter< std::string >::type locale(localeSEXP);
+    rcpp_result_gen = Rcpp::wrap(formatDateTime(x, fmt, strict, locale));
+    return rcpp_result_gen;
+END_RCPP
+}
 // formatNum
 CharacterVector formatNum(NumericVector x, Nullable<IntegerVector> digits, Nullable<IntegerVector> ldigits, Nullable<CharacterVector> big_mark, Nullable<CharacterVector> decimal_mark, int sci_big, int sci_small);
 RcppExport SEXP _DescTools_formatNum(SEXP xSEXP, SEXP digitsSEXP, SEXP ldigitsSEXP, SEXP big_markSEXP, SEXP decimal_markSEXP, SEXP sci_bigSEXP, SEXP sci_smallSEXP) {

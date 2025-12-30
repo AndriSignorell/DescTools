@@ -89,6 +89,10 @@ fastModeX <- function(x, narm = FALSE) {
     .Call(`_DescTools_fastModeX`, x, narm)
 }
 
+formatDateTime <- function(x, fmt, strict = TRUE, locale = "current") {
+    .Call(`_DescTools_formatDateTime`, x, fmt, strict, locale)
+}
+
 formatNum <- function(x, digits = NULL, ldigits = NULL, big_mark = NULL, decimal_mark = NULL, sci_big = 9999L, sci_small = -9999L) {
     .Call(`_DescTools_formatNum`, x, digits, ldigits, big_mark, decimal_mark, sci_big, sci_small)
 }

@@ -1450,9 +1450,10 @@ HodgesLehmann <- function(x, y = NULL, conf.level = NA, na.rm = FALSE) {
 
 
 
-Skew <- function (x, weights=NULL, na.rm = FALSE, method = 3, conf.level = NA, ci.type = "bca", R=1000, ...) {
+Skew <- function (x, weights=NULL, na.rm = FALSE, method = 3, 
+                  conf.level = NA, ci.type = "bca", R=1000, ...) {
 
-  # C part for the expensive (x - mean(x))^2 etc. is a kind of 14 times faster
+  # C++ part for the expensive (x - mean(x))^2 etc. is roughly 14 times faster
   #   > x <- rchisq(100000000, df=2)
   #   > system.time(Skew(x))
   #   user  system elapsed
@@ -1617,7 +1618,8 @@ Outlier <- function(x, method=c("boxplot", "hampel"), value=TRUE, na.rm=FALSE){
          hampel = {
            med_x <- median(x, na.rm=na.rm)
            
-           # hampel considers values outside of median ± 3*(median absolute deviation) to be outliers
+           # hampel considers values outside of median ± 3*(median absolute deviation) 
+           # to be outliers
            id <- x %][% (med_x + c(-3, 3) * mad(x, na.rm=na.rm, center = med_x))
          }
   )
