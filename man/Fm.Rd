@@ -17,30 +17,27 @@ There's also an easygoing interface for format templates, defined as a list cons
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-Fm(x, digits = NULL, sci = NULL, big.mark = NULL,
-       ldigits = NULL, zero.form = NULL, na.form = NULL,
-       fmt = NULL, align = NULL, width = NULL, lang = NULL, 
-       eps = NULL, outdec = NULL, ...)
+Fm(x, digits = NULL, ldigits = NULL, sci = NULL, 
+   big.mark=NULL, outdec = NULL, na.form = NULL, zero.form = NULL, 
+   fmt = NULL, p_eps = NULL, width = NULL, align = NULL, lang = NULL, ...)
 
-\method{Fm}{table}(x, digits = NULL, sci = NULL, big.mark = NULL,
-       ldigits = NULL, zero.form = NULL, na.form = NULL,
-       fmt = NULL, align = NULL, width = NULL, lang = NULL, 
-       eps = NULL, outdec = NULL, ...)
+\method{Fm}{table}(x, digits = NULL, ldigits = NULL, sci = NULL, 
+       big.mark=NULL, outdec = NULL, na.form = NULL, zero.form = NULL, 
+       fmt = NULL, p_eps = NULL, width = NULL, align = NULL, lang = NULL, ...)
 
-\method{Fm}{matrix}(x, digits = NULL, sci = NULL, big.mark = NULL,
-       ldigits = NULL, zero.form = NULL, na.form = NULL,
-       fmt = NULL, align = NULL, width = NULL, lang = NULL, 
-       eps = NULL, outdec = NULL, ...)
+\method{Fm}{matrix}(x, digits = NULL, ldigits = NULL, sci = NULL, 
+       big.mark=NULL, outdec = NULL, na.form = NULL, zero.form = NULL, 
+       fmt = NULL, p_eps = NULL, width = NULL, align = NULL, lang = NULL, ...)
 
-\method{Fm}{default}(x, digits = NULL, sci = NULL, big.mark = NULL,
-       ldigits = NULL, zero.form = NULL, na.form = NULL,
-       fmt = NULL, align = NULL, width = NULL, lang = NULL, 
-       eps = NULL, outdec = NULL, ...)
+\method{Fm}{default}(x, digits = NULL, ldigits = NULL, sci = NULL, 
+       big.mark=NULL, outdec = NULL, na.form = NULL, zero.form = NULL, 
+       fmt = NULL, p_eps = NULL, width = NULL, align = NULL, lang = NULL, ...)
 
-Style(name = NULL, digits = NULL, sci = NULL, big.mark = NULL, 
-      ldigits = NULL, zero.form = NULL, na.form = NULL, 
-      fmt = NULL, align = NULL, width = NULL, lang = NULL, 
-      eps = NULL, outdec = NULL, label = NULL, ...)
+Style(name = NULL, label = NULL,
+      digits = NULL, ldigits = NULL, sci = NULL, 
+      big.mark=NULL, outdec = NULL, na.form = NULL, zero.form = NULL, 
+      fmt = NULL, p_eps = NULL, width = NULL, align = NULL, lang = NULL, 
+      ...)
       
 Styles()
 }
@@ -85,7 +82,9 @@ This argument is send directly to the function \code{\link{StrAlign}()} as argum
   \item{lang}{optional value setting the language for the months and daynames. Can be either \code{"local"} for current locale or \code{"engl"} for english. If left to \code{NULL}, the DescToolsOption \code{"lang"} will be searched for and if not found \code{"local"} will be taken as default.
 %%     ~~Describe \code{value} here~~
 }
-\item{eps}{a numerical tolerance used mainly for formatting p values, those less than eps are formatted as "\code{< [eps]}" (where '[eps]' stands for \code{format(eps, digits))}. Default is \code{.Machine$double.eps}.}
+\item{p_eps}{a numerical tolerance used mainly for formatting p values, those 
+less than p_eps are formatted as "\code{< [p_eps]}" (where '[p_eps]' stands for \code{format(p_eps, digits))}. 
+Default is \code{0.001}.}
 % \item{value}{the value to be overridden in the function \code{fmt}}.
 % \item{name}{the name of the format in \code{fmt}.}
 \item{outdec}{character, specifying the decimal mark to be used. If not provided, the 
@@ -116,7 +115,8 @@ Even more variability is needed to display numeric values. For the most frequent
 
 \code{\%} \tab percent \tab will divide the given number by 100 and append the \%-sign (without a separator).\cr
 \tab\cr
-\code{p} \tab p-value \tab will wrap the function \code{\link{format.pval}} and return a p-value format. \cr \tab \tab Use \code{eps} to define the threshold to e.g. switch to a \code{ <0.001 } representation.\cr
+\code{p} \tab p-value \tab will wrap the function \code{\link{format.pval}} and return a p-value format. \cr 
+\tab \tab Use \code{p_eps} to define the threshold to e.g. switch to a \code{ <0.001 } representation.\cr
 \tab\cr
 \code{frac} \tab fractions \tab will (try to) convert numbers to fractions. So 0.1 will be displayed as 1/10. \cr \tab\tab See \code{\link[MASS]{fractions}()}.\cr
 \tab\cr

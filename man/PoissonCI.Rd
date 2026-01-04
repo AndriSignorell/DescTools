@@ -72,6 +72,14 @@ legend("topright", legend=c("observed","expected"),
 
 ## SMR, Welsh Nickel workers
 PoissonCI(x=137, n=24.19893)
+
+# Source: https://www.stata.com/manuals/rci.pdf, example 4
+# (using raw data)
+petri <- c(1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 3, 0, 1, 2, 
+           3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 
+           3, 0, 1, 2, 3, 4, 3, 0)
+
+PoissonCI(sum(petri), length(petri))
 }
 \keyword{ univar }
 

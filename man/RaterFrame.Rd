@@ -4,7 +4,7 @@
 }
 \description{ Creates a \code{data.frame} for a formula  \code{rating ~ subjects | raters}
 with the subjects in rows and the raters in columns as base structure for 
-IRA functions.
+interrater agreement (IRA) functions.
 }
 \usage{
 RaterFrame(formula, data, subset, na.action, drop.subj = FALSE)
@@ -21,7 +21,11 @@ RaterFrame(formula, data, subset, na.action, drop.subj = FALSE)
 \details{Assessments made by raters are typically—and appropriately—stored 
 and organized in databases. Data originating from databases are usually in 
 long format. Converting this long format into a wide format suitable for 
-analysis is a complex task. The present function supports this process by 
+analysis is a complex task, as it is not just a matter of simply displaying 
+consecutive values in a new column (as in usual "from-long-to-wide" operations), 
+but of assigning the values to the correct subjects, 
+which requires a sequential join.\cr
+The present function supports this process by 
 converting long-format data into a wide format that can be used by subsequent 
 inter-rater agreement functions. Missing values are marked as \code{NAs}.
 }

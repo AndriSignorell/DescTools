@@ -420,8 +420,19 @@ Vector<RTYPE> fastModeImpl(Vector<RTYPE> x, bool narm){
   Vector<RTYPE> myMode(1);
   // special case for factors == INTSXP with "class" and "levels" attribute
   if (x.hasAttribute("levels")){
-    myMode.attr("class") = x.attr("class");
-    myMode.attr("levels") = x.attr("levels");
+    
+    // Replaced because of note in CRAN:
+    // myMode.attr("class") = x.attr("class");
+    // myMode.attr("levels") = x.attr("levels");
+    
+    SEXP cls = Rf_getAttrib(x, R_ClassSymbol);
+    if (cls != R_NilValue)
+      Rf_setAttrib(myMode, R_ClassSymbol, cls);
+    
+    SEXP lev = Rf_getAttrib(x, R_LevelsSymbol);
+    if (lev != R_NilValue)
+      Rf_setAttrib(myMode, R_LevelsSymbol, lev);
+    
   }
   std::unordered_map<typename Rcpp::traits::storage_type<RTYPE>::type, int> modeMap;
   modeMap.reserve(x.size());
@@ -488,8 +499,19 @@ Vector<RTYPE> fastModeImplX(Vector<RTYPE> x, bool narm){
   std::copy(modes.cbegin(), modes.cend(), myMode.begin());
   // special case for factors == INTSXP with "class" and "levels" attribute
   if (x.hasAttribute("levels")){
-    myMode.attr("class") = x.attr("class");
-    myMode.attr("levels") = x.attr("levels");
+
+    // Replaced because of note in CRAN:
+    // myMode.attr("class") = x.attr("class");
+    // myMode.attr("levels") = x.attr("levels");
+    
+    SEXP cls = Rf_getAttrib(x, R_ClassSymbol);
+    if (cls != R_NilValue)
+      Rf_setAttrib(myMode, R_ClassSymbol, cls);
+    
+    SEXP lev = Rf_getAttrib(x, R_LevelsSymbol);
+    if (lev != R_NilValue)
+      Rf_setAttrib(myMode, R_LevelsSymbol, lev);
+
   }
   myMode.attr("freq") = myMax;
   return myMode;

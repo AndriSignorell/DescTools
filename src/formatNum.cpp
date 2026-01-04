@@ -136,6 +136,14 @@ CharacterVector formatNum(NumericVector x,
     if (effective_digits > 0) {
       full += dm + dec_part;
     }
+    
+    if (l == 0) {
+      // erase leading digits if ldigits == 0
+      if (full.rfind("0" + dm, 0) == 0) {
+        full.erase(0, 1);            // "0.23" -> ".23"
+      }
+    }
+    
     if (rounded_val < 0) {
       full = "-" + full;
     }
