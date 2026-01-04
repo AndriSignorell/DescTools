@@ -29,6 +29,8 @@ const std::vector<Token> TOKENS = {
   {"yy","%y",false,false},
   {"y","",true,true},
   
+  {"do","",false,true},   // day with ordinal suffix
+  
   {"dd","%d",false,false},
   {"d","%d",true,false},
   {"MM","%m",false,false},
@@ -68,18 +70,39 @@ inline std::tm make_tm(time_t tt) {
   return tm;
 }
 
+// ordinal suffix helper
+inline std::string ordinal_suffix(int d) {
+  int last_two = d % 100;
+  if (last_two >= 11 && last_two <= 13)
+    return "th";
+  
+  switch (d % 10) {
+  case 1: return "st";
+  case 2: return "nd";
+  case 3: return "rd";
+  default: return "th";
+  }
+}
+
 inline std::string eval_token(
     const Token& tk,
     const std::tm& tm,
     bool is_date
 ) {
-  // manual year handling
+  // manual tokens
   if (tk.manual) {
     int year = tm.tm_year + 1900;
+    
     if (tk.key == "yyyy")
       return std::to_string(year);
+    
     if (tk.key == "y")
       return std::to_string(year % 100);
+    
+    if (tk.key == "do") {
+      int day = tm.tm_mday;
+      return std::to_string(day) + ordinal_suffix(day);
+    }
   }
   
   // time tokens on Date -> zero
@@ -125,7 +148,6 @@ private:
   std::string old_;
 };
 
-
 // [[Rcpp::export]]
 CharacterVector formatDateTime(
     SEXP x,
@@ -164,6 +186,30 @@ CharacterVector formatDateTime(
       stop("12-hour format ('h' or 'hh') requires 't' or 'tt' (AM/PM designator)");
     }
   }
+  
+  
+  // --------------------------
+  // warning: English-only ordinal token
+  // --------------------------
+  
+  if (fmt.find("do") != std::string::npos) {
+    
+    std::string effective_locale = locale;
+    
+    if (locale == "current") {
+      const char* loc = std::setlocale(LC_TIME, nullptr);
+      if (loc)
+        effective_locale = loc;
+    }
+    
+    if (effective_locale.rfind("en", 0) != 0 && effective_locale != "C" 
+            && effective_locale != "POSIX") { 
+      Rcpp::warning(
+        "Token 'do' (1st, 2nd, …) only makes sense for English locales. "
+        "Consider using lang=\"en\"."
+      );
+    }  
+  }  
   
   // --------------------------
   // vectorized formatting

@@ -7,16 +7,17 @@ Format Confidence Intervals
 Format confidence intervals using a flexible template.
 }
 \usage{
-FmCI(x, template = "\%s [\%s, \%s]", ...)
+FmCI(x, template = NULL, ...)
 }
 \arguments{
   \item{x}{the numerical values, given in the order in which they are 
   used in the template.
 }
   \item{template}{character string as template for the desired format. 
-  \%s are the placeholders for the numerical values.
+  \%s are the placeholders for the numerical values. 
+  Default is \code{"\%s [\%s, \%s]"} for <est> [<lci>, <uci>].
 }
-  \item{\dots}{the dots are passed on to the \code{\link{Format}()} function.
+  \item{\dots}{the dots are passed on to the \code{\link{Fm}()} function.
 }
 }
 \value{a formatted string
@@ -24,7 +25,7 @@ FmCI(x, template = "\%s [\%s, \%s]", ...)
 \author{Andri Signorell <andri@signorell.net>
 }
 \seealso{
-\code{\link{Format}}
+\code{\link{Fm}}
 }
 \examples{
 x <- c(est=2.1, lci=1.5, uci=3.8)

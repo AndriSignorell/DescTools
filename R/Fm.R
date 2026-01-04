@@ -369,6 +369,9 @@ Fm.default <- function(x, digits = NULL, ldigits = NULL, sci = NULL
     #   std::string locale = "current"
     # )
     
+    # for dates only the fmt argument is relevant
+    if(inherits(fmt, "style")) fmt <- fmt[["fmt"]]
+    
     r <- formatDateTime(x=x, fmt=fmt, strict=TRUE, locale="current")
 
   } else if(all(class(x) %in% c("character","factor","ordered"))) {
@@ -473,8 +476,8 @@ Fm.default <- function(x, digits = NULL, ldigits = NULL, sci = NULL
           
         } else {  # format else   ********************************************
           
-            warning(gettextf("Non interpretable fmt code %s will be ignored.", fmt))
-          
+          warning(gettextf("Non interpretable fmt code %s will be ignored.", fmt))
+          r <- x
         }  
       } 
     } else {

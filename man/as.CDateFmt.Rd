@@ -36,23 +36,23 @@ So the format \code{'yyyy-mm-dd'} would yield a date as \code{2020-10-12}.
             \code{yyyy }  \tab   year with century. For example: 2005 \cr
 \cr
 }
-This function is used in \code{\link{Fm}()} to format dates.
+This function is used in \code{\link{Format}()} to format dates.
 
 }
 \value{the formatted dates as characters.
 }
 \author{Andri Signorell <andri@signorell.net>
 }
-\seealso{\code{\link{Fm}}
+\seealso{\code{\link{Format}}
 }
 \examples{
 as.CDateFmt(fmt="ddd, d mmmm yyyy")
 
-# Fm uses the function internally, the codes can be provided directly as:
-Fm(as.Date(c("2014-11-28", "2014-1-2")), fmt="ddd, d mmmm yyyy")
-Fm(as.Date(c("2014-11-28", "2014-1-2")), fmt="ddd, d mmmm yyyy", lang="engl")
+# Format uses the function internally, the codes can be provided directly as:
+Format(as.Date(c("2014-11-28", "2014-1-2")), fmt="ddd, d mmmm yyyy")
+Format(as.Date(c("2014-11-28", "2014-1-2")), fmt="ddd, d mmmm yyyy", lang="engl")
 
 # for using your local language:
-Fm(as.Date(c("2014-11-28", "2014-1-2")), fmt="ddd, d mmmm yyyy", lang="local")
+Format(as.Date(c("2014-11-28", "2014-1-2")), fmt="ddd, d mmmm yyyy", lang="local")
 }
 \keyword{ IO }
