@@ -95,7 +95,7 @@ the combination of day month and year representation.\cr
 
 
 \tabular{ll}{
-\bold{Code\verb{  }} \tab  \bold{Description}\cr
+\bold{Code}\verb{  } \tab  \bold{Description}\cr
   \code{d } \tab  day of the month without leading zero (1 - 31) \cr
   \code{dd} \tab  day of the month with leading zero (01 - 31)\cr
   \code{ddd} \tab abbreviated name for the day of the week (e.g. Mon) in the current user's language  \cr
@@ -134,7 +134,7 @@ Even more variability is needed to display numeric values. For the most frequent
 \tab\cr
 
 \code{eng} \tab engineering \tab  forces scientific representation of \code{x}, but only with powers that are a multiple of 3. \cr
-\code{engabb\verb{  }} \tab engineering abbr.\verb{ } \tab  same as \code{eng}, but replaces the exponential representation by codes, \cr \tab\tab e.g. \code{M} for mega (1e6). See \code{\link{d.prefix}}.\cr
+\code{engabb}\verb{  } \tab engineering abbr.\verb{ } \tab  same as \code{eng}, but replaces the exponential representation by codes, \cr \tab\tab e.g. \code{M} for mega (1e6). See \code{\link{d.prefix}}.\cr
 
 \code{\%} \tab percent \tab will divide the given number by 100 and append the \%-sign (without a separator).\cr
 \tab\cr

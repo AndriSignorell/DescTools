@@ -6129,14 +6129,34 @@ SplitAt <- function(x, pos) {
 
 ###
 
-Mar <- function(bottom=NULL, left=NULL, top=NULL, right=NULL, outer=FALSE, reset=FALSE){
 
+.getParDefault <- function() {
+  if (is.null(.DescToolsEnv$pardefault)) {
+    if (grDevices::dev.cur() == 1)
+      stop("No active graphics device - cannot restore par defaults")
+    .DescToolsEnv$pardefault <- graphics::par(no.readonly = TRUE)
+  }
+  .DescToolsEnv$pardefault
+}
+
+
+
+Mar <- function(bottom=NULL, left=NULL, top=NULL, right=NULL, 
+                outer=FALSE, reset=FALSE){
+
+  # Falls es bewusst globale Layout-Helfer gibt (z.B. Mar()):
+  #   
+  #   nicht in .withGraphicsState()
+  # 
+  # explizit dokumentieren: “changes graphics state globally”
+  
   if(reset){
+    pd <- .getParDefault()
     if(outer){
-        par("oma" = .pardefault$oma)
+        par("oma" = pd$oma)
       
     } else {
-        par("mar" = .pardefault$mar)
+        par("mar" = pd$mar)
     }
   } else {
     
@@ -6172,7 +6192,8 @@ Mar <- function(bottom=NULL, left=NULL, top=NULL, right=NULL, outer=FALSE, reset
 Mgp <- function (title = NULL, labels = NULL, line = NULL, reset=FALSE) {
   
   if(reset){
-      par("mgp" = .pardefault$mgp)
+      pd <- .getParDefault()
+      par("mgp" = pd$mgp)
     
   } else {
     

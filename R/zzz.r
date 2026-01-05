@@ -30,7 +30,9 @@
 }
 
 # store default values
-.pardefault <- par(no.readonly=TRUE)
+# .pardefault <- par(no.readonly=TRUE)
+
+.DescToolsEnv <- new.env(parent = emptyenv())
 
 # .optdefault <- options()
 
