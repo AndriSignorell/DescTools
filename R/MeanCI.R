@@ -9,6 +9,15 @@
 #' described in the references.
 #' 
 #' @param x a (non-empty) numeric vector of data values. 
+#' @param conf.level confidence level of the interval. 
+#' @param sides a character string specifying the side of the confidence
+#' interval, must be one of \code{"two.sided"} (default), \code{"left"} or
+#' \code{"right"}. \code{"left"} would be analogue to a hypothesis of
+#' \code{"greater"} in a \code{t.test}. You can specify just the initial
+#' letter.
+#' @param method A vector of character strings representing the type of
+#' intervals required. The value should be any subset of the values
+#' \code{"classic"}, \code{"boot"}.  See \code{\link[boot]{boot.ci}}. 
 #' @param sd the standard deviation of x. If provided it's interpreted as sd of
 #' the population and the normal quantiles will be used for constructing the
 #' confidence intervals. If left to \code{NULL} (default) the sample
@@ -17,15 +26,6 @@
 #' @param trim the fraction (0 to 0.5) of observations to be trimmed from each
 #' end of \code{x} before the mean is computed. Values of \code{trim} outside
 #' that range are taken as the nearest endpoint. 
-#' @param method A vector of character strings representing the type of
-#' intervals required. The value should be any subset of the values
-#' \code{"classic"}, \code{"boot"}.  See \code{\link[boot]{boot.ci}}. 
-#' @param conf.level confidence level of the interval. 
-#' @param sides a character string specifying the side of the confidence
-#' interval, must be one of \code{"two.sided"} (default), \code{"left"} or
-#' \code{"right"}. \code{"left"} would be analogue to a hypothesis of
-#' \code{"greater"} in a \code{t.test}. You can specify just the initial
-#' letter.
 #' @param na.rm a logical value indicating whether \code{NA} values should be
 #' stripped before the computation proceeds. Defaults to FALSE. 
 #' 
@@ -37,8 +37,8 @@
 #' \code{"boot.parallel"} (and if that is not set, \code{"no"}) for
 #' \code{parallel} and \code{999} for \code{R}.
 
-#' @return a numeric vector with 3 elements: \item{mean}{mean}
-#' \item{lwr.ci}{lower bound of the confidence interval} \item{upr.ci}{upper
+#' @return a numeric vector with 3 elements: \item{est}{estimator, say the calculated mean}
+#' \item{lci}{lower bound of the confidence interval} \item{uci}{upper
 #' bound of the confidence interval}
 
 #' @author Andri Signorell <andri@@signorell.net>
@@ -82,14 +82,16 @@
 
 
 
-MeanCI <- function (x, sd = NULL, trim = 0, 
+MeanCI <- function (x,  
                     conf.level = 0.95, sides = c("two.sided","left","right"), 
                     method = c("classic", "boot"),
+                    sd = NULL, trim = 0,
                     na.rm = FALSE, ...) {
   
   if (na.rm) x <- na.omit(x)
   
   sides <- match.arg(sides, choices = c("two.sided","left","right"), several.ok = FALSE)
+  
   if(sides!="two.sided")
     conf.level <- 1 - 2*(1-conf.level)
   
@@ -122,7 +124,6 @@ MeanCI <- function (x, sd = NULL, trim = 0,
       se <- sqrt(wvar["var"]) / ((1 - 2*trim) * sqrt(length(x)))
       
       res <- mean(x, trim = trim) + c(0, -1, 1) * qt(1-(1-conf.level)/2, wvar["DF"]) * se
-      names(res) <- c("mean", "lwr.ci", "upr.ci")
       
     } else {
       if(is.null(sd)) {
@@ -130,7 +131,7 @@ MeanCI <- function (x, sd = NULL, trim = 0,
       } else {
         a <- qnorm(p = (1 - conf.level)/2) * sd/sqrt(length(x))
       }
-      res <- c(mean = mean(x), lwr.ci = mean(x) + a, upr.ci = mean(x) - a)
+      res <- c(mean(x), mean(x) + a, mean(x) - a)
     }
     
   } else {
@@ -182,6 +183,7 @@ MeanCI <- function (x, sd = NULL, trim = 0,
   else if(sides=="right")
     res[2] <- -Inf
   
+  names(res) <- c("est", "lci", "uci")
   return(res)
   
 }

@@ -7014,58 +7014,112 @@ plot.palette <- function(x, cex = 3, ...) {
 
 ## geometric primitives ====
 
-Stamp <- function(txt=NULL, las=par("las"), cex=0.6) {
+# Stamp <- function(txt=NULL, las=par("las"), cex=0.6) {
+# 
+#   # set an option like:
+#   # options(stamp=expression("gettextf('%s/%s', Sys.getenv('USERNAME'), Format(Today(), fmt='yyyy-mm-dd')))")
+#   # if stamp is an expression, it will be evaluated
+# 
+#   stamp <- function(x) {
+# 
+# #    opar <- par(yaxt='s', xaxt='s', xpd=TRUE)
+#     opar <- par(yaxt='s', xaxt='s', xpd=NA)
+#     on.exit(par(opar))
+#     plt <- par('plt')
+#     usr <- par('usr')
+# 
+#     ## when a logrithmic scale is in use (i.e. par('xlog') is true),
+#     ## then the x-limits would be 10^par('usr')[1:2].  Similarly for
+#     ## the y axis
+#     xcoord <- usr[2] + (usr[2] - usr[1])/(plt[2] - plt[1]) *
+#       (1-plt[2]) - cex*strwidth('m')
+#     ycoord <- usr[3] - diff(usr[3:4])/diff(plt[3:4])*(plt[3]) +
+#       cex*strheight('m')
+# 
+#     if(par('xlog')) xcoord <- 10^(xcoord)
+#     if(par('ylog')) ycoord <- 10^(ycoord)
+# 
+#     if(las==3){
+#       srt <- 90
+#       adj <- 0
+#     } else {
+#       srt <- 0
+#       adj <- 1
+#     }
+#     ## Print the text on the current plot
+#     text(xcoord, ycoord, x, adj=adj, srt=srt, cex=cex)
+#     invisible(x)
+#   }
+# 
+#   if(is.null(txt)) {
+#     # get the option
+#     txt <- DescToolsOptions("stamp")
+#     if(is.null(txt)){
+#       txt <- format(Sys.time(), '%Y-%m-%d')
+#       } else {
+#       if(is.expression(txt)){
+#         txt <- eval(parse(text = txt))
+#       }
+#     }
+#   }
+# 
+#   invisible(stamp(txt))
+# 
+# }
 
-  # set an option like:
-  # options(stamp=expression("gettextf('%s/%s', Sys.getenv('USERNAME'), Format(Today(), fmt='yyyy-mm-dd')))")
-  # if stamp is an expression, it will be evaluated
-
-  stamp <- function(x) {
-
-#    opar <- par(yaxt='s', xaxt='s', xpd=TRUE)
-    opar <- par(yaxt='s', xaxt='s', xpd=NA)
-    on.exit(par(opar))
-    plt <- par('plt')
-    usr <- par('usr')
-
-    ## when a logrithmic scale is in use (i.e. par('xlog') is true),
-    ## then the x-limits would be 10^par('usr')[1:2].  Similarly for
-    ## the y axis
-    xcoord <- usr[2] + (usr[2] - usr[1])/(plt[2] - plt[1]) *
-      (1-plt[2]) - cex*strwidth('m')
-    ycoord <- usr[3] - diff(usr[3:4])/diff(plt[3:4])*(plt[3]) +
-      cex*strheight('m')
-
-    if(par('xlog')) xcoord <- 10^(xcoord)
-    if(par('ylog')) ycoord <- 10^(ycoord)
-
-    if(las==3){
-      srt <- 90
-      adj <- 0
-    } else {
-      srt <- 0
-      adj <- 1
-    }
-    ## Print the text on the current plot
-    text(xcoord, ycoord, x, adj=adj, srt=srt, cex=cex)
-    invisible(x)
-  }
-
-  if(is.null(txt)) {
-    # get the option
+Stamp <- function(txt = NULL, las = NULL, cex = 0.6, col="grey40") {
+  
+  ## resolve text
+  if (is.null(txt)) {
     txt <- DescToolsOptions("stamp")
-    if(is.null(txt)){
-      txt <- format(Sys.time(), '%Y-%m-%d')
-      } else {
-      if(is.expression(txt)){
-        txt <- eval(parse(text = txt))
-      }
+    if (is.null(txt)) {
+      txt <- format(Sys.time(), "%Y-%m-%d")
+    } else if (is.expression(txt)) {
+      txt <- eval(parse(text = txt))
     }
   }
-
-  invisible(stamp(txt))
-
+  
+  ## handle las locally
+  old_las <- par("las")
+  if (is.null(las)) {
+    las <- old_las
+  } else {
+    op_las <- par(las = las)
+    on.exit(par(op_las), add = TRUE)
+  }
+  
+  ## IMPORTANT: line is NEGATIVE for outer text
+  line_pos <- -(0.3 + 1.4 * cex)
+  
+  if (las == 3) {
+    ## vertical stamp (right bottom)
+    mtext(
+      paste0("  ", txt),
+      side  = 4,
+      line  = line_pos,   # << FIX
+      adj   = 0,
+      srt   = 90,
+      outer = TRUE,
+      cex   = cex,
+      col   = col
+    )
+    
+  } else {
+    ## horizontal stamp (bottom right)
+    mtext(
+      paste0(txt, "  "),
+      side  = 1,
+      line  = line_pos,   # << FIX
+      adj   = 1,
+      outer = TRUE,
+      cex   = cex,
+      col   = col
+    )
+  }
+  
+  invisible(txt)
 }
+
 
 
 

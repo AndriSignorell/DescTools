@@ -1,9 +1,9 @@
 \name{Recode}
 \alias{Recode}
-\title{Recode a Factor
+\title{Recode a Variable
 }
 \description{Combining or rearranging a factor can be tedious if it has many 
-vels. \code{Recode} supports this step by
+levels. \code{Recode()} supports this step by
 accepting a direct definition of new levels by enumerating old levelnames 
 as argument and adding an \code{"elselevel"} option. If new levels are given as 
 integer values they will be translated in the according levels.
@@ -37,7 +37,8 @@ Recode(x, ..., keep = NULL, elselevel = NA, ref = NULL,
   The default is \code{FALSE},
    which drops empty levels.
 }
-\item{num}{logical. If set to \code{TRUE} the result will be numeric.}
+\item{num}{logical. If set to \code{TRUE} the result will be numeric. This is useful
+if you want to recode strings to specific numeric values.}
 }
 \value{
 the factor having the new levels applied.\cr

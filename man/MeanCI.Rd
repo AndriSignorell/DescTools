@@ -6,27 +6,17 @@
 \usage{
 MeanCI(
   x,
-  sd = NULL,
-  trim = 0,
   conf.level = 0.95,
   sides = c("two.sided", "left", "right"),
   method = c("classic", "boot"),
+  sd = NULL,
+  trim = 0,
   na.rm = FALSE,
   ...
 )
 }
 \arguments{
 \item{x}{a (non-empty) numeric vector of data values.}
-
-\item{sd}{the standard deviation of x. If provided it's interpreted as sd of
-the population and the normal quantiles will be used for constructing the
-confidence intervals. If left to \code{NULL} (default) the sample
-\code{sd(x)} will be calculated and used in combination with the
-t-distribution.}
-
-\item{trim}{the fraction (0 to 0.5) of observations to be trimmed from each
-end of \code{x} before the mean is computed. Values of \code{trim} outside
-that range are taken as the nearest endpoint.}
 
 \item{conf.level}{confidence level of the interval.}
 
@@ -40,6 +30,16 @@ letter.}
 intervals required. The value should be any subset of the values
 \code{"classic"}, \code{"boot"}.  See \code{\link[boot]{boot.ci}}.}
 
+\item{sd}{the standard deviation of x. If provided it's interpreted as sd of
+the population and the normal quantiles will be used for constructing the
+confidence intervals. If left to \code{NULL} (default) the sample
+\code{sd(x)} will be calculated and used in combination with the
+t-distribution.}
+
+\item{trim}{the fraction (0 to 0.5) of observations to be trimmed from each
+end of \code{x} before the mean is computed. Values of \code{trim} outside
+that range are taken as the nearest endpoint.}
+
 \item{na.rm}{a logical value indicating whether \code{NA} values should be
 stripped before the computation proceeds. Defaults to FALSE.}
 
@@ -52,8 +52,8 @@ defaults, being \code{"basic"} for \code{type}, option
 \code{parallel} and \code{999} for \code{R}.}
 }
 \value{
-a numeric vector with 3 elements: \item{mean}{mean}
-\item{lwr.ci}{lower bound of the confidence interval} \item{upr.ci}{upper
+a numeric vector with 3 elements: \item{est}{estimator, say the calculated mean}
+\item{lci}{lower bound of the confidence interval} \item{uci}{upper
 bound of the confidence interval}
 }
 \description{

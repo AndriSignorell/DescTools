@@ -2312,6 +2312,7 @@ plot.Desc.default <- function(x, main = NULL, ...) {
 
 
 plot.Desc.numeric <- function(x, main = NULL, args.hist = NULL, ...) {
+  
   # return the first value not being null of main, x$main, deparse(substitute(x))
   # (remind to allow NA here, for choosing no main title)
   main <- Reduce(
@@ -2337,146 +2338,145 @@ plot.Desc.character <- function(x, main = NULL, ...) {
 plot.Desc.factor <- function(x, main = NULL, maxlablen = 25,
                              type = c("bar", "dot"),
                              col = NULL, border = NULL, xlim = NULL, ecdf = TRUE, ...) {
-  # if (nlevels(factor(x)) <= 2) {
-  #   plot.Desc.logical(x, main = main, ..., wrd=wrd)
-  # }
-  # else {
+  
 
-  oldpar <- par(no.readonly = TRUE)
-  on.exit(par(oldpar))
-
-  # was cex in the dots-args? parse dots.arguments
-  cex <- unlist(match.call(expand.dots = FALSE)$...["cex"])
-  if (is.null(cex)) cex <- par("cex")
-
-  tab <- as.table(x$freq$freq)
-  names(tab) <- x$freq[[1]]
-  ptab <- as.table(x$freq$perc)
-  trunc_fg <- (nrow(tab) > x$maxrows)
-  if (!is.na(x$maxrows) && x$maxrows < nrow(tab)) {
-    tab <- tab[1:min(nrow(tab), x$maxrows)]
-    ptab <- ptab[1:min(nrow(tab), x$maxrows)]
-  }
-
-  if (max(nchar(names(tab))) > maxlablen) {
-    names(tab) <- StrTrunc(names(tab), maxlablen)
-  }
-  wtxt <- max(strwidth(names(tab), "inch"))
-  wplot <- (par("pin")[1] - wtxt) / 2
-  layout(matrix(c(1, 2), nrow = 1), widths = c(wtxt + wplot, wplot) * 2.54)
-  par(mai = c(1.2, max(strwidth(rev(names(tab)), "inch")) + .5, 0.2, .3) + .02)
-  if (!is.na(x$main)) par(oma = c(0, 0, 3, 0))
-
-
-  switch(match.arg(arg = type, choices = c("bar", "dot")),
-    dot = {
-      if (is.null(xlim)) {
-        xlim <- range(pretty(tab)) + c(-1, 1) * diff(range(pretty(tab))) * 0.04
-      }
-
-      if (is.null(col)) col <- Pal()[1]
-      if (is.null(border)) border <- "black"
-      b <- barplot(rev(tab),
-        horiz = TRUE, border = NA, col = "white", las = 1,
-        xlim = xlim,
-        xpd = FALSE, xlab = "frequency",
-        cex.names = cex, cex.axis = cex, cex.lab = cex, tck = -0.04
-      )
-      abline(h = b, v = 0, col = "grey", lty = "dotted")
-      segments(0, b, as.vector(rev(tab)), b)
-      points(
-        x = as.vector(rev(tab)), y = b, yaxt = "n",
-        col = border, pch = 21, bg = col, cex = 1.3
-      )
-      box()
-
-      par(mai = c(1.2, 0.1, 0.2, .3) + .02)
-      b <- barplot(rev(ptab),
-        horiz = TRUE, border = NA, col = "white", las = 1, names = "",
-        xlim = c(-0.04, 1.04),
-        xlab = "percent", cex.names = cex, cex.axis = cex,
-        cex.lab = cex, tck = -0.04
-      )
-      abline(h = b, v = 0, col = "grey", lty = "dotted")
-      segments(0, b, as.vector(rev(ptab)), b)
-      points(
-        x = as.vector(rev(ptab)), y = b, col = border, pch = 21,
-        bg = col, cex = 1.3
-      )
-      box()
-    },
-    bar = { # type = "bar"
-
-      if (is.null(xlim)) {
-        xlim <- range(pretty(c(0.96 * min(tab), 1.04 * max(tab))))
-      }
-
-      if (is.null(col)) {
-        col <- c(
-          rep("grey80", length.out = 2 * nrow(tab)),
-          rep(SetAlpha("grey80", 0.4), length.out = nrow(tab))
-        )
-      } else {
-        if (length(col) == 1) {
-          col <- c(
-            rep(col, length.out = 2 * nrow(tab)),
-            rep(SetAlpha(col, 0.3), length.out = nrow(tab))
-          )
-        } else {
-          col <- rep(col, length.out = 3 * nrow(tab))
+  .withGraphicsState({
+  
+    # was cex in the dots-args? parse dots.arguments
+    cex <- unlist(match.call(expand.dots = FALSE)$...["cex"])
+    if (is.null(cex)) cex <- par("cex")
+  
+    tab <- as.table(x$freq$freq)
+    names(tab) <- x$freq[[1]]
+    ptab <- as.table(x$freq$perc)
+    trunc_fg <- (nrow(tab) > x$maxrows)
+    if (!is.na(x$maxrows) && x$maxrows < nrow(tab)) {
+      tab <- tab[1:min(nrow(tab), x$maxrows)]
+      ptab <- ptab[1:min(nrow(tab), x$maxrows)]
+    }
+  
+    if (max(nchar(names(tab))) > maxlablen) {
+      names(tab) <- StrTrunc(names(tab), maxlablen)
+    }
+    wtxt <- max(strwidth(names(tab), "inch"))
+    wplot <- (par("pin")[1] - wtxt) / 2
+    layout(matrix(c(1, 2), nrow = 1), widths = c(wtxt + wplot, wplot) * 2.54)
+    par(mai = c(1.2, max(strwidth(rev(names(tab)), "inch")) + .5, 0.2, .3) + .02)
+    if (!is.na(x$main)) par(oma = c(0, 0, 3, 0))
+  
+  
+    switch(match.arg(arg = type, choices = c("bar", "dot")),
+      dot = {
+        if (is.null(xlim)) {
+          xlim <- range(pretty(tab)) + c(-1, 1) * diff(range(pretty(tab))) * 0.04
         }
-      }
-      if (is.null(border)) border <- NA
-      barplot(rev(tab),
-        horiz = TRUE, col = col[1:nrow(tab)],
-        border = border, las = 1, xlim = xlim,
-        xpd = FALSE, xlab = "frequency",
-        cex.names = cex, cex.axis = cex, cex.lab = cex, tck = -0.04
-      )
-      grid(ny = NA)
-
-      par(mai = c(1.2, 0.15, 0.2, .3) + .02)
-      if (ecdf) {
-        barplot(rev(cumsum(ptab)),
-          horiz = TRUE, col = col[(2 * nrow(tab) + 1):(3 * nrow(tab))],
-          border = border, las = 1,
-          names = "", xlim = c(0, 1), xlab = "percent",
+  
+        if (is.null(col)) col <- Pal()[1]
+        if (is.null(border)) border <- "black"
+        b <- barplot(rev(tab),
+          horiz = TRUE, border = NA, col = "white", las = 1,
+          xlim = xlim,
+          xpd = FALSE, xlab = "frequency",
           cex.names = cex, cex.axis = cex, cex.lab = cex, tck = -0.04
         )
-        barplot(rev(ptab),
-          horiz = TRUE, col = col[(nrow(tab) + 1):(2 * nrow(tab))],
-          border = border, names = "", xlab = NA, ylab = NA,
-          add = TRUE, axes = FALSE
+        abline(h = b, v = 0, col = "grey", lty = "dotted")
+        segments(0, b, as.vector(rev(tab)), b)
+        points(
+          x = as.vector(rev(tab)), y = b, yaxt = "n",
+          col = border, pch = 21, bg = col, cex = 1.3
         )
-      } else {
-        barplot(rev(ptab),
-          horiz = TRUE, col = col[(nrow(tab) + 1):(2 * nrow(tab))],
-          border = border, las = 1, names = "",
-          xlim = c(0, 1), xlab = "percent", cex.names = cex,
-          cex.axis = cex, cex.lab = cex, tck = -0.04
+        box()
+  
+        par(mai = c(1.2, 0.1, 0.2, .3) + .02)
+        b <- barplot(rev(ptab),
+          horiz = TRUE, border = NA, col = "white", las = 1, names = "",
+          xlim = c(-0.04, 1.04),
+          xlab = "percent", cex.names = cex, cex.axis = cex,
+          cex.lab = cex, tck = -0.04
         )
+        abline(h = b, v = 0, col = "grey", lty = "dotted")
+        segments(0, b, as.vector(rev(ptab)), b)
+        points(
+          x = as.vector(rev(ptab)), y = b, col = border, pch = 21,
+          bg = col, cex = 1.3
+        )
+        box()
+      },
+      bar = { # type = "bar"
+  
+        if (is.null(xlim)) {
+          xlim <- range(pretty(c(0.96 * min(tab), 1.04 * max(tab))))
+        }
+  
+        if (is.null(col)) {
+          col <- c(
+            rep("grey80", length.out = 2 * nrow(tab)),
+            rep(SetAlpha("grey80", 0.4), length.out = nrow(tab))
+          )
+        } else {
+          if (length(col) == 1) {
+            col <- c(
+              rep(col, length.out = 2 * nrow(tab)),
+              rep(SetAlpha(col, 0.3), length.out = nrow(tab))
+            )
+          } else {
+            col <- rep(col, length.out = 3 * nrow(tab))
+          }
+        }
+        if (is.null(border)) border <- NA
+        barplot(rev(tab),
+          horiz = TRUE, col = col[1:nrow(tab)],
+          border = border, las = 1, xlim = xlim,
+          xpd = FALSE, xlab = "frequency",
+          cex.names = cex, cex.axis = cex, cex.lab = cex, tck = -0.04
+        )
+        grid(ny = NA)
+  
+        par(mai = c(1.2, 0.15, 0.2, .3) + .02)
+        if (ecdf) {
+          barplot(rev(cumsum(ptab)),
+            horiz = TRUE, col = col[(2 * nrow(tab) + 1):(3 * nrow(tab))],
+            border = border, las = 1,
+            names = "", xlim = c(0, 1), xlab = "percent",
+            cex.names = cex, cex.axis = cex, cex.lab = cex, tck = -0.04
+          )
+          barplot(rev(ptab),
+            horiz = TRUE, col = col[(nrow(tab) + 1):(2 * nrow(tab))],
+            border = border, names = "", xlab = NA, ylab = NA,
+            add = TRUE, axes = FALSE
+          )
+        } else {
+          barplot(rev(ptab),
+            horiz = TRUE, col = col[(nrow(tab) + 1):(2 * nrow(tab))],
+            border = border, las = 1, names = "",
+            xlim = c(0, 1), xlab = "percent", cex.names = cex,
+            cex.axis = cex, cex.lab = cex, tck = -0.04
+          )
+        }
+        grid(ny = NA)
       }
-      grid(ny = NA)
-    }
-  )
-
-
-  if (is.null(main)) main <- x$main
-  if (!is.na(main)) {
-    title(main = Coalesce(main, x$main), outer = TRUE)
-  }
-
-  if (trunc_fg) {
-    text(
-      x = par()$usr[2], y = 0.4, labels = " ...[list output truncated]  ",
-      cex = 0.6, adj = c(1, 0.5)
     )
-  }
-
-  if (!is.null(DescToolsOptions("stamp"))) {
-    Stamp()
-  }
-
+  
+  
+    if (is.null(main)) main <- x$main
+    if (!is.na(main)) {
+      title(main = Coalesce(main, x$main), outer = TRUE)
+    }
+  
+    if (trunc_fg) {
+      text(
+        x = par()$usr[2], y = 0.4, labels = " ...[list output truncated]  ",
+        cex = 0.6, adj = c(1, 0.5)
+      )
+    }
+  
+    if (!is.null(DescToolsOptions("stamp"))) {
+      Stamp()
+    }
+    
+  # close .withGraphicsState
+  })
+  
   invisible()
 }
 
@@ -2507,71 +2507,74 @@ plot.Desc.ordered <- function(x, main = NULL, ...) {
 
 plot.Desc.logical <- function(x, main = NULL, xlab = "", col = NULL,
                               legend = TRUE, xlim = c(0, 1), confint = TRUE, ...) {
-  main <- Reduce(
-    function(x, y) ifelse(!is.null(x), x, y),
-    c(main, x$main, deparse(substitute(x)))
-  )
 
 
-  if (is.null(col)) {
-    col <- c(Pal()[1:2], "grey80", "grey60", "grey40")
-  } else {
-    col <- rep(col, length.out = 5)
-  }
-
-  tab <- x$afrq
-  ptab <- x$rfrq[, 1]
-  if (nrow(x$rfrq) > 2) stop("!plot.Desc.logical! can only display 2 levels")
-  oldpar <- par(no.readonly = TRUE)
-  on.exit(par(oldpar))
-
-  par(mar = c(4.1, 2.1, 0, 2.1))
-  if (!is.na(main)) par(oma = c(0, 0, 3, 0))
-
-  plot(
-    x = ptab[1], y = 1, cex = 0.8, xlim = xlim, yaxt = "n", ylab = "",
-    type = "n", bty = "n", xlab = xlab, main = NA
-  )
-  segments(x0 = 0, x1 = 1, y0 = 1, y1 = 1, col = "grey")
-  segments(x0 = c(0, 1), x1 = c(0, 1), y0 = 0.8, y1 = 1.2, col = "grey")
-
-  # insert grid
-  segments(
-    x0 = seq(0, 1, 0.1), x1 = seq(0, 1, 0.1), y0 = 0.8, y1 = 1.2,
-    col = "grey", lty = "dotted"
-  )
-  rect(xleft = 0, ybottom = 0.95, xright = ptab[1], ytop = 1.05, col = col[1]) # greenyellow
-  rect(xleft = ptab[1], ybottom = 0.95, xright = 1, ytop = 1.05, col = col[2]) # green4
-
-  if (confint) {
-    ci.99 <- BinomCI(tab[1], sum(tab), conf.level = 0.99)[2:3]
-    ci.95 <- BinomCI(tab[1], sum(tab), conf.level = 0.95)[2:3]
-    ci.90 <- BinomCI(tab[1], sum(tab), conf.level = 0.90)[2:3]
-    rect(xleft = ci.99[1], ybottom = 0.9, xright = ci.99[2], ytop = 1.1, col = col[3]) # olivedrab1
-    rect(xleft = ci.95[1], ybottom = 0.9, xright = ci.95[2], ytop = 1.1, col = col[4]) # olivedrab3
-    rect(xleft = ci.90[1], ybottom = 0.9, xright = ci.90[2], ytop = 1.1, col = col[5]) # olivedrab4
-    segments(x0 = ptab[1], x1 = ptab[1], y0 = 0.7, y1 = 1.3)
-  }
-
-  if (legend) {
-    legend(
-      x = 0, y = 0.75, legend = c("ci.99     ", "ci.95     ", "ci.90     "),
-      box.col = "white",
-      fill = col[3:5], bg = "white", cex = 1, ncol = 3,
-      text.width = c(0.2, 0.2, 0.2)
+  .withGraphicsState({
+    
+    main <- Coalesce(main, x$main, deparse(substitute(x)))
+  
+    if (is.null(col)) {
+      col <- c(Pal()[1:2], "grey80", "grey60", "grey40")
+    } else {
+      col <- rep(col, length.out = 5)
+    }
+  
+    tab <- x$afrq
+    ptab <- x$rfrq[, 1]
+    if (nrow(x$rfrq) > 2) stop("!plot.Desc.logical! can only display 2 levels")
+    oldpar <- par(no.readonly = TRUE)
+    on.exit(par(oldpar))
+  
+    par(mar = c(4.1, 2.1, 0, 2.1))
+    if (!is.na(main)) par(oma = c(0, 0, 3, 0))
+  
+    plot(
+      x = ptab[1], y = 1, cex = 0.8, xlim = xlim, yaxt = "n", ylab = "",
+      type = "n", bty = "n", xlab = xlab, main = NA
     )
-  }
-  if (length(rownames(tab)) == 1) {
-    text(rownames(tab), x = ptab[1] / 2, y = 1.2)
-  } else {
-    text(rownames(tab), x = c(ptab[1], ptab[1] + 1) / 2, y = 1.2)
-  }
+    segments(x0 = 0, x1 = 1, y0 = 1, y1 = 1, col = "grey")
+    segments(x0 = c(0, 1), x1 = c(0, 1), y0 = 0.8, y1 = 1.2, col = "grey")
+  
+    # insert grid
+    segments(
+      x0 = seq(0, 1, 0.1), x1 = seq(0, 1, 0.1), y0 = 0.8, y1 = 1.2,
+      col = "grey", lty = "dotted"
+    )
+    rect(xleft = 0, ybottom = 0.95, xright = ptab[1], ytop = 1.05, col = col[1]) # greenyellow
+    rect(xleft = ptab[1], ybottom = 0.95, xright = 1, ytop = 1.05, col = col[2]) # green4
+  
+    if (confint) {
+      ci.99 <- BinomCI(tab[1], sum(tab), conf.level = 0.99)[2:3]
+      ci.95 <- BinomCI(tab[1], sum(tab), conf.level = 0.95)[2:3]
+      ci.90 <- BinomCI(tab[1], sum(tab), conf.level = 0.90)[2:3]
+      rect(xleft = ci.99[1], ybottom = 0.9, xright = ci.99[2], ytop = 1.1, col = col[3]) # olivedrab1
+      rect(xleft = ci.95[1], ybottom = 0.9, xright = ci.95[2], ytop = 1.1, col = col[4]) # olivedrab3
+      rect(xleft = ci.90[1], ybottom = 0.9, xright = ci.90[2], ytop = 1.1, col = col[5]) # olivedrab4
+      segments(x0 = ptab[1], x1 = ptab[1], y0 = 0.7, y1 = 1.3)
+    }
+  
+    if (legend) {
+      legend(
+        x = 0, y = 0.75, legend = c("ci.99     ", "ci.95     ", "ci.90     "),
+        box.col = "white",
+        fill = col[3:5], bg = "white", cex = 1, ncol = 3,
+        text.width = c(0.2, 0.2, 0.2)
+      )
+    }
+    if (length(rownames(tab)) == 1) {
+      text(rownames(tab), x = ptab[1] / 2, y = 1.2)
+    } else {
+      text(rownames(tab), x = c(ptab[1], ptab[1] + 1) / 2, y = 1.2)
+    }
+  
+    if (!is.na(main)) title(main = main, outer = TRUE)
+  
+    if (!is.null(DescToolsOptions("stamp"))) Stamp()
 
-  if (!is.na(main)) title(main = main, outer = TRUE)
-
-  if (!is.null(DescToolsOptions("stamp"))) Stamp()
-
+  })  
+  
   invisible()
+  
 }
 
 
