@@ -1,6 +1,5 @@
 \name{VarCI}
 \alias{VarCI}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{Confidence Intervals for the Variance
 }
 \description{
@@ -8,34 +7,27 @@ Calculates confidence intervals for the variance. Available approachs are the cl
 
 }
 \usage{
-VarCI(x, method = c("classic", "bonett", "norm", "basic", "stud", "perc", "bca"),
+VarCI(x, 
       conf.level = 0.95, sides = c("two.sided", "left", "right"),
-      na.rm = FALSE, R = 999)
+      method = c("classic", "bonett", "boot"), na.rm = FALSE, ...)
 
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{a (non-empty) numeric vector of data values.
-%%     ~~Describe \code{x} here~~
 }
   \item{method}{vector of character strings representing the type of intervals required. The value should be any subset of the values \code{"classic"}, \code{"bonett"}, \code{"norm"}, \code{"basic"},  \code{"stud"},  \code{"perc"},  \code{"bca"}.
   See \code{\link[boot]{boot.ci}}.
-%%     ~~Describe \code{x} here~~
 }
   \item{conf.level}{confidence level of the interval.
-%%     ~~Describe \code{conf.level} here~~
 }
 \item{sides}{a character string specifying the side of the confidence interval, must be one of \code{"two.sided"} (default), \code{"left"} or \code{"right"}. You can specify just the initial letter. \code{"left"} would be analogue to a hypothesis of \code{"greater"} in a \code{t.test}.}
 
   \item{na.rm}{logical. Should missing values be removed? Defaults to FALSE.
-%%     ~~Describe \code{na.rm} here~~
 }
-  \item{R}{number of bootstrap replicates. Usually this will be a single positive integer. For importance resampling, some resamples may use one set of weights and others use a different set of weights. In this case R would be a vector of integers where each component gives the number of resamples from each of the rows of weights.
-  See \code{\link[boot]{boot}}.
-%%     ~~Describe \code{x} here~~
+\item{\dots}{further arguments, can be used to provide further arguments to the boot function.}
 }
 
-}
 \value{a numeric vector with 3 elements:
   \item{var}{variance}
   \item{lwr.ci}{lower bound of the confidence interval}
@@ -87,10 +79,8 @@ sqrt(VarCI(p, method="bonett"))
 sqrt(VarCI(p, method="bonett", conf.level=0.99))
 
 # some bootstrap intervals
-VarCI(x, method="norm")
-VarCI(x, method="perc")
-VarCI(x, method="bca")
+VarCI(x, method="boot", type="norm")
+VarCI(x, method="boot", type="perc")
+VarCI(x, method="boot", type="bca")
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
 \keyword{ univar }

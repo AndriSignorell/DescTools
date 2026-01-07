@@ -33,6 +33,10 @@ conv_DecToBin <- function(n) {
     .Call(`_DescTools_conv_DecToBin`, n)
 }
 
+acceptBin <- function(x, n, p) {
+    .Call(`_DescTools_acceptBin`, x, n, p)
+}
+
 isoWeek <- function(x) {
     .Call(`_DescTools_isoWeek`, x)
 }

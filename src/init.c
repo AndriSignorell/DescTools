@@ -78,6 +78,7 @@ extern SEXP _DescTools_ConDisPairs(SEXP);
 extern SEXP _DescTools_ConDisPairsXY(SEXP, SEXP);
 extern SEXP _DescTools_formatNum(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _DescTools_formatDateTime(SEXP, SEXP, SEXP, SEXP);
+extern SEXP _DescTools_acceptBin(SEXP, SEXP, SEXP);
 
 
 /* .Fortran calls */
@@ -142,6 +143,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"_DescTools_ConDisPairsXY", (DL_FUNC) &_DescTools_ConDisPairsXY, 2},
   {"_DescTools_formatNum",     (DL_FUNC) &_DescTools_formatNum,     7},
   {"_DescTools_formatDateTime",(DL_FUNC) &_DescTools_formatDateTime,4},
+  {"_DescTools_acceptBin",     (DL_FUNC) &_DescTools_acceptBin,     3},
   {NULL, NULL, 0}
 };
 

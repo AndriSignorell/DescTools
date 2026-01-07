@@ -72,7 +72,7 @@ x <- d.pizza$price[1:20]
 MeanCI(x, na.rm=TRUE)
 MeanCI(x, conf.level=0.99, na.rm=TRUE)
 
-MeanCI(x, sides="left")
+MeanCI(x, sides="left", na.rm=TRUE)
 # same as:
 t.test(x, alternative="greater")
 

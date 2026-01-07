@@ -102,6 +102,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// acceptBin
+double acceptBin(int x, int n, double p);
+RcppExport SEXP _DescTools_acceptBin(SEXP xSEXP, SEXP nSEXP, SEXP pSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type x(xSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< double >::type p(pSEXP);
+    rcpp_result_gen = Rcpp::wrap(acceptBin(x, n, p));
+    return rcpp_result_gen;
+END_RCPP
+}
 // isoWeek
 IntegerVector isoWeek(DateVector x);
 RcppExport SEXP _DescTools_isoWeek(SEXP xSEXP) {

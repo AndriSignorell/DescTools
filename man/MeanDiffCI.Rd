@@ -1,34 +1,28 @@
 \name{MeanDiffCI}
 \alias{MeanDiffCI}
-\alias{MeanDiffCI.formula}
-\alias{MeanDiffCI.default}
 \title{Confidence Interval For Difference of Means
 }
 \description{Calculates the confidence interval for the difference of two means either the classical way or with the bootstrap approach.
 }
 \usage{
-MeanDiffCI(x, ...)
-
-\method{MeanDiffCI}{default}(x, y, method = c("classic", "norm", "basic", "stud", "perc", "bca"),
+MeanDiffCI(x, y, 
            conf.level = 0.95, sides = c("two.sided", "left", "right"), 
-           paired = FALSE, var.equal = FALSE, na.rm = FALSE, R = 999, ...)
-
-\method{MeanDiffCI}{formula}(formula, data, subset, na.action, ...)
-
+           method = c("classic", "boot"), paired = FALSE, var.equal = FALSE, 
+           na.rm = FALSE, ...)
 }
 \arguments{
   \item{x}{a (non-empty) numeric vector of data values.
 }
   \item{y}{a (non-empty) numeric vector of data values.
 }
-  \item{method}{a vector of character strings representing the type of intervals required. The value should be any subset of the values
-  \code{"classic"}, \code{"norm"}, \code{"basic"}, \code{"stud"}, \code{"perc"}, \code{"bca"}.
-  See \code{\link[boot]{boot.ci}}.
-}
   \item{conf.level}{confidence level of the interval.
 }
 \item{sides}{a character string specifying the side of the confidence interval, must be one of \code{"two.sided"} (default), \code{"left"} or \code{"right"}. You can specify just the initial letter. \code{"left"} would be analogue to a hypothesis of \code{"greater"} in a \code{t.test}.}
 
+  \item{method}{a vector of character strings representing the type of intervals required. The value should be any subset of the values
+  \code{"classic"}, \code{"boot"}. Bootstrap type can be provided by the dots.
+  See \code{\link[boot]{boot.ci}}.
+}
 \item{paired}{a logical indicating whether you want confidence intervals 
 for a paired design. Defaults to \code{FALSE}.}
 
@@ -40,23 +34,17 @@ is used to estimate the variance otherwise the Welch
 }
   \item{na.rm}{logical. Should missing values be removed? Defaults to \code{FALSE}.
 }
-  \item{R}{the number of bootstrap replicates. Usually this will be a single positive integer. For importance resampling, some resamples may use one set of weights and others use a different set of weights. In this case R would be a vector of integers where each component gives the number of resamples from each of the rows of weights.
-  See \code{\link[boot]{boot}}.
-}
-  \item{formula}{a formula of the form \code{lhs ~ rhs} where \code{lhs} is a numeric variable giving the data values and \code{rhs} a factor with two levels giving the corresponding groups.}
-  \item{data}{an optional matrix or data frame (or similar: see \code{\link{model.frame}}) containing the variables in the formula \code{formula}.
-    By default the variables are taken from \code{environment(formula)}.}
-  \item{subset}{an optional vector specifying a subset of observations to be used.}
-  \item{na.action}{a function which indicates what should happen when the data contain \code{NAs}. Defaults to \code{getOption("na.action")}.}
-  \item{\dots}{further argument to be passed to or from methods.}
+\item{\dots}{further arguments, can be used to provide further arguments to 
+the boot function.}
+
 }
 \details{This function collects code from two sources. The classical confidence interval is calculated by means of \code{\link{t.test}}.
 The bootstrap intervals are strongly based on the example in \code{\link[boot]{boot}}.
 }
 \value{a numeric vector with 3 elements:
   \item{meandiff}{the difference: mean(x) - mean(y)}
-  \item{lwr.ci}{lower bound of the confidence interval}
-  \item{upr.ci}{upper bound of the confidence interval}
+  \item{lci}{lower bound of the confidence interval}
+  \item{uci}{upper bound of the confidence interval}
 }
 \author{Andri Signorell <andri@signorell.net>}
 
@@ -73,14 +61,16 @@ MeanDiffCI(x, y, na.rm=TRUE)
 MeanDiffCI(x, y, conf.level=0.99, na.rm=TRUE)
 
 # the different types of bootstrap confints
-MeanDiffCI(x, y, method="norm", na.rm=TRUE)
-MeanDiffCI(x, y, method="basic", na.rm=TRUE)
-# MeanDiffCI(x, y, method="stud", na.rm=TRUE)
-MeanDiffCI(x, y, method="perc", na.rm=TRUE)
-MeanDiffCI(x, y, method="bca", na.rm=TRUE)
+MeanDiffCI(x, y, method="boot", type="norm", na.rm=TRUE)
+MeanDiffCI(x, y, method="boot", type="basic", na.rm=TRUE)
+# MeanDiffCI(x, y, method="boot", type="stud", na.rm=TRUE)
+MeanDiffCI(x, y, method="boot", type="perc", na.rm=TRUE)
+MeanDiffCI(x, y, method="boot", type="bca", na.rm=TRUE)
 
-# the formula interface
-MeanDiffCI(price ~ driver, data=d.pizza, subset=driver \%in\% c("Carter","Miller"))
+# for long form variables
+with(d.pizza, with(split(price, driver), 
+  MeanDiffCI(Carter, Miller) )
+)
 }
 \keyword{univar }
 

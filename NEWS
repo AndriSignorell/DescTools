@@ -12,6 +12,16 @@ UPDATED FUNCTIONS:
   * Stamp() obtains improved geometry processing, which ensures 
     that it maintains its absolute position when the aspect ratio 
     of the plot is changed. 
+  * The arguments in MeanCI() have been rearranged according to 
+    newly defined design principles to improve consistency.
+  * The BinomCI() code has been cleaned up and reorganised according 
+    to uniform criteria. The arguments "rand" and "tol" have been removed 
+    as they're not needed anymore.
+    The "blaker" method has been recoded in Rcpp to run much faster.
+  * VarCI() had its method argument changed to "boot" instead of the 
+    specific boot types. Same for applies to MeanDiffCI().
+  * MADCI() has been split into separate functions for MADCI(), 
+    MADDiffCI() and MADRatioCI() for clarity.
     
     
     
@@ -47,7 +57,7 @@ UPDATED FUNCTIONS:
     been replaced by "breaks". A new argument "labels" allow to define 
     better suited labels for age specific levels.
   * LeveneTest() has been given the same interface as similar functions in 
-    base R (as ansari.test or kruskal.test). lm-interface has been defunct.
+    base R (e.g. ansari.test or kruskal.test). lm-interface has been defunct.
   * Format() looses the two predefined formats for displaying confidence 
     intervals, fmt="ci" and fmt="ci%". These turned out to not be flexible enough.
   * Agree has been fundamentally rewritten to act more robust. It also got 
