@@ -50,7 +50,7 @@
 
 
 
-Styles <- function(){
+styles <- function(){
   
   # all styles found in environment
   env <- ls(envir = .GlobalEnv)
@@ -60,7 +60,7 @@ Styles <- function(){
     
     found <- env[
       sapply(env, function(x) 
-        inherits(get(x, envir = .GlobalEnv), "style"))
+        inherits(get(x, envir = .GlobalEnv), "Style"))
     ]
     
     res_env <- SetNames(lapply(found, get), names=found)
@@ -74,7 +74,7 @@ Styles <- function(){
   
   # all styles defined in R options
   opt <- options()
-  res_opt <- opt[sapply(opt, class) == "style"]
+  res_opt <- opt[sapply(opt, class) == "Style"]
   res_opt <- lapply(res_opt, function(x) {
     attr(x, "source") <- "options"
     x
@@ -107,30 +107,16 @@ Styles <- function(){
 
 
 
-Style <- function(  name = NULL
-                    , label = NULL
-                    , digits = NULL, ldigits = NULL, sci = NULL
+style <- function(  digits = NULL, ldigits = NULL, sci = NULL
                     , big.mark=NULL, outdec = NULL
                     , na.form = NULL, zero.form = NULL
                     , fmt = NULL, p_eps = NULL
                     , width = NULL, align = NULL
                     , lang = NULL
+                    , label = NULL
                     , ...){
-  
-  
-  # if a name ist provided, look for the name in the options
-  if(!is.null(name)){
-    
-    # get all defined styles in the options, and select the required one
-    sty <- Styles()[[name]]
-    
-    if(is.null(sty)){
-      warning(gettextf("Style '%s' could not be found.", name))
-      return(NA)
-    }
-  }
-  
-  
+
+
   # following does not much more than return the non null provided arguments 
   # in a new class <style>
   
@@ -138,10 +124,10 @@ Style <- function(  name = NULL
   # (for default values, we would use: a <- formals(get("Style", pos=1)))
   
   # so get all arguments from the Style() function
-  a <- formalArgs(Style)
+  a <- formalArgs(style)
   
   # remove dots name from the list
-  a <- a[a %nin% c("name", "label","...")]
+  a <- a[a %nin% c("label","...")]
   
   # get the values of all the arguments
   v <- sapply(a, dynGet)
@@ -150,17 +136,17 @@ Style <- function(  name = NULL
   res <- c(v[!sapply(v, is.null)],
            unlist(match.call(expand.dots=FALSE)$...))    
   
-  if(!is.null(name)){
-    # a style with the given <name> has been found in the options
-    # overwrite or append separately provided arguments
-    sty[names(res)] <- res
-    res <- sty
-  }
+  # if(!is.null(name)){
+  #   # a style with the given <name> has been found in the options
+  #   # overwrite or append separately provided arguments
+  #   sty[names(res)] <- res
+  #   res <- sty
+  # }
   
   if(!is.null(label))
     Label(res) <- label
   
-  class(res) <- "style"
+  class(res) <- "Style"
   return(res)
   
 }
@@ -168,7 +154,7 @@ Style <- function(  name = NULL
 
 
 
-print.style <- function(x, ...){
+print.Style <- function(x, ...){
   
   CollapseList <- function(x){
     z <- x
@@ -183,7 +169,7 @@ print.style <- function(x, ...){
                ifelse(identical(attr(x, "default"), TRUE), " (default)", "")),  
       gettextf("Description:   %s\n", Label(x)),
       gettextf("Definition:    %s\n", CollapseList(x)),
-      gettextf("Example:       %s\n", Fm(pi * 1e5, fmt=x)),
+      gettextf("Example:       %s\n", fm(pi * 1e5, fmt=x)),
       sep = ""
   )
   if(!is.null(attr(x, "source"))){
@@ -240,7 +226,7 @@ print.style <- function(x, ...){
     fixp <- (expo >= -3)
     
     if (any(fixp))
-      rr[fixp] <- Fm(x[fixp], digits=Coalesce(digits, 4), ldigits=ldigits)
+      rr[fixp] <- fm(x[fixp], digits=Coalesce(digits, 4), ldigits=ldigits)
     
     if (any(!fixp))
       rr[!fixp] <- format(x[!fixp], digits=Coalesce(digits, 3), scientific=TRUE)
@@ -249,9 +235,9 @@ print.style <- function(x, ...){
   }
   if (any(is0)) {
     if(log10(p_eps) >= -3)
-      p_eps <- Fm(p_eps, digits=digits, ldigits=ldigits)
+      p_eps <- fm(p_eps, digits=digits, ldigits=ldigits)
     else
-      p_eps <- Fm(p_eps, digits=1, fmt="e")
+      p_eps <- fm(p_eps, digits=1, fmt="e")
 
     r[is0] <- gettextf("< %s", p_eps)
   }
@@ -274,11 +260,11 @@ print.style <- function(x, ...){
   y <- unlist(lapply(s, "[[", 1))
   pwr <- unlist(lapply(s, "[", 2))
   
-  return(paste(Fm(y * 10^(pwr %% 3), digits=digits, ldigits=ldigits,
+  return(paste(fm(y * 10^(pwr %% 3), digits=digits, ldigits=ldigits,
                       zero.form = zero.form, na.form=na.form)
                , "e"
                , c("-","+")[(pwr >= 0) + 1]
-               , Fm(abs((pwr - (pwr %% 3))), ldigits = 2, digits=0)
+               , fm(abs((pwr - (pwr %% 3))), ldigits = 2, digits=0)
                , sep="")
   )
   
@@ -294,14 +280,14 @@ print.style <- function(x, ...){
   
   a <- paste("1e"
              , c("-","+")[(pwr >= 0) + 1]
-             , Fm(abs((pwr - (pwr %% 3))), ldigits=2, digits=0)
+             , fm(abs((pwr - (pwr %% 3))), ldigits=2, digits=0)
              , sep="")
   am <- d.prefix$abbr[match(as.numeric(a), d.prefix$mult)]
   
   a[!is.na(am)] <- am[!is.na(am)]
   a[a == "1e+00"] <- ""
   
-  return(paste(Fm(y * 10^(pwr %% 3), digits=digits, ldigits=ldigits,
+  return(paste(fm(y * 10^(pwr %% 3), digits=digits, ldigits=ldigits,
                       zero.form = zero.form, na.form=na.form)
                , " " , a
                , sep="")
@@ -312,7 +298,7 @@ print.style <- function(x, ...){
 
 
 
-Fm <- function(x
+fm <- function(x
                , digits = NULL, ldigits = NULL, sci = NULL
                , big.mark=NULL, outdec = NULL
                , na.form = NULL, zero.form = NULL
@@ -320,12 +306,12 @@ Fm <- function(x
                , width = NULL, align = NULL
                , lang = NULL
                , ...){
-  UseMethod("Fm")
+  UseMethod("fm")
 }
 
 
 
-Fm.default <- function(x, digits = NULL, ldigits = NULL, sci = NULL
+fm.default <- function(x, digits = NULL, ldigits = NULL, sci = NULL
                        , big.mark=NULL, outdec = NULL
                        , na.form = NULL, zero.form = NULL
                        , fmt = NULL, p_eps = NULL
@@ -370,7 +356,7 @@ Fm.default <- function(x, digits = NULL, ldigits = NULL, sci = NULL
     # )
     
     # for dates only the fmt argument is relevant
-    if(inherits(fmt, "style")) fmt <- fmt[["fmt"]]
+    if(inherits(fmt, "Style")) fmt <- fmt[["fmt"]]
     
     r <- formatDateTime(x=x, fmt=fmt, strict=TRUE, locale="current")
 
@@ -412,7 +398,7 @@ Fm.default <- function(x, digits = NULL, ldigits = NULL, sci = NULL
       if(is.function(fmt)){
         r <- fmt(x)
         
-      } else if(inherits(x=fmt, what="style")) {
+      } else if(inherits(x=fmt, what="Style")) {
         
         # class of fmt is: <style> 
         
@@ -420,7 +406,7 @@ Fm.default <- function(x, digits = NULL, ldigits = NULL, sci = NULL
         # consequence is, that all defaults of the function must be set to NULL
         # as we cannot distinguish between defaults and user sets else
         
-        a <- formalArgs("Fm")
+        a <- formalArgs("fm")
         # do for all function arguments, besides x, ..., and fmt
         # (as it has the class "style" when landing here!)
         for( z in a[a %nin% c("x", "fmt", "...")]){
@@ -431,7 +417,7 @@ Fm.default <- function(x, digits = NULL, ldigits = NULL, sci = NULL
         }
         
         # return the formatted values by recursive call of Fm()
-        return(do.call(Fm.default, c(fmt, x=list(x))))
+        return(do.call(fm.default, c(fmt, x=list(x))))
         
       } else {
         
@@ -474,6 +460,11 @@ Fm.default <- function(x, digits = NULL, ldigits = NULL, sci = NULL
           
           r <- as.character(MASS::fractions(x))
           
+        } else if (fmt %in% names(styles())) {
+          # so far fmt could be a character denoting the name of a style, 
+          # defined either in the global environment or in the options
+          r <- fm(x, fmt=styles()[[fmt]])
+
         } else {  # format else   ********************************************
           
           warning(gettextf("Non interpretable fmt code %s will be ignored.", fmt))
@@ -560,7 +551,7 @@ print.Fm <- function (x, quote=FALSE, ...) {
 
 
 
-Fm.data.frame <- function(x, digits = NULL, ldigits = NULL, sci = NULL
+fm.data.frame <- function(x, digits = NULL, ldigits = NULL, sci = NULL
                           , big.mark=NULL, outdec = NULL
                           , na.form = NULL, zero.form = NULL
                           , fmt = NULL, p_eps = NULL
@@ -577,7 +568,7 @@ Fm.data.frame <- function(x, digits = NULL, ldigits = NULL, sci = NULL
   arg <- do.call(Recycle, c(lst, list(rep(1, ncol(x)))))
   
   for(i in seq(attr(arg, "maxdim")))
-    x[,i] <- Fm(x[,i], digits = arg$digits[i],
+    x[,i] <- fm(x[,i], digits = arg$digits[i],
                     sci = arg$sci[i], big.mark = arg$big.mark[i], ldigits = arg$ldigits[i],
                     zero.form = arg$zero.form[i],
                     na.form = arg$na.form[i], fmt = arg$fmt[i], align = arg$align[i],
@@ -590,14 +581,14 @@ Fm.data.frame <- function(x, digits = NULL, ldigits = NULL, sci = NULL
 }
 
 
-Fm.matrix <- function(x, digits = NULL, ldigits = NULL, sci = NULL
+fm.matrix <- function(x, digits = NULL, ldigits = NULL, sci = NULL
                       , big.mark=NULL, outdec = NULL
                       , na.form = NULL, zero.form = NULL
                       , fmt = NULL, p_eps = NULL
                       , width = NULL, align = NULL
                       , lang = NULL, ...){
   
-  x[,] <- Fm.default(x=x, digits=digits, sci=sci, big.mark=big.mark,
+  x[,] <- fm.default(x=x, digits=digits, sci=sci, big.mark=big.mark,
                          ldigits=ldigits, zero.form=zero.form, na.form=na.form,
                          fmt=fmt, align=align, width=width, lang=lang, 
                          p_eps=p_eps, outdec=outdec, ...)
@@ -607,14 +598,14 @@ Fm.matrix <- function(x, digits = NULL, ldigits = NULL, sci = NULL
 }
 
 
-Fm.table <- function(x, digits = NULL, ldigits = NULL, sci = NULL
+fm.table <- function(x, digits = NULL, ldigits = NULL, sci = NULL
                      , big.mark=NULL, outdec = NULL
                      , na.form = NULL, zero.form = NULL
                      , fmt = NULL, p_eps = NULL
                      , width = NULL, align = NULL
                      , lang = NULL, ...){
   
-  x[] <- Fm.default(x=x, digits=digits, sci=sci, big.mark=big.mark,
+  x[] <- fm.default(x=x, digits=digits, sci=sci, big.mark=big.mark,
                         ldigits=ldigits, zero.form=zero.form, na.form=na.form,
                         fmt=fmt, align=align, width=width, lang=lang, p_eps=p_eps, 
                         outdec=outdec,...)
@@ -624,7 +615,7 @@ Fm.table <- function(x, digits = NULL, ldigits = NULL, sci = NULL
 }
 
 
-Fm.ftable <- function(x, digits = NULL, ldigits = NULL, sci = NULL
+fm.ftable <- function(x, digits = NULL, ldigits = NULL, sci = NULL
                       , big.mark=NULL, outdec = NULL
                       , na.form = NULL, zero.form = NULL
                       , fmt = NULL, p_eps = NULL
@@ -633,7 +624,7 @@ Fm.ftable <- function(x, digits = NULL, ldigits = NULL, sci = NULL
   
   # convert ftable first to matrix, then to data.frame in order to 
   # apply recycled arguments columnwise, which is a common need
-  res <- Fm(as.data.frame(as.matrix(x)), digits = digits, sci = sci, big.mark = big.mark,
+  res <- fm(as.data.frame(as.matrix(x)), digits = digits, sci = sci, big.mark = big.mark,
                 ldigits = ldigits, zero.form = zero.form, na.form = na.form,
                 fmt = fmt, align = align, width = width, lang = lang, 
                 p_eps = p_eps, outdec=outdec, ...)
@@ -646,9 +637,9 @@ Fm.ftable <- function(x, digits = NULL, ldigits = NULL, sci = NULL
 
 
 
-FmCI <- function(x, template=NULL, ...){
+fmCI <- function(x, template=NULL, ...){
 
-  x <- Fm(x, ...)
+  x <- fm(x, ...)
   n <- length(x)
   
   if (!n %in% c(2, 3))

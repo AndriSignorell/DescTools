@@ -5,7 +5,7 @@
 \description{Calculate the sign of zodiac of a date.
 }
 \usage{
-Zodiac(x, lang = c("engl", "deu"), stringsAsFactors = TRUE)
+Zodiac(x, lang = c("en", "de"), stringsAsFactors = TRUE)
 }
 \arguments{
   \item{x}{the date to be transformed.}
@@ -39,7 +39,7 @@ Nov. 22  - Dec. 21  : Sagittarius
 }
 \examples{
 Zodiac(as.Date(c("1937-07-28", "1936-06-01", "1966-02-25",
-                 "1964-11-17", "1972-04-25")), lang="deu")
+                 "1964-11-17", "1972-04-25")), lang="de")
 
 d <- sample(seq(as.Date("2015-01-01"), as.Date("2015-12-31"), 1), 120)
 z <- Zodiac(d)

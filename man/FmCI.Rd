@@ -1,5 +1,5 @@
-\name{FmCI}
-\alias{FmCI}
+\name{fmCI}
+\alias{fmCI}
 \title{
 Format Confidence Intervals
 }
@@ -7,7 +7,7 @@ Format Confidence Intervals
 Format confidence intervals using a flexible template.
 }
 \usage{
-FmCI(x, template = NULL, ...)
+fmCI(x, template = NULL, ...)
 }
 \arguments{
   \item{x}{the numerical values, given in the order in which they are 
@@ -17,7 +17,7 @@ FmCI(x, template = NULL, ...)
   \%s are the placeholders for the numerical values. 
   Default is \code{"\%s [\%s, \%s]"} for <est> [<lci>, <uci>].
 }
-  \item{\dots}{the dots are passed on to the \code{\link{Fm}()} function.
+  \item{\dots}{the dots are passed on to the \code{\link{fm}()} function.
 }
 }
 \value{a formatted string
@@ -25,17 +25,17 @@ FmCI(x, template = NULL, ...)
 \author{Andri Signorell <andri@signorell.net>
 }
 \seealso{
-\code{\link{Fm}}
+\code{\link{fm}}
 }
 \examples{
 x <- c(est=2.1, lci=1.5, uci=3.8)
 
 # default template
-FmCI(x)
+fmCI(x)
 # user defined template (note the double percent code)
-FmCI(x, template="\%s (95\%\%-CI \%s-\%s)", digits=1)
+fmCI(x, template="\%s (95\%\%-CI \%s-\%s)", digits=1)
 
 # in higher datastructures
 mci <- tapply(warpbreaks$breaks, warpbreaks$wool, MeanCI)
-sapply(mci, FmCI, digits=1)
+sapply(mci, fmCI, digits=1)
 }

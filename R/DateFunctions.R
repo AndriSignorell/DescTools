@@ -86,20 +86,21 @@ IsLeapYear <- function(x){
 
 
 Month <- function(x, fmt = c("m", "mm", "mmm"), 
-                  lang = DescToolsOptions("lang"), stringsAsFactors = TRUE) {
+                  lang = .getOption("lang"), stringsAsFactors = TRUE) {
   UseMethod("Month")
 }
 
 
 Month.ym <- function(x, fmt = c("m", "mm", "mmm"), 
-                     lang = DescToolsOptions("lang"), stringsAsFactors = TRUE) {
+                     lang = .getOption("lang"), stringsAsFactors = TRUE) {
   # unclass(x - Year(x) * 100)   
   x <- as.Date(x)
   NextMethod()
 }
 
+
 Month.default <- function(x, fmt = c("m", "mm", "mmm"), 
-                          lang = DescToolsOptions("lang"), stringsAsFactors = TRUE) {
+                          lang = .getOption("lang"), stringsAsFactors = TRUE) {
   
   res <- as.POSIXlt(x)$mon + 1L
   
@@ -107,24 +108,24 @@ Month.default <- function(x, fmt = c("m", "mm", "mmm"),
          m = { res },
          mm = {
            # res <- as.integer(format(x, "%m"))
-           switch(match.arg(arg = lang, choices = c("local", "engl")),
+           switch(match.arg(arg = lang, choices = c("local", "en")),
                   local = {
                     # months in current locale:  format(ISOdate(2000, 1:12, 1), "%b")
                     res <- ordered(res, levels=1L:12L, labels=format(ISOdate(2000L, 1L:12L, 1L), "%b"))
                   },
-                  engl = {
+                  en = {
                     res <- ordered(res, levels=1L:12L, labels=month.abb)
                   })
            if(!stringsAsFactors) res <- as.character(res)
          },
          mmm = {
            # res <- as.integer(format(x, "%m"))
-           switch(match.arg(arg = lang, choices = c("local", "engl")),
+           switch(match.arg(arg = lang, choices = c("local", "en")),
                   local = {
                     # months in current locale:  format(ISOdate(2000, 1:12, 1), "%b")
                     res <- ordered(res, levels=1L:12L, labels=format(ISOdate(2000L, 1L:12L, 1L), "%B"))
                   },
-                  engl = {
+                  en = {
                     res <- ordered(res, levels=1L:12L, labels=month.name)
                   })
            if(!stringsAsFactors) res <- as.character(res)
@@ -177,7 +178,8 @@ Day <- function(x){ as.POSIXlt(x)$mday }
 "Day<-" <- function(x, value) { x <- x + (value - Day(x)) }
 
 
-Weekday <- function (x, fmt = c("d", "dd", "ddd"), lang = DescToolsOptions("lang"), stringsAsFactors = TRUE) {
+Weekday <- function (x, fmt = c("d", "dd", "ddd"), 
+                     lang = .getOption("lang"), stringsAsFactors = TRUE) {
   
   # x <- as.Date(x)
   res <- as.POSIXlt(x)$wday
@@ -187,24 +189,24 @@ Weekday <- function (x, fmt = c("d", "dd", "ddd"), lang = DescToolsOptions("lang
          d = { res },
          dd = {
            # weekdays in current locale, Sunday : Saturday, format(ISOdate(2000, 1, 2:8), "%A")
-           switch(match.arg(arg = lang, choices = c("local", "engl")),
+           switch(match.arg(arg = lang, choices = c("local", "en")),
                   local = {
                     # months in current locale:  format(ISOdate(2000, 1:12, 1), "%b")
                     res <- ordered(res, levels=1:7, labels=format(ISOdate(2000, 1, 3:9), "%a"))
                   },
-                  engl = {
+                  en = {
                     res <- ordered(res, levels=1:7, labels=day.abb)
                   })
            if(!stringsAsFactors) res <- as.character(res)
          },
          ddd = {
            # weekdays in current locale, Sunday : Saturday, format(ISOdate(2000, 1, 2:8), "%A")
-           switch(match.arg(arg = lang, choices = c("local", "engl")),
+           switch(match.arg(arg = lang, choices = c("local", "en")),
                   local = {
                     # months in current locale:  format(ISOdate(2000, 1:12, 1), "%b")
                     res <- ordered(res, levels=1:7, labels=format(ISOdate(2000, 1, 3:9), "%A"))
                   },
-                  engl = {
+                  en = {
                     res <- ordered(res, levels=1:7, labels=day.name)
                   })
            if(!stringsAsFactors) res <- as.character(res)
@@ -224,12 +226,12 @@ CountWorkDays <- function(from, to,
     w <- (d %/% 7)
     
     res <- w * (7-length(nonworkdays)) + 
-      sum(Weekday(seq(from + w*7,  to, 1), fmt="dd", lang="engl") %nin% nonworkdays)
+      sum(Weekday(seq(from + w*7,  to, 1), fmt="dd", lang="en") %nin% nonworkdays)
     
     if(!is.null(holiday)){
       # count holidays in period
       h <- holiday[holiday %[]% c(from, to)]
-      res <- res - sum(Weekday(h, fmt="dd", lang="engl") %nin% nonworkdays)
+      res <- res - sum(Weekday(h, fmt="dd", lang="en") %nin% nonworkdays)
     }
     
     return(res)
@@ -489,11 +491,11 @@ AddMonths.ym <- function (x, n, ...) {
 
 
 
-Zodiac <- function(x, lang = c("engl","deu"), stringsAsFactors = TRUE) {
+Zodiac <- function(x, lang = c("en","de"), stringsAsFactors = TRUE) {
   
-  switch(match.arg(lang, choices=c("engl","deu"))
-         , engl = {z <- c("Capricorn","Aquarius","Pisces","Aries","Taurus","Gemini","Cancer","Leo","Virgo","Libra","Scorpio","Sagittarius","Capricorn") }
-         , deu =  {z <- c("Steinbock","Wassermann","Fische","Widder","Stier","Zwillinge","Krebs","Loewe","Jungfrau","Waage","Skorpion","Schuetze","Steinbock") }
+  switch(match.arg(lang, choices=c("en","de"))
+         , en = {z <- c("Capricorn","Aquarius","Pisces","Aries","Taurus","Gemini","Cancer","Leo","Virgo","Libra","Scorpio","Sagittarius","Capricorn") }
+         , de =  {z <- c("Steinbock","Wassermann","Fische","Widder","Stier","Zwillinge","Krebs","Loewe","Jungfrau","Waage","Skorpion","Schuetze","Steinbock") }
   )
   
   # i <- cut(DescTools::Month(x)*100 + DescTools::Day(x),

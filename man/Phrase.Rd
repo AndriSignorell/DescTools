@@ -8,7 +8,7 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-Phrase(x, g, glabels = NULL, xname = NULL, unit = NULL, lang = "engl", na.rm = FALSE)
+Phrase(x, g, glabels = NULL, xname = NULL, unit = NULL, lang = "en", na.rm = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

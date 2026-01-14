@@ -1,451 +1,5 @@
 
 
-# internal functions
-
-.wilson <- function(x, n, alpha) {
-  
-  p.hat <- x/n
-  q.hat <- 1 - p.hat
-  z <- qnorm(1-alpha/2)
-  z2 <- z^2
-  
-  term1 <- (x + z2/2) / (n + z2)
-  term2 <- z * sqrt(n) / (n + z2) * 
-    sqrt(p.hat * q.hat + z2 / (4 * n))
-  
-  return(c(
-    lci = max(0, term1 - term2),
-    uci = min(1, term1 + term2)
-  ))
-  
-}
-
-
-.wilson_cc <- function(x, n, alpha) {
-  
-  p.hat <- x/n
-  q.hat <- 1 - p.hat
-  z <- qnorm(1 - alpha/2)
-  z2 <- z^2
-  
-  lci <- ( 2 * x + z2 - 1 - z * sqrt(z2 - 2 - 1/n + 
-              4 * p.hat * (n * q.hat + 1))) / (2 * (n + z2))
-  
-  uci <- ( 2 * x + z2 + 1 + z * sqrt(z^2 + 2 - 1/n + 
-              4 * p.hat * (n * q.hat - 1))) / (2 * (n + z2))
-  
-  return( c(
-    lci = max(0, ifelse(p.hat == 0, 0, lci)),
-    uci = min(1, ifelse(p.hat == 1, 1, uci)))
-  )
-  
-}
-
-
-.wilson_mod <- function(x, n, alpha) {
-  
-  p.hat <- x/n
-  q.hat <- 1 - p.hat
-  z <- qnorm(1 - alpha/2)
-  z2 <- z^2
-  
-  term1 <- (x + z2/2) / (n + z2)
-  term2 <- z * sqrt(n) / (n + z2) * sqrt(p.hat * q.hat + z2 / (4 * n))
-  
-  if((n <= 50 & x %in% c(1, 2)) | (n >= 51 & x %in% c(1:3)))
-    lci <- 0.5 * qchisq(alpha, 2 * x)/n
-  else
-    lci <-  max(0, term1 - term2)
-  
-  if((n <= 50 & x %in% c(n-1, n-2)) | (n >= 51 & x %in% c(n-(1:3))))
-    uci <- 1 - 0.5 * qchisq(alpha, 2 * (n - x))/n
-  else
-    uci <- min(1, term1 + term2)
-  
-  return( c( lci = lci, uci = uci) )
-  
-}
-
-
-
-.agresti_coull <- function(x, n, alpha)  {
-
-  z <- qnorm(1-alpha/2)
-  
-  n.tilde <- n + z^2
-  p.tilde <- .nonStdEst(x, n, z)
-  q.tilde <- 1 - p.tilde
-  
-  term2 <- z * sqrt(p.tilde * q.tilde) / sqrt(n.tilde)
-  
-  return( c(
-    lci = max(0, p.tilde - term2),
-    uci = min(1, p.tilde + term2))
-    )
-  
-}
-
-
-
-.wald <- function(x, n, alpha, corr=FALSE){
-  
-  p.hat <- x/n
-  
-  # margin of error
-  ME <- qnorm(1 - alpha/2) * sqrt(p.hat * (1 - p.hat) / n)
-  
-  # continuity correction
-  if(corr)
-    ME <- ME + 1/(2*n)
-  
-  lci <- max(0, p.hat - ME)
-  uci <- min(1, p.hat + ME)
-  
-  return(c(lci=lci, uci=uci))
-}
-
-
-.jeffreys <- function(x, n, alpha){
-  
-  return(c( 
-    lci = if(x == 0) 0 
-            else qbeta(alpha/2, x + 0.5, n - x + 0.5),
-    uci = if(x == n) 1 
-            else qbeta(1-alpha/2, x + 0.5, n - x + 0.5)
-  ))
-  
-}
-
-
-.jeffreys_mod <- function(x, n, alpha)  {
-  
-  return(c(
-    lci =
-      if (x == n) { 
-        (alpha/2)^(1/n) 
-      } else if (x <= 1) {
-        0
-      } else {
-        qbeta(alpha/2, x + 0.5, n - x + 0.5)
-      },
-    
-    uci =
-      if (x == 0) {
-        1 - (alpha/2)^(1/n)
-      } else if (x >= n - 1) {
-        1
-      } else {
-        qbeta(1 - alpha/2, x + 0.5, n - x + 0.5)
-      }
-  ))
-  
-}
-
-
-.clopper_pearson <- function(x, n, alpha){
-  return(c(
-    lci = if (x == 0) 0 else qbeta(alpha/2, x, n - x + 1),
-    uci = if (x == n) 1 else qbeta(1 - alpha/2, x + 1, n - x)
-  ))
-}
-
-
-.arcsine <- function(x, n, alpha) {
-  
-  p.tilde <- (x + 0.375)/(n + 0.75)
-  ME <- 0.5 * qnorm(1-alpha/2) / sqrt(n)
-  
-  res <- c(
-    lci = sin(asin(sqrt(p.tilde)) - ME)^2,
-    uci = sin(asin(sqrt(p.tilde)) + ME)^2
-  ) 
-  attr(res, "p.tilde") <- p.tilde
-  
-  return(res)  
-  
-}
-
-
-.logit <- function(x, n, alpha){
-  
-  SetNames(
-    
-    LogitInv(log(x/(n-x)) - 
-             c(1,-1) * qnorm(1-alpha/2) * sqrt(n/(x*(n-x)))),
-    
-    names=c("lci", "uci"))
-}
-
-
-.witting <- function(x, n, alpha) {
-  
-  # here the uniform random number is by design
-  # define set.seed() before calling the function, if you want
-  # reproducible results
-  x.tilde <- x + runif(1, min = 0, max = 1)
-  
-  pbinom.abscont <- function(q, size, prob){
-    v <- trunc(q)
-    return( pbinom(v-1, size = size, prob = prob) +
-               (q - v) * dbinom(v, size = size, prob = prob))
-  }
-  
-  qbinom.abscont <- function(p, size, x){
-    
-    fun <- function(prob, size, x, p){
-      pbinom.abscont(x, size, prob) - p
-    }
-    uniroot(fun, interval = c(0, 1), size = size, x = x, p = p)$root
-  }
-  
-  res <- c(
-    lci = qbinom.abscont(1-alpha, size = n, x = x.tilde),
-    uci = qbinom.abscont(alpha, size = n, x = x.tilde)
-  )
-  attr(res, "p.tilde") <- x.tilde / n
-  
-  return(res)
-  
-}
-
-
-.pratt <- function(x, n, alpha) {
-  
-  if(x==0) {
-    lci <- 0
-    uci <- 1 - alpha^(1/n)
-  } else if(x==1) {
-    lci <- 1 - (1 - alpha/2)^(1/n)
-    uci <- 1 - (alpha/2)^(1/n)
-  } else if(x==(n-1)) {
-    lci <- (alpha/2)^(1/n)
-    uci <- (1 - alpha/2)^(1/n)
-  } else if(x==n) {
-    lci <- alpha^(1/n)
-    uci <- 1
-    
-  } else {
-    z <- qnorm(1 - alpha/2)
-    
-    A <- ((x+1) / (n-x))^2
-    B <- 81*(x+1)*(n-x)-9*n-8
-    C <- (0-3)*z*sqrt(9*(x+1)*(n-x)*(9*n+5-z^2)+n+1)
-    D <- 81*(x+1)^2-9*(x+1)*(2+z^2)+1
-    E <- 1+A*((B+C)/D)^3
-    uci <- 1/E
-    
-    A <- (x / (n-x-1))^2
-    B <- 81*x*(n-x-1)-9*n-8
-    C <- 3*z*sqrt(9*x*(n-x-1)*(9*n+5-z^2)+n+1)
-    D <- 81*x^2-9*x*(2+z^2)+1
-    E <- 1+A*((B+C)/D)^3
-    lci <- 1/E
-  }
-  
-  return(c(lci = lci, uci = uci))
-  
-}
-
-
-.midp <- function(x, n, alpha){
-  
-  # Functions to find root of for the lower and higher bounds of the CI
-  low <- function(x, n, p) {
-    0.5 * dbinom(x, size=n, prob=p) + 
-      pbinom(x, size=n, prob=p, lower.tail=FALSE) - alpha/2
-  }
-  
-  upr <- function(x, n, p) {
-    0.5 * dbinom(x, size=n, prob=p) + 
-      pbinom(x - 1, size=n, prob=p) - alpha/2
-  }
-  
-  # pick lci = 0 when x = 0 and uci = 1 when x = n
-  lci <- 0
-  uci <- 1
-  p.hat <- x/n
-  
-  # Calculate CI by finding roots of the funcs
-  if (x!=0) {
-    lci <- uniroot(low, interval=c(0, p.hat), x=x, n=n)$root
-  } 
-  if (x!=n) {
-    uci  <- uniroot(upr, interval=c(p.hat, 1), x=x, n=n)$root
-  }
-  
-  return(c(lci = lci, uci = uci))
-  
-}
-
-
-
-# this is the original old very inefficient version
-# use only for comparing the results !!
-.blaker_orig <- function(x, n, alpha) {
-  
-  acceptbin <- function (x, n, p) {
-    
-    p1 <- 1 - pbinom(x - 1, n, p)
-    p2 <- pbinom(x, n, p)
-    
-    a1 <- p1 + pbinom(qbinom(p1, n, p) - 1, n, p)
-    a2 <- p2 + 1 - pbinom(qbinom(1 - p2, n, p), n, p)
-    
-    return(min(a1, a2))
-  }
-  
-  tol <- .Machine$double.eps^0.5
-  
-  lci <- 0
-  uci <- 1
-  
-  if (x != 0) {
-    lci <- qbeta(alpha/2, x, n - x + 1)
-    while ( acceptbin(x, n, lci + tol) < alpha ) 
-      lci = lci + tol
-  }
-  
-  if (x != n) {
-    uci <- qbeta(1 - alpha/2, x + 1, n - x)
-    while (acceptbin(x, n, uci - tol) < alpha) 
-      uci <- uci - tol
-  }
-
-  return(c(lci = lci, uci = uci))
-  
-}
-
-
-
-.blaker <- function(x, n, alpha) {
-  
-
-  # use fast Rcpp version of acceptBin ( ~ 2x as fast as R-version)
-  # acceptbin <- function(p) {
-  #   p1 <- 1 - pbinom(x - 1, n, p)
-  #   p2 <- pbinom(x, n, p)
-  #   a1 <- p1 + pbinom(qbinom(p1, n, p) - 1, n, p)
-  #   a2 <- p2 + 1 - pbinom(qbinom(1 - p2, n, p), n, p)
-  #   min(a1, a2)
-  # }
-  
-  
-  ## -------- lower CI --------
-  find_lci <- function(lo) {
-    if (acceptBin(x, n, lo) >= alpha) return(lo)
-    left <- lo; right <- 1
-    for (i in 1:60) {
-      mid <- (left + right)/2
-      if (acceptBin(x, n, mid) >= alpha) right <- mid else left <- mid
-    }
-    right
-  }
-  
-  ## -------- upper CI --------
-  find_uci <- function(up) {
-    
-    # 1) first go left, until we are >= alpha
-    p <- up
-    step <- (up - 0) / 1000
-    
-    while (p > 0 && acceptBin(x, n, p) < alpha)
-      p <- p - step
-    
-    if (p <= 0)
-      stop("No valid upper CI found (should not happen)")
-    
-    # 2) now we have:
-    #    acceptbin(p) >= alpha
-    #    acceptbin(p + step) < alpha
-    left <- p
-    right <- min(p + step, up)
-    
-    # 3) bisection
-    for (i in 1:60) {
-      mid <- (left + right)/2
-      if (acceptBin(x, n, mid) >= alpha)
-        left <- mid
-      else
-        right <- mid
-    }
-    left
-  }
-  
-  lci <- 0
-  uci <- 1
-  
-  if (x != 0) {
-    lo <- qbeta(alpha/2, x, n - x + 1)
-    lci <- find_lci(lo)
-  }
-  
-  if (x != n) {
-    up <- qbeta(1 - alpha/2, x + 1, n - x)
-    uci <- find_uci(up)
-  }
-  
-  c(lci = lci, uci = uci)
-}
-
-
-
-.lik <- function(x, n, alpha) {
-  
-  p.hat <- x/n
-  lci <- 0
-  uci <- 1
-  z <- qnorm(1 - alpha * 0.5)
-  
-  # preset tolerance, should we offer function argument?
-  tol <- .Machine$double.eps^0.5
-  
-  BinDev <- function(y, x, mu, wt, bound = 0, 
-                     tol = .Machine$double.eps^0.5, ...) {
-    
-    # returns the binomial deviance for y, x, wt
-    ll.y <- ifelse(y %in% c(0, 1), 0, dbinom(x, wt, y, log=TRUE))
-    ll.mu <- ifelse(mu %in% c(0, 1), 0, dbinom(x, wt, mu, log=TRUE))
-    res <- ifelse(abs(y - mu) < tol, 0, 
-                  sign(y - mu) * sqrt(-2 * (ll.y - ll.mu)))
-    return(res - bound)
-  }
-  
-  if(x != 0 && tol < p.hat) {
-    lci <- if(BinDev(tol, x, p.hat, n, -z, tol) <= 0) {
-      uniroot(f = BinDev, 
-              interval = c(tol, if(p.hat < tol || p.hat == 1) 1 - tol else p.hat), 
-              bound = -z, x = x, mu = p.hat, wt = n)$root }
-  }
-  
-  if(x != n && p.hat < (1-tol)) {
-    uci <- if(BinDev(y = 1 - tol, x = x, mu = ifelse(p.hat > 1 - tol, tol, p.hat), 
-                          wt = n, bound = z, tol = tol) < 0) {
-      
-      lci <- if(BinDev(tol, x, if(p.hat < tol || p.hat == 1) 1 - tol else p.hat, n, -z, tol) <= 0) {
-        uniroot(f = BinDev, interval = c(tol, p.hat),
-                bound = -z, x = x, mu = p.hat, wt = n)$root  }
-      
-    } else {
-      
-      uniroot(f = BinDev, interval = c(if(p.hat > 1 - tol) tol else p.hat, 1 - tol),
-              bound = z, x = x, mu = p.hat, wt = n)$root     }
-  }
-  
-  return(c(lci = lci, uci = uci))
-  
-}
-
-
-
-.nonStdEst <- function(x, n, alpha){
-  z2 <- qnorm(1-alpha/2)^2
-  # p.tilde
-  return( (x + z2/2) / (n + z2)) 
-}
-
-
-
-
 ##' Confidence Intervals for Binomial Proportions
 ##' 
 ##' Compute confidence intervals for binomial proportions according to a number
@@ -683,22 +237,22 @@ BinomCI <- function(x, n,
       conf.level <- 1 - 2*alpha
 
     CI <- switch( method
-            , "wald" =              { .wald(x, n, alpha) }
-            , "waldcc" =            { .wald(x, n, alpha, corr=TRUE) }
-            , "jeffreys" =          { .jeffreys(x, n, alpha) }
-            , "modified jeffreys" = { .jeffreys_mod(x, n, alpha) }
-            , "clopper-pearson" =   { .clopper_pearson(x, n, alpha) }
-            , "arcsine" =           { .arcsine(x, n, alpha) }
-            , "logit" =             { .logit(x, n, alpha) }
-            , "witting" =           { .witting(x, n, alpha) }
-            , "agresti-coull" =     { .agresti_coull(x, n, alpha) }
-            , "pratt" =             { .pratt(x, n, alpha) }
-            , "wilson" =            { .wilson(x, n, alpha) }
-            , "wilsoncc" =          { .wilson_cc(x, n, alpha) }
-            , "modified wilson" =   { .wilson_mod(x, n, alpha) }
-            , "midp" =              { .midp(x, n, alpha) }
-            , "blaker" =            { .blaker(x, n, alpha) }
-            , "lik" =               { .lik(x, n, alpha) }
+            , "wald" =              { .binomci.wald(x, n, alpha) }
+            , "waldcc" =            { .binomci.wald(x, n, alpha, corr=TRUE) }
+            , "jeffreys" =          { .binomci.jeffreys(x, n, alpha) }
+            , "modified jeffreys" = { .binomci.jeffreys_mod(x, n, alpha) }
+            , "clopper-pearson" =   { .binomci.clopper_pearson(x, n, alpha) }
+            , "arcsine" =           { .binomci.arcsine(x, n, alpha) }
+            , "logit" =             { .binomci.logit(x, n, alpha) }
+            , "witting" =           { .binomci.witting(x, n, alpha) }
+            , "agresti-coull" =     { .binomci.agresti_coull(x, n, alpha) }
+            , "pratt" =             { .binomci.pratt(x, n, alpha) }
+            , "wilson" =            { .binomci.wilson(x, n, alpha) }
+            , "wilsoncc" =          { .binomci.wilson_cc(x, n, alpha) }
+            , "modified wilson" =   { .binomci.wilson_mod(x, n, alpha) }
+            , "midp" =              { .binomci.midp(x, n, alpha) }
+            , "blaker" =            { .binomci.blaker(x, n, alpha) }
+            , "lik" =               { .binomci.lik(x, n, alpha) }
     )
 
     
@@ -709,7 +263,7 @@ BinomCI <- function(x, n,
       
       if(method %in% 
               c("agresti-coull", "wilson", "wilsoncc", "modified wilson"))
-        est <- .nonStdEst(x, n, alpha)
+        est <- .binomci.nonStdEst(x, n, alpha)
       
       else if(method %in% c("arcsine", "witting"))
         est <- attr(CI, "p.tilde")
@@ -774,6 +328,431 @@ BinomCIn <- function(p=0.5, width, interval=c(1, 1e5), conf.level=0.95, sides="t
   uniroot(f = function(n) diff(BinomCI(x=p*n, n=n, conf.level=conf.level, 
                                        sides=sides, method=method)[-1]) - width, 
           interval = interval)$root
+}
+
+
+
+
+# ---------------------------------
+# internal functions
+# ---------------------------------
+
+#' @keywords internal
+.binomci.wilson <- function(x, n, alpha) {
+  
+  p.hat <- x/n
+  q.hat <- 1 - p.hat
+  z <- qnorm(1-alpha/2)
+  z2 <- z^2
+  
+  term1 <- (x + z2/2) / (n + z2)
+  term2 <- z * sqrt(n) / (n + z2) * 
+    sqrt(p.hat * q.hat + z2 / (4 * n))
+  
+  return(c(
+    lci = max(0, term1 - term2),
+    uci = min(1, term1 + term2)
+  ))
+  
+}
+
+
+#' @keywords internal
+.binomci.wilson_cc <- function(x, n, alpha) {
+  
+  p.hat <- x/n
+  q.hat <- 1 - p.hat
+  z <- qnorm(1 - alpha/2)
+  z2 <- z^2
+  
+  lci <- ( 2 * x + z2 - 1 - z * sqrt(z2 - 2 - 1/n + 
+                                       4 * p.hat * (n * q.hat + 1))) / (2 * (n + z2))
+  
+  uci <- ( 2 * x + z2 + 1 + z * sqrt(z^2 + 2 - 1/n + 
+                                       4 * p.hat * (n * q.hat - 1))) / (2 * (n + z2))
+  
+  return( c(
+    lci = max(0, ifelse(p.hat == 0, 0, lci)),
+    uci = min(1, ifelse(p.hat == 1, 1, uci)))
+  )
+  
+}
+
+
+#' @keywords internal
+.binomci.wilson_mod <- function(x, n, alpha) {
+  
+  p.hat <- x/n
+  q.hat <- 1 - p.hat
+  z <- qnorm(1 - alpha/2)
+  z2 <- z^2
+  
+  term1 <- (x + z2/2) / (n + z2)
+  term2 <- z * sqrt(n) / (n + z2) * sqrt(p.hat * q.hat + z2 / (4 * n))
+  
+  if((n <= 50 & x %in% c(1, 2)) | (n >= 51 & x %in% c(1:3)))
+    lci <- 0.5 * qchisq(alpha, 2 * x)/n
+  else
+    lci <-  max(0, term1 - term2)
+  
+  if((n <= 50 & x %in% c(n-1, n-2)) | (n >= 51 & x %in% c(n-(1:3))))
+    uci <- 1 - 0.5 * qchisq(alpha, 2 * (n - x))/n
+  else
+    uci <- min(1, term1 + term2)
+  
+  return( c( lci = lci, uci = uci) )
+  
+}
+
+
+
+#' @keywords internal
+.binomci.agresti_coull <- function(x, n, alpha)  {
+  
+  z <- qnorm(1-alpha/2)
+  
+  n.tilde <- n + z^2
+  p.tilde <- .binomci.nonStdEst(x, n, z)
+  q.tilde <- 1 - p.tilde
+  
+  term2 <- z * sqrt(p.tilde * q.tilde) / sqrt(n.tilde)
+  
+  return( c(
+    lci = max(0, p.tilde - term2),
+    uci = min(1, p.tilde + term2))
+  )
+  
+}
+
+
+
+#' @keywords internal
+.binomci.wald <- function(x, n, alpha, corr=FALSE){
+  
+  p.hat <- x/n
+  
+  # margin of error
+  ME <- qnorm(1 - alpha/2) * sqrt(p.hat * (1 - p.hat) / n)
+  
+  # continuity correction
+  if(corr)
+    ME <- ME + 1/(2*n)
+  
+  lci <- max(0, p.hat - ME)
+  uci <- min(1, p.hat + ME)
+  
+  return(c(lci=lci, uci=uci))
+}
+
+
+#' @keywords internal
+.binomci.jeffreys <- function(x, n, alpha){
+  
+  return(c( 
+    lci = if(x == 0) 0 
+    else qbeta(alpha/2, x + 0.5, n - x + 0.5),
+    uci = if(x == n) 1 
+    else qbeta(1-alpha/2, x + 0.5, n - x + 0.5)
+  ))
+  
+}
+
+
+#' @keywords internal
+.binomci.jeffreys_mod <- function(x, n, alpha)  {
+  
+  return(c(
+    lci =
+      if (x == n) { 
+        (alpha/2)^(1/n) 
+      } else if (x <= 1) {
+        0
+      } else {
+        qbeta(alpha/2, x + 0.5, n - x + 0.5)
+      },
+    
+    uci =
+      if (x == 0) {
+        1 - (alpha/2)^(1/n)
+      } else if (x >= n - 1) {
+        1
+      } else {
+        qbeta(1 - alpha/2, x + 0.5, n - x + 0.5)
+      }
+  ))
+  
+}
+
+
+#' @keywords internal
+.binomci.clopper_pearson <- function(x, n, alpha){
+  return(c(
+    lci = if (x == 0) 0 else qbeta(alpha/2, x, n - x + 1),
+    uci = if (x == n) 1 else qbeta(1 - alpha/2, x + 1, n - x)
+  ))
+}
+
+
+#' @keywords internal
+.binomci.arcsine <- function(x, n, alpha) {
+  
+  p.tilde <- (x + 0.375)/(n + 0.75)
+  ME <- 0.5 * qnorm(1-alpha/2) / sqrt(n)
+  
+  res <- c(
+    lci = sin(asin(sqrt(p.tilde)) - ME)^2,
+    uci = sin(asin(sqrt(p.tilde)) + ME)^2
+  ) 
+  attr(res, "p.tilde") <- p.tilde
+  
+  return(res)  
+  
+}
+
+
+#' @keywords internal
+.binomci.logit <- function(x, n, alpha){
+  
+  SetNames(
+    
+    LogitInv(log(x/(n-x)) - 
+               c(1,-1) * qnorm(1-alpha/2) * sqrt(n/(x*(n-x)))),
+    
+    names=c("lci", "uci"))
+}
+
+
+#' @keywords internal
+.binomci.witting <- function(x, n, alpha) {
+  
+  # here the uniform random number is by design
+  # define set.seed() before calling the function, if you want
+  # reproducible results
+  x.tilde <- x + runif(1, min = 0, max = 1)
+  
+  pbinom.abscont <- function(q, size, prob){
+    v <- trunc(q)
+    return( pbinom(v-1, size = size, prob = prob) +
+              (q - v) * dbinom(v, size = size, prob = prob))
+  }
+  
+  qbinom.abscont <- function(p, size, x){
+    
+    fun <- function(prob, size, x, p){
+      pbinom.abscont(x, size, prob) - p
+    }
+    uniroot(fun, interval = c(0, 1), size = size, x = x, p = p)$root
+  }
+  
+  res <- c(
+    lci = qbinom.abscont(1-alpha, size = n, x = x.tilde),
+    uci = qbinom.abscont(alpha, size = n, x = x.tilde)
+  )
+  attr(res, "p.tilde") <- x.tilde / n
+  
+  return(res)
+  
+}
+
+
+#' @keywords internal
+.binomci.pratt <- function(x, n, alpha) {
+  
+  if(x==0) {
+    lci <- 0
+    uci <- 1 - alpha^(1/n)
+  } else if(x==1) {
+    lci <- 1 - (1 - alpha/2)^(1/n)
+    uci <- 1 - (alpha/2)^(1/n)
+  } else if(x==(n-1)) {
+    lci <- (alpha/2)^(1/n)
+    uci <- (1 - alpha/2)^(1/n)
+  } else if(x==n) {
+    lci <- alpha^(1/n)
+    uci <- 1
+    
+  } else {
+    z <- qnorm(1 - alpha/2)
+    
+    A <- ((x+1) / (n-x))^2
+    B <- 81*(x+1)*(n-x)-9*n-8
+    C <- (0-3)*z*sqrt(9*(x+1)*(n-x)*(9*n+5-z^2)+n+1)
+    D <- 81*(x+1)^2-9*(x+1)*(2+z^2)+1
+    E <- 1+A*((B+C)/D)^3
+    uci <- 1/E
+    
+    A <- (x / (n-x-1))^2
+    B <- 81*x*(n-x-1)-9*n-8
+    C <- 3*z*sqrt(9*x*(n-x-1)*(9*n+5-z^2)+n+1)
+    D <- 81*x^2-9*x*(2+z^2)+1
+    E <- 1+A*((B+C)/D)^3
+    lci <- 1/E
+  }
+  
+  return(c(lci = lci, uci = uci))
+  
+}
+
+
+#' @keywords internal
+.binomci.midp <- function(x, n, alpha){
+  
+  # Functions to find root of for the lower and higher bounds of the CI
+  low <- function(x, n, p) {
+    0.5 * dbinom(x, size=n, prob=p) + 
+      pbinom(x, size=n, prob=p, lower.tail=FALSE) - alpha/2
+  }
+  
+  upr <- function(x, n, p) {
+    0.5 * dbinom(x, size=n, prob=p) + 
+      pbinom(x - 1, size=n, prob=p) - alpha/2
+  }
+  
+  # pick lci = 0 when x = 0 and uci = 1 when x = n
+  lci <- 0
+  uci <- 1
+  p.hat <- x/n
+  
+  # Calculate CI by finding roots of the funcs
+  if (x!=0) {
+    lci <- uniroot(low, interval=c(0, p.hat), x=x, n=n)$root
+  } 
+  if (x!=n) {
+    uci  <- uniroot(upr, interval=c(p.hat, 1), x=x, n=n)$root
+  }
+  
+  return(c(lci = lci, uci = uci))
+  
+}
+
+
+
+#' @keywords internal
+.binomci.blaker <- function(x, n, alpha) {
+  
+  # use fast Rcpp version of acceptBin ( ~ 2x as fast as R-version)
+  # acceptbin <- function(p) {
+  #   p1 <- 1 - pbinom(x - 1, n, p)
+  #   p2 <- pbinom(x, n, p)
+  #   a1 <- p1 + pbinom(qbinom(p1, n, p) - 1, n, p)
+  #   a2 <- p2 + 1 - pbinom(qbinom(1 - p2, n, p), n, p)
+  #   min(a1, a2)
+  # }
+  
+  
+  ## -------- lower CI --------
+  find_lci <- function(lo) {
+    if (acceptBin(x, n, lo) >= alpha) return(lo)
+    left <- lo; right <- 1
+    for (i in 1:60) {
+      mid <- (left + right)/2
+      if (acceptBin(x, n, mid) >= alpha) right <- mid else left <- mid
+    }
+    right
+  }
+  
+  ## -------- upper CI --------
+  find_uci <- function(up) {
+    
+    # 1) first go left, until we are >= alpha
+    p <- up
+    step <- (up - 0) / 1000
+    
+    while (p > 0 && acceptBin(x, n, p) < alpha)
+      p <- p - step
+    
+    if (p <= 0)
+      stop("No valid upper CI found (should not happen)")
+    
+    # 2) now we have:
+    #    acceptbin(p) >= alpha
+    #    acceptbin(p + step) < alpha
+    left <- p
+    right <- min(p + step, up)
+    
+    # 3) bisection
+    for (i in 1:60) {
+      mid <- (left + right)/2
+      if (acceptBin(x, n, mid) >= alpha)
+        left <- mid
+      else
+        right <- mid
+    }
+    left
+  }
+  
+  lci <- 0
+  uci <- 1
+  
+  if (x != 0) {
+    lo <- qbeta(alpha/2, x, n - x + 1)
+    lci <- find_lci(lo)
+  }
+  
+  if (x != n) {
+    up <- qbeta(1 - alpha/2, x + 1, n - x)
+    uci <- find_uci(up)
+  }
+  
+  c(lci = lci, uci = uci)
+}
+
+
+
+#' @keywords internal
+.binomci.lik <- function(x, n, alpha) {
+  
+  p.hat <- x/n
+  lci <- 0
+  uci <- 1
+  z <- qnorm(1 - alpha * 0.5)
+  
+  # preset tolerance, should we offer function argument?
+  tol <- .Machine$double.eps^0.5
+  
+  BinDev <- function(y, x, mu, wt, bound = 0, 
+                     tol = .Machine$double.eps^0.5, ...) {
+    
+    # returns the binomial deviance for y, x, wt
+    ll.y <- ifelse(y %in% c(0, 1), 0, dbinom(x, wt, y, log=TRUE))
+    ll.mu <- ifelse(mu %in% c(0, 1), 0, dbinom(x, wt, mu, log=TRUE))
+    res <- ifelse(abs(y - mu) < tol, 0, 
+                  sign(y - mu) * sqrt(-2 * (ll.y - ll.mu)))
+    return(res - bound)
+  }
+  
+  if(x != 0 && tol < p.hat) {
+    lci <- if(BinDev(tol, x, p.hat, n, -z, tol) <= 0) {
+      uniroot(f = BinDev, 
+              interval = c(tol, if(p.hat < tol || p.hat == 1) 1 - tol else p.hat), 
+              bound = -z, x = x, mu = p.hat, wt = n)$root }
+  }
+  
+  if(x != n && p.hat < (1-tol)) {
+    uci <- if(BinDev(y = 1 - tol, x = x, mu = ifelse(p.hat > 1 - tol, tol, p.hat), 
+                     wt = n, bound = z, tol = tol) < 0) {
+      
+      lci <- if(BinDev(tol, x, if(p.hat < tol || p.hat == 1) 1 - tol else p.hat, n, -z, tol) <= 0) {
+        uniroot(f = BinDev, interval = c(tol, p.hat),
+                bound = -z, x = x, mu = p.hat, wt = n)$root  }
+      
+    } else {
+      
+      uniroot(f = BinDev, interval = c(if(p.hat > 1 - tol) tol else p.hat, 1 - tol),
+              bound = z, x = x, mu = p.hat, wt = n)$root     }
+  }
+  
+  return(c(lci = lci, uci = uci))
+  
+}
+
+
+
+#' @keywords internal
+.binomci.nonStdEst <- function(x, n, alpha){
+  z2 <- qnorm(1-alpha/2)^2
+  # p.tilde
+  return( (x + z2/2) / (n + z2)) 
 }
 
 

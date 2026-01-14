@@ -115,6 +115,38 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// binomdiffciMee
+double binomdiffciMee(int x1, int n1, int x2, int n2, double alpha, bool lower);
+RcppExport SEXP _DescTools_binomdiffciMee(SEXP x1SEXP, SEXP n1SEXP, SEXP x2SEXP, SEXP n2SEXP, SEXP alphaSEXP, SEXP lowerSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type x1(x1SEXP);
+    Rcpp::traits::input_parameter< int >::type n1(n1SEXP);
+    Rcpp::traits::input_parameter< int >::type x2(x2SEXP);
+    Rcpp::traits::input_parameter< int >::type n2(n2SEXP);
+    Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
+    Rcpp::traits::input_parameter< bool >::type lower(lowerSEXP);
+    rcpp_result_gen = Rcpp::wrap(binomdiffciMee(x1, n1, x2, n2, alpha, lower));
+    return rcpp_result_gen;
+END_RCPP
+}
+// binomdiffciMN
+double binomdiffciMN(int x1, int n1, int x2, int n2, double z, bool lower);
+RcppExport SEXP _DescTools_binomdiffciMN(SEXP x1SEXP, SEXP n1SEXP, SEXP x2SEXP, SEXP n2SEXP, SEXP zSEXP, SEXP lowerSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type x1(x1SEXP);
+    Rcpp::traits::input_parameter< int >::type n1(n1SEXP);
+    Rcpp::traits::input_parameter< int >::type x2(x2SEXP);
+    Rcpp::traits::input_parameter< int >::type n2(n2SEXP);
+    Rcpp::traits::input_parameter< double >::type z(zSEXP);
+    Rcpp::traits::input_parameter< bool >::type lower(lowerSEXP);
+    rcpp_result_gen = Rcpp::wrap(binomdiffciMN(x1, n1, x2, n2, z, lower));
+    return rcpp_result_gen;
+END_RCPP
+}
 // isoWeek
 IntegerVector isoWeek(DateVector x);
 RcppExport SEXP _DescTools_isoWeek(SEXP xSEXP) {

@@ -1,26 +1,23 @@
-\name{Style}
-\alias{Style}
-\alias{Styles}
+\name{style}
+\alias{style}
+\alias{styles}
 
 \title{Format Styles
 }
 \description{Interface for format templates, defined as a list consisting of any accepted format features 
-in \code{Fm()}. 
+in \code{fm()}. 
 This enables to define templates globally and easily change or modify them later.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-Style(name = NULL, label = NULL,
-      digits = NULL, ldigits = NULL, sci = NULL, 
+style(digits = NULL, ldigits = NULL, sci = NULL, 
       big.mark=NULL, outdec = NULL, na.form = NULL, zero.form = NULL, 
-      fmt = NULL, p_eps = NULL, width = NULL, align = NULL, lang = NULL, 
-      ...)
+      fmt = NULL, p_eps = NULL, width = NULL, align = NULL, lang = NULL,
+      label = NULL, ...)
       
-Styles()
+styles()
 }
 \arguments{
-  \item{name}{a name for an already defined style}
-  \item{label}{a description for the style}
 
   \item{digits}{integer, the desired (fixed) number of digits after the decimal point. Unlike \code{\link{formatC}} you will always get this number of digits even if the last digit is 0. 
   Negative numbers of digits round to a power of ten (\code{digits=-2} would round to the nearest hundred).
@@ -43,7 +40,7 @@ default set as \code{OutDec} option is used.}
 }
 
   \item{fmt}{either a format string, allowing to flexibly define special formats 
-  or an object of class \code{style}, consisting of a list of \code{Fm} arguments. See Details.
+  or an object of class \code{style}, consisting of a list of \code{fdm} arguments. See Details.
 }
 \item{p_eps}{a numerical tolerance used mainly for formatting p values, those 
 less than p_eps are formatted as "\code{< [p_eps]}" (where '[p_eps]' stands for \code{format(p_eps, digits))}. 
@@ -56,77 +53,84 @@ Default is \code{0.001}.}
 This argument is send directly to the function \code{\link{StrAlign}()} as argument \code{sep}.
 }
 
-  \item{lang}{optional value setting the language for the months and daynames. Can be either \code{"local"} for current locale or \code{"engl"} for english. If left to \code{NULL}, the DescToolsOption \code{"lang"} will be searched for and if not found \code{"local"} will be taken as default.
+  \item{lang}{optional value setting the language for the months and daynames. 
+  Can be either \code{"local"} for current locale or \code{"en"} for english. 
+  If left to \code{NULL}, the DescToolsOption \code{"lang"} will 
+  be searched for and if not found \code{"local"} will be taken as default.
 }
 
+  \item{label}{a description for the style}
 
 \item{\dots}{further arguments to be passed to or from methods. }
 
 }
 \details{
-\code{Style()} can either create new styles or edit existing ones. 
-It takes any of the arguments from \code{Fm()} and combines them to an object of
-class \code{"style"}, which then can be handed over to \code{Fm()} as argument \code{fmt}. \cr
+% \code{style()} can either create new styles or edit existing ones. 
+\code{style()} can be used to create new styles.
+It takes any of the arguments from \code{fm()} and combines them to an object of
+class \code{"Style"}, which then can be handed over to \code{fm()} as argument \code{fmt}. \cr
 Following will define a new format template named "\code{num.sty}". 
-Passed to \code{Fm()} this will result 
+Passed to \code{fm()} this will result 
 in a number displayed with 2 fixed digits and a comma as big mark:
-\preformatted{num.sty <- Style(digits=2, big.mark=",")
-Fm(12222.89345, fmt=num.sty) = 12,222.89}
+\preformatted{num.sty <- style(digits=2, big.mark=",")
+fm(12222.89345, fmt=num.sty) = 12,222.89}
 This is the same result as if the arguments would have been supplied directly, but helps
 to avoid boilerplate code: \cr
-\code{Fm(12222.89345, digits=2, big.mark=",")}.
+\code{fm(12222.89345, digits=2, big.mark=",")}.
 
-To edit a style we can provide \code{Style()} with its name and overwrite, resp. add new format options. 
-\code{Style("num.sty", digits=1, sci=10)} will use the current 
+**** how is this to be handled?? ****\cr
+To edit a style we can provide \code{style()} with its name and overwrite, resp. add new format options. 
+\code{style("num.sty", digits=1, sci=10)} will use the current 
 version of the numeric format and change the digits to 1 and the threshold 
 to switch to scientifc presentation to numbers > 1e10 and < 1e-10.
+\cr****
 
-\code{Styles()} returns all found style definitions in the global environment or
+\code{styles()} returns all found style definitions in the global environment or
 in the options. 
 
 The styles can be stored as options for convenience. 
 To store a new format we use the default \code{options()} approach:
-\code{options(num.sty = Style(digits=1, big.mark=" "))}
+\code{options(num.sty = style(digits=1, big.mark=" "))}
+Defined styles in the options can be passed on to \code{fm()} simply by their name.
 
 Many report functions (e.g. \code{\link{TOne}()}) in \bold{DescTools} use 
 three default formats for counts (named \code{"abs.sty"}), numeric 
 values (\code{"num.sty"}) and percentages (\code{"per.sty"}).
 
 }
-\value{\code{Style()} returns an object of class \code{style}\cr
-\code{Styles()} returns a list of styles
+\value{\code{style()} returns an object of class \code{Style}\cr
+\code{styles()} returns a list of styles
 }
 
 \author{Andri Signorell <andri@signorell.net>}
 
 
-\seealso{\code{\link{Fm}()}}
+\seealso{\code{\link{fm}()}}
 
 \examples{
-# use Style() to get and define new formats stored as option
-num.sty <- Style(digits=2, big.mark=" ")
-abs.sty <- Style(digits=0, big.mark=" ")
-dat.sty <- Style(fmt="MM, dd yyyy")
+# use style() to get and define new formats stored as option
+num.sty <- style(digits=2, big.mark=" ")
+abs.sty <- style(digits=0, big.mark=" ")
+dat.sty <- style(fmt="MM, dd yyyy")
 
 num.sty                             # displays the details of the style
+%% editing styles
+%% style("abs.sty")                    # looks for format "abs.sty"
+%% style("nexist")                     # return for nonexisting style
+%% style("abs.sty", big.mark="")       # get Style("abs") and overwrite big.mark
+%% style("abs.sty", na.form="-")       # get Style("abs") and add user defined na.form
 
-Style("abs.sty")                    # looks for format "abs.sty"
-Style("nexist")                     # return for nonexisting style
-
-Style("abs.sty", big.mark="")       # get Style("abs") and overwrite big.mark
-Style("abs.sty", na.form="-")       # get Style("abs") and add user defined na.form
-
-Styles()                            # all defined formats
-Styles()[c("num.sty", "abs.sty")]   # numeric and integer styles
+styles()                            # all defined formats
+styles()[c("num.sty", "abs.sty")]   # numeric and integer styles
 
 # define totally new format and store as option
-options(nob.sty=Style(digits=5, na.form="nodat"))
+options(nob.sty=style(digits=5, na.form="nodat"))
 
 # using styles
-Fm(314.1563, fmt=abs.sty)
-Fm(314.1563, fmt=num.sty)
+fm(314.1563, fmt=abs.sty)
+fm(314.1563, fmt=num.sty)
 
-Fm(Today(), fmt=dat.sty)
+fm(Today(), fmt=dat.sty)
 }
 
 \keyword{ IO }

@@ -9,7 +9,7 @@ Rename(x, \dots, gsub = FALSE, fixed = TRUE, warn = TRUE)
 }
 \arguments{
   \item{x}{Any named object}
-  \item{\dots}{A sequence of named arguments, all of type character}
+  \item{\dots}{A sequence of named arguments in the form \code{<old_name>="<new_name>"}, all of type character}
   \item{gsub}{a logical value; if TRUE, \code{\link{gsub}} is used to change the
       row and column labels of the resulting table.
       That is, instead of substituting whole names, substrings of the

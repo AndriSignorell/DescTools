@@ -50,7 +50,7 @@ as.CDateFmt(fmt="ddd, d mmmm yyyy")
 
 # Format uses the function internally, the codes can be provided directly as:
 Format(as.Date(c("2014-11-28", "2014-1-2")), fmt="ddd, d mmmm yyyy")
-Format(as.Date(c("2014-11-28", "2014-1-2")), fmt="ddd, d mmmm yyyy", lang="engl")
+Format(as.Date(c("2014-11-28", "2014-1-2")), fmt="ddd, d mmmm yyyy", lang="en")
 
 # for using your local language:
 Format(as.Date(c("2014-11-28", "2014-1-2")), fmt="ddd, d mmmm yyyy", lang="local")

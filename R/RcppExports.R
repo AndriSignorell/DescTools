@@ -37,6 +37,14 @@ acceptBin <- function(x, n, p) {
     .Call(`_DescTools_acceptBin`, x, n, p)
 }
 
+binomdiffciMee <- function(x1, n1, x2, n2, alpha, lower) {
+    .Call(`_DescTools_binomdiffciMee`, x1, n1, x2, n2, alpha, lower)
+}
+
+binomdiffciMN <- function(x1, n1, x2, n2, z, lower) {
+    .Call(`_DescTools_binomdiffciMN`, x1, n1, x2, n2, z, lower)
+}
+
 isoWeek <- function(x) {
     .Call(`_DescTools_isoWeek`, x)
 }

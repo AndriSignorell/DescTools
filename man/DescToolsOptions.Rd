@@ -1,8 +1,11 @@
 \name{DescToolsOptions}
 \alias{DescToolsOptions}
+\alias{setDescToolsOption}
 \title{DescTools Options}
 \description{Get and set a variety of options which affect the way in which DescTools functions display results.}
-\usage{DescToolsOptions(..., default = NULL, reset = FALSE)
+\usage{
+DescToolsOptions(..., default = NULL, reset = FALSE)
+setDescToolsOption(...)
 }
 \arguments{
   \item{\dots}{any options can be defined, using \code{name = value}. However, only the ones below are used by DescTools functions.
@@ -62,7 +65,7 @@ options(DescTools = list(
                      class = "fmt")
               ),
   footnote  = c("'", "\"", "\"\""),
-  lang      = "engl",
+  lang      = "en",
   plotit    = TRUE,
   stamp     = expression(gettextf("\%s/\%s", Sys.getenv("USERNAME"),
                                   Format(Today(), fmt = "yyyy-mm-dd")))

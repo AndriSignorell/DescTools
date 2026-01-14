@@ -1,33 +1,33 @@
-\name{Fm}
-\alias{Fm}
-\alias{Fm.default}
-\alias{Fm.matrix}
-\alias{Fm.table}
+\name{fm}
+\alias{fm}
+\alias{fm.default}
+\alias{fm.matrix}
+\alias{fm.table}
 
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Format Numbers and Dates
 %%  ~~function to do ... ~~
 }
 \description{Formatting numbers with base R tools often degenerates into a major intellectual challenge for us little minds down here in the valley of tears. There are a number of options available and quite often it's hard to work out which one to use, when a more uncommon setting is needed.
-The \code{Fm()} function wraps all these functions and tries to offer a simpler, less technical, but still flexible interface.
+The \code{fm()} function wraps all these functions and tries to offer a simpler, less technical, but still flexible interface.
 
 There's also an easygoing interface for format templates, defined as a list consisting of any accepted format features. This enables to define templates globally and easily change or modify them later.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-Fm(x, digits = NULL, ldigits = NULL, sci = NULL, 
+fm(x, digits = NULL, ldigits = NULL, sci = NULL, 
    big.mark=NULL, outdec = NULL, na.form = NULL, zero.form = NULL, 
    fmt = NULL, p_eps = NULL, width = NULL, align = NULL, lang = NULL, ...)
 
-\method{Fm}{table}(x, digits = NULL, ldigits = NULL, sci = NULL, 
+\method{fm}{table}(x, digits = NULL, ldigits = NULL, sci = NULL, 
        big.mark=NULL, outdec = NULL, na.form = NULL, zero.form = NULL, 
        fmt = NULL, p_eps = NULL, width = NULL, align = NULL, lang = NULL, ...)
 
-\method{Fm}{matrix}(x, digits = NULL, ldigits = NULL, sci = NULL, 
+\method{fm}{matrix}(x, digits = NULL, ldigits = NULL, sci = NULL, 
        big.mark=NULL, outdec = NULL, na.form = NULL, zero.form = NULL, 
        fmt = NULL, p_eps = NULL, width = NULL, align = NULL, lang = NULL, ...)
 
-\method{Fm}{default}(x, digits = NULL, ldigits = NULL, sci = NULL, 
+\method{fm}{default}(x, digits = NULL, ldigits = NULL, sci = NULL, 
        big.mark=NULL, outdec = NULL, na.form = NULL, zero.form = NULL, 
        fmt = NULL, p_eps = NULL, width = NULL, align = NULL, lang = NULL, ...)
 
@@ -59,7 +59,7 @@ default set as \code{OutDec} option is used.}
 }
 
   \item{fmt}{either a format string, allowing to flexibly define special formats 
-  or an object of class \code{style}, consisting of a list of \code{Fm} arguments. See Details.
+  or an object of class \code{style}, consisting of a list of \code{fm} arguments. See Details.
 }
 \item{p_eps}{a numerical tolerance used mainly for formatting p values, those 
 less than p_eps are formatted as "\code{< [p_eps]}" (where '[p_eps]' stands for \code{format(p_eps, digits))}. 
@@ -84,7 +84,7 @@ This argument is send directly to the function \code{\link{StrAlign}()} as argum
 
 }
 \details{
-\code{Fm()} is the workhorse for formatting numbers and dates, supporting 
+\code{fm()} is the workhorse for formatting numbers and dates, supporting 
 a comprehensive range of format options that are likely to occur 
 in everyday reporting. Among these, the argument \code{fmt} deserves a more detailed description due to its flexibility. It is used to generate a variety of 
 different special formats. \cr\cr If \code{x} is a date, it can take 
@@ -156,8 +156,8 @@ Even more variability is needed to display numeric values. For the most frequent
 
 }
 
-\code{fmt} can as well be an object of class "\code{style}" consisting of a list out of the arguments above 
-(as created by \code{\link{Style}()}).
+\code{fmt} can as well be an object of class "\code{Style}" consisting of a list out of the arguments above 
+(as created by \code{\link{style}()}).
 This allows to store and manage the full format in variables or as options and use it as format template subsequently.  
 
 Finally \code{fmt} can also be a function in x, which makes formatting very flexible.
@@ -181,44 +181,44 @@ If \code{x} was a \code{matrix}, then a the result will also be a \code{matrix}.
 \seealso{\code{\link{format}}, \code{\link{formatC}}, \code{\link{prettyNum}}, \code{\link{sprintf}}, \code{\link{symnum}},\cr
 \code{\link{StrAlign}}, \code{\link{StrPad}}, \code{\link{Sys.setlocale}},\cr
 \code{\link{Weekday}}, \code{\link{Month}},
-\code{\link{DescToolsOptions}}, \code{\link{Style}}
+\code{\link{DescToolsOptions}}, \code{\link{style}}, \code{\link{styles}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-Fm(as.Date(c("2014-11-28", "2014-1-2")), fmt="ddd, d mmmm yyyy")
-Fm(as.Date(c("2014-11-28", "2014-1-2")), fmt="ddd, d mmmm yyyy", lang="engl")
+fm(as.Date(c("2014-11-28", "2014-1-2")), fmt="ddd, d mmmm yyyy")
+fm(as.Date(c("2014-11-28", "2014-1-2")), fmt="ddd, d mmmm yyyy", lang="en")
 
 # using english ordinal suffixes
-Fm(as.Date("2026-01-21"), fmt="MMMM do yyyy", lang="en")
+fm(as.Date("2026-01-21"), fmt="MMMM do yyyy", lang="en")
 # e.g. in context:
 gettextf("Report generated on \%s", 
-         Fm(as.Date("2026-05-04"), fmt="MMMM do, yyyy", lang="en"))
+         fm(as.Date("2026-05-04"), fmt="MMMM do, yyyy", lang="en"))
 
 # numeric formats
 x <- pi * 10^(-10:10)
 
-Fm(x, digits=3, fmt="\%")
-Fm(x, digits=4, sci=4, ldigits=0, width=9, align=".")
+fm(x, digits=3, fmt="\%")
+fm(x, digits=4, sci=4, ldigits=0, width=9, align=".")
 
 
 # format a matrix
 m <- matrix(runif(100), nrow=10,
             dimnames=list(LETTERS[1:10], LETTERS[1:10]))
 
-Fm(m, digits=1)
+fm(m, digits=1)
 
 # engineering format
-Fm(x, fmt="eng",  digits=2)
-Fm(x, fmt="engabb", ldigits=2, digits=2)
+fm(x, fmt="eng",  digits=2)
+fm(x, fmt="engabb", ldigits=2, digits=2)
 # combine with grams [g]
-paste(Fm(x, fmt="engabb", ldigits=2, digits=2), "g", sep="")
+paste(fm(x, fmt="engabb", ldigits=2, digits=2), "g", sep="")
 
 # example form symnum
 pval <- rev(sort(c(outer(1:6, 10^-(1:3)))))
-noquote(cbind(Fm(pval, fmt="p"), Fm(pval, fmt="*")))
+noquote(cbind(fm(pval, fmt="p"), fm(pval, fmt="*")))
 
 # change the character to be used as the decimal point
-Fm(1200, digits=2, big.mark = ".", outdec=",")
+fm(1200, digits=2, big.mark = ".", outdec=",")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

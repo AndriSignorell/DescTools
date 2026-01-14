@@ -35,11 +35,11 @@
 \usage{
 Year(x)
 Quarter(x)
-Month(x, fmt = c("m", "mm", "mmm"), lang = DescToolsOptions("lang"),
+Month(x, fmt = c("m", "mm", "mmm"), lang = .getOption("lang"),
       stringsAsFactors = TRUE)
 Week(x, method = c("iso", "us"))
 Day(x)
-Weekday(x, fmt = c("d", "dd", "ddd"), lang = DescToolsOptions("lang"),
+Weekday(x, fmt = c("d", "dd", "ddd"), lang = .getOption("lang"),
         stringsAsFactors = TRUE)
 YearDay(x)
 YearWeek(x, method = c("iso", "us"))
@@ -140,9 +140,9 @@ Year(x)
 Quarter(x)
 
 Month(x)
-Month(x, fmt = "mm", lang="engl")
+Month(x, fmt = "mm", lang="en")
 Month(x, fmt = "mm", lang="local")
-Month(x, fmt = "mmm", lang="engl")
+Month(x, fmt = "mmm", lang="en")
 Month(x, fmt = "mmm", lang="local")
 
 Week(x)
@@ -152,9 +152,9 @@ Day(x) <- 20
 x
 
 Weekday(x)
-Weekday(x, fmt = "dd", lang="engl")
+Weekday(x, fmt = "dd", lang="en")
 Weekday(x, fmt = "dd", lang="local")
-Weekday(x, fmt = "ddd", lang="engl")
+Weekday(x, fmt = "ddd", lang="en")
 Weekday(x, fmt = "ddd", lang="local")
 
 YearDay(x)

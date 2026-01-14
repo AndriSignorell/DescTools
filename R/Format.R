@@ -437,7 +437,7 @@ Format.default <- function(x, digits = NULL, sci = NULL
     # for other types
     if(is.null(lang)) lang <- DescToolsOptions("lang")
     
-    if(lang=="engl"){
+    if(lang=="en"){
       loc <- Sys.getlocale("LC_TIME")
       Sys.setlocale("LC_TIME", "C")
       on.exit(Sys.setlocale("LC_TIME", loc))
