@@ -10,7 +10,7 @@ This enables to define templates globally and easily change or modify them later
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-style(digits = NULL, ldigits = NULL, sci = NULL, 
+style(x, digits = NULL, ldigits = NULL, sci = NULL, 
       big.mark=NULL, outdec = NULL, na.form = NULL, zero.form = NULL, 
       fmt = NULL, p_eps = NULL, width = NULL, align = NULL, lang = NULL,
       label = NULL, ...)
@@ -18,6 +18,8 @@ style(digits = NULL, ldigits = NULL, sci = NULL,
 styles()
 }
 \arguments{
+  \item{x}{an object of class \code{Style} or a the name of a style, defined either in the 
+  global enviroment or in the options.}
 
   \item{digits}{integer, the desired (fixed) number of digits after the decimal point. Unlike \code{\link{formatC}} you will always get this number of digits even if the last digit is 0. 
   Negative numbers of digits round to a power of ten (\code{digits=-2} would round to the nearest hundred).
@@ -78,12 +80,10 @@ This is the same result as if the arguments would have been supplied directly, b
 to avoid boilerplate code: \cr
 \code{fm(12222.89345, digits=2, big.mark=",")}.
 
-**** how is this to be handled?? ****\cr
 To edit a style we can provide \code{style()} with its name and overwrite, resp. add new format options. 
 \code{style("num.sty", digits=1, sci=10)} will use the current 
 version of the numeric format and change the digits to 1 and the threshold 
 to switch to scientifc presentation to numbers > 1e10 and < 1e-10.
-\cr****
 
 \code{styles()} returns all found style definitions in the global environment or
 in the options. 
@@ -114,11 +114,11 @@ abs.sty <- style(digits=0, big.mark=" ")
 dat.sty <- style(fmt="MM, dd yyyy")
 
 num.sty                             # displays the details of the style
-%% editing styles
-%% style("abs.sty")                    # looks for format "abs.sty"
-%% style("nexist")                     # return for nonexisting style
-%% style("abs.sty", big.mark="")       # get Style("abs") and overwrite big.mark
-%% style("abs.sty", na.form="-")       # get Style("abs") and add user defined na.form
+# editing styles
+style("abs.sty")                    # looks for format "abs.sty"
+style("nexist")                     # return for nonexisting style
+style("abs.sty", big.mark="")       # get Style("abs") and overwrite big.mark
+style("abs.sty", na.form="-")       # get Style("abs") and add user defined na.form
 
 styles()                            # all defined formats
 styles()[c("num.sty", "abs.sty")]   # numeric and integer styles

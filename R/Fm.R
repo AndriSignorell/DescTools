@@ -107,7 +107,7 @@ styles <- function(){
 
 
 
-style <- function(  digits = NULL, ldigits = NULL, sci = NULL
+style <- function( x, digits = NULL, ldigits = NULL, sci = NULL
                     , big.mark=NULL, outdec = NULL
                     , na.form = NULL, zero.form = NULL
                     , fmt = NULL, p_eps = NULL
@@ -127,7 +127,7 @@ style <- function(  digits = NULL, ldigits = NULL, sci = NULL
   a <- formalArgs(style)
   
   # remove dots name from the list
-  a <- a[a %nin% c("label","...")]
+  a <- a[a %nin% c("x","label","...")]
   
   # get the values of all the arguments
   v <- sapply(a, dynGet)
@@ -136,12 +136,25 @@ style <- function(  digits = NULL, ldigits = NULL, sci = NULL
   res <- c(v[!sapply(v, is.null)],
            unlist(match.call(expand.dots=FALSE)$...))    
   
-  # if(!is.null(name)){
-  #   # a style with the given <name> has been found in the options
-  #   # overwrite or append separately provided arguments
-  #   sty[names(res)] <- res
-  #   res <- sty
-  # }
+  sty <- NA
+  if(!missing(x)){
+    if(inherits(x, "Style"))
+      sty <- x
+    else if(is.character(x)){
+      if(x %in% names(styles()))
+        sty <- styles()[[x]]
+    }
+    
+    if(!identical(sty, NA)) {
+      # a style with the given <name> has been found in the options
+      # overwrite or append separately provided arguments
+      sty[names(res)] <- res
+    } else {
+      warning("Style x could not be found!")
+    } 
+    
+    res <- sty    
+  }
   
   if(!is.null(label))
     Label(res) <- label
