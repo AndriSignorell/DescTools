@@ -8,16 +8,12 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-Hmean(x, method = c("classic", "boot"), conf.level = NA,
-      sides = c("two.sided","left","right"), na.rm = FALSE, ...)
+Hmean(x, conf.level = NA, sides = c("two.sided","left","right"), 
+      method = c("classic", "boot"), na.rm = FALSE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{a positive numeric vector. An object which is not a vector is coerced (if possible) by as.vector.
-%%     ~~Describe \code{x} here~~
-}
-  \item{method}{a vector of character strings representing the type of intervals required. The value should be any subset of the values \code{"classic"}, \code{"boot"}.
-  See \code{\link[boot]{boot.ci}}.
 %%     ~~Describe \code{x} here~~
 }
   \item{conf.level}{confidence level of the interval. Default is \code{NA}.
@@ -25,6 +21,11 @@ Hmean(x, method = c("classic", "boot"), conf.level = NA,
 }
 \item{sides}{a character string specifying the side of the confidence interval, must be one of \code{"two.sided"} (default), \code{"left"} or \code{"right"}. You can specify just the initial letter. \code{"left"} would be analogue to a hypothesis of \code{"greater"} in a \code{t.test}.}
 
+
+  \item{method}{a vector of character strings representing the type of intervals required. The value should be any subset of the values \code{"classic"}, \code{"boot"}.
+  See \code{\link[boot]{boot.ci}}.
+%%     ~~Describe \code{x} here~~
+}
 
   \item{na.rm}{logical, indicating whether \code{NA} values should be stripped before the computation proceeds. Defaults to \code{FALSE}.
 %%     ~~Describe \code{na.rm} here~~

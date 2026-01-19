@@ -44,7 +44,7 @@ VarCI <- function (x,
                            R=R, parallel=parallel, ncpus=ncpus)
     ci <- boot::boot.ci(boot.fun, conf=conf.level, type=btype)
     
-    if(method == "norm"){
+    if(btype == "norm"){
       res <- c(var=boot.fun$t0, lci=ci[[4]][2], uci=ci[[4]][3])
     } else {
       res <- c(var=boot.fun$t0, lci=ci[[4]][4], uci=ci[[4]][5])

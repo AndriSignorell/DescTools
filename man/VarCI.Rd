@@ -16,22 +16,24 @@ VarCI(x,
 \arguments{
   \item{x}{a (non-empty) numeric vector of data values.
 }
-  \item{method}{vector of character strings representing the type of intervals required. The value should be any subset of the values \code{"classic"}, \code{"bonett"}, \code{"norm"}, \code{"basic"},  \code{"stud"},  \code{"perc"},  \code{"bca"}.
-  See \code{\link[boot]{boot.ci}}.
-}
   \item{conf.level}{confidence level of the interval.
 }
 \item{sides}{a character string specifying the side of the confidence interval, must be one of \code{"two.sided"} (default), \code{"left"} or \code{"right"}. You can specify just the initial letter. \code{"left"} would be analogue to a hypothesis of \code{"greater"} in a \code{t.test}.}
 
+  \item{method}{vector of character strings representing the type of intervals required. 
+  The value should be any subset of the values \code{"classic"}, \code{"bonett"}, \code{"norm"},
+  \code{"boot"}. Bootstrap type can be set by the ... arguments.
+  See \code{\link[boot]{boot.ci}}.
+}
   \item{na.rm}{logical. Should missing values be removed? Defaults to FALSE.
 }
 \item{\dots}{further arguments, can be used to provide further arguments to the boot function.}
 }
 
 \value{a numeric vector with 3 elements:
-  \item{var}{variance}
-  \item{lwr.ci}{lower bound of the confidence interval}
-  \item{upr.ci}{upper bound of the confidence interval}
+  \item{est}{variance}
+  \item{lci}{lower bound of the confidence interval}
+  \item{uci}{upper bound of the confidence interval}
 }
 
 \details{The confidence interval for the variance is very sensitive to non-normality in the data. Bonett (2006) has proposed an interval that is nearly exact when the data is normally distributed and provides good performance for moderately non-normal data.

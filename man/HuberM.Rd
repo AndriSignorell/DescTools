@@ -8,20 +8,31 @@
   returns an error.
 }
 \usage{
-HuberM(x, k = 1.345, mu = median(x), s = mad(x, center = mu), 
-       na.rm = FALSE, conf.level = NA, ci.type = c("wald", "boot"), ...)
+HuberM(x, conf.level = NA, sides = c("two.sided", "left", "right"), 
+       method = c("wald", "boot"), k = 1.345, mu = median(x), 
+       s = mad(x, center = mu), na.rm = FALSE, ...)
 }
 \arguments{
   \item{x}{numeric vector.}
+  
+   \item{conf.level}{confidence level of the interval. If set to \code{NA} 
+    (which is the default) no confidence interval will be calculated.}
+    
+  \item{sides}{a character string specifying the side of the confidence interval, 
+    must be one of \code{"two.sided"} (default), \code{"left"} or \code{"right"}. 
+    You can specify just the initial letter. \code{"left"} would be analogue to a 
+    hypothesis of \code{"greater"} in a \code{t.test}.}
+
+  \item{method}{The type of confidence interval required. The value should be any subset 
+ of the values \code{"wald"}, \code{"boot"}.}
+
+
   \item{k}{positive factor; the algorithm winsorizes at \code{k}
     standard deviations.}
   \item{mu}{initial location estimator.}
   \item{s}{scale estimator held constant through the iterations.}
   \item{na.rm}{logical, indicating whether \code{NA} values should be stripped before the computation proceeds. Defaults to FALSE.}
- \item{conf.level}{confidence level of the interval. If set to \code{NA} (which is the default) no confidence interval will be calculated. }
- \item{ci.type}{The type of confidence interval required. The value should be any subset 
- of the values \code{"wald"}, \code{"boot"}. 
-}
+
 \item{\dots}{ the dots are passed to the function \code{\link[boot]{boot.ci}}, when confidence intervalls are calculated.}
 }
 
@@ -34,9 +45,9 @@ HuberM(x, k = 1.345, mu = median(x), s = mad(x, center = mu),
 If \code{conf.level} is set to \code{NA} then the result will be  
 \item{a}{ single numeric value} and 
 if a \code{conf.level} is provided, a named numeric vector with 3 elements:
-  \item{huberm}{the estimate for location}
-  \item{lwr.ci}{lower bound of the confidence interval}
-  \item{upr.ci}{upper bound of the confidence interval}
+  \item{est}{the estimate for location}
+  \item{lci}{lower bound of the confidence interval}
+  \item{uci}{upper bound of the confidence interval}
 }
 
 \author{Martin Maechler, building on the MASS code mentioned.\cr
@@ -66,7 +77,7 @@ HuberM(rep(9, 100))
 mad   (rep(9, 100))
 
 # bootstrap confidence intervals
-HuberM(x, conf.level=0.95, ci.type="boot")
+HuberM(x, conf.level=0.95, method="boot")
 }
  
 }

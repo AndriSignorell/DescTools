@@ -5,28 +5,30 @@
   This calculates a robust average that is unaffected by outliers.
 }
 \usage{
-TukeyBiweight(x, const = 9, na.rm = FALSE,
-              conf.level = NA, ci.type = "bca", R=1000, ...)
+TukeyBiweight(x, conf.level = NA, sides = c("two.sided", "left", "right"),
+              method = c("boot"), const = 9, na.rm = FALSE, ...)
 }
 \arguments{
   \item{x}{ a \code{numeric} vector }
+  
+   \item{conf.level}{confidence level of the interval. If set to \code{NA} 
+    (which is the default) no confidence interval will be calculated.}
+    
+  \item{sides}{a character string specifying the side of the confidence interval, 
+    must be one of \code{"two.sided"} (default), \code{"left"} or \code{"right"}. 
+    You can specify just the initial letter. \code{"left"} would be analogue to a 
+    hypothesis of \code{"greater"} in a \code{t.test}.}
+
+  \item{method}{only bootstrap method is implemented. }
+
   \item{const}{ a constant. \code{\var{const}} is preassigned a value of 9
     according to the Cook reference below but other values are
     possible. }
   \item{na.rm}{logical, indicating whether \code{NA} values should be stripped before the computation proceeds. Defaults to FALSE.
 }
-   \item{conf.level}{confidence level of the interval. If set to \code{NA} (which is the default) no confidence interval will be calculated.
-%%     ~~Describe \code{conf.level} here~~
-}
-  \item{ci.type}{The type of confidence interval required. The value should be any subset
- of the values \code{"basic"}, \code{"stud"}, \code{"perc"}, \code{"bca"} or simply \code{"all"}
- which will compute all four types of intervals.
-}
-\item{R}{The number of bootstrap replicates. Usually this will be a single positive integer. For importance resampling,
- some resamples may use one set of weights and others use a different set of weights. In this case \code{R} would be a vector
- of integers where each component gives the number of resamples from each of the rows of weights.
-}
-\item{\dots}{the dots are passed to the function \code{\link[boot]{boot}}, when confidence intervalls are calculated.
+
+\item{\dots}{the dots are passed to the function \code{\link[boot]{boot}}, 
+  when confidence intervals are calculated.
 }
 
 }
@@ -65,7 +67,8 @@ TukeyBiweight(x, const = 9, na.rm = FALSE,
   Computational Geometry}, 18(3):305-363. Springer.
 
 }
-\author{ Mikko Korpela <mikko.korpela@aalto.fi> }
+\author{ originally written by Mikko Korpela <mikko.korpela@aalto.fi>\cr 
+Rcpp port by Andri Signorell <andri@signorell.net>}
 
 \seealso{ \code{\link{HuberM}}, \code{\link{Range}}, \code{\link{RobScale}} }
 \examples{

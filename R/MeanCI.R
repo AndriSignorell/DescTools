@@ -90,7 +90,8 @@ MeanCI <- function (x,
   
   if (na.rm) x <- na.omit(x)
   
-  sides <- match.arg(sides, choices = c("two.sided","left","right"), several.ok = FALSE)
+  sides <- match.arg(sides, choices = c("two.sided","left","right"), 
+                     several.ok = FALSE)
   
   if(sides!="two.sided")
     conf.level <- 1 - 2*(1-conf.level)
