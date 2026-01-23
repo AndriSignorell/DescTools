@@ -145,7 +145,7 @@ plot(Lc(fl, n),                 # Lorenz-Curve
 lines(Lc(fl, n), conf.level=0.95,
       args.cband=list(col=SetAlpha(DescToolsOptions("col")[2], 0.3)))
 
-Gini(fl, n)
+Gini(x=fl, weights=n)
 
 # find specific function values using predict
 x <- c(1,1,4)

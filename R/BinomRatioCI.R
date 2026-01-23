@@ -394,7 +394,7 @@ BinomRatioCI <- function(x1, n1, x2, n2, conf.level = 0.95, sides = c("two.sided
   
   return(SetNames(res, 
                   rownames=xn, 
-                  colnames=c("est", "lwr.ci", "upr.ci")))
+                  colnames=c("est", "lci", "uci")))
   
 }
 

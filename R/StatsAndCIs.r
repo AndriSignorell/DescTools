@@ -64,9 +64,11 @@
 
 
 
-MAD <- function(x, weights = NULL, center = Median, constant = 1.4826, na.rm = FALSE, 
-                low = FALSE, high = FALSE) {
+MAD_old <- function(x, weights = NULL, center = Median, constant = 1.4826, 
+                median.type = c("standard", "low", "high"), na.rm = FALSE) {
   
+  
+  median.type <- match.arg(median.type)
   
   if (is.function(center)) {
     fct <- center
@@ -78,6 +80,7 @@ MAD <- function(x, weights = NULL, center = Median, constant = 1.4826, na.rm = F
     center <- eval(parse(text = center))
   }
   
+  
   if(!is.null(weights)) {
     z <- .NormWeights(x, weights, na.rm=na.rm, zero.rm=TRUE)
     
@@ -85,7 +88,10 @@ MAD <- function(x, weights = NULL, center = Median, constant = 1.4826, na.rm = F
     
   } else {
     # fall back to mad(), if there are no weights
-    res <- mad(x, center = center, constant = constant, na.rm = na.rm, low=low, high=high)
+    res <- mad(x, center = center, constant = constant, 
+               na.rm = na.rm, 
+               low= (median.type == "low"), 
+               high= (median.type == "high"))
     
   }
   
@@ -94,12 +100,65 @@ MAD <- function(x, weights = NULL, center = Median, constant = 1.4826, na.rm = F
 }
 
 
+MAD <- function(x,
+                weights = NULL,
+                center = Median,
+                constant = 1.4826,
+                median.type = c("standard", "low", "high"),
+                na.rm = FALSE) {
+  
+  median.type <- match.arg(median.type)
+  
+  ## NA handling
+  if (na.rm) {
+    ok <- !is.na(x)
+    x <- x[ok]
+    if (!is.null(weights))
+      weights <- weights[ok]
+  }
+  
+  ## determine center 
+  if (is.function(center)) {
+    center <- if (is.null(weights)) {
+      center(x)
+    } else {
+      center(x, weights = weights)
+    }
+  }
+  
+  ## deviations
+  d <- abs(x - center)
+  
+  ## weights
+  if (is.null(weights))
+    weights <- rep(1, length(d))
+  
+  z <- .NormWeights(d, weights, na.rm = FALSE, zero.rm = TRUE)
+  
+  ## Median-Index
+  n <- length(z$x)
+  
+  if (median.type == "standard" || n %% 2 == 1) {
+    m <- Median(z$x, z$weights)
+  } else {
+    k <- n %/% 2
+    o <- order(z$x)
+    m <- if (median.type == "low")
+      z$x[o[k]]
+    else
+      z$x[o[k + 1]]
+  }
+  
+  return(constant * m)
+  
+}
+
 
 
 # from stats
-SD <- function (x, weights = NULL, na.rm = FALSE, ...)
+SD <- function (x, estimator = c("unbiased", "ML"), weights = NULL, na.rm = FALSE, ...)
   sqrt(Var(if (is.vector(x) || is.factor(x)) x else as.double(x),
-           weights=weights, na.rm = na.rm, ...))
+           estimator = estimator, weights=weights, na.rm = na.rm, ...))
 
 
 Var <- function (x, ...)
@@ -107,26 +166,45 @@ Var <- function (x, ...)
 
 
 
-Var.default <- function (x, weights = NULL, na.rm = FALSE, method = c("unbiased",  "ML"), ...) {
-
-  if(is.null(weights)) {
-    res <- var(x=x, na.rm=na.rm)
-    
-  } else {
-    z <- .NormWeights(x, weights, na.rm=na.rm, zero.rm=TRUE)
-
-    if (match.arg(method) == "ML")
-      return(as.numeric(stats::cov.wt(cbind(z$x), z$weights, method = "ML")$cov))
-    
-    xbar <- sum(z$weights * x) / z$wsum
-    
-    res <- sum(z$weights * ((z$x - xbar)^2))/(z$wsum - 1)
-    
+Var.default <- function(x, estimator = c("unbiased", "ML"),
+                        weights = NULL, na.rm = FALSE, ...) {
+  
+  estimator <- match.arg(estimator)
+  
+  ## NA-Handling
+  if (na.rm) {
+    ok <- !is.na(x)
+    x <- x[ok]
+    if (!is.null(weights))
+      weights <- weights[ok]
   }
   
-  return(res)
+  ## Weights?
+  if (is.null(weights)) {
+    res <- var(x=x, na.rm=na.rm)
+    
+    if(estimator == "ML")
+      res <- res * ((n <- sum(ok)) - 1) / n
+    
+  } else {
+    
+    z <- .NormWeights(x, weights, na.rm = FALSE, zero.rm = TRUE)
+    
+    if (estimator == "ML"){
+      res <- as.numeric(stats::cov.wt(cbind(z$x), z$weights, method = "ML")$cov)
+      
+    } else {
+      
+      xbar <- sum(z$weights * x) / z$wsum
+      res <- sum(z$weights * ((z$x - xbar)^2))/(z$wsum - 1)
+    }
+
+  }
+  
+  return( res )
   
 }
+
 
 
 Var.Freq <- function(x, breaks, ...)  {
@@ -145,14 +223,14 @@ Cor <- cor
 
 
 
-SDN <- function(x, na.rm = FALSE){
-  sd(x, na.rm=na.rm) * sqrt(((n <- sum(!is.na(x)))-1) /n)
-}
+# SDN <- function(x, na.rm = FALSE){
+#   sd(x, na.rm=na.rm) * sqrt(((n <- sum(!is.na(x)))-1) /n)
+# }
 
 
-VarN <- function(x, na.rm = FALSE){
-  var(x, na.rm=na.rm) * ((n <- sum(!is.na(x)))-1) /n
-}
+# VarN <- function(x, na.rm = FALSE){
+#   var(x, na.rm=na.rm) * ((n <- sum(!is.na(x)))-1) /n
+# }
 
 
 EX <- function(x, p) sum(x * p)
@@ -1246,78 +1324,6 @@ HuberM <- function(x, conf.level = NA, sides = c("two.sided","left","right"),
 
 
 
-HodgesLehmann <- function(x, y = NULL, conf.level = NA, na.rm = FALSE) {
-
-  #   Werner Stahel's version:
-  #
-  #   f.HodgesLehmann <- function(data)
-  #   {
-  #     ## Purpose:   Hodges-Lehmann estimate and confidence interval
-  #     ## -------------------------------------------------------------------------
-  #     ## Arguments:
-  #     ## Remark: function changed so that CI covers >= 95%, before it was too
-  #     ##         small (9/22/04)
-  #     ## -------------------------------------------------------------------------
-  #     ## Author: Werner Stahel, Date: 12 Aug 2002, 14:13
-  #     ## Update: Beat Jaggi, Date: 22 Sept 2004
-  #     .cexact <-
-  #       # c(NA,NA,NA,NA,NA,21,26,33,40,47,56,65,74,84,95,107,119,131,144,158)
-  #       c(NA,NA,NA,NA,NA,22,27,34,41,48,57,66,75,85,96,108,120,132,145,159)
-  #     .d <- na.omit(data)
-  #     .n <- length(.d)
-  #     .wa <- sort(c(outer(.d,.d,"+")/2)[outer(1:.n,1:.n,"<=")])
-  #     .c <- if (.n<=length(.cexact)) .n*(.n+1)/2+1-.cexact[.n] else
-  #       floor(.n*(.n+1)/4-1.96*sqrt(.n*(.n+1)*(2*.n+1)/24))
-  #     .r <- c(median(.wa), .wa[c(.c,.n*(.n+1)/2+1-.c)])
-  #     names(.r) <- c("estimate","lower","upper")
-  #     .r
-  #   }
-
-  if(na.rm) {
-    if(is.null(y))
-      x <- na.omit(x)
-    else {
-      ok <- complete.cases(x, y)
-      x <- x[ok]
-      y <- y[ok]
-    }
-  }
-
-  if(anyNA(x) || (!is.null(y) && anyNA(y)))
-    if(is.na(conf.level))
-      return(NA)
-  else
-    return(c(est=NA,  lwr.ci=NA, upr.ci=NA))
-
-  
-  #  res <- wilcox.test(x,  y, conf.int = TRUE, conf.level = Coalesce(conf.level, 0.8))
-  if(is.null(y)){
-    res <- .Call("_DescTools_hlqest", PACKAGE = "DescTools", x)
-  } else {
-    res <- .Call("_DescTools_hl2qest", PACKAGE = "DescTools", x, y)
-  }
-
-  if(is.na(conf.level)){
-    result <-  res
-    names(result) <- NULL
-    
-  } else {
-    
-    n <- length(x)
-    
-    # lci <- n^2/2 + qnorm((1-conf.level)/2) * sqrt(n^2 * (2*n+1)/12) - 0.5
-    # uci <- n^2/2 - qnorm((1-conf.level)/2) * sqrt(n^2 * (2*n+1)/12) - 0.5
-    lci <- uci <- NA
-    warning("Confidence intervals not yet implemented for Hodges-Lehman-Estimator.")
-    
-    result <- c(est=res,  lwr.ci=lci, upr.ci=uci)
-  }
-
-  return(result)
-
-}
-
-
 
 
 
@@ -1681,8 +1687,6 @@ PoissonCI <- function(x, n = 1, conf.level = 0.95, sides = c("two.sided","left",
 
 
 
-
-
 # standard error of mean
 MeanSE <- function(x, sd = NULL, na.rm = FALSE) {
   if(na.rm) x <- na.omit(x)
@@ -1979,7 +1983,7 @@ CoefVar.default <- function (x, weights = NULL, unbiased = FALSE,
     n <- length(x)
     
   } else {
-    res <- SD(x, weights = weights)/Mean(x, weights = weights)
+    res <- SD(x, weights = weights) / Mean(x, weights = weights)
     n <- sum(weights)
   }
   
@@ -2071,7 +2075,7 @@ Lc.default <- function(x, n = rep(1, length(x)), na.rm = FALSE, ...) {
   xx <- x
   nn <- n
 
-  g <- Gini(x, n, na.rm=na.rm)
+  g <- Gini(x, weights=n, na.rm=na.rm)
 
   if(na.rm) x <- na.omit(x)
   if (any(is.na(x)) || any(x < 0)) return(NA_real_)
@@ -2274,8 +2278,10 @@ predict.Lc <- function(object, newdata, conf.level=NA, general=FALSE, n=1000, ..
 
 # recoded for better support weights 2022-09-14
 
-Gini <- function(x, weights=NULL, unbiased=TRUE,  
-                 conf.level = NA, R = 10000, type = "bca", na.rm=FALSE) {
+Gini <- function(x, 
+                 conf.level = NA, sides = c("two.sided", "left", "right"),
+                 method = c("boot"), unbiased=TRUE, weights=NULL, 
+                 na.rm=FALSE, ...) {
   
   # https://core.ac.uk/download/pdf/41339501.pdf
   
@@ -2318,12 +2324,45 @@ Gini <- function(x, weights=NULL, unbiased=TRUE,
     
   } else {
     
-    boot.gini <- boot(data = x,
-                      statistic = function(z, i, u, unbiased) 
-                        i.gini(x = z[i], w = u[i], unbiased = unbiased), 
-                      R=R, u=weights, unbiased=unbiased)
-    ci <- boot.ci(boot.gini, conf = conf.level, type = type)
-    res <- c(gini = boot.gini$t0, lwr.ci = ci[[4]][4], upr.ci = ci[[4]][5])
+    sides <- match.arg(sides, choices = c("two.sided","left","right"), several.ok = FALSE)
+    if(sides!="two.sided")
+      conf.level <- 1 - 2*(1-conf.level)
+    
+    
+    # boot.gini <- boot(data = x,
+    #                   statistic = function(z, i, u, unbiased) 
+    #                     i.gini(x = z[i], w = u[i], unbiased = unbiased), 
+    #                   R=R, u=weights, unbiased=unbiased)
+    # ci <- boot.ci(boot.gini, conf = conf.level, type = type)
+    # res <- c(gini = boot.gini$t0, lwr.ci = ci[[4]][4], upr.ci = ci[[4]][5])
+    
+    
+    # boot arguments in dots ...
+    # adjusted bootstrap percentile (BCa) interval
+    btype <- InDots(..., arg="type", default="bca")
+    R <- InDots(..., arg="R", default=999)
+    parallel <- InDots(..., arg="parallel", default="no")
+    ncpus <- InDots(..., arg="ncpus", default=getOption("boot.ncpus", 1L))
+    
+    
+    # ToDo *******************
+    # *******  implement here the two sample case!! ***********
+    # ToDo *******************
+    
+    boot.fun <- boot::boot(x, 
+                           function(z, i, u, unbiased) 
+                              i.gini(x = z[i], w = u[i], unbiased = unbiased), 
+                           u=weights, unbiased=unbiased, 
+                           R=R, parallel=parallel, ncpus=ncpus)
+    ci <- boot::boot.ci(boot.fun, conf=conf.level, type=btype)
+    
+    if(btype == "norm"){
+      res <- c(est=boot.fun$t0, lci=ci[[4]][2], uci=ci[[4]][3])
+    } else {
+      res <- c(est=boot.fun$t0, lci=ci[[4]][4], uci=ci[[4]][5])
+    }
+    
+    
     
   }
   

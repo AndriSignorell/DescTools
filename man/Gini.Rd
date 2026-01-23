@@ -8,42 +8,36 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-Gini(x, weights = NULL, unbiased = TRUE,
-     conf.level = NA, R = 10000, type = "bca", na.rm = FALSE)
+Gini(x, conf.level = NA, sides = c("two.sided", "left", "right"),
+     method = c("boot"), unbiased = TRUE, weights = NULL, 
+     na.rm = FALSE, ...) 
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{a vector containing at least non-negative elements. The result will be \code{NA}, if x contains negative elements.
 %%     ~~Describe \code{x} here~~
 }
-  \item{weights}{a numerical vector of weights the same length as \code{x} giving the weights to use for elements of \code{x}.
-%%     ~~Describe \code{n} here~~
-}
-  \item{unbiased}{logical. In order for G to be an unbiased estimate of the true population value,
-   calculated gini is multiplied by \eqn{n/(n-1)}{n/(n-1)}. Default is TRUE. (See Dixon, 1987)
-%%     ~~Describe \code{unbiased} here~~
-}
   \item{conf.level}{confidence level for the confidence interval, restricted to lie between 0 and 1.
   If set to \code{TRUE} the bootstrap confidence intervals are calculated.
   If set to \code{NA} (default) no confidence intervals are returned.
+}
+  \item{sides}{a character string specifying the side of the confidence interval, 
+    must be one of \code{"two.sided"} (default), \code{"left"} or \code{"right"}. 
+    You can specify just the initial letter. \code{"left"} would be analogue to a 
+    hypothesis of \code{"greater"} in a \code{t.test}.}
 
-%%     ~~Describe \code{conf.level} here~~
-}
-  \item{R}{number of bootstrap replicates. Usually this will be a single positive integer.
-  For importance resampling, some resamples may use one set of weights and others use a different set of weights. In this case R would be a vector of
-  integers where each component gives the number of resamples from each of the rows of weights.\cr
-  This is ignored if no confidence intervals are to be calculated.
+  \item{method}{only bootstrap method is implemented. }
 
-%%     ~~Describe \code{R} here~~
+  \item{unbiased}{logical. In order for G to be an unbiased estimate of the true population value,
+   calculated gini is multiplied by \eqn{n/(n-1)}{n/(n-1)}. Default is TRUE. (See Dixon, 1987)
 }
-  \item{type}{character string representing the type of interval required.
-  The value should be one out of the c(\code{"norm"},\code{"basic"}, \code{"stud"},
-  \code{"perc"} or \code{"bca"}).\cr
-  This argument is ignored if no confidence intervals are to be calculated.
-%%     ~~Describe \code{type} here~~
+  \item{weights}{a numerical vector of weights the same length as \code{x} giving the weights to use for elements of \code{x}.
 }
-  \item{na.rm}{logical. Should missing values be removed? Defaults to FALSE.
-%%     ~~Describe \code{na.rm} here~~
+  \item{na.rm}{logical, indicating whether \code{NA} values should be stripped 
+  before the computation proceeds. Defaults to \code{FALSE}.}
+
+  \item{\dots}{the dots are passed to the function \code{\link[boot]{boot}}, 
+   when confidence intervals are calculated.
 }
 }
 \details{

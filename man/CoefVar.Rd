@@ -75,6 +75,12 @@ In general, the Vangel's modified McKay method is recommended over the McKay met
 See also: https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/coefvacl.htm
 
 \bold{nct}   \verb{     }uses the noncentral t-distribution to calculate the confidence intervals. See Smithson (2003).
+
+\bold{Note:}\verb{    }
+  Analytic (precision) weights are not supported. For likelihood-based
+weighted variance estimation, see \code{\link[stats]{cov.wt}}.
+
+
 }
 \value{if no confidence intervals are requested:
 the estimate as numeric value (without any name)\cr\cr

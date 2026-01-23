@@ -107,18 +107,25 @@
 
 
 
-CohenD <- function(x, y=NULL, correct = FALSE, 
-                   conf.level = NA, na.rm = FALSE) {
+CohenD <- function(x, y=NULL, 
+                   conf.level = NA, sides = c("two.sided", "left", "right"), 
+                   correct = FALSE, na.rm = FALSE) {
   
   if (na.rm) {
     x <- na.omit(x)
     if(!is.null(y)) y <- na.omit(y)
   }
+
+  sides <- match.arg(sides, choices = c("two.sided","left","right"), 
+                     several.ok = FALSE)
   
   if(is.null(y)){   # one sample Cohen d
     d <- mean(x) / sd(x)
     n <- length(x)
     if(!is.na(conf.level)){
+      
+      if(sides!="two.sided")
+        conf.level <- 1 - 2*(1-conf.level)
       
       # # reference: Smithson Confidence Intervals pp. 36:
       # ci <- .nctCI(d / sqrt(n), df = n-1, conf = conf.level)
@@ -126,7 +133,12 @@ CohenD <- function(x, y=NULL, correct = FALSE,
       
       # changed to Revelle 2022-10-22:
       ci <- .cohen_d_ci(d = d, n = n, alpha = 1-conf.level)
-      res <- c(d=d, lwr.ci=ci[1], upr.ci=ci[3])
+      
+      if(sides=="left")        ci[1] <- Inf
+      else if(sides=="right")  ci[3] <- -Inf
+
+      res <- c(est=d, lci=ci[1], uci=ci[3])
+      
       
     } else {
       res <- d
@@ -149,6 +161,10 @@ CohenD <- function(x, y=NULL, correct = FALSE,
     #  if(unbiased) d <- d * gamma(DF/2)/(sqrt(DF/2) * gamma((DF - 1)/2))
 
     if(!is.na(conf.level)) {
+      
+      if(sides!="two.sided")
+        conf.level <- 1 - 2*(1-conf.level)
+      
       # old:
       # The Handbook of Research Synthesis and Meta-Analysis (Cooper, Hedges, & Valentine, 2009)
       ## p 238
@@ -166,7 +182,10 @@ CohenD <- function(x, y=NULL, correct = FALSE,
         ci <- ci * .J(nx, ny)
       }
       
-      res <- c(d=ci[2], lwr.ci=unname(ci[1]), upr.ci=unname(ci[3]))
+      if(sides=="left")        ci[1] <- Inf
+      else if(sides=="right")  ci[3] <- -Inf
+      
+      res <- c(est=ci[2], lci=unname(ci[1]), uci=unname(ci[3]))
 
     } else {
       

@@ -89,7 +89,7 @@ styles <- function(){
 
 
 
-# # define styles used by reporting functions
+# defined styles (defaults in options()) used by reporting functions
 # abs.sty <- Coalesce(
 #                Styles("abs"),
 #                Style(digits=0, big.mark = .thousands_sep))

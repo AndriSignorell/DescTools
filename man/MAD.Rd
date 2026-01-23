@@ -7,7 +7,7 @@
 \title{Median Absolute Deviation}
 \usage{
 MAD(x, weights = NULL, center = Median, constant = 1.4826, 
-    na.rm = FALSE, low = FALSE, high = FALSE)
+    median.type = c("standard", "low", "high"), na.rm = FALSE)
 }
 \alias{MAD}
 \arguments{
@@ -17,13 +17,14 @@ MAD(x, weights = NULL, center = Median, constant = 1.4826,
 
   \item{center}{the centre given either as numeric value or as a function to be applied to \code{x} (defaults to the \code{DescTools::Median(x)}). Note in cases when weights are defined to provide a function that also support weights. If this is not possible fall back to a numeric value.}
   \item{constant}{scale factor (default is \code{1.4826})}
+  \item{median.type}{if \code{TRUE}, compute the \sQuote{lo-median}, i.e., for even
+    sample size, do not average the two middle values, but take the
+    smaller one, if \code{TRUE}, compute the \sQuote{hi-median}, i.e., take the
+    larger of the two middle values for even sample size.}
+
   \item{na.rm}{if \code{TRUE} then \code{NA} values are stripped
     from \code{x} before computation takes place.}
-  \item{low}{if \code{TRUE}, compute the \sQuote{lo-median}, i.e., for even
-    sample size, do not average the two middle values, but take the
-    smaller one.}
-  \item{high}{if \code{TRUE}, compute the \sQuote{hi-median}, i.e., take the
-    larger of the two middle values for even sample size.}
+
 }
 \description{
   Compute the median absolute deviation, i.e., the (lo-/hi-) median of
@@ -49,8 +50,8 @@ MAD(x, weights = NULL, center = Median, constant = 1.4826,
   \code{x} will cause \code{MAD} to return \code{NA}.
 }
 \seealso{
-  \code{\link{IQR}} which is simpler but less robust, \code{\link{IQRw}} for weights, 
-  \code{\link{mad}}, \code{\link{median}}, \code{\link{var}}, \code{\link{MADCI}} (confidence intervals).
+  \code{\link{IQR}} which is simpler but less robust, \code{\link{IQRw}} for the same using weights,\cr 
+  \code{\link{mad}}, \code{\link{median}}, \code{\link{var}} the base R equivalents \cr\code{\link{MADCI}} (confidence intervals).
 }
 \examples{
 MAD(c(1:9))
@@ -58,9 +59,9 @@ print(MAD(c(1:9),     constant = 1)) ==
       MAD(c(1:8, 100), constant = 1)       # = 2 ; TRUE
 x <- c(1,2,3,5,7,8)
 sort(abs(x - median(x)))
-c(MAD(x, constant = 1),
-  MAD(x, constant = 1, low = TRUE),
-  MAD(x, constant = 1, high = TRUE))
+c(MAD(x, constant = 1, median.type="standard"),
+  MAD(x, constant = 1, median.type="low"),
+  MAD(x, constant = 1, median.type="high"))
 
 # use weights
 x <- sample(20, 30, replace = TRUE)

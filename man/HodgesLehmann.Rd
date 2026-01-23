@@ -1,25 +1,34 @@
 \name{HodgesLehmann}
 \alias{HodgesLehmann}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{ Hodges-Lehmann Estimator of Location}
 \description{
 Function to compute the Hodges-Lehmann estimator of location in the one and two sample case following a clever fast algorithm by John Monahan (1984). 
 }
 \usage{
-HodgesLehmann(x, y = NULL, conf.level = NA, na.rm = FALSE)
+HodgesLehmann(x, y = NULL, conf.level = NA, sides = c("two.sided", "left", "right"),
+              method = c("boot"), na.rm = FALSE, ...)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{ a numeric vector.}
   \item{y}{an optional numeric vector of data values: as with x non-finite values will be omitted.}
   
    \item{conf.level}{confidence level of the interval.
-%%     ~~Describe \code{conf.level} here~~
 }
+  \item{sides}{a character string specifying the side of the confidence interval, 
+    must be one of \code{"two.sided"} (default), \code{"left"} or \code{"right"}. 
+    You can specify just the initial letter. \code{"left"} would be analogue to a 
+    hypothesis of \code{"greater"} in a \code{t.test}.}
+
+  \item{method}{only bootstrap method is implemented so far. Others might be implemented in future. }
+
 
   \item{na.rm}{logical. Should missing values be removed? Defaults to \code{FALSE}.
-%%     ~~Describe \code{na.rm} here~~
 }
+
+\item{\dots}{the dots are passed to the function \code{\link[boot]{boot}}, 
+  when confidence intervals are calculated.
+}
+
 }
 \details{
   The Hodges-Lehmann estimator is the median of the combined data points and Walsh averages.

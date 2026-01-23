@@ -7,8 +7,7 @@ Calculates confidence intervals for the variance. Available approachs are the cl
 
 }
 \usage{
-VarCI(x, 
-      conf.level = 0.95, sides = c("two.sided", "left", "right"),
+VarCI(x, conf.level = 0.95, sides = c("two.sided", "left", "right"),
       method = c("classic", "bonett", "boot"), na.rm = FALSE, ...)
 
 }
@@ -18,7 +17,10 @@ VarCI(x,
 }
   \item{conf.level}{confidence level of the interval.
 }
-\item{sides}{a character string specifying the side of the confidence interval, must be one of \code{"two.sided"} (default), \code{"left"} or \code{"right"}. You can specify just the initial letter. \code{"left"} would be analogue to a hypothesis of \code{"greater"} in a \code{t.test}.}
+\item{sides}{a character string specifying the side of the confidence interval, 
+must be one of \code{"two.sided"} (default), \code{"left"} or \code{"right"}. 
+You can specify just the initial letter. \code{"left"} would be analogue to a 
+hypothesis of \code{"greater"} in a \code{t.test}.}
 
   \item{method}{vector of character strings representing the type of intervals required. 
   The value should be any subset of the values \code{"classic"}, \code{"bonett"}, \code{"norm"},

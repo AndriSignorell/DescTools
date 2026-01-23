@@ -10,17 +10,41 @@
 #' @aliases Mean Mean.default Mean.Freq
 #' @param x An object.  Currently there are methods for numeric/logical vectors
 #' and \link[=Dates]{date}, \link{date-time} and \link{time interval} objects.
-#' Complex vectors are allowed for \code{trim = 0}, only.
-#' @param weights a numerical vector of weights the same length as \code{x}
+#' Complex vectors are allowed for \code{trim = 0} only.
+
+#' @param weights a numerical  weights 
 #' giving the weights to use for elements of \code{x}.
+
+#' @param weights
+#' non-negative numeric vector of weights of the same length as \code{x}
+#' interpreted as frequency (replication) weights. 
+#' Observations with larger weights contribute
+#' more strongly to the empirical distribution.
+ 
 #' @param trim the fraction (0 to 0.5) of observations to be trimmed from each
 #' end of \code{x} before the mean is computed.  Values of trim outside that
 #' range are taken as the nearest endpoint.
-#' @param breaks breaks for calculating the mean for classified data as
-#' composed by \code{\link{Freq}}.
 #' @param na.rm a logical value indicating whether \code{NA} values should be
 #' stripped before the computation proceeds.
+#' @param breaks breaks for calculating the mean for classified data as
+#' composed by \code{\link{Freq}}.
 #' @param \dots further arguments passed to or from other methods.
+
+#' @details
+#' The argument \code{weights} is interpreted as frequency (replication)
+#' weights. Conceptually, this corresponds to computing the statistic
+#' on a reweighted empirical distribution, where observations with larger
+#' weights represent a higher frequency in the population.
+#' 
+#' \bold{Note:}\verb{    }
+#' Analytic (precision) weights, which assume observation-specific error
+#' variances or likelihood-based weighting, are deliberately not supported.
+#' This design ensures that all weighted statistics remain well-defined
+#' for ordinal, robust, and distribution-based measures such as medians,
+#' quantiles, and measures of dispersion.
+#' 
+#' \code{trim} and \code{weights} can't be used together at the same time.
+
 #' @return If \code{trim} is zero (the default), the arithmetic mean of the
 #' values in \code{x} is computed, as a numeric or complex vector of length
 #' one.  If \code{x} is not logical (coerced to numeric), numeric (including
@@ -30,7 +54,6 @@
 #' fraction of \code{trim} observations deleted from each end before the mean
 #' is computed.
 #' 
-#' \code{trim} and \code{weights} can't be used together at the same time.
 #' @seealso \code{\link{weighted.mean}}, \code{\link{mean.POSIXct}},
 #' \code{\link{colMeans}} for row and column means.
 #' @references Becker, R. A., Chambers, J. M. and Wilks, A. R. (1988) \emph{The
@@ -38,10 +61,12 @@
 #' @keywords univar
 #' @examples
 #' 
-#'   x <- c(0:10, 50)
-#'   xm <- Mean(x)
-#'   c(xm, Mean(x, trim = 0.10))
+#' x <- c(0:10, 50)
+#' xm <- Mean(x)
+#' c(xm, Mean(x, trim = 0.10))
 #'
+
+
 
 Mean <- function (x, ...)
   UseMethod("Mean")

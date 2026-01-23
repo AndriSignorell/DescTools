@@ -15,15 +15,17 @@ Mean(x, ...)
 \arguments{
 \item{x}{An object.  Currently there are methods for numeric/logical vectors
 and \link[=Dates]{date}, \link{date-time} and \link{time interval} objects.
-Complex vectors are allowed for \code{trim = 0}, only.}
+Complex vectors are allowed for \code{trim = 0} only.}
 
 \item{\dots}{further arguments passed to or from other methods.}
 
 \item{breaks}{breaks for calculating the mean for classified data as
 composed by \code{\link{Freq}}.}
 
-\item{weights}{a numerical vector of weights the same length as \code{x}
-giving the weights to use for elements of \code{x}.}
+\item{weights}{non-negative numeric vector of weights of the same length as \code{x}
+interpreted as frequency (replication) weights.
+Observations with larger weights contribute
+more strongly to the empirical distribution.}
 
 \item{trim}{the fraction (0 to 0.5) of observations to be trimmed from each
 end of \code{x} before the mean is computed.  Values of trim outside that
@@ -41,18 +43,31 @@ integer) or complex, \code{NA_real_} is returned, with a warning.
 If \code{trim} is non-zero, a symmetrically trimmed mean is computed with a
 fraction of \code{trim} observations deleted from each end before the mean
 is computed.
-
-\code{trim} and \code{weights} can't be used together at the same time.
 }
 \description{
 Generic function for the (trimmed) arithmetic mean, possibly with given
 weights.
 }
+\details{
+The argument \code{weights} is interpreted as frequency (replication)
+weights. Conceptually, this corresponds to computing the statistic
+on a reweighted empirical distribution, where observations with larger
+weights represent a higher frequency in the population.
+
+\bold{Note:}\verb{    }
+Analytic (precision) weights, which assume observation-specific error
+variances or likelihood-based weighting, are deliberately not supported.
+This design ensures that all weighted statistics remain well-defined
+for ordinal, robust, and distribution-based measures such as medians,
+quantiles, and measures of dispersion.
+
+\code{trim} and \code{weights} can't be used together at the same time.
+}
 \examples{
 
-  x <- c(0:10, 50)
-  xm <- Mean(x)
-  c(xm, Mean(x, trim = 0.10))
+x <- c(0:10, 50)
+xm <- Mean(x)
+c(xm, Mean(x, trim = 0.10))
 
 }
 \references{
