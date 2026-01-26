@@ -475,6 +475,8 @@ GCD <- function(..., na.rm = FALSE) {
 }
 
 
+
+
 LCM <- function(..., na.rm = FALSE) {
 
 
@@ -2600,17 +2602,15 @@ NAIfZero <- function(x)
 
 
 # replaced by NAVal 
-#
-# BlankIfNA <- function(x, blank="") {
-#   #  same as zeroifnull but with characters
-#   replace(x, is.na(x), blank)
-# }
+BlankIfNA <- function(x, blank="") {
+  .Deprecated("NAVal", package = "DescTools")
+  #  same as zeroifnull but with characters
+  replace(x, is.na(x), blank)
+}
 
 
 NAIfBlank <- function(x)
   replace(x, x=="", NA)
-
-
 
 
 

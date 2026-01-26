@@ -21,9 +21,10 @@ CoefVar(x, ...)
 \method{CoefVar}{default}(x, weights = NULL, unbiased = FALSE,
        na.rm = FALSE, ...)
 
-CoefVarCI(K, n, conf.level = 0.95, 
+CoefVarCI(x, conf.level = 0.95, 
           sides = c("two.sided", "left", "right"),
-          method = c("nct","vangel","mckay","verrill","naive"))       
+          method = c("nct","vangel","mckay","verrill","naive"),
+          na.rm = FALSE, ...)       
 
 }
 %- maybe also 'usage' for other objects documented here.
@@ -31,17 +32,14 @@ CoefVarCI(K, n, conf.level = 0.95,
   \item{x}{a (non-empty) numeric vector of data values.
 %%     ~~Describe \code{x} here~~
 }
-  \item{weights}{a numerical vector of weights the same length as \code{x} giving the weights to use for elements of \code{x}.
+  \item{weights}{a numerical vector of weights the same length as \code{x} giving 
+  the weights to use for elements of \code{x}.
  }
 
-  \item{unbiased}{logical value determining, if a bias correction should be used (see. details). Default is FALSE. %% Reference???
+  \item{unbiased}{logical value determining, if a bias correction should be used 
+  (see. details). Default is \code{FALSE}. %% Reference???
 %%     ~~Describe \code{unbiased} here~~
 }
-  \item{K}{the coefficient of variation as calculated by \code{CoefVar()}.
-%%     ~~Describe \code{x} here~~
-}
-  \item{n}{the number of observations used for calculating the coefficient of variation.}
-
   \item{conf.level}{confidence level of the interval. Defaults to 0.95.
 %%     ~~Describe \code{conf.level} here~~
 }
@@ -50,10 +48,10 @@ CoefVarCI(K, n, conf.level = 0.95,
 \code{"greater"} in a \code{t.test}.}
 \item{method}{character string specifing the method to use for calculating the confidence intervals, can be one out of:
   \code{"nct"} (default), \code{"vangel"}, \code{"mckay"}, \code{"verrill"} (currently not yet implemented) and \code{"naive"}. Abbreviation of method is accepted. See details.}
-  \item{na.rm}{logical. Should missing values be removed? Defaults to FALSE.
+  \item{na.rm}{logical. Should missing values be removed? Defaults to \code{FALSE}.
 %%     ~~Describe \code{na.rm} here~~
 }
-\item{\dots}{further arguments (not used here).}
+\item{\dots}{further arguments.}
 }
 \details{
 In order for the coefficient of variation to be an unbiased estimate of the true population value,
@@ -86,8 +84,8 @@ weighted variance estimation, see \code{\link[stats]{cov.wt}}.
 the estimate as numeric value (without any name)\cr\cr
 else a named numeric vector with 3 elements
 \item{est}{estimate}
-\item{lwr.ci}{lower confidence interval}
-\item{upr.ci}{upper confidence interval}
+\item{lci}{lower confidence interval}
+\item{uci}{upper confidence interval}
 }
 
 \references{
@@ -131,9 +129,27 @@ r.lm <- lm(Fertility ~ ., swiss)
 CoefVar(r.lm)
 
 # the function is vectorized, so arguments are recyled...
+fn <- "https://www.itl.nist.gov/div898/handbook/datasets/ZARR13.DAT"
+zarr <- as.numeric(readr::read_lines(fn, skip=25))
+
+round(CoefVarCI(zarr, method="vangel", 
+          sides="two.sided", conf.level = c(.5,.8,.9,.95,.99,.999)), 5)
+          
 # https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/coefvacl.htm
-CoefVarCI(K = 0.00246, n = 195, method="vangel", 
-          sides="two.sided", conf.level = c(.5,.8,.9,.95,.99,.999))
+#
+#  Two-Sided Confidence Limits for the Coefficient of Variation
+#                 for Normally Distributed Data
+# 
+# ---------------------------------------------------------
+#  Confidence    Coefficient          Lower          Upper
+#   Value (%)   of Variation          Limit          Limit
+# ---------------------------------------------------------
+#        50.0        0.00246        0.00238        0.00255
+#        80.0        0.00246        0.00231        0.00263
+#        90.0        0.00246        0.00227        0.00269
+#        95.0        0.00246        0.00224        0.00273
+#        99.0        0.00246        0.00217        0.00283
+#        99.9        0.00246        0.00210        0.00294
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

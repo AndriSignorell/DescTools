@@ -1,21 +1,12 @@
 \name{Measures of Shape}
 \alias{Skew}
-%%\alias{Skew.default}
-%%\alias{Skew.matrix}
-%%\alias{Skew.data.frame}
 \alias{Kurt}
-%%\alias{Kurt.default}
-%%\alias{Kurt.matrix}
-%%\alias{Kurt.data.frame}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Skewness and Kurtosis
-%%  ~~function to do ... ~~
 }
 \description{
 \code{Skew} computes the skewness, \code{Kurt} the excess kurtosis of the values in x. 
 
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
 
@@ -28,11 +19,9 @@ Kurt(x, conf.level = NA, sides=c("two.sided", "left", "right"),
      estimator = 3, weights=NULL, na.rm = FALSE, ...)
 
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
   a numeric vector. An object which is not a vector is coerced (if possible) by \code{as.vector}.
-%%     ~~Describe \code{x} here~~
 }
 \item{conf.level}{confidence level of the interval. If set to \code{NA} (which is the default) no confidence interval will be calculated. }
 
@@ -51,7 +40,6 @@ be provided by the dots' argument if needed.
 
 \item{estimator}{
   integer, either 1, 2 or 3 (default) defining the algorithm used for calculation. See Details.
-  %%     ~~Describe \code{na.rm} here~~
 }
 
   \item{weights}{a numerical vector of weights the same length as \code{x} giving the weights to use for elements of \code{x}.
@@ -59,7 +47,6 @@ be provided by the dots' argument if needed.
 
   \item{na.rm}{
   logical, indicating whether \code{NA} values should be stripped before the computation proceeds. Defaults to \code{FALSE}.
-  %%     ~~Describe \code{na.rm} here~~
 }
 
 \item{\dots}{ the dots are passed to the function \code{\link[boot]{boot}}, when confidence intervalls are calculated.}
@@ -119,7 +106,6 @@ Joanes, D. N., Gill, C. A. (1998): Comparing measures of sample skewness and kur
 
 \seealso{
 \code{\link{mean}}, \code{\link{sd}}, similar code in \code{library(e1071)}
-%% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
 Skew(d.pizza$price, na.rm=TRUE)
