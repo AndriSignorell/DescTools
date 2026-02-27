@@ -11,7 +11,7 @@ BinomCI(
   sides = c("two.sided", "left", "right"),
   method = c("wilson", "wilsoncc", "modified wilson", "agresti-coull", "jeffreys",
     "modified jeffreys", "lik", "blaker", "clopper-pearson", "midp", "waldcc", "wald",
-    "logit", "arcsine", "witting", "pratt"),
+    "logit", "arcsine", "witting", "pratt", "kahouadji"),
   std_est = TRUE
 )
 }
@@ -32,7 +32,7 @@ one out of: \code{"wald"}, \code{"wilson"} (default), \code{"wilsoncc"},
 \code{"agresti-coull"}, \code{"jeffreys"}, \code{"modified wilson"},
 \code{"modified jeffreys"}, \code{"clopper-pearson"}, \code{"arcsine"},
 \code{"logit"}, \code{"witting"}, \code{"pratt"}, \code{"midp"},
-\code{"lik"} and \code{"blaker"}.  Abbreviation of method is accepted. See
+\code{"lik"}, \code{"blaker"} and \code{"kahouadji"}.  Abbreviation of method is accepted. See
 details.}
 
 \item{std_est}{logical, specifying if the standard point estimator for the
@@ -123,7 +123,13 @@ neighbourhood of the MLE.
 
 For the \bold{Blaker} method refer to Blaker (2000).
 
-For more details we refer to Brown et al (2001) as well as Witting (1985).
+The \bold{Kahouadji} interval (or adjusted Wilson of type epsilon) modifies the traditional Wald 
+confidence interval by adding \eqn{\epsilon} pseudo-observations to the sample—half of which 
+are treated as successes and the other half as failures. The method incorporates the optimal 
+number of pseudo-observations recommended for the three most common confidence levels: 3 for 
+90\%, 4 for 95\%, and 6 for 99\%.
+
+For more details we refer to Brown et al (2001), Witting (1985), and Kahouadji (2025).
 
 Some approaches for the confidence intervals are capable of violating the
 \code{[0, 1]} boundaries and potentially yield negative results or values beyond
@@ -143,7 +149,7 @@ alternatives.
 }
 
 For the methods \code{"wilson"}, \code{"wilsoncc"}, \code{"modified
-wilson"}, \code{"agresti-coull"}, \code{"witting"} and \code{"arcsine"}
+wilson"}, \code{"agresti-coull"}, \code{"witting"}, \code{"arcsine"} and \code{"kahouadji"}
 the internally used point estimator for the proportion
 value can be returned (by
 setting \code{std_est = FALSE}). The point estimate typically is slightly
@@ -211,6 +217,9 @@ proportion: comparison of seven methods, \emph{Statistics in Medicine},
 Blaker, H. (2000) Confidence curves and improved exact confidence intervals
 for discrete distributions, \emph{Canadian Journal of Statistics} 28 (4),
 783-798
+
+Kahouadji, H. (2025) \emph{The adjusted Wilson of type epsilon confidence interval for the 
+binomial proportion}
 }
 \seealso{
 \code{\link[stats]{binom.test}}, \code{\link[Hmisc]{binconf}},
