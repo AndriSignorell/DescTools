@@ -201,7 +201,7 @@ BinomCI <- function(x, n,
                       "clopper-pearson", "midp",
                       "waldcc", "wald",
                       "logit", "arcsine",
-                      "witting", "pratt" ), 
+                      "witting", "pratt", "kahouadji"), 
                     std_est=TRUE) {
 
 
@@ -213,7 +213,7 @@ BinomCI <- function(x, n,
                                          "clopper-pearson", "midp",
                                          "waldcc", "wald",
                                          "logit", "arcsine",
-                                         "witting", "pratt" ), std_est) {
+                                         "witting", "pratt", "kahouadji"), std_est) {
     
     if(length(x) != 1) stop("'x' has to be of length 1 (number of successes)")
     if(length(n) != 1) stop("'n' has to be of length 1 (number of trials)")
@@ -226,7 +226,7 @@ BinomCI <- function(x, n,
                                    "agresti-coull", "jeffreys", "modified jeffreys",
                                    "lik", "blaker", "clopper-pearson", "midp",
                                    "waldcc", "wald", "logit", "arcsine",
-                                   "witting", "pratt" ))
+                                   "witting", "pratt", "kahouadji"))
     
     sides <- match.arg(sides, choices = c("two.sided","left","right"), 
                        several.ok = FALSE)
@@ -253,6 +253,7 @@ BinomCI <- function(x, n,
             , "midp" =              { .binomci.midp(x, n, alpha) }
             , "blaker" =            { .binomci.blaker(x, n, alpha) }
             , "lik" =               { .binomci.lik(x, n, alpha) }
+            , "kahouadji" =         { .binomci.kahouadji(x, n, alpha) }
     )
 
     
@@ -265,7 +266,7 @@ BinomCI <- function(x, n,
               c("agresti-coull", "wilson", "wilsoncc", "modified wilson"))
         est <- .binomci.nonStdEst(x, n, alpha)
       
-      else if(method %in% c("arcsine", "witting"))
+      else if(method %in% c("arcsine", "witting", "kahouadji"))
         est <- attr(CI, "p.tilde")
     }
     
@@ -755,4 +756,34 @@ BinomCIn <- function(p=0.5, width, interval=c(1, 1e5), conf.level=0.95, sides="t
   return( (x + z2/2) / (n + z2)) 
 }
 
+
+
+#' @keywords internal
+.binomci.kahouadji <- function(x, n, alpha) {
+  z <- qnorm(1-alpha/2)
+  conf.level <- 1 - alpha
+
+  if (isTRUE(all.equal(conf.level, 0.90))) {
+    epsilon <- 3
+  } else if (isTRUE(all.equal(conf.level, 0.95))) {
+    epsilon <- 4
+  } else if (isTRUE(all.equal(conf.level, 0.99))) {
+    epsilon <- 6
+  } else {
+    epsilon <- round(z^2)
+    warning(paste("The Kahouadji method has only been experimentally optimized for 90%, 95%, and 99% confidence levels.",
+                  "Using a best guess of epsilon =", epsilon, "(the rounded squared critical z-value)."))
+  }
+  
+  p_tilde <- (x + epsilon / 2) / (n + epsilon)
+  se <- sqrt(p_tilde * (1 - p_tilde) / (n + epsilon))
+  
+  res <- c(
+    lci = p_tilde - z * se,
+    uci = p_tilde + z * se
+  )
+  
+  attr(res, "p.tilde") <- p_tilde
+  return(res)
+}
 
