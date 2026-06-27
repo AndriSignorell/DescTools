@@ -6,25 +6,13 @@
 #' the largest values are replaced by less extreme values. Thereby the
 #' substitute values are the most extreme retained values.
 #' 
-#' 
-#' The winsorized vector is obtained by
-#' 
-#' \deqn{g(x) =
-#'   \left\{\begin{array}{ll}
-#'     -c &\textup{for } x \le c\\
-#'     x  &\textup{for } |x| < c\\
-#'     c  &\textup{for } x \ge c
-#'     \end{array}\right.
-#'   }{g(x)=-c, if x\le -c,
-#'   x, |x| < c, x, if x \ge c, c }
-#' 
 #' You may also want to consider standardizing (possibly robustly) the data
 #' before you perform a winsorization.
 #' 
 #' @param x a numeric vector to be winsorized.
 #' 
-#' @param val the low border, all values being lower than this will be
-#' replaced by this value.  The default is set to the 5%-quantile of x.
+#' @param val A vector of two elements. All `x<val[1]` will be replaced by `val[1]`, and all `x>val[2]` will be replaced by `val[2]`.
+#' Defaults to (5% quantile, 95% quantile).
 #' 
 #' @return A vector of the same length as the original data \code{x} containing
 #' the winsorized data.
